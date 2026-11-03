@@ -1,0 +1,34 @@
+indicator_id: uk-unemployment-rate-long-run
+title: UK unemployment rate long-run
+sector: history-change
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/statistics/research-datasets
+series_id: A50 Employment & unemployment — Unemployment rate
+geography: United Kingdom (historical composite)
+frequency: annual
+unit: '% unemployment rate'
+definition: Long-run UK unemployment rate (% of workforce) from BoE millennium sheet
+  A50. Historical companion to modern ONS LFS unemployment — not a fork of the Economy
+  pipeline.
+licence: Open Government Licence v3.0
+agent_owner: history
+connector_module: history.connectors.uk_unemployment_rate_long_run
+curated_path: curated/observations.csv
+update_cadence: ad_hoc (research dataset through 2016)
+raw_evidence:
+- path: raw/2026-11-03/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+  retrieved_at: '2026-11-03T17:57:01.539757+00:00'
+  checksum_sha256: 4c23dd392a498691eac92659aec283fb43f28118bd80511dc87fc595974195eb
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2017-01-01'
+  http_status: null
+  source_url: https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+transformations: Parse A50; keep unemployment rate column (share of workforce).
+revision_notes: Uses same pinned BoE workbook as millennium GDP (link, no Energy/Economy
+  fork).
+caveats: Definitions change across centuries; see BoE notes. Prefer Economy LFS series
+  for post-1971 operational use.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858126a378fbaf1b18f2d4
+schema_version: '1.0'

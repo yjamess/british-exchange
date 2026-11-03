@@ -1,0 +1,9 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+departmental-expenditure-limits,2021-04-01,2022-03-31,K02000001,United Kingdom,534892.0,£ million (cash Total DEL),final,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2021-22; kind=outturn
+departmental-expenditure-limits,2022-04-01,2023-03-31,K02000001,United Kingdom,541362.0,£ million (cash Total DEL),final,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2022-23; kind=outturn
+departmental-expenditure-limits,2023-04-01,2024-03-31,K02000001,United Kingdom,558434.0,£ million (cash Total DEL),final,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2023-24; kind=outturn
+departmental-expenditure-limits,2024-04-01,2025-03-31,K02000001,United Kingdom,595892.0,£ million (cash Total DEL),final,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2024-25; kind=outturn
+departmental-expenditure-limits,2025-04-01,2026-03-31,K02000001,United Kingdom,639807.0,£ million (cash Total DEL),final,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2025-26; kind=outturn
+departmental-expenditure-limits,2026-04-01,2027-03-31,K02000001,United Kingdom,664958.0,£ million (cash Total DEL),provisional,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2026-27; kind=plans
+departmental-expenditure-limits,2027-04-01,2028-03-31,K02000001,United Kingdom,690859.0,£ million (cash Total DEL),provisional,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2027-28; kind=plans
+departmental-expenditure-limits,2028-04-01,2029-03-31,K02000001,United Kingdom,709820.0,£ million (cash Total DEL),provisional,PESA 2026 Table 1.9,series=PESA Table 1.9; fiscal_year=2028-29; kind=plans

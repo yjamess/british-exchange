@@ -1,0 +1,33 @@
+indicator_id: long-run-manufacturing-employment
+title: Long-run manufacturing employment
+sector: history-change
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/statistics/research-datasets
+series_id: A53 Employment by industry — Manufacturing
+geography: UK / GB historical (see BoE notes)
+frequency: annual
+unit: thousands of workers (see BoE A53 notes)
+definition: Long-run manufacturing employment from BoE millennium dataset sheet A53.
+  Links conceptually to Energy/Industry modern manufacturing employment — does not
+  fork that pipeline.
+licence: Open Government Licence v3.0
+agent_owner: history
+connector_module: history.connectors.long_run_manufacturing_employment
+curated_path: curated/observations.csv
+update_cadence: ad_hoc (research dataset)
+raw_evidence:
+- path: raw/2026-11-03/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+  retrieved_at: '2026-11-03T17:57:02.265667+00:00'
+  checksum_sha256: 4c23dd392a498691eac92659aec283fb43f28118bd80511dc87fc595974195eb
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2017-01-01'
+  http_status: null
+  source_url: https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+transformations: Parse A53; locate Manufacturing column; annual numeric rows.
+revision_notes: Linked BoE millennium raw (copy if needed); no Energy data/ tree writes.
+caveats: Industry definitions shift over time. Prefer Energy modern manufacturing
+  employment indicator for contemporary levels.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858174966ee75293fc068c
+schema_version: '1.0'

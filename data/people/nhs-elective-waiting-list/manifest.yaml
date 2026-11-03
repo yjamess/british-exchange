@@ -1,0 +1,34 @@
+indicator_id: nhs-elective-waiting-list
+title: NHS elective waiting list
+sector: people-society
+publisher: NHS England
+source_url: https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/
+series_id: RTT Overview Timeseries incomplete pathways (est. missing)
+geography: England (E92000001) — not UK
+frequency: monthly
+unit: incomplete RTT pathways
+definition: Number of consultant-led Referral to Treatment (RTT) incomplete pathways
+  in England at month-end, including NHS England estimates for non-reporting trusts.
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.nhs_elective_waiting_list
+curated_path: curated/observations.csv
+update_cadence: monthly
+raw_evidence:
+- path: raw/2026-11-03/rtt_overview_timeseries_aug26.xlsx
+  retrieved_at: '2026-11-03T17:52:56.664926+00:00'
+  checksum_sha256: 33686d41dbd075d7530bcc227a675226f2aac5fdd70c07e843ca33aecfd1f447
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-08'
+  http_status: null
+  source_url: https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2026/10/RTT-Overview-Timeseries-Including-Estimates-for-Missing-Trusts-Aug26-XLS-139K-vjgRdG.xlsx
+transformations: Parse Full Time Series; column Total waiting with estimates for missing
+  data (absolute pathway counts).
+revision_notes: Pinned Aug 2026 overview published 8 Oct 2026.
+caveats: England-only. Pathways ≠ unique patients. Method breaks include Feb-2024
+  community pathway removal and periodic validation exercises. Series revises about
+  every six months.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581149f0be9818104ab79
+schema_version: '1.0'

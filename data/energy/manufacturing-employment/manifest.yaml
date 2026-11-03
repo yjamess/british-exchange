@@ -1,0 +1,40 @@
+indicator_id: manufacturing-employment
+title: Manufacturing employment
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/jwr7/lms
+series_id: JWR7
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: thousands of jobs, SA
+definition: UK Workforce Jobs (seasonally adjusted) in SIC 2007 section C Manufacturing,
+  thousands of jobs. Preferred short-term measure of jobs by industry (JOBS02 / LMS).
+  Distinct from History long-run manufacturing employment (do not fork that pipeline).
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_employment
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS Vacancies and jobs / LMS)
+raw_evidence:
+- path: raw/2026-11-03/jwr7_lms.json
+  retrieved_at: '2026-11-03T17:56:31.349075+00:00'
+  checksum_sha256: 183a4c071f83844af74520398bd4d0c8f56c3076dc22b8bd2ca7437a7256173b
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/jwr7/lms/data
+transformations: Download ONS timeseries JSON (JWR7/LMS /data). Keep quarters only
+  (annual aggregates omitted). Map year+Q→ISO calendar quarter bounds. Geography fixed
+  to K02000001. Values = thousands of jobs SA; empty → missing. observation_status=provisional
+  (LMS revises).
+revision_notes: Workforce Jobs revise each quarterly labour-market release and when
+  benchmarked to BRES. Re-pin raw JSON on re-ingest.
+caveats: Jobs (employer survey + LFS components), not headcount employment from LFS
+  alone. Modern official series from 1978 Q2; History long-run row should link here
+  rather than duplicate. Annual rows in raw JSON are not curated.
+related_indicator_ids:
+- long-run-manufacturing-employment
+open_questions:
+- 'Optional: also publish annual JWR7 averages as a secondary file.'
+notion_registry_url: https://app.notion.com/40d65471768581e3a829d4cad506e0bc
+schema_version: '1.0'

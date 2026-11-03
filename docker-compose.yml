@@ -1,0 +1,18 @@
+# Optional: use if you prefer Docker over Homebrew Postgres.
+# docker compose up -d
+# export DATABASE_URL=postgresql://britain:britain@127.0.0.1:5432/britain_exchange
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: britain
+      POSTGRES_PASSWORD: britain
+      POSTGRES_DB: britain_exchange
+    ports:
+      - "5432:5432"
+    volumes:
+      - bx_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bx_pgdata:

@@ -2,33 +2,39 @@
 
 **Orchestrator:** this chat  
 **Notion:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Status:** P0 verification complete — packaging for GitHub  
-**Updated:** 2026-11-03 (Europe/London)
+**Status:** Pre-merge hardening on `cursor/first-proof-chart-ui` — **48 Ready**, **0 Blocked**, **0 Inbox**  
+**Updated:** 2026-11-03 (release history + typed dimensions + chart contract)
 
-## Assessment response (user priorities)
+## Registry / Postgres
 
-| Priority | Action | Status |
-|----------|--------|--------|
-| P0 | Hand-offs in shared repo | Staging for GitHub commit/PR |
-| P0 | Execute ingest + QA locally | **Done** — both pass-with-warns; see `docs/independent-verification-2026-11-03.md` |
-| P0 | Review shared observation schema | **Done** — `schema_check` 0 fail; `docs/schema-compatibility.md` |
-| P0 | Explicit energy aggregation rules | **Done** — `aggregation.py`; API excludes Total* by default |
-| P1 | GDP revision metadata | **Done** — `revision_notes` filled + exposed on API |
-| P1 | Integrate one dataset via FastAPI | **Done** — both Ready packages served file-backed |
+| Status | Count |
+|--------|------:|
+| Ready (in Postgres) | 48 |
+| Blocked | 0 |
+| Inbox | 0 |
 
-## Ready packages
+Water interruptions unblocked with user-supplied `WCPR 2024-25 Open Data.xlsx` (168 company×year rows).
 
-| Indicator | Rows | QA |
-|-----------|------|-----|
-| `electricity-generation-by-source` | 1710 (1482 chart-safe) | `data/qa/qa_report_2026-11-03.md` |
-| `real-gdp` | 286 | `data/qa/qa_report_real_gdp_2026-11-03.md` |
+## Y1 labour/prices (just completed)
 
-## Do not yet
+| indicator_id | series | rows |
+|---|---|---:|
+| cpi-inflation | D7G7 / MM23 | 453 |
+| real-gdp-per-head | IHXW / PN2 | 322 |
+| labour-productivity | LZVB / PRDY | 221 |
+| employment-rate | LF24 / LMS | 666 |
+| economic-inactivity-rate | LF2S / LMS | 666 |
+| real-earnings | A2FC / EMP | 320 |
 
-- Commission more sector agents / 20 datasets
-- Treat as production until GitHub review + one chart UI
+QA: `data/qa/qa_report_economy_y1_labour_prices_2026-11-03.md` (pass)
 
-## Next after GitHub
+## Review
 
-- PostgreSQL persistence
-- Next.js chart + source panel against `/indicators/{id}/observations`
+Notion Ready + API `/indicators` (48 series). Full catalogue cleared.
+
+### Pre-merge P0/P1 (this branch)
+
+- Owner: Orchestrator
+- Status: done (awaiting human merge approval — do not auto-merge)
+- Shipped: release-preserving load (`is_current`), typed dimensions, API filters, Ofwat company-only guard, frequency-aware chart contract, catalogue refresh, tests + PG reload + Next build
+- Next: human review / PR approval only

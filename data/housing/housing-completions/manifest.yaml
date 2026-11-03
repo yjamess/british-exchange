@@ -1,0 +1,32 @@
+indicator_id: housing-completions
+title: Housing completions
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-house-building
+series_id: Live Table 213 All Completions (England quarterly)
+geography: England (E92000001) — not UK
+frequency: quarterly
+unit: dwellings (completions)
+definition: 'Permanent dwellings completed in England by all tenures, from MHCLG Live
+  Table 213 (Housing supply: indicators of new supply).'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_completions
+curated_path: curated/observations.csv
+update_cadence: quarterly
+raw_evidence:
+- path: raw/2026-11-03/LiveTable213.ods
+  retrieved_at: '2026-11-03T17:52:55.680881+00:00'
+  checksum_sha256: 97752ab5cbee6e7491b207e2eaebbfd798b0bda73c2d91300f085ef79d6031e6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-09-24'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ab3e256a9c3d267bcccedc1/LiveTable213.ods
+transformations: Parse ODS sheet LT_213_quarterly; keep All Completions column.
+revision_notes: Pinned LiveTable213 published 24 September 2026.
+caveats: England-only new-build completions; not net additional dwellings and not
+  a UK total. Tenure split available in same table but not curated here.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685810187d8ce37fdff8fcf
+schema_version: '1.0'

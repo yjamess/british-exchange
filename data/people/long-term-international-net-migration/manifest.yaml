@@ -1,0 +1,33 @@
+indicator_id: long-term-international-net-migration
+title: Long-term international net migration
+sector: people-society
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration/datasets/longterminternationalimmigrationemigrationandnetmigrationflowsprovisional
+series_id: LTIM Table 1 Net migration (All Nationalities)
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: persons (net migration, YE)
+definition: UK long-term international net migration (immigration minus emigration)
+  for year-ending periods, admin-based LTIM estimates (official statistics in development).
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.long_term_net_migration
+curated_path: curated/observations.csv
+update_cadence: twice yearly (May / November provisional)
+raw_evidence:
+- path: raw/2026-11-03/ltim_ye_dec_2025.xlsx
+  retrieved_at: '2026-11-03T17:52:56.446426+00:00'
+  checksum_sha256: 254a57a0d1e30c40c42843290c6dcc8ccb935ad26ac9148ad2665846ff7e9147
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-05-21'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/internationalmigration/datasets/longterminternationalimmigrationemigrationandnetmigrationflowsprovisional/yearendingdecember2025/may2026publicationspreadsheet.xlsx
+transformations: Sheet 1 Net migration rows; All Nationalities column; YE period →
+  ISO bounds; P flag → provisional.
+revision_notes: Pinned May 2026 publication (YE December 2025).
+caveats: Official statistics in development; regularly revised (R flags). Not comparable
+  with pre-2012 IPS-only historical series.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685810cacfaf24d3cf55862
+schema_version: '1.0'

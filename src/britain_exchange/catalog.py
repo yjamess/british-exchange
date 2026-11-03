@@ -10,7 +10,16 @@ from britain_exchange.manifest import Manifest, load_manifest
 from britain_exchange.paths import DATA_ROOT
 
 
-SECTOR_DIRS: tuple[str, ...] = ("energy", "economy")
+SECTOR_DIRS: tuple[str, ...] = (
+    "energy",
+    "economy",
+    "housing",
+    "people",
+    "government",
+    "infrastructure",
+    "regions",
+    "history",
+)
 
 
 @dataclass(slots=True, frozen=True)

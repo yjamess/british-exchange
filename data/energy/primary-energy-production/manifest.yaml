@@ -1,0 +1,44 @@
+indicator_id: primary-energy-production
+title: Primary energy production
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/total-energy-section-1-energy-trends
+series_id: ET 1.1 (Indigenous production of primary fuels, Mtoe)
+geography: UK (K02000001)
+frequency: monthly
+unit: Mtoe
+definition: UK indigenous production of primary fuels in million tonnes of oil equivalent
+  (Mtoe) from Energy Trends table ET 1.1 Month sheet. One observation per fuel × calendar
+  month; fuel label in notes as fuel=<Label>. Indigenous production = extraction/capture
+  of primary fuels (oil, gas, coal, bioenergy & waste, primary electricity).
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.primary_energy_production
+curated_path: curated/observations.csv
+update_cadence: Monthly — Energy Trends ET 1.1, last Thursday of each month (data
+  two months in arrears)
+raw_evidence:
+- path: raw/2026-11-03/ET_1.1_OCT_26.xlsx
+  retrieved_at: '2026-11-03T17:36:15.316723+00:00'
+  checksum_sha256: d5989df64a338a5d89239c65eae2aaf3d8e9df8116a0061bfa57df7dba3b6c78
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ae0c9f87cf9b224890467db/ET_1.1_OCT_26.xlsx
+transformations: 'Parse Month sheet from header row (Month + fuel columns). Strip
+  [note N] from fuel headers. Long-format: one CSV row per fuel × month. Map [x] →
+  value null + observation_status=missing. Period labels containing [provisional]
+  → observation_status=provisional. Quarter and Annual sheets not ingested in this
+  hand-off.'
+revision_notes: ET_1.1_OCT_26 published 29 Oct 2026; data through August 2026; revisions
+  period July 2026 per cover sheet.
+caveats: Unit is Mtoe (not TWh). Nuclear and wind/solar/hydro use IEA heat content
+  conventions (see workbook Note 7). Bioenergy & waste as a separate category from
+  March 2014. fuel=Total is an aggregate — never sum with component fuels (API include_aggregates=false).
+  Distinct from Domestic gas production (ET 4.x) and Historical coal (DUKES). GOV.UK
+  asset URLs change each release; pin checksummed raw.
+related_indicator_ids: []
+open_questions:
+- 'Optional: also curate Quarter sheet for quarterly charts.'
+notion_registry_url: https://app.notion.com/40d654717685819db323cce12ec97c72
+schema_version: '1.0'

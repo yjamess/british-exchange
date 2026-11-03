@@ -1,0 +1,42 @@
+indicator_id: business-investment
+title: Business investment
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/pn2
+series_id: NPEL
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: £ million chained volume, SA
+definition: UK business investment (GFCF) in chained volume measures, seasonally adjusted,
+  £ million. ONS CDID NPEL in dataset PN2 (also published under QNA / UKEA / business
+  investment releases).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.business_investment
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS GDP first estimate / QNA; Blue Book annually)
+raw_evidence:
+- path: raw/2026-11-03/npel_pn2.json
+  retrieved_at: '2026-11-03T17:45:30.334102+00:00'
+  checksum_sha256: 41125202c10b9399d436b59b1934cc7d061c099474d4e2de0ea0f038e6b86f7c
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-08-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/pn2/data
+transformations: Download ONS timeseries JSON (NPEL/PN2 /data). Keep only the quarters
+  array (annual aggregates omitted). Map year+Q→ISO calendar-quarter bounds. Geography
+  fixed to K02000001 / United Kingdom. Values parsed as float £m; empty → missing.
+  observation_status=provisional (PN2 first-estimate family).
+revision_notes: NPEL levels revise with GDP/QNA releases and Blue Book CVM rebasing.
+  Re-fetch and re-pin raw JSON; compare checksums. observation_status stays provisional
+  to signal revision risk.
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Industry/asset breakdowns live in the separate Business investment dataset
+  — this indicator is the headline total. Annual rows present in raw JSON but not
+  written to curated.
+related_indicator_ids:
+- real-gdp
+open_questions:
+- Prefer QNA/UKEA vintage vs PN2 landing for NPEL?
+notion_registry_url: https://app.notion.com/40d654717685811baa79e904f8c3646b
+schema_version: '1.0'

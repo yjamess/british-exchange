@@ -1,0 +1,40 @@
+indicator_id: industrial-energy-consumption
+title: Industrial energy consumption
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/energy-consumption-in-the-uk-2026
+series_id: ECUK Table C1 (Industry final energy consumption, ktoe)
+geography: UK (K02000001)
+frequency: annual
+unit: ktoe
+definition: UK industrial final energy consumption by fuel in thousand tonnes of oil
+  equivalent (ktoe) from Energy Consumption in the UK (ECUK) Table C1 section Industry
+  [Note 1]. One observation per fuel × calendar year; fuel label in notes as fuel=<Label>.
+  Aligned with DUKES industrial final consumption.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.industrial_energy_consumption
+curated_path: curated/observations.csv
+update_cadence: Annual — ECUK typically each September
+raw_evidence:
+- path: raw/2026-11-03/ECUK_2026_Consumption_tables.xlsx
+  retrieved_at: '2026-11-03T17:45:54.329918+00:00'
+  checksum_sha256: e0b73e341a009e066f067492607c940d8df155c00d40568430bfbbe77f0e4bd2
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6aac02112f29b38884818687/ECUK_2026_Consumption_tables.xlsx
+transformations: 'Parse Table C1 Industry block (Year + fuel columns until next horizontal
+  Year header). Long-format: one CSV row per fuel × year. Map [x] → missing. Sub-sector
+  Table C2 and end-use tables not ingested in this hand-off.'
+revision_notes: ECUK 2026 Consumption tables published 24 Sep 2026; industry series
+  through 2025.
+caveats: Unit is ktoe (not Mtoe). fuel=Total is an aggregate — never sum with component
+  fuels. Industry definition follows DUKES/SIC (see ECUK methodology note). Distinct
+  from Energy Trends quarterly industrial consumption in ET 1.3c. GOV.UK asset URLs
+  change each release; pin checksummed raw.
+related_indicator_ids: []
+open_questions:
+- 'Optional: Table C2 industrial consumption by sub-sector.'
+notion_registry_url: https://app.notion.com/40d654717685817592b0c0ba7d49aa52
+schema_version: '1.0'

@@ -1,0 +1,34 @@
+indicator_id: historical-coal-production
+title: Historical coal production
+sector: history-change
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/historical-coal-data-coal-production-availability-and-consumption
+series_id: Historical coal data — Coal Production Total Output
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: million tonnes
+definition: UK coal production (total output, million tonnes) from DESNZ historical
+  coal statistics (DUKES companion series from 1853).
+licence: Open Government Licence v3.0
+agent_owner: history
+connector_module: history.connectors.historical_coal_production
+curated_path: curated/observations.csv
+update_cadence: annual with DUKES (July)
+raw_evidence:
+- path: raw/2026-11-03/Coal_since_1853.xls
+  retrieved_at: '2026-11-03T17:57:02.942740+00:00'
+  checksum_sha256: 27f24c2af1778bd6d857029bd3de909bca75025ac1aa8a120b6be15ebf03ece7
+  content_type: application/vnd.ms-excel
+  official_release_date: '2026-07-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a69e3284dda8076771a4323/Coal_since_1853.xls
+transformations: Parse Coal Production sheet; keep single calendar-year rows; Total
+  Output column (million tonnes). Decade averages omitted.
+revision_notes: Pinned Coal_since_1853.xls 2026-11-03 (updated 30 Jul 2026).
+caveats: Distinct from Energy primary-energy-production (ET 1.1 Mtoe). Early decade
+  averages in the workbook are not expanded here.
+related_indicator_ids:
+- primary-energy-production
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685810db26fe5add2ed8e1e
+schema_version: '1.0'

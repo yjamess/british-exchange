@@ -1,0 +1,33 @@
+indicator_id: gva-by-uk-nation-and-region
+title: GVA by UK nation and region
+sector: regions-places
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/nominalandrealregionalgrossvalueaddedbalancedbyindustry
+series_id: Regional GVA(B) Table 1b — ITL1 & UK CVM £m (2019 money)
+geography: UK + ITL1 nations/regions
+frequency: annual
+unit: £ million chained volume (2019 money value)
+definition: Balanced regional gross value added (GVA(B)) for UK and ITL1 areas, all
+  industries total, chained volume measures in 2019 money values (£ million).
+licence: Open Government Licence v3.0
+agent_owner: regions
+connector_module: regions.connectors.gva_by_uk_nation_and_region
+curated_path: curated/observations.csv
+update_cadence: annual (ONS regional accounts)
+raw_evidence:
+- path: raw/2026-11-03/regional_gva_balanced.xlsx
+  retrieved_at: '2026-11-03T17:56:59.377712+00:00'
+  checksum_sha256: 5965138231cde9abec597a36245755a90c262724f654fcadcd360a1b4dbead35
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-23'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/economy/grossvalueaddedgva/datasets/nominalandrealregionalgrossvalueaddedbalancedbyindustry/current/regionalgrossvalueaddedbalancedbyindustryandallitlregions.xlsx
+transformations: Parse Table 1b; keep SIC07 code Total; one row per geography × year.
+  Map UK→K02000001.
+revision_notes: Pinned ONS current workbook 2026-11-03 (release 23 Sep 2026 family).
+caveats: ITL2/ITL3 issues flagged by ONS in 2026 notice do not affect ITL1. CVM levels
+  revise with Blue Book / regional accounts updates.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581cb9cebe333e6dc4d38
+schema_version: '1.0'

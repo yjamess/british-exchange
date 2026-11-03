@@ -1,0 +1,661 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,5.445,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,4.33,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,3.561,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,3.323,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,3.744,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,1999-01-01,1999-03-31,K03000001,Great Britain,3.863,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,5.414,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,4.14,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,3.038,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,2.559,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,3.407,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,1999-04-01,1999-06-30,K03000001,Great Britain,3.452,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,5.305,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,4.141,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,3.188,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,2.875,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,3.432,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,1999-07-01,1999-09-30,K03000001,Great Britain,3.552,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,5.317,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,4.152,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,3.31,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,2.926,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,3.607,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,1999-10-01,1999-12-31,K03000001,Great Britain,3.638,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,5.547,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,4.229,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,3.451,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,3.143,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,3.69,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2000-01-01,2000-03-31,K03000001,Great Britain,3.77,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,5.314,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,4.074,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,2.987,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,2.544,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,3.331,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2000-04-01,2000-06-30,K03000001,Great Britain,3.397,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,5.262,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,3.995,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,2.905,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,2.522,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,3.201,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2000-07-01,2000-09-30,K03000001,Great Britain,3.316,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,5.298,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,3.868,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,3.005,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,2.648,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,3.281,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2000-10-01,2000-12-31,K03000001,Great Britain,3.355,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,4.972,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,3.829,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,3.042,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,2.79,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,3.237,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2001-01-01,2001-03-31,K03000001,Great Britain,3.352,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,4.945,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,3.664,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,2.668,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,2.294,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,2.957,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2001-04-01,2001-06-30,K03000001,Great Britain,3.051,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,4.875,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,3.554,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,2.635,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,2.224,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,2.952,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2001-07-01,2001-09-30,K03000001,Great Britain,2.996,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,4.855,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,3.647,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,2.784,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,2.506,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,2.999,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2001-10-01,2001-12-31,K03000001,Great Britain,3.122,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,4.759,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,3.656,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,2.827,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,2.527,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,3.058,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2002-01-01,2002-03-31,K03000001,Great Britain,3.148,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,4.604,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,3.517,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,2.584,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,2.337,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,2.775,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2002-04-01,2002-06-30,K03000001,Great Britain,2.936,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,4.548,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,3.458,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,2.611,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,2.391,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,2.782,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2002-07-01,2002-09-30,K03000001,Great Britain,2.937,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,4.476,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,3.343,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,2.655,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,2.456,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,2.808,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2002-10-01,2002-12-31,K03000001,Great Britain,2.934,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,4.29836377630272,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,3.27176193731066,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,2.67293152347702,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,2.51612549551646,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,2.79415036778664,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2003-01-01,2003-03-31,K03000001,Great Britain,2.91806737444858,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,4.19084607651166,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,3.15150120741964,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,2.5133107294314,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,2.39788545997726,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,2.60254019304921,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2003-04-01,2003-06-30,K03000001,Great Britain,2.7713990352604,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,4.16529481058387,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,3.19607027308302,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,2.48878999676526,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,2.34884899136159,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,2.5969713513615,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2003-07-01,2003-09-30,K03000001,Great Britain,2.76422220602035,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,4.33069301325304,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,3.38383775114562,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,2.75883342466841,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,2.61947064703782,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,2.86656777049211,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2003-10-01,2003-12-31,K03000001,Great Britain,3.00746283553963,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,4.482,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,3.448,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,2.912,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,2.842,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,2.966,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2004-01-01,2004-03-31,K03000001,Great Britain,3.13861819579668,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,4.494,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,3.389,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,2.659,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,2.467,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,2.807,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2004-04-01,2004-06-30,K03000001,Great Britain,2.949,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,4.604,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,3.418,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,2.626,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,2.388,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,2.81,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2004-07-01,2004-09-30,K03000001,Great Britain,2.94,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,4.954,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,4.045,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,3.149,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,2.982,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,3.278,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2004-10-01,2004-12-31,K03000001,Great Britain,3.479,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,5.241,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,4.278,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,3.419,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,3.205,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,3.585,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2005-01-01,2005-03-31,K03000001,Great Britain,3.741,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,5.297,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,4.323,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,3.477,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,3.232,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,3.666,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2005-04-01,2005-06-30,K03000001,Great Britain,3.796,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,5.638,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,4.439,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,3.699,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,3.354,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,3.966,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2005-07-01,2005-09-30,K03000001,Great Britain,3.998,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,6.393,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,5.637,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,5.159,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,4.948,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,5.323,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2005-10-01,2005-12-31,K03000001,Great Britain,5.351,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,6.673,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,6.11,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,5.585,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,5.34,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,5.774,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2006-01-01,2006-03-31,K03000001,Great Britain,5.78,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,6.769,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,5.869,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,4.817,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,4.168,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,5.318,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2006-04-01,2006-06-30,K03000001,Great Britain,5.195,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,7.005,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,5.911,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,4.831,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,4.348,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,5.204,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2006-07-01,2006-09-30,K03000001,Great Britain,5.229,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,7.455,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,6.656,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,5.274,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,4.669,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,5.741,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2006-10-01,2006-12-31,K03000001,Great Britain,5.748,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,7.698,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,6.773,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,5.256,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,4.373,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,5.938,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2007-01-01,2007-03-31,K03000001,Great Britain,5.779,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,7.247,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,6.426,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,4.422,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,3.452,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,5.172,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2007-04-01,2007-06-30,K03000001,Great Britain,5.091,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,7.344,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,6.491,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,4.61,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,3.856,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,5.192,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2007-07-01,2007-09-30,K03000001,Great Britain,5.242,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,7.423,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,6.514,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,5.105,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,4.31,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,5.72,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2007-10-01,2007-12-31,K03000001,Great Britain,5.595,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,8.20145001223822,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,6.4984977219662,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,5.55587493299344,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,4.69575827421359,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,6.22078781105729,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2008-01-01,2008-03-31,K03000001,Great Britain,5.94661522568488,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,8.00165319952056,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,6.51493464006264,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,6.01366117070023,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,5.28162704679298,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,6.57955989060016,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2008-04-01,2008-06-30,K03000001,Great Britain,6.25507795339613,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,8.58421355800724,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,6.99510894100572,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,6.52331187674147,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,5.64472804755237,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,7.20250079434157,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2008-07-01,2008-09-30,K03000001,Great Britain,6.76148778500999,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,9.99478345767579,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,9.6457621087074,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,8.02991829473399,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,6.66313032918752,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,9.0865132468231,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2008-10-01,2008-12-31,K03000001,Great Britain,8.55068537403909,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,10.0707377544273,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,9.4536431327223,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,7.43289780819135,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,5.60634233559614,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,8.84491586856637,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2009-01-01,2009-03-31,K03000001,Great Britain,8.09460217508956,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,9.81839431185135,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,8.79874745789335,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,6.22101629354379,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,4.80082569522616,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,7.31889413195954,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2009-04-01,2009-06-30,K03000001,Great Britain,7.07884958107183,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,9.76226967702968,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,8.72563923267098,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,6.16894138113861,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,4.83811173930985,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,7.19773876382716,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2009-07-01,2009-09-30,K03000001,Great Britain,7.02126474056184,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,9.53426682583959,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,8.19491339470884,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,6.13510061453042,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,5.1210790501643,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,6.91898962528155,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2009-10-01,2009-12-31,K03000001,Great Britain,6.8510374096993,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,8.86015377642377,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,7.59320578956219,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,6.10260616378473,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,5.35103700929886,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,6.68360643214615,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2010-01-01,2010-03-31,K03000001,Great Britain,6.63796181990606,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,8.93361183749328,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,7.43557223962674,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,5.62696381502731,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,4.80901793534413,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,6.25927658726466,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2010-04-01,2010-06-30,K03000001,Great Britain,6.27428668194508,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,8.70438731913844,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,7.42419625575564,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,5.81718634955282,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,5.00217499059814,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,6.44723059158162,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2010-07-01,2010-09-30,K03000001,Great Britain,6.38937929325568,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,8.68961204166475,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,7.47504762593952,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,6.309,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,5.54947381119444,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,6.896,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2010-10-01,2010-12-31,K03000001,Great Britain,6.741,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,8.08,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,7.6,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,6.35,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,5.666,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,6.878,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2011-01-01,2011-03-31,K03000001,Great Britain,6.765,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,8.53,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,7.613,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,6.379,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,5.664,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,6.932,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2011-04-01,2011-06-30,K03000001,Great Britain,6.815,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,8.489,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,7.671,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,6.333,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,5.661,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,6.852,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2011-07-01,2011-09-30,K03000001,Great Britain,6.795,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,9.082,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,8.314,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,6.815,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,6.159,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,7.322,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2011-10-01,2011-12-31,K03000001,Great Britain,7.324,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,8.964,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,8.454,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,6.763,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,6.187,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,7.208,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2012-01-01,2012-03-31,K03000001,Great Britain,7.317,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,9.138,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,8.399,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,6.594,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,5.93,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,7.107,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2012-04-01,2012-06-30,K03000001,Great Britain,7.196,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,9.977,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,8.517,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,6.578,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,5.888,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,7.111,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2012-07-01,2012-09-30,K03000001,Great Britain,7.264,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,9.96,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,8.598,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,7.051,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,6.384,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,7.566,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2012-10-01,2012-12-31,K03000001,Great Britain,7.609,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,9.72,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,8.447,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,7.296,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,6.752,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,7.717,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2013-01-01,2013-03-31,K03000001,Great Britain,7.726,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,9.527,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,8.533,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,7.142,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,6.367,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,7.741,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2013-04-01,2013-06-30,K03000001,Great Britain,7.631,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,9.762,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,8.701,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,7.086,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,6.318,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,7.679,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2013-07-01,2013-09-30,K03000001,Great Britain,7.648,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,10.367,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,9.037,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,7.435,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,6.739,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,7.973,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2013-10-01,2013-12-31,K03000001,Great Britain,8.009,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,10.285,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,9.123,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,7.257,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,6.21,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,8.067,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2014-01-01,2014-03-31,K03000001,Great Britain,7.903,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,10.143,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,9.01,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,6.972,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,5.953,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,7.76,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2014-04-01,2014-06-30,K03000001,Great Britain,7.669,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,10.548,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,8.988,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,6.859,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,5.886,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,7.612,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2014-07-01,2014-09-30,K03000001,Great Britain,7.61,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,10.857,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,9.375,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,7.386,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,6.322,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,8.208,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2014-10-01,2014-12-31,K03000001,Great Britain,8.088,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,10.799,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,9.133,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,7.32,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,6.291,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,8.116,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2015-01-01,2015-03-31,K03000001,Great Britain,7.979,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,10.851,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,9.138,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,7.175,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,6.205,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,7.925,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2015-04-01,2015-06-30,K03000001,Great Britain,7.883,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,10.925,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,9.122,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,7.311,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,6.486,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,7.949,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2015-07-01,2015-09-30,K03000001,Great Britain,7.977,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,10.814,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,9.121,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,7.2,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,6.185,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,7.984,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2015-10-01,2015-12-31,K03000001,Great Britain,7.893,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,10.891,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,9.136,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,6.825,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,5.601,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,7.771,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2016-01-01,2016-03-31,K03000001,Great Britain,7.643,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,10.678,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,8.883,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,6.825,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,5.686,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,7.706,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2016-04-01,2016-06-30,K03000001,Great Britain,7.567,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,11.1,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,9.012,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,6.95,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,5.71,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,7.908,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2016-07-01,2016-09-30,K03000001,Great Britain,7.71,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,10.81,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,9.47,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,7.702,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,6.526,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,8.611,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2016-10-01,2016-12-31,K03000001,Great Britain,8.328,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,10.525641774598126,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,9.564972732462335,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,7.757427918545567,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,6.543184426627641,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,8.696098419389921,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2017-01-01,2017-03-31,K03000001,Great Britain,8.373141149064798,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,11.439114806541504,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,9.302449072449877,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,7.51382307465304,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,5.950350003781827,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,8.722288072702424,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2017-04-01,2017-06-30,K03000001,Great Britain,8.19171123645635,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,10.829551533064182,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,9.452865469941578,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,7.577627018032661,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,6.311895994150203,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,8.556099937204209,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2017-07-01,2017-09-30,K03000001,Great Britain,8.238439657154649,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,11.304,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,10.103,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,7.88,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,6.268,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,9.126,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2017-10-01,2017-12-31,K03000001,Great Britain,8.638,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,11.295,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,10.259,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,8.229,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,6.731,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,9.387,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2018-01-01,2018-03-31,K03000001,Great Britain,8.918,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,11.498,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,10.362,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,8.148,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,6.535,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,9.395,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2018-04-01,2018-06-30,K03000001,Great Britain,8.9,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,12.13,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,10.705,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,8.691,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,7.195,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,9.848,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2018-07-01,2018-09-30,K03000001,Great Britain,9.398,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,13.732,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,11.898,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,9.179,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,7.512,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,10.468,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2018-10-01,2018-12-31,K03000001,Great Britain,10.128,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,14.254,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,12.052,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,8.903,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,6.824,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,10.509,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2019-01-01,2019-03-31,K03000001,Great Britain,10.006,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,13.207,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,11.511,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,8.5,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,6.509,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,10.039,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2019-04-01,2019-06-30,K03000001,Great Britain,9.531,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,13.656063346903673,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,10.8776773120873,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,9.019318459322772,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,7.755839504420049,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,9.996050417368139,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2019-07-01,2019-09-30,K03000001,Great Britain,9.756197659953054,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,14.358,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,11.936,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,9.394,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,7.81,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,10.619,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2019-10-01,2019-12-31,K03000001,Great Britain,10.322,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,13.526,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,11.803,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,8.657,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,6.655,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,10.205,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2020-01-01,2020-03-31,K03000001,Great Britain,9.732,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,13.51,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,10.87,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,8.058,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,5.21,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,10.259,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2020-04-01,2020-06-30,K03000001,Great Britain,9.082,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,13.566,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,12.122,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,8.607,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,5.642,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,10.899,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2020-07-01,2020-09-30,K03000001,Great Britain,9.779,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,13.4777768805415,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,10.678764577159507,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,8.651901455509732,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,6.486091862638219,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,10.32617979326147,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2020-10-01,2020-12-31,K03000001,Great Britain,9.441957322748419,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,13.944804345704512,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,11.507330158011685,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,9.570336206804441,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,7.427603872720719,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,11.226774677833703,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2021-01-01,2021-03-31,K03000001,Great Britain,10.311569967236053,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,14.66991132651289,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,11.783414017120261,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,9.647513091468282,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,7.620867464423634,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,11.214210774786485,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2021-04-01,2021-06-30,K03000001,Great Britain,10.476484287435511,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,13.535680649229036,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,13.09842084506131,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,11.17997460178228,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,9.480262454481315,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,12.49393647451849,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2021-07-01,2021-09-30,K03000001,Great Britain,11.799571817997302,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,16.727183586189156,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,16.127179926666017,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,15.631837364936468,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,14.904785859633884,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,16.193884273290948,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2021-10-01,2021-12-31,K03000001,Great Britain,15.819987515578784,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,19.042466359469515,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,17.45342443333734,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,17.148518612677144,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,17.01267684755362,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,17.25353104103505,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2022-01-01,2022-03-31,K03000001,Great Britain,17.335165312126517,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,19.30621480314512,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,17.527565220665405,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,15.72942472971123,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,14.302490475272446,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,16.83251574910008,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2022-04-01,2022-06-30,K03000001,Great Britain,16.389605153647036,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,22.29016511351838,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,21.059919466137234,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,19.025506553222804,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,19.617968359951966,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,18.56750416362367,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2022-07-01,2022-09-30,K03000001,Great Britain,19.727696878045798,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,23.733761330278863,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,23.660577356432025,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,17.41386883190388,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,16.66325676316295,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,17.994129225469568,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2022-10-01,2022-12-31,K03000001,Great Britain,19.354380205396755,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,26.31985737620911,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,24.481632958400066,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,19.714632089636567,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,17.209348885446353,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,21.651340382237514,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2023-01-01,2023-03-31,K03000001,Great Britain,21.298308656546688,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,24.484988762556146,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,23.91549962944262,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,17.539224916591717,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,12.872656669309482,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,21.146713845341814,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2023-04-01,2023-06-30,K03000001,Great Britain,19.54757659814792,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,26.586793528423726,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,22.67996132054385,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,17.26447333277071,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,12.200297751148439,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,21.179332470336863,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2023-07-01,2023-09-30,K03000001,Great Britain,19.168434231482347,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,26.360775077287737,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,23.518718686357502,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,18.46584230296618,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,14.086978811769555,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,21.850921172047265,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2023-10-01,2023-12-31,K03000001,Great Britain,20.1958310217138,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,26.272467522379337,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,23.13973226828544,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,17.08265660502171,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,12.555035970441315,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,20.582732131044857,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2024-01-01,2024-03-31,K03000001,Great Britain,19.140764273985216,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,27.048030609905922,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,22.327548895100755,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,15.321102575467966,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,11.800819256320892,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,18.042456347007196,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2024-04-01,2024-06-30,K03000001,Great Britain,17.765890212078318,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,26.680644512657985,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,21.8042915727741,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,14.834036809636826,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,11.18060544467913,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,17.658320630774337,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2024-07-01,2024-09-30,K03000001,Great Britain,17.276607822292874,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,25.561338766635192,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,22.375438001460623,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,16.165635550827066,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,13.012747712430144,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,18.602974376254473,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2024-10-01,2024-12-31,K03000001,Great Britain,18.274562118637384,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,27.276797025213984,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,22.154400184796067,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,16.329688627869587,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,13.005118553336919,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,18.89974634506151,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2025-01-01,2025-03-31,K03000001,Great Britain,18.431505086814358,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,27.02310002355467,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,20.39562157937357,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,14.469289374661358,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,11.938236329488698,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,16.425919033695543,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2025-04-01,2025-06-30,K03000001,Great Britain,16.690128078651973,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,27.28347007601388,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,20.443088788168843,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,14.039069656286888,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,11.086439562337894,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,16.321599303382207,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2025-07-01,2025-09-30,K03000001,Great Britain,16.420220076306737,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,26.67223816677529,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,21.864094702335272,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,14.330341330032244,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,10.984414154129269,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,16.91690914686504,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2025-10-01,2025-12-31,K03000001,Great Britain,16.943727997184865,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,26.132069383409746,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,21.98521152696748,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,15.042909051724653,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,11.785473884101448,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,17.56106815293692,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2026-01-01,2026-03-31,K03000001,Great Britain,17.434616479640567,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,26.153158221223524,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Small; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,22.63542082570597,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Medium; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,14.69510171336058,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,11.696856864576077,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Extra large; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,17.01289383050605,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Large of which Moderately large; ccl=excluding
+industrial-electricity-prices,2026-04-01,2026-06-30,K03000001,Great Britain,17.35977884121312,p/kWh,final,QEP_3.1.1-3.1.4_SEP_26,band=Average; ccl=excluding

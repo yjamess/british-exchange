@@ -1,0 +1,43 @@
+indicator_id: industrial-electricity-prices
+title: Industrial electricity prices
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/prices-of-fuels-purchased-by-manufacturing-industry
+series_id: QEP 3.1.2 (Average prices of fuels purchased by manufacturing industry
+  excl. CCL, electricity, p/kWh)
+geography: Great Britain (K03000001)
+frequency: quarterly
+unit: p/kWh
+definition: 'Average prices of electricity purchased by manufacturing industry in
+  Great Britain, excluding Climate Change Levy, in pence per kilowatt hour (p/kWh).
+  From Quarterly Energy Prices table 3.1.2. One observation per size band × calendar
+  quarter; band in notes as band=<Label>. Size bands: Small, Medium, Large (+ Extra/Moderately
+  large splits), Average.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.industrial_electricity_prices
+curated_path: curated/observations.csv
+update_cadence: Quarterly — Quarterly Energy Prices manufacturing tables (provisional
+  ~3 months in arrears; final ~6 months)
+raw_evidence:
+- path: raw/2026-11-03/table_311_314.xlsx
+  retrieved_at: '2026-11-03T17:48:07.399752+00:00'
+  checksum_sha256: 56d562fcf3f928ff3341e84a98713dab02cefab4d1c0cc178561efc2bda36a0d
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ab541bf734e2435f202f05e/table_311_314.xlsx
+transformations: 'Parse sheet 3.1.2 Electricity:* columns excluding decile/median.
+  Long-format: one CSV row per band × quarter. Blank cells → missing. Geography coded
+  as GB (K03000001). Coal/oil/gas columns not ingested.'
+revision_notes: table_311_314.xlsx published with QEP September 2026 (29 Sep 2026);
+  new provisional data for Q2 2026.
+caveats: Geography is Great Britain (manufacturing Quarterly Fuels Inquiry), not UK
+  — Northern Ireland excluded. Prices exclude CCL and VAT. band=Average is a weighted
+  aggregate — do not stack with size bands. Distinct from QEP 3.4.1 non-domestic (UK)
+  electricity prices. GOV.UK asset URLs change each release; pin checksummed raw.
+related_indicator_ids: []
+open_questions:
+- 'Optional: also curate QEP 3.4.1 UK non-domestic electricity Average.'
+notion_registry_url: https://app.notion.com/40d65471768581f9ba3aefefe8eab198
+schema_version: '1.0'

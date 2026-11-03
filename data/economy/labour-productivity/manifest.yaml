@@ -1,0 +1,39 @@
+indicator_id: labour-productivity
+title: Labour productivity
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/lzvb/prdy
+series_id: LZVB
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: Index 2023=100, SA (output per hour, whole economy)
+definition: 'UK whole-economy labour productivity: output per hour worked, seasonally
+  adjusted index (2023=100). ONS CDID LZVB in PRDY.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.labour_productivity
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS productivity)
+raw_evidence:
+- path: raw/2026-11-03/lzvb_prdy.json
+  retrieved_at: '2026-11-03T18:38:14.233894+00:00'
+  checksum_sha256: 0203bfc8991c4e3162ea6e7183859f7e522a78978a508a99bbb70cb06b816f89
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-08-17'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/lzvb/prdy/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
+  Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: Productivity revises with GDP and labour input revisions.
+caveats: Output per hour (LZVB), not output per filled job (LNNN).
+related_indicator_ids:
+- cpi-inflation
+- real-gdp-per-head
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581268b4cd6d2d5ea6042
+schema_version: '1.0'

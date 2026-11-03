@@ -1,0 +1,35 @@
+indicator_id: arms-length-bodies-count
+title: Arm's-length bodies count
+sector: government-politics
+publisher: Cabinet Office
+source_url: https://www.gov.uk/government/publications/public-bodies-2024
+series_id: Public Bodies Directory — Number Of ALBs
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: count of ALBs
+definition: Count of UK government Arm's-Length Bodies (executive agencies, NDPBs,
+  non-ministerial departments) as reported in the Cabinet Office Public Bodies Directory
+  Headlines table.
+licence: Open Government Licence v3.0
+agent_owner: government
+connector_module: government.connectors.arms_length_bodies_count
+curated_path: curated/observations.csv
+update_cadence: annual (Public Bodies / ALB Landscape Analysis)
+raw_evidence:
+- path: raw/2026-11-03/Public_Bodies_Directory_2023_24.xlsx
+  retrieved_at: '2026-11-03T17:59:06.140395+00:00'
+  checksum_sha256: ab2d19a028b5ceb92900ca58ccb109e4550be88a0ca2936118945eb4992a40d6
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-05-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/697897e25da1fd4ddea98bda/2025-05-29_Public_Bodies_Directory_2023_24.xlsx
+transformations: Read Headlines sheet Variable=Number Of ALBs. Do not re-sum Data
+  rows (some bodies are packed with overall_body_numbers>1).
+revision_notes: Directory published May 2025 / updated Jan 2026; FY 2023/24.
+caveats: Classification and scope change over time; historical Public Bodies releases
+  are not strictly comparable. Single FY point in this pin.
+related_indicator_ids: []
+open_questions:
+- Backfill prior Public Bodies editions for a longer series.
+notion_registry_url: https://app.notion.com/40d6547176858168bdd5f0ea9dc794f3
+schema_version: '1.0'

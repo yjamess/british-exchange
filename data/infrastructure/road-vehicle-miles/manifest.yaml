@@ -1,0 +1,32 @@
+indicator_id: road-vehicle-miles
+title: Road vehicle miles
+sector: infrastructure
+publisher: Department for Transport
+source_url: https://www.gov.uk/government/statistical-data-sets/road-traffic-estimates-tra
+series_id: TRA0101 Road traffic (vehicle miles) by vehicle type
+geography: Great Britain (K03000001); Northern Ireland excluded
+frequency: annual
+unit: billion vehicle miles
+definition: Annual motor vehicle traffic on Great Britain roads in billion vehicle
+  miles (All Motor Vehicles) from DfT TRA0101.
+licence: Open Government Licence v3.0
+agent_owner: infrastructure
+connector_module: infrastructure.connectors.road_vehicle_miles
+curated_path: curated/observations.csv
+update_cadence: annual (DfT road traffic estimates)
+raw_evidence:
+- path: raw/2026-11-03/tra0101-miles-by-vehicle-type.ods
+  retrieved_at: '2026-11-03T17:58:02.227074+00:00'
+  checksum_sha256: dd1297ab05d0ff0c6dfb8cf60b41e27d8f594f39f028c0f246d3148fae725303
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-05-20'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a0b7b9ec75cc34a8ff8f481/tra0101-miles-by-vehicle-type.ods
+transformations: Parse TRA0101 data sheet; keep Year + All Motor Vehicles columns.
+revision_notes: Pinned TRA0101 ODS on 2026-11-03 (May 2026 update).
+caveats: GB only. Pedal cycles are a separate TRA series. Units are billion vehicle
+  miles as published.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581ad9663fa630a1434fa
+schema_version: '1.0'

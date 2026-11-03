@@ -1,0 +1,46 @@
+indicator_id: total-managed-expenditure
+title: Total managed expenditure
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/ebft/pusf
+series_id: EBFT
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, NSA
+definition: Public sector total managed expenditure (TME), £ million current prices
+  NSA. ONS CDID EBFT in PUSF — open monthly series matching the HMT/OBR TME concept
+  published via ONS Public Sector Finances.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.total_managed_expenditure
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-03/ebft_pusf.json
+  retrieved_at: '2026-11-03T17:45:30.053450+00:00'
+  checksum_sha256: 2669443f7b262618fe67a0346c5b0c58fba700f1091fd234dfb9977a5268cfbc
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/ebft/pusf/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array
+  (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
+  bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
+  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+revision_notes: Public Sector Finances (PUSF) monthly estimates revise as administrative
+  data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
+  Record official_release_date from description.releaseDate.
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
+  package stores period (month) levels only. Quarterly/annual aggregates exist in
+  raw JSON but are not written to curated observations.
+related_indicator_ids:
+- public-sector-net-borrowing
+- public-sector-net-debt
+- public-sector-debt-interest
+- tax-receipts
+open_questions:
+- Cross-check annual TME against HMT OSCAR / OBR Economic and Fiscal Outlook tables
+  in Validation?
+notion_registry_url: https://app.notion.com/40d65471768581fdbd63d0fe45d94e87
+schema_version: '1.0'

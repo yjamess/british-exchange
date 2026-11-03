@@ -1,0 +1,32 @@
+indicator_id: uk-population-estimate
+title: UK population estimate
+sector: people-society
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/timeseries/ukpop/pop
+series_id: UKPOP
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: persons (mid-year estimate)
+definition: UK mid-year (30 June) usually resident population estimate from ONS timeseries
+  UKPOP in dataset POP.
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.uk_population_estimate
+curated_path: curated/observations.csv
+update_cadence: annual (mid-year estimates)
+raw_evidence:
+- path: raw/2026-11-03/ukpop_pop.json
+  retrieved_at: '2026-11-03T17:52:56.282565+00:00'
+  checksum_sha256: 7d954811f1cecf49264695f0ed98106b7408deb0212c90703141d6968b847b6b
+  content_type: application/json
+  official_release_date: '2026-09-30'
+  http_status: null
+  source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/timeseries/ukpop/pop/data
+transformations: Parse ONS timeseries JSON years array; period dated 30 June.
+revision_notes: Pinned UKPOP JSON releaseDate 2026-09-30.
+caveats: Excludes short-term migrants (<12 months). Latest UK figure may be provisional
+  and rounded.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685818f9709f0df46c0b0cf
+schema_version: '1.0'

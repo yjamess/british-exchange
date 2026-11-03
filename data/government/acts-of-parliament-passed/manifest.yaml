@@ -1,0 +1,35 @@
+indicator_id: acts-of-parliament-passed
+title: Acts of Parliament passed
+sector: government-politics
+publisher: The National Archives (legislation.gov.uk)
+source_url: https://www.legislation.gov.uk/ukpga
+series_id: ukpga (Public General Acts, annual count)
+geography: United Kingdom (K02000001); UK Parliament primary legislation
+frequency: annual
+unit: count of Public General Acts
+definition: Number of UK Public General Acts (ukpga) listed for each calendar year
+  on legislation.gov.uk. Excludes local/personal/private acts and devolved primary
+  legislation.
+licence: Open Government Licence v3.0
+agent_owner: government
+connector_module: government.connectors.acts_of_parliament_passed
+curated_path: curated/observations.csv
+update_cadence: annual (re-scrape legislation.gov.uk ukpga year indexes)
+raw_evidence:
+- path: raw/2026-11-03/ukpga_annual_counts.json
+  retrieved_at: '2026-11-03T17:56:58.274774+00:00'
+  checksum_sha256: 6de0b19f71f190638edce007e5fbc703ee8b510c7e359a7d4fb6537df8dd0043
+  content_type: application/json
+  official_release_date: '2026-11-03'
+  http_status: null
+  source_url: https://www.legislation.gov.uk/ukpga
+transformations: For each calendar year, read the HTML results count on /ukpga/{year}
+  and store year→count JSON. Emit annual observations.
+revision_notes: Pinned 2026-11-03 from live legislation.gov.uk year indexes.
+caveats: Count is the catalogue listing of Public General Acts, not page length or
+  SI volume. Early years and numbering quirks follow legislation.gov.uk. Devolved
+  Acts are excluded.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581339892e8838be8f6db
+schema_version: '1.0'

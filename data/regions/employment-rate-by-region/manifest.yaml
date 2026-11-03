@@ -1,0 +1,33 @@
+indicator_id: employment-rate-by-region
+title: Employment rate by region
+sector: regions-places
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/headlinelabourforcesurveyindicatorsforallregionshi00
+series_id: HI00 regional LFS employment rate (aged 16-64)
+geography: UK ITL1 / nations (HI00 persons sheets)
+frequency: quarterly
+unit: '% employment rate (aged 16-64, SA)'
+definition: Labour Force Survey employment rate for people aged 16 to 64 by UK country
+  and English region (HI00 headline indicators).
+licence: Open Government Licence v3.0
+agent_owner: regions
+connector_module: regions.connectors.employment_rate_by_region
+curated_path: curated/observations.csv
+update_cadence: monthly release of HI00 (LFS)
+raw_evidence:
+- path: raw/2026-11-03/regionaltable1s.xlsx
+  retrieved_at: '2026-11-03T17:56:59.657020+00:00'
+  checksum_sha256: ff374cf96c5fa18a60f4540318b03a24fc06e9b0cd6af502c9dd205dcdc4967d
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-20'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/headlinelabourforcesurveyindicatorsforallregionshi00/current/regionaltable1s.xlsx
+transformations: Parse each HI00 *_p sheet; locate Employment rate 16-64 column; prefer
+  quarterly period labels.
+revision_notes: Pinned HI00 regionaltable1s.xlsx on 2026-11-03.
+caveats: LFS reweighting and SA revisions affect levels. Links to Economy national
+  employment rate when that row is Ready — this indicator keeps regional grain.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685815691ebe6f62ca7a4e2
+schema_version: '1.0'

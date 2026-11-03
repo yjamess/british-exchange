@@ -1,4 +1,4 @@
-# Energy agent kickoff
+# Energy agent kickoff — Layer C
 
 **Assigned by:** Orchestrator  
 **Date:** 2026-11-03  
@@ -6,32 +6,35 @@
 **Sector page:** [Energy & Industry](https://app.notion.com/p/40d6547176858194bc18cec7be0a812d)  
 **Skill:** `.cursor/skills/energy-agent/SKILL.md`
 
-## Your first (and only) indicator until Ready
+## Proven Ready (do not re-ingest unless revisions)
 
 | Field | Value |
 |-------|--------|
 | Registry | [Electricity generation by source](https://app.notion.com/40d65471768581839535dd21683f6238) |
 | `indicator_id` | `electricity-generation-by-source` |
+| Paths | `src/energy/connectors/electricity_generation.py`, `data/energy/electricity-generation-by-source/` |
+
+## Current assignment (one indicator until Ready)
+
+| Field | Value |
+|-------|--------|
+| Registry | [Primary energy production](https://app.notion.com/40d654717685819db323cce12ec97c72) |
+| `indicator_id` | `primary-energy-production` |
 | Publisher | DESNZ |
-| Suggested start | [Energy Trends](https://www.gov.uk/government/collections/energy-trends) |
-| Work-plan tasks | **T03** (scope) then **T04** (ingest) |
-| Paths | `src/energy/`, `data/energy/electricity-generation-by-source/` |
+| Series | **ET 1.1** Indigenous production of primary fuels |
+| Landing | [Energy Trends: UK total energy](https://www.gov.uk/government/statistics/total-energy-section-1-energy-trends) |
+| Paths | `src/energy/`, `data/energy/primary-energy-production/` |
+| Status | Scoping (fields filled 2026-11-03) |
 
-## Do now (T03)
+## Do now
 
-1. Read `docs/brief.md` + `docs/connector-contract.md`
-2. Find the authoritative historical electricity generation-by-fuel series (table ID, geography UK vs GB, units, frequency)
-3. Update the Notion registry row: Source URL, Series ID, Geography, Frequency, Licence / caveats, Agent / owner = `energy`, Status → `Scoping` then `Sourcing`
-4. Create `data/energy/electricity-generation-by-source/README.md` with scoping notes (no fake curated numbers)
-
-## Then (T04) — only after T03 fields are filled
-
-1. Implement `src/energy/connectors/electricity_generation.py` subclassing `britain_exchange.Connector`
-2. Fetch raw → transform → `write_hand_off`
-3. Status → `Ingesting` then hand to Validation (**T05**)
+1. Pin latest ET 1.1 XLSX under `data/energy/primary-energy-production/raw/YYYY-MM-DD/` with checksum.
+2. Confirm unit (Mtoe/ktoe), Total vs fuel rows, period columns; note nuclear / primary-electricity conventions.
+3. Registry → `Sourcing` then `Ingesting`; implement `src/energy/connectors/primary_energy_production.py`.
+4. Hand off to Validation — **do not mark Ready**.
 
 ## Do not
 
-- Start other Energy registry rows yet
+- Start other Energy Inbox rows (gas production, imports, industrial prices, manufacturing*) yet
 - Touch `src/economy/` or `data/economy/`
-- Mark Ready yourself
+- Sum aggregate Total rows with fuel components in charts (reuse aggregation rules if needed)

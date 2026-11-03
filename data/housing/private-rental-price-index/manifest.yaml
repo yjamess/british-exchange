@@ -1,0 +1,34 @@
+indicator_id: private-rental-price-index
+title: Private rental price index
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics
+series_id: PIPR Index (UK, Jan 2023=100)
+geography: United Kingdom (K02000001)
+frequency: monthly
+unit: index (Jan 2023=100)
+definition: Price Index of Private Rents (PIPR) for the UK — index of private rents
+  for new and existing tenancies. Successor to IPHRP; official statistics from May
+  2026. Index reference January 2023=100.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.private_rental_price_index
+curated_path: curated/observations.csv
+update_cadence: monthly (Private rent and house prices, UK)
+raw_evidence:
+- path: raw/2026-11-03/pipr_monthly.xlsx
+  retrieved_at: '2026-11-03T17:52:50.832273+00:00'
+  checksum_sha256: 0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-21'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics/21october2026/priceindexofprivaterentsukmonthlypricestatistics.xlsx
+transformations: Parse Table 1; filter Area code=K02000001; take Index column.
+revision_notes: Pinned 21 October 2026 PIPR monthly edition.
+caveats: Not seasonally adjusted. Latest two UK monthly estimates are provisional.
+  PIPR methodology differs from discontinued IPHRP before 2015 — do not splice without
+  the ONS historical bridge.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581e8be50f60e0d2a4919
+schema_version: '1.0'

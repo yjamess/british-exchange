@@ -1,0 +1,33 @@
+indicator_id: population-by-uk-nation
+title: Population by UK nation
+sector: regions-places
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatestimeseriesdataset
+series_id: ENPOP/WAPOP/SCPOP/NIPOP/UKPOP mid-year estimates
+geography: UK nations + UK total
+frequency: annual
+unit: persons (mid-year estimate)
+definition: Official mid-year usually resident population estimates for the UK and
+  constituent countries (30 June reference).
+licence: Open Government Licence v3.0
+agent_owner: regions
+connector_module: regions.connectors.population_by_uk_nation
+curated_path: curated/observations.csv
+update_cadence: annual (ONS / NRS / NISRA mid-year estimates)
+raw_evidence:
+- path: raw/2026-11-03/pop.csv
+  retrieved_at: '2026-11-03T17:57:00.280102+00:00'
+  checksum_sha256: 741388ee347534b37096120a46a76cb02fbb2c15008b21c466873f8ae2c01d4b
+  content_type: text/csv
+  official_release_date: '2026-10-01'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatestimeseriesdataset/current/pop.csv
+transformations: Parse ONS pop.csv; keep nation CDIDs + UKPOP; period fixed to mid-year
+  date.
+revision_notes: Pinned pop.csv 2026-11-03 (release date in file 01-10-2026).
+caveats: Scotland rebases may lag UK compilation in some vintages — see ONS notices.
+  May overlap People sector national population rows; geography grain is nations.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685818d9252d9c2b2b9d7b4
+schema_version: '1.0'

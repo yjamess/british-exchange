@@ -1,0 +1,35 @@
+indicator_id: general-election-turnout
+title: General election turnout
+sector: government-politics
+publisher: UK Parliament (electionresults.parliament.uk)
+source_url: https://electionresults.parliament.uk/general-elections
+series_id: general-elections.csv (non-notional UK totals)
+geography: United Kingdom (K02000001)
+frequency: ad_hoc
+unit: '% of registered electorate (valid votes)'
+definition: 'UK-wide general election turnout: total valid votes divided by total
+  registered electorate, as percent. Notional boundary rows excluded.'
+licence: Open Parliament Licence
+agent_owner: government
+connector_module: government.connectors.general_election_turnout
+curated_path: curated/observations.csv
+update_cadence: after each UK general election
+raw_evidence:
+- path: raw/2026-11-03/general-elections.csv
+  retrieved_at: '2026-11-03T17:56:58.381931+00:00'
+  checksum_sha256: 39587839e60f8fad05483777876c934865c0be3a027b2fc95e0b115d77615783
+  content_type: text/csv
+  official_release_date: '2024-07-04'
+  http_status: null
+  source_url: https://electionresults.parliament.uk/general-elections.csv
+transformations: Parse electionresults.parliament.uk general-elections.csv. Drop Is
+  notional=true. Turnout=100*valid/electorate.
+revision_notes: Pinned 2026-11-03 from electionresults.parliament.uk.
+caveats: Open machine-readable national totals currently cover recent elections (from
+  2010 in this feed). Longer Commons Library 1918– series was HTTP 403 at ingest time
+  — extend when OPL download is reachable.
+related_indicator_ids: []
+open_questions:
+- Backfill 1918–2005 from Commons Library CBP-8060/CBP-8647 when accessible.
+notion_registry_url: https://app.notion.com/40d65471768581869a06c08d6ffa500f
+schema_version: '1.0'

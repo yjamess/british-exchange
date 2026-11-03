@@ -1,0 +1,40 @@
+indicator_id: cpi-inflation
+title: CPI inflation
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23
+series_id: D7G7
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% annual rate (CPI all items, 2015=100 base for index companion)'
+definition: UK Consumer Prices Index (CPI) annual rate, all items — the inflation
+  measure used for the Bank of England / government CPI target. ONS CDID D7G7 in dataset
+  MM23. Not CPIH (L522).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpi_inflation
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-03/d7g7_mm23.json
+  retrieved_at: '2026-11-03T18:38:13.778602+00:00'
+  checksum_sha256: f05709a7d468e40599e8f9fe385ce8c42667b8bd49264e65b4ec0c6c5e787604
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7g7/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: CPI rates revise with basket/weight updates and corrections.
+caveats: Headline CPI annual rate, not the index level (D7BT) and not CPIH.
+related_indicator_ids:
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581fd992ff976385c80eb
+schema_version: '1.0'

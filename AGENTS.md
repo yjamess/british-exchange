@@ -4,9 +4,15 @@ Source of truth: [Notion — British Exchange](https://app.notion.com/p/40665471
 
 | Agent | Responsibility | Output | Owns paths |
 |-------|----------------|--------|------------|
-| **Orchestrator** | Assigns tasks, prevents duplication, checks progress; owns shared contract | Work plan, reviews, `britain_exchange` package | `docs/`, `AGENTS.md`, `.cursor/rules/`, `src/britain_exchange/` |
-| **Energy** | Energy & Industry sector (DESNZ first; ONS manufacturing only when on that sector page) | Reproducible energy dataset + registry updates | `src/energy/`, `data/energy/` |
+| **Orchestrator** | Assigns tasks, prevents duplication, checks progress; owns shared contract; unlocks extra sectors after Energy Ready proven | Work plan, reviews, `britain_exchange` package | `docs/`, `AGENTS.md`, `.cursor/rules/`, `src/britain_exchange/` |
+| **Energy** | Energy & Industry (DESNZ + ONS manufacturing on that sector page) | Reproducible energy dataset + registry updates | `src/energy/`, `data/energy/` |
 | **Economy** | Economy & Public Finance (ONS, OBR, HMT, BoE) | Reproducible economic dataset + registry updates | `src/economy/`, `data/economy/` |
+| **Housing** | Housing & Land | Reproducible housing dataset + registry updates | `src/housing/`, `data/housing/` |
+| **People** | People & Society | Reproducible people dataset + registry updates | `src/people/`, `data/people/` |
+| **Government** | Government & Politics | Reproducible government dataset + registry updates | `src/government/`, `data/government/` |
+| **Infrastructure** | Infrastructure | Reproducible infrastructure dataset + registry updates | `src/infrastructure/`, `data/infrastructure/` |
+| **Regions** | Regions & Places | Reproducible regions dataset + registry updates | `src/regions/`, `data/regions/` |
+| **History** | History & Change (prefer linking existing Economy/Energy series; no duplicate pipelines) | Reproducible history dataset + registry updates | `src/history/`, `data/history/` |
 | **Validation** | Independent numerical and methodological checks | QA report | `src/validation/`, `data/qa/` |
 
 Shared import: `from britain_exchange import Connector, Manifest, Observation` — see [docs/connector-contract.md](docs/connector-contract.md).
@@ -19,7 +25,7 @@ Shared import: `from britain_exchange import Connector, Manifest, Observation` �
 4. When a dataset is ready for QA, owner lists: source URLs, retrieval date, script entrypoint, output paths, checksums; registry → Validation.
 5. Validation files findings in `data/qa/`; does not silently rewrite source data. Ready only after sample QA vs official releases.
 6. Orchestrator reviews QA and assigns fix tasks back to Energy or Economy.
-7. Do not staff the other six sector pages until the Energy first slice is proven.
+7. Extra sector agents (Housing…) may run only after at least one Energy Ready series exists (proven). Orchestrator may run a full-catalogue wave without per-indicator user approval.
 
 ## Shared data contract
 

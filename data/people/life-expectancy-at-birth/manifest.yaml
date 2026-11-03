@@ -1,0 +1,33 @@
+indicator_id: life-expectancy-at-birth
+title: Life expectancy at birth
+sector: people-society
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/datasets/nationallifetablesunitedkingdomreferencetables
+series_id: National life tables UK — ex at age 0
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: years (period life expectancy at birth)
+definition: Period life expectancy at birth (ex at age 0) for males and females from
+  ONS three-year national life tables for the UK.
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.life_expectancy_at_birth
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-03/nlt_uk.xlsx
+  retrieved_at: '2026-11-03T17:52:56.895955+00:00'
+  checksum_sha256: cbc71edc1a46b75f3ecf6326f05501216c68fa2d648f54f231a4a82cea786846
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-12-10'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/birthsdeathsandmarriages/lifeexpectancies/datasets/nationallifetablesunitedkingdomreferencetables/current/nltuk198020223.xlsx
+transformations: Each YYYY-YYYY sheet → two observations (sex=male/female) for age
+  0 ex.
+revision_notes: Pinned release 10 December 2025 (tables 2022-2024).
+caveats: Period (not cohort) life expectancy based on three consecutive years of mortality.
+  UK aggregate; nation breakdowns in sibling datasets.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581de9f5ccb61cf6b27aa
+schema_version: '1.0'
