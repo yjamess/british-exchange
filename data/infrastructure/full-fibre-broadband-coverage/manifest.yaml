@@ -1,0 +1,33 @@
+indicator_id: full-fibre-broadband-coverage
+title: Full-fibre broadband coverage
+sector: infrastructure
+publisher: Ofcom
+source_url: https://www.ofcom.org.uk/phones-and-broadband/coverage-and-speeds/connected-nations-20252/data-downloads-2025
+series_id: Connected Nations fixed coverage — Full Fibre % premises
+geography: United Kingdom (K02000001); nations also in raw CSV
+frequency: ad_hoc
+unit: '% of premises with full-fibre coverage'
+definition: Percentage of UK premises with access to a full-fibre fixed broadband
+  network from Ofcom Connected Nations coverage tables.
+licence: Open Government Licence v3.0
+agent_owner: infrastructure
+connector_module: infrastructure.connectors.full_fibre_broadband_coverage
+curated_path: curated/observations.csv
+update_cadence: Connected Nations annual + spring updates
+raw_evidence:
+- path: raw/2026-11-03/202507_fixed_coverage_UK_and_nations_r01.csv
+  retrieved_at: '2026-11-03T17:56:59.150422+00:00'
+  checksum_sha256: 9fa83033327c0fce1cfe6c3743fbd145846f141d2542ced40ca77a65f9cfbb3c
+  content_type: text/csv
+  official_release_date: '2025-11-19'
+  http_status: null
+  source_url: https://www.ofcom.org.uk/siteassets/resources/documents/research-and-data/multi-sector/infrastructure-research/connected-nations-2025/202507_fixed_broadband_coverage_r01.zip
+transformations: From UK_and_nations CSV keep Location=UK, Speed=Full Fibre, Rurality=Total;
+  emit Residential and All premise_type rows.
+revision_notes: Pinned Connected Nations 2025 coverage extract 2026-11-03.
+caveats: Snapshot dates (e.g. Jul-25) are not calendar-year averages. Coverage ≠ take-up.
+  Gigabit-capable is a wider measure.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858177a17bcb8e5a586886
+schema_version: '1.0'

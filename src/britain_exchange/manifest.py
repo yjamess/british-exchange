@@ -62,7 +62,18 @@ class Manifest:
     unit: str
     definition: str
     licence: str
-    agent_owner: Literal["energy", "economy", "validation", "orchestrator"]
+    agent_owner: Literal[
+        "energy",
+        "economy",
+        "housing",
+        "people",
+        "government",
+        "infrastructure",
+        "regions",
+        "history",
+        "validation",
+        "orchestrator",
+    ]
     connector_module: str  # e.g. energy.connectors.electricity_generation
     curated_path: str  # relative path to curated CSV
     update_cadence: str

@@ -1,0 +1,38 @@
+indicator_id: water-supply-interruptions
+title: Water supply interruptions
+sector: infrastructure
+publisher: Ofwat
+source_url: https://www.ofwat.gov.uk/publication/data-for-the-water-company-performance-report-2024-25-open-data-friendly-machine-readable-format/
+series_id: APR3A_02 (WCPR actual performance)
+geography: England and Wales (K04000001); company-level rows
+frequency: annual (financial year)
+unit: minutes per property
+definition: Average water supply interruption duration per property (Ofwat common
+  performance commitment), from Water Company Performance Report open data item APR3A_02.
+  Values converted from Excel day-fraction (hh:mm:ss) to minutes. One observation
+  per water company × financial year.
+licence: Open Government Licence / Ofwat open data terms
+agent_owner: infrastructure
+connector_module: infrastructure.connectors.water_supply_interruptions
+curated_path: curated/observations.csv
+update_cadence: annual (Ofwat WCPR)
+raw_evidence:
+- path: raw/2026-11-03/WCPR_2024-25_Open_Data.xlsx
+  retrieved_at: '2026-11-03T18:44:05.962076+00:00'
+  checksum_sha256: 62fe9156388f76c04e36cd494ba927124dc7f239928dc0f7e1e257b91168976b
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-10-01'
+  http_status: null
+  source_url: https://www.ofwat.gov.uk/publication/data-for-the-water-company-performance-report-2024-25-open-data-friendly-machine-readable-format/
+transformations: Parse sheet 'in'; filter UNIQUE_ITEM_REFERENCE=APR3A_02. Convert
+  VALUE day-fraction → minutes (*24*60). Map YEAR YYYY-YY → financial-year ISO bounds
+  (Apr–Mar). Company abbreviation and name stored in notes.
+revision_notes: WCPR 2024-25 open-data workbook pinned 2026-11-03 after manual browser
+  download (automated fetch previously blocked).
+caveats: Company-level only — this extract has no industry aggregate row; do not average
+  companies without weights. Automated Ofwat CDN downloads often 403; pinned workbook
+  is the evidence snapshot. Null VALUE → observation_status=missing.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858155bc6ccc21ff280c46
+schema_version: '1.0'

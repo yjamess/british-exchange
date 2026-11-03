@@ -1,0 +1,47 @@
+indicator_id: public-sector-net-debt
+title: Public sector net debt
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/hf6w/pusf
+series_id: HF6W
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ billion, NSA (ex public sector banks)
+definition: Public sector net debt excluding public sector banks (PSNDex), stock at
+  end of month, £ billion current prices NSA. ONS CDID HF6W in PUSF. Related ratio
+  series HF6X (PSND as % of GDP) is not ingested here — link via related_indicator_ids
+  notes only.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.public_sector_net_debt
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-03/hf6w_pusf.json
+  retrieved_at: '2026-11-03T17:45:28.907722+00:00'
+  checksum_sha256: 1c277e826426a35dc5cbe8dd3d7330275f523ec23edd6890c3fef2cc0cb8540e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/hf6w/pusf/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array
+  (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
+  bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
+  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+revision_notes: Public Sector Finances (PUSF) monthly estimates revise as administrative
+  data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
+  Record official_release_date from description.releaseDate.
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
+  package stores period (month) levels only. Quarterly/annual aggregates exist in
+  raw JSON but are not written to curated observations. Values are £ billion (not
+  £ million). HF6X (% of GDP) is the companion ratio often quoted alongside HF6W.
+related_indicator_ids:
+- public-sector-net-borrowing
+- public-sector-debt-interest
+- tax-receipts
+- total-managed-expenditure
+open_questions:
+- Should a second registry row cover HF6X (% of GDP)?
+notion_registry_url: https://app.notion.com/40d65471768581aba151c1ec18617559
+schema_version: '1.0'

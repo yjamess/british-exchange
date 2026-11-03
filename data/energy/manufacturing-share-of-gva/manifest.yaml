@@ -1,0 +1,40 @@
+indicator_id: manufacturing-share-of-gva
+title: Manufacturing share of GVA
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossvalueaddedgva/timeseries/l4nt/wgdp
+series_id: L4NT
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: '% of GVA (from GDP(O) CVM weight ÷ 10)'
+definition: 'Manufacturing (SIC 2007 section C) share of UK GVA derived from ONS Gross
+  Value Added industry weights (WGDP) series L4NT ''C : Manufacturing: Weights:CVM''.
+  ONS publishes the weight in parts per thousand of GDP(O); curated value = weight
+  / 10 (percent). Volume (CVM) industry weight consistent with Blue Book.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_share_of_gva
+curated_path: curated/observations.csv
+update_cadence: annual (Blue Book / WGDP industry weights)
+raw_evidence:
+- path: raw/2026-11-03/l4nt_wgdp.json
+  retrieved_at: '2026-11-03T17:56:32.001845+00:00'
+  checksum_sha256: f4554888ae2b87ebceefb92ef06409461fb003717585a7d08ef50138af14b468
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-14'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossvalueaddedgva/timeseries/l4nt/wgdp/data
+transformations: Download ONS timeseries JSON (L4NT/WGDP /data). Keep years array.
+  Parse weight (parts per thousand); curated value = weight/10 as % of GVA. Period
+  = calendar year. Geography K02000001. observation_status=provisional (Blue Book
+  revises). Raw weight retained in notes as weight_ppt=.
+revision_notes: Industry weights revise with Blue Book. Recent years may be held constant
+  until the next BB (check forward-filled years in raw). Re-pin raw JSON on re-ingest.
+caveats: CVM industry weights ≠ current-price GVA share (levels can differ). Do not
+  confuse with L4NU (Manufacturing+construction+services aggregate). Not a regional
+  GVA share (Regions owns GVA by nation/region).
+related_indicator_ids: []
+open_questions:
+- Prefer current-price manufacturing GVA / total GVA ratio later?
+notion_registry_url: https://app.notion.com/40d65471768581fa917ad614140dd2b3
+schema_version: '1.0'

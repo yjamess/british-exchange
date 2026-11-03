@@ -32,10 +32,12 @@ export default async function HomePage() {
 
       <header className={styles.hero}>
         <p className={styles.kicker}>First proof · Economy</p>
-        <h1 className={styles.title}>Real GDP</h1>
+        <h1 className={styles.title}>UK real GDP (quarterly)</h1>
         <p className={styles.lede}>
-          UK chained-volume GDP (seasonally adjusted), served from the verified
-          ONS ABMI hand-off through the local FastAPI.
+          What you are seeing: ONS series <strong>ABMI</strong> — United Kingdom
+          GDP at market prices, chained volume measures, seasonally adjusted,
+          in £ million. Pulled from{" "}
+          <code>/indicators/real-gdp/observations</code> on the local API.
         </p>
       </header>
 
@@ -48,12 +50,18 @@ export default async function HomePage() {
       ) : (
         <>
           <section className={styles.chartCard} aria-label="Real GDP chart">
-            <SeriesChart rows={observations.observations} unit={meta.unit} />
+            <SeriesChart
+              rows={observations.observations}
+              unit={meta.unit}
+              seriesLabel="UK real GDP"
+              seriesId={meta.series_id}
+              geography="United Kingdom"
+            />
           </section>
           <SourcePanel
             meta={meta}
             observationCount={observations.count}
-            note="Values marked provisional in the hand-off — ONS revises history."
+            note="Each point is one calendar quarter. Status is provisional because ONS revises ABMI after each GDP release and at Blue Book."
           />
         </>
       )}

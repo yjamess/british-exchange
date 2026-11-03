@@ -1,0 +1,3 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+full-fibre-broadband-coverage,2025-07-01,2025-07-31,K02000001,United Kingdom,77.5,% of premises with full-fibre coverage,final,Ofcom Connected Nations 2025 (Jul-25 snapshot),premise_type=All; premises=25092339; date_label=Jul-25
+full-fibre-broadband-coverage,2025-07-01,2025-07-31,K02000001,United Kingdom,78.2,% of premises with full-fibre coverage,final,Ofcom Connected Nations 2025 (Jul-25 snapshot),premise_type=Residential; premises=23740951; date_label=Jul-25

@@ -1,0 +1,33 @@
+indicator_id: house-price-to-earnings-ratio
+title: House price to earnings ratio
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/ratioofhousepricetoworkplacebasedearningslowerquartileandmedian
+series_id: AFF1 Table 1c (median workplace-based, England)
+geography: England (E92000001) — not UK; Wales published separately
+frequency: annual
+unit: ratio (median house price / median workplace earnings)
+definition: Ratio of median house price (year ending September) to median gross annual
+  workplace-based full-time earnings (April ASHE) for England.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.house_price_to_earnings
+curated_path: curated/observations.csv
+update_cadence: annual (March housing affordability release)
+raw_evidence:
+- path: raw/2026-11-03/aff1_ratio_workplace.xlsx
+  retrieved_at: '2026-11-03T17:52:49.739655+00:00'
+  checksum_sha256: 585bc98112e801fc3dd45dbc5238d05c6507d4e48dc3ec3afab4867eded1c2f4
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-03-26'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/housing/datasets/ratioofhousepricetoworkplacebasedearningslowerquartileandmedian/current/aff1ratioofhousepricetoworkplacebasedearnings.xlsx
+transformations: Parse AFF1 workbook sheet 1c. Keep England E92000001 median ratio
+  columns for calendar years only; drop 5-year average.
+revision_notes: Pinned release 26 March 2026 (Housing affordability 2025).
+caveats: England-only. Workplace-based earnings (not residence-based). House prices
+  are year ending September; earnings are April ASHE.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858148bf14f0fe3d88fd62
+schema_version: '1.0'

@@ -1,0 +1,6 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+general-election-turnout,2010-05-06,2010-05-06,K02000001,United Kingdom,65.11,% of registered electorate (valid votes),final,electionresults.parliament.uk general-elections.csv,parliament=55; electorate=45597461; valid_votes=29687604; notional=false
+general-election-turnout,2015-05-07,2015-05-07,K02000001,United Kingdom,66.22,% of registered electorate (valid votes),final,electionresults.parliament.uk general-elections.csv,parliament=56; electorate=46354197; valid_votes=30697525; notional=false
+general-election-turnout,2017-06-08,2017-06-08,K02000001,United Kingdom,68.76,% of registered electorate (valid votes),final,electionresults.parliament.uk general-elections.csv,parliament=57; electorate=46836533; valid_votes=32204184; notional=false
+general-election-turnout,2019-12-12,2019-12-12,K02000001,United Kingdom,67.31,% of registered electorate (valid votes),final,electionresults.parliament.uk general-elections.csv,parliament=58; electorate=47562702; valid_votes=32014110; notional=false
+general-election-turnout,2024-07-04,2024-07-04,K02000001,United Kingdom,59.74,% of registered electorate (valid votes),final,electionresults.parliament.uk general-elections.csv,parliament=59; electorate=48224212; valid_votes=28809340; notional=false

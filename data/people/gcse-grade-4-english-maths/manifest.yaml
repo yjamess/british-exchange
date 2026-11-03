@@ -1,0 +1,35 @@
+indicator_id: gcse-grade-4-english-maths
+title: GCSE grade 4+ English and maths
+sector: people-society
+publisher: DfE
+source_url: https://explore-education-statistics.service.gov.uk/find-statistics/key-stage-4-performance/2024-25
+series_id: engmath_94_percent (All state-funded, England)
+geography: England (E92000001) — not UK
+frequency: annual
+unit: '% of pupils (grades 4+ English and maths)'
+definition: Percentage of pupils at the end of key stage 4 in all state-funded schools
+  in England achieving grades 4 or above in English and maths GCSEs (DfE KS4 performance).
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.gcse_grade_4_english_maths
+curated_path: curated/observations.csv
+update_cadence: annual (provisional autumn; revised following year)
+raw_evidence:
+- path: raw/2026-11-03/national_characteristics_by_school_types_revised.csv
+  retrieved_at: '2026-11-03T17:52:57.260900+00:00'
+  checksum_sha256: bc2fb3d7020bbd1a641be6e09eebee00b7b0ae24385a6db4681d6613a37d68e9
+  content_type: text/csv
+  official_release_date: '2025-02-05'
+  http_status: null
+  source_url: https://content.explore-education-statistics.service.gov.uk/api/releases/4d8e7324-89d0-486e-9f66-cb6cb7edd1da/files?fromPage=ReleaseDownloads
+transformations: Filter National + All state-funded + Total; take engmath_94_percent.
+  z → missing (pre-9–1 grading).
+revision_notes: Pinned CSV extracted from KS4 2024/25 revised release zip (release
+  id 4d8e7324-89d0-486e-9f66-cb6cb7edd1da).
+caveats: England-only state-funded schools. 2019/20–2020/21 awards used centre/teacher
+  assessed grades — not fully comparable. Measure unavailable (suppressed) before
+  9–1 grading roll-out.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581249c47ee48d9be1b17
+schema_version: '1.0'

@@ -1,0 +1,39 @@
+indicator_id: manufacturing-output-index
+title: Manufacturing output index
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/economicoutputandproductivity/output/timeseries/k22a/diop
+series_id: K22A
+geography: United Kingdom (K02000001)
+frequency: monthly
+unit: index (chained volume, SA; base year = 100)
+definition: 'UK Index of Production for SIC 2007 section C Manufacturing: chained
+  volume measure, seasonally adjusted index (ONS title IOP: C:MANUFACTURING: CVMSA).
+  Monthly headline volume of manufacturing output.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_output_index
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Index of Production)
+raw_evidence:
+- path: raw/2026-11-03/k22a_diop.json
+  retrieved_at: '2026-11-03T17:56:31.740152+00:00'
+  checksum_sha256: 09bad65a53ca3b1e057af434a4173f60bbc691ee76487d0c44e790b6542e924b
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-14'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/economicoutputandproductivity/output/timeseries/k22a/diop/data
+transformations: Download ONS timeseries JSON (K22A/DIOP /data). Keep months only
+  (quarters/years omitted). Map year+month→ISO month bounds. Geography K02000001.
+  Index values as float; empty → missing. observation_status=provisional (IoP revises).
+revision_notes: IoP manufacturing revises each monthly release and at Blue Book /
+  annual chain-linking. Base year moves with Blue Book. Re-pin raw JSON on re-ingest;
+  compare checksums.
+caveats: Index level (not growth rates K2AT etc.). Volume (CVM) SA, not current-price
+  output. Quarterly/annual rows exist in raw JSON but are not curated. Distinct from
+  GVA manufacturing index (e.g. L2KX/UKEA).
+related_indicator_ids: []
+open_questions:
+- Confirm current Blue Book base year label in unit string on next BB.
+notion_registry_url: https://app.notion.com/40d65471768581af8d35fbee740cd16f
+schema_version: '1.0'

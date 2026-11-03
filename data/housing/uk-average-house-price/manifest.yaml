@@ -1,0 +1,34 @@
+indicator_id: uk-average-house-price
+title: UK average house price
+sector: housing-land
+publisher: HM Land Registry / ONS
+source_url: https://www.gov.uk/government/statistical-data-sets/uk-house-price-index-data-downloads-august-2026--2
+series_id: UK HPI AveragePrice (United Kingdom)
+geography: United Kingdom (K02000001)
+frequency: monthly
+unit: £ (average house price, UK HPI)
+definition: UK House Price Index average house price for the United Kingdom. Calculated
+  by ONS from HM Land Registry, Registers of Scotland and LPS Northern Ireland sales;
+  published via Land Registry open data.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.uk_average_house_price
+curated_path: curated/observations.csv
+update_cadence: monthly (UK HPI)
+raw_evidence:
+- path: raw/2026-11-03/UK-HPI-full-file-2026-08.csv
+  retrieved_at: '2026-11-03T17:52:49.874959+00:00'
+  checksum_sha256: b00756d0c39f356d17fadf93c42af75ccc48f7123cd666e602c65260d081b6c9
+  content_type: text/csv
+  official_release_date: '2026-10-21'
+  http_status: null
+  source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/UK-HPI-full-file-2026-08.csv
+transformations: Filter UK-HPI-full-file CSV to RegionName=United Kingdom. Map Date
+  (DD/MM/YYYY) to calendar month bounds; value=AveragePrice.
+revision_notes: Pinned UK-HPI-full-file-2026-08 published 21 Oct 2026.
+caveats: Latest ~12 months of UK HPI are provisional and revise. Northern Ireland
+  contributes quarterly within the UK aggregate.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685819bb393f7daf628b952
+schema_version: '1.0'

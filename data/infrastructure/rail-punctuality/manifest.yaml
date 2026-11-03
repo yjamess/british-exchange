@@ -1,0 +1,34 @@
+indicator_id: rail-punctuality
+title: Rail punctuality
+sector: infrastructure
+publisher: Office of Rail and Road
+source_url: https://dataportal.orr.gov.uk/statistics/performance/passenger-rail-performance/table-3113-public-performance-measure-by-operator-and-sector
+series_id: Table 3113a Public Performance Measure (PPM), Great Britain
+geography: Great Britain (K03000001)
+frequency: quarterly
+unit: '% PPM (trains arriving on time)'
+definition: 'Passenger rail Public Performance Measure (PPM): percentage of franchised
+  passenger trains arriving at destination on time (within 5/10 minutes by sector),
+  Great Britain.'
+licence: Open Government Licence v3.0
+agent_owner: infrastructure
+connector_module: infrastructure.connectors.rail_punctuality
+curated_path: curated/observations.csv
+update_cadence: quarterly (ORR passenger rail performance)
+raw_evidence:
+- path: raw/2026-11-03/table-3113-ppm.ods
+  retrieved_at: '2026-11-03T17:58:02.088704+00:00'
+  checksum_sha256: b034b319f3cf9e0fe0b0b07165cdd5968c84bb2339b95d900c6f40ce350c8b24
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-09-17'
+  http_status: null
+  source_url: https://dataportal.orr.gov.uk/media/1428/table-3113-public-performance-measure-by-operator-and-sector.ods
+transformations: Parse 3113_PPM_(quarterly) sheet Table 3113a; keep Great Britain
+  column; map 'Mon to Mon YYYY' labels to ISO bounds.
+revision_notes: Pinned ORR Table 3113 ODS on 2026-11-03 (published 17 Sep 2026).
+caveats: PPM differs from On Time at all recorded stops. Moving annual average table
+  (3113b) omitted. Northern Ireland excluded.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858149bef8d2f64488a024
+schema_version: '1.0'

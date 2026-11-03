@@ -1,0 +1,2 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+arms-length-bodies-count,2023-04-01,2024-03-31,K02000001,United Kingdom,304.0,count of ALBs,final,Public Bodies Directory 2023/24,series=Public Bodies Directory; classification=Cabinet Office ALB

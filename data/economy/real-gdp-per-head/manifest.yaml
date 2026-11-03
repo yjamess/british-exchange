@@ -1,0 +1,40 @@
+indicator_id: real-gdp-per-head
+title: Real GDP per head
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/pn2
+series_id: IHXW
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: £ chained volume (market prices), SA
+definition: UK GDP per head in chained volume measures (CVM), seasonally adjusted.
+  ONS CDID IHXW in PN2. Companion to ABMI (real GDP level).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.real_gdp_per_head
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS GDP / QNA)
+raw_evidence:
+- path: raw/2026-11-03/ihxw_pn2.json
+  retrieved_at: '2026-11-03T18:38:14.028509+00:00'
+  checksum_sha256: 245f3fea0aebba90fe62b455c1b537bd21534641561810bce59e36cd1fbef97a
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-08-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/pn2/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
+  Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: Revises with GDP and population estimate updates / Blue Book.
+caveats: CVM £ per head (IHXW), not current-price IHXT.
+related_indicator_ids:
+- real-gdp
+- cpi-inflation
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581e98479ff451a55164b
+schema_version: '1.0'

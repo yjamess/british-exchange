@@ -1,0 +1,36 @@
+indicator_id: bank-of-england-millennium-gdp
+title: Bank of England millennium GDP
+sector: history-change
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/statistics/research-datasets
+series_id: A8 UK Real GDP(A) market prices CVM 2013
+geography: UK historical composite (GB+NI constant-border construct)
+frequency: annual
+unit: £ million CVM (2013 prices), market prices
+definition: Long-run UK real GDP at market prices from the Bank of England millennium
+  of macroeconomic data (sheet A8), chained volume £m reference 2013. Companion to
+  modern ONS Real GDP (ABMI) — not a duplicate pipeline.
+licence: Open Government Licence v3.0
+agent_owner: history
+connector_module: history.connectors.bank_of_england_millennium_gdp
+curated_path: curated/observations.csv
+update_cadence: ad_hoc (research dataset; last updated through 2016)
+raw_evidence:
+- path: raw/2026-11-03/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+  retrieved_at: '2026-11-03T17:57:00.837848+00:00'
+  checksum_sha256: 4c23dd392a498691eac92659aec283fb43f28118bd80511dc87fc595974195eb
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2017-01-01'
+  http_status: null
+  source_url: https://www.bankofengland.co.uk/-/media/boe/files/statistics/research-datasets/a-millennium-of-macroeconomic-data-for-the-uk.xlsx
+transformations: Parse A8. UK Real GDP(A); keep market-prices CVM column; annual rows
+  only.
+revision_notes: Pinned BoE millennium xlsx 2026-11-03.
+caveats: Ends 2016 in v3.1. Method/geography differ from ONS ABMI quarterly real-gdp
+  — chart joins need an overlap splice note. Do not overwrite Economy real-gdp curated
+  files.
+related_indicator_ids:
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858156a350d150bf841936
+schema_version: '1.0'

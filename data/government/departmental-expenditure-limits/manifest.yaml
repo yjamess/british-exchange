@@ -1,0 +1,34 @@
+indicator_id: departmental-expenditure-limits
+title: Departmental expenditure limits
+sector: government-politics
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026
+series_id: PESA Table 1.9 Total Departmental Expenditure Limits (cash)
+geography: United Kingdom (K02000001); departmental groups aggregate
+frequency: annual
+unit: £ million (cash Total DEL)
+definition: UK Total Departmental Expenditure Limits (Total DEL) in cash £ million
+  from HMT Public Expenditure Statistical Analyses Table 1.9. Resource DEL + Capital
+  DEL aggregate (see table notes).
+licence: Open Government Licence v3.0
+agent_owner: government
+connector_module: government.connectors.departmental_expenditure_limits
+curated_path: curated/observations.csv
+update_cadence: annual (PESA, typically July)
+raw_evidence:
+- path: raw/2026-11-03/PESA_2026_CP_Chapter_1_tables.xlsx
+  retrieved_at: '2026-11-03T17:56:58.548833+00:00'
+  checksum_sha256: 0e88d4904e747460fbf254c358b0922f74898b8dd3d4364e0ca1ebe35e12e454
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-16'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a57728b822fbe6b8245c9a1/PESA_2026_CP_Chapter_1_tables.xlsx
+transformations: Parse Table_1_9; keep Total DEL row only (not departmental groups).
+  Map fiscal year labels to 1 Apr–31 Mar ISO bounds. Plans → provisional.
+revision_notes: PESA 2026 Chapter 1 tables pinned 2026-11-03.
+caveats: Distinct from Economy Total Managed Expenditure (TME). Real-terms counterpart
+  is Table 1.10 (not ingested here). Plans years revise.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685816695ecf1915b9d206e
+schema_version: '1.0'

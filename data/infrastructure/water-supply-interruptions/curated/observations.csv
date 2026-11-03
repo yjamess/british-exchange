@@ -1,0 +1,169 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2017-04-01,2018-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2017-18
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2018-04-01,2019-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2018-19
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,13.595516640000001,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,18.65000016,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,9.28333296,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,17.43333264,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,5.61666672,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,3.35929968,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,1.41666624,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,9.99999936,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,10.68333264,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,3.35000016,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,8.68016736,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,9.16666704,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,17.978549760000003,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,10.183332960000001,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,17.77000032,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,7.870000319999999,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2019-04-01,2020-03-31,K04000001,England and Wales,7.55109936,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2019-20
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,5.8199356799999995,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,5.03298,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,30.28562208,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,69.44714064,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,4.0683312,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,2.8139961600000003,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,7.37257968,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,31.454169120000003,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,12.71755728,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,4.5534888,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,11.620389600000001,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,5.63999472,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,13.65350832,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,4.75884864,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,11.1398688,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,4.56666624,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2020-04-01,2021-03-31,K04000001,England and Wales,7.24000032,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2020-21
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,3.70917792,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,9.79223184,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,2.51879184,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,37.85364864,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,11.74606704,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,2.34913104,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,2.96011728,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,72.5537592,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,9.36562464,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,3.24278064,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,12.66075072,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,13.66666704,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,11.049307200000001,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,8.017968960000001,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,16.278156,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,4.19974272,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2021-04-01,2022-03-31,K04000001,England and Wales,10.64166624,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2021-22
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,12.875284800000001,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,14.58868176,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,8.05673088,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,18.000000000000004,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,8.28815472,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,2.34913104,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,3.84393888,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,182.35099871999998,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,87.99999984,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,4.4817048,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,9.164627999999999,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,8.70000048,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,19.89999936,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,38.748294720000004,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,44.52172992,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,4.159254239999999,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2022-04-01,2023-03-31,K04000001,England and Wales,9.45593424,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2022-23
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,2.77458624,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,9.1327104,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,9.40000032,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,11.326802399999998,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,5.529873599999999,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,1.5115838400000001,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,3.58333344,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,44.736551999999996,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,81.55577808,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,3.5384342400000004,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,6.673760639999999,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,9.2693952,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,16.92842976,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,9.656593919999999,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,23.258885760000002,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,5.5828511999999995,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2023-04-01,2024-03-31,K04000001,England and Wales,10.5913728,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2023-24
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,3.35256624,minutes per property,final,WCPR_2024-25,company=AFW; company_name=Affinity Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,6.8538729599999995,minutes per property,final,WCPR_2024-25,company=ANH; company_name=Anglian Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,7.350000479999999,minutes per property,final,WCPR_2024-25,company=BRL; company_name=Bristol Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=CAM; company_name=South Staffs Water - Cambridge region; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=ESK; company_name=Northumbrian Water - Essex and Suffolk region; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,11.17777824,minutes per property,final,WCPR_2024-25,company=HDD; company_name=Hafren Dyfrdwy; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,4.66227504,minutes per property,final,WCPR_2024-25,company=NES; company_name=Northumbrian Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=NNE; company_name=Northumbrian Water - Northumbrian region; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,2.01523824,minutes per property,final,WCPR_2024-25,company=PRT; company_name=Portsmouth Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,26.660890079999998,minutes per property,final,WCPR_2024-25,company=SES; company_name=SES Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,44.096461919999996,minutes per property,final,WCPR_2024-25,company=SEW; company_name=South East Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,141.83105903999999,minutes per property,final,WCPR_2024-25,company=SRN; company_name=Southern Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,15.069468959999998,minutes per property,final,WCPR_2024-25,company=SSC; company_name=South Staffs Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,,minutes per property,missing,WCPR_2024-25,company=SST; company_name=South Staffs Water - South Staffordshire region; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,4.57279632,minutes per property,final,WCPR_2024-25,company=SVE; company_name=Severn Trent Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,14.73699744,minutes per property,final,WCPR_2024-25,company=SWB; company_name=South West Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,9.57642192,minutes per property,final,WCPR_2024-25,company=TMS; company_name=Thames Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,14.28051744,minutes per property,final,WCPR_2024-25,company=UUW; company_name=United Utilities; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,137.72694528000002,minutes per property,final,WCPR_2024-25,company=WSH; company_name=Dŵr Cymru; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,10.00185984,minutes per property,final,WCPR_2024-25,company=WSX; company_name=Wessex Water; ref=APR3A_02; fy=2024-25
+water-supply-interruptions,2024-04-01,2025-03-31,K04000001,England and Wales,8.450847360000001,minutes per property,final,WCPR_2024-25,company=YKY; company_name=Yorkshire Water; ref=APR3A_02; fy=2024-25

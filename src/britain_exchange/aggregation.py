@@ -16,6 +16,7 @@ ENERGY_AGGREGATE_FUELS: frozenset[str] = frozenset(
     {
         "Total wind",  # Onshore + Offshore (+ sometimes wave/tidal in other grains)
         "Total all generating companies",  # sum of all generating companies generation
+        "Total",  # ET 1.1 indigenous production total (sum of primary fuels)
     }
 )
 

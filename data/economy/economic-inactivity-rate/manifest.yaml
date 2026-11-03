@@ -1,0 +1,39 @@
+indicator_id: economic-inactivity-rate
+title: Economic inactivity rate
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf2s/lms
+series_id: LF2S
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% of population aged 16–64, SA'
+definition: UK economic inactivity rate for people aged 16 to 64, seasonally adjusted.
+  ONS CDID LF2S in LMS.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.economic_inactivity_rate
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-03/lf2s_lms.json
+  retrieved_at: '2026-11-03T18:38:14.609625+00:00'
+  checksum_sha256: dff86605f7fe56673a09bb0561b5f436093470b1565d324997b42de5747efea6
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf2s/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: LFS estimates revise; check reweighting notes.
+caveats: Aged 16–64 UK all-persons rate (not regional / sex breakdowns).
+related_indicator_ids:
+- cpi-inflation
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d654717685817f925bfa820d283c45
+schema_version: '1.0'

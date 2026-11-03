@@ -1,0 +1,33 @@
+indicator_id: house-prices-by-region
+title: House prices by region
+sector: regions-places
+publisher: HM Land Registry / ONS (UK HPI)
+source_url: https://www.gov.uk/government/statistical-data-sets/uk-house-price-index-data-downloads-august-2026--2
+series_id: UK HPI Average price by Region_Name / Area_Code
+geography: UK, nations, English ITL1 regions
+frequency: monthly
+unit: £ average price (UK HPI)
+definition: UK House Price Index average price estimates for the UK, constituent countries,
+  and English regions.
+licence: Open Government Licence v3.0
+agent_owner: regions
+connector_module: regions.connectors.house_prices_by_region
+curated_path: curated/observations.csv
+update_cadence: monthly (UK HPI)
+raw_evidence:
+- path: raw/2026-11-03/Average-prices-2026-08.csv
+  retrieved_at: '2026-11-03T17:57:00.411379+00:00'
+  checksum_sha256: dde90f4ca1aeca2749a6fe61f00c4f3daef58c1bec232b6da1130a16d6686c90
+  content_type: text/csv
+  official_release_date: '2026-10-21'
+  http_status: null
+  source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/Average-prices-2026-08.csv
+transformations: Parse Average-prices CSV; keep Area_Code prefixes for UK/nations/English
+  regions; drop local authorities.
+revision_notes: Pinned Average-prices-2026-08.csv on 2026-11-03.
+caveats: Links to Housing UK average house price indicator; this row keeps regional
+  grain. Early years for Scotland/NI start later than England.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/40d6547176858173a6a9d50b1e04c399
+schema_version: '1.0'

@@ -27,7 +27,7 @@ data/<sector>/<indicator_id>/
 src/<sector>/connectors/<name>.py   # subclass of Connector
 ```
 
-`<sector>` is `energy` or `economy` in this repo.
+`<sector>` folders: `energy`, `economy`, `housing`, `people`, `government`, `infrastructure`, `regions`, `history`.
 
 ## Manifest required fields
 

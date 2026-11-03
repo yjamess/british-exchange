@@ -2,33 +2,32 @@
 
 **Orchestrator:** this chat  
 **Notion:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Status:** P0 chart UI wired to FastAPI — workflow proof nearly closed  
+**Status:** Catalogue complete for review — **48 Ready**, **0 Blocked**, **0 Inbox**  
 **Updated:** 2026-11-03 (Europe/London)
 
-## Current review
+## Registry / Postgres
 
-| Area | State |
-|------|--------|
-| Energy + Economy Ready packages | In GitHub + local |
-| Independent ingest/QA | Done |
-| Shared schema + aggregation rules | Done |
-| FastAPI file-backed | Done (+ CORS for web) |
-| Next.js chart + source panel | **Done (P0)** — `/` Real GDP, `/energy` Gas |
+| Status | Count |
+|--------|------:|
+| Ready (in Postgres) | 48 |
+| Blocked | 0 |
+| Inbox | 0 |
 
-## P0 chart slice
+Water interruptions unblocked with user-supplied `WCPR 2024-25 Open Data.xlsx` (168 company×year rows).
 
-- `web/` Next.js app reads `NEXT_PUBLIC_API_URL` (default `http://127.0.0.1:8000`)
-- Home: Real GDP line chart + source/revision panel
-- `/energy`: ET 5.1 Gas series; API keeps `include_aggregates=false`
+## Y1 labour/prices (just completed)
 
-## Still not production
+| indicator_id | series | rows |
+|---|---|---:|
+| cpi-inflation | D7G7 / MM23 | 453 |
+| real-gdp-per-head | IHXW / PN2 | 322 |
+| labour-productivity | LZVB / PRDY | 221 |
+| employment-rate | LF24 / LMS | 666 |
+| economic-inactivity-rate | LF2S / LMS | 666 |
+| real-earnings | A2FC / EMP | 320 |
 
-- No PostgreSQL yet
-- No polished multi-fuel stacked chart
-- Do not open more sector agents until this path is used in review
+QA: `data/qa/qa_report_economy_y1_labour_prices_2026-11-03.md` (pass)
 
-## Next (P1)
+## Review
 
-1. Persist Ready observations to PostgreSQL; point FastAPI at DB
-2. Harden energy UI (fuel picker) without allowing Total* in stacks
-3. Only then assign the next registry indicator
+Notion Ready + API `/indicators` (48 series). Full catalogue cleared.

@@ -1,0 +1,30 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+rail-punctuality,2019-04-01,2019-06-30,K03000001,Great Britain,89.9867084248372,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2019
+rail-punctuality,2019-07-01,2019-09-30,K03000001,Great Britain,86.4835121439572,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2019
+rail-punctuality,2019-10-01,2019-12-31,K03000001,Great Britain,82.3065200670441,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2019
+rail-punctuality,2020-01-01,2020-03-31,K03000001,Great Britain,85.803288267307,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2020
+rail-punctuality,2020-04-01,2020-06-30,K03000001,Great Britain,96.1668796291028,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2020
+rail-punctuality,2020-07-01,2020-09-30,K03000001,Great Britain,93.3322369367794,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2020
+rail-punctuality,2020-10-01,2020-12-31,K03000001,Great Britain,91.8194548958791,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2020
+rail-punctuality,2021-01-01,2021-03-31,K03000001,Great Britain,92.9683527596499,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2021
+rail-punctuality,2021-04-01,2021-06-30,K03000001,Great Britain,92.6276226076717,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2021
+rail-punctuality,2021-07-01,2021-09-30,K03000001,Great Britain,90.259404645513,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2021
+rail-punctuality,2021-10-01,2021-12-31,K03000001,Great Britain,87.0820057047606,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2021
+rail-punctuality,2022-01-01,2022-03-31,K03000001,Great Britain,89.1378244760082,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2022
+rail-punctuality,2022-04-01,2022-06-30,K03000001,Great Britain,89.5877977037819,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2022
+rail-punctuality,2022-07-01,2022-09-30,K03000001,Great Britain,85.9284246712927,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2022
+rail-punctuality,2022-10-01,2022-12-31,K03000001,Great Britain,82.8680003526111,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2022
+rail-punctuality,2023-01-01,2023-03-31,K03000001,Great Britain,86.6937704445326,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2023
+rail-punctuality,2023-04-01,2023-06-30,K03000001,Great Britain,87.5899100260939,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2023
+rail-punctuality,2023-07-01,2023-09-30,K03000001,Great Britain,86.8604522387078,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2023
+rail-punctuality,2023-10-01,2023-12-31,K03000001,Great Britain,81.4018556352479,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2023
+rail-punctuality,2024-01-01,2024-03-31,K03000001,Great Britain,86.7695984771523,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2024
+rail-punctuality,2024-04-01,2024-06-30,K03000001,Great Britain,87.3611439789732,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2024
+rail-punctuality,2024-07-01,2024-09-30,K03000001,Great Britain,85.2069051674101,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2024
+rail-punctuality,2024-10-01,2024-12-31,K03000001,Great Britain,81.3947560299143,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2024
+rail-punctuality,2025-01-01,2025-03-31,K03000001,Great Britain,86.8245208300235,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2025
+rail-punctuality,2025-04-01,2025-06-30,K03000001,Great Britain,87.126207207897,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2025
+rail-punctuality,2025-07-01,2025-09-30,K03000001,Great Britain,85.380722760836,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jul to Sep 2025
+rail-punctuality,2025-10-01,2025-12-31,K03000001,Great Britain,82.5792360027757,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Oct to Dec 2025 [r]
+rail-punctuality,2026-01-01,2026-03-31,K03000001,Great Britain,87.0858913165217,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Jan to Mar 2026
+rail-punctuality,2026-04-01,2026-06-30,K03000001,Great Britain,84.7281039847459,% PPM (trains arriving on time),final,ORR Table 3113a,series=PPM quarterly; period_label=Apr to Jun 2026 [p]

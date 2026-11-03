@@ -1,0 +1,39 @@
+indicator_id: domestic-gas-production
+title: Domestic gas production
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/gas-section-4-energy-trends
+series_id: ET 4.2 (Gross production / indigenous production, GWh)
+geography: UK (K02000001)
+frequency: monthly
+unit: GWh
+definition: UK indigenous (gross) natural gas production in gigawatt hours (GWh) from
+  Energy Trends table ET 4.2 Month (GWh) sheet, Gross production column. Gross production
+  includes gas used by gas producers (Note 1). One observation per calendar month.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_gas_production
+curated_path: curated/observations.csv
+update_cadence: Monthly — Energy Trends ET 4.2, last Thursday of each month (data
+  two months in arrears)
+raw_evidence:
+- path: raw/2026-11-03/ET_4.2_OCT_26.xlsx
+  retrieved_at: '2026-11-03T17:45:52.994346+00:00'
+  checksum_sha256: f48acf6de39a9733fbd6da33dfc3575bec9ad4b0ac3808ec96120d3db64afb11
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ae0cb29779378370fd80a69/ET_4.2_OCT_26.xlsx
+transformations: 'Parse Month (GWh)!Gross production. Long-format: one CSV row per
+  month. Labels like ''[provisional] August 2026'' → observation_status=provisional.
+  Map [x] → value null + missing. mcm sheets and demand columns not ingested.'
+revision_notes: ET_4.2_OCT_26 published 29 Oct 2026; data through August 2026 (provisional);
+  revisions period July 2026 per cover sheet.
+caveats: Official Statistics in Development (ET 4.2). Unit is GWh (not Mtoe). Distinct
+  from primary-energy-production Natural gas (Mtoe, ET 1.1). Gross production includes
+  producers' own use. GOV.UK asset URLs change each release; pin checksummed raw snapshots.
+related_indicator_ids: []
+open_questions:
+- 'Optional: also curate mcm Gross production for volume charts.'
+notion_registry_url: https://app.notion.com/40d65471768581f78387e9f7006eabd4
+schema_version: '1.0'

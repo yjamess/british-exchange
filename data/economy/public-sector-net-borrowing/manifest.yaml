@@ -1,0 +1,45 @@
+indicator_id: public-sector-net-borrowing
+title: Public sector net borrowing
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/dzls/pusf
+series_id: DZLS
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, NSA (ex public sector banks)
+definition: Public sector net borrowing excluding public sector banks (PSNBex), current
+  prices, not seasonally adjusted. ONS CDID DZLS in dataset PUSF — the headline monthly
+  borrowing measure in Public Sector Finances.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.public_sector_net_borrowing
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-03/dzls_pusf.json
+  retrieved_at: '2026-11-03T17:45:28.687623+00:00'
+  checksum_sha256: 6244b0066ca00a74aa32c09b35a6f3213b48a7a236fbd6d5fe9aa7a20edcb6dc
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/dzls/pusf/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array
+  (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
+  bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
+  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+revision_notes: Public Sector Finances (PUSF) monthly estimates revise as administrative
+  data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
+  Record official_release_date from description.releaseDate.
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
+  package stores period (month) levels only. Quarterly/annual aggregates exist in
+  raw JSON but are not written to curated observations.
+related_indicator_ids:
+- public-sector-net-debt
+- public-sector-debt-interest
+- tax-receipts
+- total-managed-expenditure
+open_questions:
+- Also curate financial-year-to-date PSNB as a derived series?
+notion_registry_url: https://app.notion.com/40d65471768581d0b736e7e36e6b56d7
+schema_version: '1.0'

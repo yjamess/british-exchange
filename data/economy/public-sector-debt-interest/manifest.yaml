@@ -1,0 +1,49 @@
+indicator_id: public-sector-debt-interest
+title: Public sector debt interest
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/nmfx/pusf
+series_id: NMFX
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, NSA (CG net interest payable)
+definition: 'Central government current expenditure: net interest payable (£ million,
+  current prices, NSA). ONS CDID NMFX in PUSF — the standard open PSF series used
+  for debt-interest monitoring (CG measure; public-sector banks excluded from this
+  CG concept).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.public_sector_debt_interest
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-03/nmfx_pusf.json
+  retrieved_at: '2026-11-03T17:45:29.140809+00:00'
+  checksum_sha256: 56e3bf137fbb764fb5ea198af5644816c5e7da756e1b818631a8b2aafd9dc620
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/nmfx/pusf/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array
+  (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
+  bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
+  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+revision_notes: Public Sector Finances (PUSF) monthly estimates revise as administrative
+  data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
+  Record official_release_date from description.releaseDate.
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
+  package stores period (month) levels only. Quarterly/annual aggregates exist in
+  raw JSON but are not written to curated observations. Chosen NMFX (CG net interest
+  payable) over broader PS interest/dividend paid series — document if a PS-wide alternative
+  is preferred.
+related_indicator_ids:
+- public-sector-net-borrowing
+- public-sector-net-debt
+- tax-receipts
+- total-managed-expenditure
+open_questions:
+- Prefer a public-sector (not CG-only) interest series if one is promoted as headline
+  in a later PSF bulletin?
+notion_registry_url: https://app.notion.com/40d654717685815cb4e5d52cb43c17f3
+schema_version: '1.0'

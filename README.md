@@ -16,11 +16,27 @@ Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
 
 ## Run the first-proof stack
 
-Terminal 1 — API (serves Ready curated packages):
+### Optional: PostgreSQL observation spine (Layer B)
+
+With Homebrew Postgres running and a `britain_exchange` database:
 
 ```bash
+export DATABASE_URL=postgresql://britain@localhost/britain_exchange
+uv run python -m britain_exchange.load_ready   # migrate + load Ready CSVs
+```
+
+Or `docker compose up -d` and use the URL in `.env.example`.
+
+Without `DATABASE_URL`, the API serves the same Ready packages from `data/` files.
+
+### Terminals
+
+Terminal 1 — API:
+
+```bash
+export DATABASE_URL=postgresql://britain@localhost/britain_exchange   # optional
 uv run uvicorn britain_exchange.api:app --reload
-# http://127.0.0.1:8000/docs
+# http://127.0.0.1:8000/docs  — /health reports store: postgres|files
 ```
 
 Terminal 2 — Next.js chart UI:

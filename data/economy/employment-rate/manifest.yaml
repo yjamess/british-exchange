@@ -1,0 +1,40 @@
+indicator_id: employment-rate
+title: Employment rate
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf24/lms
+series_id: LF24
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% of population aged 16–64, SA'
+definition: UK employment rate for people aged 16 to 64, seasonally adjusted. ONS
+  CDID LF24 in LMS (Labour Force Survey).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.employment_rate
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-03/lf24_lms.json
+  retrieved_at: '2026-11-03T18:38:14.421809+00:00'
+  checksum_sha256: b68f87c2ed598965d0169b5b3de8bf88b07af0cbbad867260b23a4fc31ae04ed
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf24/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: LFS estimates revise; note reweighting episodes in release notes.
+caveats: Rolling three-month average shown as mid-month in LMS convention. Aged 16–64
+  rate, not 16+.
+related_indicator_ids:
+- cpi-inflation
+- real-gdp-per-head
+- labour-productivity
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/40d65471768581aaae57f749d490be03
+schema_version: '1.0'
