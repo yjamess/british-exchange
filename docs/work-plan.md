@@ -2,33 +2,33 @@
 
 **Orchestrator:** this chat  
 **Notion:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Status:** P0 verification complete — packaging for GitHub  
+**Status:** P0 chart UI wired to FastAPI — workflow proof nearly closed  
 **Updated:** 2026-11-03 (Europe/London)
 
-## Assessment response (user priorities)
+## Current review
 
-| Priority | Action | Status |
-|----------|--------|--------|
-| P0 | Hand-offs in shared repo | Staging for GitHub commit/PR |
-| P0 | Execute ingest + QA locally | **Done** — both pass-with-warns; see `docs/independent-verification-2026-11-03.md` |
-| P0 | Review shared observation schema | **Done** — `schema_check` 0 fail; `docs/schema-compatibility.md` |
-| P0 | Explicit energy aggregation rules | **Done** — `aggregation.py`; API excludes Total* by default |
-| P1 | GDP revision metadata | **Done** — `revision_notes` filled + exposed on API |
-| P1 | Integrate one dataset via FastAPI | **Done** — both Ready packages served file-backed |
+| Area | State |
+|------|--------|
+| Energy + Economy Ready packages | In GitHub + local |
+| Independent ingest/QA | Done |
+| Shared schema + aggregation rules | Done |
+| FastAPI file-backed | Done (+ CORS for web) |
+| Next.js chart + source panel | **Done (P0)** — `/` Real GDP, `/energy` Gas |
 
-## Ready packages
+## P0 chart slice
 
-| Indicator | Rows | QA |
-|-----------|------|-----|
-| `electricity-generation-by-source` | 1710 (1482 chart-safe) | `data/qa/qa_report_2026-11-03.md` |
-| `real-gdp` | 286 | `data/qa/qa_report_real_gdp_2026-11-03.md` |
+- `web/` Next.js app reads `NEXT_PUBLIC_API_URL` (default `http://127.0.0.1:8000`)
+- Home: Real GDP line chart + source/revision panel
+- `/energy`: ET 5.1 Gas series; API keeps `include_aggregates=false`
 
-## Do not yet
+## Still not production
 
-- Commission more sector agents / 20 datasets
-- Treat as production until GitHub review + one chart UI
+- No PostgreSQL yet
+- No polished multi-fuel stacked chart
+- Do not open more sector agents until this path is used in review
 
-## Next after GitHub
+## Next (P1)
 
-- PostgreSQL persistence
-- Next.js chart + source panel against `/indicators/{id}/observations`
+1. Persist Ready observations to PostgreSQL; point FastAPI at DB
+2. Harden energy UI (fuel picker) without allowing Total* in stacks
+3. Only then assign the next registry indicator

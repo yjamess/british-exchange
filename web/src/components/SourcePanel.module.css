@@ -1,0 +1,57 @@
+.panel {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+}
+
+.heading {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 560;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.85rem 1.25rem;
+  margin: 0 0 1.25rem;
+}
+
+.list div {
+  margin: 0;
+}
+
+.list dt {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.list dd {
+  margin: 0.2rem 0 0;
+  font-size: 0.98rem;
+}
+
+.block {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  background: color-mix(in srgb, var(--paper-deep) 70%, white);
+  border-left: 3px solid var(--accent);
+}
+
+.block h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.block p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink);
+}

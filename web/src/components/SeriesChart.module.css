@@ -1,0 +1,5 @@
+.wrap {
+  width: 100%;
+  height: min(52vh, 420px);
+  min-height: 280px;
+}

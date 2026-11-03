@@ -10,6 +10,7 @@ from dataclasses import asdict
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from britain_exchange.aggregation import (
     ENERGY_AGGREGATE_FUELS,
@@ -25,6 +26,18 @@ app = FastAPI(
         "Serve verified indicator observations from local manifests. "
         "Energy fuel totals are excluded from default observation queries."
     ),
+)
+
+# Local Next.js (web/) talks to this API in the browser.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=False,
+    allow_methods=["GET"],
+    allow_headers=["*"],
 )
 
 

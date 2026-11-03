@@ -1,27 +1,40 @@
-# British Exchange
+# Britain Exchange
 
-UK energy (DESNZ) and economy (ONS) data ingestion with independent validation.
+UK energy (DESNZ) and economy (ONS) data ingestion with independent validation, a shared observation contract, and a first-proof chart UI.
 
 ## Agents
 
 See [AGENTS.md](AGENTS.md). Orchestrator owns the [work plan](docs/work-plan.md).
 
-| Agent | Responsibility | Output |
-|-------|----------------|--------|
-| Orchestrator | Assigns tasks, prevents duplication, checks progress | Work plan and reviews |
-| Energy | DESNZ source discovery and ingestion | Reproducible energy dataset |
-| Economy | ONS source discovery and ingestion | Reproducible economic dataset |
-| Validation | Independent numerical and methodological checks | QA report |
-
 ## Setup
 
 ```bash
 uv sync
-uv run uvicorn britain_exchange.api:app --reload
-# Open http://127.0.0.1:8000/docs
 ```
 
 Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
+
+## Run the first-proof stack
+
+Terminal 1 — API (serves Ready curated packages):
+
+```bash
+uv run uvicorn britain_exchange.api:app --reload
+# http://127.0.0.1:8000/docs
+```
+
+Terminal 2 — Next.js chart UI:
+
+```bash
+cd web
+cp -n .env.example .env.local   # if needed
+npm install
+npm run dev
+# http://127.0.0.1:3000       Real GDP
+# http://127.0.0.1:3000/energy  Electricity (Gas), aggregates excluded
+```
+
+Energy API note: observations exclude `Total*` aggregates by default (`include_aggregates=true` to include).
 
 ## Ready indicators (independently re-verified 2026-11-03)
 
@@ -30,9 +43,7 @@ Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
 | `electricity-generation-by-source` | Energy | [qa_report_2026-11-03.md](data/qa/qa_report_2026-11-03.md) |
 | `real-gdp` | Economy | [qa_report_real_gdp_2026-11-03.md](data/qa/qa_report_real_gdp_2026-11-03.md) |
 
-Energy API note: `GET /indicators/electricity-generation-by-source/observations` excludes `Total*` aggregates by default (`include_aggregates=true` to include).
-
-Reproduce:
+Reproduce ingest / QA / schema:
 
 ```bash
 uv run python -m energy.connectors.electricity_generation
