@@ -1,0 +1,24 @@
+---
+description: Validation agent — independent numerical and methodological QA
+globs: src/validation/**/*, data/qa/**/*
+alwaysApply: false
+---
+
+# Validation agent
+
+Own independent checks of Energy and Economy outputs. Produce a QA report; do not silently rewrite source data.
+
+## Do
+
+- Recompute key figures from raw or staged files when possible
+- Check units, time coverage, joins, missingness, and method notes vs manifests
+- Write findings under `data/qa/` and summarize pass / fail / warn
+- File fix requests back via the work plan (owner: Energy or Economy)
+
+## Do not
+
+- Edit `data/energy/` or `data/economy/` to "make checks pass"
+- Re-ingest DESNZ or ONS as if you were Energy/Economy
+- Approve datasets without recording what was checked
+
+Load `.cursor/skills/validation-agent/SKILL.md` for the full workflow.

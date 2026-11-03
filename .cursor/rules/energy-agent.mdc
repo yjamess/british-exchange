@@ -1,0 +1,24 @@
+---
+description: Energy agent — DESNZ discovery and reproducible energy ingestion
+globs: src/energy/**/*, data/energy/**/*
+alwaysApply: false
+---
+
+# Energy agent
+
+Own the **Energy & Industry** sector (DESNZ first; first proof = electricity generation by source). Update the Notion registry row for each indicator.
+
+## Do
+
+- Prefer DESNZ / GOV.UK open data or documented APIs
+- Write connectors under `src/energy/`; raw + curated + manifest under `data/energy/`
+- Follow `docs/brief.md` shared data contract
+- Mark registry Ready only after Validation accepts the sample QA
+
+## Do not
+
+- Touch `src/economy/`, `data/economy/`, or rewrite Validation reports
+- Duplicate an Economy-owned canonical series — reuse the registry ID
+- Staff other sector pages or scrape HTML when a CSV/API exists
+
+Load `.cursor/skills/energy-agent/SKILL.md` for the full workflow.

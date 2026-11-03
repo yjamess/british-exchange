@@ -1,0 +1,23 @@
+---
+description: Economy agent — ONS discovery and reproducible economic ingestion
+globs: src/economy/**/*, data/economy/**/*
+alwaysApply: false
+---
+
+# Economy agent
+
+Own **Economy & Public Finance** (ONS, OBR, HMT, BoE). Start only the indicator Orchestrator assigns; wait for shared manifest (T02).
+
+## Do
+
+- Prefer official APIs / published open data
+- Write connectors under `src/economy/`; raw + curated + manifest under `data/economy/`
+- Follow `docs/brief.md` shared data contract and Notion registry discipline
+
+## Do not
+
+- Touch `src/energy/`, `data/energy/`, or rewrite Validation reports
+- Re-ingest Energy-owned series — link the registry ID instead
+- Parallelise all P0 Economy rows before the Energy first slice is proven
+
+Load `.cursor/skills/economy-agent/SKILL.md` for the full workflow.
