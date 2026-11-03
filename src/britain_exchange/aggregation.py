@@ -1,13 +1,16 @@
 """Explicit aggregation roles so charts do not double-count series.
 
-Energy ET 5.1 stores fuel in ``notes`` as ``fuel=<Label>``. Some labels are
-publisher totals that already include other rows — summing them with components
-misleads. API and validators should use these roles.
+Energy fuels are typed dimensions (also serialized as ``fuel=<Label>`` in notes).
+Some labels are publisher totals that already include other rows — summing them
+with components misleads. Water company rows are always components; Ofwat does
+not supply an industry aggregate in the WCPR extract we curate.
 """
 
 from __future__ import annotations
 
 from typing import Literal
+
+from britain_exchange.dimensions import dimensions_from_notes
 
 AggregationRole = Literal["component", "aggregate", "unknown"]
 
@@ -23,15 +26,22 @@ ENERGY_AGGREGATE_FUELS: frozenset[str] = frozenset(
 
 def fuel_label_from_notes(notes: str) -> str | None:
     """Extract fuel label from ``fuel=Coal`` notes; else None."""
-    text = (notes or "").strip()
+    label = dimensions_from_notes(notes).fuel
+    return label or None
+
+
+def energy_aggregation_role(notes_or_fuel: str) -> AggregationRole:
+    """Return component/aggregate/unknown for an energy fuel row.
+
+    Accepts either raw notes (``fuel=Coal``) or a bare fuel label.
+    """
+    text = (notes_or_fuel or "").strip()
     if text.startswith("fuel="):
-        return text[len("fuel=") :].strip() or None
-    return None
-
-
-def energy_aggregation_role(notes: str) -> AggregationRole:
-    """Return component/aggregate/unknown for an electricity-generation row."""
-    label = fuel_label_from_notes(notes)
+        label = fuel_label_from_notes(text)
+    elif "=" in text:
+        label = fuel_label_from_notes(text)
+    else:
+        label = text or None
     if label is None:
         return "unknown"
     if label in ENERGY_AGGREGATE_FUELS:
@@ -39,6 +49,6 @@ def energy_aggregation_role(notes: str) -> AggregationRole:
     return "component"
 
 
-def is_chart_safe_energy_row(notes: str) -> bool:
+def is_chart_safe_energy_row(notes_or_fuel: str) -> bool:
     """True when a row is safe to include in a stacked/summed fuel chart."""
-    return energy_aggregation_role(notes) == "component"
+    return energy_aggregation_role(notes_or_fuel) == "component"

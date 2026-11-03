@@ -2,8 +2,8 @@
 
 **Orchestrator:** this chat  
 **Notion:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Status:** Catalogue complete for review — **48 Ready**, **0 Blocked**, **0 Inbox**  
-**Updated:** 2026-11-03 (Europe/London)
+**Status:** Pre-merge hardening on `cursor/first-proof-chart-ui` — **48 Ready**, **0 Blocked**, **0 Inbox**  
+**Updated:** 2026-11-03 (release history + typed dimensions + chart contract)
 
 ## Registry / Postgres
 
@@ -31,3 +31,10 @@ QA: `data/qa/qa_report_economy_y1_labour_prices_2026-11-03.md` (pass)
 ## Review
 
 Notion Ready + API `/indicators` (48 series). Full catalogue cleared.
+
+### Pre-merge P0/P1 (this branch)
+
+- Owner: Orchestrator
+- Status: done (awaiting human merge approval — do not auto-merge)
+- Shipped: release-preserving load (`is_current`), typed dimensions, API filters, Ofwat company-only guard, frequency-aware chart contract, catalogue refresh, tests + PG reload + Next build
+- Next: human review / PR approval only

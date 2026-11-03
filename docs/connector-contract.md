@@ -60,6 +60,21 @@ Fixed header from `Observation`:
 
 `indicator_id, period_start, period_end, geography_code, geography_label, value, unit, observation_status, source_version, notes`
 
+### Typed dimensions (required for breakdowns)
+
+Free-text `notes` alone is not a structural key. Put breakdowns in parseable `key=value; …` form so loaders populate Postgres columns / API `dimensions`:
+
+| Dimension | Notes convention | Examples |
+|-----------|------------------|----------|
+| Fuel | `fuel=<Label>` | `fuel=Gas` |
+| Water company | `company=<CODE>; company_name=<Name>` | Ofwat APR3A_02 |
+| Demographic | `sex=` / `demographic=` / `tenure=` | `sex=female` |
+| Series | `series=<id>` | multi-series packs |
+| Category | `band=` / `vehicle=` / `classification=` / `kind=` | industrial price bands |
+
+API filters: `fuel`, `water_company`, `demographic`, `geography_code`, `series`, `category`.  
+Postgres load preserves prior `data_release` rows; only the matching release’s observations are replaced; `is_current` selects the default series.
+
 ## Connector API
 
 Subclass `britain_exchange.Connector`:

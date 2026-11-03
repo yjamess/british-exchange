@@ -20,6 +20,8 @@ export default async function HomePage() {
     error = err instanceof Error ? err.message : "Unknown API error";
   }
 
+  const chart = observations?.chart ?? meta?.chart;
+
   return (
     <main className={styles.shell}>
       <p className={styles.brand}>Britain Exchange</p>
@@ -53,13 +55,16 @@ export default async function HomePage() {
             <SeriesChart
               rows={observations.observations}
               unit={meta.unit}
-              seriesLabel="UK real GDP"
+              seriesLabel={chart?.display_title ?? "UK real GDP"}
               seriesId={meta.series_id}
-              geography="United Kingdom"
+              geography={meta.geography}
+              frequency={meta.frequency}
+              chart={chart}
             />
           </section>
           <SourcePanel
             meta={meta}
+            chart={chart}
             observationCount={observations.count}
             note="Each point is one calendar quarter. Status is provisional because ONS revises ABMI after each GDP release and at Blue Book."
           />

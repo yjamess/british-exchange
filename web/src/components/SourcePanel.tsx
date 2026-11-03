@@ -1,19 +1,29 @@
-import type { IndicatorMeta } from "@/lib/api";
+import type { ChartMeta, IndicatorMeta } from "@/lib/api";
 import styles from "./SourcePanel.module.css";
 
 export function SourcePanel({
   meta,
   observationCount,
   note,
+  chart,
 }: {
   meta: IndicatorMeta;
   observationCount: number;
   note?: string;
+  chart?: ChartMeta;
 }) {
+  const displayTitle = chart?.display_title ?? meta.title;
+  const caveats = chart?.caveats || meta.caveats;
+  const warnings = chart?.compatibility_warnings ?? [];
+
   return (
     <aside className={styles.panel} aria-label="Source and methodology">
       <h2 className={styles.heading}>Source</h2>
       <dl className={styles.list}>
+        <div>
+          <dt>Series title</dt>
+          <dd>{displayTitle}</dd>
+        </div>
         <div>
           <dt>Publisher</dt>
           <dd>{meta.publisher}</dd>
@@ -26,15 +36,27 @@ export function SourcePanel({
         </div>
         <div>
           <dt>Geography</dt>
-          <dd>{meta.geography}</dd>
+          <dd>
+            {meta.geography}
+            {chart?.england_only ? " (England only — not UK)" : ""}
+          </dd>
         </div>
         <div>
           <dt>Frequency</dt>
           <dd>{meta.frequency}</dd>
         </div>
         <div>
-          <dt>Unit</dt>
-          <dd>{meta.unit}</dd>
+          <dt>Unit / measure</dt>
+          <dd>
+            {meta.unit}
+            {chart?.is_cpi ? " · CPI (not CPIH)" : ""}
+            {chart?.is_gva_cvm_weight ? " · CVM industry weights, not current-price share" : ""}
+            {chart?.is_rail_ppm ? " · Public Performance Measure (PPM)" : ""}
+          </dd>
+        </div>
+        <div>
+          <dt>Chart kind</dt>
+          <dd>{(chart?.chart_kind ?? "time_series").replaceAll("_", " ")}</dd>
         </div>
         <div>
           <dt>Observations</dt>
@@ -59,10 +81,18 @@ export function SourcePanel({
           <p>{meta.revision_notes}</p>
         </section>
       ) : null}
-      {meta.caveats ? (
+      {caveats ? (
         <section className={styles.block}>
           <h3>Caveats</h3>
-          <p>{meta.caveats}</p>
+          <p>{caveats}</p>
+        </section>
+      ) : null}
+      {warnings.length > 0 ? (
+        <section className={styles.block}>
+          <h3>Compatibility</h3>
+          {warnings.map((warning) => (
+            <p key={warning}>{warning}</p>
+          ))}
         </section>
       ) : null}
       {note ? (

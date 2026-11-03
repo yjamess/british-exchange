@@ -1,7 +1,6 @@
-"""Cross-sector observation schema compatibility checks.
+"""Cross-sector observation schema + package integrity checks.
 
 Run: ``uv run python -m britain_exchange.schema_check``
-Ensures Energy and Economy curated CSVs share types/columns before more agents.
 """
 
 from __future__ import annotations
@@ -11,10 +10,24 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from britain_exchange.catalog import iter_indicator_packages
+from britain_exchange.checksum import sha256_file
 from britain_exchange.observation import CURATED_FIELDNAMES, ObservationStatus
 
 ALLOWED_STATUSES = set(ObservationStatus.__args__)  # type: ignore[attr-defined]
 ISO_DATE_LEN = 10
+
+# Official geography codes used across the Ready catalogue (not only UK).
+KNOWN_GEOGRAPHY_CODES = frozenset(
+    {
+        "K02000001",  # United Kingdom
+        "K03000001",  # Great Britain
+        "K04000001",  # England and Wales
+        "E92000001",  # England
+        "W92000004",  # Wales
+        "S92000003",  # Scotland
+        "N92000002",  # Northern Ireland
+    }
+)
 
 
 @dataclass(slots=True)
@@ -73,6 +86,8 @@ def _check_package(indicator_id: str, csv_path: Path) -> list[Finding]:
                     )
                 )
 
+        if rows == 0:
+            findings.append(Finding("fail", indicator_id, "No observation rows"))
         if bad_dates:
             findings.append(
                 Finding("fail", indicator_id, f"{bad_dates} non-ISO period dates")
@@ -86,20 +101,102 @@ def _check_package(indicator_id: str, csv_path: Path) -> list[Finding]:
         else:
             findings.append(Finding("pass", indicator_id, f"{rows} values parse as float|empty"))
 
-        if geos == {"K02000001"}:
-            findings.append(Finding("pass", indicator_id, "geography_code=K02000001 (UK)"))
-        elif "K02000001" in geos:
+        unknown = sorted(g for g in geos if g and g not in KNOWN_GEOGRAPHY_CODES)
+        empty = "" in geos
+        # Regional ITL1 / GSS / ONS codes appear in Regions packages.
+        def _regional_ok(code: str) -> bool:
+            if code[:1] in {"E", "W", "S", "N", "K"}:
+                return True
+            if code.startswith("TL"):  # ITL1/ITL2 style
+                return True
+            if code in {"UKX", "UKW", "UKM", "UKN", "UKL"}:
+                return True
+            return False
+
+        regionalish = [g for g in unknown if _regional_ok(g)]
+        if empty:
+            findings.append(Finding("fail", indicator_id, "Blank geography_code present"))
+        elif not unknown:
             findings.append(
-                Finding("warn", indicator_id, f"Mixed geography_codes: {sorted(geos)}")
+                Finding("pass", indicator_id, f"geography_codes={sorted(geos)}")
+            )
+        elif set(unknown) <= set(regionalish):
+            findings.append(
+                Finding(
+                    "warn",
+                    indicator_id,
+                    f"Non-core geography_codes (regional/local allowed): {unknown}",
+                )
             )
         else:
             findings.append(
-                Finding("fail", indicator_id, f"Unexpected geography_codes: {sorted(geos)}")
+                Finding("fail", indicator_id, f"Unexpected geography_codes: {unknown}")
             )
 
         findings.append(
             Finding("pass", indicator_id, f"observation_status set={sorted(statuses)}")
         )
+
+    # Water-specific integrity: company-level only.
+    if indicator_id == "water-supply-interruptions":
+        with csv_path.open(newline="", encoding="utf-8") as handle:
+            companies = set()
+            for row in csv.DictReader(handle):
+                notes = row.get("notes") or ""
+                if "company=" not in notes:
+                    findings.append(
+                        Finding("fail", indicator_id, "Row missing company= in notes")
+                    )
+                    break
+                code = notes.split("company=")[1].split(";")[0].strip()
+                companies.add(code.lower())
+            if companies & {"industry", "total", "all", "aggregate"}:
+                findings.append(
+                    Finding(
+                        "fail",
+                        indicator_id,
+                        "Unsupported industry aggregate present in company dimension",
+                    )
+                )
+            else:
+                findings.append(
+                    Finding(
+                        "pass",
+                        indicator_id,
+                        f"Company-level only ({len(companies)} companies); no industry aggregate",
+                    )
+                )
+
+    return findings
+
+
+def _check_raw_evidence(package) -> list[Finding]:
+    findings: list[Finding] = []
+    indicator_id = package.manifest.indicator_id
+    if not package.manifest.raw_evidence:
+        findings.append(Finding("fail", indicator_id, "manifest.raw_evidence is empty"))
+        return findings
+    for evidence in package.manifest.raw_evidence:
+        path = package.root / evidence.path
+        if not path.is_file():
+            findings.append(
+                Finding("fail", indicator_id, f"Missing raw evidence file: {evidence.path}")
+            )
+            continue
+        digest = sha256_file(path)
+        if evidence.checksum_sha256 and digest != evidence.checksum_sha256:
+            findings.append(
+                Finding(
+                    "fail",
+                    indicator_id,
+                    f"Checksum mismatch for {evidence.path}: "
+                    f"manifest={evidence.checksum_sha256} file={digest}",
+                )
+            )
+        else:
+            findings.append(
+                Finding("pass", indicator_id, f"Raw evidence OK: {evidence.path}")
+            )
     return findings
 
 
@@ -109,25 +206,12 @@ def run_checks() -> list[Finding]:
         return [Finding("fail", "*", "No indicator packages found under data/")]
     findings: list[Finding] = []
     ids = [p.manifest.indicator_id for p in packages]
-    findings.append(Finding("pass", "*", f"Packages found: {ids}"))
+    findings.append(Finding("pass", "*", f"Packages found: {len(ids)} → {ids}"))
     for package in packages:
         findings.extend(
             _check_package(package.manifest.indicator_id, package.curated_csv)
         )
-    # Cross-package: same geography convention for UK series.
-    uk_ids = [
-        p.manifest.indicator_id
-        for p in packages
-        if "K02000001" in p.manifest.geography or p.manifest.geography.upper() == "UK"
-    ]
-    if len(uk_ids) >= 2:
-        findings.append(
-            Finding(
-                "pass",
-                "*",
-                f"UK geography convention shared by {uk_ids}",
-            )
-        )
+        findings.extend(_check_raw_evidence(package))
     return findings
 
 

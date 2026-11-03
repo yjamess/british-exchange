@@ -1,4 +1,27 @@
-/** Browser client for the Britain Exchange FastAPI (local file-backed v0). */
+/** Browser client for the Britain Exchange FastAPI. */
+
+export type ChartMeta = {
+  indicator_id: string;
+  display_title: string;
+  series_id: string;
+  publisher: string;
+  source_url: string;
+  geography: string;
+  frequency: string;
+  frequency_normalized: string;
+  unit: string;
+  caveats: string;
+  definition: string;
+  measure_family: string;
+  england_only: boolean;
+  is_cpi: boolean;
+  is_cpih: boolean;
+  is_gva_cvm_weight: boolean;
+  is_rail_ppm: boolean;
+  allows_industry_aggregate: boolean | null;
+  chart_kind?: string;
+  compatibility_warnings?: string[];
+};
 
 export type IndicatorMeta = {
   indicator_id: string;
@@ -15,6 +38,16 @@ export type IndicatorMeta = {
   caveats: string;
   revision_notes: string;
   notion_registry_url: string;
+  chart?: ChartMeta;
+};
+
+export type ObservationDimensions = {
+  fuel: string;
+  water_company: string;
+  water_company_name: string;
+  demographic: string;
+  series: string;
+  category: string;
 };
 
 export type Observation = {
@@ -29,16 +62,21 @@ export type Observation = {
   source_version: string;
   notes: string;
   aggregation_role?: string;
+  dimensions?: ObservationDimensions;
+  release_id?: number;
 };
 
 export type ObservationsResponse = {
   indicator_id: string;
   source_url: string;
   unit: string;
+  frequency: string;
   count: number;
   returned: number;
   excluded_aggregate_rows: number;
   aggregate_fuels: string[];
+  available_dimensions: Record<string, unknown>;
+  chart: ChartMeta;
   observations: Observation[];
 };
 

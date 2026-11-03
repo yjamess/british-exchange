@@ -5,7 +5,8 @@ Approach:
    Ofwat CDN often returns HTTP 403 to automated clients).
 2. Keep UNIQUE_ITEM_REFERENCE == APR3A_02 (Actual performance — supply interruptions).
 3. Convert Excel day-fraction (hh:mm:ss) → minutes per property.
-4. One Observation per company × financial year; company in notes.
+4. One Observation per company × financial year; typed company dimensions
+   (serialized into notes for curated CSV compatibility).
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ from typing import Sequence
 import openpyxl
 
 from britain_exchange.connector import Connector
+from britain_exchange.dimensions import ObservationDimensions, notes_from_dimensions
 from britain_exchange.manifest import Manifest, RawEvidence
 from britain_exchange.observation import Observation, ObservationStatus
 from britain_exchange.paths import INFRASTRUCTURE_DATA
@@ -108,6 +110,10 @@ def parse_wcpr_interruptions(path: Path) -> list[Observation]:
             minutes = _excel_time_to_minutes(row[6])
             status: ObservationStatus = "final" if minutes is not None else "missing"
             period_start, period_end = _fy_bounds(year_label)
+            dims = ObservationDimensions(
+                water_company=company,
+                water_company_name=company_name,
+            )
             observations.append(
                 Observation(
                     indicator_id=INDICATOR_ID,
@@ -119,9 +125,9 @@ def parse_wcpr_interruptions(path: Path) -> list[Observation]:
                     unit=UNIT,
                     observation_status=status,
                     source_version="WCPR_2024-25",
-                    notes=(
-                        f"company={company}; company_name={company_name}; "
-                        f"ref={ITEM_REF}; fy={year_label}"
+                    notes=notes_from_dimensions(
+                        dims,
+                        extra=f"ref={ITEM_REF}; fy={year_label}",
                     ),
                 )
             )
@@ -171,13 +177,13 @@ class WaterSupplyInterruptionsConnector(Connector):
                 "Parse sheet 'in'; filter UNIQUE_ITEM_REFERENCE=APR3A_02. "
                 "Convert VALUE day-fraction → minutes (*24*60). Map YEAR "
                 "YYYY-YY → financial-year ISO bounds (Apr–Mar). Company "
-                "abbreviation and name stored in notes."
+                "abbreviation/name stored as typed dimensions (notes serialization)."
             ),
             caveats=(
                 "Company-level only — this extract has no industry aggregate row; "
-                "do not average companies without weights. Automated Ofwat CDN "
-                "downloads often 403; pinned workbook is the evidence snapshot. "
-                "Null VALUE → observation_status=missing."
+                "do not invent or average an industry total without Ofwat weights. "
+                "Automated Ofwat CDN downloads often 403; pinned workbook is the "
+                "evidence snapshot. Null VALUE → observation_status=missing."
             ),
             revision_notes=(
                 "WCPR 2024-25 open-data workbook pinned 2026-11-03 after manual "
