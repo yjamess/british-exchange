@@ -1,0 +1,101 @@
+.panel {
+  position: relative;
+  z-index: 1;
+  padding: 1.25rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--bx-mist, #9aa6c8) 32%, transparent);
+  background: color-mix(in srgb, #fff 4%, var(--bx-admiralty, #0e1b3d));
+}
+
+.head {
+  margin-bottom: 1rem;
+}
+
+.kicker {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bx-red, #b3122e);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: var(--bx-cream, #f4eedf);
+}
+
+.lede {
+  margin: 0.45rem 0 0;
+  max-width: 36rem;
+  color: var(--bx-mist, #9aa6c8);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.canvas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(8rem, 0.6fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+.nation {
+  fill: color-mix(in srgb, var(--bx-mist, #9aa6c8) 12%, transparent);
+  stroke: var(--bx-mist, #9aa6c8);
+  stroke-width: 0.6;
+  stroke-dasharray: 1.2 0.8;
+}
+
+.label {
+  fill: var(--bx-cream, #f4eedf);
+  font-family: var(--font-mono);
+  font-size: 3.2px;
+  letter-spacing: 0.08em;
+}
+
+.rule {
+  stroke: color-mix(in srgb, var(--bx-mist, #9aa6c8) 40%, transparent);
+  stroke-width: 0.35;
+}
+
+.caption {
+  fill: var(--bx-mist, #9aa6c8);
+  font-family: var(--font-mono);
+  font-size: 2.4px;
+  letter-spacing: 0.14em;
+}
+
+.legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--bx-mist, #9aa6c8);
+}
+
+.legend li {
+  margin: 0.35rem 0;
+}
+
+.legend span {
+  display: inline-block;
+  min-width: 1.5rem;
+  color: var(--bx-cream, #f4eedf);
+}
+
+@media (max-width: 640px) {
+  .canvas {
+    grid-template-columns: 1fr;
+  }
+}

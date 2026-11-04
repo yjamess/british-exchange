@@ -1,0 +1,244 @@
+.label {
+  margin: 0;
+  color: inherit;
+}
+
+.label[data-marker]::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.6em;
+  vertical-align: 0.08em;
+  background: var(--bo-signal);
+}
+
+/* ——— Coverage ——— */
+.coverage {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.4rem;
+  font-size: var(--bo-t-micro);
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+.coverage[data-partial] {
+  border-style: dashed;
+}
+
+/* ——— Source line ——— */
+.source {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.7rem;
+  margin: 0;
+  font-size: var(--bo-t-micro);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.source:hover .srcKey {
+  text-decoration: underline;
+}
+
+.srcKey {
+  opacity: 1;
+}
+
+.srcDim {
+  opacity: 0.62;
+}
+
+/* ——— Figure ——— */
+.figure {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+}
+
+.figHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.figValue {
+  margin: 0.15rem 0 0;
+  font-family: var(--bo-f-display);
+  font-size: var(--bo-t-figure);
+  font-weight: 200;
+  line-height: 0.85;
+  letter-spacing: -0.015em;
+}
+
+.figure[data-size="lg"] .figValue {
+  font-size: clamp(4.5rem, 9vw, 8.5rem);
+}
+
+.delta {
+  margin: 0;
+  font-size: var(--bo-t-micro);
+}
+
+.figContext {
+  margin: 0;
+  max-width: 32ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+/* ——— Levels ——— */
+.levels {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+}
+
+.levels li > * {
+  display: inline-flex;
+  gap: 0.45rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: var(--bo-radius);
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.levels li > * > span {
+  opacity: 0.6;
+}
+
+.levels li[aria-current] > * {
+  border-color: currentColor;
+  opacity: 1;
+}
+
+.levels li + li::before {
+  content: "→";
+  margin-right: 0.25rem;
+  opacity: 0.4;
+  align-self: center;
+}
+
+.levels li {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ——— Pathway ——— */
+.pathway {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 0.6rem;
+  min-height: 100%;
+  padding: 1.25rem 1.25rem 1.1rem;
+  border-top: 1px solid currentColor;
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+  transition: background-color var(--bo-fast) ease;
+}
+
+.pathway:hover {
+  background: var(--bo-paper-lift);
+}
+
+.pathTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pathQ {
+  font-size: var(--bo-t-ed-m);
+}
+
+.pathBlurb {
+  font-size: var(--bo-t-small);
+  opacity: 0.72;
+}
+
+.pathViz {
+  display: block;
+  height: 3rem;
+  margin-top: 0.4rem;
+}
+
+.pathGo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--bo-t-micro);
+  transition: gap var(--bo-fast) var(--bo-ease);
+}
+
+.pathway:hover .pathGo {
+  gap: 0.75rem;
+}
+
+/* ——— Section head ——— */
+.section {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--bo-col-gap);
+  row-gap: 1rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  padding-top: 1rem;
+  border-top: var(--bo-rule);
+  border-top-color: currentColor;
+}
+
+.sectionNo {
+  grid-column: 1 / span 2;
+  margin: 0;
+  font-family: var(--bo-f-display);
+  font-size: var(--bo-t-d1);
+  font-weight: 200;
+  line-height: 0.8;
+}
+
+.sectionBody {
+  grid-column: 3 / span 7;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sectionAside {
+  grid-column: 10 / span 3;
+  align-self: end;
+  justify-self: end;
+}
+
+.lede {
+  margin: 0;
+  max-width: 54ch;
+  font-size: var(--bo-t-body);
+  line-height: 1.55;
+  opacity: 0.8;
+}
+
+@media (max-width: 860px) {
+  .sectionNo {
+    grid-column: 1 / -1;
+    font-size: var(--bo-t-d2);
+  }
+  .sectionBody,
+  .sectionAside {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

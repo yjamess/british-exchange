@@ -85,18 +85,56 @@ export function formatTooltipValue(value: number, unit: string): string {
   if (isGbpMillions) {
     return `£${value.toLocaleString("en-GB")} million`;
   }
+  if (/average house price|£ \(average/i.test(unit) || /^£/.test(unit.trim())) {
+    return `£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`;
+  }
   if (/TWh/i.test(unit)) {
     return `${value.toLocaleString("en-GB", { maximumFractionDigits: 3 })} TWh`;
   }
-  return `${value.toLocaleString("en-GB")} (${unit})`;
+  if (/index/i.test(unit)) {
+    return value.toLocaleString("en-GB", { maximumFractionDigits: 1 });
+  }
+  if (/ratio/i.test(unit)) {
+    return `${value.toLocaleString("en-GB", { maximumFractionDigits: 2 })}×`;
+  }
+  if (/dwellings/i.test(unit)) {
+    return value.toLocaleString("en-GB", { maximumFractionDigits: 0 });
+  }
+  // Prefer a short unit label over the full definition string.
+  const short = shortUnitLabel(unit);
+  if (short !== unit && short.length < 24) {
+    return `${value.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${short}`;
+  }
+  return value.toLocaleString("en-GB", { maximumFractionDigits: 2 });
 }
 
 export function shortUnitLabel(unit: string): string {
-  if (/£\s*million/i.test(unit)) return "£ million (CVM, SA)";
+  if (/£\s*million/i.test(unit)) return "£ million";
+  if (/average house price/i.test(unit)) return "£";
   if (/TWh/i.test(unit)) return "TWh";
+  if (/index/i.test(unit)) return "index";
+  if (/ratio/i.test(unit)) return "ratio";
+  if (/dwellings \(completions\)/i.test(unit)) return "dwellings";
   if (/% of GVA.*weight/i.test(unit)) return "% of GVA (CVM weights)";
   if (/PPM/i.test(unit)) return "% PPM";
   return unit;
+}
+
+/** Pad the plotted range so the line fills the chart instead of sitting above a zero baseline. */
+export function yDomainFromValues(values: number[]): [number, number] {
+  if (values.length === 0) return [0, 1];
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  if (!Number.isFinite(min) || !Number.isFinite(max)) return [0, 1];
+  const span = max - min;
+  const pad = span === 0 ? Math.max(Math.abs(max) * 0.08, 1) : span * 0.12;
+  let lo = min - pad;
+  const hi = max + pad;
+  // Keep a zero baseline only when the series already sits near zero.
+  if (min >= 0 && lo < 0) {
+    lo = min / (max || 1) < 0.2 ? 0 : lo;
+  }
+  return [lo, hi];
 }
 
 export function pointNoun(frequency: string | undefined, chartKind: string | undefined): string {

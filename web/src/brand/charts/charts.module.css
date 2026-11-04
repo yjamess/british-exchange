@@ -1,0 +1,157 @@
+.chart {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  color: var(--bo-ink);
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.chart svg {
+  display: block;
+  overflow: visible;
+}
+
+.grid line {
+  stroke: currentColor;
+  stroke-opacity: 0.16;
+  shape-rendering: crispEdges;
+}
+
+.grid text,
+.axis text,
+.endLabel,
+.annot text,
+.tileText {
+  font-family: var(--bo-f-data);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  fill: currentColor;
+}
+
+.grid text {
+  fill-opacity: 0.62;
+}
+
+.axis line {
+  stroke: currentColor;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill-opacity: 0.75;
+}
+
+.endLabel {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.annot line {
+  stroke: currentColor;
+  stroke-dasharray: 2 3;
+  stroke-opacity: 0.6;
+}
+
+.cursor {
+  stroke: currentColor;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.hit {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.readout {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 0.2rem;
+  min-width: 9rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.3rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  color: var(--bo-paper);
+  background: var(--bo-ink);
+  pointer-events: none;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 12px 24px -12px rgb(0 0 0 / 0.5);
+}
+
+.readout b {
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.readRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.readRow i {
+  display: inline-block;
+  width: 0.9rem;
+  height: 2px;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+
+/* Tile map */
+.tile {
+  cursor: pointer;
+  transition: opacity var(--bo-fast) ease;
+}
+
+.tile rect {
+  transition: fill var(--bo-med) var(--bo-ease);
+}
+
+.tile:focus-visible {
+  outline: none;
+}
+
+.tile:focus-visible rect.tileBox {
+  stroke: var(--bo-signal);
+  stroke-width: 2;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin-top: 0.75rem;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legend i {
+  width: 1.4rem;
+  height: 0.7rem;
+  border: 1px solid var(--bo-ink-20);
+}
+
+.note {
+  margin: 0.6rem 0 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}

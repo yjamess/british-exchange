@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
+import {
+  Libre_Caslon_Display,
+  Source_Sans_3,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+/** Display: Libre Caslon Display (Google Fonts) — user’s “Libra Calson”. */
+const display = Libre_Caslon_Display({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-display",
 });
 

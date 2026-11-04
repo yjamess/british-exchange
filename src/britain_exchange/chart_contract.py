@@ -28,6 +28,7 @@ DISPLAY_TITLE: dict[str, str] = {
     "gcse-grade-4-english-maths": "GCSE grade 4+ English and maths (England)",
     "house-price-to-earnings-ratio": "House price to earnings ratio (England)",
     "dwelling-stock-by-tenure": "Dwelling stock by tenure (England)",
+    "uk-hpi-measures": "UK HPI measures (property type and sales volume)",
     "water-supply-interruptions": "Water supply interruptions (company-level)",
 }
 

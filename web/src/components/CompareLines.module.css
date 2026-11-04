@@ -1,0 +1,11 @@
+.wrap {
+  width: 100%;
+  min-height: 240px;
+}
+
+.empty {
+  margin: 0;
+  padding: 1rem;
+  color: var(--bx-ink-soft);
+  font-size: 0.9rem;
+}

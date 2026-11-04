@@ -1,0 +1,93 @@
+.root {
+  position: absolute;
+  inset: 0 0 0 32%;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mask {
+  position: relative;
+  width: min(100%, 640px);
+  height: min(96vh, 920px);
+  /* Real UK outline — generated from GBR GeoJSON into /public/britain-mask.svg */
+  -webkit-mask-image: url("/britain-mask.svg");
+  mask-image: url("/britain-mask.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: clamp(0.58rem, 1.15vw, 0.82rem);
+  line-height: 1.05;
+  letter-spacing: 0.08em;
+  white-space: pre;
+  user-select: none;
+  text-align: center;
+}
+
+.base {
+  color: color-mix(in srgb, var(--bx-mist, #9aa6c8) 70%, #fff 30%);
+  text-shadow: 0 0 70px rgb(154 166 200 / 0.35);
+  opacity: 1;
+}
+
+.drift {
+  color: color-mix(in srgb, var(--bx-cream, #f4eedf) 70%, transparent);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .base {
+    animation: breathe 50s ease-in-out infinite alternate;
+  }
+
+  .drift {
+    animation: drift 36s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes breathe {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.035);
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1.02);
+  }
+  to {
+    transform: translate(-2.5%, -3%) scale(1.06);
+  }
+}
+
+@media (max-width: 800px) {
+  .root {
+    inset: 38% 0 0 0;
+    opacity: 0.4;
+  }
+
+  .mask {
+    height: 55vh;
+  }
+}

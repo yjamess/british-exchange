@@ -1,0 +1,102 @@
+/* Inner evidence pages — cream reading surface, subliminal ASCII hint */
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--bx-ink);
+  background: var(--bx-paper);
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  max-width: var(--bx-shell-max);
+  margin: 0 auto;
+  padding: var(--bx-shell-pad);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-text-brand);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--bx-navy);
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+  margin: 0.85rem 0 1.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--bx-text-sm);
+  letter-spacing: var(--bx-tracking-orator);
+  text-transform: uppercase;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--bx-navy-soft);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.15rem;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--bx-red);
+  border-bottom-color: var(--bx-red);
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+  border-top: var(--bx-rule);
+  padding-top: var(--bx-space-3);
+}
+
+.kicker {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-mono);
+  color: var(--bx-navy-soft);
+  font-size: var(--bx-text-xs);
+  letter-spacing: var(--bx-tracking-orator);
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--bx-text-xl);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--bx-navy);
+}
+
+.lede {
+  margin: 0.65rem 0 0;
+  max-width: 42rem;
+  color: var(--bx-ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.chartCard {
+  margin: 1.25rem 0 1.75rem;
+  padding: 0.75rem 0.5rem 0.25rem;
+  background: var(--bx-chart-bg);
+  border: var(--bx-hairline) solid var(--bx-line);
+  border-radius: var(--bx-radius);
+}
+
+.error {
+  padding: 1rem;
+  border: 1px solid var(--bx-warn);
+  color: var(--bx-warn);
+  background: #fff7ef;
+}
+
+.error code {
+  display: block;
+  margin-top: 0.5rem;
+}

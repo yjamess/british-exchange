@@ -1,9 +1,40 @@
 # British Exchange — Work plan
 
+## Sector art direction · second pass · 2026-11-04
+
+1. **Orchestrator — in progress:** Replace the overly restrained first pass with Observatory-inspired intaglio, expressive display typography, ASCII postcard motifs and strong changes of surface. Keep established topic and data interactions.
+2. **Orchestrator — pending:** Update shared specimens and verify responsive composition, pointer/keyboard controls and compilation.
+
+## Sector design regeneration · first pass · 2026-11-04
+
+1. **Orchestrator — complete:** Replace the housing design-lab composition and typography with a coherent sector system. Scope: sector navigation, topic panels, statistical figures, comparisons and restrained penwork; homepage deferred.
+2. **Orchestrator — complete:** Extract reusable sector tokens, chapter headings, metric navigation, controls and accessible chart presentation under `web/src/brand/sector/`. Preserve canonical housing data and coverage.
+3. **Orchestrator — complete:** Verify populated topic views, geography selection, keyboard controls, narrow-screen layout and TypeScript compilation. Document the adopted visual rules.
+
 **Orchestrator:** this chat  
 **Notion:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Status:** Pre-merge hardening on `cursor/first-proof-chart-ui` — **48 Ready**, **0 Blocked**, **0 Inbox**  
-**Updated:** 2026-11-03 (release history + typed dimensions + chart contract)
+**Status:** Housing sector experience in progress (Notion §1–6)
+**Updated:** 2026-11-03 (Housing Overview + Explore + HPI measures)
+
+## Sector pages (UI)
+
+- Owner: Orchestrator (Next.js)
+- Status: in_progress
+- Approach: one shared sector skeleton + sector-specific modules (not eight templates)
+- Branding: field `#00103D`, cream reading panels, red accent, Caslon / Source Sans 3 / IBM Plex Mono; ASCII as `hint` only
+- **Housing & Land (first fully realised sector):**
+  - Shipped: `/housing` on **design-lab/observatory** language (Stamp terraces, Ascii dissolve, condensed type, ink/paper bezel) — not the old sector navy shell
+  - Overview (four questions, standout HPI explorer) · regional compare · `/housing/data/[id]` profiles
+  - Data: `uk-hpi-measures` from pinned UK HPI file
+  - Next: completions-by-tenure · LT120 · deeper imprint polish · Atlas later
+- Then: Economy, Energy, remaining sectors
+- Homepage: deferred (designed last)
+- Do not block on unnamed future ASCII libraries
+
+### Review — Housing experience kickoff
+- **Shipped:** Question-led landing; HPI measure explorer; regional compare; dataset profiles; condensed chart captions/source panels (earlier)
+- **Blocked:** Postgres re-load of `uk-hpi-measures` if `DATABASE_URL` is set (file store works now)
+- **Next:** Promote LT213 tenure + wire design-lab imprint into landing polish
 
 ## Registry / Postgres
 
