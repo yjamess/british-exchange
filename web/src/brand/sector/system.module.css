@@ -1,0 +1,29 @@
+.header { border-bottom: 1px solid var(--sector-line); }
+.header > div { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 20px; }
+.header a { text-decoration: none; font-size: 13px; }
+.intro { padding: 70px 0 45px; }
+.intro h1 { font-size: clamp(38px,5vw,66px); font-weight: 500; letter-spacing: -.055em; line-height: 1.1; margin: 20px 0; }
+.intro p { max-width: 58ch; color: var(--sector-muted); }
+.intro nav { display: flex; gap: 24px; margin-top: 32px; font-size: 13px; }
+.section { border-top: 1px solid var(--sector-line); padding: 44px 0 58px; scroll-margin-top: 24px; }
+.typeGrid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; }
+.typeSpec > span { display: block; margin-top: 25px; color: var(--sector-muted); }
+.display { font-size: clamp(36px,4vw,60px); letter-spacing: -.06em; font-weight: 500; }
+.typeSpec h3 { font-size: 30px; line-height: 1.15; font-weight: 500; letter-spacing: -.045em; margin: 12px 0; }
+.typeSpec p { max-width: 48ch; }
+.swatches { padding-top: 24px; }
+.swatch { display: flex; gap: 18px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--sector-line); }
+.swatch i { width: 48px; height: 48px; border: 1px solid var(--sector-line); flex-shrink: 0; }
+.swatch strong { font-size: 14px; font-weight: 500; }
+.swatch code { font: 10px var(--sector-mono); margin-left: 14px; color: var(--sector-muted); }
+.swatch span { display: block; color: var(--sector-muted); font-size: 12px; margin-top: 4px; }
+.componentNotes { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; margin-top: 22px; color: var(--sector-muted); font-size: 13px; }
+.componentNotes strong { color: var(--sector-ink); font-weight: 500; }
+.chartPanel { padding: 32px; background: var(--sector-white); border: 1px solid var(--sector-line); }
+.imprints { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+.imprints > div { min-width: 0; }
+.imprints p { color: var(--sector-muted); font-size: 13px; }
+.penwork svg { width: 100%; height: 220px; color: #788782; }
+.glyphs > div { height: 220px; display: flex; align-items: center; font-size: 35px; color: #788782; }
+.ascii pre { height: 200px; display: flex; align-items: center; font: 12px/1.8 var(--sector-mono); color: #788782; }
+@media (max-width: 760px) { .typeGrid,.imprints,.componentNotes { grid-template-columns: 1fr; gap: 24px; } .intro { padding-top: 40px; } .header span { max-width: 150px; text-align: right; font-size: 9px; } .chartPanel { padding: 20px 14px; } .glyphs > div,.penwork svg { height: 160px; } .ascii pre { height: auto; } }

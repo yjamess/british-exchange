@@ -1,0 +1,26 @@
+---
+description: British Observatory visual identity — Instrument + Imprint for all sector UI
+globs:
+  - web/src/brand/**/*
+  - web/src/app/**/*.{tsx,css}
+  - web/src/components/**/*.{tsx,css}
+  - docs/visual-identity.md
+alwaysApply: false
+---
+
+# Visual identity
+
+Read `docs/visual-identity.md` before changing sector UI, charts, or brand tokens.
+
+## Rules
+
+- Source of truth: `web/src/brand/` + `web/src/brand/brand.css` (`.bo` tokens).
+- Personality: **Instrument** (charts, KPIs, filters, source disclosure) + **Imprint** (hero/threshold only).
+- Never put stamps, ASCII fields, or halftone textures inside a chart plot.
+- Data chooses the form (line / bars / stacked share) — do not default everything to a line.
+- Geography once per module; condense source to publisher + disclosure.
+- Sector pigment (`--bo-sector`) is imprint-only, never series colour.
+- Do not fork a second design system for Energy/Economy/etc. Wrap pages in `BrandRoot`.
+- Changing identity requires updating `docs/visual-identity.md` and `brand.css` together.
+
+Craft refs: Hermes/Nous, Content Architecture, every.to. Product north star: Notion British Exchange page.

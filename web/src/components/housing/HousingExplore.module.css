@@ -1,0 +1,66 @@
+.explorer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip,
+.chipOn {
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--bx-line);
+  background: transparent;
+  color: var(--bx-ink-soft);
+  cursor: pointer;
+}
+
+.chip:hover,
+.chipOn {
+  border-color: var(--bx-admiralty);
+  color: var(--bx-admiralty);
+}
+
+.chipOn {
+  background: color-mix(in srgb, var(--bx-admiralty) 8%, white);
+}
+
+.modeRow {
+  display: inline-flex;
+  border: 1px solid var(--bx-line);
+}
+
+.mode,
+.modeOn {
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 0;
+  background: transparent;
+  color: var(--bx-ink-soft);
+  cursor: pointer;
+}
+
+.modeOn {
+  background: var(--bx-admiralty);
+  color: var(--bx-cream);
+}
+
+.hint {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--bx-ink-soft);
+}

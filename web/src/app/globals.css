@@ -1,17 +1,4 @@
-:root {
-  --ink: #12202c;
-  --ink-soft: #3a4a57;
-  --paper: #f3f1eb;
-  --paper-deep: #e7e2d7;
-  --line: #c9c2b4;
-  --accent: #0b6e4f;
-  --accent-deep: #084c37;
-  --series: #1f4e79;
-  --warn: #8a4b12;
-  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
-  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
-}
+@import "../styles/tokens.css";
 
 * {
   box-sizing: border-box;
@@ -21,23 +8,26 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  color: var(--ink);
-  background:
-    radial-gradient(1200px 600px at 10% -10%, #dfe8e2 0%, transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, #d9e2ec 0%, transparent 50%),
-    var(--paper);
+  color: var(--bx-ink);
+  background: var(--bx-admiralty);
   font-family: var(--font-body);
 }
 
 a {
-  color: var(--accent-deep);
-}
-
-a:hover {
-  color: var(--accent);
+  color: inherit;
 }
 
 code {
   font-family: var(--font-mono);
   font-size: 0.92em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

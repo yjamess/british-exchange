@@ -1,0 +1,28 @@
+.mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-width: 5.5rem;
+  min-height: 4.5rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px dashed color-mix(in srgb, var(--bx-mist, #9aa6c8) 45%, transparent);
+  background: color-mix(in srgb, var(--bx-admiralty, #0e1b3d) 40%, transparent);
+}
+
+.ascii {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.05;
+  color: color-mix(in srgb, var(--bx-cream, #f3f1eb) 55%, transparent);
+  white-space: pre;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bx-mist, #9aa6c8);
+}

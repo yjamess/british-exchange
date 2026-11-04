@@ -1,6 +1,6 @@
 # British Exchange — Agent Team
 
-Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558).
+Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558). **UI identity:** [docs/visual-identity.md](docs/visual-identity.md) — Instrument + Imprint; live kit `web/src/brand/` (not a per-sector redesign).
 
 | Agent | Responsibility | Output | Owns paths |
 |-------|----------------|--------|------------|
@@ -51,3 +51,10 @@ sector-name/
 - Prefer official DESNZ / GOV.UK, ONS, OBR, HMT, BoE APIs or published open data over scraped HTML.
 - One source may feed many indicators; connector belongs to the source; registry row describes the indicator — no duplicate pipelines.
 - Do not commit secrets; use env vars for DB credentials.
+
+## Visual identity (all sector UI)
+
+- Follow [docs/visual-identity.md](docs/visual-identity.md). Tokens live in `web/src/brand/brand.css` under `.bo`.
+- Wrap live sector pages with `BrandRoot`. Imprint (stamps, ASCII, penwork) only at page thresholds; charts stay instrument line-work.
+- Do not invent a parallel palette under `web/src/styles/tokens.css` or `(sectors)/` for new pages. Lab (`web/src/app/design-lab/`) is experimental only.
+- Sector pigment (`--bo-sector`) is imprint-only — never chart series colour.

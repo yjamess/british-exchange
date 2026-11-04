@@ -3,7 +3,7 @@
 **Purpose:** Map what the observatory tracks.  
 **Rule:** `Inbox` = named intent only. **Not sourced. Not in SQL. Not chartable.**  
 **Canonical tracker:** [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558)  
-**Synced:** 2026-11-03 — **48 Ready** on disk + Postgres load path; **0 Blocked**; **0 Inbox**
+**Synced:** 2026-11-03 — **49 Ready** on disk (+ `uk-hpi-measures`); Postgres load may lag until re-ingest; **0 Blocked**; **0 Inbox**
 
 ## How to read status
 
@@ -20,13 +20,13 @@
 |--------|------:|-------|
 | Energy & Industry | 9 | DESNZ + ONS manufacturing |
 | Economy & Public Finance | 13 | ONS / OBR / HMT family |
-| Housing & Land | 5 | Several England-only |
+| Housing & Land | 6 | Several England-only; HPI measures for explorer |
 | People & Society | 5 | NHS / GCSE England-only |
 | Government & Politics | 4 | |
 | Infrastructure | 4 | Ofwat company-level water |
 | Regions & Places | 4 | |
 | History & Change | 4 | |
-| **Total** | **48** | |
+| **Total** | **49** | |
 
 ## Sector map — all Ready
 
@@ -67,6 +67,7 @@
 | Indicator | Publisher | Frequency | Geography note |
 |-----------|-----------|-----------|----------------|
 | UK average house price | HM Land Registry / ONS | monthly | UK |
+| UK HPI measures (type and volume) | HM Land Registry / ONS | monthly | UK · series filter |
 | Private rental price index | ONS | monthly | |
 | House price to earnings ratio | ONS | annual | **England only** |
 | Housing completions | MHCLG | quarterly | **England only** |

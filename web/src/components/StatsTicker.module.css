@@ -1,0 +1,66 @@
+.ticker {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--bx-mist, #9aa6c8) 35%, transparent);
+  background: color-mix(in srgb, #000 22%, var(--bx-admiralty, #0e1b3d));
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: scroll 42s linear infinite;
+}
+
+.item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.45rem 1.35rem;
+  border-right: 1px solid color-mix(in srgb, var(--bx-mist, #9aa6c8) 28%, transparent);
+  color: var(--bx-cream, #f4eedf);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.item:hover {
+  color: #fff;
+  background: color-mix(in srgb, var(--bx-red, #b3122e) 18%, transparent);
+}
+
+.label {
+  color: var(--bx-mist, #9aa6c8);
+}
+
+.value {
+  color: var(--bx-cream, #f4eedf);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.period {
+  color: color-mix(in srgb, var(--bx-mist, #9aa6c8) 70%, transparent);
+  font-size: 0.65rem;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}

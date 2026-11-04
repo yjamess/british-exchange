@@ -1,0 +1,185 @@
+/**
+ * British Observatory — brand foundations (v0.2 · locked)
+ *
+ * Personality: INSTRUMENT + IMPRINT.
+ *   Instrument — precise chrome: mono readouts, hairlines, a bezel, exact units.
+ *   Imprint    — printed matter: engraving, halftone, stamps, sparse ASCII at thresholds only.
+ *
+ * Canonical doc: docs/visual-identity.md
+ * Apply via BrandRoot (class `bo` + brandFonts). Live sector pages must use this file —
+ * do not invent a parallel palette.
+ *
+ * Fonts (next/font):
+ *   --font-cond (display) · --font-display (editorial Caslon)
+ *   --font-body (text)    · --font-mono (data)
+ */
+
+.bo {
+  /* ——— Colour: one ink, one paper, one signal ——— */
+  --bo-paper: #f0ede5; /* Portland — reading surface */
+  --bo-paper-lift: #f7f5ef; /* raised surfaces on paper */
+  --bo-paper-sink: #e6e1d4; /* wells, inputs */
+  --bo-ink: #0d1258; /* Admiralty — the brand ink */
+  --bo-ink-deep: #05072a; /* halftone shadows, ink-on-ink */
+  --bo-signal: #b3122e; /* the ONE highlight that matters — never decoration */
+
+  /* Ink tints (computed, not new hues) — for comparison series and chrome */
+  --bo-ink-80: color-mix(in srgb, var(--bo-ink) 80%, var(--bo-paper));
+  --bo-ink-60: color-mix(in srgb, var(--bo-ink) 60%, var(--bo-paper));
+  --bo-ink-40: color-mix(in srgb, var(--bo-ink) 40%, var(--bo-paper));
+  --bo-ink-20: color-mix(in srgb, var(--bo-ink) 20%, var(--bo-paper));
+  --bo-ink-10: color-mix(in srgb, var(--bo-ink) 10%, var(--bo-paper));
+  --bo-paper-on-ink-70: color-mix(in srgb, var(--bo-paper) 70%, var(--bo-ink));
+
+  /* Sector pigment — imprint ONLY (stamp, hero art). Never chart series. */
+  --bo-sector: #b07c2c; /* default Housing: London stock brick */
+
+  /* Sector shell aliases — shared components map to .bo without a second system */
+  --sector-paper: var(--bo-paper);
+  --sector-white: var(--bo-paper-lift);
+  --sector-ink: var(--bo-ink);
+  --sector-muted: var(--bo-ink-60);
+  --sector-line: var(--bo-ink-20);
+  --sector-accent: var(--bo-signal);
+  --sector-soft: var(--bo-ink-10);
+  --sector-mono: var(--bo-f-data);
+
+  /* ——— Type roles ——— */
+  --bo-f-display: var(--font-cond), "Arial Narrow", sans-serif;
+  --bo-f-editorial: var(--font-display), "Iowan Old Style", Georgia, serif;
+  --bo-f-text: var(--font-body), "Helvetica Neue", Arial, sans-serif;
+  --bo-f-data: var(--font-mono), ui-monospace, monospace;
+
+  /* Type scale — display is fluid, data is fixed */
+  --bo-t-hero: clamp(4rem, 10.5vw, 10.5rem);
+  --bo-t-d1: clamp(3rem, 6.5vw, 6.25rem);
+  --bo-t-d2: clamp(2.25rem, 4.2vw, 4rem);
+  --bo-t-d3: clamp(1.6rem, 2.4vw, 2.25rem);
+  --bo-t-figure: clamp(3.25rem, 6vw, 5.75rem);
+  --bo-t-ed-l: clamp(1.6rem, 2.6vw, 2.35rem);
+  --bo-t-ed-m: clamp(1.25rem, 1.7vw, 1.55rem);
+  --bo-t-body: 1.0625rem;
+  --bo-t-small: 0.9375rem;
+  --bo-t-label: 0.6875rem;
+  --bo-t-micro: 0.625rem;
+  --bo-track-label: 0.16em;
+
+  /* ——— Grid & space (8px rhythm) ——— */
+  --bo-max: 1360px;
+  --bo-gutter: clamp(1.25rem, 4vw, 4rem);
+  --bo-col-gap: clamp(1rem, 1.8vw, 1.5rem);
+  --bo-s1: 0.25rem;
+  --bo-s2: 0.5rem;
+  --bo-s3: 0.75rem;
+  --bo-s4: 1rem;
+  --bo-s5: 1.5rem;
+  --bo-s6: 2rem;
+  --bo-s7: 3rem;
+  --bo-s8: 4rem;
+  --bo-s9: 6rem;
+  --bo-s10: 8rem;
+  --bo-bezel: 6px;
+
+  /* ——— Line language (semantic, also used in charts) ———
+     solid  = observed   ·  dotted = provisional  ·  dashed = not observed / reference */
+  --bo-hair: 1px solid var(--bo-ink-20);
+  --bo-rule: 1px solid var(--bo-ink);
+  --bo-radius: 0.375rem; /* controls only; plates and figures stay square */
+
+  /* ——— Motion: measured, never bouncy ——— */
+  --bo-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bo-fast: 160ms;
+  --bo-med: 360ms;
+  --bo-slow: 700ms;
+
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  font-family: var(--bo-f-text);
+  font-size: var(--bo-t-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ink surface: the same tokens, inverted */
+.bo .bo-on-ink,
+.bo-on-ink {
+  color: var(--bo-paper);
+  background: var(--bo-ink);
+}
+
+/* ——— Grid utility ——— */
+.bo .bo-wrap {
+  width: 100%;
+  max-width: var(--bo-max);
+  margin-inline: auto;
+}
+
+.bo .bo-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--bo-col-gap);
+}
+
+/* ——— Type utilities ——— */
+.bo .bo-label {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.bo .bo-d1,
+.bo .bo-d2,
+.bo .bo-d3,
+.bo .bo-hero {
+  margin: 0;
+  font-family: var(--bo-f-display);
+  font-weight: 250;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.bo .bo-hero {
+  font-size: var(--bo-t-hero);
+  font-weight: 200;
+  line-height: 0.84;
+}
+.bo .bo-d1 {
+  font-size: var(--bo-t-d1);
+  line-height: 0.9;
+}
+.bo .bo-d2 {
+  font-size: var(--bo-t-d2);
+  line-height: 0.94;
+}
+.bo .bo-d3 {
+  font-size: var(--bo-t-d3);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.bo .bo-ed {
+  font-family: var(--bo-f-editorial);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.bo .bo-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.bo :focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bo *,
+  .bo *::before,
+  .bo *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -2,7 +2,8 @@
 
 **Source:** [British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
 **Synced:** 2026-11-03  
-**Canonical tracker:** [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558)
+**Canonical tracker:** [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558)  
+**Visual identity:** [docs/visual-identity.md](visual-identity.md) · live kit `web/src/brand/`
 
 ## Mission
 

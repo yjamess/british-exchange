@@ -1,0 +1,140 @@
+/**
+ * Britain Exchange — design tokens
+ *
+ * Luxury frame: cream · navy/blue · deep red
+ * Technical accent: Orator-style all-caps monospace + ASCII brand moments
+ * References: Hermes/Nous (ASCII banners, skinable mono craft) +
+ *             Studio Freight Dragonfly (monochrome character fields as atmosphere)
+ * Charts: technical-drawing line-work — never green-phosphor / CRT hacker
+ *
+ * Load via globals.css. Fonts are bound in app/layout.tsx
+ * (--font-display, --font-body, --font-mono).
+ */
+
+:root {
+  /* ——— Colour: identity sheet 03 + observatory field ——— */
+  --bx-admiralty: #00002D; /* near-black navy field / homepage */
+  --bx-navy-700: #1f3266;
+  --bx-slate: #5b6380;
+  --bx-mist: #9aa6c8; /* ASCII + text on navy */
+  --bx-portland: #f4eedf; /* cream reading surface (inner pages) */
+  --bx-vellum: #e8dfc8;
+  --bx-rule-sheet: #d9cfb6;
+  --bx-royal-red: #b3122e;
+  --bx-red-on-navy: #f07a86;
+
+  --bx-cream: var(--bx-portland);
+  --bx-cream-deep: var(--bx-vellum);
+  --bx-cream-lift: #faf8f3;
+  --bx-navy: var(--bx-admiralty);
+  --bx-navy-soft: var(--bx-slate);
+  --bx-navy-mid: var(--bx-navy-700);
+  --bx-navy-bright: #3050ff;
+  --bx-red: var(--bx-royal-red);
+  --bx-red-soft: var(--bx-red-on-navy);
+  --bx-ink: var(--bx-admiralty);
+  --bx-ink-soft: var(--bx-slate);
+  --bx-paper: var(--bx-portland);
+  --bx-paper-deep: var(--bx-vellum);
+  --bx-line: var(--bx-rule-sheet);
+  --bx-line-strong: #c4b89a;
+  --bx-warn: #8a4b12;
+  --bx-ok: #2f5d50;
+
+  /* ——— Legacy aliases (existing components) ——— */
+  --ink: var(--bx-ink);
+  --ink-soft: var(--bx-ink-soft);
+  --paper: var(--bx-paper);
+  --paper-deep: var(--bx-paper-deep);
+  --line: var(--bx-line);
+  --accent: var(--bx-red);
+  --accent-deep: #7a1524;
+  --series: var(--bx-navy-mid);
+  --warn: var(--bx-warn);
+
+  /* ——— Typography roles ——— */
+  /* Display: Libre Caslon Display (Google) — brand + selected headlines */
+  --font-display: var(
+    --font-display,
+    "Libre Caslon Display",
+    "Libre Caslon Text",
+    "Iowan Old Style",
+    Palatino,
+    serif
+  );
+  /* Body: restrained sans for explanations */
+  --font-body: var(--font-body, "Source Sans 3", "Helvetica Neue", sans-serif);
+  /* Mono: Orator-adjacent — labels, stats, source trails, ASCII moments */
+  --font-mono: var(--font-mono, "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace);
+
+  --bx-tracking-orator: 0.12em; /* all-caps mono brand / data labels */
+  --bx-tracking-kicker: 0.08em;
+  --bx-text-xs: 0.72rem;
+  --bx-text-sm: 0.85rem;
+  --bx-text-md: 1rem;
+  --bx-text-lg: 1.15rem;
+  --bx-text-xl: clamp(1.45rem, 3vw, 2rem);
+  --bx-text-brand: clamp(2.1rem, 5vw, 3.2rem);
+
+  /* ——— Technical drawing / line-work ——— */
+  --bx-hairline: 1px;
+  --bx-rule: 1px solid var(--bx-line);
+  --bx-rule-strong: 1px solid var(--bx-line-strong);
+  --bx-radius: 0; /* sharp corners — instruments, not soft cards */
+  --bx-dash: 3 6; /* SVG stroke-dasharray for grid / construction lines */
+  --bx-stroke: 1.5;
+  --bx-stroke-strong: 2;
+
+  /* ——— Charts (clean observatory — no phosphor) ——— */
+  --bx-chart-bg: color-mix(in srgb, white 55%, var(--bx-paper));
+  --bx-chart-grid: var(--bx-line);
+  --bx-chart-axis: var(--bx-navy-soft);
+  --bx-chart-series-1: var(--bx-navy-mid);
+  --bx-chart-series-2: var(--bx-red);
+  --bx-chart-series-3: #6b7c8a;
+  --bx-chart-series-4: #c4a35a; /* muted gold, sparingly */
+  --bx-chart-forecast: var(--bx-navy-soft); /* dashed forecast lines */
+  --bx-chart-reference: var(--bx-red); /* e.g. 100% GDP rule */
+  --bx-chart-fill: color-mix(in srgb, var(--bx-navy-mid) 12%, transparent);
+  /* Forbidden moods (do not introduce): #33ff66 phosphor, CRT scanlines as default UI */
+
+  /* ——— ASCII / brand moments (Dragonfly + Hermes-Nous) ——— */
+  --bx-ascii-fg: var(--bx-mist);
+  --bx-ascii-muted: color-mix(in srgb, var(--bx-mist) 35%, transparent);
+  --bx-ascii-bg: transparent; /* atmospheric on Admiralty — not black terminal */
+  --bx-ascii-size: 0.65rem;
+  --bx-ascii-leading: 1.05;
+
+  /* ——— Space & shell ——— */
+  --bx-space-1: 0.35rem;
+  --bx-space-2: 0.65rem;
+  --bx-space-3: 1rem;
+  --bx-space-4: 1.5rem;
+  --bx-space-5: 2.5rem;
+  --bx-shell-max: 1100px;
+  --bx-shell-pad: 1.5rem 1.25rem 3rem;
+
+  /* ——— Motion (subtle; respect reduced-motion in components) ——— */
+  --bx-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --bx-duration: 150ms;
+  --bx-duration-slow: 320ms;
+}
+
+/* Utility: Orator-style label (brand moments + data chrome) */
+.bx-orator {
+  font-family: var(--font-mono);
+  font-size: var(--bx-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--bx-tracking-orator);
+  text-transform: uppercase;
+}
+
+/* Utility: ASCII / technical drawing field */
+.bx-ascii {
+  font-family: var(--font-mono);
+  font-size: var(--bx-ascii-size);
+  line-height: var(--bx-ascii-leading);
+  color: var(--bx-ascii-fg);
+  white-space: pre;
+  user-select: none;
+}

@@ -1,0 +1,23 @@
+.penwork { pointer-events: none; }
+.penwork svg { display: block; width: 100%; height: 100%; }
+.medallion { position: relative; isolation: isolate; width: 100%; max-width: 570px; aspect-ratio: 1.1; color: #e9e5cd; margin-left: auto; }
+.rosette { position: absolute; width: 110%; height: 110%; inset: -3% -5%; opacity: .62; transform: rotate(-13deg); }
+.seal { position: absolute; inset: 24% 22%; border-radius: 50%; background: radial-gradient(ellipse, #141433 54%, #141433e8 68%, #14143300 73%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.seal strong { font: 400 clamp(82px,9vw,138px)/1.07 var(--sector-display); letter-spacing: -.07em; margin: 13px 0 7px; }
+.sealLabel { font: 9px/1.5 var(--sector-mono); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.period { font: 9px var(--sector-mono); margin-top: 15px; opacity: .75; }
+.edition, .plateNote { position: absolute; left: 0; right: 0; text-align: center; font: 8px var(--sector-mono); text-transform: uppercase; letter-spacing: .17em; }
+.edition { top: 2%; }
+.plateNote { bottom: 0; opacity: .7; }
+.registration { position: absolute; inset: 6% 3%; font: 17px/1 var(--sector-mono); opacity: .45; }
+.registration span { position: absolute; }
+.registration span:nth-child(2) { right: 0; }
+.registration span:nth-child(3) { bottom: 0; }
+.registration span:nth-child(4) { bottom: 0; right: 0; }
+.postcard { position: absolute; width: 145px; left: -11%; bottom: -3%; color: #2521b7; background: #efeee5; padding: 9px; transform: rotate(-9deg); border: 3px double #aaa8bc; }
+.postcardTop { display: flex; justify-content: space-between; font: 6px var(--sector-mono); letter-spacing: .05em; padding-bottom: 6px; border-bottom: 1px solid #b6b4ce; }
+.postcardArt { width: 100%; height: 90px; }
+.postcardCaption { display: block; font: 6px var(--sector-mono); letter-spacing: .06em; padding-top: 4px; }
+.ribbon { display: block; width: 100%; height: 120px; pointer-events: none; }
+@media (max-width: 1050px) { .postcard { width: 115px; left: -5%; bottom: -9%; } .postcardArt { height: 65px; } .sealLabel { font-size: 7px; } .seal strong { font-size: 85px; } }
+@media (max-width: 760px) { .medallion { max-width: 370px; margin: 20px auto 25px; } .postcard { left: -2%; bottom: -8%; width: 106px; } .seal strong { font-size: 87px; } .edition,.plateNote { font-size: 6px; } .period { font-size: 7px; } .sealLabel { font-size: 6px; } }

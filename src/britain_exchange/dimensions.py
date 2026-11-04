@@ -113,19 +113,39 @@ def notes_from_dimensions(
 
 def merge_row_dimensions(row: dict[str, object]) -> ObservationDimensions:
     """Prefer explicit dim_* columns on a row; fall back to parsing notes."""
+    nested = row.get("dimensions")
+    nested_map = nested if isinstance(nested, dict) else {}
     explicit = ObservationDimensions(
-        fuel=str(row.get("dim_fuel") or row.get("fuel") or ""),
+        fuel=str(
+            row.get("dim_fuel") or nested_map.get("fuel") or row.get("fuel") or ""
+        ),
         water_company=str(
-            row.get("dim_water_company") or row.get("water_company") or ""
+            row.get("dim_water_company")
+            or nested_map.get("water_company")
+            or row.get("water_company")
+            or ""
         ),
         water_company_name=str(
-            row.get("dim_water_company_name") or row.get("water_company_name") or ""
+            row.get("dim_water_company_name")
+            or nested_map.get("water_company_name")
+            or row.get("water_company_name")
+            or ""
         ),
         demographic=str(
-            row.get("dim_demographic") or row.get("demographic") or ""
+            row.get("dim_demographic")
+            or nested_map.get("demographic")
+            or row.get("demographic")
+            or ""
         ),
-        series=str(row.get("dim_series") or ""),
-        category=str(row.get("dim_category") or row.get("category") or ""),
+        series=str(
+            row.get("dim_series") or nested_map.get("series") or row.get("series") or ""
+        ),
+        category=str(
+            row.get("dim_category")
+            or nested_map.get("category")
+            or row.get("category")
+            or ""
+        ),
     )
     if not explicit.is_empty():
         parsed = dimensions_from_notes(str(row.get("notes") or ""))
