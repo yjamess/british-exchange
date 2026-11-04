@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { BrandRoot } from "@/brand/BrandRoot";
-import { HousingOverview } from "@/brand/housing/HousingOverview";
+import { HousingExplorer } from "@/brand/housing/HousingExplorer";
 import { loadHousing } from "@/brand/housing/load";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Housing & Land · British Exchange",
-  description:
-    "The places we live. The prices we pay. Explore UK housing prices, rents, affordability and supply.",
+  description: "UK house prices, regional prices, rents, affordability, new supply and dwelling tenure, from the official series.",
 };
 
-/** Housing = sector one proof of the shared Instrument + Imprint shell. */
+/** Housing & Land — v1 explorer (one ink, plates, instrument charts). */
 export default async function HousingPage() {
   return (
     <BrandRoot>
-      <HousingOverview data={await loadHousing()} />
+      <HousingExplorer data={await loadHousing()} />
     </BrandRoot>
   );
 }

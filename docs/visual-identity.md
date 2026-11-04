@@ -71,7 +71,12 @@ uv run .claude/skills/observatory-imprint/scripts/halftone-plates.py web/public/
 
 ## Motion
 
-Plates can move. Render tone frames (`--only frames`, e.g. one 120° rotor cycle = 24 frames packed in `turbine-atlas-4x6-768x432.jpg`) and screen them live on the GPU (WebGL) as halftone or film. Reference implementation: the Motion section of the identity page. Respect `prefers-reduced-motion` (show one still frame) and fall back to the static mask plate without WebGL. A reusable `<HalftoneMotion>` component is the next foundation to port.
+Plates can move, and large fields can breathe. Components live in `web/src/brand/motion/`; how to use and extend them is in the **exchange-motion** skill (`.claude/skills/exchange-motion/SKILL.md`); live check at `/design-lab/motion`.
+
+- `<HalftoneMotion>` — a tone-frame atlas (e.g. one 120° rotor cycle, `turbine-atlas-4x6-768x432.jpg`) screened live on the GPU as **halftone** or **film**.
+- `<DitherField>` — large ASCII-style fields: **dots** (ordered Bayer dither on a strict grid) or **numerals** (digits by ink coverage; data fields type real values). Fields: cloud, globe, ridges(real series).
+
+Rules: reduced motion shows a still frame; pause off-screen; ≤24 fps; tone from density only; copy sits on solid panels above motion; one monumental motion per page; never inside a chart plot. GSAP is planned for orchestration (see the skill).
 
 ## Instrument language
 

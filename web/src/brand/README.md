@@ -8,8 +8,10 @@
 | `fonts.ts` | Libre Caslon Display, Geist, Geist Mono, Archivo (condensed) via `next/font` |
 | `BrandRoot.tsx` | Wraps a page: applies `.bo` + fonts |
 | `Plate.tsx` | Halftone plate component + `PLATES` catalogue (files in `public/brand/plates/`) |
-| `sector/`, `charts/`, `housing/` | v0.2 components — render through legacy token aliases; rebuild onto v1 page by page |
-| `playground/` | Lab reference (not production) |
+| `motion/` | `HalftoneMotion` (live halftone/film loops) and `DitherField` (dither dots / numerals fields) — see the exchange-motion skill; lab at `/design-lab/motion` |
+| `instrument/` | v1 charts: `TimeChart` (line, bars, stack; dot-screen fills, Signal latest, keyboard inspection, data table) and `RankBars` |
+| `housing/` | v1 Housing & Land explorer (`HousingExplorer`) and its loader |
+| `sector/`, `charts/` | v0.2 components — render through legacy token aliases; retire as sectors move to v1 |
 
 ## Using a plate
 
