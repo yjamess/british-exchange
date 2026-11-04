@@ -1,6 +1,6 @@
 # British Exchange — Agent Team
 
-Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558). **UI identity:** [docs/visual-identity.md](docs/visual-identity.md) — Instrument + Imprint; live kit `web/src/brand/` (not a per-sector redesign).
+Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558). **UI identity:** [docs/visual-identity.md](docs/visual-identity.md) — v1 "One ink, drawn by instruments"; live kit `web/src/brand/` (not a per-sector redesign).
 
 | Agent | Responsibility | Output | Owns paths |
 |-------|----------------|--------|------------|
@@ -55,6 +55,8 @@ sector-name/
 ## Visual identity (all sector UI)
 
 - Follow [docs/visual-identity.md](docs/visual-identity.md). Tokens live in `web/src/brand/brand.css` under `.bo`.
-- Wrap live sector pages with `BrandRoot`. Imprint (stamps, ASCII, penwork) only at page thresholds; charts stay instrument line-work.
-- Do not invent a parallel palette under `web/src/styles/tokens.css` or `(sectors)/` for new pages. Lab (`web/src/app/design-lab/`) is experimental only.
-- Sector pigment (`--bo-sector`) is imprint-only — never chart series colour.
+- Wrap live sector pages with `BrandRoot`. One electric ink on paper; tints are dots, never opacity; Signal red marks live points only, never text.
+- Imagery = halftone plates via `<Plate>` (`web/src/brand/Plate.tsx`, files in `web/public/brand/plates/`, drawn by `.claude/skills/observatory-imprint`). Plate treatments are imagery, not reading themes — copy over a plate sits on a solid panel. Never put a plate inside a chart plot.
+- Data-generated plates carry a source line like any chart (publisher, series, period, release, indicator id).
+- Type: Caslon headlines in sentence case, Geist body, Geist Mono labels, condensed Archivo figures; heavy capitals only for the wordmark and one line per page.
+- Do not invent a parallel palette under `web/src/styles/tokens.css` or `(sectors)/` for new pages. Lab (`web/src/app/design-lab/`) is experimental only. Sector pigments are retired.

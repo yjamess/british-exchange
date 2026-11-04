@@ -1,109 +1,110 @@
-# British Observatory — visual identity
+# British Exchange — visual identity (v1 · One ink, drawn by instruments)
 
-**Product:** [British Exchange (Notion)](https://app.notion.com/p/406654717685802987ffce671c6844e8)  
-**Code source of truth:** [`web/src/brand/`](../web/src/brand/)  
-**Token file:** [`web/src/brand/brand.css`](../web/src/brand/brand.css)  
-**Craft references:** [Hermes / Nous](https://hermes-agent.nousresearch.com/) · [Content Architecture](https://www.contentarchitecture.dev/#pricing) · [every.to](https://every.to/)
+**Product:** [British Exchange (Notion)](https://app.notion.com/p/406654717685802987ffce671c6844e8)
+**Tokens:** [`web/src/brand/brand.css`](../web/src/brand/brand.css) (class `.bo`, applied by `BrandRoot`)
+**Fonts:** [`web/src/brand/fonts.ts`](../web/src/brand/fonts.ts) · **Plates:** [`web/src/brand/Plate.tsx`](../web/src/brand/Plate.tsx) + `web/public/brand/plates/`
+**Reference page:** British Exchange Identity artifact — https://claude.ai/artifact/GtitrCz1unhu2dE3GDgaTM (private to the owner until shared)
+**Plate generator:** `.claude/skills/observatory-imprint/scripts/halftone-plates.py`
 
-This is the locked identity for the **whole Observatory** (eight sectors + investigations). Housing is sector one — the first proof of the shared system, not a separate brand.
+Replaces v0.2 "Instrument + Imprint" (Admiralty/Portland, sector pigments, heavy condensed display). Legacy `--bo-*` names still resolve, mapped onto the v1 values, so existing pages render until they are rebuilt.
 
-## Mission (from Notion)
+## Idea
 
-A beautifully designed, trustworthy home for fragmented British public data. Clean and intuitive by default; depth on deliberate interaction. Branding, typography, layout, motion and craft are **central requirements**, not final polish. Sectors may introduce distinctive views **without fragmenting the system**.
+Britain as a living system. Every public number, connected. The site is printed in **one electric ink on paper**. Its imagery is engineered drawings of the country's real machinery — towers, turbines, pylons, homes — rendered in 3D and screened through a coarse halftone, like plates in a technical journal. Some plates are **generated from the data itself**. Type stays quiet so the drawings can be intricate.
 
-## Personality: Instrument + Imprint
+## Colour (locked)
 
-| Mode | Meaning | Where it appears |
-|------|---------|------------------|
-| **Instrument** | Precise chrome — mono readouts, hairlines, exact units, measured motion | KPI strips, charts, filters, source disclosure, tables |
-| **Imprint** | Printed matter — engraving, halftone, stamps, sparse ASCII | Page thresholds only (hero / cover / section hand-off) |
+| Token | Name | Hex | Role | Contrast on paper |
+|-------|------|-----|------|-------------------|
+| `--bo-electric` / `--bo-ink` | Electric | `#0618F5` | The one ink: headings, rules, marks, chart lines, every plate | 8.4:1 |
+| `--bo-paper` | Paper | `#FDFDFF` | The sheet | — |
+| `--bo-union` / `--bo-text` | Union | `#012169` | Running text, night plates, index and deep sections | 14.5:1 |
+| `--bo-signal` | Signal | `#FF3347` | Live marks only: a latest point, a live dot. **Never text, never behind text** | 3.6:1 (marks only) |
+| `--bo-lavender` | Lavender | `#9C9EFF` | Film highlights; muted index type on Union (6.1:1) | — |
 
-**Rule:** Imprint at the threshold, instrument in the data. Never put stamps, ASCII fields, or halftone textures *inside* a chart plot.
+- **One ink per surface:** electric on paper, paper on flat electric, or paper/lavender on Union.
+- **Tints are dots, never opacity.** Area shading in charts and UI uses the halftone screen (`.bo-tint-30`, `.bo-tint-60`, SVG dot patterns at 45°). Solid ink mixes (`--bo-ink-20` etc.) are for hairlines and chrome only. Type is never faded.
+- Sector pigments are retired. `--bo-sector` now resolves to ink.
 
-## Steal / don't steal
+## Type (Caslon + Geist)
 
-| Reference | Steal | Don't steal |
-|-----------|--------|-------------|
-| Hermes / Nous | Ink field + classical/engraved imprint; condensed display; technical chrome beside craft | Generic AI-product blue as brand colour |
-| Content Architecture | Warm paper; huge quiet type; mono labels; one decisive surface; “decisions already made” | Pricing-page structure on data pages |
-| every.to | Editorial calm; serif for questions; mono for meta/time; sparse hierarchy; one accent for the single important action | Every’s blue; media-homepage layout as the data product |
+| Role | Face | Setting | Token / utility |
+|------|------|---------|-----------------|
+| Headlines | Libre Caslon Display | 400, sentence case, −0.01em | `--bo-f-head`, `.bo-hero` `.bo-d1–3` |
+| The loud line + wordmark | Libre Caslon Display | 400, capitals; **one per page** | `.bo-statement` |
+| Reading + UI | Geist | 400, 16–20px | `--bo-f-body` |
+| Labels, data, notation | Geist Mono | 500, 11px caps, tracked | `--bo-f-data`, `.bo-label` |
+| Figures | Archivo, condensed (wdth 62) | 300, tabular | `--bo-f-fig`, `.bo-fig` |
+| Index | Archivo, condensed | 400 caps, two-tone (lavender run, paper keyword in `<b>`) | `.bo-caps` |
 
-Product inspirations (behaviour, not skin): State of Britain, SEZ Explorer, PlasticList, Who Funded Genocide.
+Headlines read as captions to the engravings, not slogans. Heavy capitals are reserved for the wordmark and one statement per page.
 
-## Palette (encoded in `.bo`)
+## Plates
 
-| Token | Role | Hex |
-|-------|------|-----|
-| `--bo-ink` | Admiralty — primary ink | `#0d1258` |
-| `--bo-ink-deep` | Ink-on-ink / deep field | `#05072a` |
-| `--bo-paper` | Portland — reading surface | `#f0ede5` |
-| `--bo-paper-lift` / `--bo-paper-sink` | Raised / recessed paper | `#f7f5ef` / `#e6e1d4` |
-| `--bo-signal` | The **one** highlight that matters | `#b3122e` |
-| `--bo-sector` | Sector pigment — **imprint only** | Housing default `#b07c2c` |
+One mask PNG per plate (ink as alpha), printed in token colours by `<Plate>`:
 
-Charts and series use ink tints (`--bo-ink-80` … `--bo-ink-10`) and signal sparingly. Sector pigment never colours data series.
+| Treatment | Look | Use |
+|-----------|------|-----|
+| `print` | Electric on paper | Default for every plate |
+| `night` | Union on electric | Imagery only (low contrast) — dark sections |
+| `negative` | Paper on electric, tones reversed | Section breaks only, sparingly |
+| film *(motion only)* | Lavender highlights on electric, live grain | Moving loops — see Motion |
 
-## Type roles
+Treatments are imagery treatments, **not reading themes**. Copy over a plate always sits on a solid panel (`.bo-panel`, or flat electric/union) at full contrast.
 
-| Role | Token / utility | Face |
-|------|-----------------|------|
-| Display / figures | `--bo-f-display`, `.bo-hero` / `.bo-d1`… | Sofia Sans Extra Condensed |
-| Editorial / questions | `--bo-f-editorial`, `.bo-ed` | Libre Caslon Display |
-| Reading | `--bo-f-text` | Source Sans 3 |
-| Data / labels | `--bo-f-data`, `.bo-label` | IBM Plex Mono |
+Catalogue (`PLATES` in `Plate.tsx`): globe (the Exchange), cooling towers, offshore wind, tower block, pylons, regional house prices (data-generated). Wide (`l-`, 2400×1350) and portrait (`p-`, 1060×1768) cuts.
 
-Keep these four roles. Change faces only by updating this doc and `brand.css` together.
+Uses: hero, full-bleed section background (monumental), card header, card fill with a solid label tag.
 
-## Chart line language
+### Data-generated plates
 
-- **Solid** — observed
-- **Dotted** — provisional
-- **Dashed** — not observed / reference / target
+Where possible the art is drawn by the numbers it describes. Each data plate **carries a source line like any chart**: publisher, series, period, release, link, Exchange indicator id. First example: `regionalHousePrices` — twelve engraved ridges, one per region/nation, height = UK HPI average price monthly, Jan 1995 – Aug 2026 (HM Land Registry / ONS, Aug 2026 release).
 
-## Chart forms (data chooses the form)
+Regenerate from the API:
 
-| Data shape | Form | Brand component |
-|------------|------|-----------------|
-| Level over time | Line | `charts/LineChart` or sector `TrendChart` |
-| Flow / counts over time | Comb / bars | `charts/CombBars` or `TrendChart` bars |
-| Parts of a whole over time | Stacked share | `charts/ShareArea` |
-| Snapshot categories | Bars / table | categorical view |
+```bash
+# fetch observations (API on :8000), then draw
+curl "localhost:8000/indicators/house-prices-by-region/observations?limit=10000" -o data/house-prices-by-region.json
+uv run .claude/skills/observatory-imprint/scripts/halftone-plates.py web/public/brand/plates \
+  --bare --mask --only regions --size 2400x1350 --prefix l- --data data
+```
 
-Never one chart type for everything.
+## Motion
 
-## Sector page pattern (shared shell)
+Plates can move. Render tone frames (`--only frames`, e.g. one 120° rotor cycle = 24 frames packed in `turbine-atlas-4x6-768x432.jpg`) and screen them live on the GPU (WebGL) as halftone or film. Reference implementation: the Motion section of the identity page. Respect `prefers-reduced-motion` (show one still frame) and fall back to the static mask plate without WebGL. A reusable `<HalftoneMotion>` component is the next foundation to port.
 
-1. **Threshold imprint** — wordmark / mast on ink; hero with one engraved or penwork figure  
-2. **KPI instrument strip** — latest Ready figures (sector-wide summary)  
-3. **Topics / questions** — progressive disclosure (Overview → Explore → Data)  
-4. **Module** — title + **one** geography badge + chart + condensed source (`details`: publisher + measure note + official link)  
-5. **No metadata walls** — series IDs, observation counts, licences live in source disclosure, not the chart caption  
+## Instrument language
 
-Live UI kit: `web/src/brand/`. Wrap pages with `BrandRoot` (applies `.bo` + fonts + `brand.css`).
+Recurring marks, **each plotted from something real** and labelled with what it measures:
 
-Lab (`web/src/app/design-lab/`) is experimental. Do not invent a second design system for Energy, Economy, etc.
+fine rule (1px on the 8px baseline) · coordinate mark (a real place, e.g. Ratcliffe-on-Soar 52.86°N 1.26°W) · registration cross (a plate's corners) · measurement ticks (one per period that exists in the data) · contour lines (iso-lines through a real surface) · plotted points (dots only at observations).
 
-## Adopting a new sector page
+Line language, in marks and charts: **solid** = observed · **dotted** = provisional · **dashed** = not observed, gap or reference. Gaps stay visible, never smoothed.
 
-1. Create `web/src/brand/<sector>/` (overview + load) or reuse `sector/` components.  
-2. Set `--bo-sector` to that sector’s imprint pigment only (stamp / hero art).  
-3. Wrap the page in `<BrandRoot>`.  
-4. Follow the sector page pattern above; Ready registry series only.  
-5. Do not fork colours or type into a parallel `--sector-*` palette — alias to `--bo-*`.  
-6. Distinctive views (maps, special diagrams) are allowed as **modules**, not as a new identity.
+## Composition
 
-Suggested pigments (imprint only): Housing brick `#b07c2c` · Energy (set when shipping) · Economy (set when shipping).
+Twelve columns (`.bo-grid`, max 1320px, 8px rhythm, square corners). Each section picks one mode:
 
-## Non-negotiables
+- **Quiet** — wide margins, one text column, one small figure. Most of the site.
+- **Monumental** — full-bleed plate or one huge figure, at a threshold. At most one per page.
+- **Index** — dense condensed two-tone capitals on Union with dotted dividers, for navigation and sector menus.
 
-1. Imprint at threshold; instrument in data.  
-2. Data chooses the form.  
-3. Geography once per module.  
-4. Depth is a choice (Overview → Explore → Data).  
-5. Shared shell first; sector views second.  
-6. No redesign without updating this doc **and** `brand.css`.  
-7. Evidence quality beats visual breadth (Notion Dec gate).
+## Charts
 
-## Changing the identity
+Data chooses the form (line, comb/bars, stacked share, table). Series in ink and ink mixes; areas filled with the dot screen; the latest point may be marked in Signal. Never put a plate or texture inside a plot.
 
-Edit `docs/visual-identity.md` and `web/src/brand/brand.css` in the same change. Agents must not invent new cream/navy/red systems under `web/src/styles/tokens.css` or `(sectors)/` for new work.
+## Rules
+
+1. One ink per surface.
+2. Tints are dots, never opacity; type is never faded.
+3. Text on solid ground; plate treatments are imagery, not themes.
+4. Quiet type, one loud line.
+5. Marks are measurements; gaps stay visible.
+6. Data can draw the art — and then it carries a source line.
+7. Wrap pages in `BrandRoot`; no parallel palettes. Change the identity only by updating this doc and `brand.css` together.
+
+## Migration from v0.2
+
+- Legacy tokens (`--bo-ink`, `--bo-paper`, `--bo-signal`, `--bo-f-display`, `--bo-f-editorial`, `--bo-f-text`, `--sector-*`) are aliased to v1 values; pages render but are not yet redesigned.
+- Remove hard-coded hexes left in older components (`#0d1258`, `#f0ede5`, `#b07c2c`, greys) as each page is rebuilt.
+- Retire `Penwork`/ASCII imprint pieces from v0.2 in favour of plates; large ASCII motion is under exploration on the identity page, not yet part of v1.

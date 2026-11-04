@@ -1,26 +1,31 @@
-# `web/src/brand` — Observatory UI kit
+# `web/src/brand` — British Exchange UI kit (v1)
 
-Shared **Instrument + Imprint** shell for every sector page.
-
-- Tokens: [`brand.css`](./brand.css) (class `.bo`)
-- Doc: [`docs/visual-identity.md`](../../../docs/visual-identity.md)
-- Entry: wrap pages in [`BrandRoot.tsx`](./BrandRoot.tsx)
-
-## Layout
+"One ink, drawn by instruments." Read [`docs/visual-identity.md`](../../../docs/visual-identity.md) first.
 
 | Path | Role |
 |------|------|
-| `BrandRoot.tsx` / `brand.css` / `fonts.ts` | Locked identity |
-| `sector/` | Shared page primitives (MetricStrip, Choice, Evidence, TrendChart, Penwork) |
-| `charts/` | Chart forms (Line, CombBars, ShareArea, …) |
-| `housing/` | Sector one — template for other sectors |
-| `playground/` | Lab reference for tokens (not production) |
+| `brand.css` | Tokens and utilities under `.bo` (colour, type, grid, screen tints, plates, panels) |
+| `fonts.ts` | Libre Caslon Display, Geist, Geist Mono, Archivo (condensed) via `next/font` |
+| `BrandRoot.tsx` | Wraps a page: applies `.bo` + fonts |
+| `Plate.tsx` | Halftone plate component + `PLATES` catalogue (files in `public/brand/plates/`) |
+| `sector/`, `charts/`, `housing/` | v0.2 components — render through legacy token aliases; rebuild onto v1 page by page |
+| `playground/` | Lab reference (not production) |
 
-## New sector
+## Using a plate
 
-1. Add `brand/<sector>/` with load + overview (or reuse `sector/` components).
-2. Set pigment via `<BrandRoot sector="#…">` (imprint only).
-3. Follow Overview → topics → chart modules → condensed source.
-4. Do not fork a parallel colour system.
+```tsx
+import { Plate } from "@/brand/Plate";
 
-Lab under `app/design-lab/` stays experimental.
+<Plate name="coolingTowers" treatment="print" position="50% 40%" style={{ minHeight: 640 }}>
+  <div className="bo-panel">…copy on a solid panel…</div>
+</Plate>
+```
+
+New plates come from `.claude/skills/observatory-imprint/scripts/halftone-plates.py` (`--bare --mask`), then get a `PLATES` entry. Data-generated plates need a `source`.
+
+## New page
+
+1. Wrap in `<BrandRoot>`.
+2. Pick a mode per section: Quiet, Monumental (max one), Index.
+3. Headlines `.bo-d1–3` (Caslon, sentence case), figures `.bo-fig`, labels `.bo-label`.
+4. No parallel palettes, no opacity tints, no Signal on text.
