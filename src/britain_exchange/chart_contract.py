@@ -14,6 +14,7 @@ ChartKind = Literal[
 # Indicators that must never be silently mixed with a different measure family.
 MEASURE_FAMILY: dict[str, str] = {
     "cpi-inflation": "cpi",  # not CPIH
+    "cpi-index": "cpi",  # index level companion to D7G7 rate
     "manufacturing-share-of-gva": "gva_cvm_weight_pct",
     "rail-punctuality": "rail_ppm",
 }
@@ -21,6 +22,7 @@ MEASURE_FAMILY: dict[str, str] = {
 # Display titles that correct common shorthand mistakes in the UI.
 DISPLAY_TITLE: dict[str, str] = {
     "cpi-inflation": "CPI inflation (not CPIH)",
+    "cpi-index": "CPI index (D7BT, 2015=100)",
     "manufacturing-share-of-gva": "Manufacturing share of GVA (CVM industry weights)",
     "rail-punctuality": "Rail punctuality (PPM, Great Britain)",
     "nhs-elective-waiting-list": "NHS elective waiting list (England)",
@@ -29,6 +31,10 @@ DISPLAY_TITLE: dict[str, str] = {
     "house-price-to-earnings-ratio": "House price to earnings ratio (England)",
     "dwelling-stock-by-tenure": "Dwelling stock by tenure (England)",
     "uk-hpi-measures": "UK HPI measures (property type and sales volume)",
+    "green-belt-area": "Green Belt area (England)",
+    "land-use-stock": "Land use stock (England, 2022)",
+    "planning-decisions-granted": "Planning applications received / decided / granted (England)",
+    "brownfield-land": "Brownfield land register (England)",
     "water-supply-interruptions": "Water supply interruptions (company-level)",
 }
 
@@ -114,7 +120,7 @@ def chart_meta_for_indicator(
         "definition": definition,
         "measure_family": MEASURE_FAMILY.get(indicator_id, indicator_id),
         "england_only": england_only,
-        "is_cpi": indicator_id == "cpi-inflation",
+        "is_cpi": indicator_id in {"cpi-inflation", "cpi-index"},
         "is_cpih": False,  # CPIH is not in the Ready catalogue; keep explicit
         "is_gva_cvm_weight": indicator_id == "manufacturing-share-of-gva",
         "is_rail_ppm": indicator_id == "rail-punctuality",

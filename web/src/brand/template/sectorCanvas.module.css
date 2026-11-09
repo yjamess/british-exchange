@@ -1,0 +1,33 @@
+/* Series a domain will draw on, listed inside the "In preparation" stage frame. */
+.series {
+  list-style: none;
+  margin: var(--bo-s2) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  width: 100%;
+  border-top: var(--bo-hair);
+}
+.series li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px var(--bo-s4);
+  padding: var(--bo-s2) 0;
+  border-bottom: var(--bo-hair);
+  font-size: var(--bo-t-ui);
+}
+.series a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+.series a:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.series :global(.bo-label) {
+  color: var(--bo-text);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}

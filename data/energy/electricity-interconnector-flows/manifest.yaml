@@ -1,0 +1,49 @@
+indicator_id: electricity-interconnector-flows
+title: Electricity interconnector flows
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/electricity-section-5-energy-trends
+series_id: ET 5.6 (Quarterly imports and exports, GWh, by corridor)
+geography: UK (K02000001); includes NI–Republic of Ireland. Not GB-only NESO operational
+  geography.
+frequency: quarterly
+unit: GWh
+definition: 'UK electricity Imports, Exports and Net imports in gigawatt-hours (GWh)
+  from Energy Trends table ET 5.6 sheet ''Quarterly imports and exports''. One observation
+  per corridor × flow × calendar quarter. Corridors: UK-total, France-UK (IFA+IFA2+ElecLink
+  per Note 2), Ireland-NI, Netherlands-UK, Ireland-Wales, Belgium-UK, Norway-UK, Denmark-UK.
+  notes use corridor=<id>; flow=Imports|Exports|Net imports.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.electricity_interconnector_flows
+curated_path: curated/observations.csv
+update_cadence: Quarterly — Energy Trends ET 5.6 with section 5 electricity tables,
+  last Thursday of Mar/Jun/Sep/Dec (data one quarter in arrears)
+raw_evidence:
+- path: raw/2026-11-07/ET_5.6_SEP_26.xlsx
+  retrieved_at: '2026-11-07T09:33:00+00:00'
+  checksum_sha256: f9ce73f5adaec1f84cb463479567964f185733c1eed1d506075ce6328b9c46f9
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6aba6e128cb3c0580e50128a/ET_5.6_SEP_26.xlsx
+transformations: 'Parse Quarterly imports and exports header row 6. Long-format: one
+  CSV row per corridor × flow × quarter. Map [x] → missing. Preserve publisher Net
+  imports (can be negative). Annual sheet and ET 5.6B internal transfers not ingested
+  in this hand-off.'
+revision_notes: ET_5.6_SEP_26 published 29 Sep 2026; latest quarter 2026-Q2 marked
+  provisional in source.
+caveats: France-UK is the published sum of three interconnectors (Note 2), not a single
+  cable. Geography is UK Official Statistics — do not blend with GB NESO half-hourly
+  Imports without a labelled break. Distinct from ET 1.3 all-fuels ktoe trade (energy-imports-and-exports).
+  Internal Scotland↔England / Scotland↔NI transfers live on separate ET 5.6B sheets
+  (Gate 3). GOV.UK asset URLs change each release.
+related_indicator_ids:
+- gb-generation-mix-half-hourly
+- energy-imports-and-exports
+open_questions:
+- Optional annual sheet companion or ET 5.6B internal transfers series.
+- NESO Interconnector Register MW capacity as separate capacity indicator.
+- Thermal constraint costs (NESO) for Where Power Bottlenecks — Gate 3.
+notion_registry_url: https://app.notion.com/4116547176858128b5cde0c291d4674c
+schema_version: '1.0'

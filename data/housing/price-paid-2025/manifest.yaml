@@ -1,0 +1,38 @@
+indicator_id: price-paid-2025
+title: Price Paid transactions (2025 slice)
+sector: housing-land
+publisher: HM Land Registry
+source_url: https://www.gov.uk/government/statistical-data-sets/price-paid-data-yearly-file
+series_id: Price Paid Data yearly file 2025
+geography: England and Wales
+frequency: annual
+unit: £ sale price (individual transaction)
+definition: Individual residential property sales in England and Wales lodged with
+  HM Land Registry during calendar year 2025. First Domain 01 address-search slice
+  — not the full 1995–present single file.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.price_paid_2025
+curated_path: curated/transactions.csv
+update_cadence: monthly refresh of the yearly file on GOV.UK
+raw_evidence:
+- path: raw/2026-11-04/pp-2025.csv
+  retrieved_at: '2026-11-05T17:01:22.587637+00:00'
+  checksum_sha256: efa08621a077079f59ac3de66cdb7688323310148c451dac0d0f1d72489f9749
+  content_type: text/csv
+  official_release_date: '2026-10-28'
+  http_status: null
+  source_url: https://price-paid-data.publicdata.landregistry.gov.uk/pp-2025.csv
+transformations: Parse headerless PPD CSV; map property_type/tenure codes; ISO dates;
+  write curated/transactions.csv; load Postgres price_paid_transaction.
+revision_notes: Pinned pp-2025.csv (2026-10-28 GOV.UK update).
+caveats: Contains HM Land Registry data © Crown copyright and database right 2021.
+  This data is licensed under the Open Government Licence v3.0. England & Wales only.
+  Recent months incomplete due to registration lag (typically two weeks to two months).
+  This package is the 2025 yearly slice (992,278 rows).
+related_indicator_ids:
+- uk-hpi-measures
+- uk-average-house-price
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

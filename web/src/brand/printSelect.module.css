@@ -1,0 +1,164 @@
+/* PrintSelect — Base UI select in the v1 identity. One ink. */
+
+.root {
+  position: relative;
+  display: inline-block;
+  min-width: 9rem;
+}
+/* Shared portal on `.bo` — above every stage, never clipped by the chart frame. */
+.portalHost {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 200;
+}
+.portalHost > * {
+  pointer-events: auto;
+}
+
+/* ——— Trigger ——— */
+.trigger {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  width: 100%;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0 var(--bo-s2);
+  border: 0;
+  border-bottom: var(--bo-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: 16px;
+  line-height: 1;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--bo-fast) var(--bo-ease),
+    color var(--bo-fast) var(--bo-ease);
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 4px;
+}
+.trigger[data-popup-open] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.value {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Drawn caret, rotates when open */
+.caret {
+  position: relative;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  transition: transform var(--bo-med) var(--bo-ease);
+}
+.caret::before,
+.caret::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 6px;
+  height: 1.5px;
+  background: currentColor;
+}
+.caret::before {
+  left: 0;
+  transform: rotate(40deg);
+  transform-origin: left center;
+}
+.caret::after {
+  right: 0;
+  transform: rotate(-40deg);
+  transform-origin: right center;
+}
+.trigger[data-popup-open] .caret {
+  transform: rotate(180deg);
+}
+
+/* ——— Popup ——— */
+.positioner {
+  z-index: 200;
+  outline: 0;
+}
+.popup {
+  box-sizing: border-box;
+  min-width: var(--anchor-width);
+  max-width: min(22rem, 90vw);
+  max-height: min(20rem, var(--available-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  outline: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+/* ——— Items ——— */
+.item {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+  margin: 0 7px;
+  padding: 0 var(--bo-s3);
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: 15px;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  outline: 0;
+}
+.item:first-child {
+  margin-top: 7px;
+}
+.item:last-child {
+  margin-bottom: 7px;
+}
+.item + .item {
+  box-shadow: 0 -1px 0 var(--bo-ink-20);
+}
+/* Highlighted (pointer or keyboard) and selected: the same solid ink block. */
+.item[data-highlighted],
+.item[data-selected] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  box-shadow: none;
+}
+.item[data-highlighted] + .item,
+.item[data-selected] + .item {
+  box-shadow: none;
+}
+.item[data-disabled] {
+  cursor: not-allowed;
+  color: var(--bo-ink-40);
+}
+.itemText {
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .caret {
+    transition: none;
+  }
+}

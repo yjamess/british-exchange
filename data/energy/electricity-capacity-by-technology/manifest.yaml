@@ -1,0 +1,40 @@
+indicator_id: electricity-capacity-by-technology
+title: Electricity capacity by technology
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 5.12.C (Plant installed capacity by connection, UK total, MW)
+geography: UK (K02000001)
+frequency: annual
+unit: MW
+definition: UK plant installed (nameplate) generating capacity in megawatts from DUKES
+  table 5.12.C. Transmission and Distribution connection capacities are summed for
+  each generator type × calendar year. Aggregate Total rows are excluded.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.electricity_capacity
+curated_path: curated/observations.csv
+update_cadence: Annual — DUKES electricity chapter, final Thursday of July
+raw_evidence:
+- path: raw/2026-11-06/DUKES_5.12.xlsx
+  retrieved_at: '2026-11-06T22:30:20.583848+00:00'
+  checksum_sha256: 2eaad76e1c9e8db7b114a093487d61631a5099910be5874dc676d277ca6b4915
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a6a3668862aaf18d9c629ed/DUKES_5.12.xlsx
+transformations: Parse sheet 5.12 Table 5.12.C. For each Generator type that is not
+  a Total row, sum Transmission + Distribution MW across year columns. One CSV row
+  per fuel × year; notes=fuel=<Label>. Empty cells skipped (not applicable).
+revision_notes: ''
+caveats: Installed capacity (MW), not de-rated — do not confuse with DUKES 5.7. Not
+  generation (TWh). Connection split (Transmission/Distribution) is collapsed into
+  a UK total per fuel. Fuel labels differ from ET 5.1 generation labels — map carefully
+  in the UI. History from 2011 in this workbook. GOV.UK asset URLs change each release;
+  pin checksummed raw.
+related_indicator_ids: []
+open_questions:
+- Optional secondary series from DUKES 5.7 (de-rated) if the Capacity apparatus needs
+  intermittency-adjusted capacity.
+notion_registry_url: https://app.notion.com/4106547176858180a305ffa706cffc4b
+schema_version: '1.0'

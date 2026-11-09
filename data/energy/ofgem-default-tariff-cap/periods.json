@@ -1,0 +1,42 @@
+{
+  "landing_url": "https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels",
+  "notes": "Pin-per-period archive. No single official historic CSV. GB only — not NI. Curated from Annex 9 sheet 1a Levelised DTC, GB average inc VAT, Other Payment Method.",
+  "periods": [
+    {
+      "slug": "jan-mar-2026",
+      "period_start": "2026-01-01",
+      "period_end": "2026-03-31",
+      "label": "January 2026 – March 2026",
+      "annex9_relpath": "raw/2026-11-07/jan-mar-2026/annex9-levelised-cap-rates.xlsx",
+      "pdf_relpath": "raw/2026-11-07/jan-mar-2026/energy-price-cap-levels.pdf",
+      "page_url": "https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels"
+    },
+    {
+      "slug": "apr-jun-2026",
+      "period_start": "2026-04-01",
+      "period_end": "2026-06-30",
+      "label": "April 2026 – June 2026",
+      "annex9_relpath": "raw/2026-11-07/apr-jun-2026/annex9-levelised-cap-rates.xlsx",
+      "pdf_relpath": "raw/2026-11-07/apr-jun-2026/energy-price-cap-levels.pdf",
+      "page_url": "https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels"
+    },
+    {
+      "slug": "jul-sep-2026",
+      "period_start": "2026-07-01",
+      "period_end": "2026-09-30",
+      "label": "July 2026 – September 2026",
+      "annex9_relpath": "raw/2026-11-07/jul-sep-2026/annex9-levelised-cap-rates.xlsx",
+      "pdf_relpath": "raw/2026-11-07/jul-sep-2026/energy-price-cap-levels.pdf",
+      "page_url": "https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels"
+    },
+    {
+      "slug": "oct-dec-2026",
+      "period_start": "2026-10-01",
+      "period_end": "2026-12-31",
+      "label": "October 2026 – December 2026",
+      "annex9_relpath": "raw/2026-11-07/oct-dec-2026/annex9-levelised-cap-rates.xlsx",
+      "pdf_relpath": "raw/2026-11-07/oct-dec-2026/energy-price-cap-levels.pdf",
+      "page_url": "https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels"
+    }
+  ]
+}

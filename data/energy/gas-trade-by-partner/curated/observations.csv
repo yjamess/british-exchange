@@ -1,0 +1,465 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,2955.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,4015.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,6643.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,4388.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,25606.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,24108.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,30505.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,6471.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,12174.13,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,7945.23,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,13568.2,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,4031.6,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,14263.62,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,35366.85,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,3948.58,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,2116.2,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,15414.05,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,29428.25,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,35527.39,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,4056.1,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,3553.53,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,20064.67,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,581.33,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,21.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,1101.05,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,4075.52,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,9135.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,76602.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,90563.08,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,69528.57,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,87119.96,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,69001.09,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,78258.46,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,81519.42,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,70292.61,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,35932.86,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,47443.98,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,20765.77,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,30095.78,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,17570.14,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,11072.51,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,25923.62,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,1179.25,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,373.37,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,439.14,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,2003.51,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,11279.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,12734.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,37885.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,71754.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,95349.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,127893.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,157035.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,225764.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,285582.37,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,274832.75,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,298731.22,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,249642.55,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,311736.23,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,318633.55,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,278817.51,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,307942.54,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,347004.8,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,393417.35,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,373346.73,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,295927.75,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,263495.39,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,354992.05,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,338697.85,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,283643.7,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,340605.51,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,320249.12,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,14234.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,16749.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,44528.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,76142.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,120955.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,152001.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,196675.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,308837.0,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,388319.58,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,352306.55,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,399419.38,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,322675.24,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,404258.31,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,435519.81999999995,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,353058.7,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,345991.6,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,409862.82999999996,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,443611.37,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,438969.89999999997,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,317553.99,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,278121.43,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,400980.34,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,340458.43,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,284038.07,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,342145.69,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,326328.15,GWh,final,DUKES_4.5_JUL_26,partner=Total pipeline; flow=Imports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,4576.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,20718.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,6605.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,3160.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,17410.59,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,11697.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,2687.0,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,1311.72,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,4491.7,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,5774.34,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,4806.78,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,2820.7,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,2105.2,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,2410.25,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,9907.99,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,487.53,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,8194.94,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,6249.29,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,5326.79,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,5318.9,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,8303.29,GWh,final,DUKES_4.5_JUL_26,partner=Algeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,979.28,GWh,final,DUKES_4.5_JUL_26,partner=Angola; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,6800.81,GWh,final,DUKES_4.5_JUL_26,partner=Angola; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,8820.48,GWh,final,DUKES_4.5_JUL_26,partner=Angola; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,3863.77,GWh,final,DUKES_4.5_JUL_26,partner=Angola; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,2922.43,GWh,final,DUKES_4.5_JUL_26,partner=Angola; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,1801.7,GWh,final,DUKES_4.5_JUL_26,partner=Australia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,872.17,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,2939.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,909.0,GWh,final,DUKES_4.5_JUL_26,partner=Cameroon; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,775.47,GWh,final,DUKES_4.5_JUL_26,partner=Chile; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,408.41,GWh,final,DUKES_4.5_JUL_26,partner=Dominican Republic; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,12465.0,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,1751.0,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,1897.34,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,1282.0,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,890.0,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,145.0,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,754.9,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,70.78,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,1507.52,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,2040.44,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,1140.4,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,2901.25,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,985.48,GWh,final,DUKES_4.5_JUL_26,partner=Egypt; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,850.03,GWh,final,DUKES_4.5_JUL_26,partner=Equatorial Guinea; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,2567.7,GWh,final,DUKES_4.5_JUL_26,partner=Equatorial Guinea; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,1014.84,GWh,final,DUKES_4.5_JUL_26,partner=Equatorial Guinea; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,1071.77,GWh,final,DUKES_4.5_JUL_26,partner=Equatorial Guinea; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,1079.17,GWh,final,DUKES_4.5_JUL_26,partner=France; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,1071.42,GWh,final,DUKES_4.5_JUL_26,partner=France; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,3729.0,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,13025.0,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,475.0,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,533.89,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,436.45,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,1048.91,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,970.77,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,839.8,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,3518.39,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,3687.66,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,882.97,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,5520.49,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,5079.12,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,1778.65,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,2608.65,GWh,final,DUKES_4.5_JUL_26,partner=Nigeria; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,1436.77,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,9038.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,10114.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,1735.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,1068.16,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,601.12,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,2810.41,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,3221.21,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,3570.32,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,1713.16,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,2689.23,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,4541.31,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,2757.07,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,1817.85,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,270.83,GWh,final,DUKES_4.5_JUL_26,partner=Oman; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,882.28,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,864.97,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,2892.01,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,9040.48,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,23930.73,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,19594.5,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,3799.61,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,2065.31,GWh,final,DUKES_4.5_JUL_26,partner=Peru; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,779.0,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,2693.0,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,76057.95000000001,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,162384.0,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,234077.0,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,146431.0,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,95204.09,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,113597.45,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,141549.22,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,97603.25,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,61582.25,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,30515.76,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,92201.67,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,96903.9,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,61959.7,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,84020.68,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,29842.23,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,8580.02,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,8216.34,GWh,final,DUKES_4.5_JUL_26,partner=Qatar; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,1064.29,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,16264.19,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,30101.26,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,26586.62,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,34738.02,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,5289.34,GWh,final,DUKES_4.5_JUL_26,partner=Russia; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,887.0,GWh,final,DUKES_4.5_JUL_26,partner=Spain; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,503.62,GWh,final,DUKES_4.5_JUL_26,partner=Spain; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,878.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,3614.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,3854.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,5886.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,13633.189999999999,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,16896.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,5903.0,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,1101.48,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,4004.18,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,5012.9,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,1421.72,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,2659.71,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,6445.6,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,9858.15,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,11189.91,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,1670.28,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,1963.43,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,5781.36,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,7356.05,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,4182.94,GWh,final,DUKES_4.5_JUL_26,partner=Trinidad and Tobago; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,1575.0,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,1003.98,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,11870.36,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,29562.57,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,53439.06,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,42306.04,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,138295.01,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,128490.0,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,75700.8,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,106175.2,GWh,final,DUKES_4.5_JUL_26,partner=USA; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,1821.0,GWh,final,DUKES_4.5_JUL_26,partner=Yemen; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,6521.0,GWh,final,DUKES_4.5_JUL_26,partner=Yemen; flow=Imports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,0.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,0.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,0.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,0.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,0.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,5454.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,37576.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,14903.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,9046.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,112237.54000000001,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,206847.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,274794.0,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,150097.68,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,102620.34,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,123909.86,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,152406.47,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,106647.93,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,70676.89,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,74789.69,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,186068.34,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,200066.46,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,159863.84,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,277832.72,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,210880.67,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,111155.2,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,137363.77,GWh,final,DUKES_4.5_JUL_26,partner=Total LNG; flow=Imports; mode=LNG; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,14234.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,16749.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,44528.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,76142.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,120955.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,157455.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,234251.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,323740.0,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,397365.58,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,464544.08999999997,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,606266.38,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,597469.48,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,554355.99,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,538140.16,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,476968.57,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,498398.08,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,516510.76,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,514288.27,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,513759.59,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,503622.34,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,478187.9,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,560844.19,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,618291.15,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,494918.74,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,453300.88,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,463691.92,GWh,final,DUKES_4.5_JUL_26,partner=Total imports; flow=Imports; mode=Total; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,94574.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,80846.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,91189.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,122651.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,60060.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,36640.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,60194.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,51390.0,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,45949.38,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,62084.16,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,95932.34,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,101526.25,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,50343.12,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,27457.82,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,48073.76,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,84465.07,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,67188.74,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,87872.94,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,48967.04,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,48325.09,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,35583.49,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,19304.04,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,169126.24,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,107871.27,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,47096.33,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,58390.31,GWh,final,DUKES_4.5_JUL_26,partner=Belgium; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,7723.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,5640.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,4837.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,3424.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,2887.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,4261.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,3371.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,6358.0,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,10388.7,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,13091.42,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,15830.42,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,17543.68,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,23728.53,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,18597.04,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,18851.7,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,20789.25,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,18302.24,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,12574.37,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,8339.74,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,10160.28,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,30920.22,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,13980.85,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,45720.28,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,23395.39,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,25209.83,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,27606.27,GWh,final,DUKES_4.5_JUL_26,partner=Netherlands; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,153.0,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,389.09,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,267.92,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,157.52,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,120.04,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,49.32,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,19.55,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,8.89,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,3.67,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,1.48,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,2.17,GWh,final,DUKES_4.5_JUL_26,partner=Norway; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,32248.0,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,38128.0,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,38740.0,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,40806.0,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,39084.0,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,38456.95,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,46219.79,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,49835.18,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,52963.19,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,52999.29,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,54938.64,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,56834.05,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,56764.48,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,52257.03,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,47736.91,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,46898.11,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,26013.26,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,19927.34,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,23271.15,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,31794.09,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,37960.49,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,41317.3,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,44005.38,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,42888.58,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,44882.39,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,45712.22,GWh,final,DUKES_4.5_JUL_26,partner=Republic of Ireland; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,950.05,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,1027.21,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,1136.65,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,1296.96,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,1357.85,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,1327.07,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,1207.43,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,825.16,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,1250.55,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,1267.22,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,1192.26,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,1350.49,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,1307.21,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,1261.76,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,1514.49,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,1566.04,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,1079.62,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,1389.69,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,1435.53,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,1238.89,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,1399.59,GWh,final,DUKES_4.5_JUL_26,partner=Isle of Man; flow=Exports; mode=Pipeline; kind=partner; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,3004.61,GWh,final,DUKES_4.5_JUL_26,partner=Reloads; flow=Exports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,5420.22,GWh,final,DUKES_4.5_JUL_26,partner=Reloads; flow=Exports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,4455.18,GWh,final,DUKES_4.5_JUL_26,partner=Reloads; flow=Exports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,1836.01,GWh,final,DUKES_4.5_JUL_26,partner=Reloads; flow=Exports; mode=LNG; kind=partner; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,134545.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,124614.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,134766.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,166881.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,102031.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,80308.0,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,110812.00000000001,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,108872.82999999999,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,110987.32,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,129800.64000000001,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,168185.99,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,177231.45,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,131710.61,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,99582.01,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,115938.49,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,156352.97,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,118276.42,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,126139.21,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,83675.7,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,91793.95,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,106030.25,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,75681.8,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,260241.59,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,175590.78,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,118427.44,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,133108.39,GWh,final,DUKES_4.5_JUL_26,partner=Total exports; flow=Exports; mode=Pipeline; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2000-01-01,2000-12-31,K02000001,United Kingdom,-120311.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2001-01-01,2001-12-31,K02000001,United Kingdom,-107865.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2002-01-01,2002-12-31,K02000001,United Kingdom,-90238.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2003-01-01,2003-12-31,K02000001,United Kingdom,-90739.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2004-01-01,2004-12-31,K02000001,United Kingdom,18924.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2005-01-01,2005-12-31,K02000001,United Kingdom,77147.0,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2006-01-01,2006-12-31,K02000001,United Kingdom,123438.99999999999,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2007-01-01,2007-12-31,K02000001,United Kingdom,214867.17,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2008-01-01,2008-12-31,K02000001,United Kingdom,286378.26,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2009-01-01,2009-12-31,K02000001,United Kingdom,334743.44999999995,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2010-01-01,2010-12-31,K02000001,United Kingdom,438080.39,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2011-01-01,2011-12-31,K02000001,United Kingdom,420238.02,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2012-01-01,2012-12-31,K02000001,United Kingdom,422645.37,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2013-01-01,2013-12-31,K02000001,United Kingdom,438558.15,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2014-01-01,2014-12-31,K02000001,United Kingdom,361030.08,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2015-01-01,2015-12-31,K02000001,United Kingdom,342045.11,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2016-01-01,2016-12-31,K02000001,United Kingdom,398234.34,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2017-01-01,2017-12-31,K02000001,United Kingdom,388149.06,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2018-01-01,2018-12-31,K02000001,United Kingdom,430083.89,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2019-01-01,2019-12-31,K02000001,United Kingdom,411828.39,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2020-01-01,2020-12-31,K02000001,United Kingdom,372157.65,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2021-01-01,2021-12-31,K02000001,United Kingdom,485162.38,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2022-01-01,2022-12-31,K02000001,United Kingdom,358049.57,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2023-01-01,2023-12-31,K02000001,United Kingdom,319327.97,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2024-01-01,2024-12-31,K02000001,United Kingdom,334873.45,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas
+gas-trade-by-partner,2025-01-01,2025-12-31,K02000001,United Kingdom,330583.52,GWh,final,DUKES_4.5_JUL_26,partner=Net imports; flow=Net imports; mode=Net; kind=aggregate; fuel=Gas

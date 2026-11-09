@@ -1,0 +1,415 @@
+/* Lab only — housing domain nav motion experiments. Not production. */
+
+.page {
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: var(--bo-s6) var(--bo-gutter) var(--bo-s8);
+  display: grid;
+  gap: var(--bo-s7);
+}
+
+.intro {
+  display: grid;
+  gap: var(--bo-s3);
+  max-width: 62ch;
+}
+
+.intro h1 {
+  margin: 0;
+}
+
+.intro p {
+  margin: 0;
+  color: var(--bo-text);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toggle {
+  appearance: none;
+  border: var(--bo-rule);
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.toggle[aria-pressed="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 28rem;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+}
+
+.canvas {
+  min-width: 0;
+  padding: var(--bo-s6);
+  border-left: var(--bo-rule);
+  display: grid;
+  gap: var(--bo-s3);
+  align-content: start;
+}
+
+.canvas h2 {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: -0.01em;
+}
+
+.canvas p {
+  margin: 0;
+  color: var(--bo-text);
+  max-width: 48ch;
+  line-height: 1.45;
+}
+
+/* ——— Quiet + ASCII rail ——— */
+.quietNav {
+  width: 18rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--bo-s4);
+  padding: var(--bo-s5);
+  background: var(--bo-paper);
+}
+
+.quietList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: var(--bo-rule);
+}
+
+.quietList > li {
+  border-bottom: var(--bo-hair);
+}
+
+.quietItem {
+  appearance: none;
+  position: relative;
+  display: grid;
+  grid-template-columns: 2px 1fr 3.25rem;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bo-text);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--bo-f-body);
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+.quietMark {
+  background: transparent;
+  transition: background var(--bo-fast) var(--bo-ease);
+}
+
+.quietLabel {
+  padding: var(--bo-s3) var(--bo-s3) var(--bo-s3) var(--bo-s3);
+  display: flex;
+  align-items: center;
+}
+
+.quietStrip {
+  position: relative;
+  color: var(--bo-ink);
+  border-left: var(--bo-hair);
+  min-height: 2.75rem;
+}
+
+.quietItem:hover,
+.quietItem:focus-visible {
+  color: var(--bo-ink);
+}
+
+.quietItem:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+.quietItem[aria-current="true"] {
+  color: var(--bo-ink);
+  font-weight: 500;
+}
+
+.quietItem[aria-current="true"] .quietMark {
+  background: var(--bo-ink);
+}
+
+/* ——— Condensed / expand morph ——— */
+.morphShell {
+  width: var(--rail-width, 18rem);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--bo-s4);
+  padding: var(--bo-s5) var(--bo-s4);
+  background: var(--bo-paper);
+  border-right: var(--bo-rule);
+}
+
+.morphHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bo-s3);
+  min-height: 2rem;
+}
+
+.morphList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: var(--bo-rule);
+  height: 100%;
+}
+
+.morphList > li {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+}
+
+.morphShell:not([data-condensed="true"]) .morphList > li {
+  border-bottom: var(--bo-hair);
+}
+
+.morphItem {
+  appearance: none;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  align-items: center;
+  gap: var(--bo-s3);
+  width: 100%;
+  margin: 0;
+  padding: var(--bo-s2) 0;
+  border: 0;
+  background: transparent;
+  color: var(--bo-text);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--bo-f-body);
+  font-size: 15px;
+  line-height: 1.25;
+  transition: color var(--bo-fast) var(--bo-ease);
+}
+
+.morphShell[data-condensed="true"] .morphItem {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding-inline: 0;
+}
+
+.morphIcon {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  color: var(--bo-ink);
+}
+
+.morphShell[data-condensed="true"] .morphIcon {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.morphIcon :global(.bo-plate) {
+  width: 100%;
+  height: 100%;
+  transition:
+    background-color var(--bo-med) var(--bo-ease),
+    color var(--bo-med) var(--bo-ease);
+}
+
+/* Selected = inverted plate (paper marks on ink), no border */
+.morphItem[aria-current="true"] .morphIcon :global(.bo-plate) {
+  --bo-plate-bg: var(--bo-ink);
+  --bo-plate-ink: var(--bo-paper);
+  background: var(--bo-ink);
+}
+
+.morphLabel {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+.morphShell[data-condensed="true"] .morphLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.morphItem:hover,
+.morphItem:focus-visible {
+  color: var(--bo-ink);
+}
+
+.morphItem:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.morphItem[aria-current="true"] {
+  color: var(--bo-ink);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morphItem,
+  .morphIcon :global(.bo-plate) {
+    transition: none;
+  }
+}
+
+/* ——— Index skim ——— */
+.indexNav {
+  width: 18rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--bo-s4);
+  padding: var(--bo-s5);
+  background: var(--bo-union);
+  color: var(--bo-lavender);
+}
+
+.indexNav :global(.bo-label) {
+  color: var(--bo-lavender);
+}
+
+.indexList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px dotted color-mix(in srgb, var(--bo-lavender) 55%, transparent);
+}
+
+.indexList > li {
+  border-bottom: 1px dotted color-mix(in srgb, var(--bo-lavender) 55%, transparent);
+}
+
+.indexItem {
+  appearance: none;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 3.25rem;
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bo-lavender);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--bo-f-fig);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.indexLabel {
+  padding: var(--bo-s3) var(--bo-s2) var(--bo-s3) 0;
+  display: flex;
+  align-items: center;
+}
+
+.indexLabel b {
+  color: var(--bo-paper);
+  font-weight: 400;
+}
+
+.indexStrip {
+  position: relative;
+  color: var(--bo-paper);
+  border-left: 1px dotted color-mix(in srgb, var(--bo-lavender) 55%, transparent);
+  min-height: 2.75rem;
+}
+
+.indexItem:hover,
+.indexItem:focus-visible {
+  color: var(--bo-paper);
+}
+
+.indexItem:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+.indexItem[aria-current="true"] {
+  color: var(--bo-paper);
+}
+
+.indexItem[aria-current="true"] .indexLabel b {
+  color: var(--bo-paper);
+}
+
+@media (max-width: 720px) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+
+  .quietNav,
+  .morphShell,
+  .indexNav {
+    width: 100%;
+  }
+
+  .canvas {
+    border-left: 0;
+    border-top: var(--bo-rule);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quietMark {
+    transition: none;
+  }
+}

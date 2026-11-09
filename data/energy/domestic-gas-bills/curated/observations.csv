@@ -1,0 +1,81 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+domestic-gas-bills,2014-01-01,2014-12-31,K02000001,United Kingdom,619.2892786172677,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2014-01-01,2014-12-31,K02000001,United Kingdom,559.8343107178516,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2014-01-01,2014-12-31,K02000001,United Kingdom,616.7361418339688,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2014-01-01,2014-12-31,K02000001,United Kingdom,584.9232699006332,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2015-01-01,2015-12-31,K02000001,United Kingdom,591.9208027867533,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2015-01-01,2015-12-31,K02000001,United Kingdom,528.3261353549474,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2015-01-01,2015-12-31,K02000001,United Kingdom,592.9918477253343,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2015-01-01,2015-12-31,K02000001,United Kingdom,554.8908887831656,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2016-01-01,2016-12-31,K02000001,United Kingdom,549.4910809749047,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2016-01-01,2016-12-31,K02000001,United Kingdom,478.23208854633754,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2016-01-01,2016-12-31,K02000001,United Kingdom,556.2698438723877,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2016-01-01,2016-12-31,K02000001,United Kingdom,507.28503023706423,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2017-01-01,2017-12-31,K02000001,United Kingdom,542.5670055730171,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2017-01-01,2017-12-31,K02000001,United Kingdom,475.9447404999411,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2017-01-01,2017-12-31,K02000001,United Kingdom,496.585629986005,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2017-01-01,2017-12-31,K02000001,United Kingdom,493.67130076974223,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2018-01-01,2018-12-31,K02000001,United Kingdom,561.5713479657485,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2018-01-01,2018-12-31,K02000001,United Kingdom,491.7801840386677,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2018-01-01,2018-12-31,K02000001,United Kingdom,487.13527841905915,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2018-01-01,2018-12-31,K02000001,United Kingdom,503.91669692919936,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2019-01-01,2019-12-31,K02000001,United Kingdom,562.4470276478794,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2019-01-01,2019-12-31,K02000001,United Kingdom,502.7140343221261,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2019-01-01,2019-12-31,K02000001,United Kingdom,542.0371684825412,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2019-01-01,2019-12-31,K02000001,United Kingdom,519.3405611771224,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2020-01-01,2020-12-31,K02000001,United Kingdom,545.915069283507,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2020-01-01,2020-12-31,K02000001,United Kingdom,474.9995314151318,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2020-01-01,2020-12-31,K02000001,United Kingdom,533.5808240645697,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2020-01-01,2020-12-31,K02000001,United Kingdom,496.21441629711296,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2021-01-01,2021-12-31,K02000001,United Kingdom,514.722576535361,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2021-01-01,2021-12-31,K02000001,United Kingdom,468.8979894480067,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2021-01-01,2021-12-31,K02000001,United Kingdom,505.8197842237791,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2021-01-01,2021-12-31,K02000001,United Kingdom,481.7634686093416,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,898.7246324307101,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,1101.6478425319804,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,1063.357062761741,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,764.550803611268,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,990.4304740188851,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,912.1371702550772,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,940.6203073563119,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,1028.857842733153,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,1023.7099861275387,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,784.9992808959345,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,1018.3355672624086,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2022-01-01,2022-12-31,K02000001,United Kingdom,952.365998299852,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1091.0312190260868,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1176.7242120503956,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1167.530824727312,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,890.6722243636153,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1100.6641893532426,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1062.3068631163494,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1091.7439073539006,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1134.9814990156358,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1132.0083431695343,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,934.1564025827607,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1122.6067082466923,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2023-01-01,2023-12-31,K02000001,United Kingdom,1094.4419988659938,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,847.0124279973951,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,899.4767522185755,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,896.4125511116183,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,789.3406477201315,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,855.4626162476222,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,837.9145930520423,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,791.1146958553708,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,827.9910730527936,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,826.7036225729142,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,791.9968593875686,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,859.4541500273892,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2024-01-01,2024-12-31,K02000001,United Kingdom,845.7347348080573,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,835.0030265676469,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,895.2184231648339,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,889.8199155235209,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Standard credit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,793.7881189306232,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,851.8974695309324,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,823.353444031362,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Direct debit; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,783.6740519722036,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,828.6108140641579,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,828.4076388986899,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Prepayment; tariff=All; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,795.3563467075168,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Fixed; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,857.339897008106,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=Variable; consumption_kwh=11200
+domestic-gas-bills,2025-01-01,2025-12-31,K02000001,United Kingdom,834.4710473402552,GBP,final,QEP_2.3.1_JUN_26,fuel=Gas; payment=Overall; tariff=All; consumption_kwh=11200

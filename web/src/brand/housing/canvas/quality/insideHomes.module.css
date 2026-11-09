@@ -1,0 +1,130 @@
+/* Domain 07 — Inside the Home: cutaway-specific rules only (plate, panel, type and controls come from ../plate.module.css + the template). */
+
+/* Same organisation as a map legend: a caption under the drawing, then a row of swatch and name. */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bo-s2) var(--bo-s4);
+  margin: 0;
+  padding: var(--bo-s3) var(--bo-s4);
+  border-top: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+.legend ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bo-s2) var(--bo-s3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.patternName {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.04em;
+  color: var(--bo-text);
+}
+.swatch {
+  width: 18px;
+  height: 12px;
+  border: 1px solid var(--bo-ink);
+  background-color: var(--bo-paper);
+}
+.swatch[data-pattern="stipple"] {
+  background-image: radial-gradient(circle, var(--tone) 1.3px, transparent 1.7px);
+  background-size: 5px 5px;
+}
+.swatch[data-pattern="waves"] {
+  background-image: repeating-linear-gradient(0deg, var(--tone) 0 1.5px, transparent 1.5px 4px);
+}
+.swatch[data-pattern="cross-hatch"] {
+  background-image:
+    repeating-linear-gradient(45deg, var(--tone) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-45deg, var(--tone) 0 1px, transparent 1px 4px);
+}
+.swatch[data-pattern="grid"] {
+  background-image:
+    repeating-linear-gradient(0deg, var(--tone) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, var(--tone) 0 1px, transparent 1px 4px);
+}
+.swatch[data-pattern="hatch"] {
+  background-image: repeating-linear-gradient(20deg, var(--tone) 0 1px, transparent 1px 3px);
+}
+
+/* Mobile: selectable architectural details (stills of the same 3D scene) */
+.snapshotHost {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 480px;
+  height: 320px;
+}
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.detail {
+  appearance: none;
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  margin: 0;
+  padding: var(--bo-s3);
+  border: 0;
+  border-right: var(--bo-hair);
+  border-bottom: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.detail img,
+.detailBlank {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid var(--bo-ink-20);
+}
+.detail[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px var(--bo-ink);
+}
+.detail :global(.bo-label) {
+  color: var(--bo-text);
+}
+.detailName {
+  font-size: var(--bo-t-ui);
+}
+.detailValue {
+  font-size: var(--bo-t-fig);
+  line-height: 1;
+}
+.fallback {
+  padding: var(--bo-s4);
+}
+
+.flag {
+  margin: 0;
+  padding: var(--bo-s2) var(--bo-s3);
+  border: 1px dashed var(--bo-ink);
+  font-size: var(--bo-t-note);
+  color: var(--bo-ink);
+}
+.caveat {
+  display: block;
+}
+.caveat + .caveat {
+  margin-top: 2px;
+}

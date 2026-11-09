@@ -1,0 +1,40 @@
+indicator_id: private-rental-prices
+title: Private rental prices (PIPR)
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics
+series_id: PIPR Table 1 — rental price / annual change / index
+geography: UK, nations, English regions, local authorities (E&W), Broad Rental Market
+  Areas (Scotland / Northern Ireland where published)
+frequency: monthly
+unit: GBP per calendar month (average-rent); percent; index Jan 2023=100
+definition: 'Price Index of Private Rents (PIPR): average monthly private rent levels
+  (£), annual percentage change, and index (Jan 2023=100) for new and existing tenancies.
+  Bedroom and property-type £ rents included where published. Official statistics.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.private_rental_prices
+curated_path: curated/observations.csv
+update_cadence: monthly (Private rent and house prices, UK)
+raw_evidence:
+- path: raw/2026-11-03/pipr_monthly.xlsx
+  retrieved_at: '2026-11-04T17:17:14.717631+00:00'
+  checksum_sha256: 0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-21'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics/21october2026/priceindexofprivaterentsukmonthlypricestatistics.xlsx
+transformations: Parse Table 1 for every real Area code; emit series=average-rent,
+  annual-change, index; bedroom and property-type £ rents as series=average-rent with
+  kind=bedrooms-* / kind=type-*; mark latest two months provisional per geography.
+revision_notes: Pinned 21 October 2026 PIPR monthly edition (shared raw with private-rental-price-index).
+caveats:  Scotland rents are
+  mainly advertised new lets; Northern Ireland advertised new lets only and lag other
+  UK nations — compare with care. Northern Ireland missing for the latest two UK months
+  (ONS imputes NI into the UK total). Local figures can jump month-to-month.
+related_indicator_ids:
+- private-rental-price-index
+open_questions:
+- Social rents remain a separate publisher stream — not in this workbook.
+notion_registry_url: "https://app.notion.com/40e654717685811c8d02cc5a4ce4ef92"
+schema_version: '1.0'

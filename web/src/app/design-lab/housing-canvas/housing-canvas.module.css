@@ -1,0 +1,64 @@
+/* Lab only — Housing canvas: weight & threshold experiments on the full page. Not production. */
+
+.page {
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  min-height: 100vh;
+}
+
+/* Lab toolbar: sticks above the page so toggles stay reachable while scrolling. */
+.labBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bo-s3) var(--bo-s6);
+  padding: var(--bo-s3) var(--bo-gutter);
+  background: var(--bo-paper);
+  border-bottom: var(--bo-rule);
+}
+.labTitle {
+  margin: 0;
+  margin-right: auto;
+}
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--bo-s3);
+}
+.group > :global(.bo-label) {
+  color: var(--bo-text);
+  white-space: nowrap;
+}
+.seg {
+  display: flex;
+  padding-left: 1px;
+}
+.seg button {
+  appearance: none;
+  margin-left: -1px;
+  height: 1.9rem;
+  padding: 0 var(--bo-s3);
+  border: var(--bo-rule);
+  border-radius: 0;
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.seg button[aria-pressed="true"] {
+  position: relative;
+  z-index: 1;
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.seg button:focus-visible {
+  position: relative;
+  z-index: 2;
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}

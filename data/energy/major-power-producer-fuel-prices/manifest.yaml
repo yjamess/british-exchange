@@ -1,0 +1,39 @@
+indicator_id: major-power-producer-fuel-prices
+title: Major power producer fuel prices
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/prices-of-fuels-purchased-by-major-power-producers
+series_id: QEP 3.2.1 (cash, quarterly p/kWh — coal, oil, MPP natural gas)
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: p/kWh
+definition: Average prices of fuels purchased by major UK power producers (coal, oil,
+  natural gas) in cash terms, pence per kWh, from DESNZ Quarterly Energy Prices table
+  3.2.1. Generator fuel *input* prices — not household retail bills, not Ofgem caps,
+  and not day-ahead wholesale power exchange prices.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.major_power_producer_fuel_prices
+curated_path: curated/observations.csv
+update_cadence: Quarterly with QEP non-domestic tables
+raw_evidence:
+- path: raw/2026-11-07/table_321.xlsx
+  retrieved_at: '2026-11-07T20:52:30.467552+00:00'
+  checksum_sha256: b58d7dc9dcb3313876b77f31af59a1e2b218b7872211550602fe024b5d57740c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ab54240734e2435f202f060/table_321.xlsx
+transformations: Parse sheet 3.2.1 quarterly cash terms. Emit p/kWh measures only
+  (coal_p_kwh, oil_p_kwh, gas_mpp_p_kwh). Tonne columns omitted. UK delivery-point
+  gas series discontinued after Apr 2004 — not curated.
+revision_notes: table_321.xlsx Cover sheet publication date 29/09/2026.
+caveats: Long-term generator contracts; not spot wholesale. Excludes CPS levy on coal/gas.
+  Do not plot on the same unmarked axis as GBP household bills.
+related_indicator_ids:
+- industrial-electricity-prices
+- domestic-electricity-bills
+- ofgem-default-tariff-cap
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -15,7 +15,7 @@ from typing import Sequence
 
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation
+from britain_exchange.observation import Observation, mark_latest_months_provisional
 from britain_exchange.paths import REGIONS_DATA
 from regions.connectors._util import evidence_from_file, month_bounds
 
@@ -65,7 +65,8 @@ def parse_average_prices(path: Path) -> list[Observation]:
                 geography_label=label,
                 value=float(str(price_raw).replace(",", "")),
                 unit=UNIT,
-                observation_status="provisional",
+                # Final vs provisional applied after parse (latest ~12 months per area).
+                observation_status="final",
                 source_version="UK HPI Average-prices-2026-08",
                 notes="series=UK HPI average price; geography=nation/ITL1/UK",
             )
@@ -73,7 +74,7 @@ def parse_average_prices(path: Path) -> list[Observation]:
     if not observations:
         raise ValueError("No regional average price rows kept")
     observations.sort(key=lambda obs: (obs.geography_code, obs.period_start))
-    return observations
+    return mark_latest_months_provisional(observations, months=12)
 
 
 class HousePricesByRegionConnector(Connector):
@@ -108,11 +109,13 @@ class HousePricesByRegionConnector(Connector):
             notion_registry_url="https://app.notion.com/40d6547176858173a6a9d50b1e04c399",
             transformations=(
                 "Parse Average-prices CSV; keep Area_Code prefixes for UK/nations/"
-                "English regions; drop local authorities."
+                "English regions; drop local authorities. Mark the latest 12 valued "
+                "months provisional per geography; older months final."
             ),
             caveats=(
                 "Links to Housing UK average house price indicator; this row keeps "
-                "regional grain. Early years for Scotland/NI start later than England."
+                "regional grain. Early years for Scotland/NI start later than England. "
+                "Latest ~12 months of UK HPI are provisional and revise."
             ),
             related_indicator_ids=[],
             revision_notes="Pinned Average-prices-2026-08.csv on 2026-11-03.",

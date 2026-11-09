@@ -5,6 +5,7 @@ import {
   IBM_Plex_Mono,
 } from "next/font/google";
 import "./globals.css";
+import { SiteFooter } from "@/brand/footer/SiteFooter";
 
 /** Display: Libre Caslon Display (Google Fonts) — user’s “Libra Calson”. */
 const display = Libre_Caslon_Display({
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="en-GB">
       <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

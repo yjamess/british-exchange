@@ -20,6 +20,7 @@ import {
   yDomainFromValues,
 } from "@/lib/format";
 import styles from "./SeriesChart.module.css";
+import { RecordChart } from "./RecordChart";
 
 type Point = {
   period: string;
@@ -95,6 +96,11 @@ export function SeriesChart({
   const lineDomain = useBars
     ? ([0, "auto"] as const)
     : yDomainFromValues(data.map((d) => d.value));
+
+  if (!useBars) return <div className={styles.root}>
+    {sourceNote && <p className={styles.note}>{sourceNote}</p>}
+    <RecordChart rows={rows} title={seriesLabel} frequency={freq ?? ""} />
+  </div>;
 
   return (
     <div className={styles.root}>

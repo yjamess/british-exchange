@@ -45,8 +45,10 @@
 
 .endLabel {
   font-weight: 500;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
+  fill: var(--bo-union);
 }
 
 .annot line {
@@ -66,44 +68,80 @@
   cursor: crosshair;
 }
 
+/* Paper card — matches instrument TimeChart readout (not ink-on-paper inverse). */
 .readout {
   position: absolute;
   z-index: 2;
+  top: 6px;
   display: grid;
-  gap: 0.2rem;
-  min-width: 9rem;
-  padding: 0.5rem 0.65rem;
-  border-radius: 0.3rem;
+  gap: 4px;
+  width: 200px;
+  padding: 10px 12px;
   font-family: var(--bo-f-data);
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  color: var(--bo-paper);
-  background: var(--bo-ink);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  border: var(--bo-rule);
   pointer-events: none;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
-  box-shadow: 0 12px 24px -12px rgb(0 0 0 / 0.5);
 }
 
 .readout b {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--bo-ink);
 }
 
 .readRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--bo-text);
 }
 
-.readRow i {
+.readRow > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.readRow i,
+.legend i {
   display: inline-block;
-  width: 0.9rem;
-  height: 2px;
-  margin-right: 0.45rem;
-  vertical-align: middle;
+  width: 14px;
+  height: 10px;
+  flex: 0 0 auto;
+  border: 1px solid var(--bo-ink);
+  box-sizing: border-box;
+  background: var(--bo-paper);
+}
+
+.readRow i[data-pattern="solid"],
+.legend i[data-pattern="solid"] {
+  background: var(--bo-ink);
+}
+
+.readRow i[data-pattern="hatch"],
+.legend i[data-pattern="hatch"] {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    var(--bo-paper) 1px,
+    var(--bo-paper) 3px
+  );
+}
+
+.readRow i[data-pattern="stipple"],
+.legend i[data-pattern="stipple"] {
+  background-image: radial-gradient(var(--bo-ink) 0.7px, var(--bo-paper) 0.8px);
+  background-size: 3px 3px;
 }
 
 /* Tile map */
@@ -126,26 +164,23 @@
 }
 
 .legend {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.75rem;
-  margin-top: 0.75rem;
+  gap: 6px 16px;
   font-family: var(--bo-f-data);
-  font-size: var(--bo-t-micro);
+  font-size: 10px;
+  text-transform: uppercase;
   letter-spacing: 0.06em;
+  color: var(--bo-text);
 }
 
-.legend span {
+.legend li {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-}
-
-.legend i {
-  width: 1.4rem;
-  height: 0.7rem;
-  border: 1px solid var(--bo-ink-20);
+  gap: 6px;
 }
 
 .note {

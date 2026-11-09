@@ -1,0 +1,11 @@
+/* Domain 07 — The State of Repair. Plate, panel, type, tags and the table disclosure come from ../plate.module.css. */
+
+.main {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+.main > :global(.bo-label) {
+  margin: 0;
+  color: var(--bo-ink);
+}

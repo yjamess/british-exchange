@@ -1,0 +1,312 @@
+/* Domain 05 — Housing Supply Machine (one ink on paper). */
+
+.root {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  padding: var(--bo-s3) 0;
+  container-type: inline-size;
+  container-name: supply;
+}
+
+.lede {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+  text-wrap: pretty;
+}
+
+.sectionTitle {
+  margin: 0;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+  text-align: start;
+}
+
+.yearRow {
+  display: grid;
+  gap: 6px;
+  max-width: 36rem;
+}
+
+.yearField {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.yearField .bo-label,
+.yearField :global(.bo-label) {
+  grid-column: 1 / -1;
+}
+
+.yearField input[type="range"] {
+  width: 100%;
+  accent-color: var(--bo-ink);
+}
+
+.yearOut {
+  font-size: var(--bo-t-fig);
+  min-width: 5.5rem;
+  text-align: right;
+}
+
+.yearEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  padding: 0 2px;
+}
+
+.machine {
+  display: grid;
+  gap: var(--bo-s4);
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  padding: var(--bo-s4);
+}
+
+.netRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+
+.netLabel {
+  font-size: var(--bo-t-note);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.netValue {
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+}
+
+.stack {
+  display: grid;
+  gap: 2px;
+  min-height: 14rem;
+}
+
+.component {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  border-top: var(--bo-hair);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 8px 12px;
+  align-items: center;
+  padding: 10px 8px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--bo-ink);
+  font: inherit;
+  background: transparent;
+  min-width: 0;
+}
+
+.component:first-child {
+  border-top: 0;
+}
+
+.component[data-loss="true"] {
+  color: var(--bo-ink);
+}
+
+.component[data-active="true"] {
+  box-shadow: inset 0 0 0 2px var(--bo-ink);
+}
+
+.component:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.compLabel {
+  font-size: var(--bo-t-ui);
+  min-width: 0;
+}
+
+.compBarWrap {
+  grid-column: 1 / -1;
+  height: 8px;
+  background: var(--bo-ink-10);
+  border: var(--bo-hair);
+}
+
+.compBar {
+  height: 100%;
+  background: var(--bo-ink);
+  transform-origin: left center;
+}
+
+.compBarLoss {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 2px,
+    transparent 2px,
+    transparent 5px
+  );
+}
+
+.compValue {
+  font-variant-numeric: tabular-nums;
+  font-size: var(--bo-t-small);
+  white-space: nowrap;
+}
+
+.compShare {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+.detail {
+  margin: 0;
+  padding: var(--bo-s3);
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  max-width: 52ch;
+  font-size: var(--bo-t-ui);
+  line-height: 1.45;
+}
+
+.detail dt {
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+  margin-top: 8px;
+}
+
+.detail dt:first-child {
+  margin-top: 0;
+}
+
+.detail dd {
+  margin: 2px 0 0;
+}
+
+.glossary {
+  margin: 0;
+  display: grid;
+  gap: var(--bo-s3);
+}
+
+.glossary dt {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+
+.glossary dd {
+  margin: 4px 0 0;
+  max-width: 62ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+
+.glossary a,
+.caveat a {
+  color: var(--bo-ink);
+}
+
+.caveat {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.measureRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.measureTab {
+  appearance: none;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font: inherit;
+  font-size: var(--bo-t-note);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.measureTab[data-active="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.measureTab:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.block {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+/* Wide ledger: headers wrap; the stage scrolls rather than clipping a word. */
+.root .ledger {
+  min-width: 64rem;
+}
+
+.root .ledger thead th {
+  white-space: normal;
+  vertical-align: bottom;
+  line-height: 1.25;
+}
+
+.root .series {
+  min-width: 52rem;
+}
+
+.root .series th,
+.root .series td {
+  white-space: normal;
+  vertical-align: top;
+}
+
+.root .series td:nth-child(2) {
+  text-align: left;
+  max-width: 36rem;
+}
+
+.geoSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--bo-s6);
+  align-items: start;
+  min-width: 0;
+}
+
+.geoSplit > * {
+  min-width: 0;
+}
+
+@container supply (max-width: 720px) {
+  .geoSplit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

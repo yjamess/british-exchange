@@ -1,0 +1,166 @@
+/* Brand template — SectorPage: mast, hero plate, sector name on an ink strip, optional stats strip. */
+
+.page {
+  position: relative;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  min-height: 100vh;
+}
+
+/* ——— Mast ——— */
+.mast {
+  background: var(--bo-paper);
+  border-bottom: var(--bo-rule);
+}
+.mastInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bo-s4);
+  padding-block: var(--bo-s4);
+  flex-wrap: wrap;
+}
+.wordmark {
+  font-size: 22px;
+  color: var(--bo-ink);
+  text-decoration: none;
+}
+.mastInner nav {
+  color: var(--bo-text);
+}
+.mastInner nav [aria-current] {
+  color: var(--bo-ink);
+}
+
+/* ——— Hero: the original plate stays the picture. The name is an ink strip under it.
+   Full on the landing. Once a domain is open, one thin strip of the same plate. ——— */
+.hero {
+  position: relative;
+  border-block: var(--bo-rule);
+}
+.heroPlate {
+  height: clamp(12.5rem, 30vh, 18rem);
+}
+.heroTitleInner {
+  padding-block: clamp(0.7rem, 1.4vw, 1.15rem);
+}
+.sectorName {
+  margin: 0;
+  font-size: clamp(2.75rem, 6.4vw, 5rem);
+  line-height: 0.84;
+  color: var(--bo-paper);
+}
+/* About one rule of the picture. The name stays in the page outline, not on screen. */
+.hero[data-size="band"] .heroPlate {
+  height: 3.5rem;
+}
+.hero[data-size="band"] .heroTitle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— One horizontal information strip ——— */
+.strip {
+  background: var(--bo-paper);
+  border-bottom: var(--bo-rule);
+}
+.stripInner {
+  padding-block: 0;
+}
+.stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.stat {
+  display: grid;
+  gap: var(--bo-s2);
+  padding: var(--bo-s5) var(--bo-s5) var(--bo-s5) 0;
+  border-right: var(--bo-hair);
+  min-width: 0;
+}
+.stat:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+.stat:first-child {
+  padding-left: 0;
+}
+.stats .stat:not(:first-child) {
+  padding-left: var(--bo-s5);
+}
+.statValue {
+  font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+  line-height: 1;
+  color: var(--bo-ink);
+}
+.statNote {
+  font-size: 12px;
+  color: var(--bo-text);
+  line-height: 1.35;
+  max-width: 28ch;
+}
+
+.main {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stat {
+    border-right: 0;
+    border-bottom: var(--bo-hair);
+    padding: var(--bo-s4) 0;
+  }
+  .stats .stat:not(:first-child) {
+    padding-left: 0;
+  }
+  .stat:nth-child(odd) {
+    padding-right: var(--bo-s4);
+    border-right: var(--bo-hair);
+  }
+  .stat:nth-child(even) {
+    padding-left: var(--bo-s4);
+  }
+  .stat:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  .stat:nth-child(odd) {
+    padding-right: 0;
+    border-right: 0;
+  }
+  .stat:nth-child(even) {
+    padding-left: 0;
+  }
+  .stat {
+    border-bottom: var(--bo-hair);
+  }
+  .stat:last-child {
+    border-bottom: 0;
+  }
+  .heroPlate {
+    height: clamp(12rem, 36vh, 16rem);
+  }
+  .sectorName {
+    font-size: clamp(2.4rem, 12vw, 3.25rem);
+  }
+}

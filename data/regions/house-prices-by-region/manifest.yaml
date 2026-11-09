@@ -16,17 +16,19 @@ curated_path: curated/observations.csv
 update_cadence: monthly (UK HPI)
 raw_evidence:
 - path: raw/2026-11-03/Average-prices-2026-08.csv
-  retrieved_at: '2026-11-03T17:57:00.411379+00:00'
+  retrieved_at: '2026-11-04T16:29:05.564491+00:00'
   checksum_sha256: dde90f4ca1aeca2749a6fe61f00c4f3daef58c1bec232b6da1130a16d6686c90
   content_type: text/csv
   official_release_date: '2026-10-21'
   http_status: null
   source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/Average-prices-2026-08.csv
 transformations: Parse Average-prices CSV; keep Area_Code prefixes for UK/nations/English
-  regions; drop local authorities.
+  regions; drop local authorities. Mark the latest 12 valued months provisional per
+  geography; older months final.
 revision_notes: Pinned Average-prices-2026-08.csv on 2026-11-03.
 caveats: Links to Housing UK average house price indicator; this row keeps regional
-  grain. Early years for Scotland/NI start later than England.
+  grain. Early years for Scotland/NI start later than England. Latest ~12 months of
+  UK HPI are provisional and revise.
 related_indicator_ids: []
 open_questions: []
 notion_registry_url: https://app.notion.com/40d6547176858173a6a9d50b1e04c399

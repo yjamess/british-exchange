@@ -1,0 +1,40 @@
+indicator_id: renewable-energy-planning-operational
+title: Renewable energy planning — operational capacity
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+series_id: REPD quarterly extract — Operational Installed Capacity (MWelec)
+geography: United Kingdom (planning register; includes NI and offshore)
+frequency: quarterly
+unit: MW
+definition: Sum of installed electrical capacity (MW) for REPD projects marked Operational,
+  by technology type. Snapshot of the quarterly extract. Not generation (TWh). Not
+  a complete UK power-station register — coal, gas CCGT, nuclear and other non-REPD
+  plant are absent.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.renewable_energy_planning
+curated_path: curated/observations.csv
+update_cadence: Quarterly REPD extract (DESNZ / Barbour ABI)
+raw_evidence:
+- path: raw/2026-11-06/REPD_Publication_Q2_2026.csv
+  retrieved_at: '2026-11-07T15:36:03.811937+00:00'
+  checksum_sha256: 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035
+  content_type: text/csv
+  official_release_date: '2026-07-31'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv
+transformations: Filter Development Status (short)=Operational. Sum Installed Capacity
+  (MWelec) by Technology Type → notes=technology=<label>. Also write curated/atlas.json
+  with TileMap region MW (Offshore held separately), the 40 largest sites by MW, and
+  WGS84 points from OSGB X/Y.
+revision_notes: ''
+caveats: REPD tracks renewable (and some storage) projects through planning — not
+  the full generating fleet. Capacity threshold ≥150 kW (1 MW before 2021). Point
+  map uses OSGB X/Y converted to WGS84; DESNZ does not verify generator-supplied geography.
+  Do not imply fossil or nuclear coverage.
+related_indicator_ids:
+- renewable-energy-planning-pipeline
+open_questions: []
+notion_registry_url: https://app.notion.com/41065471768581eaa19fc687e6b766f7
+schema_version: '1.0'

@@ -1,0 +1,67 @@
+indicator_id: ehs-thermal-comfort
+title: EHS thermal comfort (unable to keep warm, overheating, energy actions)
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistics/english-housing-survey-2024-to-2025-perceptions-and-impacts-of-housing-quality
+series_id: EHS 2024-25 PIQ annex AT2.9 / AT2.11–2.13 + weather resilient homes annex
+  AT1.1–1.3
+geography: England (E92000001) — survey estimates / household responses
+frequency: ad_hoc
+unit: percent of households / occupied dwellings (see base=)
+definition: 'Household-reported thermal comfort in England, 2024 dwelling sample (2024-25
+  household subsample): unable to keep comfortably warm in the living room in cold
+  winter weather (unable-to-keep-warm-in-winter); home gets uncomfortably hot and
+  cannot be cooled (home-gets-uncomfortably-hot); overheating only / unable to keep
+  warm only / both / neither; rooms affected by overheating; and the energy actions
+  reduced-heating and limited-energy-use taken in response to rising energy prices.
+  By tenure, dwelling type, construction (wall) type and household age composition.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_lived_experience
+curated_path: curated/observations.csv
+update_cadence: ad hoc (EHS topic reports / fact sheets)
+raw_evidence:
+- path: raw/2026-11-04/Chapter_2_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods
+  retrieved_at: '2026-11-04T23:44:04.501115+00:00'
+  checksum_sha256: 2d9688e3b52f0f66bc52b819f7d80d4a559e3189bf110fa37d4c233bf6bcabcd
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a43af2e167a99cf0018d959/Chapter_2_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods
+- path: raw/2026-11-04/Weather_Resilient_Homes_Factsheet_Annex_Tables.ods
+  retrieved_at: '2026-11-04T23:44:04.660971+00:00'
+  checksum_sha256: c309f2c876b8f839b30c2f1703da02503e6e5ca8b1b7b6281d1ee670000403cb
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a460ddb045e1108aaa5e921/Weather_Resilient_Homes_Factsheet_Annex_Tables.ods
+transformations: 'Annex sheets split into thousands / percentages / sample sections
+  (housing.connectors.ehs_lived_experience.read_blocks); tenure columns checked against
+  header text; one row per published percentage cell with published thousands and
+  unweighted sample sizes in notes; ''u'' → suppressed. Complements (able to keep
+  warm, home not hot, suitable accommodation, all adaptations installed) not emitted.
+  Sources: https://www.gov.uk/government/statistics/english-housing-survey-2024-to-2025-perceptions-and-impacts-of-housing-quality
+  ; https://www.gov.uk/government/statistics/english-housing-survey-2024-to-2025-weather-resilience-in-housing-fact-sheet'
+revision_notes: '2026-11-04: initial ingest (Domain 07 housing quality wave 2).'
+caveats: 'Subjective self-report by the household reference person or main respondent
+  — perception, not a measured temperature or a surveyor assessment (cf. ehs-category-1-hazards
+  excess cold, a modelled HHSRS hazard). Two bases: PIQ tables are ''all households''
+  (household subsample, non-response excluded); weather fact-sheet tables are ''all
+  occupied dwellings'' (same respondents weighted to dwellings, don''t-know excluded)
+  — the all-dwellings rows of AT1.1/1.2 equal PIQ AT2.9 and are not duplicated (QA
+  compares). Single snapshot (2024 / 2024-25): the fact sheet cites 7% overheating
+  in 2019 from the 2019-20 headline report, not ingested. Weather tables cross dwelling
+  type and construction type with three tenures only (no LA/HA split). Figures based
+  on small samples are italicised in the source (not machine-readable); cell-sample-unweighted
+  is carried instead — treat bases under ~100 as indicative. ''u'' = unweighted count
+  1–4. The published AT1.2 thousands for detached houses, all dwellings (4,190) is
+  inconsistent with its 5.7% share (QA §); percentages are unaffected.'
+related_indicator_ids:
+- ehs-category-1-hazards
+- ehs-decent-homes
+- ehs-heating
+- ehs-insulation
+- ehs-damp-mould-reported
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

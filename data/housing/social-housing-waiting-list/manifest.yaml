@@ -1,0 +1,45 @@
+indicator_id: social-housing-waiting-list
+title: Households on local authority housing registers
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-rents-lettings-and-tenancies
+series_id: Live Table 600
+geography: England (sum of regions), regions and local authorities
+frequency: annual stock (31 March)
+unit: households on register
+definition: Households on local authority housing registers (waiting lists). Not the
+  number of unique households needing social housing nationwide.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Live_Table_600.ods
+  retrieved_at: '2026-11-04T23:00:46.774115+00:00'
+  checksum_sha256: e625daf6e79a57370121f8087a2a63622f2352ffb87ec631359617386193cfcd
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-06-25'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a2be263e50716856ed4afc4/Live_Table_600.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Registers overstate unique need (multi-LA listing, review frequency). Never
+  divide by lettings to invent an individual wait time.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-support-needs
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- homelessness-main-duty
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-by-type
+- temporary-accommodation-duration
+- temporary-accommodation-out-of-area
+- rough-sleeping-snapshot
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581909b6ff2cdea70f309"
+schema_version: '1.0'

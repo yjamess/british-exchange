@@ -1,0 +1,42 @@
+indicator_id: cpi-index
+title: CPI index
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23
+series_id: D7BT
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Index 2015=100 (CPI all items)
+definition: UK Consumer Prices Index (CPI) all-items index level (2015=100). ONS CDID
+  D7BT in dataset MM23. Used to express house prices in real terms. Not the annual
+  rate (D7G7) and not CPIH.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpi_index
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-04/d7bt_mm23.json
+  retrieved_at: '2026-11-04T17:02:04.686426+00:00'
+  checksum_sha256: a0e630b09306a449f79de41ced22bb5640f34c6cab6923900a4fb8b101c69c93
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: CPI index revises with basket/weight updates and corrections.
+caveats: Index level for deflation; pair with cpi-inflation (D7G7) for the rate.
+related_indicator_ids:
+- cpi-inflation
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+- uk-average-house-price
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

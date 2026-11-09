@@ -1,0 +1,55 @@
+indicator_id: ehs-energy-improvement
+title: EHS potential improvement to band C
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistics/annex-tables-for-english-housing-survey-2024-to-2025-headline-findings-on-housing-quality-and-energy-efficiency
+series_id: EHS Ch2 AT2.13–2.14 improvement to band C
+geography: England (E92000001) — dwelling sample survey estimates
+frequency: annual
+unit: mixed (percent / GBP)
+definition: Modelled share of England dwellings that could be improved to EER band
+  C, and mean cost among improvable dwellings (EHS SAP simulation).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_energy_anatomy
+curated_path: curated/observations.csv
+update_cadence: annual (EHS live tables, July)
+raw_evidence:
+- path: raw/2026-11-04/2024-25_EHS_Headline_Report_Chapter_2_Energy_Efficiency_Annex_Tables.ods
+  retrieved_at: '2026-11-04T21:10:30.205163+00:00'
+  checksum_sha256: 12ac595b98bfacddea2014de55f38c05b062d29fc45626c245127ce8fc8094d6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-01-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6978ed0f5da1fd4ddea98c5b/2024-25_EHS_Headline_Report_Chapter_2_Energy_Efficiency_Annex_Tables.ods
+transformations: Ch2 annex AT2.13 / AT2.14; series= and tenure= notes.
+revision_notes: 'Domain 07 Energy Anatomy ingest 2026-11-04. Same-day fix after QA
+  (data/qa/qa_housing_ehs_inside_home_2026_11_04.md §6): columns located by header
+  text per year. Wave 2 (2026-11-04, data/qa/qa_housing_quality_wave2_2026_11_04.md):
+  heating / insulation now carry dwelling-age, dwelling-type, floor-area and region
+  / sub-national-area breakdowns (DA6101/DA6102, DA6201/DA6202) and the published
+  component series; every row gains breakdown=none|…; tenure ''all social'' relabelled
+  social-rented (tenure-label note keeps the published label) to match the other EHS
+  packages; evidence now pinned via housing.connectors.ehs_pins (stable retrieval
+  timestamps). ehs-energy-improvement rows relabelled observation-type=modelled-derived.'
+caveats: 'England survey estimates only — not UK and not EPC register certificates
+  (see epc-domestic-lodgements for the administrative register). Breakdowns are exactly
+  those published: characteristic rows (dwelling age / type / floor area / area) are
+  all tenures only in every year; region (9 ONS regions) from 2020, three sub-national
+  areas 2008–2019 (no ONS code). 2020 and 2021 are occupied dwellings only and modelled
+  (COVID-19); 2022 is a hybrid sample. Column sets change: 2023 adds biomass / communal
+  heating / heat pumps and drops water heating; solid fuel excludes biomass from 2023
+  (not ingested); cavity-wall evidence wording and the assumed-insulated rule change
+  (post-1990 no-CWI-evidence 2010–14; post-1995 assumed-as-built 2015+); loft depth
+  bands change (200mm+ 2008–09; 150mm+ 2010+). Shares are of all dwellings in the
+  group (no-loft dwellings included in the loft denominator) — unlike annex loft-200mm-plus.
+  Improvement costs are SAP-modelled for dwellings below band C that can reach C.'
+related_indicator_ids:
+- ehs-energy-efficiency-bands
+- epc-domestic-lodgements
+- ehs-thermal-comfort
+- ehs-heating
+- ehs-insulation
+open_questions: []
+notion_registry_url: https://app.notion.com/p/40e65471768581c2b579f3be11c5a65f
+schema_version: '1.0'

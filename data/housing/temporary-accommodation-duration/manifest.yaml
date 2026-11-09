@@ -1,0 +1,43 @@
+indicator_id: temporary-accommodation-duration
+title: Length of stay in temporary accommodation
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness
+series_id: H-CLIC Tables TA4 / TA7
+geography: England (E92000001)
+frequency: quarterly stock snapshot (31 Mar 2026)
+unit: households / average days
+definition: Duration bands (TA4) and average length of stay (TA7) for England.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Statutory_Homelessness_Detailed_Local_Authority_Data_202603.ods
+  retrieved_at: '2026-11-04T23:00:44.129735+00:00'
+  checksum_sha256: f77eebd761455169626dc04c70f45177b11704999a6094384b59f37fa56d1881
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a82ee2c92ec93e1e0329a7f/Statutory_Homelessness_Detailed_Local_Authority_Data_202603.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Duration bands are stocks at quarter end, not completed-spell flows.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-support-needs
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- homelessness-main-duty
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-by-type
+- temporary-accommodation-out-of-area
+- rough-sleeping-snapshot
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581089e58ea6405cd7a4a"
+schema_version: '1.0'

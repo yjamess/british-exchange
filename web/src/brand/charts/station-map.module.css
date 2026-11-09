@@ -1,0 +1,309 @@
+/* Station atlas — Housing map tools + square capacity marks. */
+
+.wrap {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+.surface {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--bo-ink-20);
+  background: var(--bo-paper);
+}
+
+.caption {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  left: 14px;
+  right: 9.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.caption > span:last-child {
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+  max-width: 42rem;
+}
+
+.tools {
+  display: inline-flex;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 2;
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+}
+
+/* Field atlas: clear of northern North Sea marks. */
+.toolsBottom {
+  top: auto;
+  bottom: 12px;
+}
+
+.toolBtn,
+.toolBtnWide {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--bo-ink-20);
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: 13px;
+  line-height: 1;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.toolBtnWide {
+  width: auto;
+  padding: 0 0.65rem;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-right: 0;
+}
+
+.tools > :last-child {
+  border-right: 0;
+}
+
+.toolBtn:hover,
+.toolBtnWide:hover {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.toolBtn:focus-visible,
+.toolBtnWide:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.toolBtnWide:disabled {
+  color: var(--bo-ink-40);
+  cursor: default;
+}
+
+.toolBtnWide:disabled:hover {
+  background: transparent;
+  color: var(--bo-ink-40);
+}
+
+.plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 540 / 660;
+  touch-action: none;
+  cursor: grab;
+}
+
+.plot:active {
+  cursor: grabbing;
+}
+
+.plot:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.land {
+  fill: var(--bo-paper-sink);
+  stroke: var(--bo-ink-40);
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Field atlas locator — fixed Britain + current view when zoomed offshore. */
+.locator {
+  pointer-events: none;
+}
+
+.locatorPlate {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+
+.locatorSea {
+  fill: var(--bo-ink-10);
+  stroke: none;
+}
+
+.locatorLand {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.locatorView {
+  fill: none;
+  stroke: var(--bo-signal);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.locatorMark {
+  fill: var(--bo-ink);
+  stroke: var(--bo-paper);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.locatorLabel {
+  fill: var(--bo-union);
+  font: 500 9px / 1 var(--bo-f-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* A station is a printed tint: hairline square in its family ink + dot screen (set inline). */
+.station {
+  outline: none;
+}
+
+.mark {
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+}
+
+.mark[data-print="solid"] {
+  stroke: var(--bo-paper);
+  stroke-width: 0.5;
+}
+
+.mark[data-print="open"] {
+  fill: var(--bo-paper);
+  stroke-width: 1.25;
+}
+
+.hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.hover {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+  pointer-events: none;
+}
+
+/* Selection: the station reprinted solid on a paper knock-out, an ink frame with registration ticks,
+   and its coordinate mark. Drawn above every other station so it is never buried. */
+.selection {
+  outline: none;
+  pointer-events: none;
+}
+
+.knock {
+  fill: var(--bo-paper);
+}
+
+.frame {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+}
+
+.focus {
+  fill: none;
+  stroke: var(--bo-signal);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  visibility: hidden;
+}
+
+.selection:focus-visible .focus {
+  visibility: visible;
+}
+
+.coord {
+  font-family: var(--bo-f-data);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  fill: var(--bo-ink);
+  paint-order: stroke;
+  stroke: var(--bo-paper);
+  stroke-linejoin: miter;
+}
+
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 500 var(--bo-t-micro) / 1.2 var(--bo-f-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+
+.keyItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.swatch {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  background: var(--bo-ink);
+  border: 1px solid var(--bo-ink);
+}
+
+/* Key swatches match the marks: hairline square in the family ink with its dot screen. */
+.swatch[data-kind] {
+  width: 0.75rem;
+  height: 0.75rem;
+  background: var(--bo-paper) radial-gradient(circle, var(--sw) 0.8px, transparent 1.1px) 0 0 / 3px 3px;
+  border-color: var(--sw);
+}
+.swatch[data-kind="renewable"] { --sw: var(--bo-chart-4); }
+.swatch[data-kind="fossil"] { --sw: var(--bo-chart-2); }
+.swatch[data-kind="nuclear"] { --sw: var(--bo-chart-1); }
+.swatch[data-kind="storage"] { --sw: var(--bo-chart-5); background: var(--bo-paper); border-width: 1.5px; }
+
+.sizeKey {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-left: auto;
+}
+
+.sizeMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sizeMark i {
+  display: block;
+  background: var(--bo-paper);
+  border: 1px solid var(--bo-ink);
+  box-sizing: border-box;
+}

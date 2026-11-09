@@ -1,0 +1,487 @@
+/* Domain 01 Map — full atlas inside the explorer stage (one chrome). */
+
+.root {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--bo-s4) var(--bo-s5);
+  padding-bottom: var(--bo-s3);
+  border-bottom: var(--bo-hair);
+}
+
+.search {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  flex: 1 1 14rem;
+  min-width: 12rem;
+  max-width: 22rem;
+}
+
+.searchRow {
+  display: flex;
+  border-bottom: var(--bo-rule);
+}
+
+.searchRow input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 6px 0;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+}
+
+.searchRow input:focus-visible {
+  outline: none;
+}
+
+.searchRow button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: var(--bo-t-small);
+}
+
+.searchRow button:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.matches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: var(--bo-paper);
+  border: var(--bo-rule);
+}
+
+.matches button {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: var(--bo-hair);
+  background: transparent;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: var(--bo-t-note);
+  color: var(--bo-ink);
+  cursor: pointer;
+}
+
+.matches li:last-child button {
+  border-bottom: 0;
+}
+
+.matches button:hover,
+.matches button:focus-visible {
+  background: color-mix(in srgb, var(--bo-ink) 6%, var(--bo-paper));
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.menu {
+  min-width: 10rem;
+  max-width: 16rem;
+}
+.menuWide {
+  width: 100%;
+  min-width: 0;
+}
+
+.segment {
+  display: flex;
+}
+
+.segment button {
+  appearance: none;
+  flex: 1;
+  white-space: nowrap;
+  padding: 7px 12px;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  color: var(--bo-text);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  cursor: pointer;
+}
+
+.segment button + button {
+  margin-left: -1px;
+}
+
+.segment button[aria-pressed="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.segment button:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.download {
+  appearance: none;
+  margin-left: auto;
+  border: 0;
+  border-bottom: var(--bo-rule);
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.download:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.status {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.notice {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+  border-left: 2px solid var(--bo-ink);
+  padding-left: var(--bo-s3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+  gap: var(--bo-s5);
+  align-items: start;
+  min-height: min(72vh, 42rem);
+}
+
+.mapCol {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bo-s3);
+  min-height: min(72vh, 42rem);
+}
+
+.mapCol > div:first-child {
+  flex: 1;
+  min-height: min(62vh, 36rem);
+}
+
+.places {
+  display: grid;
+  gap: var(--bo-s3);
+}
+
+.places .tableWrap {
+  min-height: 0;
+  max-height: 24rem;
+}
+
+.tableWrap {
+  min-height: min(62vh, 36rem);
+  max-height: min(72vh, 42rem);
+  overflow: auto;
+  border: var(--bo-hair);
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--bo-t-note);
+}
+
+.tableWrap caption {
+  text-align: left;
+  padding: 10px 12px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 8px 12px;
+  vertical-align: bottom;
+}
+
+.tableWrap th {
+  position: sticky;
+  top: 0;
+  background: var(--bo-paper);
+  text-align: left;
+  border-block: var(--bo-hair);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+}
+
+.tableWrap td {
+  border-bottom: var(--bo-hair);
+}
+
+/* The place name is read from the left. The figure sits on the right, heading included. */
+.tableWrap th:last-child,
+.tableWrap td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableWrap td:last-child {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-note);
+}
+
+.tableWrap td button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--bo-ink);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tableWrap tr[aria-selected="true"] td {
+  border-bottom-color: var(--bo-ink);
+  border-bottom-width: 2px;
+}
+
+.timeline {
+  border-top: var(--bo-hair);
+  padding-top: var(--bo-s3);
+}
+
+.timelineControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.timelineControls button {
+  appearance: none;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  padding: 4px 8px;
+  font-size: var(--bo-t-note);
+  cursor: pointer;
+}
+
+.timelineControls button:disabled {
+  /* Tone from solid ink tints, never opacity. */
+  color: var(--bo-ink-40);
+  border-color: var(--bo-ink-20);
+  cursor: default;
+}
+
+.timelineControls output {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-note);
+  min-width: 5.5rem;
+  text-align: center;
+  color: var(--bo-ink);
+}
+
+.timeline input[type="range"] {
+  width: 100%;
+  accent-color: var(--bo-ink);
+  margin: 10px 0 4px;
+  cursor: ew-resize;
+}
+
+.timeEnds {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  color: var(--bo-text);
+}
+
+.micro {
+  margin-left: auto;
+  font-size: var(--bo-t-label);
+  color: var(--bo-text);
+}
+
+.readout {
+  display: grid;
+  gap: var(--bo-s2);
+  align-content: start;
+  padding-top: var(--bo-s1);
+  border-left: var(--bo-hair);
+  padding-left: var(--bo-s4);
+  min-width: 0;
+}
+
+.placeName {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: var(--bo-t-ed-m);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--bo-ink);
+  overflow-wrap: anywhere;
+}
+
+.value {
+  margin: var(--bo-s3) 0 0;
+  font-size: var(--bo-t-stat);
+  color: var(--bo-ink);
+}
+
+.valueLabel {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.benchmarks {
+  margin: var(--bo-s4) 0 0;
+  padding: var(--bo-s3) 0;
+  border-block: var(--bo-hair);
+  display: grid;
+  gap: var(--bo-s2);
+}
+
+.benchmarks > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  font-size: var(--bo-t-note);
+}
+
+.benchmarks dt {
+  margin: 0;
+  color: var(--bo-text);
+}
+
+.benchmarks dd {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  color: var(--bo-ink);
+}
+
+.compare {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--bo-s4);
+}
+
+.compareReadout {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.compareReadout strong {
+  font-family: var(--bo-f-data);
+  font-weight: 500;
+  color: var(--bo-ink);
+}
+
+.trendHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  margin-top: var(--bo-s5);
+}
+
+.textBtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.legend {
+  margin-top: var(--bo-s5);
+  padding-top: var(--bo-s4);
+  border-top: var(--bo-hair);
+  display: grid;
+  gap: 6px;
+}
+
+.legendDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  color: var(--bo-text);
+}
+
+.swatch {
+  width: 36px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .readout {
+    border-left: 0;
+    border-top: var(--bo-hair);
+    padding-left: 0;
+    padding-top: var(--bo-s4);
+  }
+  .download {
+    margin-left: 0;
+  }
+}

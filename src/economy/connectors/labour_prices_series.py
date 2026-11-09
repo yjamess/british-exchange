@@ -6,6 +6,8 @@ from economy.connectors.ons_timeseries import OnsSeriesSpec
 
 Y1_RELATED = [
     "cpi-inflation",
+    "cpi-index",
+    "cpih-index",
     "real-gdp-per-head",
     "labour-productivity",
     "employment-rate",
@@ -54,6 +56,56 @@ CPI_INFLATION = OnsSeriesSpec(
     revision_notes="CPI rates revise with basket/weight updates and corrections.",
     caveats="Headline CPI annual rate, not the index level (D7BT) and not CPIH.",
     related_indicator_ids=_related_except("cpi-inflation"),
+)
+
+CPI_INDEX = OnsSeriesSpec(
+    indicator_id="cpi-index",
+    title="CPI index",
+    series_id="D7BT",
+    dataset_id="MM23",
+    landing_url=(
+        "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23"
+    ),
+    unit="Index 2015=100 (CPI all items)",
+    definition=(
+        "UK Consumer Prices Index (CPI) all-items index level (2015=100). "
+        "ONS CDID D7BT in dataset MM23. Used to express house prices in real terms. "
+        "Not the annual rate (D7G7) and not CPIH (L522)."
+    ),
+    frequency="monthly",
+    period_kind="months",
+    notion_registry_url="",
+    connector_module="economy.connectors.cpi_index",
+    update_cadence="monthly (ONS Consumer price inflation)",
+    transformations=_MONTHLY_TRANSFORM,
+    revision_notes="CPI index revises with basket/weight updates and corrections.",
+    caveats="Index level for deflation; pair with cpi-inflation (D7G7) for the rate. Prefer cpih-index for household energy real-terms.",
+    related_indicator_ids=_related_except("cpi-index") + ["uk-average-house-price", "cpih-index"],
+)
+
+CPIH_INDEX = OnsSeriesSpec(
+    indicator_id="cpih-index",
+    title="CPIH index",
+    series_id="L522",
+    dataset_id="MM23",
+    landing_url=(
+        "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23"
+    ),
+    unit="Index 2015=100 (CPIH all items)",
+    definition=(
+        "UK Consumer Prices Index including owner occupiers' housing costs (CPIH) "
+        "all-items index level (2015=100). ONS CDID L522 in dataset MM23. Preferred "
+        "household-cost deflator for Energy real-terms bills. Distinct from CPI (D7BT)."
+    ),
+    frequency="monthly",
+    period_kind="months",
+    notion_registry_url="",
+    connector_module="economy.connectors.cpih_index",
+    update_cadence="monthly (ONS Consumer price inflation)",
+    transformations=_MONTHLY_TRANSFORM,
+    revision_notes="CPIH index revises with basket/weight updates and corrections.",
+    caveats="Not CPI (D7BT). Energy must link this Economy series — do not fork under data/energy.",
+    related_indicator_ids=_related_except("cpih-index") + ["cpi-index", "domestic-electricity-bills", "domestic-gas-bills"],
 )
 
 REAL_GDP_PER_HEAD = OnsSeriesSpec(
@@ -184,6 +236,35 @@ REAL_EARNINGS = OnsSeriesSpec(
         "coverage for earnings survey — confirm geography notes on ONS page."
     ),
     related_indicator_ids=_related_except("real-earnings") + ["cpi-inflation"],
+    geography="Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for spine",
+)
+
+NOMINAL_EARNINGS = OnsSeriesSpec(
+    indicator_id="nominal-earnings",
+    title="Average weekly earnings (cash terms)",
+    series_id="KAI7",
+    dataset_id="EMP",
+    landing_url=(
+        "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/"
+        "earningsandworkinghours/timeseries/kai7/emp"
+    ),
+    unit="£ per week, SA, cash terms (regular pay)",
+    definition=(
+        "Average weekly earnings (AWE) whole-economy regular pay in cash (nominal) terms, "
+        "seasonally adjusted. ONS CDID KAI7. Companion real-terms series is A2FC (real-earnings)."
+    ),
+    frequency="monthly",
+    period_kind="months",
+    notion_registry_url="",
+    connector_module="economy.connectors.nominal_earnings",
+    update_cadence="monthly (ONS AWE)",
+    transformations=_MONTHLY_TRANSFORM,
+    revision_notes="AWE revises with later returns.",
+    caveats=(
+        "Regular pay per employee, excluding bonuses and arrears; not household income. "
+        "Used by Energy for bills as a share of average pay (cash bill ÷ cash pay)."
+    ),
+    related_indicator_ids=["real-earnings", "cpih-index"],
     geography="Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for spine",
 )
 

@@ -1,0 +1,42 @@
+indicator_id: nsta-field-production
+title: NSTA UKCS field production (PPRS annual)
+sector: energy-industry
+publisher: North Sea Transition Authority
+source_url: https://open-data-ukcs-transition.hub.arcgis.com/datasets/UKCS-transition::ukcs-hydrocarbon-field-production-reports-pprs-points-wgs84
+series_id: UKCS hydrocarbon field production reports PPRS points (WGS84)
+geography: UKCS PPRS reporting units (offshore + England onshore where published);
+  not a substitute for DESNZ national indigenous production
+frequency: annual
+unit: tonnes (oil) / ksm3 (gas to pipeline)
+definition: 'Calendar-year sums of monthly NSTA PPRS field production reports: oil
+  mass (tonnes) and gas to pipeline (ksm3) by Field name. Contains information provided
+  by the North Sea Transition Authority and/or other third parties.'
+licence: NSTA User Agreement (Open User Licence) — see data/energy/oil-gas-fossil-fuels/licence/README.md;
+  attribution required
+agent_owner: energy
+connector_module: energy.connectors.nsta_field_production
+curated_path: curated/observations.csv
+update_cadence: Re-fetch when NSTA republishes the Hub layer
+raw_evidence:
+- path: raw/2026-11-07/ukcs_pprs_field_production.csv
+  retrieved_at: '2026-11-07T21:24:44.091069+00:00'
+  checksum_sha256: 20a89a123932700bf5351302247751fb05b1855e617570de17137a7fdc781943
+  content_type: text/csv
+  official_release_date: '2026-11-07'
+  http_status: 200
+  source_url: https://open-data-ukcs-transition.hub.arcgis.com/api/download/v1/items/dd38204275a04618ab7ddd00f87224e3/csv?layers=0
+transformations: Download Hub CSV. Pin under raw/<date>/. Aggregate monthly rows to
+  field × year (oil tonnes, associated/dry gas ksm3, condensate tonnes, gas to pipeline
+  ksm3). Write curated/annual_by_field.csv and national field-sum observations (kind=field_sum_oil|field_sum_gas_to_pipeline).
+revision_notes: ''
+caveats: Field-sum totals must not replace DESNZ indigenous crude or ET gas production.
+  Coverage and reporting-unit boundaries differ from DUKES. Incomplete years stay
+  marked provisional. Onshore Scotland/Wales/NI are not published by NSTA. Contains
+  information provided by the North Sea Transition Authority and/or other third parties.
+related_indicator_ids:
+- nsta-ukcs-fields
+- crude-oil-production
+- domestic-gas-production
+open_questions: []
+notion_registry_url: https://app.notion.com/41165471768581aaa66ee1746c0f2bc8
+schema_version: '1.0'

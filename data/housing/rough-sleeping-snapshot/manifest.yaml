@@ -1,0 +1,44 @@
+indicator_id: rough-sleeping-snapshot
+title: Rough sleeping autumn snapshot
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/tables-on-rough-sleeping
+series_id: Rough sleeping snapshot Table 1
+geography: England, regions and local authorities
+frequency: annual (single night autumn)
+unit: people (estimate)
+definition: Estimated people sleeping rough on a single night between 1 Oct and 30
+  Nov. Not a count of all homelessness.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Rough_sleeping_snapshot_in_England__autumn_2025.ods
+  retrieved_at: '2026-11-04T23:00:46.508998+00:00'
+  checksum_sha256: 7b7ed536d0d51f837552be0207f76d0f62838ce4e72409370f6482543c710c89
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-02-26'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/699daac73e672177d0bc759b/Rough_sleeping_snapshot_in_England__autumn_2025.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Estimate with method variation by LA; distinct from H-CLIC and TA stocks.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-support-needs
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- homelessness-main-duty
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-by-type
+- temporary-accommodation-duration
+- temporary-accommodation-out-of-area
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581a8a924f5c7cf2cc0eb"
+schema_version: '1.0'

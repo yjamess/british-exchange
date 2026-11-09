@@ -1,0 +1,559 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,27.38,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,26.94,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,23.86,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,30.33,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,28.92,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.92,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,29.96,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,33.58,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,27.8,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,31.74,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,31.54,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,32.04,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,27.31,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,22.84,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,33.64,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,32.05,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,30.41,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,30.08,percent,final,DUKES_6.3_2026,fuel=Wind; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,26.71,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,24.76,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,21.85,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,27.94,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,25.83,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,28.37,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,26.22,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,29.34,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,23.57,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,27.99,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,26.66,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,26.52,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,28.28,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,23.44,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,27.32,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,25.06,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,24.98,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,24.02,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,30.71,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,21.05,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,30.48,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,36.98,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,35.82,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,39.14,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,37.34,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,41.46,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,35.96,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,38.98,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,40.08,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,40.54,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,45.92,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,37.75,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,41.29,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,39.49,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,35.99,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,36.12,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,2.82,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,7.71,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,6.54,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,3.03,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,2.59,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,0.01,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,3.0,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,5.47,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,7.46,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,7.98,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,6.37,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,14.24,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,14.74,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,15.11,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,18.56,percent,final,DUKES_6.3_2026,fuel=Marine energy (wave and tidal stream); basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,5.08,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,11.19,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,9.78,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,10.93,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,11.37,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,11.0,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,10.6,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,11.2,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,10.74,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,10.54,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,9.93,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,11.06,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,10.5,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,9.22,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,11.08,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,37.25,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,36.41,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,24.95,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,39.07,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,35.85,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.55,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,39.09,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,41.0,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,33.88,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,36.27,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,33.17,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,36.05,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,41.59,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,32.77,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.6,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,33.82,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,34.41,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,32.34,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,37.61,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,37.76,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,31.38,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,41.31,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,37.08,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,34.41,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,39.33,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,40.61,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,35.08,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,39.2,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,36.94,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,39.22,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,43.22,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,35.29,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.33,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,35.5,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,38.8,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,38.8,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,37.2,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,36.53,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,24.2,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,38.79,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,35.8,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.12,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,39.06,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,41.08,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,33.61,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,35.52,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,32.14,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,35.18,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,41.14,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,32.05,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.68,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,33.34,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,33.17,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,30.52,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,57.27,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,61.9,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,61.48,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,49.71,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,52.23,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,61.12,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,64.73,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,73.36,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,67.62,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,68.02,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,64.45,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,60.87,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,61.61,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,63.17,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,57.11,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,54.05,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,62.33,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,63.0,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=average_boe_capacity"
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,60.06,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,58.0,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,59.88,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,58.54,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,56.61,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,56.47,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,54.51,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,52.49,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,50.43,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,45.96,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,41.99,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,39.06,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,37.72,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,35.84,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,33.56,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,32.34,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,31.15,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,28.78,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,41.18,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,43.84,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,47.19,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,45.14,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,40.91,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,42.34,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,44.5,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,44.26,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,44.28,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,43.92,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,46.03,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,48.56,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,49.27,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,47.46,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,43.54,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,43.87,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,41.91,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,39.36,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,62.76,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,71.22,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,69.53,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,58.89,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,71.25,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,65.55,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,64.18,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,63.42,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,60.85,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,70.87,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,70.13,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,66.1,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,69.36,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,72.97,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,73.01,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,78.97,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,79.37,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,76.08,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,63.89,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,65.51,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,64.5,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,63.21,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,65.94,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,64.61,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,63.14,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,66.77,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,61.73,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,57.31,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,55.96,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,58.33,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,57.68,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,57.19,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,58.88,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,54.59,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,55.09,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,49.68,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,32.18,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,40.91,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,63.87,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,52.07,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,57.75,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,57.32,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,57.5,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,58.57,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,62.18,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,62.47,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,61.71,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,62.97,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,61.88,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,63.89,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,62.1,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,60.95,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,62.76,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,63.83,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,43.5,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,55.24,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,60.84,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,27.23,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,39.56,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,64.61,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,70.91,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,87.3,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,78.5,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,77.7,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,70.58,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,64.07,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,64.63,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,67.36,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,56.84,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,51.19,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,65.17,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,68.31,percent,final,DUKES_6.3_2026,fuel=Plant Biomass [note 5]; basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,36.64,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,34.92,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,30.51,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,30.61,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,29.71,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.09,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,30.38,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,31.62,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,27.34,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,28.96,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,29.36,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,29.99,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,32.64,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,29.07,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,29.89,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,29.09,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,28.43,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,28.32,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=average_boe_capacity
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,30.46,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,27.37,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,23.23,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,29.63,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,27.69,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,30.99,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,29.81,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,33.29,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,28.83,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,31.6,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,30.88,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,31.38,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,35.5,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,29.8,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,31.75,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,31.98,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,30.91,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,30.0,percent,final,DUKES_6.3_2026,fuel=Wind; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,29.34,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,26.48,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,21.53,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,27.8,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,25.53,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,27.95,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,25.94,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,29.4,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,24.17,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,27.26,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,26.47,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,26.21,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,28.05,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,23.3,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,26.94,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,24.56,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,25.11,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,24.08,percent,final,DUKES_6.3_2026,fuel=Onshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,34.81,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,32.11,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,29.71,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,35.22,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,34.09,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,37.59,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,37.76,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,39.74,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,36.7,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,40.04,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,38.25,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,39.57,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,45.06,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,38.09,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,36.88,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,40.43,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,37.03,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,35.98,percent,final,DUKES_6.3_2026,fuel=Offshore; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,,percent,missing,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,7.18,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,11.17,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,11.27,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,11.12,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,11.23,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,10.75,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,10.55,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,11.35,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,11.16,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,11.29,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,10.64,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,10.82,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,10.58,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,9.57,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,11.08,percent,final,DUKES_6.3_2026,fuel=Solar photovoltaics; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,38.12,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,38.11,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,26.44,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,41.56,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,37.47,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.57,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,38.84,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,39.46,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,33.74,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,35.78,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,32.54,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,35.54,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,41.27,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,32.25,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.51,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,33.56,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,34.43,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,32.43,percent,final,DUKES_6.3_2026,fuel=Hydro; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,37.0,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,37.18,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,30.21,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,43.69,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,39.54,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,36.09,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,39.74,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,41.85,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,34.65,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,38.23,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,36.39,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,38.74,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,42.83,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,35.39,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.23,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,38.33,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,37.77,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,38.13,percent,final,DUKES_6.3_2026,fuel=Small scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,38.23,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,38.21,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,26.08,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,41.35,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,37.26,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,31.17,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,38.75,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,39.21,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,33.65,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,35.52,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,32.14,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,35.18,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,41.1,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,31.9,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,30.59,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,32.89,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,33.44,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,30.74,percent,final,DUKES_6.3_2026,fuel=Large scale; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,60.09,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,64.66,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,64.51,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,65.28,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,67.51,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,63.13,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,69.66,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,73.44,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,77.37,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,77.48,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,71.44,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,70.67,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,69.95,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,67.89,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,56.63,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,50.75,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,64.72,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,68.0,percent,final,DUKES_6.3_2026,"fuel=Bioenergy (excludes cofiring, includes non-biodegradable wastes); basis=unchanged_configuration"
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,59.83,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,59.37,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,59.57,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,59.84,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,58.38,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,57.51,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,55.17,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,52.62,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,49.94,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,45.76,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,42.37,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,39.33,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,37.81,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,35.94,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,33.4,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,32.4,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,31.13,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,28.86,percent,final,DUKES_6.3_2026,fuel=Landfill gas; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,43.15,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,49.97,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,49.25,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,50.91,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,45.41,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,49.83,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,47.98,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,48.19,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,43.08,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,46.08,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,46.47,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,48.98,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,49.58,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,48.13,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,42.55,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,43.4,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,41.9,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,39.47,percent,final,DUKES_6.3_2026,fuel=Sewage sludge digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,65.56,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,70.97,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,70.58,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,63.98,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,72.99,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,67.05,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,70.94,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,71.46,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,68.7,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,74.38,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,71.97,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,70.94,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,74.63,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,74.85,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,73.1,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,77.29,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,79.05,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,76.71,percent,final,DUKES_6.3_2026,fuel=Energy from waste [note 3]; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,63.89,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,65.75,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,64.82,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,68.98,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,66.23,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,70.4,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,63.38,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,66.91,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,57.24,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,57.31,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,55.96,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,58.34,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,56.98,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,54.41,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,59.11,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,15.47,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,30.02,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,29.67,percent,final,DUKES_6.3_2026,fuel=Animal biomass [note 4]; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,49.21,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,46.85,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,60.5,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,53.79,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,59.2,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,61.48,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,57.52,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,55.38,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,58.16,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,61.38,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,62.58,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,63.32,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,61.7,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,61.76,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,60.83,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,58.75,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,62.76,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,63.84,percent,final,DUKES_6.3_2026,fuel=Anaerobic digestion; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,57.48,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,64.57,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,64.66,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,65.13,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,69.9,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,60.62,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,70.46,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,74.39,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,79.14,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,79.12,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,72.61,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,72.01,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,70.84,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,68.58,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,56.82,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,70.0,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,69.81,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,70.0,percent,final,DUKES_6.3_2026,fuel=Plant biomass [note 5]; basis=unchanged_configuration
+renewable-electricity-load-factors,2008-01-01,2008-12-31,K02000001,United Kingdom,41.58,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2009-01-01,2009-12-31,K02000001,United Kingdom,37.64,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2010-01-01,2010-12-31,K02000001,United Kingdom,32.45,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2011-01-01,2011-12-31,K02000001,United Kingdom,38.35,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2012-01-01,2012-12-31,K02000001,United Kingdom,36.04,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2013-01-01,2013-12-31,K02000001,United Kingdom,36.05,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2014-01-01,2014-12-31,K02000001,United Kingdom,37.81,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2015-01-01,2015-12-31,K02000001,United Kingdom,38.2,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2016-01-01,2016-12-31,K02000001,United Kingdom,32.96,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2017-01-01,2017-12-31,K02000001,United Kingdom,33.47,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2018-01-01,2018-12-31,K02000001,United Kingdom,31.95,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2019-01-01,2019-12-31,K02000001,United Kingdom,31.16,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2020-01-01,2020-12-31,K02000001,United Kingdom,35.37,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2021-01-01,2021-12-31,K02000001,United Kingdom,32.05,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2022-01-01,2022-12-31,K02000001,United Kingdom,29.86,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2023-01-01,2023-12-31,K02000001,United Kingdom,31.4,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2024-01-01,2024-12-31,K02000001,United Kingdom,29.81,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration
+renewable-electricity-load-factors,2025-01-01,2025-12-31,K02000001,United Kingdom,29.47,percent,final,DUKES_6.3_2026,fuel=All renewable technologies (excluding cofiring and non-biodegradable wastes); basis=unchanged_configuration

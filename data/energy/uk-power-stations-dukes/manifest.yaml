@@ -1,0 +1,37 @@
+indicator_id: uk-power-stations-dukes
+title: UK power stations — fossil and nuclear (DUKES 5.11)
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 5.11 Full list — Fossil Fuel and Nuclear rows
+geography: United Kingdom (major power producers; NI listed without OSGB points)
+frequency: annual
+unit: MW
+definition: Installed capacity (MW) of major power producers on DUKES table 5.11 whose
+  Technology is Fossil Fuel or Nuclear, summed by Primary Fuel. Not generation (TWh).
+  Complements the REPD renewables planning register.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.uk_power_stations_dukes
+curated_path: curated/observations.csv
+update_cadence: Annual DUKES chapter 5 release
+raw_evidence:
+- path: raw/2026-11-06/DUKES_5.11.xlsx
+  retrieved_at: '2026-11-06T22:58:49.056478+00:00'
+  checksum_sha256: 760286f4cb3168f04a5ee1b581dbfcb35e1d65a5ea0151bb2dd4dc12dca2c72a
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-07-31'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6878e9f1ea3d250d0b5c2f2a/DUKES_5.11.xlsx
+transformations: 'Filter Technology ∈ {Fossil Fuel, Nuclear}. Sum InstalledCapacity
+  (MW) by Primary Fuel → notes=fuel=<label>. Write curated/stations.json with OSGB→WGS84
+  points (Northern Ireland skipped: Irish Grid).'
+revision_notes: ''
+caveats: Major power producers only — not every licensed generator. Coordinates are
+  generator-supplied OSGB; DESNZ does not verify them. Northern Ireland sites appear
+  in the register but are not plotted (Irish Grid ≠ OSGB36). Post-Ratcliffe, the list
+  has no coal plant.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

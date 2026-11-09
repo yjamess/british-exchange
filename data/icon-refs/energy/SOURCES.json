@@ -1,0 +1,52 @@
+{
+  "generation": {
+    "page": "https://commons.wikimedia.org/wiki/File:Ballylumford_Power_Station_-_geograph.org.uk_-_5847174.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Ballylumford Power Station, Islandmagee (Geograph, Wikimedia Commons)"
+  },
+  "consumption": {
+    "page": "https://commons.wikimedia.org/wiki/File:Economy_7_Meter_and_Teleswitcher.JPG",
+    "license": "Public domain",
+    "credit": "Economy 7 meter and teleswitcher (Wikimedia Commons)"
+  },
+  "prices": {
+    "page": "https://commons.wikimedia.org/wiki/File:Smart_prepayment_meter.jpg",
+    "license": "CC0 1.0",
+    "credit": "Smart prepayment meter (Wikimedia Commons)"
+  },
+  "fossil": {
+    "page": "https://commons.wikimedia.org/wiki/File:North_Sea_Oil_Rig_%287573694644%29.jpg",
+    "license": "CC BY 2.0",
+    "credit": "North Sea oil rig (Flickr, Wikimedia Commons)"
+  },
+  "imports": {
+    "page": "https://commons.wikimedia.org/wiki/File:Grain_LNG_Terminal.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Grain LNG Terminal, Isle of Grain (Wikimedia Commons)"
+  },
+  "low-carbon": {
+    "page": "https://commons.wikimedia.org/wiki/File:Sizewell_B_nuclear_power_station_-_geograph.org.uk_-_5825003.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Sizewell B nuclear power station (Geograph, Wikimedia Commons)"
+  },
+  "networks": {
+    "page": "https://commons.wikimedia.org/wiki/File:National_Grid_Creyke_Beck_substation_-_geograph.org.uk_-_4448542.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "National Grid Creyke Beck substation (Geograph, Wikimedia Commons)"
+  },
+  "manufacturing": {
+    "page": "https://commons.wikimedia.org/wiki/File:Factory_at_Wainstalls_-_geograph.org.uk_-_3487361.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Factory at Wainstalls, Calderdale (Geograph, Wikimedia Commons)"
+  },
+  "industrial-work": {
+    "page": "https://commons.wikimedia.org/wiki/File:Port_Talbot_Steelworks_-_geograph.org.uk_-_3044640.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Port Talbot Steelworks (Geograph, Wikimedia Commons)"
+  },
+  "policy": {
+    "page": "https://commons.wikimedia.org/wiki/File:Redcar_blast_furnace_-_geograph.org.uk_-_1709346.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Redcar blast furnace (Geograph, Wikimedia Commons)"
+  }
+}

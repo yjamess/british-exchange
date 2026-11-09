@@ -1,0 +1,5 @@
+terminal_id,dukes_name,lat,lon,status,source_label,source_url,source_position,notes
+isle-of-grain,Isle of Grain,51.432342,0.709080,sourced,Port of Sheerness NtM 25/2014,https://msba.org.uk/wp-content/uploads/2014/09/NtoM252014-Isle-of-Grain-LNG-Jetties-8-10-Reminder-of-vessel-exclusion-zone.pdf,51° 25.9405'N 00° 42.5448'E,Jetty 10 cargo transfer arms; Jetty 8 also published
+dragon,Dragon (Milford Haven),51.683667,-4.999667,sourced,MHPA NtM 004/2026,https://www.mhpa.co.uk/notice-to-mariners/notice-to-mariners-no-004-of-2026-dragon-lng-terminal-dive-inspection/,51°41'.02N 004°59'.98W,Approximate terminal dive position
+south-hook,South Hook (Milford Haven),51.697906,-5.077394,sourced,MHPA NtM 064/2023,https://www.mhpa.co.uk/notice-to-mariners/notice-to-mariners-no064-of-2023-crane-barge-operations-south-hook-lng-terminal-berth-2/,51°41' 52.46N 005°04' 38.62W,Berth 2 approximate position
+teeside-gasport,Teeside GasPort (Teeside),,,blocked,none,,,No harbour-authority pin; facility decommissioned ~2015 per Excelerate; do not use GEO/GEM alone

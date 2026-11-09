@@ -683,7 +683,481 @@ def plate_regions(out: Path, seed: int):
     print("months", months[0], "->", months[-1], "regions", n, "max", vmax)
 
 
-PLATES = {"frames": turbine_frames, "regions": plate_regions, "globe": plate_globe, "towers": plate_towers, "turbine": plate_turbine, "block": plate_block, "pylons": plate_pylons}
+def plate_plots(out: Path, seed: int):
+    """Housing & Land: Land Registry–style cadastral plots in axonometric elevation.
+    Parcel walls, one developed footprint, a road strip — the land beneath tenure and price."""
+    w, h = W // 2, H // 2
+    # Regular estate grid (cx, cz, half-x, half-z). Road runs along z ≈ 0.
+    parcels = [
+        (-22, -12, 8, 5.5), (-5, -12, 7.5, 5.5), (12, -12, 8, 5.5), (29, -12, 7, 5.5),
+        (-22, 12, 8, 5.5), (-5, 12, 7.5, 5.5), (12, 12, 8, 5.5), (29, 12, 7, 5.5),
+    ]
+    developed = (12, 12, 8, 5.5)
+
+    def sdf(p):
+        ground = p[:, 1]
+        # Raised carriageway through the estate
+        road = sd_box(p, np.array([4.0, 0.08, 0.0]), np.array([42.0, 0.08, 2.4]))
+        kerb = np.maximum(
+            sd_box(p, np.array([4.0, 0.18, 0.0]), np.array([42.0, 0.18, 2.55])),
+            -sd_box(p, np.array([4.0, 0.3, 0.0]), np.array([42.5, 0.4, 2.25])),
+        )
+        walls = []
+        for cx, cz, hx, hz in parcels:
+            outer = sd_box(p, np.array([cx, 0.7, cz]), np.array([hx, 0.7, hz]))
+            inner = sd_box(p, np.array([cx, 0.9, cz]), np.array([hx - 0.28, 1.0, hz - 0.28]))
+            walls.append(np.maximum(outer, -inner))
+        cx, cz, hx, hz = developed
+        house = sd_box(p, np.array([cx, 1.8, cz]), np.array([hx * 0.42, 1.8, hz * 0.38]))
+        roof = np.maximum(
+            (np.abs(p[:, 2] - cz) * 0.7 + (p[:, 1] - 3.4) * 0.9) - 1.0,
+            np.maximum(np.abs(p[:, 0] - cx) - hx * 0.48, np.abs(p[:, 2] - cz) - hz * 0.45),
+        )
+        roof = np.maximum(roof, 3.0 - p[:, 1])
+        return np.min(np.stack([ground, road, kerb, house, roof, *walls]), 0)
+
+    def sky(rd):
+        el = np.clip(rd[:, 1], 0, 1)
+        return np.clip(0.94 - el * 0.55, 0, 1)
+
+    def albedo(p, n):
+        y = p[:, 1]
+        a = np.full(len(p), 0.52)
+        # Road
+        a = np.where((y < 0.2) & (np.abs(p[:, 2]) < 2.5), 0.82, a)
+        # Gardens inside parcels
+        a = np.where((y < 0.05) & (np.abs(p[:, 2]) > 3.0), 0.46 + 0.08 * fbm(p[:, 0] * 0.4, 0, p[:, 2] * 0.4, 2), a)
+        # Parcel walls — dark ink edges
+        wallish = (y > 0.15) & (y < 1.45) & (np.abs(n[:, 1]) < 0.5)
+        a = np.where(wallish, 0.18, a)
+        # House
+        body = (y > 0.2) & (y < 3.6) & (np.abs(n[:, 1]) < 0.55)
+        a = np.where(body, 0.58, a)
+        a = np.where((y > 3.2) & (n[:, 1] > 0.25), 0.32, a)
+        return a
+
+    # Shallower FOV, subject centred — avoids fisheye “broken” edges
+    cam = Cam((-38, 34, -40), (4, 0.4, 0), 38, w, h)
+    tone, _, _ = render(sdf, cam, (-0.35, 0.9, -0.3), sky, albedo, ao_scale=0.28, fog=0.0015, amb=0.4, sun=1.05)
+
+    N = Notes(W, H)
+    # Corner registration only — no edge ruler (breaks full-bleed crops)
+    for cx, cy in ((48, 48), (W - 48, 48), (48, H - 48), (W - 48, H - 48)):
+        N.cross((cx, cy), 14)
+    (a0, _) = cam.project([(-22, 0, -12)], W, H)
+    (a1, _) = cam.project([(-5, 0, -12)], W, H)
+    N.dim_h(min(H - 80, a0[0][1] + 36), a0[0][0], a1[0][0], "PLOT")
+    N.text((44, 40), "FIG. 08")
+    N.text((W - 44, 40), "HOUSING & LAND", anchor="ra")
+    N.block(["CADASTRAL PLOTS, LAND REGISTRY STYLE", "LAND USE · GREEN BELT · PLANNING", "SOURCE · MHCLG LAND USE, GREEN BELT"])
+    compose(tone, N, out / "08-land-plots.png", seed, lo=0.05, hi=0.95, gamma=1.15)
+
+
+def plate_terrace(out: Path, seed: int):
+    """Housing & Land: a Victorian terrace (bays, chimneys, slate) with garden trees and
+    hedged fields rising behind it. Wide, for full-bleed page backgrounds."""
+    w, h = W // 2, H // 2
+    HW, X0, X1 = 4.6, -36.0, 140.0  # house width, terrace extent along the street (x)
+    XC, XH = (X0 + X1) / 2, (X1 - X0) / 2
+    KR = 3.0 / 3.9  # roof pitch
+    def hills(x, z):
+        s = np.clip((z - 18) / 80, 0, 1)
+        s = s * s * (3 - 2 * s)
+        return s * (8 + 38 * fbm(x * 0.011 + 3, 0, z * 0.012, 3))
+
+    rng_t = np.random.default_rng(11)
+    trunk_spots = [(-14, 13, 3.4), (-2, 15, 4.0), (12, 12.5, 3.2), (27, 14, 3.8), (44, 13, 3.4), (63, 15, 3.8), (84, 13, 3.4),
+                   (95, 46, 5.0), (40, 72, 6.0), (-20, 60, 5.0), (130, 92, 6.5), (70, 58, 4.5), (5, 95, 6.0), (-40, 40, 4.5),
+                   (100, 52, 4.0), (-12, 64, 4.2), (150, 80, 5.5), (60, 110, 7.0), (-50, 90, 6.0)]
+    trunks_xyz, blobs = [], []
+    for tx, tz, r in trunk_spots:
+        lift = float(hills(np.array([tx], float), np.array([tz], float))[0])
+        ty = lift + r * (1.7 if tz < 20 else 0.9)
+        trunks_xyz.append((tx, tz, lift, ty))
+        for _ in range(6):  # lumpy crown from several overlapping spheres
+            o = rng_t.normal(0, 0.55, 3) * r
+            blobs.append((tx + o[0], ty + abs(o[1]) * 0.6 + r * 0.4, tz + o[2], r * rng_t.uniform(0.5, 0.8)))
+    trees = np.array(blobs, float)
+
+    def tree_dist(p):
+        """Min distance to the crown spheres, one sphere at a time (a full N×blobs×3 array swaps)."""
+        d = np.full(len(p), np.inf)
+        for cx, cy, cz, r in trees:
+            np.minimum(d, np.sqrt((p[:, 0] - cx) ** 2 + (p[:, 1] - cy) ** 2 + (p[:, 2] - cz) ** 2) - r, out=d)
+        return d
+
+    def sdf(p):
+        x, y, z = p[:, 0], p[:, 1], p[:, 2]
+        ground = (y - hills(x, z)) * 0.55
+        inx = np.abs(x - XC) - XH
+        walls = sd_box(p, np.array([XC, 3.0, 3.5]), np.array([XH, 3.0, 3.5]))
+        roof = np.maximum.reduce([(y - 9.0 + KR * np.abs(z - 3.5)) / math.hypot(1, KR), 6.0 - y, inx - 0.2])
+        u = np.mod(x - X0, HW * 2) - HW  # chimney stacks on every other party wall
+        chim = np.maximum(sd_box(np.stack([u, y, z], -1), np.array([0, 9.6, 3.5]), np.array([0.5, 1.5, 0.85])), inx)
+        pots = np.maximum(sd_box(np.stack([np.abs(u) - 0.25, y, np.abs(z - 3.5) - 0.42], -1), np.array([0, 11.35, 0]), np.array([0.13, 0.3, 0.13])), inx)
+        b = np.mod(x - X0, HW) - HW * 0.36  # bay window, door to the side
+        bq = np.stack([b, y, z], -1)
+        bay = np.maximum(sd_box(bq, np.array([0, 1.75, -0.55]), np.array([1.05, 1.75, 0.6])), inx)
+        bay_roof = np.maximum(sd_box(bq, np.array([0, 3.6, -0.6]), np.array([1.15, 0.12, 0.7])), inx)
+        garden_wall = np.maximum(sd_box(p, np.array([XC, 0.4, -3.4]), np.array([XH, 0.4, 0.14])), -sd_box(np.stack([np.mod(x - X0, HW) - HW * 0.82, y, z], -1), np.array([0, 0.4, -3.4]), np.array([0.5, 1.0, 0.5])))
+        back_fence = sd_box(p, np.array([XC, 0.9, 16.5]), np.array([XH, 0.9, 0.06]))
+        dt = tree_dist(p)
+        canopy = (dt + 1.4 * (fbm(x * 0.55, y * 0.55, z * 0.55, 3) - 0.5)) * 0.55
+        trunks = np.min(np.stack([sd_capsule(p, np.array([tx, y0 - 1.0, tz]), np.array([tx, ty, tz]), 0.4) for tx, tz, y0, ty in trunks_xyz]), 0)
+        return np.min(np.stack([ground, walls, roof, chim, pots, bay, bay_roof, garden_wall, back_fence, canopy, trunks]), 0)
+
+    def sky(rd):
+        el = np.clip(rd[:, 1], 0, 1)
+        cl = fbm(rd[:, 0] * 2.2 + 5, rd[:, 1] * 7, rd[:, 2] * 2.2, 5)
+        return np.clip(0.97 - el * 0.5 + (cl - 0.5) * 0.6, 0, 1)
+
+    def albedo(p, n):
+        x, y, z = p[:, 0], p[:, 1], p[:, 2]
+        intr = (x > X0 - 0.3) & (x < X1 + 0.3)
+        u = np.mod(x - X0, HW)
+        front = (n[:, 2] < -0.7)
+        # brick: courses and a little colour noise
+        brick = 0.6 + 0.08 * (np.mod(y * 4, 1) < 0.14) * -1 + 0.1 * (fbm(x * 3, y * 6, z * 3, 2) - 0.5)
+        up_win = front & (z < 0.1) & (y > 3.9) & (y < 5.5) & (((u > 0.55) & (u < 1.95)) | ((u > 2.7) & (u < 4.0)))
+        door = front & (z < 0.1) & (y < 2.5) & (u > 3.25) & (u < 4.05)
+        bayglass = (z < -0.05) & (y > 0.75) & (y < 2.9) & (z > -1.2) & (np.abs(np.mod(x - X0, HW) - HW * 0.36) < 1.1)
+        bars = (np.mod(x * 2.4, 1) < 0.12) | (np.mod(y * 1.6, 1) < 0.1)
+        glass = np.where(bars, 0.75, 0.1)
+        wall = np.where(up_win | bayglass, glass, np.where(door, 0.22, brick))
+        slate = 0.38 + 0.07 * (np.mod((9 - y) * 3.2, 1) < 0.2) + 0.05 * (fbm(x * 2, y, z * 2, 2) - 0.5)
+        roofy = intr & (y > 6.02) & (y < 9.05) & (np.abs(n[:, 1]) > 0.3)
+        a = np.where(roofy, slate, wall)
+        # canopy and trunks
+        foliage = 0.32 + 0.35 * fbm(x * 1.4, y * 1.4, z * 1.4, 3)
+        dt = tree_dist(p)
+        a = np.where(dt < 1.2, foliage, a)
+        # ground: street, pavement, gardens, patchwork fields with hedgerows
+        fx, fz = x / 26 + 0.6 * fbm(x * 0.02, 1, z * 0.02, 2), z / 19 + 0.6 * fbm(x * 0.02, 2, z * 0.02, 2)
+        cell = h3(np.floor(fx), np.floor(fz), 3)
+        furrow = 0.5 + 0.5 * np.sin((x * np.cos(cell * 6) + z * np.sin(cell * 6)) * 2.2)
+        field = 0.5 + 0.3 * cell - 0.12 * furrow * (cell > 0.45)
+        hedge = (np.minimum(np.mod(fx, 1), 1 - np.mod(fx, 1)) < 0.03) | (np.minimum(np.mod(fz, 1), 1 - np.mod(fz, 1)) < 0.04)
+        land = np.where(hedge, 0.18, field)
+        land = np.where(z < 16.5, 0.55 + 0.15 * (fbm(x, 0, z, 2) - 0.5), land)  # back gardens
+        land = np.where(z < 7.2, 0.6, land)
+        land = np.where(z < -3.6, np.where(z < -6.2, 0.92, 0.84 - 0.2 * (np.mod(x * 0.8, 1) < 0.06)), land)  # pavement / road
+        land = np.where((z < -6.2) & (z > -16) & (np.abs(z + 11) < 0.12) & (np.mod(x * 0.25, 1) < 0.5), 0.98, land)
+        isground = (y < hills(x, z) + 0.05) & (dt > 1.2)
+        return np.where(isground, land, a)
+
+    # Pulled back so a long terrace reads at hero scale (not a close facade crop).
+    cam = Cam((-22, 20, -68), (36, 1.5, 14), 46, w, h)
+    tone, _, _ = render(sdf, cam, (-0.55, 0.62, -0.5), sky, albedo, ao_scale=0.35, fog=0.0035, amb=0.4, sun=1.05)
+
+    N = Notes(W, H)
+    vp, _ = cam.project([cam.pos + np.array([1e5, 0, 0])], W, H)
+    vp = vp[0]
+    for P in ((X0, 9.0, 3.5), (X0, 6.0, -0.15), (X0, 0.0, -0.15), (X0, 0.8, -3.4)):
+        a, _ = cam.project([P], W, H)
+        N.line(a[0], vp, w=2, dash=(18, 10))
+    N.line((0, vp[1]), (W, vp[1]), w=2, dash=(6, 10))
+    N.cross(vp, 18)
+    N.circle(vp, 26)
+    h0, _ = cam.project([(X0 + HW * 2, 0, -0.15)], W, H)
+    h1, _ = cam.project([(X0 + HW * 3, 0, -0.15)], W, H)
+    N.dim_h(h0[0][1] + 60, h0[0][0], h1[0][0], "4.6 m PLOT")
+    r0, _ = cam.project([(X0 + HW * 3, 11.0, 3.5)], W, H)
+    r1, _ = cam.project([(X0 + HW * 3, 0.0, 3.5)], W, H)
+    N.dim_v(r0[0][0] - 50, r0[0][1], r1[0][1], "2 STOREYS")
+    N.ruler(30, 120, H - 160, every=22)
+    N.text((44, 40), "FIG. 07")
+    N.text((W - 44, 40), "HOUSING & LAND", anchor="ra")
+    N.block(["VICTORIAN TERRACE, BAY FRONTED, c.1890", "HOUSE PRICES, RENTS, SUPPLY, TENURE", "SOURCE · HM LAND REGISTRY, ONS, MHCLG"])
+    compose(tone, N, out / "07-terrace.png", seed, lo=0.03, hi=0.97, gamma=1.15)
+
+
+def plate_street(out: Path, seed: int):
+    """Housing & Land: a raised aerial of a curving interwar estate. Pairs of hipped-roof
+    semis with two-storey bays, drives between pairs, long back gardens meeting back to back,
+    parked cars and garden trees. The ordinary British street the housing data describes."""
+    w, h = W // 2, H // 2
+    P, RP = 13.0, 100.0  # plot pair pitch along the street; street-to-street pitch
+    BEND = 0.0009  # gentle curve in the street (domain warp)
+
+    def local(p):
+        """Street-local coords: u along the pair, s = distance from road centre, ids per pair."""
+        x, y, z = p[:, 0], p[:, 1], p[:, 2]
+        zw = z - BEND * (x - 20) ** 2
+        j = np.floor((zw + RP / 2) / RP)
+        zr = zw - j * RP
+        side = np.where(zr >= 0, 1.0, -1.0)
+        s = np.abs(zr)
+        xo = x + side * P * 0.25  # stagger the two sides of the street
+        i = np.floor((xo + P / 2) / P)
+        u = xo - i * P
+        hsh = h3(i, j * 2 + side, 5.0)
+        return u, y, s, hsh, i, j, side
+
+    def semis(u, y, s, hsh):
+        dz = (hsh - 0.5) * 1.6  # set-back varies a little pair to pair
+        zc = 15.0 + dz
+        a, b = 4.3, 4.0
+        q = np.stack([u, y, s], -1)
+        body = sd_box(q, np.stack([np.zeros_like(u), np.full_like(u, 2.8), zc], -1), np.array([a, 2.8, b]))
+        # hipped roof with eaves overhang
+        ra, rb, k, y0 = a + 0.45, b + 0.45, 0.85, 5.55
+        rise = np.minimum(ra - np.abs(u), rb - np.abs(s - zc))
+        roof = np.maximum((y - y0 - k * rise) / math.hypot(1, k), y0 - y)
+        # two-storey canted bays, one per house, on the street front
+        bq = np.stack([np.abs(u) - 2.3, y, s - (zc - b - 0.55)], -1)
+        bay = sd_box(bq, np.array([0, 2.6, 0]), np.array([1.15, 2.6, 0.6]))
+        bay = np.maximum(bay, (np.abs(bq[:, 0]) * 0.7 - bq[:, 2] * 0.7) - 0.85)  # cant the corners
+        bay_cap = np.maximum((y - 5.2 - 0.9 * (0.6 + bq[:, 2])) / 1.35, np.maximum(4.9 - y, sd_box(bq, np.array([0, 5.3, 0]), np.array([1.3, 0.8, 0.75]))))
+        chim = sd_box(q, np.stack([np.zeros_like(u), np.full_like(u, 8.2), zc + 0.8], -1), np.array([0.55, 1.4, 0.9]))
+        porch = sd_box(np.stack([np.abs(u) - 3.75, y, s], -1), np.stack([np.zeros_like(u), np.full_like(u, 1.4), zc - b - 0.6], -1), np.array([0.45, 1.4, 0.6]))
+        return np.minimum.reduce([body, roof, bay, bay_cap, chim, porch]), zc
+
+    def sdf(p):
+        u, y, s, hsh, i, j, side = local(p)
+        house, zc = semis(u, y, s, hsh)
+        # garden fences: party fence down the middle of each pair, side fences at the drives
+        back = (s > zc + 4.0) & (s < 49.8)
+        fu = np.minimum(np.abs(u), np.abs(np.abs(u) - P / 2))
+        fence = np.where(back, np.sqrt(np.maximum(fu - 0.05, 0) ** 2 + np.maximum(np.abs(y - 0.6) - 0.6, 0) ** 2), 1e3)
+        rear = np.sqrt(np.maximum(np.abs(s - 49.9) - 0.05, 0) ** 2 + np.maximum(np.abs(y - 0.6) - 0.6, 0) ** 2)
+        hedge = np.sqrt(np.maximum(np.abs(s - 8.2) - 0.35, 0) ** 2 + np.maximum(np.abs(y - 0.5) - 0.5, 0) ** 2)
+        hedge = np.where(np.abs(np.abs(u) - P / 2) < 1.7, 1e3, hedge)  # gaps for the drives
+        # Trees and cars are hashed per half-plot. Evaluate each against its own half and the
+        # neighbouring halves too, so a ray crossing an empty plot cannot overshoot into one.
+        sg = np.where(u >= 0, 1.0, -1.0)
+
+        def tree(uu, ii, hs):
+            tu = hs * (3.0 + 0.5 * h3(ii, j * 2 + hs, side + 3.0))
+            tz = 24.0 + 20.0 * h3(ii * 2 + hs, j, side + 9.0)
+            tr = 1.5 + 0.8 * h3(ii + 7, j, hs + side)
+            cy = tr + 2.4
+            crown = np.minimum.reduce([
+                np.sqrt((uu - tu) ** 2 + (y - cy) ** 2 + (s - tz) ** 2) - tr,
+                np.sqrt((uu - tu * 0.8) ** 2 + (y - cy - tr * 0.45) ** 2 + (s - tz + tr * 0.4) ** 2) - tr * 0.72,
+                np.sqrt((uu - tu * 1.1) ** 2 + (y - cy + tr * 0.1) ** 2 + (s - tz - tr * 0.5) ** 2) - tr * 0.7,
+            ])
+            trunk = np.maximum(np.sqrt((uu - tu) ** 2 + (s - tz) ** 2) - 0.3, y - cy)
+            return np.where(h3(ii, j * 3 + hs, side + 2.0) > 0.42, np.minimum(crown, trunk), 1e3)
+
+        def car(uu, ii):
+            cu = uu - (h3(ii, j * 2 + side, 5.0) - 0.5) * 5
+            cq = np.stack([cu, y, s], -1)
+            d = np.minimum(sd_box(cq, np.array([0, 0.6, 3.3]), np.array([2.1, 0.45, 0.85])) - 0.12,
+                           sd_box(cq, np.array([0.2, 1.25, 3.3]), np.array([1.1, 0.3, 0.75])) - 0.1)
+            return np.where(h3(ii, j, side + 4.0) > 0.4, d, 1e3)
+
+        trees = np.minimum.reduce([tree(u, i, sg), tree(u, i, -sg), tree(u - sg * P, i + sg, -sg)])
+        cars = np.minimum(car(u, i), car(u - sg * P, i + sg))
+        return np.minimum.reduce([y, house, fence, rear, hedge, trees, cars]) * 0.9
+
+    def sky(rd):
+        el = np.clip(rd[:, 1], 0, 1)
+        cl = fbm(rd[:, 0] * 2.2 + 5, rd[:, 1] * 7, rd[:, 2] * 2.2, 5)
+        return np.clip(0.97 - el * 0.5 + (cl - 0.5) * 0.6, 0, 1)
+
+    def albedo(p, n):
+        u, y, s, hsh, i, j, side = local(p)
+        zc = 15.0 + (hsh - 0.5) * 1.6
+        up = n[:, 1]
+        # ground plan: road, kerb, pavement, front gardens, drives, back lawns
+        g = np.full(len(p), 0.5)
+        lawn = 0.5 + 0.14 * (fbm(p[:, 0] * 0.3, 0, p[:, 2] * 0.3, 3) - 0.5)
+        stripes = 0.03 * (np.mod(s * 0.6, 2) < 1)
+        g = np.where(s < 49.9, lawn - 0.14 + stripes, g)
+        g = np.where((s > zc + 4.0) & (s < zc + 7.0), 0.78 - 0.08 * (np.mod(u * 1.2, 1) < 0.08), g)  # patios
+        g = np.where((s < zc - 4.0) & (s > 8.6), 0.55 + 0.1 * (fbm(u * 0.6, 3, s * 0.6, 2) - 0.5), g)  # front gardens
+        drive = np.abs(np.abs(u) - P / 2) < 1.7
+        g = np.where(drive & (s < zc + 6.0) & (s > 6.0), 0.84, g)
+        g = np.where(s < 8.6, 0.9, g)  # pavement
+        g = np.where(s < 6.0, 0.7, g)  # kerb line
+        g = np.where(s < 5.75, 0.78 + 0.06 * (fbm(p[:, 0] * 0.15, 1, p[:, 2] * 0.15, 2) - 0.5), g)  # carriageway
+        g = np.where((s < 0.12) & (np.mod(p[:, 0] * 0.25, 1) < 0.45), 0.97, g)  # centre line
+        # house: render walls, bay glass, dark tiled roofs
+        wall = 0.74 + 0.06 * (fbm(p[:, 0] * 2, y * 2, p[:, 2] * 2, 2) - 0.5)
+        front = n[:, 2] * np.where(side > 0, 1, -1)
+        win = (np.mod(y, 2.8) > 1.1) & (np.mod(y, 2.8) < 2.3) & (y < 5.2) & (np.abs(up) < 0.4)
+        bays = win & (np.abs(np.abs(u) - 2.3) < 1.0) & (s < zc - 3.9)
+        side_win = win & (np.mod(u * 0.9 + s * 0.9, 2.2) < 1.0)
+        glass = np.where(np.mod(u * 3, 1) < 0.12, 0.7, 0.12)
+        a = np.where(bays | side_win, glass, wall)
+        a = np.where((front < -0.6) & (np.abs(np.abs(u) - 3.75) < 0.4) & (y < 2.2), 0.2, a)  # doors in the porches
+        tiles = 0.3 + 0.07 * (np.mod(y * 4.0, 1) < 0.22) + 0.06 * (fbm(p[:, 0] * 1.5, y, p[:, 2] * 1.5, 2) - 0.5) + 0.08 * (hsh - 0.5)
+        a = np.where((y > 5.5) & (up > 0.2), tiles, a)
+        a = np.where((y > 6.9) & (np.abs(u) < 0.6) & (np.abs(s - zc - 0.8) < 1.0), 0.55, a)  # chimney
+        # garden furniture: fences, hedges, trees, cars
+        fu = np.minimum(np.abs(u), np.abs(np.abs(u) - P / 2))
+        a = np.where((y > 0.05) & (y < 1.25) & (((fu < 0.2) & (s > zc + 4)) | (np.abs(s - 49.9) < 0.2)), 0.3, a)
+        a = np.where((y > 0.05) & (y < 1.05) & (np.abs(s - 8.2) < 0.5), 0.3 + 0.2 * fbm(p[:, 0], y * 2, p[:, 2], 2), a)
+        leaf = 0.16 + 0.46 * fbm(p[:, 0] * 1.6, y * 1.6, p[:, 2] * 1.6, 4)
+        intree = (s > 20) & (s < 49.7) & (y > 0.9)
+        a = np.where(intree, leaf, a)
+        incar = (s < 4.4) & (s > 2.2) & (y > 0.08)
+        a = np.where(incar, np.where(up > 0.5, 0.35 + 0.4 * h3(i, j, 7.0), 0.18), a)
+        # far hits stop a little above the plane (march tolerance grows with distance)
+        isground = (y < 0.05 + 0.0015 * np.linalg.norm(p - cam.pos, axis=-1)) & (up > 0.9)
+        return np.where(isground, g, a)
+
+    cam = Cam((-46, 58, -78), (34, 0, 22), 40, w, h)
+    tone, _, _ = render(sdf, cam, (-0.5, 0.75, -0.45), sky, albedo, ao_scale=0.5, fog=0.005, amb=0.42, sun=1.0)
+    tone = np.nan_to_num(tone, nan=0.8)  # the odd degenerate normal at a sharp crease
+
+    N = Notes(W, H)
+    for cx, cy in ((48, 48), (W - 48, 48), (48, H - 48), (W - 48, H - 48)):
+        N.cross((cx, cy), 14)
+    # construction: the road centreline, followed along its curve
+    pts, _ = cam.project([(x, 0.0, BEND * (x - 20) ** 2) for x in np.linspace(-40, 140, 40)], W, H)
+    for k in range(len(pts) - 1):
+        if k % 2 == 0:
+            N.line(pts[k], pts[k + 1], w=2)
+    # one pair dimensioned: the frontage of a plot
+    f0, _ = cam.project([(P * 2 - P / 2 - P * 0.25, 0.0, 8.6 + BEND * (P * 2 - 20) ** 2)], W, H)
+    f1, _ = cam.project([(P * 3 - P / 2 - P * 0.25, 0.0, 8.6 + BEND * (P * 3 - 20) ** 2)], W, H)
+    N.line(f0[0], f1[0], w=2)
+    for f in (f0[0], f1[0]):
+        N.line((f[0], f[1] - 10), (f[0], f[1] + 10))
+    # coordinate mark on one roof
+    c, _ = cam.project([(P * 4 - P * 0.25, 9.0, -15.0 + BEND * (P * 4 - 20) ** 2)], W, H)
+    N.circle(c[0], 30)
+    N.cross(c[0], 44)
+    N.text((44, 40), "FIG. 09")
+    N.text((W - 44, 40), "HOUSING & LAND", anchor="ra")
+    N.block(["INTERWAR SEMIS, HIPPED ROOF, c.1935", "HOUSE PRICES, RENTS, SUPPLY, TENURE", "SOURCE · HM LAND REGISTRY, ONS, MHCLG"])
+    compose(tone, N, out / "09-street.png", seed, lo=0.06, hi=0.97, gamma=1.4)
+
+
+def plate_cutaway(out: Path, seed: int):
+    """Energy Consumption — Inside Britain's Energy Use: sectional cutaway of a British
+    two-storey house. Front-right quarter removed so floors, stair, boiler cupboard,
+    radiator, kitchen block and loft cylinder read as end-use zones. Not a survey
+    dwelling; navigation atmosphere for ECUK U3 (space heating, water, cooking,
+    lighting, appliances)."""
+    w, h = W // 2, H // 2
+    HW, HH, HD = 4.2, 3.05, 3.6  # half-width, eaves height, half-depth
+    KR = 0.72  # roof pitch
+
+    def cut_mask(p):
+        # Keep the left / back of the shell; remove the front-right quarter.
+        return (p[:, 0] + p[:, 2] * 0.35) > 0.55
+
+    def sdf(p):
+        x, y, z = p[:, 0], p[:, 1], p[:, 2]
+        ground = y * 0.55
+        # Outer walls and pitched roof
+        walls = sd_box(p, np.array([0.0, HH, 0.0]), np.array([HW, HH, HD]))
+        roof = np.maximum.reduce(
+            [
+                (y - (2 * HH) + KR * np.abs(z)) / math.hypot(1, KR),
+                HW + 0.15 - np.abs(x),
+                -y + HH * 0.95,
+            ]
+        )
+        chim = sd_box(p, np.array([-HW * 0.55, 2 * HH + 0.9, -0.4]), np.array([0.35, 0.9, 0.35]))
+        shell = np.minimum.reduce([walls, roof, chim])
+        # Hollow the living volume, then add floors / fittings inside the cutaway.
+        cavity = sd_box(p, np.array([0.0, HH * 0.95, 0.0]), np.array([HW - 0.22, HH * 0.92, HD - 0.22]))
+        shell = np.maximum(shell, -cavity)
+        # Floor slabs (ground, first, loft joists)
+        fl0 = sd_box(p, np.array([0.0, 0.12, 0.0]), np.array([HW - 0.15, 0.1, HD - 0.15]))
+        fl1 = sd_box(p, np.array([0.0, HH + 0.08, 0.0]), np.array([HW - 0.15, 0.08, HD - 0.15]))
+        fl2 = sd_box(p, np.array([0.0, 2 * HH - 0.15, 0.0]), np.array([HW - 0.35, 0.06, HD - 0.45]))
+        # Stair run (back-left)
+        stair = sd_box(p, np.array([-HW + 1.1, HH * 0.55, HD - 1.0]), np.array([0.55, HH * 0.55, 0.9]))
+        # Space heating: radiator on the cut face + boiler cupboard
+        rad = sd_box(p, np.array([HW - 0.55, 0.85, -0.2]), np.array([0.08, 0.55, 1.1]))
+        boiler = sd_box(p, np.array([-HW + 0.7, 0.95, -HD + 0.85]), np.array([0.45, 0.85, 0.4]))
+        # Water heating: loft cylinder
+        cylinder = sd_capsule(
+            p,
+            np.array([HW * 0.35, 2 * HH + 0.35, -0.6]),
+            np.array([HW * 0.35, 2 * HH + 1.55, -0.6]),
+            0.38,
+        )
+        # Cooking: kitchen block
+        kitchen = sd_box(p, np.array([-0.2, 0.55, -HD + 0.7]), np.array([1.4, 0.45, 0.45]))
+        hob = sd_box(p, np.array([-0.2, 1.05, -HD + 0.7]), np.array([0.55, 0.06, 0.35]))
+        # Lighting / appliances: pendant + fridge volume
+        pendant = sd_capsule(p, np.array([0.8, HH - 0.15, 0.4]), np.array([0.8, HH - 0.85, 0.4]), 0.08)
+        fridge = sd_box(p, np.array([HW - 1.0, 0.95, -HD + 0.85]), np.array([0.4, 0.9, 0.35]))
+        interior = np.minimum.reduce(
+            [fl0, fl1, fl2, stair, rad, boiler, cylinder, kitchen, hob, pendant, fridge]
+        )
+        # Only show interior in the cutaway volume; solid shell elsewhere.
+        cut = cut_mask(p)
+        body = np.where(cut, np.minimum(shell, interior), shell)
+        # Soften the cut plane as a thin section edge
+        plane = np.abs(x + z * 0.35 - 0.55) - 0.04
+        plane = np.maximum(plane, np.abs(y - HH) - HH - 0.2)
+        return np.minimum(np.minimum(body, np.where(cut, plane + 0.5, 1e3)), ground)
+
+    def sky(rd):
+        el = np.clip(rd[:, 1], 0, 1)
+        cl = fbm(rd[:, 0] * 2.0 + 1, rd[:, 1] * 6, rd[:, 2] * 2.0, 4)
+        return np.clip(0.96 - el * 0.48 + (cl - 0.5) * 0.45, 0, 1)
+
+    def albedo(p, n):
+        x, y, z = p[:, 0], p[:, 1], p[:, 2]
+        brick = 0.58 + 0.1 * (np.mod(y * 4.2, 1) < 0.14) * -1 + 0.08 * (fbm(x * 3, y * 5, z * 3, 2) - 0.5)
+        plaster = 0.88 + 0.04 * (fbm(x * 2, y * 2, z * 2, 2) - 0.5)
+        slate = 0.36 + 0.06 * (np.mod((2 * HH + 1 - y) * 3, 1) < 0.22)
+        metal = 0.25 + 0.15 * (np.abs(n[:, 1]) < 0.3)
+        wood = 0.45 + 0.12 * (fbm(x * 8, y * 2, z * 2, 2) - 0.5)
+        cut = cut_mask(p)
+        outer = (np.abs(n[:, 0]) > 0.55) | (np.abs(n[:, 2]) > 0.55)
+        roofy = (y > 2 * HH - 0.4) & (np.abs(n[:, 1]) > 0.25)
+        a = np.where(roofy, slate, np.where(outer & ~cut, brick, plaster))
+        # Fittings read darker so end-use zones separate from walls
+        near_boiler = (x < -HW + 1.4) & (z < -HD + 1.5) & (y < 2.0)
+        near_rad = (x > HW - 1.0) & (y < 1.6) & (y > 0.2)
+        near_cyl = (y > 2 * HH) & (np.abs(x - HW * 0.35) < 0.7)
+        near_kit = (z < -HD + 1.4) & (y < 1.3) & (np.abs(x + 0.2) < 1.6)
+        a = np.where(near_boiler | near_rad | near_cyl, metal, a)
+        a = np.where(near_kit, wood, a)
+        a = np.where(y < 0.05, 0.62, a)
+        return a
+
+    cam = Cam((11.5, 5.8, -14.5), (-0.4, HH * 0.85, -0.2), 42, w, h)
+    tone, _, _ = render(sdf, cam, (-0.45, 0.7, -0.4), sky, albedo, ao_scale=0.4, fog=0.004, amb=0.38, sun=1.05)
+
+    N = Notes(W, H)
+    # Leaders toward end-use zones (screen space from projected anchors)
+    anchors = {
+        "HEAT": (HW - 0.5, 0.9, -0.2),
+        "WATER": (HW * 0.35, 2 * HH + 0.9, -0.6),
+        "COOK": (-0.2, 0.7, -HD + 0.7),
+        "LIGHT": (0.8, HH - 0.5, 0.4),
+        "APPL": (HW - 1.0, 1.0, -HD + 0.85),
+    }
+    for label, P in anchors.items():
+        xy, _ = cam.project([P], W, H)
+        tip = xy[0]
+        N.leader(tip, (tip[0] + 70, tip[1] - 55), label)
+    N.dim_v(80, cam.project([(0, 2 * HH, 0)], W, H)[0][0][1], cam.project([(0, 0, 0)], W, H)[0][0][1], "2 STOREYS")
+    N.ruler(30, 100, H - 140, every=20)
+    N.text((44, 40), "FIG. 16")
+    N.text((W - 44, 40), "ENERGY · END USE", anchor="ra")
+    N.block(
+        [
+            "DOMESTIC CUTAWAY · ECUK U3 ZONES",
+            "SPACE HEATING · WATER · COOKING · LIGHTING · APPLIANCES",
+            "SOURCE · DESNZ ENERGY CONSUMPTION IN THE UK",
+        ]
+    )
+    compose(tone, N, out / "16-energy-cutaway.png", seed, lo=0.04, hi=0.97, gamma=1.12)
+
+
+PLATES = {
+    "street": plate_street,
+    "plots": plate_plots,
+    "terrace": plate_terrace,
+    "cutaway": plate_cutaway,
+    "frames": turbine_frames,
+    "regions": plate_regions,
+    "globe": plate_globe,
+    "towers": plate_towers,
+    "turbine": plate_turbine,
+    "block": plate_block,
+    "pylons": plate_pylons,
+}
 
 
 def main() -> None:

@@ -1,0 +1,57 @@
+---
+description: Explorer stage foot, Notes, multi-chart titles — copy Housing; never duplicate patent detail in the plot
+globs:
+  - web/src/brand/**/*.{tsx,ts,css}
+  - web/src/app/**/*.{tsx,css}
+  - docs/visual-identity.md
+alwaysApply: false
+---
+
+# Explorer stage (Housing is the reference)
+
+Read `docs/visual-identity.md` › Explorer. Housing & Land (`web/src/brand/housing/canvas/`) is the behaviour to copy.
+
+## One Notes foot — never two
+
+- Patent detail (definition, method, derived totals, caveats, provisional meaning) lives in **one** stage foot: `FigureRecord` **or** `SourceLine` (which builds a `FigureRecord`).
+- Put that foot on `<Stage foot={…}>`. Do **not** also render `SourceLine` / `FigureRecord` below the stage.
+- Do **not** paste definition/method essays into the plot body or callout boxes inside the stage.
+- Do **not** render the explorer `<Coverage>` facts strip (`SPAN` / `OBSERVATIONS` / …) on sector domain stages. Housing does not. Span, unit and geography sit in the stage bar meta and Notes when needed.
+
+## Multi-chart titles (Housing pipeline pattern)
+
+- Separate charts with `<section>` + `<h3 className={explorerClasses.stageTitle}>…</h3>` (sentence case).
+- Do **not** use `.bo-label` “FIG. 1 · …” caps for chart titles — that is index/label type, not section titles.
+- Reference: `model.tsx` supply `view === "pipeline"` (decisions chart, then starts/completions).
+
+## Briefs do not override the shell
+
+- A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite and Housing pipeline do: `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows`, one short `s.links` note.
+- At most one custom instrument per tab, one ink with Housing patterns (see `housing/canvas/supply/SupplyMachine.tsx`). Never chart colours, gutter end labels, axis markers, value legends or "exact values" drawers in a custom view.
+- Claude Code: use the `exchange-domain-view` skill (`.claude/skills/exchange-domain-view/SKILL.md`) for any domain-tab change.
+
+## Width
+
+- Every panel and instrument figure is `width: 100%; min-width: 0` inside the stage body.
+- RankBars and TimeChart have different **internal** gutters by design (name column vs axis margin). Outer frames share the stage edge; do not invent a second chart frame or inset.
+- Multi-series **line** charts use `SeriesLegend` under the plot for names and latest values so the **plot fills the stage**. Do not put series names in-plot on stacks.
+- End-of-line leaders: default **on** for one series (Latest card); default **off** for several series. Pass `leaders={true}` on multi-series only for the Generation mix pattern (Changing Current / MixLines is its own SVG).
+- **Do not patch empty right strips view-by-view.** If a multi-series `TimeChart` looks short of the stage edge, it is almost always still drawing end leaders — leave the default (off) or fix `chartMargins`, do not add local CSS width hacks.
+
+## Data tab — observation tables, not catalogue dumps
+
+- A Data view shows **observation / series tables** when Ready series exist. Reference: Housing Land (`land/LandData.tsx`), Energy Generation History/Data, Housing Prices Data.
+- Body uses `explorerClasses.tableGroup` + `stageTitle` + `tableWrap` / `table` (optional series `MenuControl` above). One table per dataset or frequency; say so in a short lede when frequencies differ.
+- **Forbidden as a Data body:** “Ready catalogue records” link lists. Catalogue links belong in the Notes foot / row links / Data →, not as the whole stage.
+- No observations yet → `<EmptyStage>` (“In preparation”), never a catalogue dump or a `data/...json` path on screen.
+
+## Exact values / Exact register — closed disclosures
+
+- Chart exact values stay inside TimeChart’s built-in disclosure.
+- Event / policy **exact registers** use brand `ExactRegister` (`web/src/brand/policy/`): closed by default, `.bo-disclosure` summary, table inside. Never an always-on competing layout under the ledger.
+
+## Policy / event domains — Decision Ledger
+
+- Must use brand `DecisionLedger` + `CatalogueDossier` from `web/src/brand/policy/` (electric closed slab → paper open → Interior 3 catalogue card).
+- Do **not** fork slab CSS, invent a parallel dossier, or restyle the register. Map sector event records into the shared view-model; keep connectors/data in the sector tree.
+- References for new work: **charts** = Housing pipeline / Consumption; **Data** = Land / Generation; **policy** = brand Decision Ledger.

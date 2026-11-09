@@ -1,0 +1,43 @@
+indicator_id: subnational-population-estimate
+title: Subnational population estimate
+sector: people-society
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland
+series_id: MYE2+MYEB1
+geography: UK nations, English regions, local authorities (GSS)
+frequency: annual
+unit: persons (mid-year estimate)
+definition: Mid-year (30 June) usually resident population by geography code. Built
+  for joining DESNZ subnational final energy consumption to a per-resident intensity
+  denominator.
+licence: Open Government Licence v3.0
+agent_owner: people
+connector_module: people.connectors.subnational_population_estimate
+curated_path: curated/observations.csv
+update_cadence: annual (mid-year estimates)
+raw_evidence:
+- path: raw/2026-11-07/mye24tablesuk.xlsx
+  retrieved_at: '2026-11-07T00:20:13.519151+00:00'
+  checksum_sha256: f78d50e8d77fe5ed9d04667d6875aefcf62b56380af7aceb2e90dce067981526
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-09-26'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland/mid2024/mye24tablesuk.xlsx
+- path: raw/2026-11-07/myebtablesuk20112025.xlsx
+  retrieved_at: '2026-11-07T00:20:13.526270+00:00'
+  checksum_sha256: d9ff4766d114ace7a40c351ba697f4a875e9e80270d9f58185319a26791f2c53
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-01'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland/mid2011tomid2025/myebtablesuk20112025.xlsx
+transformations: MYE2 Persons All ages → mid-2024 snapshot for all listed geos; MYEB1
+  sum age×sex → LA totals 2011–2025; MYE2 wins for 2024.
+revision_notes: Pinned MYE2 release 2025-09-26; MYEB release 2026-10-01.
+caveats: MYEB1 uses ladcode23 (April 2023). MYE2 mid-2024 uses April 2024 boundaries.
+  Energy subnational LAs use April 2025 structure — codes that do not match drop out
+  of intensity. Regions lack a MYEB time series in this pack; only mid-2024 region
+  population is published here.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/41165471768581129467ceb34c7a15b0
+schema_version: '1.0'

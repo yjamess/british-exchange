@@ -31,13 +31,25 @@ OUT=web/public/brand/plates
 
 # portrait (1060x1768) and wide (2400x1350) masks for the <Plate> component
 uv run $G $OUT --bare --mask --only globe,towers,turbine,block --prefix p-
-uv run $G $OUT --bare --mask --only globe,towers,turbine,pylons --size 2400x1350 --prefix l-
+uv run $G $OUT --bare --mask --only globe,towers,turbine,pylons,street --size 2400x1350 --prefix l-
 
 # data-generated plate from API observations (fetch JSON into DATA first)
 uv run $G $OUT --bare --mask --only regions --size 2400x1350 --prefix l- --data DATA
 
 # motion: tone frames for one 120° rotor cycle, packed as a grayscale atlas
 uv run $G $OUT --only frames --size 1536x864
+
+# icon plates (small 3D + halftone subjects for nav / condensed UI)
+uv run .claude/skills/observatory-imprint/scripts/penship-icons.py $OUT --size 320
+
+# dwelling-type specimens (Census accommodation types): one matched set, true relative scale
+uv run .claude/skills/observatory-imprint/scripts/dwelling-types.py $OUT --size 1000x1000   # d-detached … d-other
+
+# tenure specimens (MHCLG dwelling stock by tenure): same camera as dwelling-types
+uv run .claude/skills/observatory-imprint/scripts/tenure-types.py $OUT --size 1000x1000   # t-owner, t-private, t-social
+
+# Energy Field Guide tech specimens (Domain 06): illustrative forms — plate area is never MW
+uv run .claude/skills/observatory-imprint/scripts/energy-tech-types.py $OUT --size 1000x1000   # e-offshore … e-nuclear
 ```
 
 | Flag | Meaning |
@@ -47,7 +59,7 @@ uv run $G $OUT --only frames --size 1536x864
 | `--size WxH` | Output size (portrait framing by default) |
 | `--prefix` | Filename prefix (`p-` portrait, `l-` wide) |
 | `--data DIR` | Folder of API observation JSON for data plates |
-| `--only` | `globe, towers, turbine, block, pylons, regions, frames` |
+| `--only` | `globe, towers, turbine, block, pylons, regions, frames, terrace, plots, street, cutaway` |
 
 Without `--bare --mask` it writes a finished two-colour PNG with annotations, useful for review.
 

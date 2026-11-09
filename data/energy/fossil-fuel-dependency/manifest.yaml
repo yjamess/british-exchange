@@ -1,0 +1,42 @@
+indicator_id: fossil-fuel-dependency
+title: Fossil fuel dependency
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/total-energy-section-1-energy-trends
+series_id: ET 1.3 (Fossil fuel dependency [note 6], ratio, annual + quarterly)
+geography: UK (K02000001)
+frequency: annual+quarterly
+unit: ratio
+definition: 'UK fossil fuel dependency from Energy Trends ET 1.3 sheets ''Annual dependency
+  & low carbon'' and ''Quarter dependency & low carbon'', column ''Fossil fuel dependency
+  [note 6]''. Workbook ratios (e.g. 0.88 ≈ 88%). Notes: measure=fossil_fuel_dependency;
+  basis=annual|quarterly. Not a resilience or security score.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.fossil_fuel_dependency
+curated_path: curated/observations.csv
+update_cadence: Quarterly — Energy Trends ET 1.3, last Thursday of Mar/Jun/Sep/Dec
+raw_evidence:
+- path: raw/2026-11-03/ET_1.3_SEP_26.xlsx
+  retrieved_at: '2026-11-08T00:02:20.848522+00:00'
+  checksum_sha256: 7e3d230e7cdcc45f3eef2b1ec5c866a30ffc26218fdd486cbae59f55eb34bf81
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6abe1eb626660e5f62a7f1d3/ET_1.3_SEP_26.xlsx
+transformations: Parse Fossil fuel dependency [note 6] from ET_1.3_SEP_26 Annual and
+  Quarter dependency sheets. Preserve Excel decimal ratios. Same workbook as energy-import-dependency
+  and low-carbon-energy-share.
+revision_notes: ET_1.3_SEP_26 published 29 Sep 2026; Q2 2026 provisional on quarter
+  sheet.
+caveats: Ratio as stored by DESNZ (not percentage points). Distinct from import dependency
+  and low carbon share — never combine into one security index. GOV.UK asset URLs
+  change each release.
+related_indicator_ids:
+- energy-import-dependency
+- low-carbon-energy-share
+- energy-imports-and-exports
+open_questions:
+- Storage / diversity measures remain separate Gate 3 series.
+notion_registry_url: ''
+schema_version: '1.0'

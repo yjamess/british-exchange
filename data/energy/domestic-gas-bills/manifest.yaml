@@ -1,0 +1,53 @@
+indicator_id: domestic-gas-bills
+title: Domestic gas bills
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics
+series_id: QEP 2.3.1 (Average annual domestic gas bills, cash terms, 11,200 kWh/year,
+  UK)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: GBP
+definition: Average annual domestic gas bill in cash terms (pounds) for United Kingdom
+  households, based on a fixed annual consumption of 11,200 kWh. From DESNZ Quarterly
+  Energy Prices table 2.3.1. One observation per calendar year × payment method (Standard
+  credit / Direct debit / Prepayment / Overall) × tariff class (Fixed / Variable /
+  All). Fixed/Variable breakdowns are official statistics in development and available
+  from 2022.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_gas_bills
+curated_path: curated/observations.csv
+update_cadence: At least quarterly with QEP domestic tables; calendar-year finals
+  typically firm up in the March release
+raw_evidence:
+- path: raw/2026-11-07/table_231.xlsx
+  retrieved_at: '2026-11-07T09:34:34.545326+00:00'
+  checksum_sha256: 680e8d3522ac82c365cd2b4c9020ac30901c0813b59fd012c50278bf9c3285b2
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4245df3413112faed80dbd/table_231__1_.xlsx
+transformations: 'Parse sheet 2.3.1 only (domestic gas, 11,200 kWh). Long-format:
+  one CSV row per year × payment × tariff with value. Blank Fixed/Variable cells for
+  2014–2021 omitted (not published). Geography coded as UK (K02000001). Financial-year
+  / historic 13,600–18,000 kWh / real-terms sheets not ingested in this indicator.'
+revision_notes: table_231__1_.xlsx Cover Sheet publication date 30/06/2026 (QEP June
+  2026 domestic bills update).
+caveats: Bills use fixed DESNZ consumption assumption of 11,200 kWh/year (Cover Sheet).
+  Not the same as Ofgem Typical Domestic Consumption Values (TDCV). Fixed vs Variable
+  tariff split is official statistics in development. Twin of domestic-electricity-bills
+  (QEP 2.2.1 at 3,400 kWh) — do not mix gas GBP bills with industrial p/kWh. Do not
+  equate with Ofgem price-cap levels (unit rates/standing charges, GB regions). Historic
+  13,600 / 15,000 / 18,000 kWh sheets are out of scope for this indicator.
+related_indicator_ids:
+- domestic-electricity-bills
+- industrial-electricity-prices
+open_questions:
+- 'Gate 3: QEP 2.3.4 unit + standing charges for gas bill dissection.'
+- 'Gate 3: QEP 2.3.2 / 2.3.3 country and regional gas bills.'
+- 'Gate 3: Ofgem default tariff cap levels (per-period XLSX models; no single clean
+  historic CSV on ofgem.gov.uk).'
+- 'Gate 3: real-terms / income burden using Economy deflators.'
+notion_registry_url: https://app.notion.com/41165471768581048377c944c354e01c
+schema_version: '1.0'

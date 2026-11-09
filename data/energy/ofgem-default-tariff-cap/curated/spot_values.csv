@@ -1,0 +1,13 @@
+period_id,period_start,period_end,measure,payment_method,value_gbp_per_year_inc_vat,elec_tdcv_kwh,gas_tdcv_kwh,source_sheet,source_row_label,source_asset,notes
+2026-Q4,2026-10-01,2026-12-31,dual_fuel,Other,1723.36,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/oct-dec-2026/annex9-levelised-cap-rates.xlsx,Col dual-fuel benchmark m; Other Payment Method section; electricity VAT 0% Oct 2026–Mar 2027
+2026-Q4,2026-10-01,2026-12-31,electricity_single_rate,Other,858.20,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/oct-dec-2026/annex9-levelised-cap-rates.xlsx,Elec single-rate benchmark m
+2026-Q4,2026-10-01,2026-12-31,gas,Other,865.16,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/oct-dec-2026/annex9-levelised-cap-rates.xlsx,Gas benchmark m; dual ≈ elec+gas
+2026-Q3,2026-07-01,2026-09-30,dual_fuel,Other,1663.37,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jul-sep-2026/annex9-levelised-cap-rates.xlsx,Revised TDCV from Jul 2026
+2026-Q3,2026-07-01,2026-09-30,electricity_single_rate,Other,861.50,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jul-sep-2026/annex9-levelised-cap-rates.xlsx,Elec single-rate benchmark m
+2026-Q3,2026-07-01,2026-09-30,gas,Other,801.87,2500,9500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jul-sep-2026/annex9-levelised-cap-rates.xlsx,Gas benchmark m
+2026-Q2,2026-04-01,2026-06-30,dual_fuel,Other,1641.22,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/apr-jun-2026/annex9-levelised-cap-rates.xlsx,Pre–Jul 2026 TDCV
+2026-Q2,2026-04-01,2026-06-30,electricity_single_rate,Other,875.01,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/apr-jun-2026/annex9-levelised-cap-rates.xlsx,Elec single-rate benchmark m
+2026-Q2,2026-04-01,2026-06-30,gas,Other,766.21,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/apr-jun-2026/annex9-levelised-cap-rates.xlsx,Gas benchmark m
+2026-Q1,2026-01-01,2026-03-31,dual_fuel,Other,1757.98,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jan-mar-2026/annex9-levelised-cap-rates.xlsx,Pre–Jul 2026 TDCV
+2026-Q1,2026-01-01,2026-03-31,electricity_single_rate,Other,947.56,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jan-mar-2026/annex9-levelised-cap-rates.xlsx,Elec single-rate benchmark m
+2026-Q1,2026-01-01,2026-03-31,gas,Other,810.42,2700,11500,1a Levelised DTC,GB average; inc VAT,raw/2026-11-07/jan-mar-2026/annex9-levelised-cap-rates.xlsx,Gas benchmark m

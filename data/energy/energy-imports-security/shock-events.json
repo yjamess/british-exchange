@@ -1,0 +1,142 @@
+{
+  "registry_id": "energy-imports-shock-events",
+  "title": "Imports & Security shock events",
+  "sector": "energy-industry",
+  "domain": "imports",
+  "retrieved_at": "2026-11-08",
+  "note": "Documented disruptions, commissioning dates and trade shifts for Shock & Response. Each card pins primary sources. Overlap with a Ready series is descriptive context, never a causal claim. Not a security score.",
+  "events": [
+    {
+      "id": "ifa-sellindge-fire-2021",
+      "title": "IFA Sellindge fire",
+      "kind": "disruption",
+      "mark_date": "2021-09-15",
+      "mark_label": "Incident date",
+      "jurisdiction": "Great Britain",
+      "summary": "A fire at the IFA UK converter site in Sellindge took the France–England interconnector to 0 MW. Operator notices set a staged return: 1,000 MW from late September 2021 and 2,000 MW from late March 2022.",
+      "alternate_reading": "Quarterly ET 5.6 France–UK flows mix IFA with IFA2 and ElecLink. A drop in the corridor aggregate is not proof that IFA alone caused the whole change.",
+      "chart": {
+        "kind": "interconnector",
+        "corridor": "France-UK",
+        "flow": "Net imports"
+      },
+      "follow": [
+        {
+          "label": "Britain's Connectors · France–UK",
+          "href": "/energy?domain=imports&view=connectors&flow=Net%20imports"
+        }
+      ],
+      "sources": [
+        {
+          "label": "IFA availability update (operator)",
+          "url": "https://ifa1interconnector.com/news/ifa-availabilty-update",
+          "role": "primary"
+        },
+        {
+          "label": "National Grid / Reuters report of extinguishing",
+          "url": "https://www.reuters.com/world/uk/uks-national-grid-says-fire-french-uk-power-connection-site-extinguished-2021-09-16/",
+          "role": "official"
+        }
+      ]
+    },
+    {
+      "id": "north-sea-link-2021",
+      "title": "North Sea Link starts commercial operations",
+      "kind": "commissioning",
+      "mark_date": "2021-10-01",
+      "mark_label": "Commercial operations",
+      "jurisdiction": "Great Britain · Norway",
+      "summary": "National Grid and Statnett started commercial operations on North Sea Link on 1 October 2021. Trial capacity began at 700 MW toward a 1,400 MW design rating.",
+      "alternate_reading": "ET 5.6 Norway–UK GWh is transferred energy, not nameplate MW. Early quarters can stay low while the link ramps and while market direction flips.",
+      "chart": {
+        "kind": "interconnector",
+        "corridor": "Norway-UK",
+        "flow": "Net imports"
+      },
+      "follow": [
+        {
+          "label": "Britain's Connectors · Norway–UK",
+          "href": "/energy?domain=imports&view=connectors&flow=Net%20imports"
+        }
+      ],
+      "sources": [
+        {
+          "label": "National Grid announcement",
+          "url": "https://www.nationalgrid.com/national-grid-powers-worlds-longest-subsea-interconnector-between-uk-and-norway",
+          "role": "primary"
+        },
+        {
+          "label": "Statnett trial-operation notice",
+          "url": "https://www.statnett.no/en/for-stakeholders-in-the-power-industry/news-for-the-power-industry/trial-operation-at-nsl-starts-on-1-october/",
+          "role": "official"
+        }
+      ]
+    },
+    {
+      "id": "lng-land-bridge-2022",
+      "title": "LNG land-bridge and Russian LNG exit",
+      "kind": "trade-shift",
+      "mark_date": "2022-03-01",
+      "mark_label": "Last Russian LNG cargo (month)",
+      "jurisdiction": "United Kingdom",
+      "summary": "DESNZ Energy Trends records the last UK Russian LNG cargo in March 2022. In 2022 Q3, LNG imports were almost six times Q3 2021 as the UK used regasification capacity and European interconnectors as a land-bridge; US LNG imports rose sharply while Russian LNG fell.",
+      "alternate_reading": "Higher LNG imports can coincide with higher exports to Europe and with domestic demand changes. Import dependency is a separate published ratio — not the same question as partner mix.",
+      "chart": {
+        "kind": "gas-partners",
+        "partners": ["russia", "usa"],
+        "flow": "Imports",
+        "mode": "LNG"
+      },
+      "follow": [
+        {
+          "label": "Lifelines Map · gas · LNG",
+          "href": "/energy?domain=imports&view=lifelines&fuel=gas&flow=Imports&mode=LNG"
+        },
+        {
+          "label": "The Resilience Test",
+          "href": "/energy?domain=imports&view=resilience"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Energy Trends December 2022 (PDF)",
+          "url": "https://assets.publishing.service.gov.uk/media/63a2ebfad3bf7f3762ed5483/Energy_Trends_December_2022.pdf",
+          "role": "primary"
+        },
+        {
+          "label": "UK National Risk Assessment on Security of Gas Supply 2022",
+          "url": "https://assets.publishing.service.gov.uk/media/633d1cf0d3bf7f1882807a91/uk-national-risk-assessment-on-security-of-gas-supply-2022.pdf",
+          "role": "official"
+        }
+      ]
+    },
+    {
+      "id": "viking-link-2023",
+      "title": "Viking Link starts commercial operations",
+      "kind": "commissioning",
+      "mark_date": "2023-12-29",
+      "mark_label": "Commercial operations",
+      "jurisdiction": "Great Britain · Denmark",
+      "summary": "National Grid announced commercial operations of Viking Link on 29 December 2023. Initial market capacity was 800 MW, rising toward a 1.4 GW design rating over the following year.",
+      "alternate_reading": "Denmark–UK ET 5.6 series only exists once the corridor is published. Commissioning MW is not the same as quarterly GWh transferred.",
+      "chart": {
+        "kind": "interconnector",
+        "corridor": "Denmark-UK",
+        "flow": "Net imports"
+      },
+      "follow": [
+        {
+          "label": "Britain's Connectors · Denmark–UK",
+          "href": "/energy?domain=imports&view=connectors&flow=Net%20imports"
+        }
+      ],
+      "sources": [
+        {
+          "label": "National Grid commercial-operations announcement",
+          "url": "https://www.nationalgrid.com/national-grid-announces-commercial-operations-viking-link-worlds-longest-land-and-subsea",
+          "role": "primary"
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,29 @@ build/
 .env
 .env.*
 !.env.example
+.vscode/
 web/node_modules/
 web/.next/
 web/.env.local
 web/out/
+# Accidental root npm stubs (the Next app lives in web/)
+/node_modules/
+/package.json
+/package-lock.json
+.archive_verify/
+# Large Commons downloads used to build icon masks (keep SOURCES.json + scripts)
+data/icon-refs/**/*.src
+data/icon-refs/**/*.png
+data/icon-refs/_ql/
+# Bulky raw/curated blobs live in Supabase Storage (bucket bx-data-archive).
+# Restore with: uv run python -m britain_exchange.archive_data pull <path>
+# Keep manifests, READMEs, thin energy curated JSON/CSV the Next.js loaders need,
+# and the archive index committed.
+data/**/raw/**
+data/housing/**/curated/**
+data/people/**/curated/**
+data/history/**/curated/**
+data/infrastructure/**/curated/**
+data/regions/**/curated/**
+!data/**/raw/.gitkeep
+!data/**/curated/.gitkeep

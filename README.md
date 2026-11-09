@@ -14,18 +14,30 @@ uv sync
 
 Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
 
+## Cloud archive (laptop storage)
+
+Bulky `data/**/raw` and large curated blobs live in Supabase Storage (`bx-data-archive`). The laptop keeps manifests, thin energy curated files the UI reads from disk, and `data/_archive_index.json`.
+
+```bash
+# After setting SUPABASE_URL + SUPABASE_ANON_KEY (or SERVICE_ROLE) in .env
+uv run python -m britain_exchange.archive_data status
+uv run python -m britain_exchange.archive_data push-largest --min-mb 10
+uv run python -m britain_exchange.archive_data pull data/housing/price-paid-2025
+```
+
+Free-plan objects are capped at 50 MB; the tool gzip-compresses larger files before upload and restores the original checksum on pull.
+
 ## Run the first-proof stack
 
 ### Optional: PostgreSQL observation spine (Layer B)
 
-With Homebrew Postgres running and a `britain_exchange` database:
+Prefer cloud Supabase Postgres (same project as the archive). Paste the Database URI into `.env` as `DATABASE_URL` (Project Settings → Database), then:
 
 ```bash
-export DATABASE_URL=postgresql://britain@localhost/britain_exchange
 uv run python -m britain_exchange.load_ready   # migrate + load Ready CSVs
 ```
 
-Or `docker compose up -d` and use the URL in `.env.example`.
+Local Homebrew/Docker still works via the URL in `.env.example` / `docker compose up -d`.
 
 Without `DATABASE_URL`, the API serves the same Ready packages from `data/` files.
 

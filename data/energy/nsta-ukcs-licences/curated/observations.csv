@@ -1,0 +1,16 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),345.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=total_features; crs=EPSG:4326; layer=UKCS_offshore_petroleum_licences_WGS84
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),41855.093,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=total_agreed_km2; n_with_area=345
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),148.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_count; primary_region=Central North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),8.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_count; primary_region=Irish Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),86.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_count; primary_region=Northern North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),73.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_count; primary_region=Southern North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),30.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_count; primary_region=West of Shetlands
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),15134.16,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_agreed_km2; primary_region=Central North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),555.899,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_agreed_km2; primary_region=Irish Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),5078.401,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_agreed_km2; primary_region=Northern North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),12173.608,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_agreed_km2; primary_region=Southern North Sea
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),8913.025,km2,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=region_agreed_km2; primary_region=West of Shetlands
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),345.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=location_count; location=OFFSHORE
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),345.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=status_count; lic_status=Extant
+nsta-ukcs-licences,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),345.0,feature_count,final,NSTA_UKCS_Offshore_Licences_WGS84_2026-11-07,kind=lic_type_count; lic_type=Production

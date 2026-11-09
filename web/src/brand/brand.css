@@ -18,6 +18,23 @@
   --bo-signal: #ff3347; /* live marks only — never text, never behind text */
   --bo-lavender: #9c9eff; /* film highlights; muted index type on union (6.1:1) */
 
+  /* ——— Muted grounds and chart tones (green, mustard) ———
+     Grounds are flat backgrounds; type on them is union or electric, never faded.
+     Chart tones are marks in plots only — never type, never behind type. */
+  --bo-sage: #d5dccb; /* green ground — union 10.5:1, electric 6.1:1 */
+  --bo-straw: #e9dcb0; /* mustard ground — union 10.8:1, electric 6.2:1 */
+  --bo-green: #56755a; /* chart series / dot fill — 5.1:1 on paper */
+  --bo-mustard: #a8852c; /* chart series / dot fill — 3.4:1 on paper */
+
+  /* Categorical comparison marks: distinct hues, never used for page chrome or text. */
+  --bo-chart-1: var(--bo-electric);
+  --bo-chart-2: #b45f06; /* Ochre */
+  --bo-chart-3: var(--bo-union); /* Union */
+  --bo-chart-4: #00796b; /* Verdigris */
+  --bo-chart-5: #8e2c74; /* Plum: fifth series, sparingly */
+  --bo-chart-reference: #5a6072; /* Slate: explicit reference series only */
+  --bo-chart-band: var(--bo-lavender); /* range areas only */
+
   /* ——— Semantic roles ——— */
   --bo-ink: var(--bo-electric); /* headings, rules, marks, chart lines */
   --bo-text: var(--bo-union); /* running text on paper */
@@ -70,10 +87,16 @@
   --bo-t-figure: clamp(3.25rem, 6vw, 5.75rem);
   --bo-t-ed-l: clamp(1.6rem, 2.6vw, 2.35rem);
   --bo-t-ed-m: clamp(1.25rem, 1.7vw, 1.55rem);
-  --bo-t-body: 1.0625rem;
-  --bo-t-small: 0.9375rem;
-  --bo-t-label: 0.6875rem;
-  --bo-t-micro: 0.625rem;
+  --bo-t-body: 1.0625rem; /* reading text */
+  --bo-t-small: 0.9375rem; /* ledes, stage titles */
+  --bo-t-ui: 0.875rem; /* row names, controls */
+  --bo-t-note: 0.8125rem; /* secondary sentences */
+  --bo-t-label: 0.6875rem; /* mono labels */
+  --bo-t-micro: 0.625rem; /* captions, axis ticks */
+  --bo-t-fig: 1.375rem; /* inline instrument figures */
+  --bo-t-fig-s: 1.125rem; /* figures in a tight row */
+  --bo-t-readout: 2.6rem; /* the one large figure beside a sentence */
+  --bo-t-stat: clamp(1.9rem, 2.8vw, 2.6rem); /* a figure in a stage: figure strip, panel headline, band share */
   --bo-track-label: 0.12em;
 
   /* ——— Grid & space (12 columns, 8px rhythm) ——— */
@@ -126,6 +149,18 @@
   background: var(--bo-union);
 }
 
+/* Muted grounds: union type on sage or straw (rules and marks stay electric) */
+.bo .bo-on-sage,
+.bo-on-sage {
+  color: var(--bo-union);
+  background: var(--bo-sage);
+}
+.bo .bo-on-straw,
+.bo-on-straw {
+  color: var(--bo-union);
+  background: var(--bo-straw);
+}
+
 /* ——— Grid ——— */
 .bo .bo-wrap {
   width: 100%;
@@ -148,6 +183,36 @@
   letter-spacing: var(--bo-track-label);
   text-transform: uppercase;
   line-height: 1.4;
+}
+
+/* Closed disclosure: Exact values, Definitions, How this is calculated.
+   Sentence case at the stage-title size. Not .bo-label. */
+.bo .bo-disclosure {
+  cursor: pointer;
+  width: fit-content;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--bo-ink);
+}
+
+/* Reading sizes. Instruments use these tokens — do not set a fresh px size. */
+.bo .bo-prose {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+.bo .bo-note {
+  margin: 0;
+  max-width: 72ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
 }
 
 /* Headlines: Caslon, sentence case — captions to the engravings */
@@ -206,15 +271,32 @@
 
 .bo .bo-num { font-variant-numeric: tabular-nums; }
 
+/* Screen-reader only (keep in DOM for labels on prose controls) */
+.bo .bo-visually-hidden,
+.bo-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ——— The screen: UI tints as dots (never opacity) ——— */
 .bo .bo-tint-30 {
-  background-image: radial-gradient(circle, var(--bo-ink) 1.35px, transparent 1.75px);
+  background-image: radial-gradient(circle, var(--bo-tint-ink, var(--bo-ink)) 1.35px, transparent 1.75px);
   background-size: var(--bo-dot) var(--bo-dot);
 }
 .bo .bo-tint-60 {
-  background-image: radial-gradient(circle, var(--bo-ink) 2.2px, transparent 2.6px);
+  background-image: radial-gradient(circle, var(--bo-tint-ink, var(--bo-ink)) 2.2px, transparent 2.6px);
   background-size: var(--bo-dot) var(--bo-dot);
 }
+/* Chart-tone screens: add to a tint class, e.g. `bo-tint-60 bo-tint-green` */
+.bo .bo-tint-green { --bo-tint-ink: var(--bo-green); }
+.bo .bo-tint-mustard { --bo-tint-ink: var(--bo-mustard); }
 
 /* ——— Plates: one mask file printed in token colours (see Plate.tsx) ——— */
 .bo-plate {
@@ -249,6 +331,46 @@
 .bo :focus-visible {
   outline: 2px solid var(--bo-signal);
   outline-offset: 3px;
+}
+
+/* Range inputs: square thumb on a hairline track (no circles, no rounding). */
+.bo input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  margin: 8px 0;
+  background: var(--bo-ink-20);
+  border-radius: 0;
+  accent-color: var(--bo-ink);
+}
+.bo input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--bo-ink-20);
+  border-radius: 0;
+}
+.bo input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  background: var(--bo-ink);
+  border: 1px solid var(--bo-paper);
+  border-radius: 0;
+  cursor: pointer;
+}
+.bo input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: var(--bo-ink-20);
+  border-radius: 0;
+}
+.bo input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--bo-ink);
+  border: 1px solid var(--bo-paper);
+  border-radius: 0;
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: reduce) {

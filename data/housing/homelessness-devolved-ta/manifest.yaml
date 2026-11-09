@@ -1,0 +1,34 @@
+indicator_id: homelessness-devolved-ta
+title: Temporary accommodation — devolved nations
+sector: housing-land
+publisher: Scottish Government / Welsh Government / NISRA
+source_url: https://app.notion.com/p/40e65471768581a2a277cc76f104f990
+series_id: Jurisdiction TA stocks (bulletin transcription)
+geography: Scotland, Wales, Northern Ireland (separate series)
+frequency: point-in-time stock (bulletin dates)
+unit: households
+definition: Households in temporary accommodation under each nation's homelessness
+  legislation. Distinct legal definitions — do not sum with England H-CLIC TA or compute
+  a UK rate.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.devolved_homelessness
+curated_path: curated/observations.csv
+update_cadence: with each national bulletin
+raw_evidence:
+- path: raw/2026-11-04/devolved_ta_stocks.csv
+  retrieved_at: '2026-11-04T23:00:47.658262+00:00'
+  checksum_sha256: 600bcbc5dc05049a1ab317dc2d6ee2dfa35c8b9c953bb1e62f0dbbf58b45b228
+  content_type: text/csv
+  official_release_date: '2026-11-04'
+  http_status: null
+  source_url: https://app.notion.com/p/40e65471768581a2a277cc76f104f990
+transformations: Curated CSV from published bulletin headlines; one row per jurisdiction×date.
+revision_notes: Domain 08 initial pin 2026-11-04.
+caveats: Transcription of published headlines pending full ODS/SPARQL connectors.
+  Never compare levels across nations as if definitions match.
+related_indicator_ids:
+- temporary-accommodation-households
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581bbb0f7f5c4d5b1a9eb"
+schema_version: '1.0'

@@ -1,0 +1,424 @@
+/* Domain 04 — Changing Housing Fabric (one ink on paper). */
+
+.root {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  padding: var(--bo-s3) 0;
+  container-type: inline-size;
+  container-name: stock;
+}
+
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+  text-wrap: pretty;
+}
+
+.sectionTitle {
+  margin: 0;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+  text-align: start;
+  caption-side: top;
+  padding: 0 0 var(--bo-s3);
+}
+
+.download {
+  appearance: none;
+  justify-self: start;
+  margin: 0;
+  padding: var(--bo-s2) var(--bo-s3);
+  border: var(--bo-rule);
+  background: transparent;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.download:hover {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.download:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.yearRow {
+  display: grid;
+  gap: 6px;
+  max-width: 36rem;
+}
+
+.yearField {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.yearField .bo-label,
+.yearField :global(.bo-label) {
+  grid-column: 1 / -1;
+}
+
+.yearField input[type="range"] {
+  width: 100%;
+  accent-color: var(--bo-ink);
+}
+
+.yearOut {
+  font-size: var(--bo-t-fig);
+  min-width: 4rem;
+  text-align: right;
+}
+
+.yearEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  padding: 0 2px;
+}
+
+.fabric {
+  display: flex;
+  min-height: 12rem;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  overflow: hidden;
+}
+
+.band {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  border-right: var(--bo-hair);
+  display: grid;
+  align-content: end;
+  gap: 6px;
+  padding: var(--bo-s4) var(--bo-s3);
+  text-align: left;
+  cursor: pointer;
+  color: var(--bo-ink);
+  font: inherit;
+  min-width: 0;
+  transition: filter 160ms ease;
+}
+
+.band:last-child {
+  border-right: 0;
+}
+
+.band:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.band[data-tenure="owner"] {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  background-color: var(--bo-paper);
+}
+
+.band[data-tenure="private"] {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-color: var(--bo-paper);
+}
+
+.band[data-tenure="social"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.bandLabel {
+  font-size: var(--bo-t-note);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.bandShare {
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s4);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .fabric {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .band {
+    border-right: 0;
+    border-bottom: var(--bo-hair);
+    min-height: 5.5rem;
+  }
+
+  .band:last-child {
+    border-bottom: 0;
+  }
+}
+
+.metrics > div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: var(--bo-s3);
+  border-bottom: var(--bo-hair);
+}
+
+.metrics dt {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.metrics dd {
+  margin: 0;
+}
+
+.metrics :global(dd.bo-fig) {
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+}
+
+.note {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.notes {
+  border-top: var(--bo-hair);
+  padding-top: var(--bo-s3);
+}
+
+.notes summary {
+  cursor: pointer;
+  color: var(--bo-ink);
+}
+
+.notes summary:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.notesBody {
+  display: grid;
+  gap: 8px;
+  margin-top: var(--bo-s3);
+  max-width: 68ch;
+  font-size: var(--bo-t-ui);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+.notesBody p {
+  margin: 0;
+}
+
+.block {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+.geoSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--bo-s6);
+  align-items: start;
+  min-width: 0;
+}
+
+.geoSplit > * {
+  min-width: 0;
+}
+
+/* The index rail makes the stage narrower than the window. Stack before the map paints over the list. */
+@container stock (max-width: 720px) {
+  .geoSplit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .geoSplit {
+    grid-template-columns: 1fr;
+  }
+}
+
+.measureRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.measureTab {
+  appearance: none;
+  margin: 0;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font: inherit;
+  font-size: var(--bo-t-note);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.measureTab[data-active="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.measureTab:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.placeSelect {
+  grid-column: 1 / -1;
+  font: inherit;
+  padding: 8px 10px;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  max-width: 28rem;
+}
+
+.band[data-type="detached"] {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+  background-color: var(--bo-paper);
+}
+
+.band[data-type="semi"] {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  background-color: var(--bo-paper);
+}
+
+.band[data-type="terraced"] {
+  background: repeating-linear-gradient(
+    0deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  background-color: var(--bo-paper);
+}
+
+.band[data-type="flat"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.band[data-type="other"] {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-color: var(--bo-paper);
+}
+
+/* ——— Dwelling types: specimen cards (generated plates, one matched set) ——— */
+.specimens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: var(--bo-rule);
+  border-left: var(--bo-hair);
+}
+.specimens li { display: grid; min-width: 0; }
+.specimen {
+  appearance: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  gap: var(--bo-s2);
+  align-content: start;
+  min-width: 0;
+  padding: var(--bo-s3) var(--bo-s3) var(--bo-s4);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  border: 0;
+  border-right: var(--bo-hair);
+  border-bottom: var(--bo-hair);
+  box-shadow: inset 0 0 0 0 var(--bo-ink);
+  transition: box-shadow var(--bo-fast) var(--bo-ease);
+}
+.specimen:hover { box-shadow: inset 0 -3px 0 0 var(--bo-ink); }
+.specimen[data-selected="true"] { box-shadow: inset 0 0 0 2px var(--bo-ink); }
+.specimen:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: -2px; }
+.specimenPlate { aspect-ratio: 1; width: 100%; display: block; }
+.specimenName { color: var(--bo-text); min-height: 2.8em; }
+.specimenShare { font-size: var(--bo-t-stat); line-height: 1; }
+.specimenBar { position: relative; display: block; height: 6px; background: var(--bo-ink-10); }
+.specimenBar i { position: absolute; inset: 0 auto 0 0; background: var(--bo-ink); }
+.specimenCount { font-size: var(--bo-t-note); color: var(--bo-text); font-variant-numeric: tabular-nums; }
+.specimenNote { margin: 0; font-size: var(--bo-t-note); color: var(--bo-text); }
+
+.specimensTenure {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .specimens { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .specimens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .specimensTenure { grid-template-columns: 1fr; }
+}

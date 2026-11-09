@@ -1,0 +1,4 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+uk-power-stations-dukes,2024-01-01,2024-12-31,K02000001,United Kingdom,1044.2,MW,final,DUKES_5.11_2025,fuel=Diesel/Gas Oil
+uk-power-stations-dukes,2024-01-01,2024-12-31,K02000001,United Kingdom,33676.0,MW,final,DUKES_5.11_2025,fuel=Natural Gas
+uk-power-stations-dukes,2024-01-01,2024-12-31,K02000001,United Kingdom,5883.0,MW,final,DUKES_5.11_2025,fuel=Nuclear

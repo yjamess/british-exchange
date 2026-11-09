@@ -1,0 +1,50 @@
+indicator_id: brownfield-land
+title: Brownfield land register (England)
+sector: housing-land
+publisher: MHCLG / Planning Data
+source_url: https://www.planning.data.gov.uk/dataset/brownfield-land
+series_id: planning.data.gov.uk dataset=brownfield-land
+geography: England (incomplete LPA coverage) — not UK
+frequency: snapshot
+unit: sites / hectares / estimated dwellings
+definition: Current brownfield land register sites published via Planning Data (England).
+  England totals for site count, hectares, and summed maximum net dwellings; permission-status
+  site counts; top local authorities by site count. Filter series=site-count for the
+  headline.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.brownfield_land
+curated_path: curated/observations.csv
+update_cadence: monthly (when Planning Data collection updates)
+raw_evidence:
+- path: raw/2026-11-04/brownfield-land.csv
+  retrieved_at: '2026-11-04T20:42:08.952347+00:00'
+  checksum_sha256: 91023750fcfa10994311bdef6f1f1b240fedb197e001edecad1ba46c9977eef6
+  content_type: text/csv
+  official_release_date: '2026-11-04'
+  http_status: null
+  source_url: https://files.planning.data.gov.uk/brownfield-land-collection/dataset/brownfield-land.csv
+- path: raw/2026-11-04/local-authority.json
+  retrieved_at: '2026-11-04T20:42:08.952347+00:00'
+  checksum_sha256: 7c967212e687fa19d4aca3620d6efafb87e706bded056f3c17d628ce9511b447
+  content_type: application/json
+  official_release_date: '2026-11-04'
+  http_status: null
+  source_url: https://www.planning.data.gov.uk/entity.json?dataset=local-authority&limit=500&field=entity&field=name&field=reference
+transformations: Pin brownfield-land.csv; drop ended entities; parse nested json for
+  hectares/dwellings/permission; canonise permission statuses; join organisation_entity
+  to local-authority names.
+revision_notes: Initial Domain 06 Development Sites ingest 2026-11-04.
+caveats: England only and incomplete — publisher warns coverage gaps. Registration
+  or allocation is not a deliverable, viable, or available site. Dwelling estimates
+  are LPA-published and often missing. Permission-status free text is partially canonised;
+  residuals are series permission-status=other-or-unclear. Authority codes are Planning
+  Data local-authority entity ids (PD-LA-*), not ONS GSS codes.
+related_indicator_ids:
+- green-belt-area
+- land-use-stock
+- planning-decisions-granted
+- net-additional-dwellings
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581ad87d4d6ea4e676890"
+schema_version: '1.0'

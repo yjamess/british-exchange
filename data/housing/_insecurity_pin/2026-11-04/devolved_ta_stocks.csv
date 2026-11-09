@@ -1,0 +1,7 @@
+geography_code,geography_label,period_start,period_end,value,series,source_url
+S92000003,Scotland,2025-03-31,2025-03-31,17240.0,households-in-ta,https://www.gov.scot/publications/homelessness-in-scotland-2024-25/pages/temporary-accommodation/
+S92000003,Scotland,2025-09-30,2025-09-30,18092.0,households-in-ta,https://www.gov.scot/publications/homelessness-in-scotland-update-to-30-september-2025/pages/temporary-accommodation/
+W92000004,Wales,2025-03-31,2025-03-31,6285.0,households-in-ta,https://www.gov.wales/homelessness-april-2024-march-2025-html
+W92000004,Wales,2025-09-30,2025-09-30,6426.0,households-in-ta,https://www.gov.wales/homelessness-april-september-2025-html
+W92000004,Wales,2026-03-31,2026-03-31,6201.0,households-in-ta,https://www.gov.wales/homelessness-april-2025-march-2026-html
+N92000002,Northern Ireland,2025-10-01,2025-10-01,5408.0,households-in-ta,https://datavis.nisra.gov.uk/communities/northern-ireland-homelessness-bulletin-april-september-2025.html

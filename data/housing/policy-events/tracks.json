@@ -1,0 +1,152 @@
+{
+  "registry_id": "housing-policy-tracks",
+  "title": "Time Machine context tracks",
+  "note": "Each track is an existing Ready series drawn on the same time axis as the policy marks. A track is context: two things sharing a year is not evidence that one caused the other. Tracks never carry values of their own; the web reads every point from the Exchange API.",
+  "tracks": [
+    {
+      "id": "stock-by-tenure",
+      "title": "Dwelling stock by tenure",
+      "indicator_id": "dwelling-stock-by-tenure",
+      "domain": "stock",
+      "view": "tenure",
+      "unit": "dwellings",
+      "format": "count",
+      "cadence": "annual",
+      "lines": [
+        {
+          "id": "owner-occupied",
+          "label": "Owner-occupied",
+          "match": {
+            "geography_code": "E92000001",
+            "demographic": "owner-occupied"
+          }
+        },
+        {
+          "id": "private-rented",
+          "label": "Private rented",
+          "match": {
+            "geography_code": "E92000001",
+            "demographic": "private-rented"
+          }
+        },
+        {
+          "id": "local-authority",
+          "label": "Local authority",
+          "match": {
+            "geography_code": "E92000001",
+            "demographic": "local-authority"
+          }
+        },
+        {
+          "id": "private-registered-provider",
+          "label": "Housing associations",
+          "match": {
+            "geography_code": "E92000001",
+            "demographic": "private-registered-provider"
+          }
+        }
+      ],
+      "note": "England. Survey years are irregular before the annual series; gaps are left open."
+    },
+    {
+      "id": "housebuilding-long-run",
+      "title": "Permanent dwellings completed by tenure",
+      "indicator_id": "housebuilding-completions-long-run",
+      "domain": "supply",
+      "view": "machine",
+      "unit": "dwellings",
+      "format": "count",
+      "cadence": "annual",
+      "lines": [
+        {
+          "id": "private-enterprise",
+          "label": "Private enterprise",
+          "match": {
+            "geography_code": "E92000001",
+            "series": "private-enterprise"
+          }
+        },
+        {
+          "id": "local-authority",
+          "label": "Local authorities",
+          "match": {
+            "geography_code": "E92000001",
+            "series": "local-authority"
+          }
+        },
+        {
+          "id": "housing-association",
+          "label": "Housing associations",
+          "match": {
+            "geography_code": "E92000001",
+            "series": "housing-association"
+          }
+        }
+      ],
+      "note": "England, calendar years, MHCLG Live Table 244 (1946 onward; latest year provisional)."
+    },
+    {
+      "id": "affordable-supply",
+      "title": "Additional affordable homes",
+      "indicator_id": "affordable-housing-supply",
+      "domain": "supply",
+      "view": "who-builds",
+      "unit": "dwellings",
+      "format": "count",
+      "cadence": "annual",
+      "lines": [
+        {
+          "id": "all-affordable",
+          "label": "All affordable",
+          "match": {
+            "geography_code": "E92000001",
+            "demographic": "All affordable",
+            "category": "completions"
+          }
+        }
+      ],
+      "note": "England, financial years. Affordable supply is a different count from total housebuilding."
+    },
+    {
+      "id": "house-prices",
+      "title": "Average house price",
+      "indicator_id": "uk-average-house-price",
+      "domain": "prices",
+      "view": "history",
+      "unit": "£",
+      "format": "gbp",
+      "cadence": "monthly",
+      "lines": [
+        {
+          "id": "uk",
+          "label": "United Kingdom",
+          "match": {
+            "geography_code": "K02000001"
+          }
+        }
+      ],
+      "note": "UK HPI, current prices (not adjusted for inflation)."
+    },
+    {
+      "id": "temporary-accommodation",
+      "title": "Households in temporary accommodation",
+      "indicator_id": "temporary-accommodation-households",
+      "domain": "insecurity",
+      "view": "temporary",
+      "unit": "households",
+      "format": "count",
+      "cadence": "quarterly",
+      "lines": [
+        {
+          "id": "england",
+          "label": "England",
+          "match": {
+            "geography_code": "E92000001",
+            "series": "households-total"
+          }
+        }
+      ],
+      "note": "England, households on the last day of each quarter."
+    }
+  ]
+}

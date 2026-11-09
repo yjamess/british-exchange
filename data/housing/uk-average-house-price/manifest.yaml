@@ -17,18 +17,19 @@ curated_path: curated/observations.csv
 update_cadence: monthly (UK HPI)
 raw_evidence:
 - path: raw/2026-11-03/UK-HPI-full-file-2026-08.csv
-  retrieved_at: '2026-11-03T17:52:49.874959+00:00'
+  retrieved_at: '2026-11-04T16:29:03.857596+00:00'
   checksum_sha256: b00756d0c39f356d17fadf93c42af75ccc48f7123cd666e602c65260d081b6c9
   content_type: text/csv
   official_release_date: '2026-10-21'
   http_status: null
   source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/UK-HPI-full-file-2026-08.csv
 transformations: Filter UK-HPI-full-file CSV to RegionName=United Kingdom. Map Date
-  (DD/MM/YYYY) to calendar month bounds; value=AveragePrice.
+  (DD/MM/YYYY) to calendar month bounds; value=AveragePrice. Mark the latest 12 valued
+  months provisional; older months final.
 revision_notes: Pinned UK-HPI-full-file-2026-08 published 21 Oct 2026.
 caveats: Latest ~12 months of UK HPI are provisional and revise. Northern Ireland
   contributes quarterly within the UK aggregate.
 related_indicator_ids: []
 open_questions: []
-notion_registry_url: https://app.notion.com/40d654717685819bb393f7daf628b952
+notion_registry_url: "https://app.notion.com/40d654717685819bb393f7daf628b952"
 schema_version: '1.0'

@@ -1,0 +1,42 @@
+indicator_id: uk-oil-gas-reserves
+title: UK oil and gas reserves and contingent resources
+sector: energy-industry
+publisher: North Sea Transition Authority
+source_url: https://www.nstauthority.co.uk/news-publications/reserves-and-resources-as-at-end-2024/
+series_id: Historic estimates of Oil and Gas Reserves and Contingent Resources 1973–2024
+geography: UK Continental Shelf (NSTA reserves classification)
+frequency: annual
+unit: million tonnes (oil) / billion cubic metres (gas)
+definition: Annual NSTA historic estimates of remaining oil and gas reserves (1P/2P/3P)
+  and contingent resources (2C), plus annual oil production from the same Accessible
+  sheet for glossary comparison. Contains information provided by the North Sea Transition
+  Authority and/or other third parties.
+licence: NSTA User Agreement (Open User Licence) — see data/energy/oil-gas-fossil-fuels/licence/README.md;
+  attribution required
+agent_owner: energy
+connector_module: energy.connectors.uk_oil_gas_reserves
+curated_path: curated/observations.csv
+update_cadence: Annual with NSTA Reserves and Resources report
+raw_evidence:
+- path: raw/2026-11-07/historic_reserves_1973_2024.xlsx
+  retrieved_at: '2026-11-07T21:24:44.978793+00:00'
+  checksum_sha256: 053c4e509bd8ace32402bd105080d0c5754ad1d9496d685d669d250a819ec5ea
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-11-07'
+  http_status: 200
+  source_url: https://www.nstauthority.co.uk/media/vtehs1wu/historic-estimates-of-oil-and-gas-reserves-and-contingent-resources-1973-to-2024.xlsx
+transformations: 'Download NSTA historic xlsx. Parse Accessible sheet: oil Proved/Probable/Possible/2C
+  and gas Proved/Probable/Possible/2C plus oil production. Treat Probable/Possible
+  columns as 2P/3P totals (not incremental). Long-format observations with measure=
+  in notes.'
+revision_notes: ''
+caveats: Reserves are remaining recoverable estimates — not annual extraction. Do
+  not equate 2P reserves with indigenous production. Classification changes (notably
+  around 2015) break long-run comparability. Contains information provided by the
+  North Sea Transition Authority and/or other third parties.
+related_indicator_ids:
+- crude-oil-production
+- nsta-field-production
+open_questions: []
+notion_registry_url: https://app.notion.com/411654717685812bb25bdbfd27759586
+schema_version: '1.0'

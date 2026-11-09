@@ -1,0 +1,43 @@
+indicator_id: manufacturing-output-per-hour
+title: Manufacturing output per hour
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/djk6/prdy
+series_id: DJK6
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: Index 2023=100, SA (output per hour, manufacturing)
+definition: 'UK labour productivity for SIC 2007 section C Manufacturing: output per
+  hour worked, seasonally adjusted index (2023=100). ONS CDID DJK6 in PRDY (Labour
+  productivity time series). Distinct from Economy whole-economy output per hour (LZVB).'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_output_per_hour
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS labour productivity / PRDY)
+raw_evidence:
+- path: raw/2026-11-07/djk6_prdy.json
+  retrieved_at: '2026-11-07T09:35:14.972765+00:00'
+  checksum_sha256: cbe5a021d243f44e5b56f00fe583ee5d8af5687886ca687ed06fa7e61fe82d53
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-08-17'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/djk6/prdy/data
+transformations: Download ONS timeseries JSON (DJK6/PRDY /data). Keep quarters only
+  (annual aggregates omitted). Map year+Q→ISO calendar quarter bounds. Geography fixed
+  to K02000001. Values = index 2023=100 SA; empty → missing. observation_status=provisional
+  (PRDY revises).
+revision_notes: Industry productivity revises with GDP(O)/GVA and labour-input revisions
+  each PRDY release. Re-pin raw JSON on re-ingest; compare checksums.
+caveats: Official ONS manufacturing productivity index — do not invent by dividing
+  IoP by Workforce Jobs. Output per hour ≠ output per job (other PRDY CDIDs). Base
+  year moves with Blue Book / PRDY rebasing. Annual rows in raw JSON are not curated.
+  National section C only — not subsector or regional.
+related_indicator_ids:
+- manufacturing-employment
+- manufacturing-output-index
+- labour-productivity
+open_questions:
+- 'Optional later: manufacturing output per job (related PRDY CDID).'
+notion_registry_url: https://app.notion.com/41165471768581c89c2ce8e92d3134e3
+schema_version: '1.0'

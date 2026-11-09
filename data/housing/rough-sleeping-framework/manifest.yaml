@@ -1,0 +1,35 @@
+indicator_id: rough-sleeping-framework
+title: Rough sleeping data framework (management information)
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/publications/rough-sleeping-data-framework-april-to-june-2026
+series_id: Rough sleeping data framework Table 1 and Table 3
+geography: England, regions, local authorities
+frequency: monthly (management information)
+unit: people
+definition: Estimated people sleeping rough over the month (Table 1) and on a single
+  night (Table 3). Management information, not the official autumn snapshot.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.rough_sleeping_framework
+curated_path: curated/observations.csv
+update_cadence: quarterly
+raw_evidence:
+- path: raw/2026-11-04/Rough_Sleeping_Data_Framework_April_to_June_2026.ods
+  retrieved_at: '2026-11-04T23:05:42.922196+00:00'
+  checksum_sha256: 3538ccadd6bd2073ec17bc240d6c114d24e72e065a2f7128993a39d030b056fd
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-27'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a8c62ed08705e34a95daa77/Rough_Sleeping_Data_Framework_April_to_June_2026.ods
+transformations: Parse Table_1_Monthly and Table_3_Single_Night. Skip Rest of England
+  (it is England minus London). Other framework tables remain in the pinned workbook.
+revision_notes: Domain 08 ingest 2026-11-04.
+caveats: Management information, not official statistics. Do not add to or replace
+  the autumn rough sleeping snapshot. Monthly count is people seen over the month,
+  not a one-night stock.
+related_indicator_ids:
+- rough-sleeping-snapshot
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e654717685815891a0f35431bea10e"
+schema_version: '1.0'

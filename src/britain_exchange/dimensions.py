@@ -72,6 +72,7 @@ def dimensions_from_notes(notes: str) -> ObservationDimensions:
         or parts.get("vehicle")
         or parts.get("classification")
         or parts.get("kind")
+        or parts.get("category")
         or ""
     )
     return ObservationDimensions(

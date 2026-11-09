@@ -7,16 +7,24 @@ observations, and marks it ``is_current``.
 Usage:
   export DATABASE_URL=postgresql://britain:britain@127.0.0.1:5432/britain_exchange
   uv run python -m britain_exchange.load_ready
+
+  # Or load via Supabase PostgREST when DATABASE_URL is not yet set
+  # (schema must already exist; see apply_migration / dashboard SQL):
+  uv run python -m britain_exchange.load_ready --via-rest
 """
 
 from __future__ import annotations
 
+import argparse
 import csv
+import os
 from datetime import date, datetime
 from pathlib import Path
 
+import httpx
+
 from britain_exchange.catalog import IndicatorPackage, iter_indicator_packages
-from britain_exchange.db import apply_migrations, connect
+from britain_exchange.db import apply_migrations, connect, load_repo_env
 from britain_exchange.dimensions import dimensions_from_notes, dimensions_to_db_fields
 from britain_exchange.manifest import Manifest
 
@@ -211,6 +219,16 @@ def replace_release_observations(
     return count
 
 
+def _is_observation_package(package: IndicatorPackage) -> bool:
+    """Skip transaction-layer packages (e.g. Price Paid) that are not Observation CSVs."""
+    path = package.curated_csv
+    if not path.is_file():
+        return False
+    with path.open(newline="", encoding="utf-8") as handle:
+        header = next(csv.reader(handle), [])
+    return "observation_status" in header and "period_start" in header
+
+
 def load_all() -> None:
     packages = iter_indicator_packages()
     if not packages:
@@ -220,6 +238,12 @@ def load_all() -> None:
         applied = apply_migrations(conn)
         print(f"migrations: {', '.join(applied)}")
         for package in packages:
+            if not _is_observation_package(package):
+                print(
+                    f"skip {package.manifest.indicator_id}: "
+                    "not an observation curated CSV (transaction layer)"
+                )
+                continue
             upsert_indicator(conn, package.manifest)
             release_id = upsert_release(conn, package)
             n = replace_release_observations(conn, package, release_id)
@@ -230,8 +254,259 @@ def load_all() -> None:
             )
 
 
-def main() -> None:
-    load_all()
+def _rest_config() -> tuple[str, str]:
+    load_repo_env()
+    url = (os.environ.get("SUPABASE_URL") or "").rstrip("/")
+    key = (
+        os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+        or os.environ.get("SUPABASE_ANON_KEY")
+        or os.environ.get("SUPABASE_KEY")
+        or ""
+    )
+    if not url or not key:
+        raise SystemExit(
+            " --via-rest needs SUPABASE_URL and SUPABASE_ANON_KEY "
+            "(or SUPABASE_SERVICE_ROLE_KEY) in .env"
+        )
+    return url, key
+
+
+def _rest_headers(key: str) -> dict[str, str]:
+    return {
+        "apikey": key,
+        "Authorization": f"Bearer {key}",
+        "Content-Type": "application/json",
+    }
+
+
+def _rest_upsert_indicator(client: httpx.Client, base: str, key: str, manifest: Manifest) -> None:
+    row = {
+        "indicator_id": manifest.indicator_id,
+        "title": manifest.title,
+        "sector": manifest.sector,
+        "publisher": manifest.publisher,
+        "source_url": manifest.source_url,
+        "series_id": manifest.series_id,
+        "geography": manifest.geography,
+        "frequency": manifest.frequency,
+        "unit": manifest.unit,
+        "definition": manifest.definition,
+        "licence": manifest.licence,
+        "caveats": manifest.caveats,
+        "revision_notes": manifest.revision_notes,
+        "notion_registry_url": manifest.notion_registry_url,
+        "agent_owner": manifest.agent_owner,
+    }
+    response = client.post(
+        f"{base}/rest/v1/indicator",
+        headers={
+            **_rest_headers(key),
+            "Prefer": "resolution=merge-duplicates,return=minimal",
+        },
+        params={"on_conflict": "indicator_id"},
+        json=row,
+        timeout=60,
+    )
+    if response.status_code >= 400:
+        raise RuntimeError(f"indicator upsert failed: {response.status_code} {response.text[:400]}")
+
+
+def _rest_upsert_release(client: httpx.Client, base: str, key: str, package: IndicatorPackage) -> int:
+    manifest = package.manifest
+    evidence = manifest.raw_evidence[0] if manifest.raw_evidence else None
+    source_version = ""
+    with package.curated_csv.open(newline="", encoding="utf-8") as handle:
+        first = next(csv.DictReader(handle), None)
+        if first:
+            source_version = first.get("source_version") or ""
+    if not source_version and evidence:
+        source_version = Path(evidence.path).name
+    if not source_version:
+        source_version = "unknown"
+
+    checksum = (evidence.checksum_sha256 if evidence else "") or ""
+    # Look for an existing matching release first.
+    existing = client.get(
+        f"{base}/rest/v1/data_release",
+        headers=_rest_headers(key),
+        params={
+            "select": "release_id",
+            "indicator_id": f"eq.{manifest.indicator_id}",
+            "source_version": f"eq.{source_version}",
+            "checksum_sha256": f"eq.{checksum}",
+            "limit": "1",
+        },
+        timeout=60,
+    )
+    if existing.status_code >= 400:
+        raise RuntimeError(f"release lookup failed: {existing.status_code} {existing.text[:400]}")
+    rows = existing.json()
+    if rows:
+        release_id = int(rows[0]["release_id"])
+    else:
+        payload = {
+            "indicator_id": manifest.indicator_id,
+            "source_version": source_version,
+            "official_release_date": (
+                _parse_date(evidence.official_release_date).isoformat()
+                if evidence and _parse_date(evidence.official_release_date)
+                else None
+            ),
+            "retrieved_at": (
+                _parse_timestamptz(evidence.retrieved_at).isoformat()
+                if evidence and _parse_timestamptz(evidence.retrieved_at)
+                else None
+            ),
+            "checksum_sha256": checksum,
+            "raw_path": evidence.path if evidence else None,
+            "is_current": True,
+        }
+        created = client.post(
+            f"{base}/rest/v1/data_release",
+            headers={
+                **_rest_headers(key),
+                "Prefer": "return=representation",
+            },
+            json=payload,
+            timeout=60,
+        )
+        if created.status_code >= 400:
+            raise RuntimeError(f"release insert failed: {created.status_code} {created.text[:400]}")
+        release_id = int(created.json()[0]["release_id"])
+
+    # Mark this release current; clear siblings.
+    client.patch(
+        f"{base}/rest/v1/data_release",
+        headers=_rest_headers(key),
+        params={"release_id": f"eq.{release_id}"},
+        json={"is_current": True},
+        timeout=60,
+    )
+    client.patch(
+        f"{base}/rest/v1/data_release",
+        headers=_rest_headers(key),
+        params={
+            "indicator_id": f"eq.{manifest.indicator_id}",
+            "release_id": f"neq.{release_id}",
+        },
+        json={"is_current": False},
+        timeout=60,
+    )
+    return release_id
+
+
+def _rest_replace_observations(
+    client: httpx.Client, base: str, key: str, package: IndicatorPackage, release_id: int
+) -> int:
+    manifest = package.manifest
+    deleted = client.delete(
+        f"{base}/rest/v1/observation",
+        headers=_rest_headers(key),
+        params={"release_id": f"eq.{release_id}"},
+        timeout=120,
+    )
+    if deleted.status_code >= 400:
+        raise RuntimeError(f"observation delete failed: {deleted.status_code} {deleted.text[:400]}")
+
+    batch: list[dict] = []
+    count = 0
+    batch_size = 500
+
+    def flush() -> None:
+        nonlocal batch, count
+        if not batch:
+            return
+        response = client.post(
+            f"{base}/rest/v1/observation",
+            headers={
+                **_rest_headers(key),
+                "Prefer": "return=minimal",
+            },
+            json=batch,
+            timeout=120,
+        )
+        if response.status_code >= 400:
+            raise RuntimeError(
+                f"observation insert failed ({manifest.indicator_id}): "
+                f"{response.status_code} {response.text[:500]}"
+            )
+        count += len(batch)
+        batch = []
+
+    with package.curated_csv.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            raw_value = row.get("value")
+            value = None if raw_value in (None, "") else float(raw_value)
+            notes = row.get("notes") or ""
+            dims = dimensions_from_notes(notes)
+            dim_fields = dimensions_to_db_fields(dims)
+            batch.append(
+                {
+                    "indicator_id": row["indicator_id"],
+                    "release_id": release_id,
+                    "period_start": row["period_start"],
+                    "period_end": row["period_end"],
+                    "geography_code": row["geography_code"],
+                    "geography_label": row["geography_label"],
+                    "value": value,
+                    "unit": row["unit"],
+                    "observation_status": row["observation_status"],
+                    "source_version": row["source_version"],
+                    "notes": notes,
+                    **dim_fields,
+                }
+            )
+            if len(batch) >= batch_size:
+                flush()
+    flush()
+    return count
+
+
+def load_all_via_rest(*, max_bytes: int | None = None) -> None:
+    """Load Ready packages through Supabase PostgREST (no direct DB password needed)."""
+    base, key = _rest_config()
+    packages = iter_indicator_packages()
+    if not packages:
+        raise SystemExit("No local indicator packages found under data/")
+
+    with httpx.Client() as client:
+        for package in packages:
+            if not _is_observation_package(package):
+                print(f"skip {package.manifest.indicator_id}: not observation CSV")
+                continue
+            size = package.curated_csv.stat().st_size
+            if max_bytes is not None and size > max_bytes:
+                print(
+                    f"skip {package.manifest.indicator_id}: "
+                    f"{size // 1024} KiB over --max-kb limit"
+                )
+                continue
+            print(f"rest  {package.manifest.indicator_id} ({size // 1024} KiB) …")
+            _rest_upsert_indicator(client, base, key, package.manifest)
+            release_id = _rest_upsert_release(client, base, key, package)
+            n = _rest_replace_observations(client, base, key, package, release_id)
+            print(f"loaded {package.manifest.indicator_id}: {n} observations (release_id={release_id})")
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--via-rest",
+        action="store_true",
+        help="Load through Supabase PostgREST using SUPABASE_URL + API key",
+    )
+    parser.add_argument(
+        "--max-kb",
+        type=int,
+        default=None,
+        help="With --via-rest, skip curated CSVs larger than this many KiB",
+    )
+    args = parser.parse_args(argv)
+    if args.via_rest:
+        max_bytes = None if args.max_kb is None else args.max_kb * 1024
+        load_all_via_rest(max_bytes=max_bytes)
+    else:
+        load_all()
 
 
 if __name__ == "__main__":

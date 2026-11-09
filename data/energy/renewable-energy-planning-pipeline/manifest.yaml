@@ -1,0 +1,43 @@
+indicator_id: renewable-energy-planning-pipeline
+title: Renewable energy planning — non-operational pipeline
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract
+series_id: REPD quarterly extract — Installed Capacity (MWelec) by Development Status
+  (short), excluding Operational
+geography: United Kingdom (planning register; includes NI and offshore)
+frequency: quarterly
+unit: MW
+definition: Sum of installed electrical capacity (MW) for REPD projects that are not
+  yet Operational, by Development Status (short) and Technology Type. Snapshot of
+  the same quarterly extract as the operational sibling. Not generation (TWh). Not
+  nuclear. Not a complete UK power-station register.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.renewable_energy_planning
+curated_path: curated/observations.csv
+update_cadence: Quarterly REPD extract (DESNZ / Barbour ABI)
+raw_evidence:
+- path: raw/2026-11-06/REPD_Publication_Q2_2026.csv
+  retrieved_at: '2026-11-07T15:36:03.958295+00:00'
+  checksum_sha256: 84c1b5f958a934d8b4b86ec88f50bdcf43830ded7ff2efc27bffca0c98695035
+  content_type: text/csv
+  official_release_date: '2026-07-31'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a6cbdc00c36759b5ccaa305/REPD_Publication_Q2_2026.csv
+transformations: Exclude Development Status (short)=Operational. Sum Installed Capacity
+  (MWelec) by status × Technology Type → notes=status=<label>; technology=<label>.
+  Same raw pin as renewable-energy-planning-operational (copied, not re-fetched).
+revision_notes: 'Gate 3 B3: sibling indicator sharing the operational REPD connector
+  and Q2 2026 pin — not a second REPD pipeline.'
+caveats: REPD capacity threshold ≥150 kW (≥1 MW before 2021) — smaller schemes are
+  absent. Statuses include refused/withdrawn/abandoned as well as active pipeline
+  (submitted / awaiting construction / under construction). Filter on notes status=
+  for Field Guide stages. Do not treat pipeline MW as built capacity. Nuclear is not
+  in REPD.
+related_indicator_ids:
+- renewable-energy-planning-operational
+open_questions:
+- Optional site-level atlas for non-operational stages (coordinates exist).
+notion_registry_url: ''
+schema_version: '1.0'

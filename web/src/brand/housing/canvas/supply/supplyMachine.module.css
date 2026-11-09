@@ -1,0 +1,339 @@
+/* Domain 05 — The Housing Supply Machine. One ink on paper; a measured section, not a dashboard.
+   Textures are pen strokes and dots in solid ink (never opacity); type is never faded. */
+
+.root {
+  /* The machine is a column inside the explorer, often much narrower than the window.
+     Container queries follow that column, not the viewport.
+     https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries */
+  container-type: inline-size;
+  container-name: supply;
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  padding: var(--bo-s4);
+  color: var(--bo-text);
+}
+
+.empty {
+  display: grid;
+  place-content: center;
+  gap: var(--bo-s2);
+  min-height: 24rem;
+  text-align: center;
+}
+
+/* ——— Controls ——— */
+
+/* View, place, year and compare are one row of menus. */
+.controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--bo-s4) var(--bo-s5);
+  align-items: end;
+}
+.ctl {
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+.ctl > :last-child {
+  width: 100%;
+  max-width: 100%;
+}
+.ctl :global(.bo-label) {
+  color: var(--bo-ink);
+}
+.prov {
+  font-family: var(--bo-f-data);
+  text-transform: uppercase;
+}
+@container supply (min-width: 52rem) {
+  .controls {
+    grid-template-columns: minmax(7rem, 9rem) minmax(0, 1.1fr) minmax(7rem, 9rem) minmax(0, 1fr);
+  }
+}
+
+/* ——— Sheet: the section drawing ——— */
+
+.sheet {
+  margin-top: var(--bo-s2);
+  min-width: 0;
+}
+
+.drawing {
+  min-width: 0;
+  padding: var(--bo-s3) 0 var(--bo-s3);
+}
+.datumNote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s1) var(--bo-s3);
+  align-items: baseline;
+  margin: 0 var(--bo-s4);
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.datumNote :global(.bo-label) {
+  color: var(--bo-ink);
+}
+.datumNote b {
+  font-weight: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+}
+
+/* SVG marks */
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--bo-f-data);
+}
+.inkFill {
+  fill: var(--bo-ink);
+}
+.penLine {
+  stroke: var(--bo-ink);
+  stroke-width: 0.8;
+}
+.groundLine {
+  stroke: var(--bo-ink-40);
+  stroke-width: 0.8;
+}
+.ink {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  fill: none;
+}
+.inkHeavy {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+  fill: none;
+}
+.level {
+  stroke: var(--bo-ink-10);
+  stroke-width: 1;
+}
+.datum {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+}
+.breakLine {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  fill: var(--bo-paper);
+}
+.scaleOn {
+  fill: var(--bo-ink);
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.scaleOff {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.connector {
+  stroke: var(--bo-ink-60);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.bay {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  shape-rendering: geometricPrecision;
+}
+.bayOn {
+  stroke-width: 2.25;
+}
+.bayA {
+  stroke: var(--bo-ink-60);
+  stroke-width: 1;
+  fill: var(--bo-paper);
+}
+.bayDashed {
+  stroke-dasharray: 5 3;
+}
+.voidGround {
+  fill: var(--bo-paper);
+}
+.voidCross line {
+  stroke: var(--bo-ink);
+  stroke-width: 0.8;
+}
+.naTick {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+.levelMark {
+  fill: var(--bo-ink);
+}
+.tag {
+  fill: var(--bo-ink);
+}
+.val,
+.valOn {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.02em;
+  fill: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.valOn {
+  fill: var(--bo-paper);
+}
+.micro {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  fill: var(--bo-text);
+}
+.num,
+.numOn {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.08em;
+  fill: var(--bo-ink);
+}
+.numOn {
+  font-weight: 500;
+  text-decoration: underline;
+}
+.op {
+  font-family: var(--bo-f-fig);
+  font-size: var(--bo-t-fig-s);
+  fill: var(--bo-ink);
+}
+.ab {
+  font-size: var(--bo-t-micro);
+  fill: var(--bo-text);
+}
+.hit {
+  cursor: pointer;
+  outline: none;
+}
+.hit rect {
+  fill: transparent;
+  stroke: none;
+}
+.hit:hover rect {
+  stroke: var(--bo-ink-20);
+  stroke-width: 1;
+}
+.hit:focus-visible rect {
+  stroke: var(--bo-signal);
+  stroke-width: 2;
+}
+
+.rowButton:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+/* ——— Ledger ——— */
+
+.ledgerWrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bo-s5) var(--bo-s6);
+  align-items: start;
+}
+@container supply (min-width: 60rem) {
+  .ledgerWrap {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+  }
+}
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-text);
+}
+.ledger caption {
+  caption-side: top;
+  text-align: left;
+  padding-bottom: var(--bo-s2);
+  font-size: var(--bo-t-note);
+}
+.ledger caption :global(.bo-label) {
+  color: var(--bo-ink);
+  margin-right: var(--bo-s2);
+}
+.ledger th,
+.ledger td {
+  padding: 6px 8px;
+  border-bottom: var(--bo-hair);
+  text-align: left;
+  font-weight: 400;
+}
+.ledger thead th {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  border-bottom: var(--bo-rule);
+}
+.ledger .num {
+  text-align: right;
+  font-family: var(--bo-f-data);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger tbody tr[data-on] th,
+.ledger tbody tr[data-on] td {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.ledger tbody tr[data-on] .rowButton {
+  color: var(--bo-paper);
+}
+.ledger tfoot th,
+.ledger tfoot td {
+  border-bottom: var(--bo-hair);
+}
+.ledger tfoot tr:first-child th,
+.ledger tfoot tr:first-child td {
+  border-top: var(--bo-rule);
+}
+.netRow th,
+.netRow td {
+  color: var(--bo-ink);
+  font-weight: 500;
+}
+.rowButton {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rowButton:hover {
+  text-decoration: underline;
+}
+.op2 {
+  display: inline-block;
+  width: 1.1em;
+  font-family: var(--bo-f-data);
+  color: var(--bo-ink);
+}
+.ledgerSide {
+  display: grid;
+  gap: var(--bo-s3);
+}
+.check {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.check :global(.bo-label) {
+  display: block;
+  color: var(--bo-ink);
+  margin-bottom: 2px;
+}

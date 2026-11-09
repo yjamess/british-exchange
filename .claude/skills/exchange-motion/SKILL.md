@@ -10,7 +10,9 @@ license: MIT
 version: 1.0.0
 metadata:
   components: web/src/brand/motion/
+  ui: web/src/brand/ui/
   lab: web/src/app/design-lab/motion/page.tsx
+  uiLab: web/src/app/design-lab/ui-motion/page.tsx
   identity: docs/visual-identity.md
 ---
 
@@ -53,6 +55,56 @@ It must sit inside `BrandRoot`, because it reads `--bo-ink`, `--bo-paper` and `-
 `--size 1536x864` (768×432 frames), pack 4 columns wide, keep the atlas ≤ 4096px on each side,
 put it in `web/public/brand/plates/`, and add it to `ATLASES`.
 
+### `DensityStrip`: small ASCII accents
+
+```tsx
+import { DensityStrip } from "@/brand/motion";
+
+<span style={{ width: 52, height: 44, color: "var(--bo-ink)" }}>
+  <DensityStrip progress={0.8} mark="dots" />
+</span>
+```
+
+Drive `progress` (0–1) from hover/GSAP. Use for nav rows and marks — **not** full-bleed section fields (`DitherField`). Tone from density only; snaps under reduced motion.
+
+### `FlickerFigure`: instrument scramble
+
+Split-flap style: digits tick 0→9 at ~16 Hz, then lock left→right. Non-digits (`£`, `,`, `.`, `×`, `%`, spaces) stay stable. Not random 60fps noise, not an odometer roll of the whole number.
+
+```tsx
+import { FlickerFigure } from "@/brand/motion";
+
+<span className="bo-fig">
+  <FlickerFigure value="£273,037" />
+</span>
+```
+
+| Prop | Notes |
+|------|-------|
+| `value` | Final display string |
+| `duration` | Optional total window; default scales with digit count |
+| `replayKey` | Bump to replay without changing `value` |
+| `className` | Use with `.bo-fig` |
+
+Wrap timelines in `gsap.matchMedia`; reduced motion snaps to the final string. Re-runs when `value` changes (e.g. after a menu pick). Lab: `/design-lab/ui-motion`.
+
+### Menus: `InstrumentSelect` (`@/brand/ui`)
+
+Custom listbox — not a restyled native `<select>` (OS popovers still look empty). Underline trigger + paper panel; option rows densify a `DensityStrip` on hover/focus; selected = ink registration mark. Arrow keys, Escape, click-outside, focus return. Open/close GSAP tween (instant under reduced motion).
+
+```tsx
+import { InstrumentSelect } from "@/brand/ui";
+
+<InstrumentSelect
+  label="Place"
+  value={place}
+  options={[{ id: "england", label: "England" }]}
+  onChange={setPlace}
+/>
+```
+
+Lab: `/design-lab/ui-motion`. Promote into housing explorer controls only after lab sign-off.
+
 ### `DitherField`: large ASCII fields
 
 ```tsx
@@ -90,15 +142,15 @@ per-frame cost to about 40k noise samples. Data fields take real Exchange series
 7. **Decorative motion** is `aria-hidden`. Give it a `label` only when it carries meaning, such as a data field.
 8. **Fallbacks:** without WebGL use the static `<Plate>`. Without JS, the server-rendered page still reads.
 
-## GSAP (planned)
+## GSAP (installed)
 
-GSAP is not installed yet. When it is added:
+Pinned exact `gsap@3.15.1` in `web/`. Register only the plugins you use (likely ScrollTrigger when needed).
 
-- Install a pinned version (`gsap@3.x`, exact) in `web/`. Register only the plugins you use (likely ScrollTrigger).
 - Use GSAP for **orchestration**: entrance sequences, scroll-linked progress and timelines across elements. Keep the GPU and canvas loops inside the components.
 - Drive components through props, not by reaching into canvases. For example, map a ScrollTrigger's `progress` to the ridges playhead by adding a `progress` prop, or toggle `paused`.
 - Wrap every timeline in `gsap.matchMedia()` with a `(prefers-reduced-motion: no-preference)` branch, and clean up with `ctx.revert()` in `useEffect`.
 - Use the brand easing (`CustomEase` or `power2.out` near `--bo-ease`). No elastic or bounce.
+- Labs: `/design-lab/housing-nav` (nav hovers / plate-icon rails); `/design-lab/ui-motion` (FlickerFigure + InstrumentSelect).
 
 ## Checklist before shipping motion
 

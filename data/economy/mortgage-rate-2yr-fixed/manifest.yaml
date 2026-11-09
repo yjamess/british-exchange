@@ -1,0 +1,32 @@
+indicator_id: mortgage-rate-2yr-fixed
+title: Mortgage rate · 2-year fixed
+sector: economy-public-finance
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/boeapps/database/
+series_id: IUMBV34
+geography: United Kingdom (quoted rate)
+frequency: monthly
+unit: '% a year (quoted rate)'
+definition: Quoted household interest rate for new 2-year fixed-rate mortgages at
+  75% loan-to-value (BoE series IUMBV34).
+licence: Open Government Licence / BoE terms of use
+agent_owner: economy
+connector_module: economy.connectors.mortgage_rate_2yr_fixed
+curated_path: curated/observations.csv
+update_cadence: monthly
+raw_evidence:
+- path: raw/2026-11-04/iumbv34.csv
+  retrieved_at: '2026-11-04T18:18:41.844162+00:00'
+  checksum_sha256: 6fdf46cf544964f2e23953ce1cee613b8ef0664fc921c4a0938116d416f46e3d
+  content_type: text/csv
+  official_release_date: '2026-09-30'
+  http_status: null
+  source_url: https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01/Jan/2015&Dateto=01/Dec/2026&SeriesCodes=IUMBV34&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N
+transformations: Parse BoE IADB CSV DATE + IUMBV34; monthly period bounds.
+revision_notes: Pinned IADB export 2026-11-04 (from Jan 2015).
+caveats: Quoted rate, not an individual offer. 75% LTV product. Used as the Housing
+  Budget default rate when latest value loads.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

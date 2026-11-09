@@ -1,0 +1,41 @@
+indicator_id: gb-generation-mix-half-hourly
+title: GB generation mix (half-hourly source, monthly MWh)
+sector: energy-industry
+publisher: NESO
+source_url: https://www.neso.energy/data-portal/historic-generation-mix/historic_gb_generation_mix
+series_id: Historic GB Generation Mix (f93d1835-75bc-43e5-84ad-12472b180a98)
+geography: Great Britain (K03000001); Northern Ireland excluded
+frequency: monthly
+unit: MWh
+definition: 'Great Britain electricity generation by fuel, monthly megawatt-hours.
+  Exchange-derived: NESO half-hourly average MW × 0.5 h, summed by calendar month.
+  Component fuels only (Gas, Coal, Nuclear, Wind metered, Wind embedded, Hydro, Solar,
+  Biomass, Storage, Imports, Other). Not UK totals and not ET 5.1.'
+licence: NESO Open Data Licence — https://www.neso.energy/data-portal/ngeso-open-licence
+agent_owner: energy
+connector_module: energy.connectors.gb_generation_mix
+curated_path: curated/observations.csv
+update_cadence: NESO portal updates hourly; this pin is calendar year 2024
+raw_evidence:
+- path: raw/2026-11-06/neso_historic_gb_generation_mix_2024.csv
+  retrieved_at: '2026-11-06T22:41:51.902334+00:00'
+  checksum_sha256: 815a9793cb00ca0fec66bc2fe6b547cc08368d8fa74cf7bb0bad8fc575c6795a
+  content_type: text/csv
+  official_release_date: null
+  http_status: 200
+  source_url: https://api.neso.energy/dataset/88313ae5-94e4-4ddc-a790-593554d8c6b9/resource/f93d1835-75bc-43e5-84ad-12472b180a98/download/df_fuel_ckan.csv
+transformations: Pinned 2024 half-hourly CSV from NESO datastore_search_sql. For each
+  component fuel column, MWh = MW × 0.5; sum by calendar month. notes=fuel=<Label>.
+  Aggregate GENERATION and percentage columns excluded.
+revision_notes: ''
+caveats: Geography is Great Britain (NESO), not the United Kingdom — do not blend
+  with ET 5.1 UK annual/quarterly TWh without a labelled break. Fuel taxonomy differs
+  from ET 5.1 and DUKES. Values are Exchange-derived monthly totals from half-hourly
+  averages; NESO may revise recent periods. Batteries net discharge and transmission
+  solar may sit in OTHER until NESO splits them.
+related_indicator_ids: []
+open_questions:
+- Extend pin beyond 2024 or store daily grain for denser Year charts.
+- Optional carbon-intensity companion series from the same NESO resource.
+notion_registry_url: https://app.notion.com/410654717685819b956fe16c3456a80b
+schema_version: '1.0'

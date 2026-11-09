@@ -1,0 +1,36 @@
+indicator_id: primary-energy-flow-allocation
+title: Primary energy flow allocation
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/energy-consumption-in-the-uk-2026
+series_id: ECUK Table W1 — primary energy allocation by destination (ktoe)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: ktoe
+definition: Primary energy and its allocation to transfers, transformation, energy
+  industry use, losses, non-energy use and final consumption (ktoe), ECUK Table W1.
+  One observation per stage × year; notes stage=<label>.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.primary_energy_flow_allocation
+curated_path: curated/observations.csv
+update_cadence: Annual — ECUK typically each September
+raw_evidence:
+- path: raw/2026-11-06/ECUK_2026_Whole_energy_flow_tables.xlsx
+  retrieved_at: '2026-11-06T23:50:19.136834+00:00'
+  checksum_sha256: dff5d263862fcec44295785e168ed2ebe4eb8e33c1f236d963ed99ee0a755f4c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ab3b07d997a4b2950ccedb8/ECUK_2026_Whole_energy_flow_tables.xlsx
+transformations: Parse Table W1 Year header and destination columns. Long-format stages.
+  Workbook cover marks Official Statistics in Development.
+revision_notes: ECUK 2026 Whole energy flow tables; through 2025.
+caveats: Whole energy flow tables are Official Statistics in Development — not the
+  same assurance as C1 final consumption. Series starts 1998. Do not treat stage columns
+  as additive without reading ECUK notes (transfers can be signed). Useful/rejected
+  (W2) is a separate modelled product.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

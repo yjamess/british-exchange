@@ -1,0 +1,362 @@
+/* Design lab — v1 homepage composition. Experimental; not wired to /. */
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+}
+
+/* ——— Mast ——— */
+.mast {
+  border-bottom: var(--bo-rule);
+  background: var(--bo-paper);
+}
+
+.mastInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bo-s4);
+  padding-block: var(--bo-s4);
+  flex-wrap: wrap;
+}
+
+.wordmark {
+  font-size: 22px;
+  color: var(--bo-ink);
+  text-decoration: none;
+}
+
+.mastMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--bo-s5);
+  color: var(--bo-text);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--bo-ink);
+}
+
+.liveDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--bo-signal);
+  flex: 0 0 auto;
+}
+
+/* ——— Monumental hero ——— */
+.hero {
+  position: relative;
+  border-bottom: var(--bo-rule);
+}
+
+.heroPlate {
+  height: clamp(16rem, 42vh, 28rem);
+}
+
+.heroTitleInner {
+  padding-block: clamp(0.85rem, 1.6vw, 1.35rem);
+}
+
+.loud {
+  margin: 0;
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 0.84;
+  color: var(--bo-paper);
+}
+
+/* ——— Quiet intro ——— */
+.intro {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  border-bottom: var(--bo-rule);
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--bo-col-gap);
+  row-gap: var(--bo-s6);
+  align-items: end;
+}
+
+.introCopy {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: var(--bo-s4);
+  max-width: 36rem;
+}
+
+.introAside {
+  grid-column: 9 / span 4;
+  display: grid;
+  gap: var(--bo-s4);
+  align-content: end;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s3);
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: var(--bo-rule);
+  text-decoration: none;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+}
+
+.actionPrimary {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.action:hover {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.actionPrimary:hover {
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  border-color: var(--bo-ink);
+}
+
+.labNote {
+  margin: 0;
+  max-width: 28ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+
+/* ——— Index (Union) ——— */
+.index {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.indexHead {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-bottom: var(--bo-s6);
+  max-width: 40rem;
+}
+
+.indexKicker {
+  color: var(--bo-lavender);
+}
+
+.indexTitle {
+  color: var(--bo-paper);
+}
+
+.indexHead p {
+  margin: 0;
+  color: var(--bo-lavender);
+  max-width: 48ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+}
+
+.sectors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.sector {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--bo-s3) var(--bo-s4);
+  padding: var(--bo-s4) 0;
+  border-top: 1px dotted color-mix(in srgb, var(--bo-lavender) 45%, transparent);
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.sector:nth-child(-n + 2) {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.sector:hover .sectorName b,
+.sector:focus-visible .sectorName b {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.sectorCode {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  color: var(--bo-lavender);
+}
+
+.sectorName {
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  margin: 0;
+  min-width: 0;
+}
+
+.sectorStatus {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-lavender);
+  justify-self: end;
+}
+
+.sector[data-ready="true"] .sectorStatus {
+  color: var(--bo-paper);
+}
+
+.sectorHook {
+  grid-column: 2 / -1;
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-lavender);
+  max-width: 42ch;
+}
+
+/* ——— Ready doors (quiet) ——— */
+.doors {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  border-top: var(--bo-rule);
+}
+
+.doorsHead {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-bottom: var(--bo-s6);
+  max-width: 36rem;
+}
+
+.doorList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: var(--bo-rule);
+}
+
+.door {
+  display: grid;
+  gap: var(--bo-s4);
+  padding: var(--bo-s5) var(--bo-s5) var(--bo-s5) 0;
+  border-right: var(--bo-hair);
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.door:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.door:not(:first-child) {
+  padding-left: var(--bo-s5);
+}
+
+.doorPlate {
+  height: 7.5rem;
+  border: var(--bo-rule);
+}
+
+.door:hover .doorTitle,
+.door:focus-visible .doorTitle {
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.doorTitle {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  color: var(--bo-ink);
+}
+
+.doorHook {
+  margin: 0;
+  max-width: 28ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+
+.foot {
+  padding-block: var(--bo-s5);
+  border-top: var(--bo-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s4);
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.foot a {
+  color: var(--bo-ink);
+  text-decoration: none;
+}
+
+.foot a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+@media (max-width: 960px) {
+  .introCopy,
+  .introAside {
+    grid-column: 1 / -1;
+  }
+
+  .sectors {
+    grid-template-columns: 1fr;
+  }
+
+  .sector:nth-child(-n + 2) {
+    border-top: 1px dotted color-mix(in srgb, var(--bo-lavender) 45%, transparent);
+    padding-top: var(--bo-s4);
+  }
+
+  .sector:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .doorList {
+    grid-template-columns: 1fr;
+  }
+
+  .door,
+  .door:not(:first-child),
+  .door:last-child {
+    padding: var(--bo-s5) 0;
+    border-right: 0;
+    border-bottom: var(--bo-hair);
+  }
+
+  .door:last-child {
+    border-bottom: 0;
+  }
+}

@@ -1,0 +1,221 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,26571.79131005137,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,631.3207977905533,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,12729.4766327885,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,39932.588740630425,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,7270.534544904882,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,7270.534544904882,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1511.6439527420148,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1652.578291213138,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,3164.222243955153,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,678.1602745515942,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,678.1602745515942,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,5925.014737206615,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1067.8699399816119,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,2375.2216343245695,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,9368.106311512796,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,3427.600486064093,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,3427.600486064093,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1349.8097208060199,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,3251.1269072690766,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,4600.936628075096,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1343.11,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,1343.11,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,693.3818700521458,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,693.3818700521458,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,2203.194862451526,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,2203.194862451526,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=total
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,34008.45,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=domestic
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,17321.872496602427,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=industrial
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,21351.513465595286,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=services
+cross-sector-end-use,2025-01-01,2025-12-31,K02000001,United Kingdom,72681.83596219771,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,26662.05830535959,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,648.8426146641482,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,13249.753672468596,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,40560.654592492334,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,7895.169792297354,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,7895.169792297354,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1498.27654679878,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1737.024668448541,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,3235.301215247321,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,689.4166007782151,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,689.4166007782151,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,5768.425147841626,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1094.8005347184378,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,2344.248806969683,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,9207.474489529748,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,3578.813378629893,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,3578.813378629893,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1420.496894414297,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,3271.758416653605,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,4692.255311067902,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1383.5099999999998,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,1383.5099999999998,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,616.8922728003525,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,616.8922728003525,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,2267.141855498562,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,2267.141855498562,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=total
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,33928.759999999995,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=domestic
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,18211.57394380126,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=industrial
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,21986.29556454042,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=services
+cross-sector-end-use,2024-01-01,2024-12-31,K02000001,United Kingdom,74126.62950834168,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,25509.862872373476,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,692.2954275100535,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,12698.99842693964,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,38901.15672682317,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,8360.595623765344,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,8360.595623765344,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1212.476573177808,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1668.527526388816,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,2881.004099566624,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,698.4421287036444,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,698.4421287036444,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,5890.520554448717,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1126.212483501841,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,2353.137124242377,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,9369.870162192936,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,3758.451029377241,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,3758.451029377241,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1488.2398032959786,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,3238.386472805152,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,4726.626276101131,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1326.12,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,1326.12,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,613.8402571870738,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,613.8402571870738,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,2102.440377420293,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,2102.440377420293,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=total
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,32612.86,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=domestic
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,18840.517130761473,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=industrial
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,21285.169550375984,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=services
+cross-sector-end-use,2023-01-01,2023-12-31,K02000001,United Kingdom,72738.54668113745,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,28310.415900631604,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,685.2733478713545,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,13224.730530153969,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,42220.41977865693,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,7829.113638450411,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,7829.113638450411,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1070.623588055394,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1693.0485817886338,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,2763.672169844028,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,698.7592477582739,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,698.7592477582739,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,6191.200511313006,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1132.9496586442976,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,2325.6577978050673,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,9649.807967762372,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,3822.648134535018,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,3822.648134535018,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1443.511392088627,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,3264.053220860242,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,4707.564612948869,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1371.3300000000002,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1371.3300000000002,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,584.4856885039369,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,584.4856885039369,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1761.0400289969855,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,1761.0400289969855,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=total
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,35572.240000000005,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=domestic
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,17957.781136848906,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=industrial
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,21878.820130607914,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=services
+cross-sector-end-use,2022-01-01,2022-12-31,K02000001,United Kingdom,75408.84126745682,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,31537.26283205302,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,721.6627178092893,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,14268.603703526403,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,46527.52925338871,ktoe,final,ECUK_2026_End_Use,end_use=Space heating and cooling and water heating;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,8999.686904942548,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,8999.686904942548,ktoe,final,ECUK_2026_End_Use,end_use=Heat production (industrial);sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1167.4626994217172,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1776.958528247851,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,2944.421227669568,ktoe,final,ECUK_2026_End_Use,end_use=Cooking/catering;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,715.5554215146077,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,715.5554215146077,ktoe,final,ECUK_2026_End_Use,end_use=Cold production (refrigeration);sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,6754.384468525272,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1179.4054791229764,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,2367.463469584678,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,10301.253417232925,ktoe,final,ECUK_2026_End_Use,end_use=Lighting and appliances;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,4044.3546619134513,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,4044.3546619134513,ktoe,final,ECUK_2026_End_Use,end_use=Industrial processes;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1491.2673827996896,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,3376.011135484632,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,4867.278518284322,ktoe,final,ECUK_2026_End_Use,end_use=Other;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1506.1200000000003,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,1506.1200000000003,ktoe,final,ECUK_2026_End_Use,end_use=Agriculture;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,624.6207672596196,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,624.6207672596196,ktoe,final,ECUK_2026_End_Use,end_use=Construction;sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,2033.6263462862435,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,0.0,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,2033.6263462862435,ktoe,final,ECUK_2026_End_Use,end_use=Unknown (unclassified consumption);sector=total
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,39459.11000000001,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=domestic
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,19810.179681648424,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=industrial
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,23295.156836843566,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=services
+cross-sector-end-use,2021-01-01,2021-12-31,K02000001,United Kingdom,82564.446518492,ktoe,final,ECUK_2026_End_Use,end_use=Total;sector=total

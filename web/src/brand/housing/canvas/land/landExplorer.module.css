@@ -1,0 +1,113 @@
+/* Land Explorer — one ink map with pen-hatched layers, record card, land use beside. */
+.root { display: grid; gap: var(--bo-s5); min-width: 0; }
+.note { margin: 0; font-size: var(--bo-t-ui); color: var(--bo-text); }
+
+.search { display: grid; gap: var(--bo-s2); max-width: 28rem; }
+.searchLabel { display: grid; gap: 6px; }
+.searchInput {
+  appearance: none; font: inherit; font-size: var(--bo-t-small); color: var(--bo-ink);
+  background: var(--bo-paper); border: var(--bo-hair); padding: 8px 10px; width: 100%;
+}
+.searchInput:focus-visible { outline: 2px solid var(--bo-ink); outline-offset: 2px; }
+.searchList { list-style: none; margin: 0; padding: 0; border: var(--bo-hair); }
+.searchHit {
+  appearance: none; width: 100%; text-align: left; font: inherit; font-size: var(--bo-t-ui);
+  background: var(--bo-paper); color: var(--bo-ink); border: 0; border-bottom: var(--bo-hair);
+  padding: 8px 10px; cursor: pointer;
+}
+.searchHit:hover { background: var(--bo-ink); color: var(--bo-paper); }
+.searchHit:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: -2px; }
+
+/* What each layer can show, before a council is opened. */
+.brief { display: grid; gap: var(--bo-s5); }
+.briefTable { overflow-x: auto; }
+.briefTable table { width: 100%; border-collapse: collapse; font-size: var(--bo-t-note); }
+.briefTable caption { caption-side: top; text-align: start; padding-bottom: var(--bo-s3); }
+.sectionTitle {
+  font-family: var(--bo-f-sans);
+  font-size: var(--bo-t-small);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--bo-ink);
+}
+.briefTable th, .briefTable td {
+  text-align: start;
+  vertical-align: top;
+  padding: 6px 10px 6px 0;
+  border-bottom: var(--bo-hair);
+  font-weight: 400;
+}
+.briefTable th { color: var(--bo-ink); }
+.briefTable td { color: var(--bo-text); }
+
+/* Map + side panel */
+.body { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); gap: var(--bo-s5); align-items: start; }
+.body[data-loading="true"] .map { filter: grayscale(1); }
+.mapCol { margin: 0; display: grid; gap: var(--bo-s2); min-width: 0; }
+.map { width: 100%; height: auto; display: block; max-height: 72vh; }
+.land { fill: var(--bo-paper); stroke: none; }
+.edge { fill: none; stroke: var(--bo-ink); stroke-width: 1.6; pointer-events: none; }
+.shape { cursor: pointer; }
+.shape:hover { stroke: var(--bo-ink); stroke-width: 2; }
+.listed { fill: var(--bo-ink); cursor: pointer; }
+.listed[data-active="true"] { fill: var(--bo-paper); stroke: var(--bo-ink); stroke-width: 2; }
+.brownfield { fill: var(--bo-mustard); stroke: var(--bo-ink); stroke-width: 1; cursor: pointer; }
+.brownfield[data-active="true"], .brownfield:hover { stroke-width: 2.5; }
+.caption { display: flex; gap: var(--bo-s3); flex-wrap: wrap; font-size: var(--bo-t-note); color: var(--bo-text); }
+
+.side { display: grid; gap: var(--bo-s5); align-content: start; min-width: 0; }
+
+.lessons, .record { display: grid; gap: var(--bo-s2); padding: var(--bo-s4); border: var(--bo-rule); background: var(--bo-paper); }
+.placeTitle { margin: 0; font-family: var(--bo-f-head); font-weight: 400; font-size: var(--bo-t-ed-m); line-height: 1.1; color: var(--bo-ink); }
+.why { margin: 0; font-size: var(--bo-t-note); color: var(--bo-text); }
+.lessons ul { margin: var(--bo-s2) 0 0; padding: 0; list-style: none; display: grid; gap: var(--bo-s3); }
+.lessons li { font-size: var(--bo-t-ui); line-height: 1.45; color: var(--bo-text); padding-top: var(--bo-s2); border-top: var(--bo-hair); }
+.lessons li b { font-size: var(--bo-t-fig); font-weight: 400; color: var(--bo-ink); margin-right: 2px; }
+
+.recordHead { display: flex; justify-content: space-between; align-items: center; }
+.close { appearance: none; border: var(--bo-hair); background: var(--bo-paper); color: var(--bo-ink); width: 28px; height: 28px; font-size: var(--bo-t-fig-s); line-height: 1; cursor: pointer; }
+.record dl { margin: 0; display: grid; gap: 0; }
+.record dl div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--bo-s2); padding: 5px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-note); }
+.record dt { color: var(--bo-text); }
+.record dd { margin: 0; color: var(--bo-ink); text-transform: none; }
+.caveat { margin: 0; font-size: var(--bo-t-note); color: var(--bo-text); }
+.links { margin: 0; display: flex; gap: var(--bo-s4); flex-wrap: wrap; font-size: var(--bo-t-note); }
+.links a { color: var(--bo-ink); }
+
+/* Layer toggles */
+.layers { display: grid; gap: var(--bo-s4); }
+.group { margin: 0; padding: 0; border: 0; display: grid; gap: 2px; }
+.group legend { padding: 0 0 var(--bo-s2); }
+.layerRow { display: grid; grid-template-columns: auto 18px minmax(0, 1fr) auto; gap: var(--bo-s2); align-items: center; padding: 4px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-note); color: var(--bo-ink); cursor: pointer; }
+.layerRow[data-empty="true"] { color: var(--bo-text); cursor: default; }
+.layerRow input { accent-color: var(--bo-ink); margin: 0; }
+.layerLabel { min-width: 0; }
+.layerCount { font-family: var(--bo-f-data); font-size: var(--bo-t-label); color: var(--bo-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.swatch { width: 18px; height: 12px; display: block; }
+.swListed { width: 6px; height: 6px; margin: 0 6px; background: var(--bo-ink); }
+.swBrownfield { width: 9px; height: 9px; margin: 0 4px; background: var(--bo-mustard); border: 1px solid var(--bo-ink); transform: rotate(45deg); }
+.gapNote { grid-column: 3 / -1; font-size: var(--bo-t-label); color: var(--bo-text); }
+.gap { margin: var(--bo-s2) 0 0; font-size: var(--bo-t-note); color: var(--bo-text); }
+
+/* Land use beside England */
+.landUse { grid-column: 1 / -1; display: grid; gap: var(--bo-s3); }
+.useRows { display: grid; }
+.useRow { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) 4.5rem 7.5rem; gap: var(--bo-s4); align-items: center; padding: 6px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-ui); color: var(--bo-text); }
+.useRow b { text-align: right; font-size: var(--bo-t-fig); font-weight: 400; color: var(--bo-ink); }
+.useTrack { position: relative; height: 8px; background: var(--bo-ink-10); }
+.useTrack i { position: absolute; inset: 0 auto 0 0; background: var(--bo-ink); }
+.useTrack em { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 2px solid var(--bo-mustard); }
+.useEng { font-family: var(--bo-f-data); font-size: var(--bo-t-label); color: var(--bo-text); }
+
+.source { grid-column: 1 / -1; margin: 0; font-size: var(--bo-t-note); line-height: 1.6; color: var(--bo-text); border-top: var(--bo-hair); padding-top: var(--bo-s3); }
+.source a { color: var(--bo-ink); }
+
+@media (max-width: 1100px) {
+  .body { grid-template-columns: minmax(0, 1fr); }
+  .places { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .useRow { grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) 3.5rem; }
+  .useEng { display: none; }
+}

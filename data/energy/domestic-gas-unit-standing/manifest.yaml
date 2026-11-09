@@ -1,0 +1,45 @@
+indicator_id: domestic-gas-unit-standing
+title: Domestic gas unit rates and standing charges
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics
+series_id: QEP 2.3.4 (Average variable unit costs and fixed costs, gas, UK regions,
+  calendar year)
+geography: United Kingdom (K02000001); LDZ / PES-aligned regions in notes
+frequency: annual
+unit: GBP_per_kWh (unit_price) or GBP_per_year (fixed_cost)
+definition: 'Average variable unit price (£/kWh) and average fixed cost (£/year) for
+  UK domestic gas by region and payment method. Fixed cost includes standing charge
+  and the first-block premium (unit1−unit2)×split. Official statistics in development.
+  Reconstruct: fixed_cost + unit_price × kWh (Dissected Bill uses 11,200 kWh).'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_gas_unit_standing
+curated_path: curated/observations.csv
+update_cadence: At least quarterly with QEP domestic tables
+raw_evidence:
+- path: raw/2026-11-07/table_234.xlsx
+  retrieved_at: '2026-11-07T10:44:26.066653+00:00'
+  checksum_sha256: e08e813e9f7e1b85457ab73aecc3d3e39c59b517d801cd03360ec919177a5ad8
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a424620b9f58f0eb4c13f1b/table_234__1_.xlsx
+transformations: 'Parse sheet 2.3.4 only (calendar-year gas). Long-format: year ×
+  region × payment × measure. Credit→Standard credit. Financial-year sheet not ingested.
+  Geography code fixed to UK; region and LDZ live in notes.'
+revision_notes: table_234__1_.xlsx Cover Sheet publication date 2026-06-30 (QEP June
+  2026).
+caveats: Official statistics in development. Not suitable for consumption below the
+  modal gas split (~2,680 kWh). Weighted quarterly average — not a live spot tariff.
+  Do not treat as Ofgem price-cap levels. Do not mix with electricity 3,400 kWh Dissected
+  Bill layers.
+related_indicator_ids:
+- domestic-gas-bills
+- domestic-electricity-unit-standing
+- domestic-electricity-bills
+open_questions:
+- Ingest financial-year 2.3.4 twin as a sibling indicator?
+- When to promote regional LDZ/PES cuts into Regional Price Anatomy UI?
+notion_registry_url: ''
+schema_version: '1.0'

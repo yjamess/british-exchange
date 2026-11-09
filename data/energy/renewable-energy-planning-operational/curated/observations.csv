@@ -1,0 +1,21 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,229.10000000000002,MW,final,REPD_Q2_2026,technology=Advanced Conversion Technologies
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,336.29999999999995,MW,final,REPD_Q2_2026,technology=Anaerobic Digestion
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,4956.35,MW,final,REPD_Q2_2026,technology=Battery
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,663.0,MW,final,REPD_Q2_2026,technology=Biomass (co-firing)
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,3466.1899999999996,MW,final,REPD_Q2_2026,technology=Biomass (dedicated)
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,1535.1999999999996,MW,final,REPD_Q2_2026,technology=EfW Incineration
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,400.0,MW,final,REPD_Q2_2026,technology=Flywheels
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,3.0,MW,final,REPD_Q2_2026,technology=Geothermal
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,2.7,MW,final,REPD_Q2_2026,technology=Hydrogen
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,754.6999999999996,MW,final,REPD_Q2_2026,technology=Landfill Gas
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,520.5999999999999,MW,final,REPD_Q2_2026,technology=Large Hydro
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,5.0,MW,final,REPD_Q2_2026,technology=Liquid Air Energy Storage
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,2828.0,MW,final,REPD_Q2_2026,technology=Pumped Storage Hydroelectricity
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,50.2,MW,final,REPD_Q2_2026,technology=Sewage Sludge Digestion
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,24.0,MW,final,REPD_Q2_2026,technology=Shoreline Wave
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,148.89999999999998,MW,final,REPD_Q2_2026,technology=Small Hydro
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,11149.149999999996,MW,final,REPD_Q2_2026,technology=Solar Photovoltaics
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,11.9,MW,final,REPD_Q2_2026,technology=Tidal Stream
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,16011.0,MW,final,REPD_Q2_2026,technology=Wind Offshore
+renewable-energy-planning-operational,2026-07-01,2026-09-30,K02000001,United Kingdom,15508.349999999991,MW,final,REPD_Q2_2026,technology=Wind Onshore

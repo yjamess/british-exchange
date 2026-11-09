@@ -1,0 +1,52 @@
+{
+  "prices": {
+    "page": "https://commons.wikimedia.org/wiki/File:Terraced_houses_on_Basset_Street,_Camborne,_Cornwall_-_April_2023.jpg",
+    "license": "CC BY-SA 4.0",
+    "credit": "Terraced houses, Basset Street, Camborne (Wikimedia Commons)"
+  },
+  "renting": {
+    "page": "https://commons.wikimedia.org/wiki/File:House_to_let_in_Queens_Road_-_geograph.org.uk_-_1403042.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "House to let in Queens Road (Geograph, Wikimedia Commons)"
+  },
+  "affordability": {
+    "page": "https://commons.wikimedia.org/wiki/File:Time_Money_Balance.jpg",
+    "license": "CC BY-SA 4.0",
+    "credit": "Time Money Balance (Wikimedia Commons)"
+  },
+  "stock": {
+    "page": "https://commons.wikimedia.org/wiki/File:Tower_blocks._Gleadless_Valley.jpg",
+    "license": "CC BY-SA 3.0",
+    "credit": "Tower blocks, Gleadless Valley (Wikimedia Commons)"
+  },
+  "supply": {
+    "page": "https://commons.wikimedia.org/wiki/File:Caterpillar_330_Excavator.jpg",
+    "license": "CC BY-SA 4.0",
+    "credit": "Caterpillar 330 excavator (Wikimedia Commons)"
+  },
+  "land": {
+    "page": "https://commons.wikimedia.org/wiki/File:View_east_to_mature_trees_over_fairway_of_Whitewebbs_Golf_Course_-_geograph.org.uk_-_1285879.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Whitewebbs Green Belt landscape (Geograph / Wikimedia Commons)"
+  },
+  "quality": {
+    "page": "https://commons.wikimedia.org/wiki/File:Thermal_insulation.jpg",
+    "license": "CC BY-SA 2.0 DE",
+    "credit": "Thermal insulation (Wikimedia Commons)"
+  },
+  "insecurity": {
+    "page": "https://commons.wikimedia.org/wiki/File:Camden_,_tents_of_homeless_people,_Tottenham_Court_Road_-_geograph.org.uk_-_7741961.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Tents of homeless people, Tottenham Court Road, Camden (Geograph, Wikimedia Commons)"
+  },
+  "ownership": {
+    "page": "https://commons.wikimedia.org/wiki/File:Example_of_a_blank_Kenyan_Deed_Title.png",
+    "license": "CC0 1.0",
+    "credit": "Blank title deed example (Wikimedia Commons)"
+  },
+  "policy": {
+    "page": "https://commons.wikimedia.org/wiki/File:The_Houses_of_Parliament_(Palace_of_Westminster)_-_geograph.org.uk_-_2956524.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "The Houses of Parliament, Palace of Westminster (Geograph, Wikimedia Commons)"
+  }
+}

@@ -1,0 +1,214 @@
+/* Housing-only stage content. Everything else (rail, canvas, head, tabs, figures, controls, stage,
+   source line, table, coverage, carriage, loupe) is the brand template: web/src/brand/template/explorer.module.css. */
+
+/* Transactions: Price Paid search above HPI volume chart */
+.transactionsStage {
+  display: grid;
+  gap: var(--bo-s6);
+  min-width: 0;
+}
+.transactionsVolume {
+  display: grid;
+  gap: var(--bo-s3);
+  padding-top: var(--bo-s4);
+  border-top: var(--bo-hair);
+}
+.pricePaid {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+.pricePaidHead {
+  display: grid;
+  gap: var(--bo-s2);
+}
+.pricePaidLead {
+  margin: 0;
+  font-size: var(--bo-t-ui);
+  line-height: 1.45;
+  color: var(--bo-text);
+  max-width: 62ch;
+}
+.sectionTitle {
+  margin: 0;
+  /* Same face and size as the stage title. `font: inherit` clears the browser's heading face. */
+  font: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+}
+.rentActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s4);
+  margin: 0 0 var(--bo-s4);
+}
+/* The lettings table can be wider than the stage. The slot shrinks; the wrap scrolls. */
+.tableSlot {
+  min-width: 0;
+  max-width: 100%;
+}
+.lettingsYears {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-top: var(--bo-s4);
+}
+.lettingsTable {
+  width: 100%;
+  /* Each column stays wide enough for “Intermediate”. A narrower stage scrolls. */
+  min-width: 49.5rem;
+  table-layout: fixed;
+}
+.lettingsTable thead th {
+  white-space: normal;
+  vertical-align: bottom;
+  line-height: 1.15;
+}
+/* Two parts of one total. Dots are the brand tint: ink marks on paper, not a second colour. */
+.needsSplit {
+  display: grid;
+  gap: var(--bo-s4);
+  margin: 0;
+}
+.needsTrack {
+  display: flex;
+  height: 1.75rem;
+  border: var(--bo-rule);
+}
+.needsTrack > span {
+  min-width: 0;
+}
+.needsSolid {
+  background: var(--bo-ink);
+}
+.needsDots {
+  background-color: var(--bo-paper);
+  background-image: radial-gradient(var(--bo-ink) 0.9px, var(--bo-paper) 1px);
+  background-size: 4px 4px;
+}
+.needsKey {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s4);
+  margin: 0;
+}
+.needsKey div {
+  display: grid;
+  gap: var(--bo-s2);
+}
+.needsKey dt {
+  display: flex;
+  align-items: center;
+  gap: var(--bo-s2);
+  margin: 0;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-text);
+}
+.needsKey dd {
+  margin: 0;
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+  color: var(--bo-ink);
+}
+.needsKey span {
+  flex: none;
+  width: 1.25rem;
+  height: 0.75rem;
+  border: 1px solid var(--bo-ink);
+}
+@media (max-width: 560px) {
+  .needsKey {
+    grid-template-columns: 1fr;
+  }
+}
+.rentActions button:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.reading {
+  display: grid;
+  gap: var(--bo-s2);
+  max-width: 68ch;
+  margin-bottom: var(--bo-s4);
+}
+.reading p {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.pricePaidUnavailable {
+  display: grid;
+  gap: var(--bo-s2);
+  max-width: 52ch;
+  padding-top: var(--bo-s3);
+  border-top: var(--bo-hair);
+}
+.dataTable caption {
+  caption-side: top;
+  text-align: left;
+  padding: 0 0 var(--bo-s3);
+}
+.dataTable table th,
+.dataTable table td {
+  white-space: normal;
+  vertical-align: top;
+  text-align: left;
+}
+.dataTable table td:nth-child(5),
+.dataTable table th:nth-child(5) {
+  text-align: right;
+  white-space: nowrap;
+}
+.pricePaidUnavailable p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.pricePaidForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--bo-s4);
+}
+/* The shared .control label can shrink to nothing. Hold this one at the placeholder's length. */
+.pricePaidForm label {
+  flex: 1 1 32ch;
+  min-width: min(100%, 32ch);
+}
+.pricePaidForm input[type="search"] {
+  appearance: none;
+  width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: var(--bo-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+}
+.pricePaidForm input[type="search"]:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.pricePaidGo {
+  appearance: none;
+  height: 2.5rem;
+  padding: 0 var(--bo-s4);
+  border: var(--bo-rule);
+  border-radius: 0;
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+  cursor: pointer;
+}
+.pricePaidGo:disabled {
+  cursor: wait;
+}
+.pricePaidError {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-ink);
+}

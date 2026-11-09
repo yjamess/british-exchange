@@ -1,0 +1,34 @@
+indicator_id: rent-to-earnings-ratio
+title: Rent to earnings ratio
+sector: housing-land
+publisher: British Exchange (derived from ONS)
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/ratioofhousepricetoworkplacebasedearningslowerquartileandmedian
+series_id: PIPR England Sep rent ×12 / AFF1 Table 1b median earnings
+geography: England (E92000001)
+frequency: annual
+unit: ratio (annual private rent / median workplace earnings)
+definition: Derived annual private rent (England PIPR September average × 12) divided
+  by AFF1 median gross annual workplace-based earnings for England.
+licence: Open Government Licence v3.0 (component series)
+agent_owner: housing
+connector_module: housing.connectors.rent_to_earnings_ratio
+curated_path: curated/observations.csv
+update_cadence: when PIPR or AFF1 refreshes
+raw_evidence:
+- path: raw/2026-11-04/derivation_inputs.txt
+  retrieved_at: '2026-11-04T18:18:40.493341+00:00'
+  checksum_sha256: 534aae792e926867c834eb51a93db45342ead159bf49a3024c051d2078ef2e7d
+  content_type: text/plain
+  official_release_date: '2026-03-26'
+  http_status: null
+  source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/ratioofhousepricetoworkplacebasedearningslowerquartileandmedian
+transformations: Join England September average-rent with AFF1 1b earnings by calendar
+  year; ratio = rent×12 / earnings.
+revision_notes: First derivation 2026-11-04 from pinned AFF1 + PIPR curated.
+caveats: DERIVED — not a published ONS rent-to-income statistic. Workplace earnings
+  (ASHE) are not household income. September rent aligns with AFF1 house-price year-ending-September
+  convention.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

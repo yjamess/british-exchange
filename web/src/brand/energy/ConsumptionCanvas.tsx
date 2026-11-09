@@ -1,0 +1,1305 @@
+"use client";
+
+/**
+ * Energy Domain 02 — Energy Consumption flagship.
+ * Linked stacked sector composition + W1 spine (≥1998).
+ * Useful / rejected lives on Useful Energy Experiment, not this metabolism strip.
+ * One Notes foot; chart titles use explorer stageTitle.
+ */
+
+import { useCallback, useMemo, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { RankBars, TimeChart } from "../instrument/TimeChart";
+import { RegionMap } from "../map";
+import {
+  ControlRow,
+  EmptyStage,
+  ExplorerHead,
+  FigureRecord,
+  FigureStrip,
+  MenuControl,
+  ResetButton,
+  SearchControl,
+  Stage,
+  explorerClasses as t,
+  type ExplorerFigure,
+  type ExplorerView,
+} from "../template";
+import { ENERGY_SOURCE } from "./citations";
+import { ConsumptionAppetite } from "./ConsumptionAppetite";
+import type { AppetiteLens } from "./appetite-model";
+import {
+  USEFUL_SECTORS,
+  endUsesOf,
+  flowItems,
+  formatOverrides,
+  latestYear as usefulLatestYear,
+  parseOverrides,
+  sectorLabel as usefulSectorLabel,
+  totals,
+  yearsOf as usefulYearsOf,
+  type Assume,
+  type UsefulPack,
+  type UsefulScope,
+} from "./useful-model";
+import { ConsumptionUseful } from "./ConsumptionUseful";
+import {
+  CONSUMPTION_DATA_SERIES,
+  ConsumptionData,
+  type ConsumptionDataSeries,
+} from "./ConsumptionData";
+import {
+  DOMESTIC_END_USES,
+  DOMESTIC_END_USE_ID,
+  FINAL_CONSUMPTION_ID,
+  FLOW_STAGES,
+  PRIMARY_FLOW_ID,
+  SECTORS,
+  SUBNATIONAL_ID,
+  USEFUL_FROM,
+  authorityRankRows,
+  crossEndUseSectorRows,
+  crossEndUseStack,
+  endUseFuelRows,
+  endUseStack,
+  flowRowsFor,
+  regionCodeForAuthorityLabel,
+  fmtKtoe,
+  fuelRowsFor,
+  geographyRankRows,
+  populationFor,
+  sectorStack,
+  toePerResident,
+  yearsOf,
+  type AppetiteMeasure,
+  type ConsumptionPack,
+  type DomesticEndUseId,
+  type SectorId,
+} from "./consumption-model";
+import s from "./generation.module.css";
+
+const VIEWS: ExplorerView[] = [
+  { id: "metabolism", label: "Energy Metabolism" },
+  { id: "appetite", label: "Long-run demand" },
+  { id: "end-use", label: "Energy use" },
+  { id: "geography", label: "Energy Geography" },
+  { id: "useful", label: "Useful Energy Experiment" },
+  { id: "data", label: "Data" },
+];
+
+type GeoSector = "all" | "domestic" | "transport" | "industry-commercial";
+type GeoMeasure = "total" | "intensity";
+
+const W1_FROM = 1998;
+const INDEX_BASE_DEFAULT = 1970;
+
+function fmtToePerResident(v: number): string {
+  if (v >= 10) return `${v.toFixed(1)} toe/person`;
+  if (v >= 1) return `${v.toFixed(2)} toe/person`;
+  return `${v.toFixed(3)} toe/person`;
+}
+
+type Measure = AppetiteMeasure;
+
+export type { ConsumptionPack };
+
+function clampYear(n: number, years: number[], fallback: number): number {
+  if (!Number.isFinite(n) || years.length === 0) return fallback;
+  if (years.includes(n)) return n;
+  return years.reduce((best, y) => (Math.abs(y - n) < Math.abs(best - n) ? y : best), years[0]!);
+}
+
+export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const finalRows = pack.final?.observations ?? [];
+  const flowRows = pack.flow?.observations ?? [];
+  const years = yearsOf(finalRows);
+  const latest = years.at(-1) ?? 2025;
+  const earliest = years[0] ?? 1970;
+
+  const [view, setView] = useState(() => (VIEWS.some((v) => v.id === searchParams.get("view")) ? searchParams.get("view")! : "metabolism"));
+  const [measure, setMeasure] = useState<Measure>(() => {
+    const m = searchParams.get("measure");
+    return m === "share" || m === "index" || m === "absolute" ? m : "absolute";
+  });
+  const [year, setYear] = useState(() => clampYear(Number(searchParams.get("year") || latest), years, latest));
+  const [compare, setCompare] = useState(() =>
+    clampYear(Number(searchParams.get("compare") || earliest), years, earliest),
+  );
+  const [indexBase, setIndexBase] = useState(() =>
+    clampYear(Number(searchParams.get("base") || INDEX_BASE_DEFAULT), years, INDEX_BASE_DEFAULT),
+  );
+  const [lens, setLens] = useState<AppetiteLens>(() => (searchParams.get("lens") === "fuel" ? "fuel" : "sector"));
+  const [sector, setSector] = useState<SectorId>(() => {
+    const s = searchParams.get("sector");
+    return SECTORS.some((x) => x.id === s) ? (s as SectorId) : "all-final";
+  });
+  const [endUse, setEndUse] = useState<"all" | DomesticEndUseId>(() => {
+    const e = searchParams.get("end_use");
+    if (e === "all") return "all";
+    return DOMESTIC_END_USES.includes(e as DomesticEndUseId) ? (e as DomesticEndUseId) : "all";
+  });
+  const [effEndUse, setEffEndUse] = useState(() => searchParams.get("eff_end_use") || "all");
+  const [useSector, setUseSector] = useState<UsefulScope>(() => {
+    const v = searchParams.get("use_sector");
+    return USEFUL_SECTORS.some((x) => x.id === v) ? (v as UsefulScope) : "all";
+  });
+  const [assume, setAssume] = useState<Assume>(() => (searchParams.get("assume") === "scenario" ? "scenario" : "published"));
+  const [effOver, setEffOver] = useState(() => searchParams.get("eff") || "");
+  const [geoSector, setGeoSector] = useState<GeoSector>(() => {
+    const g = searchParams.get("geo_sector");
+    return g === "domestic" || g === "transport" || g === "industry-commercial" || g === "all" ? g : "all";
+  });
+  const [place, setPlace] = useState(() => searchParams.get("place") || "");
+  const [endScope, setEndScope] = useState<"domestic" | "cross">(() =>
+    searchParams.get("end_scope") === "cross" ? "cross" : "domestic",
+  );
+  const [crossEnd, setCrossEnd] = useState(() => {
+    const c = searchParams.get("cross_end");
+    if (!c || c === "all" || /^total$/i.test(c)) return "all";
+    return c;
+  });
+  const [region, setRegion] = useState(() => searchParams.get("region") || "");
+  const [geoMeasure, setGeoMeasure] = useState<GeoMeasure>(() =>
+    searchParams.get("geo_measure") === "intensity" ? "intensity" : "total",
+  );
+  /** Local LA search — filters the authority ranks; selection still syncs via `place`. */
+  const [placeQ, setPlaceQ] = useState("");
+  const [dataSeries, setDataSeries] = useState<ConsumptionDataSeries>(() => {
+    const d = searchParams.get("dataset");
+    return CONSUMPTION_DATA_SERIES.some((x) => x.id === d) ? (d as ConsumptionDataSeries) : "c1";
+  });
+
+  const sync = useCallback(
+    (
+      patch: Partial<{
+        view: string;
+        measure: Measure;
+        year: number;
+        compare: number;
+        indexBase: number;
+        lens: AppetiteLens;
+        sector: SectorId;
+        endUse: "all" | DomesticEndUseId;
+        effEndUse: string;
+        useSector: UsefulScope;
+        assume: Assume;
+        effOver: string;
+        geoSector: GeoSector;
+        place: string;
+        endScope: "domestic" | "cross";
+        crossEnd: string;
+        region: string;
+        geoMeasure: GeoMeasure;
+      }>,
+    ) => {
+      const next = {
+        view,
+        measure,
+        year,
+        compare,
+        indexBase,
+        lens,
+        sector,
+        endUse,
+        effEndUse,
+        useSector,
+        assume,
+        effOver,
+        geoSector,
+        place,
+        endScope,
+        crossEnd,
+        region,
+        geoMeasure,
+        ...patch,
+      };
+      setView(next.view);
+      setMeasure(next.measure);
+      setYear(next.year);
+      setCompare(next.compare);
+      setIndexBase(next.indexBase);
+      setLens(next.lens);
+      setSector(next.sector);
+      setEndUse(next.endUse);
+      setEffEndUse(next.effEndUse);
+      setUseSector(next.useSector);
+      setAssume(next.assume);
+      setEffOver(next.effOver);
+      setGeoSector(next.geoSector);
+      setPlace(next.place);
+      setEndScope(next.endScope);
+      setCrossEnd(next.crossEnd);
+      setRegion(next.region);
+      setGeoMeasure(next.geoMeasure);
+      const u = new URLSearchParams(window.location.search);
+      u.set("domain", "consumption");
+      u.set("view", next.view);
+      u.set("measure", next.measure);
+      u.set("year", String(next.year));
+      u.set("compare", String(next.compare));
+      u.set("base", String(next.indexBase));
+      u.set("lens", next.lens);
+      u.set("sector", next.sector);
+      u.set("end_use", next.endUse);
+      u.set("eff_end_use", next.effEndUse);
+      u.set("use_sector", next.useSector);
+      u.set("assume", next.assume);
+      if (next.effOver) u.set("eff", next.effOver);
+      else u.delete("eff");
+      u.set("geo_sector", next.geoSector);
+      u.set("end_scope", next.endScope);
+      u.set("cross_end", next.crossEnd);
+      u.set("geo_measure", next.geoMeasure);
+      if (next.place) u.set("place", next.place);
+      else u.delete("place");
+      if (next.region) u.set("region", next.region);
+      else u.delete("region");
+      u.delete("useful");
+      window.history.replaceState(null, "", `${pathname}?${u}`);
+    },
+    [
+      pathname,
+      view,
+      measure,
+      year,
+      compare,
+      indexBase,
+      lens,
+      sector,
+      endUse,
+      effEndUse,
+      useSector,
+      assume,
+      effOver,
+      geoSector,
+      place,
+      endScope,
+      crossEnd,
+      region,
+      geoMeasure,
+    ],
+  );
+
+  if (!pack.final || finalRows.length === 0) {
+    return (
+      <>
+        <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
+        <Stage title="Energy Metabolism">
+          <EmptyStage label="Consumption series unavailable">
+            Run the final-energy-consumption-by-sector connector and refresh the API.
+          </EmptyStage>
+        </Stage>
+      </>
+    );
+  }
+
+  const endUseRows = pack.endUse?.observations ?? [];
+  const crossRows = pack.crossEndUse?.observations ?? [];
+  const endUseYears = yearsOf(endUseRows);
+  const crossYears = yearsOf(crossRows);
+  const geoYears = pack.geography?.years ?? [];
+  const usefulPack = pack.efficiencies as UsefulPack | null;
+  const usefulLatest = usefulLatestYear(usefulPack);
+  const usefulEndUses = endUsesOf(usefulPack, useSector);
+  const usefulEndUse = (useSector !== "all" && usefulEndUses.find((e) => e.toLowerCase() === effEndUse.toLowerCase())) || "all";
+  /** End-use detail and coefficients exist for the latest year only; scenarios use the coefficients. */
+  const usefulYears = usefulEndUse !== "all" || assume === "scenario" ? [usefulLatest] : usefulYearsOf(usefulPack);
+  const overrides = parseOverrides(effOver);
+  const ambientByYear = new Map(
+    flowRows
+      .filter((r) => (r.notes ?? "").includes("stage=Ambient heat") && typeof r.value === "number")
+      .map((r) => [Number(r.period_start.slice(0, 4)), r.value as number]),
+  );
+  const yearPool =
+    view === "end-use"
+      ? endScope === "cross" && crossYears.length
+        ? crossYears
+        : endUseYears
+      : (view === "geography" || (view === "data" && dataSeries === "geography")) && geoYears.length
+        ? geoYears
+        : view === "useful" && usefulYears.length
+          ? usefulYears
+          : years;
+  const y = clampYear(year, yearPool.length ? yearPool : years, (yearPool.length ? yearPool : years).at(-1) ?? latest);
+  const yearA = clampYear(compare, years, earliest);
+  const yearB = y;
+  const baseY = clampYear(indexBase, years, INDEX_BASE_DEFAULT);
+  const stackAll = sectorStack(finalRows, measure === "index" ? "index" : measure, baseY);
+  /** Fuel sector filters the metabolism chart + fuel breakdown; All final users keeps the full stack. */
+  const stack = sector === "all-final" ? stackAll : stackAll.filter((s) => s.id === sector);
+  const fuelSector: SectorId = sector === "all-final" ? "domestic" : sector;
+  const fuels = fuelRowsFor(finalRows, fuelSector, y);
+  const sectorLabel = SECTORS.find((x) => x.id === sector)?.label ?? sector;
+  const flow = flowRowsFor(flowRows, y);
+  /** Where + End use: All shows the full composition; a named end use drills into one series. */
+  const endStackAll = endUseStack(endUseRows);
+  const endStack = endUse === "all" ? endStackAll : endStackAll.filter((sr) => sr.id === endUse);
+  const endFuels = endUse !== "all" ? endUseFuelRows(endUseRows, endUse, y) : [];
+  const crossEndOptions = [
+    ...new Set(
+      crossRows
+        .map((r) => {
+          const n = (r.notes ?? "").split(";").find((p) => p.startsWith("end_use="));
+          return n ? n.slice("end_use=".length) : "";
+        })
+        .filter((id) => id && !/^total$/i.test(id)),
+    ),
+  ].sort((a, b) => a.localeCompare(b));
+  const crossEndActive =
+    crossEnd === "all" || !crossEndOptions.includes(crossEnd) ? "all" : crossEnd;
+  const crossStackAll = crossEndUseStack(crossRows);
+  const crossStack =
+    crossEndActive === "all" ? crossStackAll : crossStackAll.filter((sr) => sr.id === crossEndActive);
+  const crossSectors =
+    crossEndActive === "all" ? [] : crossEndUseSectorRows(crossRows, crossEndActive, y);
+  const popPack = pack.geography?.population ?? null;
+  const intensityOn = geoMeasure === "intensity" && !!popPack;
+  const geoRanks = geographyRankRows(
+    pack.geography?.places ?? [],
+    y,
+    geoSector,
+    popPack,
+    intensityOn,
+  );
+  const geoPlaces = pack.geography?.places ?? [];
+  const geoAuthorities = pack.geography?.authorities ?? [];
+  const laRanks = useMemo(() => {
+    const q = placeQ.trim().toLowerCase();
+    const ranked = authorityRankRows(
+      geoAuthorities,
+      y,
+      geoSector,
+      400,
+      popPack,
+      intensityOn,
+    );
+    let rows = ranked;
+    if (q) {
+      rows = ranked.filter((r) => r.label.toLowerCase().includes(q));
+    } else if (region) {
+      rows = ranked.filter((r) => regionCodeForAuthorityLabel(r.label, geoPlaces) === region);
+    }
+    return rows.slice(0, 20);
+  }, [geoAuthorities, geoPlaces, y, geoSector, popPack, intensityOn, placeQ, region]);
+  const selectedPlace = geoAuthorities.find((p) => p.code === place);
+  const selectedPop = selectedPlace ? populationFor(popPack, selectedPlace.code, y) : null;
+  const selectedKtoe = selectedPlace?.sectors[geoSector]?.[String(y)];
+  const selectedRegionCode =
+    (selectedPlace && regionCodeForAuthorityLabel(selectedPlace.label, geoPlaces)) || region;
+  const selectedRegionPlace = geoPlaces.find((p) => p.code === selectedRegionCode);
+  const mapRegion = selectedRegionCode.startsWith("E12") ? selectedRegionCode : region.startsWith("E12") ? region : "";
+  const earliestGeo = geoYears[0] ?? 2005;
+  const selectedThen = selectedPlace?.sectors[geoSector]?.[String(earliestGeo)];
+  const selectedChangePct =
+    typeof selectedKtoe === "number" &&
+    typeof selectedThen === "number" &&
+    selectedThen > 0
+      ? ((selectedKtoe - selectedThen) / selectedThen) * 100
+      : null;
+  const regionKtoe = selectedRegionPlace?.sectors[geoSector]?.[String(y)];
+  const placeShareOfRegion =
+    typeof selectedKtoe === "number" && typeof regionKtoe === "number" && regionKtoe > 0
+      ? (selectedKtoe / regionKtoe) * 100
+      : null;
+  const ukAll = geoPlaces.find((p) => p.code === "K02000001")?.sectors.all?.[String(y)];
+  const openPlace = (code: string) => {
+    const auth = geoAuthorities.find((p) => p.code === code);
+    const parent = auth ? regionCodeForAuthorityLabel(auth.label, geoPlaces) : "";
+    sync({ place: code, region: parent || region });
+  };
+  const denomYears = [
+    ...new Set(
+      [...geoRanks, ...laRanks]
+        .map((r) => r.denomYear)
+        .filter((d): d is number => typeof d === "number"),
+    ),
+  ];
+  const intensityDenomNote =
+    intensityOn && denomYears.length
+      ? denomYears.every((d) => d === y)
+        ? `Denominator: mid-${y} usually resident population (ONS MYE/MYEB).`
+        : `Denominator: mid-year usually resident population (ONS). Where a mid-${y} figure is missing (English regions outside 2024), mid-2024 is used and labelled in Notes.`
+      : null;
+  const allTotal = finalRows.find((r) => {
+    const n = r.notes ?? "";
+    return r.period_start.startsWith(String(y)) && n.includes("sector=all-final") && n.includes("fuel=Total");
+  });
+  const totalKtoe = allTotal?.value ?? 0;
+
+  const figures: ExplorerFigure[] = [
+    {
+      label: `${y} final consumption`,
+      value: typeof totalKtoe === "number" ? fmtKtoe(totalKtoe) : "—",
+      note: "All final users · ECUK C1",
+    },
+    {
+      label: "Largest sector",
+      value: (() => {
+        const parts = SECTORS.filter((s) => s.stack).map((s) => {
+          const row = finalRows.find(
+            (r) =>
+              r.period_start.startsWith(String(y)) &&
+              (r.notes ?? "").includes(`sector=${s.id}`) &&
+              (r.notes ?? "").includes("fuel=Total"),
+          );
+          return { label: s.label, v: (row?.value as number) ?? 0 };
+        });
+        const top = parts.sort((a, b) => b.v - a.v)[0];
+        return top ? top.label : "—";
+      })(),
+      note: typeof totalKtoe === "number" && totalKtoe > 0 ? `${y} · share of all final users` : String(y),
+    },
+    {
+      label: "Primary (W1)",
+      value: y >= W1_FROM && flow.length ? fmtKtoe(flow.find((f) => f.id === "Primary energy")?.v ?? 0) : "—",
+      note: y >= W1_FROM ? "Official statistics in development" : `W1 starts ${W1_FROM}`,
+    },
+  ];
+
+  return (
+    <>
+      <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
+      {(view === "metabolism" ||
+        view === "end-use" ||
+        view === "geography" ||
+        view === "appetite" ||
+        view === "useful") && (
+        <FigureStrip
+          figures={
+            view === "useful"
+              ? (() => {
+                  const it = totals(flowItems(usefulPack, ambientByYear, useSector, usefulEndUse, y, assume, overrides));
+                  const tag = assume === "scenario" ? "Your scenario" : "Published estimate";
+                  const scopeName = usefulEndUse !== "all" ? `${usefulSectorLabel(useSector)} · ${usefulEndUse}` : usefulSectorLabel(useSector);
+                  return [
+                    { label: `Useful energy · ${y}`, value: fmtKtoe(it.useful), note: `${scopeName} · ${tag}` },
+                    { label: `Lost energy · ${y}`, value: fmtKtoe(it.rejected), note: `${(it.useful + it.rejected > 0 ? (it.rejected / (it.useful + it.rejected)) * 100 : 0).toFixed(1)}% of the total` },
+                    {
+                      label: "Heat from surroundings",
+                      value: fmtKtoe(it.ambient),
+                      note: it.ambient > 0 ? "Drawn in by heat pumps" : "None in this selection",
+                    },
+                  ];
+                })()
+              : view === "geography"
+              ? [
+                  {
+                    label: `${y} UK subnational total`,
+                    value: typeof ukAll === "number" ? fmtKtoe(ukAll) : "—",
+                    note: "All fuels · DESNZ subnational",
+                  },
+                  {
+                    label: "Largest area",
+                    value: geoRanks[0]?.label ?? "—",
+                    note: geoRanks[0] ? fmtKtoe(geoRanks[0].v) : String(y),
+                  },
+                  {
+                    label: "Coverage",
+                    value: "2005–2024",
+                    note: "Not the same as ECUK C1",
+                  },
+                ]
+              : figures
+          }
+        />
+      )}
+      <ControlRow label="Consumption controls">
+        {(view === "metabolism" || view === "appetite") && (
+          <MenuControl
+            label="Measure"
+            value={measure === "index" && view === "metabolism" ? "absolute" : measure}
+            options={
+              view === "appetite"
+                ? [
+                    { value: "absolute", label: "Absolute (ktoe)" },
+                    { value: "share", label: "Share of total" },
+                    { value: "index", label: `Index (${baseY} = 100)` },
+                  ]
+                : [
+                    { value: "absolute", label: "Absolute (ktoe)" },
+                    { value: "share", label: "Share of all final" },
+                  ]
+            }
+            onChange={(v) => sync({ measure: v })}
+          />
+        )}
+        {view === "appetite" && (
+          <MenuControl
+            label="Break down by"
+            value={lens}
+            options={[
+              { value: "sector", label: "Sector" },
+              { value: "fuel", label: "Fuel" },
+            ]}
+            onChange={(v) => sync({ lens: v as AppetiteLens })}
+          />
+        )}
+        {view === "appetite" && lens === "fuel" && (
+          <MenuControl
+            label="In sector"
+            value={sector}
+            options={SECTORS.map((x) => ({ value: x.id, label: x.label }))}
+            onChange={(v) => sync({ sector: v as SectorId })}
+          />
+        )}
+        {(view !== "data" || dataSeries === "geography") && (
+          <MenuControl
+            label={view === "appetite" ? "Compare to" : "Year"}
+            value={view === "appetite" ? String(yearA) : String(y)}
+            options={(yearPool.length ? yearPool : years)
+              .slice()
+              .reverse()
+              .map((yy) => ({ value: String(yy), label: String(yy) }))}
+            onChange={(v) =>
+              view === "appetite" ? sync({ compare: Number(v) }) : sync({ year: Number(v) })
+            }
+          />
+        )}
+        {view === "appetite" && (
+          <MenuControl
+            label="With year"
+            value={String(y)}
+            options={[...years].reverse().map((yy) => ({ value: String(yy), label: String(yy) }))}
+            onChange={(v) => sync({ year: Number(v) })}
+          />
+        )}
+        {view === "appetite" && measure === "index" && (
+          <MenuControl
+            label="Index base"
+            value={String(baseY)}
+            options={[...years].reverse().map((yy) => ({ value: String(yy), label: String(yy) }))}
+            onChange={(v) => sync({ indexBase: Number(v), measure: "index" })}
+          />
+        )}
+        {view === "metabolism" && (
+          <MenuControl
+            label="Fuel sector"
+            value={sector}
+            options={SECTORS.map((x) => ({ value: x.id, label: x.label }))}
+            onChange={(v) => sync({ sector: v })}
+          />
+        )}
+        {view === "end-use" && (
+          <>
+            <MenuControl
+              label="Where"
+              value={endScope}
+              options={[
+                { value: "domestic", label: "Homes" },
+                { value: "cross", label: "Cross-sector" },
+              ]}
+              onChange={(v) => sync({ endScope: v })}
+            />
+            {endScope === "domestic" ? (
+              <MenuControl
+                label="End use"
+                value={endUse}
+                options={[
+                  { value: "all", label: "All" },
+                  ...DOMESTIC_END_USES.map((id) => ({
+                    value: id,
+                    label: id.replace(/\b\w/g, (c) => c.toUpperCase()),
+                  })),
+                ]}
+                onChange={(v) => sync({ endUse: v as "all" | DomesticEndUseId })}
+              />
+            ) : (
+              <MenuControl
+                label="End use"
+                value={crossEndActive}
+                options={[
+                  { value: "all", label: "All" },
+                  ...crossEndOptions.map((id) => ({ value: id, label: id })),
+                ]}
+                onChange={(v) => sync({ crossEnd: v })}
+              />
+            )}
+          </>
+        )}
+        {view === "useful" && (
+          <>
+            <MenuControl
+              label="Sector"
+              value={useSector}
+              options={[
+                { value: "all", label: "All sectors" },
+                ...USEFUL_SECTORS.map((x) => ({ value: x.id, label: x.label })),
+              ]}
+              onChange={(v) => sync({ useSector: v as UsefulScope, effEndUse: "all" })}
+            />
+            {useSector !== "all" && (
+              <MenuControl
+                label={`End use · ${usefulLatest}`}
+                value={usefulEndUse}
+                options={[{ value: "all", label: "All end uses" }, ...usefulEndUses.map((id) => ({ value: id, label: id }))]}
+                onChange={(v) => sync({ effEndUse: v, ...(v !== "all" ? { year: usefulLatest } : {}) })}
+              />
+            )}
+            <MenuControl
+              label="Assumptions"
+              value={assume}
+              options={
+                usefulPack?.identity?.reproducible
+                  ? [
+                      { value: "published", label: "Published estimate" },
+                      { value: "scenario", label: "Change assumptions" },
+                    ]
+                  : [{ value: "published", label: "Published estimate" }]
+              }
+              onChange={(v) => sync({ assume: v as Assume, ...(v === "scenario" ? { year: usefulLatest } : { effOver: "" }) })}
+            />
+          </>
+        )}
+        {view === "data" && (
+          <MenuControl
+            label="Series"
+            value={dataSeries}
+            options={CONSUMPTION_DATA_SERIES.map((x) => ({ value: x.id, label: x.label }))}
+            onChange={(v) => {
+              setDataSeries(v as ConsumptionDataSeries);
+              const u = new URLSearchParams(searchParams.toString());
+              u.set("view", "data");
+              u.set("dataset", v);
+              window.history.replaceState(null, "", `${pathname}?${u}`);
+            }}
+          />
+        )}
+        {view === "data" && dataSeries === "geography" && (
+          <MenuControl
+            label="All fuels sector"
+            value={geoSector}
+            options={[
+              { value: "all", label: "Total" },
+              { value: "domestic", label: "Domestic" },
+              { value: "transport", label: "Transport" },
+              { value: "industry-commercial", label: "Industry & commercial" },
+            ]}
+            onChange={(v) => sync({ geoSector: v })}
+          />
+        )}
+        {view === "geography" && (
+          <>
+            <MenuControl
+              label="All fuels sector"
+              value={geoSector}
+              options={[
+                { value: "all", label: "Total" },
+                { value: "domestic", label: "Domestic" },
+                { value: "transport", label: "Transport" },
+                { value: "industry-commercial", label: "Industry & commercial" },
+              ]}
+              onChange={(v) => sync({ geoSector: v })}
+            />
+            <MenuControl
+              label="Measure"
+              value={geoMeasure}
+              options={[
+                { value: "total", label: "Total (ktoe)" },
+                {
+                  value: "intensity",
+                  label: popPack ? "Per resident (toe/person)" : "Per resident (needs population)",
+                },
+              ]}
+              onChange={(v) => sync({ geoMeasure: v as GeoMeasure })}
+            />
+            <SearchControl
+              label="Search local authority"
+              value={placeQ}
+              placeholder="Type a council name…"
+              note={`${geoAuthorities.filter((p) => p.la !== "Unallocated").length} authorities`}
+              onChange={(v) => {
+                setPlaceQ(v);
+                const q = v.trim().toLowerCase();
+                if (!q) {
+                  if (place) sync({ place: "" });
+                  return;
+                }
+                const matches = authorityRankRows(
+                  geoAuthorities,
+                  y,
+                  geoSector,
+                  400,
+                  popPack,
+                  intensityOn,
+                ).filter((r) => r.label.toLowerCase().includes(q));
+                // One clear match (e.g. "Leeds") → open the place reading beside the map.
+                if (matches.length === 1) {
+                  openPlace(matches[0]!.id);
+                  return;
+                }
+                const exact = matches.find(
+                  (r) =>
+                    r.label.toLowerCase().startsWith(`${q} (`) ||
+                    r.label.split(" (")[0]!.toLowerCase() === q,
+                );
+                if (exact) {
+                  openPlace(exact.id);
+                  return;
+                }
+                if (place && !matches.some((r) => r.id === place)) sync({ place: "" });
+              }}
+            />
+          </>
+        )}
+        <ResetButton
+          onClick={() => {
+            // Keep the current view tab — Reset clears filters, it does not change route/tab.
+            setPlaceQ("");
+            setDataSeries("c1");
+            sync({
+              measure: "absolute",
+              year: (view === "geography" || (view === "data" && dataSeries === "geography")
+                ? geoYears
+                : years
+              ).at(-1) ?? latest,
+              compare: earliest,
+              indexBase: INDEX_BASE_DEFAULT,
+              lens: "sector",
+              sector: "all-final",
+              endUse: "all",
+              effEndUse: "all",
+              useSector: "all",
+              assume: "published",
+              effOver: "",
+              geoSector: "all",
+              place: "",
+              endScope: "domestic",
+              crossEnd: "all",
+              region: "",
+              geoMeasure: "total",
+            });
+          }}
+        />
+      </ControlRow>
+
+      <Stage
+        title={
+          view === "data"
+            ? `Data · ${CONSUMPTION_DATA_SERIES.find((x) => x.id === dataSeries)?.label ?? "archive"}`
+            : view === "appetite"
+              ? `Long-run demand · ${earliest}–${latest}`
+              : view === "useful"
+                ? `Useful Energy Experiment · ${assume === "scenario" ? "your scenario" : "published estimate"} · ${y}`
+                : view === "end-use"
+                  ? endScope === "cross"
+                    ? `Energy use · cross-sector · ${crossEndActive === "all" ? "all" : crossEndActive}`
+                    : `Energy use · homes · ${endUse === "all" ? "all" : endUse.replace(/\b\w/g, (c) => c.toUpperCase())}`
+                  : view === "geography"
+                    ? `Energy Geography · ${geoYears[0] ?? 2005}–${geoYears.at(-1) ?? 2024}`
+                    : `Energy Metabolism · ${earliest}–${latest} · ${measure === "share" ? "share of all final users" : "ktoe"}`
+        }
+        meta={
+          view === "end-use"
+            ? endScope === "cross"
+              ? "UK · by end use across sectors · transport excluded"
+              : "UK · how homes use energy"
+            : view === "geography"
+              ? "Nations and English regions · DESNZ subnational final consumption"
+              : view === "useful"
+                ? assume === "scenario"
+                  ? "Energy used → useful and lost · your scenario, not official DESNZ figures"
+                  : "Energy used → useful and lost · DESNZ modelled estimates"
+                : "UK · calendar year · ECUK final consumption"
+        }
+        foot={
+          <FigureRecord
+            source={
+              view === "geography"
+                ? ENERGY_SOURCE.consumptionGeography
+                : view === "end-use"
+                  ? ENERGY_SOURCE.consumptionEndUse
+                  : view === "useful"
+                    ? ENERGY_SOURCE.consumptionUseful
+                    : ENERGY_SOURCE.consumptionFinal
+            }
+            definition={
+              view === "geography"
+                ? intensityOn
+                  ? `Subnational final energy intensity: DESNZ ktoe ÷ ONS mid-year usually resident population (toe per person), ${geoSector}, ${y}.`
+                  : "Subnational total final energy consumption (ktoe) at nation and English-region level from DESNZ, 2005–2024."
+                : view === "end-use"
+                  ? "UK domestic final energy consumption by end use and fuel (ktoe) from DESNZ ECUK Table U3."
+                  : view === "useful"
+                    ? "Modelled useful and rejected energy from ECUK W1, with published Assumed Efficiencies for domestic end uses."
+                    : view === "appetite"
+                      ? "Long-run UK final energy demand by sector, or by fuel within a sector (ECUK Table C1) — absolute, share of the scope total, and index on a stated base year."
+                      : "UK final energy consumption by sector and fuel (ktoe) from DESNZ Energy Consumption in the UK (ECUK) Table C1."
+            }
+            method={
+              view === "geography"
+                ? ([
+                    "This is not national ECUK Table C1. Coverage starts in 2005; methods and transport scope differ (road and rail only; unallocated rows exist).",
+                    intensityOn
+                      ? "Intensity = All-fuels sector ktoe × 1000 ÷ mid-year usually resident population (toe per person). Population is the People pack subnational-population-estimate (ONS MYE2 mid-2024 + MYEB1 LA series 2011–2025)."
+                      : "Nation/region bars and LA ranks are totals (ktoe). Switch Measure to Per resident when the population pack is linked.",
+                    intensityOn
+                      ? "Resident intensity is not household intensity: places with large workplace or visitor demand (e.g. City of London) rank high because the denominator is usually resident population."
+                      : null,
+                    intensityDenomNote,
+                    pack.geography?.population?.note,
+                    pack.geography?.note,
+                    pack.geography?.authoritiesNote,
+                    pack.geography?.meta?.caveats,
+                  ].filter(Boolean) as string[])
+                : view === "end-use"
+                  ? ([
+                      "Homes covers how UK households use energy: space heating, water heating, cooking, lighting and appliances — only where the statistics publish them.",
+                      "Cross-sector compares the same end use across industry, commercial and other non-transport sectors. Transport is not in this cut. Coverage is shorter than the homes series.",
+                      "Choose Where and End use above. All shows every published function in that place; a named end use drills into its history and breakdown. This is national aggregate use — not any particular building.",
+                      "Fuel totals must not be summed with their fuel splits. Some early years leave appliances or fuel cells unpublished.",
+                      pack.endUse?.meta.caveats,
+                      pack.crossEndUse?.meta.caveats,
+                    ].filter(Boolean) as string[])
+                  : view === "useful"
+                    ? ([
+                        "Useful energy is the heat, light, motion and other services people actually get from the energy they use. The rest is lost, mostly as waste heat. This is different from primary energy, which also counts losses before energy reaches users.",
+                        "DESNZ estimates useful and lost energy by applying an assumed efficiency to each use of each fuel. These are estimates, not measurements.",
+                        `Figures by sector run from ${usefulYearsOf(usefulPack)[0] ?? USEFUL_FROM} to ${usefulLatest}. Figures by end use, and the efficiencies themselves, are published for ${usefulLatest} only.`,
+                        "Heat pumps also draw heat from the air, ground or water around them, so their useful output can be larger than the electricity they use. That extra heat is counted as useful energy but not as energy used.",
+                        "Change assumptions lets you edit the efficiencies and recalculates with the same method DESNZ uses, which reproduces every published figure exactly. Your results are your own scenario, not official statistics.",
+                        "Which assumptions matter most shows how much the share lost would fall if one efficiency were 10% better, with everything else unchanged.",
+                        "Sectors and technologies are not ranked against each other. Heating, vehicles and lighting turn energy into very different things, so one efficiency score would mislead.",
+                        "Share lost under earlier and current assumptions is DESNZ's comparison with the efficiencies it used in 2017. Differences reflect updated assumptions, not necessarily real-world improvements.",
+                        "Official Statistics in Development.",
+                      ].filter(Boolean) as string[])
+                    : view === "appetite"
+                      ? ([
+                          "Same ECUK C1 values as Energy Metabolism: absolute ktoe, share of the published Total for the chosen scope, or index on an explicit base year.",
+                          "Break down by sector (Industry, Transport, Domestic, Services & other) or by fuel within a chosen sector / all final users.",
+                          "Then / Now and Change use two stated years (Then year / Now year). A fall beside a rise is shown, not labelled as substitution or cause.",
+                          "C1 is not temperature corrected: unusually cold or warm years move heating demand.",
+                          pack.final.meta.caveats,
+                        ].filter(Boolean) as string[])
+                      : ([
+                          "Fuel sector filters the history chart and the fuel breakdown. All final users shows Industry, Transport, Domestic and Services & other stacked together.",
+                          "All final users is the published total — not stacked as a fifth band.",
+                          `Primary allocation (Table W1) appears from ${W1_FROM} and is Official Statistics in Development. It is national — Fuel sector does not filter W1.`,
+                          `Modelled useful / rejected energy lives under Useful Energy Experiment (from ${USEFUL_FROM}) — not on this metabolism strip.`,
+                          "fuel=Total is a sector aggregate; component fuels are shown separately and must not be summed with Total.",
+                          pack.final.meta.caveats,
+                          pack.flow?.meta.caveats,
+                        ].filter(Boolean) as string[])
+            }
+            dataHref={`/data?record=${
+              view === "geography"
+                ? SUBNATIONAL_ID
+                : view === "end-use"
+                  ? DOMESTIC_END_USE_ID
+                  : view === "useful"
+                    ? PRIMARY_FLOW_ID
+                    : FINAL_CONSUMPTION_ID
+            }`}
+          />
+        }
+      >
+        {view === "appetite" ? (
+          <ConsumptionAppetite
+            rows={finalRows}
+            lens={lens}
+            scope={sector}
+            measure={measure}
+            indexBase={baseY}
+            yearA={yearA}
+            yearB={yearB}
+          />
+        ) : view === "useful" ? (
+          <ConsumptionUseful
+            pack={usefulPack}
+            ambientByYear={ambientByYear}
+            sector={useSector}
+            endUse={usefulEndUse}
+            year={y}
+            assume={assume}
+            overrides={overrides}
+            onOverride={(id, value) => {
+              const next = { ...overrides };
+              if (value == null) delete next[id];
+              else next[id] = value;
+              sync({ effOver: formatOverrides(next) });
+            }}
+            onRestore={() => sync({ effOver: "" })}
+          />
+        ) : view === "geography" ? (
+          <div className={s.stack}>
+            {!pack.geography || geoRanks.length === 0 ? (
+              <EmptyStage label="Subnational geography unavailable">
+                Run the subnational-final-consumption connector and refresh.
+              </EmptyStage>
+            ) : (
+              <div
+                className={`${s.atlasLayout} ${
+                  selectedPlace || region || placeQ.trim() ? "" : s.atlasLayoutMapOnly
+                }`}
+              >
+                <div className={s.atlasMap}>
+                  <RegionMap
+                    size="stage"
+                    data={geoRanks
+                      .filter((r) => r.id.startsWith("E12"))
+                      .map((r) => ({
+                        code: r.id,
+                        value: r.v,
+                        display: intensityOn ? fmtToePerResident(r.v) : fmtKtoe(r.v),
+                      }))}
+                    selected={mapRegion || null}
+                    onSelect={(code) => {
+                      setPlaceQ("");
+                      sync({ region: region === code ? "" : code, place: "" });
+                    }}
+                    label={`Subnational final consumption by English region, ${geoSector}, ${y}${
+                      intensityOn ? ", per resident" : ""
+                    }`}
+                    legendFormat={(v) => (intensityOn ? fmtToePerResident(v) : fmtKtoe(v))}
+                    legendUnit={intensityOn ? "toe/person" : "ktoe (total)"}
+                  />
+                  <p className={s.links}>
+                    Click a region, or search a council. UK total {y}:{" "}
+                    {typeof ukAll === "number" ? fmtKtoe(ukAll) : "—"}.
+                  </p>
+                </div>
+
+                {(selectedPlace || region || placeQ.trim()) && (
+                  <aside className={s.geoPanel} aria-label="Place reading">
+                    <div className={s.geoPanelHead}>
+                      <p className="bo-label">
+                        {y}
+                        {intensityOn ? " · per resident" : " · total"}
+                      </p>
+                      <button
+                        type="button"
+                        className={t.textButton}
+                        onClick={() => {
+                          setPlaceQ("");
+                          sync({ place: "", region: "" });
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </div>
+
+                    {selectedPlace ? (
+                      <>
+                        <h3 className={s.stationName}>{selectedPlace.la}</h3>
+                        {selectedRegionPlace && (
+                          <p className={s.links}>
+                            {selectedRegionPlace.label.replace(/ \(inc unallocated\)/i, "")}
+                          </p>
+                        )}
+                        <p className={s.stationValue}>
+                          <span className="bo-fig">
+                            {intensityOn && selectedPop && typeof selectedKtoe === "number"
+                              ? toePerResident(selectedKtoe, selectedPop.persons).toLocaleString(
+                                  "en-GB",
+                                  { maximumFractionDigits: 2 },
+                                )
+                              : typeof selectedKtoe === "number"
+                                ? (selectedKtoe / 1000).toLocaleString("en-GB", {
+                                    maximumFractionDigits: 2,
+                                  })
+                                : "—"}
+                          </span>
+                          <span className="bo-label">{intensityOn ? "toe/person" : "mtoe"}</span>
+                        </p>
+                        <dl className={s.geoPanelMeta}>
+                          {(
+                            [
+                              ["domestic", "Domestic"],
+                              ["transport", "Transport"],
+                              ["industry-commercial", "Industry & commercial"],
+                            ] as const
+                          ).map(([sec, label]) => {
+                            const ktoe = selectedPlace.sectors[sec]?.[String(y)] ?? 0;
+                            if (ktoe <= 0) return null;
+                            const v =
+                              intensityOn && selectedPop
+                                ? toePerResident(ktoe, selectedPop.persons)
+                                : ktoe / 1000;
+                            return (
+                              <div key={sec}>
+                                <dt>{label}</dt>
+                                <dd>{v.toLocaleString("en-GB", { maximumFractionDigits: 2 })}</dd>
+                              </div>
+                            );
+                          })}
+                          {selectedChangePct != null && !intensityOn && (
+                            <div>
+                              <dt>
+                                Change · {earliestGeo}–{y}
+                              </dt>
+                              <dd>
+                                {selectedChangePct > 0 ? "+" : ""}
+                                {selectedChangePct.toFixed(1)}%
+                              </dd>
+                            </div>
+                          )}
+                          {placeShareOfRegion != null && (
+                            <div>
+                              <dt>Share of region</dt>
+                              <dd>{placeShareOfRegion.toFixed(1)}%</dd>
+                            </div>
+                          )}
+                          {selectedPop && (
+                            <div>
+                              <dt>Residents · mid-{selectedPop.denomYear}</dt>
+                              <dd>{Math.round(selectedPop.persons).toLocaleString("en-GB")}</dd>
+                            </div>
+                          )}
+                        </dl>
+                      </>
+                    ) : region && !placeQ.trim() ? (
+                      <>
+                        <h3 className={s.stationName}>
+                          {selectedRegionPlace?.label.replace(/ \(inc unallocated\)/i, "") ??
+                            "Region"}
+                        </h3>
+                        <p className={s.stationValue}>
+                          <span className="bo-fig">
+                            {(() => {
+                              const row = geoRanks.find((r) => r.id === region);
+                              if (!row) return "—";
+                              return intensityOn
+                                ? row.v.toLocaleString("en-GB", { maximumFractionDigits: 2 })
+                                : (row.v / 1000).toLocaleString("en-GB", {
+                                    maximumFractionDigits: 1,
+                                  });
+                            })()}
+                          </span>
+                          <span className="bo-label">{intensityOn ? "toe/person" : "mtoe"}</span>
+                        </p>
+                        <p className="bo-label">Authorities in this area</p>
+                        {laRanks.length === 0 ? (
+                          <p className={s.links}>No local-authority rows for this selection.</p>
+                        ) : (
+                          <ul className={s.stationList}>
+                            {laRanks.map((r) => (
+                              <li key={r.id}>
+                                <button type="button" onClick={() => openPlace(r.id)}>
+                                  <span>{r.label.replace(/ \([^)]+\)\s*$/, "")}</span>
+                                  <span className="bo-fig">
+                                    {intensityOn
+                                      ? r.v.toLocaleString("en-GB", { maximumFractionDigits: 2 })
+                                      : (r.v / 1000).toLocaleString("en-GB", {
+                                          maximumFractionDigits: 2,
+                                        })}
+                                  </span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <h3 className={s.stationName}>Search</h3>
+                        <p className={s.links}>
+                          {laRanks.length === 0
+                            ? "No matching authorities."
+                            : "Choose a council to open its reading."}
+                        </p>
+                        {laRanks.length > 0 && (
+                          <ul className={s.stationList}>
+                            {laRanks.map((r) => (
+                              <li key={r.id}>
+                                <button type="button" onClick={() => openPlace(r.id)}>
+                                  <span>{r.label}</span>
+                                  <span className="bo-fig">
+                                    {intensityOn
+                                      ? r.v.toLocaleString("en-GB", { maximumFractionDigits: 2 })
+                                      : (r.v / 1000).toLocaleString("en-GB", {
+                                          maximumFractionDigits: 2,
+                                        })}
+                                  </span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    )}
+                  </aside>
+                )}
+              </div>
+            )}
+          </div>
+        ) : view === "end-use" ? (
+          <div className={s.stack}>
+            {endScope === "cross" ? (
+              !pack.crossEndUse || crossRows.length === 0 ? (
+                <EmptyStage label="Cross-sector series unavailable">
+                  Cross-sector end-use data is not loaded yet.
+                </EmptyStage>
+              ) : (
+                <>
+                  <section className={s.panel}>
+                    <h3 className={t.stageTitle}>
+                      {crossEndActive === "all"
+                        ? "Cross-sector end uses · over time · ktoe"
+                        : `${crossEndActive} · over time · ktoe`}
+                    </h3>
+                    <TimeChart
+                      key={`cross-end-${crossEndActive}`}
+                      label={
+                        crossEndActive === "all"
+                          ? "UK end-use consumption across sectors"
+                          : `UK ${crossEndActive} consumption across sectors`
+                      }
+                      series={crossStack}
+                      cadence="annual"
+                      kind={crossEndActive === "all" ? "stack" : "line"}
+                      zero
+                      showTable={false}
+                      format={(v) => fmtKtoe(v)}
+                    />
+                  </section>
+                  {crossEndActive !== "all" && (
+                    <section className={s.panel}>
+                      <h3 className={t.stageTitle}>Who uses it · {crossEndActive} · {y}</h3>
+                      {crossSectors.length > 0 ? (
+                        <RankBars
+                          key={`cross-sectors-${crossEndActive}-${y}`}
+                          label={`${crossEndActive} by sector, ${y}`}
+                          rows={crossSectors.map((r) => ({ id: r.id, label: r.label, v: r.v / 1000 }))}
+                          format={(v) => `${v.toFixed(2)} mtoe`}
+                        />
+                      ) : (
+                        <p className={s.links}>No positive sector rows for this end use in {y}.</p>
+                      )}
+                    </section>
+                  )}
+                </>
+              )
+            ) : !pack.endUse || endUseRows.length === 0 ? (
+              <EmptyStage label="Homes end-use series unavailable">
+                Domestic end-use data is not loaded yet.
+              </EmptyStage>
+            ) : (
+              <>
+                <section className={s.panel}>
+                  <h3 className={t.stageTitle}>
+                    {endUse === "all"
+                      ? "Homes · all end uses · over time · ktoe"
+                      : `${endUse.replace(/\b\w/g, (c) => c.toUpperCase())} in homes · over time · ktoe`}
+                  </h3>
+                  <TimeChart
+                    key={`end-use-${endUse}`}
+                    label={
+                      endUse === "all"
+                        ? "UK domestic energy consumption by end use"
+                        : `UK domestic ${endUse} consumption`
+                    }
+                    series={endStack}
+                    cadence="annual"
+                    kind={endUse === "all" ? "stack" : "line"}
+                    zero
+                    showTable={false}
+                    format={(v) => fmtKtoe(v)}
+                  />
+                </section>
+                {endUse !== "all" && (
+                  <section className={s.panel}>
+                    <h3 className={t.stageTitle}>
+                      Fuels · {endUse.replace(/\b\w/g, (c) => c.toUpperCase())} · {y}
+                    </h3>
+                    {endFuels.length > 0 ? (
+                      <RankBars
+                        key={`end-fuels-${endUse}-${y}`}
+                        label={`Domestic ${endUse} by fuel, ${y}`}
+                        rows={endFuels.map((f) => ({ id: f.id, label: f.label, v: f.v / 1000 }))}
+                        format={(v) => `${v.toFixed(2)} mtoe`}
+                      />
+                    ) : (
+                      <p className={s.links}>
+                        No fuel split for this end use in {y}. Some early years leave appliances or fuels
+                        unpublished — try a later year.
+                      </p>
+                    )}
+                  </section>
+                )}
+              </>
+            )}
+          </div>
+        ) : view === "metabolism" ? (
+          <div className={s.stack}>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                {sector === "all-final"
+                  ? `Final consumption by sector · ${measure === "share" ? "share of all final users" : "ktoe"}`
+                  : `${sectorLabel} · ${measure === "share" ? "share of all final users" : "ktoe"}`}
+              </h3>
+              <TimeChart
+                key={`metabolism-${sector}-${measure}`}
+                label={
+                  sector === "all-final"
+                    ? "UK final energy consumption by sector"
+                    : `UK final energy consumption · ${sectorLabel}`
+                }
+                series={stack}
+                cadence="annual"
+                kind={sector === "all-final" ? "stack" : "line"}
+                zero
+                showTable={false}
+                format={(v) => (measure === "share" ? `${(v * 100).toFixed(0)}%` : fmtKtoe(v))}
+              />
+            </section>
+
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Fuels · {SECTORS.find((x) => x.id === fuelSector)?.label} · {y} · ktoe
+                {sector === "all-final" ? " (domestic shown — pick a fuel sector above)" : ""}
+              </h3>
+              {fuels.length > 0 ? (
+                <RankBars
+                  key={`fuels-${fuelSector}-${y}`}
+                  label={`Final consumption by fuel, ${fuelSector}, ${y}`}
+                  rows={fuels.map((f) => ({ id: f.id, label: f.label, v: f.v / 1000 }))}
+                  format={(v) => `${v.toFixed(2)} mtoe`}
+                />
+              ) : (
+                <p className={t.stageTitle}>No positive fuel rows for this sector and year.</p>
+              )}
+            </section>
+
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Primary allocation · W1 · {y >= W1_FROM ? y : `from ${W1_FROM}`}
+              </h3>
+              {y >= W1_FROM && flow.length > 0 ? (
+                <>
+                  <RankBars
+                    key={`flow-${y}`}
+                    label={`Primary energy allocation by destination, ${y}`}
+                    rows={flow.map((f) => ({
+                      id: f.id,
+                      label: f.label,
+                      v: Math.abs(f.v) / 1000,
+                    }))}
+                    format={(v) => `${v.toFixed(1)} mtoe`}
+                  />
+                  <p className={s.links}>
+                    Stages in ECUK order: {FLOW_STAGES.join(" · ")}. Transfers can be signed in the source —
+                    bars use magnitude for reading; see Notes. This strip is national — Fuel sector does not
+                    filter it.
+                  </p>
+                </>
+              ) : (
+                <p className={s.links}>
+                  Table W1 starts in {W1_FROM}. Choose a year from {W1_FROM} onward for the primary allocation
+                  strip. Final consumption (C1) covers {earliest}–{latest}.
+                </p>
+              )}
+              {pack.flow && (
+                <p className={s.links}>
+                  <a href={`/data?record=${PRIMARY_FLOW_ID}`}>Catalogue · W1</a>
+                </p>
+              )}
+            </section>
+          </div>
+        ) : (
+          <ConsumptionData pack={pack} series={dataSeries} year={y} geoSector={geoSector} />
+        )}
+      </Stage>
+    </>
+  );
+}

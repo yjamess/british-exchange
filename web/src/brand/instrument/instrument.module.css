@@ -1,51 +1,211 @@
-/* v1 instrument charts — ink line-work, dot-screen fills, Signal on the latest point. */
+/* v1 chart template — clean line-work, statistical range bands, muted chart tones, a labelled open ring on the latest point. */
 
 .figure { margin: 0; display: grid; gap: var(--bo-s3); min-width: 0; }
 .plot { position: relative; min-width: 0; outline: none; touch-action: pan-y; }
 .plot:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 4px; }
 .plot svg { display: block; overflow: visible; }
 
-.grid { stroke: var(--bo-ink-20); stroke-width: 1; stroke-dasharray: 1 4; }
+.grid { stroke: var(--bo-ink-10); stroke-width: 1; }
 .zero { stroke: var(--bo-ink); stroke-width: 1; }
 .axis { stroke: var(--bo-ink); stroke-width: 1; }
-.tick { font-family: var(--bo-f-data); font-size: 10px; fill: var(--bo-text); font-variant-numeric: tabular-nums; }
-.endLabel { font-family: var(--bo-f-data); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
-.stackLabel { font-family: var(--bo-f-data); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+.rule line { stroke: var(--bo-ink-20); stroke-width: 1; }
+.ruleActive line { stroke: var(--bo-ink); stroke-width: 1; stroke-dasharray: 3 3; }
+.ruleActive text { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); letter-spacing: 0.06em; text-transform: uppercase; fill: var(--bo-ink); }
+.tick { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); fill: var(--bo-text); font-variant-numeric: tabular-nums; }
+.endLabel { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); letter-spacing: 0.06em; text-transform: uppercase; fill: var(--bo-text); }
+.latestValue { font-family: var(--bo-f-fig); font-stretch: var(--bo-fig-wdth); font-weight: 400; font-size: var(--bo-t-fig); fill: var(--bo-ink); font-variant-numeric: tabular-nums; }
+.latest { pointer-events: none; }
+.leader { fill: none; stroke: var(--bo-ink-40); stroke-width: 1; }
+.latestKey { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; fill: var(--bo-ink); }
+.stackLabel { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); letter-spacing: 0.06em; text-transform: uppercase; }
 .cursor { stroke: var(--bo-ink); stroke-width: 1; }
 
 .readout {
-  position: absolute; top: 6px; width: 200px; pointer-events: none;
+  position: absolute; top: 6px; width: 228px; pointer-events: none;
   display: grid; gap: 4px; padding: 10px 12px;
   background: var(--bo-paper); color: var(--bo-ink); border: var(--bo-rule);
 }
-.readRow { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--bo-text); }
-.readRow b { color: var(--bo-ink); font-weight: 500; }
+.readout[data-rich="true"] { width: 280px; }
+/* Stack hover includes "mtoe · %" — keep that value on one line. */
+.readout[data-stack="true"] { width: 300px; }
+.readRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+.readRow b {
+  color: var(--bo-ink);
+  font-weight: 500;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
 
-.legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--bo-f-data); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-.legend li { display: inline-flex; align-items: center; gap: 6px; }
-.legend i { width: 14px; height: 2px; display: inline-block; }
+/* Open key under the plot — swatch + name (+ optional latest). Never a boxed card. */
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bo-text);
+}
+.legend li { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.legend i { width: 14px; height: 2px; display: inline-block; flex: 0 0 auto; }
+.legend[data-dense="true"] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 4px 16px;
+}
+.legend[data-dense="true"] i { width: 10px; height: 10px; }
+.legend[data-dense="true"] span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend[data-dense="true"] b {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 400;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
 
 .table { border-top: var(--bo-hair); padding-top: var(--bo-s3); }
-.table summary { cursor: pointer; width: fit-content; }
 .tableScroll { max-height: 320px; overflow: auto; margin-top: var(--bo-s3); border: var(--bo-hair); }
-.table table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-.table th, .table td { text-align: right; padding: 6px 10px; border-bottom: var(--bo-hair); white-space: nowrap; }
-.table th:first-child { text-align: left; }
-.table thead th { position: sticky; top: 0; background: var(--bo-paper); font-family: var(--bo-f-data); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+.table table { width: 100%; border-collapse: collapse; font-size: var(--bo-t-note); font-variant-numeric: tabular-nums; }
+.table th, .table td { text-align: right; vertical-align: bottom; padding: 6px 10px; border-bottom: var(--bo-hair); white-space: nowrap; }
+.table th:first-child, .table td:first-child { text-align: left; }
+.table thead th { position: sticky; top: 0; background: var(--bo-paper); font-family: var(--bo-f-data); font-size: var(--bo-t-micro); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+.table thead th:not(:first-child) { padding-right: calc(10px - 0.06em); }
 .table tbody th { font-weight: 400; color: var(--bo-text); }
 
 /* Ranked bars */
 .rank { margin: 0; display: grid; gap: 2px; }
-.rankRow { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) 6.5rem; gap: var(--bo-s4); align-items: center; padding: 6px 0; border-bottom: var(--bo-hair); font-size: 14px; color: var(--bo-text); }
-.rankRow b { text-align: right; font-size: 22px; color: var(--bo-ink); }
-.rankTrack { position: relative; height: 14px; }
-.rankTrack i { position: absolute; inset: 0 auto 0 0; background-image: radial-gradient(circle, var(--bo-ink) 1.6px, transparent 2px); background-size: 5px 5px; }
+/* Name + value columns hug their content so the bar track takes the rest of the stage width. */
+.rankRow { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: var(--bo-s4); align-items: center; padding: 6px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-ui); color: var(--bo-text); }
+.rankButton {
+  appearance: none;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-bottom: var(--bo-hair);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  /* `font` is a shorthand, so this resets font-size too. Put the row size back. */
+  font: inherit;
+  font-size: var(--bo-t-ui);
+}
+.rankButton:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 2px; }
+.rankRow b { text-align: right; font-size: var(--bo-t-fig); color: var(--bo-ink); }
+.rankTrack { position: relative; height: 10px; }
+.rankTrack i { position: absolute; inset: 0 auto 0 0; background: var(--bo-ink); }
 .rankActive .rankTrack i { background: var(--bo-ink); }
 .rankActive span:first-child { color: var(--bo-ink); font-weight: 500; }
 .rankTrack em { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1px dashed var(--bo-ink); }
 .rank figcaption { margin-top: var(--bo-s3); }
 
 @media (max-width: 560px) {
-  .rankRow { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr) 5rem; font-size: 13px; }
-  .rankRow b { font-size: 18px; }
+  .rankRow { grid-template-columns: max-content minmax(0, 1fr) max-content; gap: var(--bo-s3); font-size: var(--bo-t-note); }
+  .rankRow b { font-size: var(--bo-t-fig-s); }
 }
+.empty { display: grid; place-content: center; justify-items: start; gap: var(--bo-s2); border: 1px dashed var(--bo-ink-40); padding: var(--bo-s5); }
+.empty p { margin: 0; max-width: 42ch; font-size: var(--bo-t-ui); line-height: 1.45; color: var(--bo-text); }
+.empty :global(.bo-label) { color: var(--bo-ink); }
+
+/* Start → latest rows (ChangeRows) */
+.change { margin: 0; display: grid; gap: 0; }
+.changeKey { display: flex; align-items: center; gap: var(--bo-s5); padding-bottom: var(--bo-s3); font-family: var(--bo-f-data); font-size: var(--bo-t-micro); letter-spacing: 0.08em; text-transform: uppercase; color: var(--bo-text); }
+/* Block box, same as the track. A flex item here paints the square as a hairline. */
+.changeKeyItem { position: relative; display: inline-block; padding-left: 16px; line-height: 14px; }
+.changeKeyItem .changeFrom, .changeKeyItem .changeTo { left: 0; margin-left: 0; }
+.changeRow { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) max-content; gap: var(--bo-s4); align-items: center; padding: 7px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-ui); color: var(--bo-text); }
+.changeRow:last-child { border-bottom: 0; padding-top: 4px; }
+.changeRef { border-bottom: var(--bo-rule); }
+.changeRef .changeName { color: var(--bo-ink); font-weight: 500; }
+.changeTrack { position: relative; height: 14px; min-width: 0; }
+.changeTrack em { position: absolute; top: -7px; bottom: -7px; width: 0; border-left: 1px solid var(--bo-ink-10); }
+.changeRule { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: var(--bo-ink-40); }
+/* Square marks — brand charts never use circles or rounded corners. */
+.changeFrom, .changeTo { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 0; box-sizing: border-box; }
+.changeFrom { background: var(--bo-paper); border: 1.5px solid var(--bo-ink); }
+.changeTo { background: var(--bo-ink); }
+/* End figures stay on one line — a fixed 9rem column was clipping "33.7 TWh" onto two rows. */
+.changeValues { display: flex; justify-content: flex-end; align-items: baseline; gap: 6px; flex-shrink: 0; white-space: nowrap; font-variant-numeric: tabular-nums; font-size: var(--bo-t-note); }
+.changeValues b { font-size: var(--bo-t-fig); font-weight: 400; color: var(--bo-ink); white-space: nowrap; }
+.changeScale { position: relative; height: 14px; font-family: var(--bo-f-data); font-size: var(--bo-t-micro); color: var(--bo-text); }
+.changeScale span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.changeScale span[data-edge="start"] { transform: translateX(0); }
+.changeScale span[data-edge="end"] { transform: translateX(-100%); }
+@media (max-width: 560px) {
+  .changeRow { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr) max-content; font-size: var(--bo-t-note); }
+  .changeValues span { display: none; }
+  .changeValues b { font-size: var(--bo-t-fig-s); }
+}
+
+/* Shared clean-line controls and accessible context. */
+.seriesControls { display:flex; flex-wrap:wrap; gap:6px; }
+.seriesControls button { font:inherit; font-size:var(--bo-t-note); border:1px solid var(--bo-ink); color:var(--bo-ink); background:var(--bo-paper); padding:7px 10px; cursor:pointer; }
+.seriesControls button[aria-pressed="true"] { color:var(--bo-paper); background:var(--bo-ink); }
+.seriesControls button:focus-visible { outline:2px solid var(--bo-signal); outline-offset:3px; }
+.readName {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.readName i { width: 10px; height: 10px; flex-shrink: 0; }
+
+/* ——— EventRail: dated events on a chart's time axis ——— */
+.rail { position: relative; min-width: 0; }
+.railAxis { position: absolute; top: 0; height: 0; border-top: var(--bo-rule); }
+.railMark {
+  position: absolute;
+  appearance: none;
+  width: 7px;
+  margin-left: -3px;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.railMark i {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  width: 1px;
+  background: var(--bo-ink-40);
+}
+.railMark span {
+  position: absolute;
+  left: 3px;
+  transform: translateX(-50%);
+  padding: 1px 4px;
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.04em;
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.railMark[data-kind="programme"] span,
+.railMark[data-kind="institution"] span { border-style: dashed; }
+.railMark[data-kind="statutory_instrument"] span { border-style: dotted; }
+.railMark:hover i,
+.railMark[aria-pressed="true"] i { background: var(--bo-ink); }
+.railMark[aria-pressed="true"] span { background: var(--bo-ink); color: var(--bo-paper); }
+.railMark:focus-visible { outline: none; }
+.railMark:focus-visible span { outline: 2px solid var(--bo-signal); outline-offset: 2px; }

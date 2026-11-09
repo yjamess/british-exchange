@@ -1,0 +1,48 @@
+indicator_id: manufacturing-iop-by-division
+title: Manufacturing IoP by SIC division / subsection
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction/current
+series_id: DIOP-Section-C-CVMSA
+geography: United Kingdom (K02000001)
+frequency: monthly
+unit: index (chained volume, SA; base year = 100)
+definition: UK Index of Production chained-volume seasonally adjusted indices for
+  SIC 2007 Section C manufacturing **subsections** CA–CM and **divisions** 10–33 (ONS
+  DIOP multi-series CSV). Distinct from Ready headline Section C series K22A (manufacturing-output-index)
+  — that pipeline is not forked.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_iop_by_division
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Index of Production / DIOP dataset)
+raw_evidence:
+- path: raw/2026-11-07/diop.csv
+  retrieved_at: '2026-11-07T15:34:42.394705+00:00'
+  checksum_sha256: 9ccd31271f98f97340a62f6ac207c8fbf2ef83f5c0a2c11d054e612b7a76e7a0
+  content_type: text/csv;charset=utf-8
+  official_release_date: '2026-10-15'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/economicoutputandproductivity/output/datasets/indexofproduction/current/diop.csv
+transformations: Download DIOP current CSV. Select explicit CDID catalogue of Section
+  C subsection + division CVMSA series (exclude K22A). Keep monthly period rows only
+  (YYYY MON). Map to ISO month bounds; geography K02000001. notes carry series=, classification=,
+  sic=, label=. observation_status=provisional.
+revision_notes: IoP revises each monthly release and at Blue Book / annual chain-linking.
+  Base year moves with Blue Book. Re-pin DIOP CSV on re-ingest; compare checksums.
+  Catalogue CDIDs are pinned in connector source — new ONS breaks need an explicit
+  add.
+caveats: 'SIC honesty: curated breaks are ONS-published CVMSA titles for subsections
+  CA–CM and divisions 10–33. Divisions 11 and 12 are **not** published separately
+  as CVMSA in DIOP; ONS publishes combined 11+12 (CDID DM4H) — labelled classification=combined_division.
+  Finer group/class series (e.g. 10.1, 20A) and non-index series (weights, growth
+  rates, turnover £m, NSA) are out of scope. Headline Section C (K22A) is Ready elsewhere.
+  Index levels are not growth rates.'
+related_indicator_ids:
+- manufacturing-output-index
+open_questions:
+- 'Optional Gate 3+: add selected 3-digit / ONS group CVMSA series for Production
+  Anatomy cells once Validation accepts spine.'
+- Confirm Blue Book base-year label in unit string on next BB.
+notion_registry_url: ''
+schema_version: '1.0'

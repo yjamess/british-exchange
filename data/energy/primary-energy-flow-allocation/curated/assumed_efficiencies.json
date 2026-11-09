@@ -1,0 +1,2292 @@
+{
+  "source": "ECUK_2026_Whole_energy_flow_tables.xlsx \u00b7 Assumed Efficiencies, Tables W2\u2013W4, Notes",
+  "status": "Official Statistics in Development \u2014 modelled coefficients",
+  "year": 2025,
+  "sector_scope": "domestic, services, industry, transport",
+  "note": "Published assumed efficiencies applied to allocated consumption (Note 3). Not measured losses. Heat pump useful energy includes ambient heat (Note 2). User scenarios are not DESNZ statistics.",
+  "rows": [
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Solid fuels",
+      "fuel_or_tech": "Solid fuels",
+      "consumption_ktoe": 124.49249725975596,
+      "efficiency": 0.78,
+      "useful_ktoe": 97.10414786260965,
+      "rejected_ktoe": 27.38834939714631,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 15989.77689105139,
+      "efficiency": 0.92,
+      "useful_ktoe": 14710.594739767279,
+      "rejected_ktoe": 1279.1821512841104,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Heat pumps",
+      "fuel_or_tech": "Heat pumps",
+      "consumption_ktoe": 196.03542488291652,
+      "efficiency": 2.8,
+      "useful_ktoe": 548.8991896721662,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Other heating",
+      "fuel_or_tech": "Other heating",
+      "consumption_ktoe": 1069.8041873492216,
+      "efficiency": 1.0,
+      "useful_ktoe": 1069.8041873492216,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 1853.5396617419754,
+      "efficiency": 0.84,
+      "useful_ktoe": 1556.9733158632591,
+      "rejected_ktoe": 296.5663458787161,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Heat sold",
+      "fuel_or_tech": "Heat sold",
+      "consumption_ktoe": 272.96,
+      "efficiency": 1.0,
+      "useful_ktoe": 272.96,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Space heating",
+      "heading": "Space heating",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Bioenergy & waste",
+      "consumption_ktoe": 1160.077257055092,
+      "efficiency": 0.84,
+      "useful_ktoe": 974.4648959262773,
+      "rejected_ktoe": 185.61236112881477,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "heading": "Water Heating",
+      "fuel": "Solid fuels",
+      "fuel_or_tech": "Solid fuels",
+      "consumption_ktoe": 3.7675027402440255,
+      "efficiency": 0.78,
+      "useful_ktoe": 2.93865213739034,
+      "rejected_ktoe": 0.8288506028536855,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "heading": "Water Heating",
+      "fuel": "Gas",
+      "fuel_or_tech": "Gas",
+      "consumption_ktoe": 4759.987644831963,
+      "efficiency": 0.92,
+      "useful_ktoe": 4379.188633245406,
+      "rejected_ktoe": 380.79901158655684,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "heading": "Water Heating",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 345.117161935881,
+      "efficiency": 1.0,
+      "useful_ktoe": 345.117161935881,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "heading": "Water Heating",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 450.89033825802454,
+      "efficiency": 0.84,
+      "useful_ktoe": 378.7478841367406,
+      "rejected_ktoe": 72.14245412128395,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "heading": "Water Heating",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Bioenergy & waste",
+      "consumption_ktoe": 345.34274294490797,
+      "efficiency": 0.84,
+      "useful_ktoe": 290.08790407372265,
+      "rejected_ktoe": 55.254838871185285,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Gas hobs",
+      "consumption_ktoe": 442.4719267219586,
+      "efficiency": 0.4,
+      "useful_ktoe": 176.98877068878346,
+      "rejected_ktoe": 265.48315603317513,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Gas ovens",
+      "consumption_ktoe": 334.3935373946903,
+      "efficiency": 0.83,
+      "useful_ktoe": 277.546636037593,
+      "rejected_ktoe": 56.846901357097366,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electric oven",
+      "consumption_ktoe": 200.83821558329592,
+      "efficiency": 0.775,
+      "useful_ktoe": 155.64961707705433,
+      "rejected_ktoe": 45.188598506241576,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electric hob",
+      "consumption_ktoe": 283.04407194163275,
+      "efficiency": 0.74,
+      "useful_ktoe": 209.45261323680825,
+      "rejected_ktoe": 73.59145870482452,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Induction hob",
+      "consumption_ktoe": 34.30837235656161,
+      "efficiency": 0.85,
+      "useful_ktoe": 29.16211650307737,
+      "rejected_ktoe": 5.146255853484242,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Microwave",
+      "consumption_ktoe": 39.708439900131495,
+      "efficiency": 0.57,
+      "useful_ktoe": 22.63381074307495,
+      "rejected_ktoe": 17.074629157056545,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Kettle",
+      "consumption_ktoe": 155.7640298326854,
+      "efficiency": 0.8,
+      "useful_ktoe": 124.61122386614832,
+      "rejected_ktoe": 31.152805966537073,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "heading": "Cooking",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Air fryer",
+      "consumption_ktoe": 21.115359011058516,
+      "efficiency": 0.9116382087628866,
+      "useful_ktoe": 19.24956806622666,
+      "rejected_ktoe": 1.865790944831854,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Standard light bulb",
+      "consumption_ktoe": 0.0,
+      "efficiency": 0.1,
+      "useful_ktoe": 0.0,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Halogen",
+      "consumption_ktoe": 184.9899514357166,
+      "efficiency": 0.035,
+      "useful_ktoe": 6.474648300250081,
+      "rejected_ktoe": 178.5153031354665,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Fluorescent strip lighting",
+      "consumption_ktoe": 6.437379262415045,
+      "efficiency": 0.24,
+      "useful_ktoe": 1.5449710229796108,
+      "rejected_ktoe": 4.892408239435435,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Energy saving light bulb",
+      "consumption_ktoe": 6.437379262415045,
+      "efficiency": 0.2,
+      "useful_ktoe": 1.2874758524830092,
+      "rejected_ktoe": 5.149903409932037,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "LED",
+      "consumption_ktoe": 140.9447249034031,
+      "efficiency": 0.9,
+      "useful_ktoe": 126.8502524130628,
+      "rejected_ktoe": 14.094472490340308,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Desktops",
+      "consumption_ktoe": 111.72410604685331,
+      "efficiency": 0.84,
+      "useful_ktoe": 93.84824907935678,
+      "rejected_ktoe": 17.87585696749653,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Laptops",
+      "consumption_ktoe": 323.99990753587457,
+      "efficiency": 0.84,
+      "useful_ktoe": 272.15992233013463,
+      "rejected_ktoe": 51.83998520573994,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Monitors",
+      "consumption_ktoe": 55.862053023426654,
+      "efficiency": 0.84,
+      "useful_ktoe": 46.92412453967839,
+      "rejected_ktoe": 8.937928483748266,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Printers",
+      "consumption_ktoe": 11.17241060468533,
+      "efficiency": 0.62,
+      "useful_ktoe": 6.926894574904905,
+      "rejected_ktoe": 4.2455160297804255,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "MFDs",
+      "consumption_ktoe": 55.862053023426654,
+      "efficiency": 0.84,
+      "useful_ktoe": 46.92412453967839,
+      "rejected_ktoe": 8.937928483748266,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "TV",
+      "consumption_ktoe": 234.62062269839194,
+      "efficiency": 0.84,
+      "useful_ktoe": 197.08132306664922,
+      "rejected_ktoe": 37.539299631742715,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Set top box",
+      "consumption_ktoe": 145.24133786090928,
+      "efficiency": 0.84,
+      "useful_ktoe": 122.00272380316379,
+      "rejected_ktoe": 23.23861405774549,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "DVD/VCR",
+      "consumption_ktoe": 78.20687423279732,
+      "efficiency": 0.84,
+      "useful_ktoe": 65.69377435554975,
+      "rejected_ktoe": 12.513099877247573,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Games consoles",
+      "consumption_ktoe": 189.93098027965064,
+      "efficiency": 0.84,
+      "useful_ktoe": 159.54202343490653,
+      "rejected_ktoe": 30.388956844744108,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Power supply units",
+      "consumption_ktoe": 184.34477497730796,
+      "efficiency": 0.84,
+      "useful_ktoe": 154.84961098093868,
+      "rejected_ktoe": 29.49516399636928,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Chest freezer",
+      "consumption_ktoe": 189.93098027965064,
+      "efficiency": 0.37,
+      "useful_ktoe": 70.27446270347073,
+      "rejected_ktoe": 119.65651757617991,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Fridge freezer",
+      "consumption_ktoe": 983.1721332123091,
+      "efficiency": 0.37,
+      "useful_ktoe": 363.77368928855435,
+      "rejected_ktoe": 619.3984439237547,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Refrigerator",
+      "consumption_ktoe": 117.31031134919597,
+      "efficiency": 0.84,
+      "useful_ktoe": 98.54066153332461,
+      "rejected_ktoe": 18.769649815871357,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Upright freezer",
+      "consumption_ktoe": 262.55164921010527,
+      "efficiency": 0.37,
+      "useful_ktoe": 97.14411020773895,
+      "rejected_ktoe": 165.40753900236632,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Washing machine",
+      "consumption_ktoe": 1111.6548551661904,
+      "efficiency": 0.77,
+      "useful_ktoe": 855.9742384779667,
+      "rejected_ktoe": 255.68061668822378,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Washer-dryer",
+      "consumption_ktoe": 245.79303330307727,
+      "efficiency": 0.77,
+      "useful_ktoe": 189.2606356433695,
+      "rejected_ktoe": 56.53239765970777,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Dishwasher",
+      "consumption_ktoe": 575.3791461412944,
+      "efficiency": 0.83,
+      "useful_ktoe": 477.56469129727435,
+      "rejected_ktoe": 97.81445484402008,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "heading": "Appliances",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Tumble dryer",
+      "consumption_ktoe": 709.4480733975184,
+      "efficiency": 0.5,
+      "useful_ktoe": 354.7240366987592,
+      "rejected_ktoe": 354.7240366987592,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 60.19,
+      "efficiency": 0.92,
+      "useful_ktoe": 55.3748,
+      "rejected_ktoe": 4.815199999999997,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Fluorescent strip lighting",
+      "consumption_ktoe": 169.275,
+      "efficiency": 0.28,
+      "useful_ktoe": 47.397000000000006,
+      "rejected_ktoe": 121.878,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Electricity",
+      "fuel_or_tech": "LED strip lighting",
+      "consumption_ktoe": 169.275,
+      "efficiency": 0.9,
+      "useful_ktoe": 152.3475,
+      "rejected_ktoe": 16.9275,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Bioenergy & waste",
+      "consumption_ktoe": 62.53,
+      "efficiency": 0.84,
+      "useful_ktoe": 52.5252,
+      "rejected_ktoe": 10.004800000000001,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 856.24,
+      "efficiency": 0.3,
+      "useful_ktoe": 256.872,
+      "rejected_ktoe": 599.3679999999999,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "heading": "Agriculture",
+      "fuel": "Heat sold",
+      "fuel_or_tech": "Heat sold",
+      "consumption_ktoe": 25.6,
+      "efficiency": 1.0,
+      "useful_ktoe": 25.6,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "heading": "Heating",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 687.7395138241118,
+      "efficiency": 1.0,
+      "useful_ktoe": 687.7395138241118,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "heading": "Heating",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 6216.768461918494,
+      "efficiency": 0.92,
+      "useful_ktoe": 5719.4269849650145,
+      "rejected_ktoe": 497.34147695347923,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "heading": "Heating",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 2064.272478377463,
+      "efficiency": 0.84,
+      "useful_ktoe": 1733.9888818370687,
+      "rejected_ktoe": 330.2835965403941,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "heading": "Heating",
+      "fuel": "District heating",
+      "fuel_or_tech": "District heating",
+      "consumption_ktoe": 255.91818865517584,
+      "efficiency": 1.0,
+      "useful_ktoe": 255.91818865517584,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "heading": "Heating",
+      "fuel": "Other",
+      "fuel_or_tech": "Other",
+      "consumption_ktoe": 1022.5117903158933,
+      "efficiency": 0.92,
+      "useful_ktoe": 940.7108470906219,
+      "rejected_ktoe": 81.80094322527142,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot Water",
+      "heading": "Hot Water",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 145.95257351637696,
+      "efficiency": 1.0,
+      "useful_ktoe": 145.95257351637696,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot Water",
+      "heading": "Hot Water",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 825.1628046939197,
+      "efficiency": 0.92,
+      "useful_ktoe": 759.1497803184062,
+      "rejected_ktoe": 66.01302437551354,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot Water",
+      "heading": "Hot Water",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 342.89904999027397,
+      "efficiency": 0.84,
+      "useful_ktoe": 288.0352019918301,
+      "rejected_ktoe": 54.863847998443845,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot Water",
+      "heading": "Hot Water",
+      "fuel": "District heating",
+      "fuel_or_tech": "District heating",
+      "consumption_ktoe": 16.91000500644173,
+      "efficiency": 1.0,
+      "useful_ktoe": 16.91000500644173,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot Water",
+      "heading": "Hot Water",
+      "fuel": "Other",
+      "fuel_or_tech": "Other",
+      "consumption_ktoe": 132.39571501636846,
+      "efficiency": 0.94,
+      "useful_ktoe": 124.45197211538634,
+      "rejected_ktoe": 7.943742900982114,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Cooling & humidification",
+      "heading": "Cooling & humidification",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 447.34772570320877,
+      "efficiency": 1.0,
+      "useful_ktoe": 447.34772570320877,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Cooling & humidification",
+      "heading": "Cooling & humidification",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 2.589917946464176,
+      "efficiency": 0.84,
+      "useful_ktoe": 2.175531075029908,
+      "rejected_ktoe": 0.4143868714342683,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Cooling & humidification",
+      "heading": "Cooling & humidification",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 58.22261832944815,
+      "efficiency": 0.84,
+      "useful_ktoe": 48.906999396736445,
+      "rejected_ktoe": 9.315618932711706,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Cooling & humidification",
+      "heading": "Fans",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 510.7857894948613,
+      "efficiency": 0.45,
+      "useful_ktoe": 229.8536052726876,
+      "rejected_ktoe": 280.93218422217376,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Offices - T12",
+      "consumption_ktoe": 25.90512293169044,
+      "efficiency": 0.24,
+      "useful_ktoe": 6.217229503605705,
+      "rejected_ktoe": 19.687893428084735,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Offices - T5",
+      "consumption_ktoe": 857.8944725626269,
+      "efficiency": 0.24,
+      "useful_ktoe": 205.89467341503044,
+      "rejected_ktoe": 651.9997991475965,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Offices - T8 halogen Tri AV",
+      "consumption_ktoe": 372.093730301824,
+      "efficiency": 0.04,
+      "useful_ktoe": 14.88374921207296,
+      "rejected_ktoe": 357.209981089751,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Offices - T8 halogen Tri B1",
+      "consumption_ktoe": 233.68095668140472,
+      "efficiency": 0.04,
+      "useful_ktoe": 9.34723826725619,
+      "rejected_ktoe": 224.33371841414854,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - compact fluorescent",
+      "consumption_ktoe": 2.7336792916444996,
+      "efficiency": 0.28,
+      "useful_ktoe": 0.7654302016604599,
+      "rejected_ktoe": 1.9682490899840397,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - halogen",
+      "consumption_ktoe": 2.987598119129266,
+      "efficiency": 0.04,
+      "useful_ktoe": 0.11950392476517065,
+      "rejected_ktoe": 2.8680941943640956,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - LED",
+      "consumption_ktoe": 1.5559281343747362,
+      "efficiency": 0.92,
+      "useful_ktoe": 1.4314538836247575,
+      "rejected_ktoe": 0.12447425074997884,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - mercury high pressure",
+      "consumption_ktoe": 0.021610112977426935,
+      "efficiency": 0.34,
+      "useful_ktoe": 0.007347438412325159,
+      "rejected_ktoe": 0.014262674565101776,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - metal halide",
+      "consumption_ktoe": 14.127611358992805,
+      "efficiency": 0.34,
+      "useful_ktoe": 4.803387862057554,
+      "rejected_ktoe": 9.32422349693525,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - sodium high pressure",
+      "consumption_ktoe": 86.14331285626803,
+      "efficiency": 0.45,
+      "useful_ktoe": 38.76449078532061,
+      "rejected_ktoe": 47.378822070947415,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - sodium high pressure - new",
+      "consumption_ktoe": 6.682927438269262,
+      "efficiency": 0.45,
+      "useful_ktoe": 3.007317347221168,
+      "rejected_ktoe": 3.675610091048094,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "heading": "Lighting",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Street lighting - sodium low pressure",
+      "consumption_ktoe": 28.179587322564572,
+      "efficiency": 0.45,
+      "useful_ktoe": 12.680814295154057,
+      "rejected_ktoe": 15.498773027410516,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Catering",
+      "heading": "Catering",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 685.567598110224,
+      "efficiency": 0.66,
+      "useful_ktoe": 452.47461475274787,
+      "rejected_ktoe": 233.09298335747616,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Catering",
+      "heading": "Catering",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 603.4785359071399,
+      "efficiency": 0.86,
+      "useful_ktoe": 518.9915408801403,
+      "rejected_ktoe": 84.4869950269996,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Catering",
+      "heading": "Catering",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 363.5321571957742,
+      "efficiency": 0.84,
+      "useful_ktoe": 305.3670120444503,
+      "rejected_ktoe": 58.16514515132388,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Small power",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 477.00088356692646,
+      "efficiency": 0.785,
+      "useful_ktoe": 374.44569360003726,
+      "rejected_ktoe": 102.55518996688917,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "ICT equipment",
+      "heading": "ICT equipment",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 743.2150972128019,
+      "efficiency": 0.84,
+      "useful_ktoe": 624.3006816587535,
+      "rejected_ktoe": 118.91441555404832,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Cooled storage",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 1048.0890973787077,
+      "efficiency": 0.37,
+      "useful_ktoe": 387.7929660301219,
+      "rejected_ktoe": 660.2961313485858,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Other",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 768.0151840917036,
+      "efficiency": 0.27,
+      "useful_ktoe": 207.36409970476,
+      "rejected_ktoe": 560.6510843869437,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Other",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Natural gas",
+      "consumption_ktoe": 631.360279533983,
+      "efficiency": 0.92,
+      "useful_ktoe": 580.8514571712643,
+      "rejected_ktoe": 50.50882236271861,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Other",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Petroleum products",
+      "consumption_ktoe": 67.45690410558444,
+      "efficiency": 0.84,
+      "useful_ktoe": 56.66379944869093,
+      "rejected_ktoe": 10.793104656893513,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Other",
+      "fuel": "District heating",
+      "fuel_or_tech": "District heating",
+      "consumption_ktoe": 38.74206392443013,
+      "efficiency": 1.0,
+      "useful_ktoe": 38.74206392443013,
+      "rejected_ktoe": 0.0,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "heading": "Other",
+      "fuel": "Other",
+      "fuel_or_tech": "Other",
+      "consumption_ktoe": 220.46249466773855,
+      "efficiency": 0.78,
+      "useful_ktoe": 171.96074584083607,
+      "rejected_ktoe": 48.50174882690248,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Iron and steel",
+      "heading": "Iron and steel",
+      "fuel": null,
+      "fuel_or_tech": "Iron and steel",
+      "consumption_ktoe": 409.59,
+      "efficiency": 0.54,
+      "useful_ktoe": 221.1786,
+      "rejected_ktoe": 188.4114,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Non-ferrous metals",
+      "heading": "Non-ferrous metals",
+      "fuel": null,
+      "fuel_or_tech": "Non-ferrous metals",
+      "consumption_ktoe": 421.63,
+      "efficiency": 0.49,
+      "useful_ktoe": 206.5987,
+      "rejected_ktoe": 215.0313,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Mineral products",
+      "heading": "Mineral products",
+      "fuel": null,
+      "fuel_or_tech": "Mineral products",
+      "consumption_ktoe": 2177.0699999999997,
+      "efficiency": 0.48,
+      "useful_ktoe": 1044.9935999999998,
+      "rejected_ktoe": 1132.0764,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Chemicals",
+      "heading": "Chemicals",
+      "fuel": null,
+      "fuel_or_tech": "Chemicals",
+      "consumption_ktoe": 2337.9999999999995,
+      "efficiency": 0.63,
+      "useful_ktoe": 1472.9399999999998,
+      "rejected_ktoe": 865.0599999999998,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Mechanical engineering etc",
+      "heading": "Mechanical engineering etc",
+      "fuel": null,
+      "fuel_or_tech": "Mechanical engineering etc",
+      "consumption_ktoe": 734.9599999999999,
+      "efficiency": 0.58,
+      "useful_ktoe": 426.2767999999999,
+      "rejected_ktoe": 308.6832,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Electrical engineering etc",
+      "heading": "Electrical engineering etc",
+      "fuel": null,
+      "fuel_or_tech": "Electrical engineering etc",
+      "consumption_ktoe": 581.5600000000001,
+      "efficiency": 0.64,
+      "useful_ktoe": 372.19840000000005,
+      "rejected_ktoe": 209.3616,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Vehicles",
+      "heading": "Vehicles",
+      "fuel": null,
+      "fuel_or_tech": "Vehicles",
+      "consumption_ktoe": 462.87,
+      "efficiency": 0.56,
+      "useful_ktoe": 259.2072,
+      "rejected_ktoe": 203.66279999999998,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Food, beverages etc",
+      "heading": "Food, beverages etc",
+      "fuel": null,
+      "fuel_or_tech": "Food, beverages etc",
+      "consumption_ktoe": 2983.09,
+      "efficiency": 0.52,
+      "useful_ktoe": 1551.2068000000002,
+      "rejected_ktoe": 1431.8832,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Textiles, leather etc",
+      "heading": "Textiles, leather etc",
+      "fuel": null,
+      "fuel_or_tech": "Textiles, leather etc",
+      "consumption_ktoe": 365.79,
+      "efficiency": 0.49,
+      "useful_ktoe": 179.2371,
+      "rejected_ktoe": 186.55290000000002,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Paper, printing etc",
+      "heading": "Paper, printing etc",
+      "fuel": null,
+      "fuel_or_tech": "Paper, printing etc",
+      "consumption_ktoe": 1498.33,
+      "efficiency": 0.44,
+      "useful_ktoe": 659.2651999999999,
+      "rejected_ktoe": 839.0648,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Construction",
+      "heading": "Construction",
+      "fuel": null,
+      "fuel_or_tech": "Construction",
+      "consumption_ktoe": 693.38,
+      "efficiency": 0.4,
+      "useful_ktoe": 277.35200000000003,
+      "rejected_ktoe": 416.02799999999996,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Other manufacturing etc",
+      "heading": "Other manufacturing etc",
+      "fuel": null,
+      "fuel_or_tech": "Other manufacturing etc",
+      "consumption_ktoe": 2452.4,
+      "efficiency": 0.56,
+      "useful_ktoe": 1373.3440000000003,
+      "rejected_ktoe": 1079.0559999999998,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Unclassified",
+      "heading": "Unclassified",
+      "fuel": null,
+      "fuel_or_tech": "Unclassified",
+      "consumption_ktoe": 2203.19,
+      "efficiency": 0.5275,
+      "useful_ktoe": 1162.182725,
+      "rejected_ktoe": 1041.0072750000002,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Cars",
+      "consumption_ktoe": 754.3835316974902,
+      "efficiency": 0.89,
+      "useful_ktoe": 671.4013432107663,
+      "rejected_ktoe": 82.98218848672391,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Electricity",
+      "fuel_or_tech": "LGVs",
+      "consumption_ktoe": 99.4140264644061,
+      "efficiency": 0.89,
+      "useful_ktoe": 88.47848355332144,
+      "rejected_ktoe": 10.93554291108467,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Buses",
+      "consumption_ktoe": 30.252441838103636,
+      "efficiency": 0.89,
+      "useful_ktoe": 26.924673235912238,
+      "rejected_ktoe": 3.3277686021913997,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Cars",
+      "consumption_ktoe": 22628.65945051991,
+      "efficiency": 0.3,
+      "useful_ktoe": 6788.5978351559725,
+      "rejected_ktoe": 15840.061615363937,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Buses",
+      "consumption_ktoe": 799.1154287043876,
+      "efficiency": 0.43,
+      "useful_ktoe": 343.6196343428866,
+      "rejected_ktoe": 455.49579436150094,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "HGVs",
+      "consumption_ktoe": 6331.759113591599,
+      "efficiency": 0.46,
+      "useful_ktoe": 2912.609192252136,
+      "rejected_ktoe": 3419.1499213394636,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "LGVs",
+      "consumption_ktoe": 6442.448592942957,
+      "efficiency": 0.43,
+      "useful_ktoe": 2770.252894965471,
+      "rejected_ktoe": 3672.1956979774855,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Petroleum products",
+      "fuel_or_tech": "Motorcycles",
+      "consumption_ktoe": 180.62741424114992,
+      "efficiency": 0.15,
+      "useful_ktoe": 27.094112136172487,
+      "rejected_ktoe": 153.53330210497742,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "Buses",
+      "consumption_ktoe": 21.48965649119357,
+      "efficiency": 0.43,
+      "useful_ktoe": 9.240552291213236,
+      "rejected_ktoe": 12.249104199980337,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Natural gas",
+      "fuel_or_tech": "HGVs",
+      "consumption_ktoe": 160.18034350880643,
+      "efficiency": 0.46,
+      "useful_ktoe": 73.68295801405097,
+      "rejected_ktoe": 86.49738549475548,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Cars",
+      "consumption_ktoe": 1470.7511285212888,
+      "efficiency": 0.3,
+      "useful_ktoe": 441.22533855638665,
+      "rejected_ktoe": 1029.525789964902,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Buses",
+      "consumption_ktoe": 51.93855699475596,
+      "efficiency": 0.43,
+      "useful_ktoe": 22.333579507745064,
+      "rejected_ktoe": 29.604977487010903,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "HGVs",
+      "consumption_ktoe": 411.53307743229306,
+      "efficiency": 0.46,
+      "useful_ktoe": 189.30521561885482,
+      "rejected_ktoe": 222.22786181343827,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "LGVs",
+      "consumption_ktoe": 418.7273470277772,
+      "efficiency": 0.43,
+      "useful_ktoe": 180.0527592219442,
+      "rejected_ktoe": 238.67458780583306,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "heading": "Road",
+      "fuel": "Bioenergy & waste",
+      "fuel_or_tech": "Motorcycles",
+      "consumption_ktoe": 11.73989002388517,
+      "efficiency": 0.15,
+      "useful_ktoe": 1.7609835035827754,
+      "rejected_ktoe": 9.978906520302395,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Rail",
+      "heading": "Rail",
+      "fuel": "Petroleum products/coal",
+      "fuel_or_tech": "Petroleum products/coal",
+      "consumption_ktoe": 553.03,
+      "efficiency": 0.33,
+      "useful_ktoe": 182.4999,
+      "rejected_ktoe": 370.53009999999995,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Rail",
+      "heading": "Rail",
+      "fuel": "Electricity",
+      "fuel_or_tech": "Electricity",
+      "consumption_ktoe": 459.6,
+      "efficiency": 0.65,
+      "useful_ktoe": 298.74,
+      "rejected_ktoe": 160.85999999999999,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Air",
+      "heading": "Air",
+      "fuel": null,
+      "fuel_or_tech": "Air",
+      "consumption_ktoe": 13410.21,
+      "efficiency": 0.36,
+      "useful_ktoe": 4827.6756,
+      "rejected_ktoe": 8582.5344,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Water",
+      "heading": "Water",
+      "fuel": null,
+      "fuel_or_tech": "Water",
+      "consumption_ktoe": 770.85,
+      "efficiency": 0.47,
+      "useful_ktoe": 362.29949999999997,
+      "rejected_ktoe": 408.55050000000006,
+      "year": 2025
+    }
+  ],
+  "sector_totals": {
+    "domestic": {
+      "consumption_ktoe": 34008.450000000004,
+      "useful_ktoe": 29451.54171233291,
+      "rejected_ktoe": 4909.772052456336,
+      "proportion_rejected": 0.14436918037888627
+    },
+    "services": {
+      "consumption_ktoe": 21351.51346559527,
+      "useful_ktoe": 16007.561621960505,
+      "rejected_ktoe": 5343.951843634772,
+      "proportion_rejected": 0.25028445183737164
+    },
+    "industry": {
+      "consumption_ktoe": 17321.86,
+      "useful_ktoe": 9205.981125,
+      "rejected_ktoe": 8115.878874999999,
+      "proportion_rejected": 0.4685339146604348
+    },
+    "transport": {
+      "consumption_ktoe": 55006.71,
+      "useful_ktoe": 20217.79455556642,
+      "rejected_ktoe": 34788.91544443359,
+      "proportion_rejected": 0.6324485766269895
+    }
+  },
+  "by_sector_year": [
+    {
+      "year": 2017,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 31163.329042959154
+    },
+    {
+      "year": 2017,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 7544.785409716131
+    },
+    {
+      "year": 2017,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 11214.654054173167
+    },
+    {
+      "year": 2017,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 9585.21594582683
+    },
+    {
+      "year": 2017,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16473.833808126907
+    },
+    {
+      "year": 2017,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 7032.538541321967
+    },
+    {
+      "year": 2017,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 15778.396321443985
+    },
+    {
+      "year": 2017,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 41727.94367855602
+    },
+    {
+      "year": 2017,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 74630.21322670321
+    },
+    {
+      "year": 2017,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 65890.48357542095
+    },
+    {
+      "year": 2018,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 31595.102998546005
+    },
+    {
+      "year": 2018,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 7655.581621745879
+    },
+    {
+      "year": 2018,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 11262.650396097884
+    },
+    {
+      "year": 2018,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 9665.059603902117
+    },
+    {
+      "year": 2018,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16970.59072249686
+    },
+    {
+      "year": 2018,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 7140.517137606843
+    },
+    {
+      "year": 2018,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 15717.0785975575
+    },
+    {
+      "year": 2018,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 41545.4214024425
+    },
+    {
+      "year": 2018,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 75545.42271469826
+    },
+    {
+      "year": 2018,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 66006.57976569734
+    },
+    {
+      "year": 2019,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 30732.451060548705
+    },
+    {
+      "year": 2019,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 7507.478252219892
+    },
+    {
+      "year": 2019,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 10746.410584738427
+    },
+    {
+      "year": 2019,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 9205.439415261573
+    },
+    {
+      "year": 2019,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16793.742050966586
+    },
+    {
+      "year": 2019,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 7032.268305996753
+    },
+    {
+      "year": 2019,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 15436.99446777635
+    },
+    {
+      "year": 2019,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 40822.24553222364
+    },
+    {
+      "year": 2019,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 73709.59816403007
+    },
+    {
+      "year": 2019,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 64567.43150570186
+    },
+    {
+      "year": 2020,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 31778.945946128915
+    },
+    {
+      "year": 2020,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 7682.972204738037
+    },
+    {
+      "year": 2020,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 10627.019425375938
+    },
+    {
+      "year": 2020,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 9005.290574624063
+    },
+    {
+      "year": 2020,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 15756.0706518442
+    },
+    {
+      "year": 2020,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 6360.887290248304
+    },
+    {
+      "year": 2020,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 11172.28872435713
+    },
+    {
+      "year": 2020,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 30494.431275642866
+    },
+    {
+      "year": 2020,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 69334.32474770618
+    },
+    {
+      "year": 2020,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 53543.581345253275
+    },
+    {
+      "year": 2021,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 31981.321175646026
+    },
+    {
+      "year": 2021,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 7660.367414017516
+    },
+    {
+      "year": 2021,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 10642.328875785955
+    },
+    {
+      "year": 2021,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 9167.841124214048
+    },
+    {
+      "year": 2021,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16680.362846906948
+    },
+    {
+      "year": 2021,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 6614.793989936615
+    },
+    {
+      "year": 2021,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 11805.982876033333
+    },
+    {
+      "year": 2021,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 32522.627123966668
+    },
+    {
+      "year": 2021,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 71109.99577437226
+    },
+    {
+      "year": 2021,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 55965.62965213484
+    },
+    {
+      "year": 2022,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 28944.711661288773
+    },
+    {
+      "year": 2022,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 6846.612554119758
+    },
+    {
+      "year": 2022,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 9583.168609740578
+    },
+    {
+      "year": 2022,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 8374.621390259423
+    },
+    {
+      "year": 2022,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 15587.56209007521
+    },
+    {
+      "year": 2022,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 6291.258040532707
+    },
+    {
+      "year": 2022,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 13931.045098362192
+    },
+    {
+      "year": 2022,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 36653.104901637795
+    },
+    {
+      "year": 2022,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 68046.48745946676
+    },
+    {
+      "year": 2022,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 58165.59688654968
+    },
+    {
+      "year": 2023,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 27500.422530890588
+    },
+    {
+      "year": 2023,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 5371.684944871831
+    },
+    {
+      "year": 2023,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 10017.197400000001
+    },
+    {
+      "year": 2023,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 8823.3326
+    },
+    {
+      "year": 2023,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 15689.169113046582
+    },
+    {
+      "year": 2023,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 5596.000437329399
+    },
+    {
+      "year": 2023,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 16416.62472327959
+    },
+    {
+      "year": 2023,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 36047.0252767204
+    },
+    {
+      "year": 2023,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 69623.41376721677
+    },
+    {
+      "year": 2023,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 55838.04325892163
+    },
+    {
+      "year": 2024,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 29369.412979802422
+    },
+    {
+      "year": 2024,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 4863.720518136663
+    },
+    {
+      "year": 2024,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 9672.73975
+    },
+    {
+      "year": 2024,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 8538.830249999999
+    },
+    {
+      "year": 2024,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16602.41295452821
+    },
+    {
+      "year": 2024,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 5383.882610012216
+    },
+    {
+      "year": 2024,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 19786.46325258211
+    },
+    {
+      "year": 2024,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 34151.10674741789
+    },
+    {
+      "year": 2024,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 75431.02893691274
+    },
+    {
+      "year": 2024,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 52937.54012556677
+    },
+    {
+      "year": 2025,
+      "sector": "domestic",
+      "kind": "useful",
+      "ktoe": 29451.54171233291
+    },
+    {
+      "year": 2025,
+      "sector": "domestic",
+      "kind": "rejected",
+      "ktoe": 4909.772052456336
+    },
+    {
+      "year": 2025,
+      "sector": "industry",
+      "kind": "useful",
+      "ktoe": 9205.981125
+    },
+    {
+      "year": 2025,
+      "sector": "industry",
+      "kind": "rejected",
+      "ktoe": 8115.878874999999
+    },
+    {
+      "year": 2025,
+      "sector": "services",
+      "kind": "useful",
+      "ktoe": 16007.561621960505
+    },
+    {
+      "year": 2025,
+      "sector": "services",
+      "kind": "rejected",
+      "ktoe": 5343.951843634773
+    },
+    {
+      "year": 2025,
+      "sector": "transport",
+      "kind": "useful",
+      "ktoe": 20217.79455556642
+    },
+    {
+      "year": 2025,
+      "sector": "transport",
+      "kind": "rejected",
+      "ktoe": 34788.91544443359
+    },
+    {
+      "year": 2025,
+      "sector": "all",
+      "kind": "useful",
+      "ktoe": 74882.87901485983
+    },
+    {
+      "year": 2025,
+      "sector": "all",
+      "kind": "rejected",
+      "ktoe": 53158.518215524695
+    }
+  ],
+  "by_end_use": [
+    {
+      "sector": "domestic",
+      "end_use": "Space Heating",
+      "useful_ktoe": 19230.80047644081,
+      "rejected_ktoe": 1788.749207688788,
+      "total_ktoe": 21019.549684129597,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Water Heating",
+      "useful_ktoe": 5396.080235529141,
+      "rejected_ktoe": 509.02515518187977,
+      "total_ktoe": 5905.105390711021,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Cooking",
+      "useful_ktoe": 1015.2943562187663,
+      "rejected_ktoe": 496.34959652324835,
+      "total_ktoe": 1511.6439527420148,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Lighting",
+      "useful_ktoe": 136.1573475887755,
+      "rejected_ktoe": 202.6520872751743,
+      "total_ktoe": 338.80943486394983,
+      "year": 2025
+    },
+    {
+      "sector": "domestic",
+      "end_use": "Appliances",
+      "useful_ktoe": 3673.2092965554193,
+      "rejected_ktoe": 1912.9960057872456,
+      "total_ktoe": 5586.205302342665,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Agriculture",
+      "useful_ktoe": 590.1165,
+      "rejected_ktoe": 752.9934999999999,
+      "total_ktoe": 1343.11,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Heating",
+      "useful_ktoe": 9337.784416371993,
+      "rejected_ktoe": 909.426016719145,
+      "total_ktoe": 10247.210433091137,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Hot water",
+      "useful_ktoe": 1334.4995329484411,
+      "rejected_ktoe": 128.82061527493948,
+      "total_ktoe": 1463.3201482233806,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Cooling & humidification",
+      "useful_ktoe": 728.2838614476627,
+      "rejected_ktoe": 290.66219002631976,
+      "total_ktoe": 1018.9460514739825,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Lighting",
+      "useful_ktoe": 297.9226361361813,
+      "rejected_ktoe": 1334.0839009755853,
+      "total_ktoe": 1632.0065371117666,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Catering",
+      "useful_ktoe": 1276.8331676773385,
+      "rejected_ktoe": 375.7451235357996,
+      "total_ktoe": 1652.578291213138,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "ICT equipment",
+      "useful_ktoe": 624.3006816587535,
+      "rejected_ktoe": 118.91441555404833,
+      "total_ktoe": 743.2150972128019,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "end_use": "Other",
+      "useful_ktoe": 1817.8208257201406,
+      "rejected_ktoe": 1433.3060815489334,
+      "total_ktoe": 3251.126907269074,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Iron and steel",
+      "useful_ktoe": 221.1786,
+      "rejected_ktoe": 188.4114,
+      "total_ktoe": 409.59,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Non-ferrous metals",
+      "useful_ktoe": 206.5987,
+      "rejected_ktoe": 215.0313,
+      "total_ktoe": 421.63,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Mineral products",
+      "useful_ktoe": 1044.9935999999998,
+      "rejected_ktoe": 1132.0764,
+      "total_ktoe": 2177.0699999999997,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Chemicals",
+      "useful_ktoe": 1472.9399999999998,
+      "rejected_ktoe": 865.0599999999997,
+      "total_ktoe": 2337.9999999999995,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Mechanical engineering etc",
+      "useful_ktoe": 426.2767999999999,
+      "rejected_ktoe": 308.6832,
+      "total_ktoe": 734.9599999999999,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Electrical engineering etc",
+      "useful_ktoe": 372.19840000000005,
+      "rejected_ktoe": 209.3616,
+      "total_ktoe": 581.5600000000001,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Vehicles",
+      "useful_ktoe": 259.2072,
+      "rejected_ktoe": 203.6628,
+      "total_ktoe": 462.87,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Food, beverages etc",
+      "useful_ktoe": 1551.2068000000002,
+      "rejected_ktoe": 1431.8832,
+      "total_ktoe": 2983.09,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Textiles, leather etc",
+      "useful_ktoe": 179.2371,
+      "rejected_ktoe": 186.55290000000002,
+      "total_ktoe": 365.79,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Paper, printing etc",
+      "useful_ktoe": 659.2651999999999,
+      "rejected_ktoe": 839.0648,
+      "total_ktoe": 1498.33,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Construction",
+      "useful_ktoe": 277.35200000000003,
+      "rejected_ktoe": 416.02799999999996,
+      "total_ktoe": 693.38,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Other manufacturing etc",
+      "useful_ktoe": 1373.3440000000003,
+      "rejected_ktoe": 1079.0559999999998,
+      "total_ktoe": 2452.4,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "end_use": "Unclassified",
+      "useful_ktoe": 1162.182725,
+      "rejected_ktoe": 1041.0072750000002,
+      "total_ktoe": 2203.19,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Road",
+      "useful_ktoe": 14546.579555566417,
+      "rejected_ktoe": 25266.44044443359,
+      "total_ktoe": 39813.020000000004,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Rail",
+      "useful_ktoe": 481.23990000000003,
+      "rejected_ktoe": 531.3901,
+      "total_ktoe": 1012.63,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Air",
+      "useful_ktoe": 4827.6756,
+      "rejected_ktoe": 8582.5344,
+      "total_ktoe": 13410.21,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "end_use": "Water",
+      "useful_ktoe": 362.29949999999997,
+      "rejected_ktoe": 408.55050000000006,
+      "total_ktoe": 770.85,
+      "year": 2025
+    }
+  ],
+  "counterfactual": [
+    {
+      "sector": "domestic",
+      "useful_now": 29451.54171233291,
+      "rejected_now": 4909.772052456336,
+      "useful_2017_efficiency": 27944.894959306363,
+      "rejected_2017_efficiency": 6416.418805482886,
+      "year": 2025
+    },
+    {
+      "sector": "industry",
+      "useful_now": 9205.981125,
+      "rejected_now": 8115.878874999999,
+      "useful_2017_efficiency": 9214.061081868687,
+      "rejected_2017_efficiency": 8107.798918131311,
+      "year": 2025
+    },
+    {
+      "sector": "services",
+      "useful_now": 16007.561621960505,
+      "rejected_now": 5343.951843634773,
+      "useful_2017_efficiency": 15065.585472810231,
+      "rejected_2017_efficiency": 6285.927992785051,
+      "year": 2025
+    },
+    {
+      "sector": "transport",
+      "useful_now": 20217.79455556642,
+      "rejected_now": 34788.91544443359,
+      "useful_2017_efficiency": 15656.568083989881,
+      "rejected_2017_efficiency": 39350.14191601012,
+      "year": 2025
+    },
+    {
+      "sector": "all",
+      "useful_now": 74882.87901485983,
+      "rejected_now": 53158.518215524695,
+      "useful_2017_efficiency": 67881.10959797517,
+      "rejected_2017_efficiency": 60160.28763240937,
+      "year": 2025
+    }
+  ],
+  "notes": {
+    "Note 1": "This table shows how primary energy is allocated through the energy system to final consumption and other uses. Within this table the primary energy total includes non-energy use. Final consumption is further divided into useful and rejected energy.",
+    "Note 2": "Heat pump useful energy includes ambient heat captured from the environment. This is additional to recorded energy consumption; therefore, useful plus rejected energy exceeds final consumption by the ambient-heat amount.",
+    "Note 3": "Useful and rejected energy are modelled estimates calculated by applying assumed efficiencies to allocated consumption. See Tables W2 and W3.",
+    "Note 4": "Total useful energy is the sum of useful energy from final consumption and 50% of energy industry use.",
+    "Note 5": "Total rejected energy is the sum of rejected energy from final consumption, transformation, losses and the remaining 50% of energy industry use.",
+    "Note 6": "End-use efficiency estimates are updated where desk research identifies data sources indicating that efficiency values have changed. Not all values were updated between 2017 and 2025.",
+    "Note 7": "This shows a counterfactual scenario where the end use efficiency assumptions are unchanged from earlier versions of this analysis. Therefore any changes reflect these updated assumptions, and are not necessarily indicative of real-world savings due to improved efficiencies."
+  },
+  "identity": {
+    "rule": "useful = consumption \u00d7 efficiency; rejected = max(0, consumption \u2212 useful); ambient heat = max(0, useful \u2212 consumption)",
+    "max_abs_error_ktoe": 0.0,
+    "reproducible": true,
+    "failures": []
+  }
+}

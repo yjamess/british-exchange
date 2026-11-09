@@ -10,10 +10,14 @@ Run:
 
 from __future__ import annotations
 
+import csv
+import io
+import logging
 from dataclasses import asdict
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import FileResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from britain_exchange.aggregation import (
@@ -21,7 +25,7 @@ from britain_exchange.aggregation import (
     energy_aggregation_role,
     is_chart_safe_energy_row,
 )
-from britain_exchange.catalog import get_package, iter_indicator_packages, read_observations
+from britain_exchange.catalog import coverage, get_package, iter_indicator_packages, read_observations
 from britain_exchange.chart_contract import (
     assert_compatible_series,
     chart_meta_for_indicator,
@@ -34,6 +38,8 @@ from britain_exchange.store import (
     list_observations_db,
     using_postgres,
 )
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Britain Exchange API",
@@ -60,6 +66,7 @@ app.add_middleware(
 ENERGY_FUEL_SERIES = frozenset(
     {
         "electricity-generation-by-source",
+        "electricity-capacity-by-technology",
         "primary-energy-production",
     }
 )
@@ -223,6 +230,9 @@ def list_indicators() -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     for package in iter_indicator_packages():
         m = package.manifest
+        cov = coverage(package)
+        releases = [e.official_release_date for e in m.raw_evidence if e.official_release_date]
+        retrieved = [e.retrieved_at for e in m.raw_evidence if e.retrieved_at]
         items.append(
             {
                 "indicator_id": m.indicator_id,
@@ -237,6 +247,15 @@ def list_indicators() -> list[dict[str, Any]]:
                 "source_url": m.source_url,
                 "notion_registry_url": m.notion_registry_url,
                 "agent_owner": m.agent_owner,
+                # Catalogue fields (additive): licence, span, size, latest release.
+                "licence": m.licence,
+                "definition": m.definition,
+                "coverage_start": cov.start,
+                "coverage_end": cov.end,
+                "observation_count": cov.count,
+                "csv_bytes": package.curated_csv.stat().st_size,
+                "release_date": max(releases, default=""),
+                "retrieved_at": max(retrieved, default=""),
             }
         )
     return items
@@ -295,6 +314,60 @@ def get_indicator(indicator_id: str) -> dict[str, Any]:
             definition=m.definition,
         ),
     }
+
+
+CSV_COLUMNS = (
+    "indicator_id",
+    "period_start",
+    "period_end",
+    "geography_code",
+    "geography_label",
+    "value",
+    "unit",
+    "observation_status",
+    "source_version",
+    "notes",
+)
+
+
+def _csv_filename(indicator_id: str, release_date: str) -> str:
+    return f"{indicator_id}_{release_date}.csv" if release_date else f"{indicator_id}.csv"
+
+
+@app.get("/indicators/{indicator_id}/observations.csv")
+def get_observations_csv(indicator_id: str) -> Response:
+    """The whole curated series as CSV — one file per series, the same for every download link.
+
+    Files store: the curated CSV as written by the connector (suppressed cells kept, values empty).
+    Postgres: the current release, in the same columns.
+    """
+    if using_postgres():
+        meta = get_indicator_db(indicator_id)
+        if meta is None:
+            raise HTTPException(status_code=404, detail=f"Unknown indicator: {indicator_id}")
+        rows, _ = list_observations_db(indicator_id)
+        buffer = io.StringIO()
+        writer = csv.writer(buffer, lineterminator="\n")
+        writer.writerow(CSV_COLUMNS)
+        for row in rows:
+            writer.writerow(["" if row.get(c) is None else row.get(c) for c in CSV_COLUMNS])
+        releases = [e.get("official_release_date") or "" for e in meta.get("raw_evidence", [])]
+        name = _csv_filename(indicator_id, max(releases, default=""))
+        return Response(
+            buffer.getvalue(),
+            media_type="text/csv; charset=utf-8",
+            headers={"Content-Disposition": f'attachment; filename="{name}"'},
+        )
+    try:
+        package = get_package(indicator_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=f"Unknown indicator: {indicator_id}") from exc
+    releases = [e.official_release_date for e in package.manifest.raw_evidence if e.official_release_date]
+    return FileResponse(
+        package.curated_csv,
+        media_type="text/csv; charset=utf-8",
+        filename=_csv_filename(indicator_id, max(releases, default="")),
+    )
 
 
 @app.get("/indicators/{indicator_id}/observations")
@@ -387,7 +460,17 @@ def get_observations(
             raise HTTPException(
                 status_code=404, detail=f"Unknown indicator: {indicator_id}"
             ) from exc
-        rows = read_observations(package)
+        # Filter during the read. Otherwise one request copies every row of a
+        # large curated file (private rents are ~540k rows; the page needs one geography).
+        rows = read_observations(
+            package,
+            fuel=fuel,
+            water_company=water_company,
+            demographic=demographic,
+            geography_code=geography_code,
+            series=series,
+            category=category,
+        )
         enriched, excluded_aggregates, available_dimensions = _enrich_observation_rows(
             indicator_id,
             rows,
@@ -469,4 +552,72 @@ def get_observations(
         "available_dimensions": available_dimensions,
         "chart": chart,
         "observations": enriched,
+    }
+
+
+@app.get("/housing/price-paid/meta")
+def housing_price_paid_meta() -> dict[str, Any]:
+    """Row count and attribution for the 2025 Price Paid slice."""
+    from housing.connectors.price_paid_2025 import (
+        ATTRIBUTION,
+        SOURCE_YEAR,
+        count_price_paid,
+        public_source,
+    )
+
+    # Same source identity whether or not search can run. The page prints it.
+    identity = public_source()
+    if not using_postgres():
+        return {
+            "year": SOURCE_YEAR,
+            "count": 0,
+            "attribution": ATTRIBUTION,
+            "available": False,
+            **identity,
+        }
+    return {
+        "year": SOURCE_YEAR,
+        "count": count_price_paid(),
+        "attribution": ATTRIBUTION,
+        "available": True,
+        **identity,
+    }
+
+
+@app.get("/housing/price-paid")
+def housing_price_paid(
+    q: str = Query(..., min_length=2, description="Postcode prefix or street / town"),
+    limit: int = Query(50, ge=1, le=100),
+) -> dict[str, Any]:
+    """Search the 2025 Price Paid slice (England & Wales registered sales)."""
+    from housing.connectors.price_paid_2025 import (
+        ATTRIBUTION,
+        SOURCE_YEAR,
+        count_price_paid,
+        search_price_paid,
+    )
+
+    if not using_postgres():
+        # Operators: the visitor response stays non-technical. Diagnostics stay in the log.
+        # GET /health reports store=files until DATABASE_URL points at PostgreSQL.
+        logger.warning(
+            "Price Paid search unavailable: PostgreSQL is not the active store. "
+            "Set DATABASE_URL and restart uvicorn. GET /health reports the store."
+        )
+        raise HTTPException(
+            status_code=503,
+            detail="Recorded sales search is temporarily unavailable.",
+        )
+    results = search_price_paid(q, limit=limit)
+    return {
+        "query": q,
+        "year": SOURCE_YEAR,
+        "count": count_price_paid(),
+        "returned": len(results),
+        "attribution": ATTRIBUTION,
+        "caveat": (
+            "England and Wales only. Calendar year 2025 lodged sales; "
+            "recent months can revise as registrations arrive."
+        ),
+        "results": results,
     }

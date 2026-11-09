@@ -1,0 +1,320 @@
+/* The Dissected Bill — receipt + hover detail. One ink on paper (Housing Supply Machine prints).
+   Full stage width, no second frame. Textures are dots and pen strokes, never opacity.
+   Measured £ strips are parked until there are periods worth comparing. */
+
+.root {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bo-s5);
+  min-width: 0;
+}
+
+/* Wide stages: receipt beside its detail pane; the pane stays in view while the receipt is read. */
+@container (min-width: 46rem) {
+  .grid {
+    grid-template-columns: minmax(17rem, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+  .pane {
+    position: sticky;
+    top: var(--bo-s5);
+  }
+}
+
+/* ——— Receipt ——— */
+
+.receipt {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+  color: var(--bo-text);
+}
+
+.head,
+.subhead {
+  display: grid;
+  gap: 0.2rem;
+  padding-bottom: var(--bo-s2);
+  border-bottom: var(--bo-rule);
+}
+
+.subhead {
+  margin-top: var(--bo-s4);
+  outline: none;
+  cursor: default;
+}
+
+.subhead[data-on] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  margin-inline: -0.4rem;
+  padding-inline: 0.4rem;
+}
+
+.subhead[data-on] .kicker {
+  color: var(--bo-paper);
+}
+
+.subhead:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+.kicker {
+  margin: 0;
+  font: 500 var(--bo-t-micro) / 1.4 var(--bo-f-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+
+.note {
+  margin: 0;
+  padding: 0.45rem 0.4rem;
+  margin-inline: -0.4rem;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-union);
+  outline: none;
+  cursor: default;
+}
+
+.note[data-on] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.note:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+.lines,
+.memos {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A receipt line: swatch · name · dot leader · figure, formula beneath. */
+.line,
+.total,
+.memo {
+  display: grid;
+  grid-template-columns: auto auto minmax(1rem, 1fr) auto;
+  column-gap: 0.55rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  outline: none;
+}
+
+/* Lines carry side padding so the selection block has room; totals stay flush. */
+.line {
+  padding-inline: 0.4rem;
+  margin-inline: -0.4rem;
+}
+
+.total,
+.memo {
+  grid-template-columns: auto minmax(1rem, 1fr) auto;
+}
+
+.line:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+/* Selection is one mark: solid ink, paper type. */
+.line[data-on],
+.memo[data-on] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.line[data-on] .fig,
+.line[data-on] .detail,
+.line[data-on] .name,
+.memo[data-on] .fig,
+.memo[data-on] .detail,
+.memo[data-on] .name {
+  color: var(--bo-paper);
+}
+
+.line[data-on] .leader,
+.memo[data-on] .leader {
+  border-bottom-color: var(--bo-paper);
+}
+
+.line[data-on] .swatch {
+  box-shadow: 0 0 0 1px var(--bo-paper);
+}
+
+.memo {
+  padding-inline: 0.4rem;
+  margin-inline: -0.4rem;
+  outline: none;
+  cursor: default;
+}
+
+.memo:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+.name {
+  font: 500 var(--bo-t-micro) / 1.3 var(--bo-f-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  white-space: nowrap;
+}
+
+.leader {
+  align-self: end;
+  margin-bottom: 0.3em;
+  border-bottom: 1px dotted var(--bo-ink-40);
+  min-width: 1rem;
+}
+
+.fig {
+  font: 300 var(--bo-t-fig-s) / 1 var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+  white-space: nowrap;
+}
+
+.detail {
+  grid-column: 2 / -1;
+  margin-top: 0.2rem;
+  font-size: var(--bo-t-note);
+  line-height: 1.35;
+  color: var(--bo-union);
+}
+
+.total .detail,
+.memo .detail {
+  grid-column: 1 / -1;
+}
+
+/* Ruled total, double rule above as on a till receipt. */
+.total {
+  margin-top: var(--bo-s1, 0.25rem);
+  padding-top: 0.7rem;
+  border-top: 3px double var(--bo-ink);
+}
+
+.totalFig {
+  font: 300 2.25rem / 1 var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+}
+
+.memos {
+  border-top: var(--bo-hair);
+}
+
+.memo .fig {
+  font-size: var(--bo-t-fig-s);
+}
+
+/* Swatches keep the print language so lines stay identifiable without the scale. */
+.swatch {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  align-self: center;
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+}
+
+.swatch[data-print="solid"] {
+  background: var(--bo-ink);
+}
+.swatch[data-print="stipple"] {
+  background-image: radial-gradient(circle, var(--bo-ink) 0.85px, transparent 1.1px);
+  background-size: 3px 3px;
+}
+.swatch[data-print="sparse"] {
+  background-image: radial-gradient(circle, var(--bo-ink) 0.9px, transparent 1.2px);
+  background-size: 5px 5px;
+}
+.swatch[data-print="hatch"] {
+  background-image: repeating-linear-gradient(45deg, var(--bo-ink) 0 1px, transparent 1px 3.5px);
+}
+.swatch[data-print="cross"] {
+  background-image:
+    repeating-linear-gradient(45deg, var(--bo-ink) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-45deg, var(--bo-ink) 0 1px, transparent 1px 4px);
+}
+.swatch[data-print="engrave"] {
+  background-image: repeating-linear-gradient(0deg, var(--bo-ink) 0 1px, transparent 1px 3px);
+}
+
+/* ——— Hover detail ——— */
+
+.pane {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: var(--bo-s2) 0 0;
+  color: var(--bo-text);
+}
+
+.paneKicker {
+  margin: 0;
+  font: 500 var(--bo-t-micro) / 1.4 var(--bo-f-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+
+.paneTitle {
+  margin: 0;
+  font: 400 1.35rem / 1.2 var(--bo-f-head);
+  letter-spacing: -0.01em;
+  color: var(--bo-ink);
+}
+
+.paneFig {
+  margin: 0.15rem 0 0;
+  font: 300 1.75rem / 1 var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+}
+
+.paneBody {
+  margin: 0.35rem 0 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 36rem;
+}
+
+.paneAction {
+  margin: 0.55rem 0 0;
+  font: 500 var(--bo-t-micro) / 1.4 var(--bo-f-data);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.paneAction a {
+  color: var(--bo-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.paneIdle {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-union);
+}

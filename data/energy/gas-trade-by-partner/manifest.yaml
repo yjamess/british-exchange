@@ -1,0 +1,52 @@
+indicator_id: gas-trade-by-partner
+title: Gas trade by partner
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/natural-gas-chapter-4-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 4.5a (Natural gas imports and exports by country, GWh)
+geography: United Kingdom (K02000001) as trading territory; partner countries are
+  origin/destination labels in notes — not pipeline landfall coords
+frequency: annual
+unit: GWh
+definition: UK annual natural gas Imports, Exports and Net imports in gigawatt-hours
+  (GWh) by partner country and mode (Pipeline / LNG) from DUKES table 4.5a. notes
+  use partner=<Country>; flow=Imports|Exports|Net imports; mode=Pipeline|LNG|Total|Net;
+  kind=partner|aggregate; fuel=Gas. Zero partner cells omitted; publisher totals (Total
+  pipeline / Total LNG / Total imports / Total exports / Net imports) kept as kind=aggregate.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.gas_trade_by_partner
+curated_path: curated/observations.csv
+update_cadence: Annual with DUKES natural gas chapter 4 (typically late July)
+raw_evidence:
+- path: raw/2026-11-07/DUKES_4.5.xlsx
+  retrieved_at: '2026-11-07T15:33:44.925603+00:00'
+  checksum_sha256: 9e005b47311313def8d45274db493938ba6b2383ec609865b3a436c81d91b12c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6aba96a9734e2435f202f1d6/DUKES_4.5.xlsx
+transformations: 'Parse sheet 4.5a header row 6. Long-format: one CSV row per flow
+  × mode × partner × year. Strip [note N] from labels. Omit ordinary partner zeros.
+  Sheet 4.5b (facility capacity mm3/day) not ingested — static register, not annual
+  trade flows.'
+revision_notes: 'DUKES_4.5.xlsx published 30 July 2026; years 2000–2025. Cover Sheet:
+  revisions 1998–2024; 2025 LNG origin corrections (Brazil/Mexico → USA).'
+caveats: Partner labels are statistical country of origin/destination — not a pipeline
+  landfall atlas (Langeled/BBL endpoints live only on 4.5b as descriptive text). From
+  2016 LNG methodology break (Note 2). Belgium pipeline note covers Bacton-Zeebrugge
+  physical flows (Note 1). LNG Reloads are re-exports, not UK liquefaction (Note 4).
+  Negative Net imports = net exporter (Note 5). Distinct from lng-imports-by-terminal
+  (facility volumes) and energy-imports-and-exports (ET 1.3 all-fuels ktoe). OGL v3.0.
+related_indicator_ids:
+- lng-imports-by-terminal
+- oil-imports-by-country
+- energy-import-dependency
+- electricity-interconnector-flows
+open_questions:
+- Optional separate indicator for DUKES 4.5b facility max flow rates (mm3/day) — capacity
+  snapshot, not annual GWh.
+- Authoritative GIS for pipeline UK landfalls (Bacton, Easington, St Fergus) — do
+  not invent from 4.5b location text.
+notion_registry_url: ''
+schema_version: '1.0'

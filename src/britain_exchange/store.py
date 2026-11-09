@@ -15,11 +15,33 @@ def list_indicators_db() -> list[dict[str, Any]]:
     with connect() as conn:
         rows = conn.execute(
             """
-            SELECT indicator_id, title, sector, publisher, unit, frequency,
-                   source_url, notion_registry_url, agent_owner, geography,
-                   series_id, caveats
-            FROM indicator
-            ORDER BY indicator_id
+            SELECT i.indicator_id, i.title, i.sector, i.publisher, i.unit, i.frequency,
+                   i.source_url, i.notion_registry_url, i.agent_owner, i.geography,
+                   i.series_id, i.caveats, i.licence, i.definition,
+                   COALESCE(cov.coverage_start, '') AS coverage_start,
+                   COALESCE(cov.coverage_end, '') AS coverage_end,
+                   COALESCE(cov.observation_count, 0) AS observation_count,
+                   COALESCE(rel.release_date, '') AS release_date,
+                   COALESCE(rel.retrieved_at, '') AS retrieved_at
+            FROM indicator i
+            LEFT JOIN (
+                SELECT o.indicator_id,
+                       MIN(o.period_start)::text AS coverage_start,
+                       MAX(o.period_end)::text AS coverage_end,
+                       COUNT(*) AS observation_count
+                FROM observation o
+                JOIN data_release r ON r.release_id = o.release_id AND r.is_current
+                GROUP BY o.indicator_id
+            ) cov ON cov.indicator_id = i.indicator_id
+            LEFT JOIN (
+                SELECT indicator_id,
+                       MAX(official_release_date)::text AS release_date,
+                       MAX(retrieved_at)::text AS retrieved_at
+                FROM data_release
+                WHERE is_current
+                GROUP BY indicator_id
+            ) rel ON rel.indicator_id = i.indicator_id
+            ORDER BY i.indicator_id
             """
         ).fetchall()
     return [dict(row) for row in rows]

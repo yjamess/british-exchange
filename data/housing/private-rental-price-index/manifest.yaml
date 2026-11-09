@@ -30,5 +30,5 @@ caveats: Not seasonally adjusted. Latest two UK monthly estimates are provisiona
   the ONS historical bridge.
 related_indicator_ids: []
 open_questions: []
-notion_registry_url: https://app.notion.com/40d65471768581e8be50f60e0d2a4919
+notion_registry_url: "https://app.notion.com/40d65471768581e8be50f60e0d2a4919"
 schema_version: '1.0'

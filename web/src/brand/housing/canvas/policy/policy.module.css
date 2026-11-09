@@ -1,0 +1,52 @@
+/* Domain 10 — Promise / Archive helpers. Ledger UI lives in @/brand/policy. */
+
+.machine {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+.machine > :global(.bo-label) {
+  margin: 0;
+  color: var(--bo-ink);
+}
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s4);
+}
+.after {
+  margin-top: var(--bo-s5);
+}
+.disclosure {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-top: var(--bo-s4);
+}
+.line {
+  display: block;
+}
+.line + .line {
+  margin-top: 4px;
+}
+.plates {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: var(--bo-s4);
+}
+.plateFigure {
+  display: grid;
+  gap: var(--bo-s2);
+  margin: 0.75rem 0;
+  min-width: 0;
+  max-width: 40rem;
+}
+.plateImage {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: var(--bo-hair);
+}
+@media (max-width: 640px) {
+  .pair {
+    grid-template-columns: 1fr;
+  }
+}

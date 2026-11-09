@@ -23,5 +23,6 @@ Read `docs/visual-identity.md` before changing sector UI, charts, imagery or bra
 - Instrument marks (ticks, coordinates, contours, points) are plotted from real values. Line language: solid observed, dotted provisional, dashed gap/not observed.
 - Composition: 12-col grid; sections are Quiet, Monumental (max one per page) or Index.
 - Data chooses the chart form. Do not fork a second design system. Changing identity requires updating `docs/visual-identity.md` and `brand.css` together.
+- Explorer stages: **one Notes foot** (`FigureRecord` or `SourceLine` on `<Stage foot>`). Definition/method stay out of the plot. No `<Coverage>` strip under the stage. Multi-chart titles use `explorerClasses.stageTitle` (Housing pipeline), not `.bo-label` “FIG.” caps. See `.cursor/rules/explorer-stage.mdc`.
 
 Reference page: British Exchange Identity artifact (linked in the doc).

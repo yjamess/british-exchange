@@ -1,0 +1,38 @@
+indicator_id: subnational-final-consumption
+title: Subnational final energy consumption
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/total-final-energy-consumption-at-regional-and-local-authority-level-2005-to-2024
+series_id: Subnational total final energy consumption 2005–2024 (All fuels, ktoe)
+geography: UK countries, English regions, local authorities (April 2025 structure)
+frequency: annual
+unit: ktoe
+definition: Total final energy consumption (ktoe) at country, region and local authority
+  level from DESNZ subnational statistics. One observation per geography × All-fuels
+  sector (domestic, transport, industry-commercial, all) × year. DUKES comparison
+  rows excluded. notes sector=<id>;la=<label>.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.subnational_final_consumption
+curated_path: curated/observations.csv
+update_cadence: Annual — typically each summer
+raw_evidence:
+- path: raw/2026-11-06/Subnational_total_final_consumption_2005_2024.xlsx
+  retrieved_at: '2026-11-06T23:59:11.266844+00:00'
+  checksum_sha256: f9f26000bf688e1144a4b3b75a5240fcd23b91c697606cc887cee346ebe15701
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a68c32f16bc92f51e1a4260/Subnational_total_final_consumption_2005_2024.xlsx
+transformations: Parse year sheets 2005–2024; All-fuels Domestic/Transport/Industrial-Commercial/Total
+  columns; skip Code=DUKES.
+revision_notes: Published 2026-07-30; residual and road transport revised back to
+  2005; electricity/gas revised back to 2015.
+caveats: Not the same as national ECUK C1 (starts 2005; different methods; transport
+  excludes air; unallocated rows exist). LA geography is April 2025 structure. Fuel
+  detail columns exist in the pin but are out of scope for this indicator — All fuels
+  only.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -3,7 +3,7 @@
 **Purpose:** Map what the observatory tracks.  
 **Rule:** `Inbox` = named intent only. **Not sourced. Not in SQL. Not chartable.**  
 **Canonical tracker:** [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558)  
-**Synced:** 2026-11-03 — **49 Ready** on disk (+ `uk-hpi-measures`); Postgres load may lag until re-ingest; **0 Blocked**; **0 Inbox**
+**Synced:** 2026-11-04 — **52 Ready** on disk (Housing + 3 Land series); Postgres reloaded; **0 Blocked**; **0 Inbox**
 
 ## How to read status
 
@@ -72,6 +72,9 @@
 | House price to earnings ratio | ONS | annual | **England only** |
 | Housing completions | MHCLG | quarterly | **England only** |
 | Dwelling stock by tenure | MHCLG | annual | **England only** |
+| Green Belt area | MHCLG | annual | **England** + LA snapshot |
+| Land use stock | MHCLG | annual (2022 stock) | **England only** · series filter |
+| Planning decisions granted | MHCLG | quarterly | **England** district authorities |
 
 ### People & Society
 

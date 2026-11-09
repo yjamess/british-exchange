@@ -1,0 +1,18 @@
+/* Dual scramble — stacked spans: the sizer holds the final width, the layer scrambles over it.
+   Same colour throughout: the scramble is in the glyphs, not in a second colour. */
+.root {
+  position: relative;
+  display: inline-block;
+  white-space: pre;
+  vertical-align: baseline;
+}
+.sizer {
+  visibility: hidden;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  white-space: pre;
+  overflow: visible;
+  pointer-events: none;
+}

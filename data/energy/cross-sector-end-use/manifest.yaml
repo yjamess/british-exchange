@@ -1,0 +1,32 @@
+indicator_id: cross-sector-end-use
+title: Cross-sector end use (excl. transport)
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/energy-consumption-in-the-uk-2026
+series_id: ECUK Table U1 — all sectors excl. transport by end use (ktoe)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: ktoe
+definition: UK final energy consumption by end use for Domestic, Industrial and Services
+  (excl. transport), ECUK Table U1, 2021–2025. notes end_use=<label>;sector=domestic|industrial|services|total.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.cross_sector_end_use
+curated_path: curated/observations.csv
+update_cadence: Annual — ECUK typically each September
+raw_evidence:
+- path: raw/2026-11-06/ECUK_2026_End_Use_tables.xlsx
+  retrieved_at: '2026-11-07T00:01:04.715367+00:00'
+  checksum_sha256: c2b5723055960875a1bcc383d35a1bc088ba04f90f0fa107a853fdfe6175f122
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6aac067444ec1aa417346c38/ECUK_2026_End_Use_tables.xlsx
+transformations: Parse U1 Year × End use × sector columns; [x] → missing.
+revision_notes: ECUK 2026 End Use tables.
+caveats: Coverage starts 2021 — do not animate from 1970. Transport excluded. Distinct
+  from domestic-only U3 long-run.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

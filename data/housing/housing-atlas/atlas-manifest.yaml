@@ -1,0 +1,227 @@
+schema_version: housing-atlas-view/1.0
+status: experimental; awaiting independent validation and publication review
+title: Housing explorer presentation bundle
+agent_owner: housing
+connector_module: housing.connectors.housing_atlas
+definition: Lossless, null-padded presentation view of archived UK HPI observations
+  and existing curated housing topic series.
+curated_outputs:
+- path: curated/atlas.json
+  sha256: 4ce07cf7faac51bb5f2307aa768fc39fdd8c1a17dfd2492a6c81d12f5e7fe75d
+- path: curated/topics.json
+  sha256: 64e24f7e7a468c6d3f151785e1ce26a0f535e1069d2c2ff863a08573ff1a8c7e
+source_evidence:
+- indicator_id: uk-average-house-price
+  manifest_path: data/housing/uk-average-house-price/manifest.yaml
+  manifest_sha256: 32a2db2b473ca5c8f57995d0d307fe65f353adda0028fd17ae8af4635c5f3f0d
+  raw_path: data/housing/uk-average-house-price/raw/2026-11-03/UK-HPI-full-file-2026-08.csv
+  raw_sha256: b00756d0c39f356d17fadf93c42af75ccc48f7123cd666e602c65260d081b6c9
+  retrieved_at: '2026-11-03T17:52:49.874959+00:00'
+  official_release_date: '2026-10-21'
+  source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/UK-HPI-full-file-2026-08.csv
+- indicator_id: dwelling-stock-by-tenure
+  manifest_path: data/housing/dwelling-stock-by-tenure/manifest.yaml
+  manifest_sha256: 82fde5f652a54bd3cf22ed9d8d7eb5a497b90c7167476d8b215ed57b74166eb3
+  raw_path: data/housing/dwelling-stock-by-tenure/raw/2026-11-03/LiveTable104.ods
+  raw_sha256: ecd02eb8e520e4fef7878bda35db002ca2360cb45112416db6619863b211a1fa
+  retrieved_at: '2026-11-03T17:54:36.091944+00:00'
+  official_release_date: '2026-05-21'
+  source_url: https://assets.publishing.service.gov.uk/media/6a0dcbcc40a9c699fd826eec/LiveTable104.ods
+  curated_path: data/housing/dwelling-stock-by-tenure/curated/observations.csv
+  curated_sha256: 6489b43968e30dd3b09873f30386f4d2989e66de5a8052ffdad872439a21128d
+  source_row_flags:
+    '2020': '[note 3]'
+    '2022': '[p]'
+    '2023': '[p]'
+    '2024': '[r], [p]'
+    '2025': '[p]'
+  status_recovery_note: Experimental bundle recovers original ODS Notes [p]/[r] omitted
+    from canonical curated statuses. No source CSV was altered. Provisional takes
+    precedence over revised; sourceFlags preserves both.
+- indicator_id: housing-completions
+  manifest_path: data/housing/housing-completions/manifest.yaml
+  manifest_sha256: 7b29374c1c7ea98cfaccf298485d7a8e459a64636476bf59ecf0f6a7f8570879
+  raw_path: data/housing/housing-completions/raw/2026-11-03/LiveTable213.ods
+  raw_sha256: 97752ab5cbee6e7491b207e2eaebbfd798b0bda73c2d91300f085ef79d6031e6
+  retrieved_at: '2026-11-03T17:52:55.680881+00:00'
+  official_release_date: '2026-09-24'
+  source_url: https://assets.publishing.service.gov.uk/media/6ab3e256a9c3d267bcccedc1/LiveTable213.ods
+  curated_path: data/housing/housing-completions/curated/observations.csv
+  curated_sha256: 22f3b567a9dac9f9a6cdc3c91cba7e715ea9a0042476d3b57b7b753cd5426c3d
+  source_row_flags:
+    '2005-10-01': '[note 2]'
+    '2006-01-01': '[note 2]'
+    '2006-04-01': '[note 2]'
+    '2006-07-01': '[note 2]'
+    '2006-10-01': '[note 2]'
+    '2007-01-01': '[note 2]'
+    '2024-04-01': '[r]'
+    '2024-07-01': '[r]'
+    '2024-10-01': '[r]'
+    '2025-01-01': '[r]'
+    '2025-04-01': '[r]'
+    '2025-07-01': '[r]'
+    '2025-10-01': '[r]'
+    '2026-01-01': '[r]'
+    '2026-04-01': '[p]'
+  status_recovery_note: Experimental bundle recovers original ODS Notes [p]/[r] omitted
+    from canonical curated statuses. No source CSV was altered. Provisional takes
+    precedence over revised; sourceFlags preserves both.
+- indicator_id: private-rental-price-index
+  manifest_path: data/housing/private-rental-price-index/manifest.yaml
+  manifest_sha256: 6ac37c02a2ba7b47abb13f9c822d120df2010db40b82aa3ba667f18da6c9dd31
+  raw_path: data/housing/private-rental-price-index/raw/2026-11-03/pipr_monthly.xlsx
+  raw_sha256: 0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c
+  retrieved_at: '2026-11-03T17:52:50.832273+00:00'
+  official_release_date: '2026-10-21'
+  source_url: https://www.ons.gov.uk/file?uri=/economy/inflationandpriceindices/datasets/priceindexofprivaterentsukmonthlypricestatistics/21october2026/priceindexofprivaterentsukmonthlypricestatistics.xlsx
+  curated_path: data/housing/private-rental-price-index/curated/observations.csv
+  curated_sha256: 27581a35839aeace35a3d53e5b76faa59ad36c280cad0399cb7e5ac897baa3e7
+- indicator_id: house-price-to-earnings-ratio
+  manifest_path: data/housing/house-price-to-earnings-ratio/manifest.yaml
+  manifest_sha256: 15309bdcf7b13c49c48dce4f3767c9d73c06d1cebb4d032fb34b04bf4f1cf36a
+  raw_path: data/housing/house-price-to-earnings-ratio/raw/2026-11-03/aff1_ratio_workplace.xlsx
+  raw_sha256: 585bc98112e801fc3dd45dbc5238d05c6507d4e48dc3ec3afab4867eded1c2f4
+  retrieved_at: '2026-11-03T17:52:49.739655+00:00'
+  official_release_date: '2026-03-26'
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/housing/datasets/ratioofhousepricetoworkplacebasedearningslowerquartileandmedian/current/aff1ratioofhousepricetoworkplacebasedearnings.xlsx
+  curated_path: data/housing/house-price-to-earnings-ratio/curated/observations.csv
+  curated_sha256: 62e2671757020226c8de61e1a19397ee3e17963ae1ffe4da1704fdda22c17ba4
+coverage:
+  area_counts:
+    local: 360
+    region: 9
+    nation: 4
+    uk: 1
+  excluded_areas:
+  - code: E10000003
+    name: Cambridgeshire
+  - code: E10000007
+    name: Derbyshire
+  - code: E10000008
+    name: Devon
+  - code: E10000011
+    name: East Sussex
+  - code: E10000012
+    name: Essex
+  - code: E10000013
+    name: Gloucestershire
+  - code: E10000014
+    name: Hampshire
+  - code: E10000015
+    name: Hertfordshire
+  - code: E10000016
+    name: Kent
+  - code: E10000017
+    name: Lancashire
+  - code: E10000018
+    name: Leicestershire
+  - code: E10000019
+    name: Lincolnshire
+  - code: E10000020
+    name: Norfolk
+  - code: E10000024
+    name: Nottinghamshire
+  - code: E10000025
+    name: Oxfordshire
+  - code: E10000028
+    name: Staffordshire
+  - code: E10000029
+    name: Suffolk
+  - code: E10000030
+    name: Surrey
+  - code: E10000031
+    name: Warwickshire
+  - code: E10000032
+    name: West Sussex
+  - code: E10000034
+    name: Worcestershire
+  - code: E11000001
+    name: Greater Manchester
+  - code: E11000002
+    name: Merseyside
+  - code: E11000003
+    name: South Yorkshire
+  - code: E11000005
+    name: West Midlands
+  - code: E11000006
+    name: West Yorkshire
+  - code: E11000007
+    name: Tyne and Wear
+  - code: E13000001
+    name: Inner London
+  - code: E13000002
+    name: Outer London
+  - code: K03000001
+    name: Great Britain
+  - code: K04000001
+    name: England and Wales
+  months:
+    first: 1995-01
+    last: 2026-08
+    count: 380
+  non_null_observations: 1075723
+  null_observations: 61237
+measures:
+- id: average
+  source_column: AveragePrice
+  unit: GBP
+- id: detached
+  source_column: DetachedPrice
+  unit: GBP
+- id: semi-detached
+  source_column: SemiDetachedPrice
+  unit: GBP
+- id: terraced
+  source_column: TerracedPrice
+  unit: GBP
+- id: flat
+  source_column: FlatPrice
+  unit: GBP
+- id: new-build
+  source_column: NewPrice
+  unit: GBP
+- id: existing
+  source_column: OldPrice
+  unit: GBP
+- id: sales-volume
+  source_column: SalesVolume
+  unit: sales
+transformation: Filter HPI calendar months from January 1995; retain supported exact
+  area codes; preserve source numbers; pad missing calendar slots with null. Export
+  existing topic rows and complete 31 March tenure snapshots without source duplication.
+caveats:
+- Experimental view export; independent validation and registry/publication review
+  are required before publication.
+- Prices are nominal UK HPI mix-adjusted area estimates, not individual property valuations
+  or asking prices.
+- Geography codes are retained exactly as supplied in this release. Boundary versions
+  must be matched by code; no name-based or approximate joins are permitted.
+- Source series have different start and end dates. Null means no source value; it
+  is never zero and is not interpolated or carried forward.
+- 'Monthly rows for Northern Ireland do not imply independent monthly observations:
+  Northern Ireland contributes quarterly data in the UK HPI.'
+- Recent UK HPI estimates are provisional and can revise. The compact export does
+  not assign final status to individual observations.
+- County, metropolitan-county, Inner/Outer London, Great Britain and England/Wales
+  aggregates are excluded to avoid mixing overlapping areas into the local-authority
+  layer.
+- Sales volume counts transactions and has a different unit from prices. New-build,
+  existing-home and sales-volume data can lag the latest average-price month.
+- Annual price change must compare the same measure and geography exactly 12 calendar
+  months apart; no comparison is available if either value is null.
+- Tenure social category combines local-authority, private-registered-provider and
+  other-public-sector dwellings; this is dwelling stock, not households.
+- All five tenure components and all-dwellings total must be observed at 31 March.
+  Component shares use the sum of components; source total can differ through rounding.
+- Completions are England new-build completions, not net additions; affordability
+  is England workplace-based price-to-earnings, not mortgage affordability; rent is
+  a UK index, not rent in pounds.
+- Archived LT213 Notes marks 2026 Q2 provisional, and LT104 Notes marks 2022–2025
+  provisional (2024 also revised); existing canonical CSV statuses omit these flags.
+  This experimental bundle recovers them without altering canonical CSVs. Completion
+  [r]-only rows are revised; tenure status is provisional/final, with sourceFlags
+  retaining revision notes.
+registry_note: This experimental view reuses source indicators; it is deliberately
+  excluded from the canonical Ready CSV catalogue. Register derived indicators and
+  geographic layers separately before publication.

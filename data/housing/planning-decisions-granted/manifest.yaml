@@ -1,0 +1,38 @@
+indicator_id: planning-decisions-granted
+title: Planning decisions granted
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-planning-application-statistics
+series_id: Live Table P120 received / decided / granted (England)
+geography: England (E92000001) — district planning authorities
+frequency: quarterly
+unit: applications / decisions
+definition: District planning authority applications received, decided, and decisions
+  granted in England each quarter (Live Table P120). Filter series=decisions-granted
+  for the headline grants series.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.planning_decisions_granted
+curated_path: curated/observations.csv
+update_cadence: quarterly
+raw_evidence:
+- path: raw/2026-11-04/Tables_P120_to_P138_MJPSI_PIPTDCC.ods
+  retrieved_at: '2026-11-04T20:25:27.555485+00:00'
+  checksum_sha256: ec1936b8bbf885a643c860e3d96772759a7066214899bd7590e1c35c0af2bf8b
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-09-24'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ab2cc778cb3c0580e501005/Tables_P120_to_P138_MJPSI_PIPTDCC.ods
+transformations: Parse LT_P120 quarterly rows; emit series=applications-received|applications-decided|decisions-granted.
+revision_notes: Expanded to received/decided/granted 2026-11-04 (Domain 06).
+caveats: England district planning authorities only — not county matters and not UK.
+  Applications received and decisions granted in the same quarter are not a matched
+  cohort. A grant is not a dwelling completion. Indicator id retained for registry
+  continuity.
+related_indicator_ids:
+- green-belt-area
+- land-use-stock
+- housing-completions
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e6547176858140a0bfc32ab8d9aa7a"
+schema_version: '1.0'
