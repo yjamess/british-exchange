@@ -150,6 +150,26 @@ def upsert_release(conn, package: IndicatorPackage) -> int:
     return release_id
 
 
+_OBS_INSERT_SQL = """
+    INSERT INTO observation (
+        indicator_id, release_id, period_start, period_end,
+        geography_code, geography_label, value, unit,
+        observation_status, source_version, notes,
+        dim_fuel, dim_water_company, dim_water_company_name,
+        dim_demographic, dim_series, dim_category
+    ) VALUES (
+        %(indicator_id)s, %(release_id)s, %(period_start)s, %(period_end)s,
+        %(geography_code)s, %(geography_label)s, %(value)s, %(unit)s,
+        %(observation_status)s, %(source_version)s, %(notes)s,
+        %(dim_fuel)s, %(dim_water_company)s, %(dim_water_company_name)s,
+        %(dim_demographic)s, %(dim_series)s, %(dim_category)s
+    )
+"""
+
+# Remote Postgres (Supabase) is far faster with batched inserts than one round-trip per row.
+_OBS_BATCH_SIZE = 2_000
+
+
 def replace_release_observations(
     conn, package: IndicatorPackage, release_id: int
 ) -> int:
@@ -160,6 +180,17 @@ def replace_release_observations(
         (release_id,),
     )
     count = 0
+    batch: list[dict] = []
+
+    def flush() -> None:
+        nonlocal batch
+        if not batch:
+            return
+        # psycopg3: executemany lives on the cursor, not Connection.
+        with conn.cursor() as cur:
+            cur.executemany(_OBS_INSERT_SQL, batch)
+        batch = []
+
     with package.curated_csv.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             raw_value = row.get("value")
@@ -167,22 +198,7 @@ def replace_release_observations(
             notes = row.get("notes") or ""
             dims = dimensions_from_notes(notes)
             dim_fields = dimensions_to_db_fields(dims)
-            conn.execute(
-                """
-                INSERT INTO observation (
-                    indicator_id, release_id, period_start, period_end,
-                    geography_code, geography_label, value, unit,
-                    observation_status, source_version, notes,
-                    dim_fuel, dim_water_company, dim_water_company_name,
-                    dim_demographic, dim_series, dim_category
-                ) VALUES (
-                    %(indicator_id)s, %(release_id)s, %(period_start)s, %(period_end)s,
-                    %(geography_code)s, %(geography_label)s, %(value)s, %(unit)s,
-                    %(observation_status)s, %(source_version)s, %(notes)s,
-                    %(dim_fuel)s, %(dim_water_company)s, %(dim_water_company_name)s,
-                    %(dim_demographic)s, %(dim_series)s, %(dim_category)s
-                )
-                """,
+            batch.append(
                 {
                     "indicator_id": row["indicator_id"],
                     "release_id": release_id,
@@ -196,9 +212,14 @@ def replace_release_observations(
                     "source_version": row["source_version"],
                     "notes": notes,
                     **dim_fields,
-                },
+                }
             )
             count += 1
+            if len(batch) >= _OBS_BATCH_SIZE:
+                flush()
+                if count % 50_000 == 0:
+                    print(f"  … {count} rows", flush=True)
+    flush()
     # Guard: Ofwat extract must stay company-level (no fabricated industry total).
     if manifest.indicator_id == "water-supply-interruptions":
         bad = conn.execute(
@@ -229,28 +250,45 @@ def _is_observation_package(package: IndicatorPackage) -> bool:
     return "observation_status" in header and "period_start" in header
 
 
-def load_all() -> None:
+def _select_packages(only: set[str] | None) -> list[IndicatorPackage]:
     packages = iter_indicator_packages()
+    if only:
+        packages = [p for p in packages if p.manifest.indicator_id in only]
+        missing = only - {p.manifest.indicator_id for p in packages}
+        if missing:
+            raise SystemExit(
+                "No local package(s) for: "
+                + ", ".join(sorted(missing))
+                + ". Pull curated CSV from the archive first."
+            )
     if not packages:
         raise SystemExit("No local indicator packages found under data/")
+    return packages
+
+
+def load_all(*, only: set[str] | None = None) -> None:
+    packages = _select_packages(only)
 
     with connect() as conn:
         applied = apply_migrations(conn)
-        print(f"migrations: {', '.join(applied)}")
+        print(f"migrations: {', '.join(applied) or 'none'}", flush=True)
         for package in packages:
             if not _is_observation_package(package):
                 print(
                     f"skip {package.manifest.indicator_id}: "
-                    "not an observation curated CSV (transaction layer)"
+                    "not an observation curated CSV (transaction layer)",
+                    flush=True,
                 )
                 continue
+            print(f"loading {package.manifest.indicator_id} …", flush=True)
             upsert_indicator(conn, package.manifest)
             release_id = upsert_release(conn, package)
             n = replace_release_observations(conn, package, release_id)
             conn.commit()
             print(
                 f"loaded {package.manifest.indicator_id}: "
-                f"{n} observations (release_id={release_id}, current)"
+                f"{n} observations (release_id={release_id}, current)",
+                flush=True,
             )
 
 
@@ -462,12 +500,12 @@ def _rest_replace_observations(
     return count
 
 
-def load_all_via_rest(*, max_bytes: int | None = None) -> None:
+def load_all_via_rest(
+    *, max_bytes: int | None = None, only: set[str] | None = None
+) -> None:
     """Load Ready packages through Supabase PostgREST (no direct DB password needed)."""
     base, key = _rest_config()
-    packages = iter_indicator_packages()
-    if not packages:
-        raise SystemExit("No local indicator packages found under data/")
+    packages = _select_packages(only)
 
     with httpx.Client() as client:
         for package in packages:
@@ -501,12 +539,20 @@ def main(argv: list[str] | None = None) -> None:
         default=None,
         help="With --via-rest, skip curated CSVs larger than this many KiB",
     )
+    parser.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        metavar="INDICATOR_ID",
+        help="Load only this indicator_id (repeatable). Needs the curated CSV on disk.",
+    )
     args = parser.parse_args(argv)
+    only = set(args.only) or None
     if args.via_rest:
         max_bytes = None if args.max_kb is None else args.max_kb * 1024
-        load_all_via_rest(max_bytes=max_bytes)
+        load_all_via_rest(max_bytes=max_bytes, only=only)
     else:
-        load_all()
+        load_all(only=only)
 
 
 if __name__ == "__main__":

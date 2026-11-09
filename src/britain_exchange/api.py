@@ -624,3 +624,50 @@ def housing_price_paid(
         ),
         "results": results,
     }
+
+
+@app.get("/housing/rent/places")
+def housing_rent_places() -> list[dict[str, str]]:
+    """PIPR place menu for Housing › Renting (no local CSV required)."""
+    from britain_exchange.rent_packs import list_rent_places
+
+    try:
+        return list_rent_places()
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/housing/rent/areas/{code}")
+def housing_rent_area(code: str) -> dict[str, Any]:
+    """One place's aligned PIPR series pack (months × series keys)."""
+    from britain_exchange.rent_packs import rent_area_pack
+
+    try:
+        pack = rent_area_pack(code)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    if pack is None:
+        raise HTTPException(status_code=404, detail="That place is not in the private rent file.")
+    return pack
+
+
+@app.get("/housing/rent/map")
+def housing_rent_map(
+    measure: str = Query("average-rent"),
+    category: str = Query("all"),
+) -> dict[str, Any]:
+    """One PIPR measure for every place — atlas shape for the rent map."""
+    from britain_exchange.rent_packs import rent_map_pack
+
+    try:
+        return rent_map_pack(category, measure)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc

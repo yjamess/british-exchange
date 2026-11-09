@@ -16,13 +16,17 @@ Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
 
 ## Cloud archive (laptop storage)
 
-Bulky `data/**/raw` and large curated blobs live in Supabase Storage (`bx-data-archive`). The laptop keeps manifests, thin energy curated files the UI reads from disk, and `data/_archive_index.json`.
+Bulky `data/**/raw` and large curated blobs live in Supabase Storage (`bx-data-archive`). The laptop keeps manifests, thin energy curated files the UI still reads from disk, and `data/_archive_index.json`.
+
+**Live Housing › Renting does not need the PIPR CSV on disk.** Observations are served from Supabase Postgres via FastAPI (`/housing/rent/...`). Pull the curated file only to re-run the connector or reload Postgres, then delete it again.
 
 ```bash
 # After setting SUPABASE_URL + SUPABASE_ANON_KEY (or SERVICE_ROLE) in .env
 uv run python -m britain_exchange.archive_data status
 uv run python -m britain_exchange.archive_data push-largest --min-mb 10
-uv run python -m britain_exchange.archive_data pull data/housing/price-paid-2025
+uv run python -m britain_exchange.archive_data pull data/housing/private-rental-prices/curated/observations.csv
+uv run python -m britain_exchange.load_ready --only private-rental-prices
+rm data/housing/private-rental-prices/curated/observations.csv
 ```
 
 Free-plan objects are capped at 50 MB; the tool gzip-compresses larger files before upload and restores the original checksum on pull.
@@ -35,6 +39,8 @@ Prefer cloud Supabase Postgres (same project as the archive). Paste the Database
 
 ```bash
 uv run python -m britain_exchange.load_ready   # migrate + load Ready CSVs
+# Or one indicator (needs that curated CSV briefly on disk):
+uv run python -m britain_exchange.load_ready --only private-rental-prices
 ```
 
 Local Homebrew/Docker still works via the URL in `.env.example` / `docker compose up -d`.
