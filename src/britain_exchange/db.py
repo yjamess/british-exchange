@@ -53,15 +53,33 @@ load_repo_env()
 
 
 def database_url() -> str | None:
-    return os.environ.get("DATABASE_URL") or None
+    """Return the Postgres URL from the process environment.
+
+    Checks ``DATABASE_URL`` first, then common host aliases. Empty / whitespace
+    values count as unset (a frequent Railway paste mistake).
+    """
+    for key in (
+        "DATABASE_URL",
+        "POSTGRES_URL",
+        "POSTGRES_PRIVATE_URL",
+        "DATABASE_PRIVATE_URL",
+    ):
+        raw = os.environ.get(key)
+        if raw is None:
+            continue
+        url = raw.strip().strip("'").strip('"')
+        if url:
+            return url
+    return None
 
 
 def require_database_url() -> str:
     url = database_url()
     if not url:
         raise RuntimeError(
-            "DATABASE_URL is not set. Example: "
-            "postgresql://britain:britain@127.0.0.1:5432/britain_exchange"
+            "DATABASE_URL is not set. On Railway, add it under the API service "
+            "Variables (exact name DATABASE_URL), then redeploy. Example: "
+            "postgresql://postgres:PASSWORD@db.PROJECT.supabase.co:5432/postgres"
         )
     return url
 

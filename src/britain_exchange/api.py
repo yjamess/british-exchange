@@ -220,9 +220,15 @@ def _enrich_observation_rows(
 
 @app.get("/health")
 def health() -> dict[str, Any]:
+    # Never return the URL itself — only whether the process can see it.
+    from britain_exchange.db import database_url
+
+    url = database_url()
     return {
         "status": "ok",
         "store": "postgres" if using_postgres() else "files",
+        "database_url_set": url is not None,
+        "database_url_scheme": (url.split(":", 1)[0] if url else None),
     }
 
 
