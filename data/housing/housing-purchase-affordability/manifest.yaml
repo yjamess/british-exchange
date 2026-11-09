@@ -1,0 +1,34 @@
+indicator_id: housing-purchase-affordability
+title: Housing purchase affordability
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/housingpurchaseaffordabilityingreatbritain
+series_id: Purchase affordability Tables 4 + 3a (2024 edition)
+geography: UK countries and English regions (Table 4); England grid (3a)
+frequency: annual (financial year)
+unit: ratio (house price decile / household income decile)
+definition: Ratios of house-price deciles to equivalised household disposable income
+  deciles. Median/median by region over time, plus England income×price grid for the
+  latest financial year.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_purchase_affordability
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/purchase_affordability_2024.xlsx
+  retrieved_at: '2026-11-04T18:18:40.159098+00:00'
+  checksum_sha256: 8a9da8c50455e0a03c51804db129036be2c56e4d0cb9391f89528a646c311f65
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-09-18'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/housing/datasets/housingpurchaseaffordabilityingreatbritain/2024/housingpurchaseaffordabilityukbycountryandenglishregion2024.xlsx
+transformations: Table 4 → series=median-household; Table 3a latest FY → series=decile-grid
+  with income/price percentile notes.
+revision_notes: Pinned 2024 edition, release 18 September 2025.
+caveats: Household equivalised disposable income (not ASHE workplace earnings). Not
+  the same as AFF1 years-of-pay. Scotland/NI shorter histories.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

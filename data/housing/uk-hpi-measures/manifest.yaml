@@ -3,13 +3,14 @@ title: UK HPI measures (type and volume)
 sector: housing-land
 publisher: HM Land Registry / ONS
 source_url: https://www.gov.uk/government/statistical-data-sets/uk-house-price-index-data-downloads-august-2026--2
-series_id: UK HPI Average/Detached/Flat/New/Old/SalesVolume (United Kingdom)
-geography: United Kingdom (K02000001)
+series_id: UK HPI Average/Detached/Flat/New/Old/SalesVolume (UK); FTB/Cash/Mortgage
+  (England)
+geography: United Kingdom (K02000001); England segments (E92000001)
 frequency: monthly
 unit: £ (UK HPI) or sales (count)
-definition: 'United Kingdom House Price Index measures from the full UK HPI file:
-  average and property-type prices plus monthly sales volume. Long-format rows keyed
-  by notes series=<slug> for explorer filters.'
+definition: 'UK House Price Index measures from the full UK HPI file: UK average and
+  property-type prices, new/existing, sales volume; plus England first-time buyer,
+  cash and mortgage prices. Long-format rows keyed by notes series=<slug>.'
 licence: Open Government Licence v3.0
 agent_owner: housing
 connector_module: housing.connectors.uk_hpi_measures
@@ -17,19 +18,19 @@ curated_path: curated/observations.csv
 update_cadence: monthly (UK HPI)
 raw_evidence:
 - path: raw/2026-11-03/UK-HPI-full-file-2026-08.csv
-  retrieved_at: '2026-11-03T23:50:39.620812+00:00'
+  retrieved_at: '2026-11-04T16:59:56.718481+00:00'
   checksum_sha256: b00756d0c39f356d17fadf93c42af75ccc48f7123cd666e602c65260d081b6c9
   content_type: text/csv
   official_release_date: '2026-10-21'
   http_status: null
   source_url: https://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/UK-HPI-full-file-2026-08.csv
-transformations: Filter UK-HPI-full-file to RegionName=United Kingdom. Emit one observation
-  per measure column (Average, Detached, Semi, Terrace, Flat, New, Old, SalesVolume)
-  with series=<slug> in notes.
+transformations: 'UK rows: Average, Detached, Semi, Terrace, Flat, New, Old, SalesVolume.
+  England rows: FTB, Cash, Mortgage (blank on UK totals). series=<slug> in notes.
+  Latest 12 valued months provisional per geography.'
 revision_notes: Pinned UK-HPI-full-file-2026-08 published 21 Oct 2026.
-caveats: Latest ~12 months of UK HPI are provisional and revise. Sales volume is a
-  count, not a price — filter series=sales-volume separately from price measures.
-  Not a local or postcode series.
+caveats: Latest ~12 months of UK HPI are provisional and revise. FTB/cash/mortgage
+  are England-only in the source file. Sales volume is a count, not a price. Not a
+  local or postcode series.
 related_indicator_ids:
 - uk-average-house-price
 - house-prices-by-region

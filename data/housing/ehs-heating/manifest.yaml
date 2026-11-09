@@ -1,0 +1,77 @@
+indicator_id: ehs-heating
+title: EHS heating systems
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistical-data-sets/energy-performance
+series_id: DA6101 / DA6102 Heating — dwellings / areas
+geography: England (E92000001); ONS regions E12000001–E12000009 from 2020; EHS sub-national
+  areas 2008–2019 — dwelling sample survey estimates
+frequency: annual
+unit: percent of dwellings
+definition: Share of England dwellings by main space heating system (central, storage,
+  room), main fuel, boiler type (condensing, condensing-combi, none) and heat pump
+  presence, by tenure, dwelling age, dwelling type, floor area and region (English
+  Housing Survey dwelling sample).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_energy_anatomy
+curated_path: curated/observations.csv
+update_cadence: annual (EHS live tables, July)
+raw_evidence:
+- path: raw/2026-11-04/DA6101_Heating_-_dwellings.ods
+  retrieved_at: '2026-11-04T21:10:29.696999+00:00'
+  checksum_sha256: 5fe7b8997f2ea137df56b1a852c93e823e4305064909652bf9f3eccb13be1da8
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4da45d92f65594cb0299a0/DA6101_Heating_-_dwellings.ods
+- path: raw/2026-11-04/DA6102_Heating_-_areas.ods
+  retrieved_at: '2026-11-04T23:44:03.471117+00:00'
+  checksum_sha256: 7d248b52ce59d6203c8dce4f1cea533d37b476595941f3e159dc05cec110ae5c
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4da469ed5ddb5c8626f49f/DA6102_Heating_-_areas.ods
+transformations: 'Header-driven parse of every DA6101/DA6102 (heating) or DA6201/DA6202
+  (insulation) year sheet via housing.connectors.ehs_da_parse with a header-group
+  column resolver; rows kept for tenure, dwelling age, dwelling type, floor area,
+  region / sub-national area and all dwellings, in the ehs_quality_indicators notes
+  convention (series, tenure, breakdown, <breakdown>, category, table, base, row-sample-unweighted,
+  row-dwellings-000s). ''u''/''*'' → suppressed. condensing-boiler and wall-insulation
+  are derived sums of published columns in the same row (derived= note; emitted only
+  when every part is a final value). Ch2 annex AT2.9 (all-tenure trend) and AT2.13/2.14
+  (improvement) unchanged. Series: central-heating, storage-heaters, room-heater,
+  main-fuel-gas, main-fuel-oil, main-fuel-electricity, communal-heating (2023+), boiler-condensing,
+  boiler-condensing-combi, condensing-boiler (derived sum), no-boiler, heat-pump (2023+)'
+revision_notes: 'Domain 07 Energy Anatomy ingest 2026-11-04. Same-day fix after QA
+  (data/qa/qa_housing_ehs_inside_home_2026_11_04.md §6): columns located by header
+  text per year. Wave 2 (2026-11-04, data/qa/qa_housing_quality_wave2_2026_11_04.md):
+  heating / insulation now carry dwelling-age, dwelling-type, floor-area and region
+  / sub-national-area breakdowns (DA6101/DA6102, DA6201/DA6202) and the published
+  component series; every row gains breakdown=none|…; tenure ''all social'' relabelled
+  social-rented (tenure-label note keeps the published label) to match the other EHS
+  packages; evidence now pinned via housing.connectors.ehs_pins (stable retrieval
+  timestamps). ehs-energy-improvement rows relabelled observation-type=modelled-derived.'
+caveats: 'England survey estimates only — not UK and not EPC register certificates
+  (see epc-domestic-lodgements for the administrative register). Breakdowns are exactly
+  those published: characteristic rows (dwelling age / type / floor area / area) are
+  all tenures only in every year; region (9 ONS regions) from 2020, three sub-national
+  areas 2008–2019 (no ONS code). 2020 and 2021 are occupied dwellings only and modelled
+  (COVID-19); 2022 is a hybrid sample. Column sets change: 2023 adds biomass / communal
+  heating / heat pumps and drops water heating; solid fuel excludes biomass from 2023
+  (not ingested); cavity-wall evidence wording and the assumed-insulated rule change
+  (post-1990 no-CWI-evidence 2010–14; post-1995 assumed-as-built 2015+); loft depth
+  bands change (200mm+ 2008–09; 150mm+ 2010+). Shares are of all dwellings in the
+  group (no-loft dwellings included in the loft denominator) — unlike annex loft-200mm-plus.
+  Improvement costs are SAP-modelled for dwellings below band C that can reach C.'
+related_indicator_ids:
+- ehs-energy-efficiency-bands
+- epc-domestic-lodgements
+- ehs-thermal-comfort
+- ehs-insulation
+- ehs-energy-improvement
+open_questions:
+- Web loaders must filter breakdown=none for the headline tenure lines (rows now carry
+  dwelling-age / dwelling-type / floor-area / region breakdowns).
+notion_registry_url: https://app.notion.com/p/40e65471768581e898dde60a9492cb25
+schema_version: '1.0'

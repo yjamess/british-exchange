@@ -1,0 +1,37 @@
+indicator_id: final-energy-consumption-by-sector
+title: Final energy consumption by sector
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/energy-consumption-in-the-uk-2026
+series_id: ECUK Table C1 — final energy consumption by sector and fuel (ktoe)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: ktoe
+definition: UK final energy consumption (ktoe) from ECUK Table C1 for Industry, Transport,
+  Domestic, Services and other final users, and All final users. One observation per
+  sector × fuel × calendar year; notes sector=<id>;fuel=<label>. fuel=Total is the
+  sector aggregate.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.final_energy_consumption_by_sector
+curated_path: curated/observations.csv
+update_cadence: Annual — ECUK typically each September
+raw_evidence:
+- path: raw/2026-11-06/ECUK_2026_Consumption_tables.xlsx
+  retrieved_at: '2026-11-06T23:50:18.789483+00:00'
+  checksum_sha256: e0b73e341a009e066f067492607c940d8df155c00d40568430bfbbe77f0e4bd2
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6aac02112f29b38884818687/ECUK_2026_Consumption_tables.xlsx
+transformations: Parse five horizontal C1 blocks (banner row 5, Year row 6). Long-format
+  observations; [x] → missing. Do not stack fuel=Total with components.
+revision_notes: ECUK 2026 Consumption tables; series through 2025.
+caveats: Unit is ktoe (not Mtoe). All final users Total must not be summed with sector
+  Totals. Transport fuels are mode-prefixed. Industry block overlaps industrial-energy-consumption
+  — same source, Industry scope only there. Distinct from subnational final consumption
+  (2005–2024).
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

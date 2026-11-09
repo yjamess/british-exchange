@@ -1,0 +1,45 @@
+indicator_id: energy-import-dependency
+title: Energy import dependency
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/total-energy-section-1-energy-trends
+series_id: ET 1.3 (Import dependency, ratio, annual + quarterly)
+geography: UK (K02000001)
+frequency: annual+quarterly
+unit: ratio
+definition: 'UK energy import dependency from Energy Trends table ET 1.3 sheets ''Annual
+  dependency & low carbon'' and ''Quarter dependency & low carbon'', column ''Import
+  dependency [note 6]''. Values are workbook ratios (e.g. 0.43 ≈ 43%); negative values
+  mean net exports relative to the DESNZ denominator. Notes: measure=import_dependency;
+  basis=annual|quarterly. This is not a vulnerability or resilience score.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.energy_import_dependency
+curated_path: curated/observations.csv
+update_cadence: Quarterly — Energy Trends ET 1.3, last Thursday of Mar/Jun/Sep/Dec
+  (data one quarter in arrears)
+raw_evidence:
+- path: raw/2026-11-03/ET_1.3_SEP_26.xlsx
+  retrieved_at: '2026-11-07T00:30:12.720173+00:00'
+  checksum_sha256: 7e3d230e7cdcc45f3eef2b1ec5c866a30ffc26218fdd486cbae59f55eb34bf81
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-29'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6abe1eb626660e5f62a7f1d3/ET_1.3_SEP_26.xlsx
+transformations: 'Parse Import dependency [note 6] from Annual and Quarter dependency
+  & low carbon sheets. Preserve Excel decimal ratios (do not ×100). Long-format: one
+  CSV row per period × basis. Map [x] → missing. Fossil fuel dependency and low carbon
+  share columns not ingested.'
+revision_notes: ET_1.3_SEP_26 published 29 Sep 2026; Q2 2026 marked provisional on
+  quarter sheet.
+caveats: Unit is ratio as stored by DESNZ (not percentage points). Negative dependency
+  = net exporter period. All-fuels aggregate only — not by fuel. Dependency ≠ supply
+  vulnerability, price exposure, or diversity. Same workbook as Ready energy-imports-and-exports;
+  distinct indicator. GOV.UK asset URLs change each release.
+related_indicator_ids:
+- energy-imports-and-exports
+open_questions:
+- 'Gate 3: by-fuel dependency / long-run fuel-split trade.'
+- 'Gate 3: NESO interconnector flows and capacities.'
+notion_registry_url: https://app.notion.com/41165471768581f1b20de3b144f17d52
+schema_version: '1.0'

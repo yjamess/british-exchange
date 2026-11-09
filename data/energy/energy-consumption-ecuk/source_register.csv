@@ -1,0 +1,27 @@
+workbook,table_id,title,period,unit,status,gate2_priority,notes
+ECUK_2026_Consumption_tables.xlsx,C1,Final energy consumption by sector and fuel,1970-2025,ktoe,pinned,P0,Five side-by-side blocks: Industry; Transport; Domestic; Services and other final users; All final users. Industry already ingested as industrial-energy-consumption.
+ECUK_2026_Consumption_tables.xlsx,C2,Industrial by sub-sector and fuel,1990/1998-2025,ktoe,pinned,P1,Fuel detail from 1998; sub-sectors from 1990.
+ECUK_2026_Consumption_tables.xlsx,C3.1,Industrial 2-digit SIC (latest year),2025,ktoe,pinned,P2,Estimated via reference proportions.
+ECUK_2026_Consumption_tables.xlsx,C3.2,Industrial 2-digit SIC unpivoted,2017-2025,ktoe,pinned,P2,
+ECUK_2026_Consumption_tables.xlsx,C4,Services by sub-sector and fuel,1970-2025,ktoe,pinned,P1,
+ECUK_2026_Consumption_tables.xlsx,C5,Temperature corrected by sector,2002-2025,ktoe,pinned,P2,Also updated in Energy Trends.
+ECUK_2026_Consumption_tables.xlsx,C6,Temperature corrected by fuel,2002-2025,ktoe,pinned,P2,
+ECUK_2026_Consumption_tables.xlsx,C7,Transport further breakdowns,1990-2025,ktoe,pinned,P1,
+ECUK_2026_Consumption_tables.xlsx,C8,Road transport by vehicle type,1970-2025,mixed,pinned,P2,Petroleum in million tonnes of fuel (not ktoe).
+ECUK_2026_Consumption_tables.xlsx,C9,Domestic average consumption,2008-2025,mixed,pinned,P2,
+ECUK_2026_End_Use_tables.xlsx,U1,All sectors excl. transport by end use,2021-2025,ktoe,pinned,P1,Short history — do not draw as 1970 ribbon.
+ECUK_2026_End_Use_tables.xlsx,U2,All sectors detailed fuel × end use,2021-2025,ktoe,pinned,P1,
+ECUK_2026_End_Use_tables.xlsx,U3,Domestic by end use and fuel,1970-2025,ktoe,pinned,P0,Longest end-use series; appliances [x] early years.
+ECUK_2026_End_Use_tables.xlsx,U4.1,Industry end use × SIC,2025,ktoe,pinned,P2,
+ECUK_2026_End_Use_tables.xlsx,U4.2,Industry end use × SIC unpivoted,2021-2025,ktoe,pinned,P2,
+ECUK_2026_End_Use_tables.xlsx,U5,Services excl. agriculture by end use,2021-2025,ktoe,pinned,P1,
+ECUK_2026_End_Use_tables.xlsx,U6,Services detailed 2025,2025,ktoe,pinned,P2,
+ECUK_2026_End_Use_tables.xlsx,U8,Electricity consumed by heat pumps,2014-2025,GWh,pinned,P2,Different unit from ktoe tables.
+ECUK_2026_Primary_energy_tables.xlsx,P1,Primary energy actual and temperature-corrected,1970-2025,mixed,pinned,P0,Keep primary ≠ final.
+ECUK_2026_Primary_energy_tables.xlsx,P2,Primary vs final and primary energy ratio,1970-2025,mixed,pinned,P0,
+ECUK_2026_Intensity_tables.xlsx,I1-I6,Intensity / energy ratio / decomposition,varies,mixed,pinned,P2,Gate 3 Changing Appetite / efficiency lens.
+ECUK_2026_Whole_energy_flow_tables.xlsx,W1,Primary allocation by destination,1998-2025,ktoe,pinned,P0,Metabolism spine; Official Statistics in Development pack.
+ECUK_2026_Whole_energy_flow_tables.xlsx,W2,Useful and rejected by sector,2017-2025,ktoe,pinned,P1,Modelled; label assumptions.
+ECUK_2026_Whole_energy_flow_tables.xlsx,W3,Useful and rejected by end use,2025,ktoe,pinned,P1,
+ECUK_2026_Whole_energy_flow_tables.xlsx,W4,Total energy flow scenarios,2025,ktoe,pinned,P2,User scenarios ≠ DESNZ stats if recalculated.
+ECUK_2026_Whole_energy_flow_tables.xlsx,Assumed Efficiencies,Efficiency coefficients by sector/end use/fuel,2025,ratio,pinned,P1,Required for Useful Energy Experiment transparency.

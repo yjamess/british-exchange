@@ -1,0 +1,45 @@
+indicator_id: electricity-interconnector-capacity
+title: Electricity interconnector capacity
+sector: energy-industry
+publisher: NESO
+source_url: https://www.neso.energy/data-portal/interconnector-register
+series_id: Interconnector Register (resource_id 64f7908f-f787-4977-93e1-5342a5f1357f)
+geography: Great Britain (K03000001); Northern Ireland excluded
+frequency: ad_hoc
+unit: MW
+definition: Firm Transmission Entry Capacity for interconnectors from the NESO Interconnector
+  Register. Built links use MW Import - Current at the register pin date. Future /
+  staged rows use MW Import - Increase/Decrease on MW Effective From (contractual).
+  Export MW and project metadata stay in notes. Not ET 5.6 transferred energy (GWh).
+licence: NESO Open Data Licence — https://www.neso.energy/data-portal/ngeso-open-licence
+agent_owner: energy
+connector_module: energy.connectors.neso_interconnector_register
+curated_path: curated/observations.csv
+update_cadence: Twice weekly on NESO data portal (this package is a dated pin)
+raw_evidence:
+- path: raw/2026-11-08/interconnector-register-05-november-2026.csv
+  retrieved_at: '2026-11-08T00:15:55.381654+00:00'
+  checksum_sha256: 97e09cef423d9530d14fa7342d6d3a6ed3369e8b1690717fd83159a311624dcf
+  content_type: application/octet-stream
+  official_release_date: ''
+  http_status: 200
+  source_url: https://api.neso.energy/dataset/a7cca714-9dbb-42b1-99c8-4bc7211605a8/resource/64f7908f-f787-4977-93e1-5342a5f1357f/download/interconnector-register-05-november-2026.csv
+transformations: Pin official CKAN CSV via resource_show download URL (utf-8-sig).
+  One Observation per usable register row. Built + current import MW → date_basis=built_current_pin_snapshot.
+  Rows with MW Effective From → value=MW Import Increase/Decrease, date_basis=mw_effective_from_contractual.
+  notes=project=…; project_status=…; gate=…; mw_export_*=…; measure=mw_import.
+revision_notes: Domain 05 Gate 3 capacity companion. Ready after QA 2026-11-08
+  (qa_report_electricity_interconnector_capacity_2026-11-08.md).
+caveats: Geography is GB (NESO), not UK. MW Import figures are firm TEC (CUSC); Moyle's
+  500 MW TEC is subject to operational restrictions. Gate may be blank until countersigned
+  (gate=unassigned). Stage rows may duplicate capacity under Connections Reform —
+  do not sum totals without dedupe. Capacity MW is not transferred GWh (see electricity-interconnector-flows).
+  Do not invent corridor maps or landfalls from this register alone.
+related_indicator_ids:
+- electricity-interconnector-flows
+- transmission-entry-capacity-register
+open_questions:
+- Optional corridor labels joining Built projects to ET 5.6 corridor names.
+- Storage as its own Ready series remains a separate Domain 05 gap.
+notion_registry_url: ''
+schema_version: '1.0'

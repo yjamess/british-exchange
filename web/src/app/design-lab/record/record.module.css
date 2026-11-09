@@ -1,0 +1,293 @@
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--bo-s7) var(--bo-s5) var(--bo-s9);
+  color: var(--bo-text);
+}
+
+.page nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s4);
+  font-size: var(--bo-t-note);
+}
+
+.page a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+.header {
+  padding: var(--bo-s7) 0 var(--bo-s5);
+  max-width: 62ch;
+}
+
+.header h1,
+.caption h2,
+.advice h2,
+.today h2 {
+  margin: var(--bo-s3) 0 var(--bo-s3);
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+
+.header h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.header p,
+.advice p,
+.today p,
+.caption p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.advice,
+.today {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s5) 0;
+}
+
+.advice h2,
+.today h2,
+.caption h2 {
+  font-size: var(--bo-t-ed-m);
+  line-height: 1.15;
+}
+
+.today ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s2);
+  margin: var(--bo-s4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.today li {
+  padding: 6px 10px;
+  border: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  color: var(--bo-ink);
+}
+
+.specimen {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s6) 0 var(--bo-s5);
+}
+
+.caption {
+  margin-bottom: var(--bo-s5);
+}
+
+.stage {
+  margin: 0;
+  border: var(--bo-rule);
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s4);
+  padding: var(--bo-s3) var(--bo-s4);
+  border-bottom: var(--bo-hair);
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+}
+
+.when {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.plot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--bo-s4);
+  align-items: end;
+  padding: var(--bo-s4);
+  color: var(--bo-ink);
+}
+
+.value {
+  margin: 0;
+  font-family: var(--bo-f-fig);
+  font-weight: 300;
+  font-stretch: 62%;
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.plot svg {
+  width: 100%;
+  height: 4.5rem;
+}
+
+/* A and C — one row: notes, the short source, then the data link. */
+.foot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--bo-s4);
+  align-items: start;
+  margin-top: var(--bo-s3);
+}
+
+.source {
+  margin: 4px 0 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+  text-align: right;
+}
+
+.details {
+  min-width: 0;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 4px 0;
+  cursor: pointer;
+  list-style: none;
+  color: var(--bo-ink);
+  font-size: var(--bo-t-small);
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary:focus-visible,
+.dataLink:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+
+.mark {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.mark::before,
+.mark::after {
+  content: "";
+  position: absolute;
+  background: var(--bo-ink);
+}
+
+.mark::before {
+  left: 0;
+  top: 4px;
+  width: 10px;
+  height: 1px;
+}
+
+.mark::after {
+  top: 0;
+  left: 4px;
+  width: 1px;
+  height: 10px;
+}
+
+.details[open] .mark::after {
+  display: none;
+}
+
+.panel {
+  display: grid;
+  gap: var(--bo-s4);
+  max-width: 68ch;
+  padding: var(--bo-s3) 0 var(--bo-s2) 20px;
+}
+
+.panel p,
+.block p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+}
+
+.panel :global(.bo-label),
+.block :global(.bo-label) {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--bo-ink);
+}
+
+.dataLink {
+  margin-top: 4px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+/* B — always open, definition then method, link on its own row. */
+.block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--bo-s4) var(--bo-s6);
+  margin-top: var(--bo-s3);
+  padding-top: var(--bo-s3);
+  border-top: var(--bo-hair);
+}
+
+.block .source,
+.block .dataLink {
+  grid-column: 1 / -1;
+}
+
+.block .source {
+  margin-top: 0;
+  text-align: left;
+}
+
+.block .dataLink {
+  justify-self: start;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--bo-s5) var(--bo-s4) var(--bo-s8);
+  }
+
+  .plot {
+    grid-template-columns: 1fr;
+  }
+
+  .foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .foot .source {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  .foot .dataLink {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .block {
+    grid-template-columns: 1fr;
+  }
+}

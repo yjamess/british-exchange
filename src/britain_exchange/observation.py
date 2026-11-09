@@ -6,9 +6,11 @@ Keep columns stable so Validation and later FastAPI ingestion share one shape.
 from __future__ import annotations
 
 import csv
-from dataclasses import asdict, dataclass
+from collections import defaultdict
+from collections.abc import Callable, Iterable
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
-from typing import Iterable, Literal
+from typing import Literal
 
 
 ObservationStatus = Literal["final", "provisional", "estimated", "suppressed", "missing"]
@@ -42,6 +44,50 @@ CURATED_FIELDNAMES: tuple[str, ...] = (
     "source_version",
     "notes",
 )
+
+
+def mark_latest_months_provisional(
+    observations: list[Observation],
+    *,
+    months: int = 12,
+    group_key: Callable[[Observation], str] | None = None,
+) -> list[Observation]:
+    """Mark the latest ``months`` valued periods per group as provisional.
+
+    Older valued rows become ``final``. ``missing`` rows stay missing.
+    Default group is ``geography_code`` (UK HPI revises roughly the last year).
+    See https://docs.python.org/3/library/dataclasses.html#dataclasses.replace
+    """
+    if months < 1:
+        raise ValueError("months must be >= 1")
+    key_fn = group_key or (lambda obs: obs.geography_code)
+    by_group: dict[str, list[Observation]] = defaultdict(list)
+    for obs in observations:
+        by_group[key_fn(obs)].append(obs)
+
+    out: list[Observation] = []
+    for rows in by_group.values():
+        valued_periods = sorted(
+            {
+                obs.period_start
+                for obs in rows
+                if obs.value is not None and obs.observation_status != "missing"
+            }
+        )
+        provisional_periods = set(valued_periods[-months:])
+        for obs in rows:
+            if obs.observation_status == "missing" or obs.value is None:
+                out.append(
+                    obs
+                    if obs.observation_status == "missing"
+                    else replace(obs, observation_status="missing")
+                )
+                continue
+            status: ObservationStatus = (
+                "provisional" if obs.period_start in provisional_periods else "final"
+            )
+            out.append(obs if obs.observation_status == status else replace(obs, observation_status=status))
+    return out
 
 
 def write_observations_csv(path: Path, rows: Iterable[Observation]) -> Path:

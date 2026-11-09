@@ -1,0 +1,29 @@
+{
+  "D1": {
+    "checksum_sha256": "c73a41372718e9860f7e3a1f13314d3be9ec9ec2a4a12ea8d10d99ebefbbb952",
+    "file_name": "D1-_Domestic_Properties.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 27 Oct 2026 14:57:04 GMT",
+    "official_release_date": "2026-10-29",
+    "retrieved_at": "2026-11-04T23:50:54.279397+00:00",
+    "url": "https://assets.publishing.service.gov.uk/media/6ae0bbc016428df537606223/D1-_Domestic_Properties.ods"
+  },
+  "EB1": {
+    "checksum_sha256": "95c3babd0aa6487ae03fffdf5741ee2b0bfbcb4d2b3108ff24e8da568ddd9cf6",
+    "file_name": "EB1-_Existing_Domestic_Properties.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 27 Oct 2026 14:51:17 GMT",
+    "official_release_date": "2026-10-29",
+    "retrieved_at": "2026-11-04T23:50:55.525059+00:00",
+    "url": "https://assets.publishing.service.gov.uk/media/6ae0ba657b7111c482d80a39/EB1-_Existing_Domestic_Properties.ods"
+  },
+  "NB1": {
+    "checksum_sha256": "613e5b3c10ccfc23fe2627e2428207c2846eca8f54e71069eae6564ab2f73947",
+    "file_name": "NB1-_New_Domestic_Properties.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 27 Oct 2026 14:55:12 GMT",
+    "official_release_date": "2026-10-29",
+    "retrieved_at": "2026-11-04T23:50:55.899577+00:00",
+    "url": "https://assets.publishing.service.gov.uk/media/6ae0bb50e4367e5c8b046788/NB1-_New_Domestic_Properties.ods"
+  }
+}

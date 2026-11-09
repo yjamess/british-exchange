@@ -1,0 +1,450 @@
+/* Domain 03 — affordability experiment (one ink on paper). */
+
+.root {
+  display: grid;
+  /* Same gap the chart figure uses before “Exact values”. */
+  gap: var(--bo-s3);
+  min-width: 0;
+  padding-block-start: var(--bo-s3);
+}
+
+.stack {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+}
+
+.lede {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+  text-wrap: pretty;
+}
+
+/* Same face and size as the stage title. Sentence case, left aligned. */
+.sectionTitle {
+  margin: 0;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+  text-align: start;
+  caption-side: top;
+}
+
+.grid {
+  display: grid;
+  gap: var(--bo-s5);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.controls {
+  display: grid;
+  gap: var(--bo-s4);
+  padding: var(--bo-s4);
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+}
+
+.controlHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.field .bo-label,
+.field :global(.bo-label),
+.field .note,
+.field .span {
+  grid-column: 1 / -1;
+}
+
+.field input[type="range"] {
+  width: 100%;
+  accent-color: var(--bo-ink);
+}
+
+.out {
+  font-size: var(--bo-t-fig-s);
+  min-width: 5.5rem;
+  text-align: right;
+}
+
+.reset {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font: inherit;
+  font-size: var(--bo-t-note);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.reset:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.readout {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+
+.instrument {
+  display: grid;
+  gap: var(--bo-s3);
+  padding: var(--bo-s4);
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+}
+
+.budget {
+  font-size: var(--bo-t-stat);
+  margin: 0;
+  line-height: 1;
+  color: var(--bo-ink);
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  height: 28px;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  overflow: visible;
+}
+
+.segDeposit {
+  display: block;
+  height: 100%;
+  /* Density tint — 45° dots via brand utility when available; solid hairline fill as chrome fallback */
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+.segLoan {
+  display: block;
+  height: 100%;
+  background: var(--bo-ink);
+}
+
+.priceMark {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 0;
+  /* Reference marker, as RankBars: a dashed ink rule (Signal is for live points only). */
+  border-left: 1px dashed var(--bo-ink);
+  pointer-events: none;
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatchDeposit,
+.swatchLoan,
+.swatchMark {
+  width: 14px;
+  height: 10px;
+  border: var(--bo-hair);
+  flex-shrink: 0;
+}
+
+.swatchDeposit {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.swatchLoan {
+  background: var(--bo-ink);
+}
+
+.swatchMark {
+  width: 0;
+  height: 12px;
+  border: 0;
+  border-left: 1px dashed var(--bo-ink);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s4);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metrics > div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: var(--bo-s3);
+  border-bottom: var(--bo-hair);
+}
+
+.metrics dt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: var(--bo-t-note);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.metrics dd {
+  margin: 0;
+}
+
+.metrics dd.bo-fig,
+.metrics :global(dd.bo-fig) {
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+}
+
+.note {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: var(--bo-hair);
+  color: var(--bo-ink);
+}
+
+.tag[data-kind="official"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.tag[data-kind="illustrative"] {
+  background: var(--bo-paper);
+}
+
+.tag[data-kind="derived"] {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 2px,
+    var(--bo-ink) 2px,
+    var(--bo-ink) 2.5px
+  );
+  background-color: var(--bo-paper);
+}
+
+.assumptionsBody {
+  display: grid;
+  gap: 8px;
+  margin-top: var(--bo-s3);
+  max-width: 68ch;
+  font-size: var(--bo-t-ui);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+.assumptionsBody p {
+  margin: 0;
+}
+
+.assumptionsBody code {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-note);
+}
+
+/* Ages — one chart, chosen inside the figure. The numbers sit under it. */
+.ages {
+  min-width: 0;
+}
+
+.agesTable {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-top: var(--bo-s4);
+}
+
+.agesData {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+/* Who can afford Britain — regional bars + decile heat grid */
+.who {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  padding: var(--bo-s3) 0;
+}
+
+.whoBlock {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+.heat {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+}
+
+.heatCorner {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.heatHead {
+  text-align: center;
+  color: var(--bo-text);
+  padding: 4px 2px;
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.02em;
+}
+
+.heatRow {
+  display: contents;
+}
+
+.heatSide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  color: var(--bo-text);
+  font-size: var(--bo-t-micro);
+  white-space: nowrap;
+}
+
+.heat {
+  grid-template-columns: 3.2rem repeat(9, minmax(2.4rem, 1fr));
+}
+
+.heatHead {
+  grid-row: 1;
+}
+
+/* Stepped solid tones (set inline from the key); dark steps carry paper type. */
+.heatCell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  color: var(--bo-text);
+  font-variant-numeric: tabular-nums;
+}
+.heatCell[data-dark="true"] {
+  color: var(--bo-paper);
+}
+.heatMedian {
+  outline: 2px solid var(--bo-mustard);
+  outline-offset: -2px;
+}
+
+.heatWrap {
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: var(--bo-s2);
+  width: 100%;
+  max-width: none;
+}
+.heatWrap .heat { grid-column: 2; grid-row: 2; }
+.heatAxisX {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0 0 0 3.6rem;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+.heatAxisY {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 2rem 0 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  justify-self: center;
+  align-self: start;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+.heatKey {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+.heatKey li { display: inline-flex; align-items: center; gap: 6px; }
+.heatKey i { width: 14px; height: 14px; display: inline-block; border: var(--bo-hair); }
+.heatKey .heatKeyMedian { border: 2px solid var(--bo-mustard); background: var(--bo-paper); }

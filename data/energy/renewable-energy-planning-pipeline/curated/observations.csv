@@ -1,0 +1,143 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,353.5,MW,final,REPD_Q2_2026,status=Abandoned; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,78.69999999999999,MW,final,REPD_Q2_2026,status=Abandoned; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1467.7899999999997,MW,final,REPD_Q2_2026,status=Abandoned; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2992.2599999999998,MW,final,REPD_Q2_2026,status=Abandoned; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,133.10000000000002,MW,final,REPD_Q2_2026,status=Abandoned; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,105.0,MW,final,REPD_Q2_2026,status=Abandoned; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,10.4,MW,final,REPD_Q2_2026,status=Abandoned; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,7.5,MW,final,REPD_Q2_2026,status=Abandoned; technology=Large Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4.0,MW,final,REPD_Q2_2026,status=Abandoned; technology=Shoreline Wave
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,14.1,MW,final,REPD_Q2_2026,status=Abandoned; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,793.2799999999997,MW,final,REPD_Q2_2026,status=Abandoned; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,13.7,MW,final,REPD_Q2_2026,status=Abandoned; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,348.0,MW,final,REPD_Q2_2026,status=Abandoned; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1512.5000000000002,MW,final,REPD_Q2_2026,status=Abandoned; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,112.4,MW,final,REPD_Q2_2026,status=Appeal Lodged; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,240.0,MW,final,REPD_Q2_2026,status=Appeal Lodged; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,28.0,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6.5,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,112.9,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,111.9,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,54.5,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.0,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Fuel Cell (Hydrogen)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.0,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,895.5999999999998,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4233.700000000002,MW,final,REPD_Q2_2026,status=Appeal Refused; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,76.0,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5.0,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,40.0,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,54.0,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,66.30000000000001,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,642.4,MW,final,REPD_Q2_2026,status=Appeal Withdrawn; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,107.4,MW,final,REPD_Q2_2026,status=Application Refused; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,64.0,MW,final,REPD_Q2_2026,status=Application Refused; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5757.439999999993,MW,final,REPD_Q2_2026,status=Application Refused; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,205.49999999999997,MW,final,REPD_Q2_2026,status=Application Refused; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,483.40000000000003,MW,final,REPD_Q2_2026,status=Application Refused; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,49.0,MW,final,REPD_Q2_2026,status=Application Refused; technology=Geothermal
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.0,MW,final,REPD_Q2_2026,status=Application Refused; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5.0,MW,final,REPD_Q2_2026,status=Application Refused; technology=Large Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,14.8,MW,final,REPD_Q2_2026,status=Application Refused; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3232.8299999999995,MW,final,REPD_Q2_2026,status=Application Refused; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1850.0,MW,final,REPD_Q2_2026,status=Application Refused; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,7522.380000000003,MW,final,REPD_Q2_2026,status=Application Refused; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.0,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Air Source Heat Pumps
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6.4,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,42110.529999999875,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,267.0,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,51.53,MW,final,REPD_Q2_2026,status=Application Submitted; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,679.2,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.17,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6000.3,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Pumped Storage Hydroelectricity
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,27.0,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Shoreline Wave
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1.5,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,16764.480000000003,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,307.2,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,18058.0,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,10866.36999999999,MW,final,REPD_Q2_2026,status=Application Submitted; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,255.79999999999998,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,35.6,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3656.3999999999933,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,170.0,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Biomass (co-firing)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,558.3999999999999,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,260.0,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5.8,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,9.4,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,15.7,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Large Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3.0,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Shoreline Wave
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,16.7,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1075.9400000000003,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,9.2,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4.0,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Unknown
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1592.0,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5740.869999999996,MW,final,REPD_Q2_2026,status=Application Withdrawn; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,158.8,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,126.05,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,72098.14999999934,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,86.79,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5.0,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Compressed Air Energy Storage
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,980.55,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3592.7,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,31.0,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,49.9,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Liquid Air Energy Storage
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4889.9,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Pumped Storage Hydroelectricity
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,13.729999999999999,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,26784.20000000012,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,115.0,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,30827.4,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,7237.500000000004,MW,final,REPD_Q2_2026,status=Awaiting Construction; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,9.2,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6.8,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,35.0,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Biomass (co-firing)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,740.0,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2.5,MW,final,REPD_Q2_2026,status=Decommissioned; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3.0,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,0.4,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Liquid Air Energy Storage
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1.0,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Shoreline Wave
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6.2,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4.0,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,51.099999999999994,MW,final,REPD_Q2_2026,status=Decommissioned; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,27.8,MW,final,REPD_Q2_2026,status=No Application Required; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,20.0,MW,final,REPD_Q2_2026,status=No Application Required; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1.6,MW,final,REPD_Q2_2026,status=No Application Required; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,13.2,MW,final,REPD_Q2_2026,status=No Application Required; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,317.5,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,49.0,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,988.4999999999999,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,980.9,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,152.79999999999998,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,4.3,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,50.0,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Shoreline Wave
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,8.0,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,1084.5,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,320.0,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Tidal Lagoon
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,35.0,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,582.4999999999999,MW,final,REPD_Q2_2026,status=Planning Permission Expired; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,190.10000000000002,MW,final,REPD_Q2_2026,status=Revised; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,61.10000000000001,MW,final,REPD_Q2_2026,status=Revised; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,6608.939999999995,MW,final,REPD_Q2_2026,status=Revised; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,177.0,MW,final,REPD_Q2_2026,status=Revised; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,491.0,MW,final,REPD_Q2_2026,status=Revised; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,20.0,MW,final,REPD_Q2_2026,status=Revised; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,24.5,MW,final,REPD_Q2_2026,status=Revised; technology=Landfill Gas
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,9.0,MW,final,REPD_Q2_2026,status=Revised; technology=Large Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,49.9,MW,final,REPD_Q2_2026,status=Revised; technology=Liquid Air Energy Storage
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,649.9,MW,final,REPD_Q2_2026,status=Revised; technology=Pumped Storage Hydroelectricity
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,10.379999999999999,MW,final,REPD_Q2_2026,status=Revised; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2934.619999999999,MW,final,REPD_Q2_2026,status=Revised; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,30.0,MW,final,REPD_Q2_2026,status=Revised; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,5383.02,MW,final,REPD_Q2_2026,status=Revised; technology=Wind Onshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,130.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=Advanced Conversion Technologies
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,15.5,MW,final,REPD_Q2_2026,status=Under Construction; technology=Anaerobic Digestion
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,9907.019999999999,MW,final,REPD_Q2_2026,status=Under Construction; technology=Battery
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,80.6,MW,final,REPD_Q2_2026,status=Under Construction; technology=Biomass (dedicated)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,645.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=EfW Incineration
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,0.11,MW,final,REPD_Q2_2026,status=Under Construction; technology=Fuel Cell (Hydrogen)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,7.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=Hot Dry Rocks (HDR)
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,10.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=Hydrogen
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,10.4,MW,final,REPD_Q2_2026,status=Under Construction; technology=Small Hydro
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,3213.1600000000008,MW,final,REPD_Q2_2026,status=Under Construction; technology=Solar Photovoltaics
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,240.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=Tidal Stream
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,11845.0,MW,final,REPD_Q2_2026,status=Under Construction; technology=Wind Offshore
+renewable-energy-planning-pipeline,2026-07-01,2026-09-30,K02000001,United Kingdom,2039.3000000000002,MW,final,REPD_Q2_2026,status=Under Construction; technology=Wind Onshore

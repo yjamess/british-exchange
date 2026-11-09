@@ -20,6 +20,16 @@ export const toT = (iso: string): number => {
 
 export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+/**
+ * Financial year that starts in the calendar year of `t`.
+ * Purchase-affordability periods are stored as 1 April (2023.25 → "2023–24").
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+ */
+export function fmtFY(t: number): string {
+  const y = Math.floor(t + 1e-6);
+  return `${y}–${String((y + 1) % 100).padStart(2, "0")}`;
+}
+
 /** 2026.583 → "Aug 2026" (monthly) or "2026" (annual) */
 export function fmtT(t: number, cadence: "monthly" | "quarterly" | "annual" = "monthly"): string {
   const y = Math.floor(t + 1e-6);

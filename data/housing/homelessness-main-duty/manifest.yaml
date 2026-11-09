@@ -1,0 +1,51 @@
+indicator_id: homelessness-main-duty
+title: Main homelessness duty decisions (H-CLIC MD1)
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness
+series_id: H-CLIC Table MD1
+geography: England (E92000001) time series; regions and local authorities for Jan–Mar
+  2026
+frequency: quarterly (flow)
+unit: households
+definition: Main duty decisions for eligible households in the quarter.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods
+  retrieved_at: '2026-11-05T00:39:46.354134+00:00'
+  checksum_sha256: 27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a82eee63bd75b81e2329a7b/Statutory_Homelessness_England_Time_Series_202603.ods
+- path: raw/2026-11-04/Statutory_Homelessness_Detailed_Local_Authority_Data_202603.ods
+  retrieved_at: '2026-11-05T00:39:46.354732+00:00'
+  checksum_sha256: f77eebd761455169626dc04c70f45177b11704999a6094384b59f37fa56d1881
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a82ee2c92ec93e1e0329a7f/Statutory_Homelessness_Detailed_Local_Authority_Data_202603.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Long MD1 history includes pre-HRA years; H-CLIC quarterly from 2018.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-support-needs
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-by-type
+- temporary-accommodation-duration
+- temporary-accommodation-out-of-area
+- rough-sleeping-snapshot
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

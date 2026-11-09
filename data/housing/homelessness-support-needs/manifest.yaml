@@ -1,0 +1,44 @@
+indicator_id: homelessness-support-needs
+title: Support needs of households owed a homelessness duty (H-CLIC A3)
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness
+series_id: H-CLIC Table A3
+geography: England (E92000001)
+frequency: quarterly (flow)
+unit: households
+definition: Households owed a prevention or relief duty by recorded support-need status
+  (none / one or more). Households at risk — not a clinical caseload.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods
+  retrieved_at: '2026-11-04T23:00:40.703364+00:00'
+  checksum_sha256: 27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a82eee63bd75b81e2329a7b/Statutory_Homelessness_England_Time_Series_202603.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Support needs are as recorded by local authorities; unknown category exists.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- homelessness-main-duty
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-by-type
+- temporary-accommodation-duration
+- temporary-accommodation-out-of-area
+- rough-sleeping-snapshot
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581c789f3d2234ba55c8a"
+schema_version: '1.0'

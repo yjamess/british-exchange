@@ -3,10 +3,11 @@ import { brandFonts } from "./fonts";
 import "./brand.css";
 
 /**
- * Platform shell for live Observatory pages.
- * Applies locked Instrument + Imprint tokens (docs/visual-identity.md).
+ * Platform shell for live British Exchange pages.
+ * Applies the v1 "One ink, drawn by instruments" tokens and brand fonts
+ * (docs/visual-identity.md · web/src/brand/brand.css).
  *
- * Optional `sector` pigment overrides `--bo-sector` for imprint art only.
+ * `sector` is deprecated: v1 retires sector pigments (one ink). Kept so old pages compile.
  */
 export function BrandRoot({
   children,

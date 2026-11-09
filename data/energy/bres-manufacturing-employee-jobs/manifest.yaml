@@ -1,0 +1,89 @@
+indicator_id: bres-manufacturing-employee-jobs-by-region
+title: BRES manufacturing employee jobs by region
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4
+series_id: BRES-Table4-Manufacturing-TotalEmployees
+geography: UK ITL1 / former GSS regions (E12000001–09, W92000004, S92000003, N92000002
+  when published). 2024 provisional excludes NI.
+frequency: annual
+unit: thousands of employee jobs
+definition: 'Annual Business Register and Employment Survey (BRES) Table 4: Manufacturing
+  broad industry group, Total employees (All sectors), thousands, by UK region. Workplace-based
+  employee jobs. Distinct from Ready Workforce Jobs JWR7 (manufacturing-employment).'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.bres_manufacturing_employee_jobs
+curated_path: curated/observations.csv
+update_cadence: annual (BRES Table 4 editions on ONS)
+raw_evidence:
+- path: raw/2026-11-07/table42019r.xlsx
+  retrieved_at: '2026-11-07T15:35:35.813524+00:00'
+  checksum_sha256: 22bbcd153191b21a2bf80f58e5fd3293debecdc80e59f99746b0ad6ec4c6f9d1
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2019revised/table42019r.xlsx
+- path: raw/2026-11-07/table42020r.xlsx
+  retrieved_at: '2026-11-07T15:35:35.814051+00:00'
+  checksum_sha256: c89881a5e84659f73d777680d3d00411c1887988afc480f23454d6a24a606176
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2020revised/table42020r.xlsx
+- path: raw/2026-11-07/table42021r.xlsx
+  retrieved_at: '2026-11-07T15:35:35.814318+00:00'
+  checksum_sha256: 6b68b7a1878243ccf911d5916e600c88b814f7208069ca1f88ccb0f141704ab6
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2021revised/table42021r.xlsx
+- path: raw/2026-11-07/table42022r.xlsx
+  retrieved_at: '2026-11-07T15:35:35.814545+00:00'
+  checksum_sha256: 953c47e68ad9e1154d50d8b498eb317313588a346534566805ded6728189fb03
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2022revised/table42022r.xlsx
+- path: raw/2026-11-07/table42023rv2.xlsx
+  retrieved_at: '2026-11-07T15:35:35.814813+00:00'
+  checksum_sha256: 2821af7468302779c0a2681c90b6ff8a0a015b092bc185b01c28b22583b3eb41
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2023revised/table42023rv2.xlsx
+- path: raw/2026-11-07/table42024pv2.xlsx
+  retrieved_at: '2026-11-07T15:35:35.815072+00:00'
+  checksum_sha256: 6755ecd6757a99fc31044d2a3f5ffe640f3e9543c38884a959dcff1f91533e41
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4/2024provisional/table42024pv2.xlsx
+- path: raw/2026-11-07/retrieval.json
+  retrieved_at: '2026-11-07T15:35:35.815315+00:00'
+  checksum_sha256: e0e969475303af1ccc029e5dba9fca72a67913b9bf1c45c0c427ed0fc5f7f3e4
+  content_type: application/json
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4
+transformations: Download BRES Table 4 XLSX for years 2019, 2020, 2021, 2022, 2023,
+  2024. Per regional sheet, locate Manufacturing row; take Total employees / All (not
+  Total employment). Map sheet titles to GSS codes; trim trailing spaces. Period =
+  calendar year bounds. observation_status=provisional (survey revises).
+revision_notes: Each reference year has provisional then revised editions. This pin
+  uses revised for 2019–2023 and provisional for 2024. Re-pin when 2024 revised ships.
+  Older 2015–2018 XLSX use strict OOXML that openpyxl cannot load — out of this pin.
+caveats: 'CRITICAL: BRES **employee jobs** ≠ ONS Workforce Jobs (Ready manufacturing-employment
+  / JWR7). Do not stitch or compare levels without a method note. Measure is Total
+  employees (excludes working proprietors); Total employment is not curated. 2024
+  provisional **excludes Northern Ireland** (ONS Information sheet) — GB regions only
+  for that year. Figures rounded to nearest 100; * disclosive → missing/suppressed.
+  PAYE-only units discontinuity is relevant for pre-2015 / finer NOMIS extracts —
+  not in this 2019–2024 pin but must be labelled if the series is extended backwards.'
+related_indicator_ids:
+- manufacturing-employment
+open_questions:
+- Extend pin to 2015–2018 once a strict-OOXML reader is available.
+- 'Optional: NOMIS open-access finer SIC × local authority after Table 4 spine.'
+notion_registry_url: ''
+schema_version: '1.0'

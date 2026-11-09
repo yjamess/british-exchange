@@ -1,0 +1,55 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+natural-gas-storage,2008-01-01,2008-12-31,K02000001,United Kingdom,44229.43,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2009-01-01,2009-12-31,K02000001,United Kingdom,49105.43,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2010-01-01,2010-12-31,K02000001,United Kingdom,33834.43,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2011-01-01,2011-12-31,K02000001,United Kingdom,56457.43,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2012-01-01,2012-12-31,K02000001,United Kingdom,56131.66,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2013-01-01,2013-12-31,K02000001,United Kingdom,54866.79,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2014-01-01,2014-12-31,K02000001,United Kingdom,56598.21,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2015-01-01,2015-12-31,K02000001,United Kingdom,52624.89,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2016-01-01,2016-12-31,K02000001,United Kingdom,33397.74,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2017-01-01,2017-12-31,K02000001,United Kingdom,20837.96,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2018-01-01,2018-12-31,K02000001,United Kingdom,26428.55,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2019-01-01,2019-12-31,K02000001,United Kingdom,25589.29,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2020-01-01,2020-12-31,K02000001,United Kingdom,25761.0,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2021-01-01,2021-12-31,K02000001,United Kingdom,23810.28,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2022-01-01,2022-12-31,K02000001,United Kingdom,27875.37,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2023-01-01,2023-12-31,K02000001,United Kingdom,34590.03,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2024-01-01,2024-12-31,K02000001,United Kingdom,31898.56,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2025-01-01,2025-12-31,K02000001,United Kingdom,23313.17,GWh,final,DUKES_4.4_JUL_26,measure=stock; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2008-01-01,2008-12-31,K02000001,United Kingdom,-3087.0,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2009-01-01,2009-12-31,K02000001,United Kingdom,-4876.0,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2010-01-01,2010-12-31,K02000001,United Kingdom,15271.0,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2011-01-01,2011-12-31,K02000001,United Kingdom,-22623.0,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2012-01-01,2012-12-31,K02000001,United Kingdom,325.77,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2013-01-01,2013-12-31,K02000001,United Kingdom,1264.87,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2014-01-01,2014-12-31,K02000001,United Kingdom,-1731.42,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2015-01-01,2015-12-31,K02000001,United Kingdom,3973.32,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2016-01-01,2016-12-31,K02000001,United Kingdom,19227.15,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2017-01-01,2017-12-31,K02000001,United Kingdom,12559.79,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2018-01-01,2018-12-31,K02000001,United Kingdom,-5590.59,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2019-01-01,2019-12-31,K02000001,United Kingdom,839.26,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2020-01-01,2020-12-31,K02000001,United Kingdom,-171.71,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2021-01-01,2021-12-31,K02000001,United Kingdom,1950.72,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2022-01-01,2022-12-31,K02000001,United Kingdom,-4065.09,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2023-01-01,2023-12-31,K02000001,United Kingdom,-6714.65,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2024-01-01,2024-12-31,K02000001,United Kingdom,2691.47,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2025-01-01,2025-12-31,K02000001,United Kingdom,8585.39,GWh,final,DUKES_4.4_JUL_26,measure=stock_change; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2008-01-01,2008-12-31,K02000001,United Kingdom,47740.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2009-01-01,2009-12-31,K02000001,United Kingdom,47190.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2010-01-01,2010-12-31,K02000001,United Kingdom,50050.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2011-01-01,2011-12-31,K02000001,United Kingdom,47740.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2012-01-01,2012-12-31,K02000001,United Kingdom,50930.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2013-01-01,2013-12-31,K02000001,United Kingdom,50600.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2014-01-01,2014-12-31,K02000001,United Kingdom,50600.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2015-01-01,2015-12-31,K02000001,United Kingdom,50820.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a
+natural-gas-storage,2016-01-01,2016-12-31,K02000001,United Kingdom,52162.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2017-01-01,2017-12-31,K02000001,United Kingdom,15862.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2018-01-01,2018-12-31,K02000001,United Kingdom,15147.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2019-01-01,2019-12-31,K02000001,United Kingdom,14410.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2020-01-01,2020-12-31,K02000001,United Kingdom,19030.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2021-01-01,2021-12-31,K02000001,United Kingdom,16489.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2022-01-01,2022-12-31,K02000001,United Kingdom,25553.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2023-01-01,2023-12-31,K02000001,United Kingdom,35450.2,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2024-01-01,2024-12-31,K02000001,United Kingdom,35475.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1
+natural-gas-storage,2025-01-01,2025-12-31,K02000001,United Kingdom,35530.0,GWh,final,DUKES_4.4_JUL_26,measure=storage_capacity; fuel=Gas; table=DUKES 4.4a; series_break_2016=note1

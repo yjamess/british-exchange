@@ -1,0 +1,107 @@
+{
+  "layer_id": "housing-boundaries",
+  "status": "Validation",
+  "publisher": "Office for National Statistics",
+  "source_url": "https://www.data.gov.uk/dataset/d6c2a698-7cf8-4c12-aad5-4ee4fb47154c/local-authority-districts-december-2025-boundaries-uk-buc",
+  "source_service": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_DEC_2025_Boundaries_UK_BUC/FeatureServer/0",
+  "version": "LAD_DEC_2025_UK_BUC",
+  "geography": "United Kingdom local authority districts",
+  "boundary_date": "2025-12-31",
+  "source_updated": "2026-04-29",
+  "coordinate_reference_system": "EPSG:4326 (longitude, latitude)",
+  "licence": "Open Government Licence v3.0",
+  "licence_url": "https://www.ons.gov.uk/methodology/geography/licences/",
+  "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0. Contains OS data © Crown copyright and database right 2025.",
+  "connector_module": "regions.connectors.housing_boundaries",
+  "curated_path": "curated/boundaries.geojson",
+  "curated_checksum_sha256": "fca73d3ba1405dc6452cf079da944b45995cd0948ac969e096b40673c2c09103",
+  "raw_evidence": [
+    {
+      "path": "raw/2026-11-04/boundaries.geojson",
+      "source_url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_DEC_2025_Boundaries_UK_BUC/FeatureServer/0/query?where=1%3D1&outFields=LAD25CD%2CLAD25NM&outSR=4326&returnGeometry=true&f=geojson&orderByFields=LAD25CD&resultRecordCount=2000",
+      "retrieved_at": "2026-11-04T11:37:54.006701+00:00",
+      "checksum_sha256": "eaa058918744a750a3a429b6ddb77838e137844cf269274011e0ee8948e93ff2"
+    },
+    {
+      "path": "raw/2026-11-04/layer.json",
+      "source_url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_DEC_2025_Boundaries_UK_BUC/FeatureServer/0?f=pjson",
+      "retrieved_at": "2026-11-04T11:37:54.359189+00:00",
+      "checksum_sha256": "21e12898e061991a522e84e2b6eb7252a0527d6f564c58c7df1bc0c76aeb76d1"
+    },
+    {
+      "path": "raw/2026-11-04/item.json",
+      "source_url": "https://www.arcgis.com/sharing/rest/content/items/837dd9c41a7b458c974caf6e4ca56e7b?f=pjson",
+      "retrieved_at": "2026-11-04T11:37:54.503415+00:00",
+      "checksum_sha256": "401358b4202938ddcb6ddf32ab854ff04d4cc5c1d25b76d21fe338462f0006f1"
+    },
+    {
+      "path": "raw/2026-11-04/count.json",
+      "source_url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_DEC_2025_Boundaries_UK_BUC/FeatureServer/0/query?where=1%3D1&returnCountOnly=true&f=json",
+      "retrieved_at": "2026-11-04T11:37:54.680085+00:00",
+      "checksum_sha256": "ebe2f0d0e31a6ee1f79f3e522ed0f60236894846b84843b888a4159cf6dbd9bd"
+    }
+  ],
+  "transformations": "Select LAD25CD/LAD25NM, rename to code/name, add level=local, round coordinates to five decimals, sort by code. Preserve every polygon and ring.",
+  "validation": {
+    "boundary_count": 361,
+    "hpi_geography_count": 405,
+    "exact_matches": 360,
+    "boundary_codes_without_hpi": {
+      "E06000053": "Isles of Scilly"
+    },
+    "hpi_codes_without_boundaries": {
+      "E10000003": "Cambridgeshire",
+      "E10000007": "Derbyshire",
+      "E10000008": "Devon",
+      "E10000011": "East Sussex",
+      "E10000012": "Essex",
+      "E10000013": "Gloucestershire",
+      "E10000014": "Hampshire",
+      "E10000015": "Hertfordshire",
+      "E10000016": "Kent",
+      "E10000017": "Lancashire",
+      "E10000018": "Leicestershire",
+      "E10000019": "Lincolnshire",
+      "E10000020": "Norfolk",
+      "E10000024": "Nottinghamshire",
+      "E10000025": "Oxfordshire",
+      "E10000028": "Staffordshire",
+      "E10000029": "Suffolk",
+      "E10000030": "Surrey",
+      "E10000031": "Warwickshire",
+      "E10000032": "West Sussex",
+      "E10000034": "Worcestershire",
+      "E11000001": "Greater Manchester",
+      "E11000002": "Merseyside",
+      "E11000003": "South Yorkshire",
+      "E11000005": "West Midlands",
+      "E11000006": "West Yorkshire",
+      "E11000007": "Tyne and Wear",
+      "E12000001": "North East",
+      "E12000002": "North West",
+      "E12000003": "Yorkshire and The Humber",
+      "E12000004": "East Midlands",
+      "E12000005": "West Midlands Region",
+      "E12000006": "East of England",
+      "E12000007": "London",
+      "E12000008": "South East",
+      "E12000009": "South West",
+      "E13000001": "Inner London",
+      "E13000002": "Outer London",
+      "E92000001": "England",
+      "K02000001": "United Kingdom",
+      "K03000001": "Great Britain",
+      "K04000001": "England and Wales",
+      "N92000002": "Northern Ireland",
+      "S92000003": "Scotland",
+      "W92000004": "Wales"
+    },
+    "hpi_local_codes_without_boundaries": {}
+  },
+  "caveats": [
+    "Fixed December 2025 local-authority boundaries are used for every observation date; this is not a historical-boundary map.",
+    "ONS ultra-generalised (500m), coastline-clipped geometry. Suitable for an overview, not property-location or boundary determination.",
+    "Five-decimal WGS84 coordinates preserve the published polygon structure; no further shape simplification, dissolves or inferred geographic joins.",
+    "360 of 361 boundary codes match the archived HPI file exactly. Unmatched places must show no data, never a national value."
+  ]
+}

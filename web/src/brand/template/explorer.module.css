@@ -1,0 +1,1060 @@
+/* Brand template — Explorer: photo-plate index rail + instrument-frame canvas (v1).
+   Canonical for every sector page. Interaction = carriage (one travelling ink block), plate loupe,
+   dual-scramble labels. Sector-specific stage content (maps, calculators) styles itself. */
+
+/* ——— Shell: rail + canvas ——— */
+.shell {
+  --rail-width: 22rem;
+  display: grid;
+  grid-template-columns: var(--rail-width) minmax(0, 1fr);
+  align-items: stretch;
+  border-bottom: var(--bo-rule);
+}
+
+/* ——— Rail: photo plates, fixed row rhythm (4.5rem), condenses to plates ———
+   The column stretches with the canvas so the dividing rule runs the full page.
+   The index itself sticks and scrolls inside that column. */
+.rail {
+  align-self: stretch;
+  border-right: var(--bo-rule);
+  background: var(--bo-paper);
+  /* Clip the index at the column end. `clip` does not make a scroll box, so the index can still stick. */
+  overflow: clip;
+}
+.railSticky {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+.railHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  height: 3.5rem;
+  padding: 0 var(--bo-s4);
+  border-bottom: var(--bo-rule);
+}
+.railTitle {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.railToggle {
+  appearance: none;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: var(--bo-hair);
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-note);
+  cursor: pointer;
+  transition: background-color var(--bo-fast) var(--bo-ease), color var(--bo-fast) var(--bo-ease);
+}
+.railToggle:hover {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.rail[data-condensed="true"] .railHead {
+  justify-content: center;
+  padding: 0;
+}
+.rail[data-condensed="true"] .railTitle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+
+.railList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--bo-hair);
+}
+.railList > li {
+  border-bottom: var(--bo-hair);
+}
+.railItem {
+  appearance: none;
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--bo-s3);
+  width: 100%;
+  height: 4.5rem;
+  margin: 0;
+  padding: 0 var(--bo-s4);
+  border: 0;
+  background: transparent;
+  color: var(--bo-text);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+  line-height: 1.25;
+  transition: color var(--bo-fast) var(--bo-ease);
+}
+.rail[data-condensed="true"] .railItem {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-content: center;
+  height: auto;
+  min-height: 5.25rem;
+  padding: var(--bo-s2) 4px var(--bo-s3);
+  column-gap: 0;
+  row-gap: 4px;
+}
+.railPlate {
+  width: 3.25rem;
+  height: 3.25rem;
+  color: var(--bo-ink);
+}
+.railPlate :global(.bo-plate) {
+  width: 100%;
+  height: 100%;
+  transition: background-color var(--bo-med) var(--bo-ease);
+}
+/* Proof tile: a domain without a drawn plate yet — its number on the dot screen. */
+.railProof {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: var(--bo-hair);
+  background-color: var(--bo-paper);
+  background-image: radial-gradient(circle, var(--bo-ink-20) 1px, transparent 1.4px);
+  background-size: 5px 5px;
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: var(--bo-fig-wght);
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+  transition: background-color var(--bo-med) var(--bo-ease);
+}
+.railItem[aria-current="page"] .railProof {
+  background: var(--bo-ink);
+  border-color: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.railItem[aria-current="page"] .railPlate :global(.bo-plate) {
+  --bo-plate-bg: var(--bo-ink);
+  --bo-plate-ink: var(--bo-paper);
+  background: var(--bo-ink);
+}
+.railLabel {
+  display: block;
+  min-width: 0;
+  max-width: 280px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+.rail[data-condensed="true"] .railLabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+/* Condensed caption under the plate — number + short name. */
+.railShort {
+  display: none;
+}
+.rail[data-condensed="true"] .railShort {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--bo-text);
+  overflow: hidden;
+}
+.railItem[aria-current="page"] .railShort {
+  color: var(--bo-ink);
+}
+.railItem:hover,
+.railItem:focus-visible {
+  color: var(--bo-ink);
+}
+.railItem:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+.railItem[aria-current="page"] {
+  color: var(--bo-ink);
+  font-weight: 500;
+}
+/* You-are-here: the rail rule thickens beside the current row */
+.railItem[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  width: 3px;
+  background: var(--bo-ink);
+}
+
+/* ——— Canvas: one structure for every domain ——— */
+.canvas {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  display: grid;
+  gap: var(--bo-s6);
+  align-content: start;
+  padding: 0 clamp(var(--bo-s5), 4vw, var(--bo-s8)) var(--bo-s8);
+}
+
+/* Ground: a light dot field behind the canvas (light by density, never opacity).
+   Every block that carries copy or a chart sits on a solid paper patch with a paper halo,
+   so the field only shows in free space — beside the question and tabs, between controls,
+   in the gutters. Copy never sits inside the field. */
+.ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--bo-ink);
+  pointer-events: none;
+}
+/* Paper patches carry a halo; clip only above the canvas so it never bites into the section above.
+   (Sides and bottom stay open so menus and marks can overflow.) */
+.canvas[data-patches] {
+  clip-path: inset(0 -100vmax -100vmax -100vmax);
+}
+/* Decoration slot (sector art behind the content); its wrapper takes no grid row. */
+.decor {
+  display: contents;
+}
+.ground > * {
+  position: absolute;
+  inset: 0;
+}
+/* Stage/content patches stack at 1; controls must stay above so menus paint over the stage.
+   `:not(.controls)` matters — without it this rule beat `.controls { z-index: 40 }` on specificity. */
+.canvas[data-patches] > :not(.ground):not([data-decor]):not(.controls) {
+  position: relative;
+  z-index: 1;
+}
+.canvas[data-patches] > .controls {
+  position: relative;
+  z-index: 40;
+}
+.canvas[data-patches] .headTop,
+.canvas[data-patches] .question,
+.canvas[data-patches] .views,
+.canvas[data-patches] .figures,
+.canvas[data-patches] .controls,
+.canvas[data-patches] .stage,
+.canvas[data-patches] .coverage > div{
+  background: var(--bo-paper);
+  box-shadow: 0 0 0 var(--bo-s3) var(--bo-paper);
+}
+.canvas[data-patches] .question,
+.canvas[data-patches] .views{
+  width: fit-content;
+}
+
+/* 1 · Head */
+.head {
+  display: grid;
+  gap: var(--bo-s4);
+}
+.headTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bo-s4);
+  height: 3.5rem; /* aligns with the rail head */
+  border-bottom: var(--bo-hair);
+}
+.headTop :global(.bo-label) {
+  margin: 0;
+  color: var(--bo-text);
+}
+.question {
+  margin: var(--bo-s5) 0 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.6vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  color: var(--bo-ink);
+  /* Wide enough for a full domain question on one or two lines — not a narrow column. */
+  max-width: 36ch;
+  text-wrap: pretty;
+}
+
+.views {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 1px; /* room for the collapsed shared borders */
+}
+.viewTab {
+  appearance: none;
+  position: relative;
+  margin: 0 0 0 -1px;
+  height: 2.5rem;
+  padding: 0 var(--bo-s4);
+  border: var(--bo-rule);
+  border-radius: 0;
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--bo-fast) var(--bo-ease),
+    color var(--bo-fast) var(--bo-ease);
+}
+.viewTab:hover:not([aria-selected="true"]) {
+  z-index: 1;
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.viewTab[aria-selected="true"] {
+  z-index: 1;
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.viewTab:focus-visible {
+  z-index: 2;
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.textButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 2 · Figures: one ruled strip, equal cells */
+.figures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+  border-block: var(--bo-rule);
+}
+.figure {
+  display: grid;
+  gap: var(--bo-s2);
+  align-content: start;
+  padding: var(--bo-s4) var(--bo-s4) var(--bo-s4) 0;
+  min-width: 0;
+}
+.figure + .figure {
+  padding-left: var(--bo-s4);
+  border-left: var(--bo-hair);
+}
+.figure :global(.bo-label) {
+  color: var(--bo-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.figureValue {
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+  color: var(--bo-ink);
+}
+.figureNote {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+/* 3 · Controls: labelled pairs on one shared strip */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--bo-s4) var(--bo-s5);
+  padding-block: 2px;
+}
+.control {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.control :global(.bo-label) {
+  color: var(--bo-text);
+}
+.control select {
+  appearance: none;
+  min-width: 9rem;
+  max-width: 16rem;
+  padding: 6px 1.5rem 6px 0;
+  border: 0;
+  border-bottom: var(--bo-rule);
+  border-radius: 0;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--bo-ink) 50%) calc(100% - 9px) 55% / 5px 5px no-repeat,
+    linear-gradient(-45deg, transparent 50%, var(--bo-ink) 50%) calc(100% - 4px) 55% / 5px 5px no-repeat;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+  cursor: pointer;
+}
+.control select:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--bo-s2) var(--bo-s5);
+}
+.search input {
+  appearance: none;
+  flex: 1 1 28ch;
+  min-width: min(100%, 28ch);
+  padding: 6px 0;
+  border: 0;
+  border-bottom: var(--bo-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+}
+.search input:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.searchNote {
+  flex: 1 1 32ch;
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.period {
+  display: flex;
+  align-items: center;
+  gap: var(--bo-s2);
+}
+.period select {
+  min-width: 5.5rem;
+}
+
+/* History place layers — multi-select toggles (not Map area). Full-width row
+   above Measure / Period / Reset, still inside the one shared controls strip. */
+.chipControl {
+  flex: 1 1 100%;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 52rem;
+}
+.chip {
+  appearance: none;
+  margin: 0;
+  padding: 5px 10px;
+  border: var(--bo-rule);
+  border-radius: 0;
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  line-height: 1.2;
+  cursor: pointer;
+}
+.chip:hover:not(:disabled):not([aria-pressed="true"]) {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.chip[aria-pressed="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.chip:disabled {
+  cursor: not-allowed;
+  color: var(--bo-ink-40);
+  border-style: dashed;
+}
+.chip:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+/* Reusable figure foot: Notes, a short source, one link to /data. */
+.stageGroup { min-width: 0; display: grid; gap: var(--bo-s3); }
+/* 4 · Stage: a fixed frame */
+.stage {
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto minmax(26rem, auto);
+  border: var(--bo-rule);
+  min-width: 0;
+}
+.stage[data-framed="false"] {
+  border: 0;
+  grid-template-rows: auto;
+}
+.stage[data-framed="false"] .stageBody {
+  padding: 0;
+}
+/* A short figure should not sit in the chart well. */
+.stage[data-size="compact"] {
+  grid-template-rows: auto auto;
+}
+/* Map needs a taller, wider plot well so geography can be read */
+.stage[data-size="wide"] {
+  grid-template-rows: auto minmax(min(78vh, 48rem), auto);
+}
+.stage[data-size="wide"] .stageBody {
+  /* Map and full-bleed charts need the frame, not side gutter. */
+  padding: var(--bo-s3) var(--bo-s2) var(--bo-s2);
+}
+.stage[data-size="wide"] .stageBar {
+  padding-block: var(--bo-s2);
+}
+.stageBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--bo-s2) var(--bo-s5);
+  padding: var(--bo-s3) var(--bo-s4);
+  border-bottom: var(--bo-hair);
+}
+.stageTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--bo-s3);
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+}
+/*
+ * Same title, above a table or a chart.
+ * Reset every heading level: bare h4/h5 keep the browser bold face and look like a second type style.
+ * Prefer h3 (Housing / GenerationCanvas); weight stays 400 either way.
+ */
+p.stageTitle,
+:is(h2, h3, h4, h5, h6).stageTitle {
+  display: block;
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--bo-ink);
+}
+:is(h2, h3, h4, h5, h6).stageTitle {
+  margin-bottom: var(--bo-s3);
+}
+.tableGroup {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+.stageTitle :global(.bo-label) {
+  color: var(--bo-ink);
+}
+.stageMeta {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.04em;
+  color: var(--bo-text);
+}
+.stageMetaInline {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+  font-weight: 400;
+}
+/* Solid stage bar: paper on flat ink — one ink per surface; the plot below stays on paper. */
+.stage[data-bar="solid"] .stageBar {
+  background: var(--bo-ink);
+  border-bottom-color: var(--bo-ink);
+  padding-block: var(--bo-s4);
+}
+.stage[data-bar="solid"] .stageTitle,
+.stage[data-bar="solid"] .stageTitle :global(.bo-label),
+.stage[data-bar="solid"] .stageMeta {
+  color: var(--bo-paper);
+}
+.stage[data-bar="solid"] .stageTitle {
+  font-size: var(--bo-t-small);
+}
+.stageBody {
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--bo-s5) var(--bo-s4) var(--bo-s4);
+}
+/* Expanded stage: the same figure, framed to the viewport on paper. Below menus (z 200). */
+.stageGroup[data-expanded="true"] {
+  position: fixed !important;
+  inset: var(--bo-s4);
+  z-index: 150 !important;
+  grid-template-rows: minmax(0, 1fr) auto;
+  background: var(--bo-paper);
+  box-shadow: 0 0 0 100vmax var(--bo-paper) !important;
+  overflow: hidden;
+}
+.stageGroup[data-expanded="true"] .stageBody {
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.stageMeta:has(> .textButton) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--bo-s2) var(--bo-s4);
+}
+/* The field canvas clips its top edge; lift the clip while a stage is expanded. */
+.canvas[data-patches]:has(.stageGroup[data-expanded="true"]) {
+  clip-path: none;
+}
+.stageFoot { min-width: 0; padding: 0 var(--bo-s1); }
+.stageGroup[data-expanded="true"] .stage { min-height: 0; grid-template-rows: auto minmax(0, 1fr); }
+.stageGroup[data-expanded="true"] .stageFoot { max-height: 30vh; overflow: auto; padding: var(--bo-s2) var(--bo-s3); }
+
+.empty {
+  height: 100%;
+  min-height: 24rem;
+  display: grid;
+  place-content: center;
+  justify-items: start;
+  gap: var(--bo-s2);
+  max-width: 40ch;
+  margin-inline: auto;
+}
+.empty p {
+  margin: 0;
+  color: var(--bo-text);
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+}
+.empty :global(.bo-label) {
+  color: var(--bo-ink);
+}
+
+.record {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--bo-s3) var(--bo-s4);
+  align-items: start;
+  margin: 0;
+  font: var(--bo-t-note)/1.5 var(--bo-f-body);
+  color: var(--bo-text);
+}
+.record[data-notes="false"] {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.recordDetails { min-width: 0; }
+.recordSummary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 4px 0;
+  cursor: pointer;
+  list-style: none;
+  color: var(--bo-ink);
+  font-size: var(--bo-t-small);
+}
+.recordSummary::-webkit-details-marker { display: none; }
+.recordMark { position: relative; width: 10px; height: 10px; flex: none; }
+.recordMark::before,
+.recordMark::after { content: ""; position: absolute; background: var(--bo-ink); }
+.recordMark::before { left: 0; top: 4px; width: 10px; height: 1px; }
+.recordMark::after { top: 0; left: 4px; width: 1px; height: 10px; }
+.recordDetails[open] .recordMark::after { display: none; }
+.recordSummary:focus-visible,
+.recordData:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+.recordPanel {
+  display: grid;
+  gap: var(--bo-s4);
+  max-width: 68ch;
+  padding: var(--bo-s3) 0 var(--bo-s2) 20px;
+}
+.recordPanel p { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
+.recordPanel p + p { margin-top: var(--bo-s3); }
+.recordPanel :global(.bo-label) { display: block; margin-bottom: 4px; color: var(--bo-ink); }
+.recordSource {
+  margin: 4px 0 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.recordData {
+  margin-top: 4px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.recordEmpty {
+  margin: 0;
+  font: var(--bo-t-note)/1.5 var(--bo-f-body);
+  color: var(--bo-text);
+}
+.sourceLine {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--bo-s3) var(--bo-s5);
+  margin: 0;
+  font: var(--bo-t-note)/1.5 var(--bo-f-body);
+  color: var(--bo-text);
+}
+.sourceDetails { min-width: 0; }
+.sourceSummary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; cursor: pointer; list-style: none; padding-block: 4px; }
+.sourceSummary::-webkit-details-marker { display: none; }
+.sourceSummary > span:nth-child(2) { color: var(--bo-ink); white-space: nowrap; }
+.sourcePublishers { overflow-wrap: anywhere; }
+.sourceToggle { width: 10px; height: 10px; position: relative; flex: 0 0 10px; align-self: center; }
+.sourceToggle::before, .sourceToggle::after { content: ""; position: absolute; background: var(--bo-ink); }
+.sourceToggle::before { left: 0; top: 4px; width: 9px; height: 1px; }
+.sourceToggle::after { top: 0; left: 4px; height: 9px; width: 1px; }
+.sourceDetails[open] .sourceToggle::after { display: none; }
+.sourceContent { padding: var(--bo-s3) 0 var(--bo-s2) 22px; overflow-wrap: anywhere; max-width: 80ch; }
+.sourceList { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--bo-s3); }
+.sourceList li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--bo-s4); }
+.sourceList li > div { flex: 1 1 24rem; min-width: 0; }
+.sourceTitle { display: block; font-weight: 500; }
+.sourceMetadata { display: block; margin-top: 2px; }
+.sourceNotes { margin: var(--bo-s3) 0 0; display: grid; gap: var(--bo-s2); }
+.sourceNotes > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: var(--bo-s3); }
+.sourceNotes dt { font-weight: 500; }
+.sourceNotes dd { margin: 0; }
+.sourceId { color: var(--bo-ink); text-underline-offset: 3px; white-space: nowrap; }
+.sourceAction { margin-top: 4px; }
+.sourceId:focus-visible, .sourceSummary:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 3px; }
+@media (max-width: 640px) {
+  .record { grid-template-columns: minmax(0, 1fr) auto; }
+  .recordDetails { grid-column: 1 / -1; }
+  .recordSource { grid-column: 1; text-align: left; }
+  .recordData { grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .sourceLine { gap: var(--bo-s2); }
+  .sourcePublishers { flex-basis: 100%; padding-left: 22px; }
+  .sourceContent { padding-left: 0; }
+  .sourceNotes > div { grid-template-columns: 1fr; gap: 2px; }
+}
+@media print { .sourceContent { display: block !important; } }
+
+/* Table view */
+.tableWrap {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  max-height: 30rem;
+  overflow: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-text);
+}
+.table th,
+.table td {
+  padding: 7px var(--bo-s3);
+  border-bottom: var(--bo-hair);
+  text-align: right;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bo-paper);
+  border-bottom: var(--bo-rule);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+/* Letter-spacing leaves a gap after the last glyph, which shifts a right-aligned heading off the figures. */
+.table thead th:not(:first-child) {
+  padding-right: calc(var(--bo-s3) - var(--bo-track-label));
+}
+.table th:first-child,
+.table td:first-child {
+  text-align: left;
+}
+.table tbody th {
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+.tableNote {
+  margin: var(--bo-s3) 0 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+/* 5 · Coverage */
+.coverage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, max-content));
+  gap: var(--bo-s2) var(--bo-s7);
+  margin: 0;
+}
+.coverage div {
+  display: grid;
+  gap: 4px;
+}
+.coverage dt {
+  color: var(--bo-text);
+}
+.coverage dd {
+  margin: 0;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-ink);
+}
+
+/* ——— Narrow: rail becomes a plate strip across the top ——— */
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    align-self: start;
+    height: auto;
+    border-right: 0;
+    border-bottom: var(--bo-rule);
+  }
+  .railSticky {
+    position: static;
+    max-height: none;
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .railHead {
+    display: none;
+  }
+  .railList {
+    display: flex;
+    border: 0;
+  }
+  .railList > li {
+    border-bottom: 0;
+    border-right: var(--bo-hair);
+  }
+  .railItem {
+    width: 5.5rem;
+    height: auto;
+    min-height: 4.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    justify-items: center;
+    align-content: center;
+    padding: var(--bo-s2) 4px var(--bo-s3);
+    row-gap: 4px;
+  }
+  .railLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+  .railShort {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-width: 0;
+    max-width: 100%;
+    font-family: var(--bo-f-data);
+    font-size: var(--bo-t-micro);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    text-align: center;
+    color: var(--bo-text);
+    overflow: hidden;
+  }
+  .railItem[aria-current="page"]::after {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 3px;
+  }
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .figure:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .figure:nth-child(n + 3) {
+    border-top: var(--bo-hair);
+  }
+  .coverage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railItem,
+  .railPlate :global(.bo-plate),
+  .viewTab,
+  .railToggle {
+    transition: none;
+  }
+}
+
+/* ——— Interaction: carriage ———
+   Selection is one physical slug of ink that travels (GSAP); labels dual-scramble on hover;
+   rail plates magnify under a loupe; figures dual-scramble when they change. */
+
+/* View tabs: transparent; the carriage block slides beneath the selected one. */
+.shell .views {
+  position: relative;
+  isolation: isolate;
+}
+.carriage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 0;
+  background: var(--bo-ink);
+  pointer-events: none;
+}
+.shell .viewTab {
+  z-index: 1;
+  background: transparent;
+  transition: color 160ms var(--bo-ease) 140ms;
+}
+.shell .viewTab:hover:not([aria-selected="true"]) {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  transition-delay: 0ms;
+}
+.shell .viewTab[aria-selected="true"] {
+  background: transparent;
+  color: var(--bo-paper);
+}
+
+/* Rail: one bar travels between rows instead of each row owning a bar. */
+.railCarriage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 0;
+  z-index: 3;
+  background: var(--bo-ink);
+  pointer-events: none;
+}
+.shell .railItem[aria-current="page"]::after {
+  display: none;
+}
+.shell .railToggle:hover {
+  background: transparent;
+  color: var(--bo-ink);
+}
+
+/* Plate hover: the halftone magnifies around the cursor (a loupe on the dots). */
+.shell .railPlate :global(.bo-plate)::before {
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+  -webkit-mask-position: var(--lx, 50%) var(--ly, 50%);
+  mask-position: var(--lx, 50%) var(--ly, 50%);
+  transition:
+    -webkit-mask-size 460ms var(--bo-ease),
+    mask-size 460ms var(--bo-ease);
+}
+.shell .railItem:hover .railPlate :global(.bo-plate)::before {
+  -webkit-mask-size: 240%;
+  mask-size: 240%;
+}
+
+.shell .controls {
+  position: relative;
+  z-index: 40;
+}
+.shell .textButton {
+  padding: 5px 7px;
+  margin: -5px -7px;
+}
+
+@media (max-width: 900px) {
+  .railCarriage {
+    display: none;
+  }
+  .shell .railItem[aria-current="page"]::after {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell .railPlate :global(.bo-plate)::before {
+    transition: none;
+  }
+  .shell .viewTab {
+    transition: none;
+  }
+}
+
+/* Menus in the controls row */
+.menu {
+  min-width: 12rem;
+}
+.menuYear {
+  min-width: 5.75rem;
+}

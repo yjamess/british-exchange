@@ -1,0 +1,39 @@
+indicator_id: net-additional-dwellings
+title: Net additional dwellings
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-net-supply-of-housing
+series_id: Live Table 118 annual net additional dwellings and components
+geography: England (E92000001) + English regions — not UK
+frequency: annual (financial year)
+unit: dwellings (net additions / components)
+definition: Net change in dwelling stock between 1 April and 31 March, with component
+  series for new build, conversions, change of use, other gains/losses, demolitions
+  (subtracted), the adjustment to Census 2011/2021 and the residual (MHCLG Live Table
+  118, note 1).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.net_additional_dwellings
+curated_path: curated/observations.csv
+update_cadence: annual (November net additions release)
+raw_evidence:
+- path: raw/2026-11-04/Live_Table_118.ods
+  retrieved_at: '2026-11-05T22:10:18.258058+00:00'
+  checksum_sha256: 49701a39c68e1ccd8619027bfe77408f6fbc5fa2147889ca464810d01b01cc8a
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-11-20'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/691de48bd140bbbaa59a2a77/Live_Table_118.ods
+transformations: Parse LT118_unrounded; bracketed cells are negatives. Emit series=
+  for net additions, the five physical components, the Census 2011/2021 adjustment
+  (one slug, label kept in component=) and the residual, so note 1's identity reproduces;
+  England + nine regions; skip PDR sub-rows.
+revision_notes: Pinned Live_Table_118.ods from 20 November 2025 release page (retrieved
+  2026-11-04).
+caveats: England primary measure — not UK. Completions (Table 213) are not the same
+  as net additions. Latest year often provisional. Rounded bulletin figures (e.g.
+  190,600) may differ slightly from unrounded table cells (e.g. 190,602).
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: https://app.notion.com/p/40e65471768581ab8ae3c718270e78a8
+schema_version: '1.0'

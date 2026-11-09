@@ -1,0 +1,34 @@
+indicator_id: housing-starts
+title: Housing starts
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-house-building
+series_id: Live Table 213 Starts (England quarterly, by tenure)
+geography: England (E92000001) — not UK
+frequency: quarterly
+unit: dwellings (starts)
+definition: Permanent dwellings started in England by tenure (private enterprise,
+  housing association, local authority, all), from MHCLG Live Table 213.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_starts
+curated_path: curated/observations.csv
+update_cadence: quarterly
+raw_evidence:
+- path: raw/2026-11-04/LiveTable213.ods
+  retrieved_at: '2026-11-04T19:49:19.845598+00:00'
+  checksum_sha256: 97752ab5cbee6e7491b207e2eaebbfd798b0bda73c2d91300f085ef79d6031e6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-09-24'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ab3e256a9c3d267bcccedc1/LiveTable213.ods
+transformations: Parse LT_213_quarterly start columns; series=all-starts|private-enterprise|housing-association|local-authority.
+revision_notes: Pinned LiveTable213 published 24 September 2026 (copied 2026-11-04).
+caveats: England-only new-build starts; not net additional dwellings and not a UK
+  total. Same ODS source as housing-completions — do not treat starts and completions
+  in one quarter as a matched cohort.
+related_indicator_ids:
+- housing-completions
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e654717685811381e5d6f1413b401a"
+schema_version: '1.0'

@@ -1,0 +1,43 @@
+indicator_id: temporary-accommodation-by-type
+title: Temporary accommodation by type
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness
+series_id: H-CLIC Table TA1 (type columns)
+geography: England (E92000001)
+frequency: quarterly stock
+unit: households
+definition: Households in temporary accommodation by accommodation type (England).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housing_insecurity
+curated_path: curated/observations.csv
+update_cadence: quarterly / annual by source
+raw_evidence:
+- path: raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods
+  retrieved_at: '2026-11-04T23:00:44.027201+00:00'
+  checksum_sha256: 27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a82eee63bd75b81e2329a7b/Statutory_Homelessness_England_Time_Series_202603.ods
+transformations: Parse pinned ODS; emit measure=stock|flow and series= notes; England
+  time series + LA snapshot where listed.
+revision_notes: Domain 08 initial ingest 2026-11-04.
+caveats: Type categories follow MHCLG TA1 definitions.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- homelessness-support-needs
+- homelessness-priority-need
+- homelessness-prevention-outcomes
+- homelessness-relief-outcomes
+- homelessness-main-duty
+- temporary-accommodation-households
+- temporary-accommodation-children
+- temporary-accommodation-duration
+- temporary-accommodation-out-of-area
+- rough-sleeping-snapshot
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e654717685819cab3af03532cc5cb0"
+schema_version: '1.0'

@@ -16,7 +16,11 @@ from typing import Sequence
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation, ObservationStatus
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import HOUSING_DATA
 
 PINNED_RAW = "raw/2026-11-03/UK-HPI-full-file-2026-08.csv"
@@ -63,7 +67,8 @@ def parse_uk_hpi_average_price(csv_path: Path) -> list[Observation]:
                 value = None
             else:
                 value = float(price_raw.replace(",", ""))
-                status = "provisional"
+                # Final vs provisional applied after parse (latest ~12 months).
+                status = "final"
             period = _parse_uk_date(row["Date"])
             start, end = _month_bounds(period)
             observations.append(
@@ -83,7 +88,7 @@ def parse_uk_hpi_average_price(csv_path: Path) -> list[Observation]:
     if not observations:
         raise ValueError("No United Kingdom rows in UK HPI CSV")
     observations.sort(key=lambda obs: obs.period_start)
-    return observations
+    return mark_latest_months_provisional(observations, months=12)
 
 
 class UkAverageHousePriceConnector(Connector):
@@ -119,7 +124,8 @@ class UkAverageHousePriceConnector(Connector):
             notion_registry_url="https://app.notion.com/40d654717685819bb393f7daf628b952",
             transformations=(
                 "Filter UK-HPI-full-file CSV to RegionName=United Kingdom. "
-                "Map Date (DD/MM/YYYY) to calendar month bounds; value=AveragePrice."
+                "Map Date (DD/MM/YYYY) to calendar month bounds; value=AveragePrice. "
+                "Mark the latest 12 valued months provisional; older months final."
             ),
             caveats=(
                 "Latest ~12 months of UK HPI are provisional and revise. "

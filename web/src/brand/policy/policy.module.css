@@ -1,0 +1,280 @@
+/*
+ * Decision Ledger — brand instrument for policy / event domains.
+ * Electric closed slab → paper open → Interior 3 catalogue card.
+ * Tokens: --bo-electric / --bo-paper only. No sector pigment.
+ */
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ledgerEmpty {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+.slabClosed,
+.slabOpen {
+  list-style: none;
+}
+
+.slabClosed {
+  background: var(--bo-electric);
+  color: var(--bo-paper);
+}
+
+.slabOpen {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  border: 1px solid var(--bo-electric);
+}
+
+.slabToggle {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.slabToggle:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+
+.slabYear {
+  font-family: var(--bo-f-data);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.slabTitle {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.slabMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.slabClosed .slabTitle,
+.slabClosed .slabYear,
+.slabClosed .slabMeta {
+  color: var(--bo-paper);
+}
+
+.slabOpen .slabTitle {
+  color: var(--bo-electric);
+}
+
+.slabOpen .slabYear,
+.slabOpen .slabMeta {
+  color: var(--bo-text);
+}
+
+.dossier {
+  padding: 0 1.15rem 1.35rem;
+}
+
+.lead {
+  margin: 0 0 0.85rem;
+  font-size: 1.08rem;
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 40rem;
+}
+
+.body {
+  margin: 0 0 0.75rem;
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 40rem;
+}
+
+.sec {
+  margin: 0 0 0.45rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.destList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.destList a {
+  color: var(--bo-electric);
+  text-underline-offset: 0.15em;
+}
+
+.destNote {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--bo-text);
+}
+
+.caveat {
+  margin: 1.15rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--bo-ink-20);
+  font-size: 0.9rem;
+  color: var(--bo-text);
+  line-height: 1.4;
+  max-width: 40rem;
+}
+
+.catalogue {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(12rem, 0.9fr);
+  gap: 1.25rem 1.75rem;
+  align-items: start;
+}
+
+.catalogue .caveat,
+.catalogue .dossierInstrument {
+  grid-column: 1 / -1;
+}
+
+.dossierInstrument {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bo-ink-20);
+  min-width: 0;
+}
+
+.dossierInstrumentLabel {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.catalogueStory .sec {
+  margin-top: 1rem;
+}
+
+.register {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--bo-ink-20);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.register > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.5rem 0.75rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--bo-ink-20);
+}
+
+.register > div:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.register > div:last-child {
+  padding-bottom: 0;
+}
+
+.register dt {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+  padding-top: 0.15rem;
+}
+
+.register dd {
+  margin: 0;
+  color: var(--bo-union);
+  line-height: 1.35;
+}
+
+.register dd a {
+  display: block;
+  color: var(--bo-electric);
+  text-underline-offset: 0.15em;
+}
+
+.disclosure {
+  display: grid;
+  gap: var(--bo-s3);
+  margin-top: var(--bo-s4);
+}
+
+.disclosure > div {
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .catalogue {
+    grid-template-columns: 1fr;
+  }
+
+  .register > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .slabToggle {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .slabMeta {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,105 @@
+/* Split bars — RankBars rows with the track divided in one ink.
+   Useful = solid; lost = 45° pen hatch (TimeChart provisional language);
+   heat from surroundings = sparse vertical stipple. Open key under the rows. */
+
+.flow {
+  gap: 0;
+}
+
+.bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.bar > span {
+  flex: none;
+  height: 100%;
+}
+
+.useful {
+  background: var(--bo-ink);
+}
+
+.lost {
+  background-color: var(--bo-paper);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--bo-ink) 0 1.25px,
+    var(--bo-paper) 1.25px 3.5px
+  );
+  box-shadow: inset 0 0 0 1px var(--bo-ink);
+}
+
+.ambient {
+  background-color: var(--bo-paper);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bo-ink) 0 1px,
+    var(--bo-paper) 1px 5px
+  );
+  box-shadow: inset 0 0 0 1px var(--bo-ink);
+}
+
+.key {
+  list-style: none;
+  margin: var(--bo-s4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bo-text);
+}
+
+.key li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.key i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.publishedKey {
+  width: 0 !important;
+  height: 14px !important;
+  border-left: 1px dashed var(--bo-ink);
+}
+
+/* Assumptions table: coefficient inputs in your scenario. */
+.coef {
+  width: 5.5rem;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid var(--bo-ink);
+  border-radius: 0;
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font: 500 0.75rem var(--bo-f-data);
+  font-variant-numeric: tabular-nums;
+}
+
+.coef:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 1px;
+}
+
+.coef[data-changed] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

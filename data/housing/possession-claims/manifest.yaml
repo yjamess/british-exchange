@@ -1,0 +1,36 @@
+indicator_id: possession-claims
+title: Mortgage and landlord possession actions
+sector: housing-land
+publisher: Ministry of Justice
+source_url: https://www.gov.uk/government/statistics/mortgage-and-landlord-possession-statistics-april-to-june-2026
+series_id: MoJ Tables 1 (mortgage) + 4 (landlord)
+geography: England and Wales (combined national)
+frequency: quarterly (flow)
+unit: court actions
+definition: County court possession claims, orders, warrants and bailiff repossessions
+  for mortgage lenders and landlords. Flow of court actions — not a count of households
+  made homeless.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.possession_claims
+curated_path: curated/observations.csv
+update_cadence: quarterly
+raw_evidence:
+- path: raw/2026-11-04/MoJ_possession_tables_202606.ods
+  retrieved_at: '2026-11-04T21:30:44.667529+00:00'
+  checksum_sha256: 395b5a5745aee437c9537f0a99493ba08899427a6d96d9bebe62420a8fef9606
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a7c8afb764399f224d83235/Mortgage_and_Landlord_Possession_Tables_Q2_April_to_June_2026.ods
+transformations: Parse quarterly rows from Table_1 and Table_4; skip annual totals;
+  series=mortgage-*|landlord-*.
+revision_notes: Domain 08 ingest 2026-11-04 (Q2 2026 tables).
+caveats: England & Wales combined — not England-only. Claims ≠ repossessions. COVID-era
+  quarters show sharp drops due to stays on possession.
+related_indicator_ids:
+- statutory-homelessness-assessments
+- temporary-accommodation-households
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581fcabfef12e7c71bead"
+schema_version: '1.0'

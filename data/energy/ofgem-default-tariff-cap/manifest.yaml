@@ -1,0 +1,97 @@
+indicator_id: ofgem-default-tariff-cap
+title: Ofgem default tariff (price) cap — GB typical £/year
+sector: energy-industry
+publisher: Ofgem
+source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+series_id: Ofgem Annex 9 levelised default tariff cap (GB average, inc VAT)
+geography: Great Britain (K03000001); not Northern Ireland
+frequency: quarterly
+unit: GBP per year (benchmark / typical consumption)
+definition: Great Britain default tariff (price) cap levels for a typical domestic
+  consumer, curated from Ofgem's per-period Annex 9 Levelisation Allowance model (sheet
+  1a Levelised DTC). Values are GB-average, VAT-inclusive benchmark £/year under Other
+  Payment Method (≈ direct debit), for electricity single-rate, gas, and dual-fuel
+  (implied). Not DESNZ average bills (QEP 2.2.1 / 2.3.1) and not Northern Ireland.
+licence: Ofgem published materials — Crown copyright / Ofgem terms on each asset
+agent_owner: energy
+connector_module: energy.connectors.ofgem_default_tariff_cap
+curated_path: curated/observations.csv
+update_cadence: Each new charge restriction period (pin PDF + Annex 9, re-run)
+raw_evidence:
+- path: raw/2026-11-07/jan-mar-2026/annex9-levelised-cap-rates.xlsx
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: ab227e1039a4f247964982c9e20e0ab7175e7eada6b4e600c28ed16a3b057f77
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-01-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/jan-mar-2026/energy-price-cap-levels.pdf
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: 8ca9d4e9fa75b53c2eb1d3c8c0735582c57e2b2400a6cbcb179bbbd3dfd50971
+  content_type: application/pdf
+  official_release_date: '2026-01-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/apr-jun-2026/annex9-levelised-cap-rates.xlsx
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: 8a5a60aea2652b19b7cdffd40b50ebbc8b50619a1886c7daeb0eb86b0093aee5
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-04-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/apr-jun-2026/energy-price-cap-levels.pdf
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: a731ff0cbee65d7a399b1d1a0e0fac812e24ecfded5447ee422b9d74231ca5c4
+  content_type: application/pdf
+  official_release_date: '2026-04-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/jul-sep-2026/annex9-levelised-cap-rates.xlsx
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: e154e285f8e6e5fbd16a07265ee03a3da97c453a5c9ab305f65cebb3fdea169a
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/jul-sep-2026/energy-price-cap-levels.pdf
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: f8ace45c9cbfc007cfd71b073ee74772f27f26656d2867130af0bfb829c0277d
+  content_type: application/pdf
+  official_release_date: '2026-07-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/oct-dec-2026/annex9-levelised-cap-rates.xlsx
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: 5a7277ca7af148d1b918d87a29fab5fa9100e8764a88b9042d7969b7dbe1a6f8
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+- path: raw/2026-11-07/oct-dec-2026/energy-price-cap-levels.pdf
+  retrieved_at: '2026-11-07T20:53:03.547581+00:00'
+  checksum_sha256: f34dd54ac09069e753cfe95a273f0ee0e53c7612d1aa0cf1b8cea9f2e630dcc8
+  content_type: application/pdf
+  official_release_date: '2026-10-01'
+  http_status: 200
+  source_url: https://www.ofgem.gov.uk/energy-regulation/domestic-and-non-domestic/energy-pricing-rules/energy-price-cap/energy-price-cap-default-tariff-levels
+transformations: 'Electricity single-rate: parse Annex 9 sheet 1b Historical level
+  tables (Other Payment Method · Typical consumption · Total inc VAT) for the full
+  indicative timeline. Gas and dual-fuel: per-period 1a GB average,inc VAT from pinned
+  Annex 9 workbooks. Record TDCV from sheet 1c on pin rows.'
+revision_notes: Sheet 1b is an indicative levelised reconstruction. TDCV revised Jan
+  2026 and Jul 2026 — compare periods carefully.
+caveats: GB only — not NI. Cap ≠ actual average bills. Benchmark uses Ofgem TDCV,
+  not DESNZ 3,400 / 11,200 kWh assumptions. Regional caps live in ofgem-default-tariff-cap-regional.
+  Gas/dual history limited to pinned periods.
+related_indicator_ids:
+- domestic-electricity-bills
+- domestic-gas-bills
+- domestic-gas-unit-standing
+- cpih-index
+- ofgem-default-tariff-cap-regional
+open_questions:
+- Gas / dual-fuel full history still needs earlier Annex 9 period pins (1b currently
+  publishes electricity single-rate historical totals).
+- 'Optional: Standard Credit / PPM payment methods from same Annex 9.'
+notion_registry_url: ''
+schema_version: '1.0'

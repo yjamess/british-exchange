@@ -1,5 +1,5 @@
 ---
-description: British Observatory visual identity — Instrument + Imprint for all sector UI
+description: British Exchange visual identity v1 — one electric ink, halftone plates, Caslon + Geist, for all sector UI
 globs:
   - web/src/brand/**/*
   - web/src/app/**/*.{tsx,css}
@@ -10,17 +10,19 @@ alwaysApply: false
 
 # Visual identity
 
-Read `docs/visual-identity.md` before changing sector UI, charts, or brand tokens.
+Read `docs/visual-identity.md` before changing sector UI, charts, imagery or brand tokens.
 
 ## Rules
 
-- Source of truth: `web/src/brand/` + `web/src/brand/brand.css` (`.bo` tokens).
-- Personality: **Instrument** (charts, KPIs, filters, source disclosure) + **Imprint** (hero/threshold only).
-- Never put stamps, ASCII fields, or halftone textures inside a chart plot.
-- Data chooses the form (line / bars / stacked share) — do not default everything to a line.
-- Geography once per module; condense source to publisher + disclosure.
-- Sector pigment (`--bo-sector`) is imprint-only, never series colour.
-- Do not fork a second design system for Energy/Economy/etc. Wrap pages in `BrandRoot`.
-- Changing identity requires updating `docs/visual-identity.md` and `brand.css` together.
+- Source of truth: `web/src/brand/` + `web/src/brand/brand.css` (`.bo` tokens), wrapped by `BrandRoot`.
+- Colours (locked): Electric `#0618F5` (the one ink), Paper `#FDFDFF`, Union `#012169` (text, index, depth), Signal `#FF3347` (live marks only, never text), Lavender `#9C9EFF` (film, muted index type).
+- Tints are dots (halftone screen), never opacity. Type is never faded.
+- Imagery: `<Plate>` masks in `web/public/brand/plates/`. Treatments print / night / negative are for imagery only; copy over a plate sits on a solid panel. Never inside a chart plot.
+- Data-generated plates carry a source line (publisher, series, period, release, indicator id).
+- Type: Libre Caslon Display headlines (sentence case), Geist body, Geist Mono labels, condensed Archivo figures and index. Heavy capitals only for the wordmark and one statement per page.
+- Instrument marks (ticks, coordinates, contours, points) are plotted from real values. Line language: solid observed, dotted provisional, dashed gap/not observed.
+- Composition: 12-col grid; sections are Quiet, Monumental (max one per page) or Index.
+- Data chooses the chart form. Do not fork a second design system. Changing identity requires updating `docs/visual-identity.md` and `brand.css` together.
+- Explorer stages: **one Notes foot** (`FigureRecord` or `SourceLine` on `<Stage foot>`). Definition/method stay out of the plot. No `<Coverage>` strip under the stage. Multi-chart titles use `explorerClasses.stageTitle` (Housing pipeline), not `.bo-label` “FIG.” caps. See `.cursor/rules/explorer-stage.mdc`.
 
-Craft refs: Hermes/Nous, Content Architecture, every.to. Product north star: Notion British Exchange page.
+Reference page: British Exchange Identity artifact (linked in the doc).

@@ -1,0 +1,47 @@
+indicator_id: nsta-ukcs-licences
+title: NSTA UKCS offshore petroleum licences (WGS84)
+sector: energy-industry
+publisher: North Sea Transition Authority
+source_url: https://open-data-ukcs-transition.hub.arcgis.com/datasets/UKCS-transition::ukcs-offshore-petroleum-licences-wgs84
+series_id: UKCS offshore petroleum licences (WGS84) FeatureServer/0
+geography: UK Continental Shelf offshore only — not onshore Scotland/Wales/NI; not
+  a national petroleum atlas
+frequency: ad_hoc
+unit: feature_count; km2
+definition: Point-in-time NSTA UKCS offshore petroleum licence polygons (one polygon
+  per licence). Curated summary = feature counts and AGREED_KM2 by primary REGIONS
+  label. Full polygons pinned as GeoJSON (EPSG:4326). Contains information provided
+  by the North Sea Transition Authority and/or other third parties.
+licence: NSTA User Agreement (Open User Licence) — see data/energy/oil-gas-fossil-fuels/licence/README.md;
+  attribution required
+agent_owner: energy
+connector_module: energy.connectors.nsta_ukcs_licences
+curated_path: curated/observations.csv
+update_cadence: Re-fetch when NSTA republishes the Hub layer
+raw_evidence:
+- path: raw/2026-11-07/ukcs_offshore_petroleum_licences_wgs84.geojson
+  retrieved_at: '2026-11-07T15:34:57.352160+00:00'
+  checksum_sha256: 4746a529db6f8e47979337af27c27f9dd2403ace305fcdbd92d8bc7483f44ab3
+  content_type: application/octet-stream
+  official_release_date: '2026-11-07'
+  http_status: 200
+  source_url: https://open-data-ukcs-transition.hub.arcgis.com/api/download/v1/items/e4e489b088b44e29af1c848468403988/geojson?layers=0
+transformations: Download Hub GeoJSON (WGS84). Pin under raw/<date>/. Write curated/observations.csv
+  (totals + primary_region counts/area + location/status/type counts), curated/features.csv
+  (licence attributes, no geometry), and curated/licences.geojson (full FeatureCollection
+  copy). primary_region = first REGIONS token before a comma.
+revision_notes: ''
+caveats: UKCS offshore licences only. Do not invent onshore Scotland/Wales/NI coverage.
+  This WGS84 layer is Extant Production / OFFSHORE in the 2026-11 pin — not expired
+  licences, not licence blocks/sub-areas, and not England onshore petroleum licences
+  (separate Hub layers). Multi-region licences are counted once under the first region
+  label. Contains information provided by the North Sea Transition Authority and/or
+  other third parties. Do not reuse NSTA logos.
+related_indicator_ids:
+- nsta-ukcs-fields
+- crude-oil-production
+open_questions:
+- Should Gate 3 also pin licence blocks / licensed-unlicensed blocks as a second geography
+  story?
+notion_registry_url: ''
+schema_version: '1.0'

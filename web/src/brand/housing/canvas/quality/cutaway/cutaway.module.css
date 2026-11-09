@@ -1,0 +1,171 @@
+/* Inside the home — 3D cutaway stage, annotations and stamp. One ink; tags on solid paper. */
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: min(78vh, 44rem);
+  min-height: 26rem;
+  background: var(--bo-paper);
+}
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--bo-paper);
+  outline: none;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+
+/* Annotations: a dot on the anchor, a mono tag beside it. Positioned by translate() from JS. */
+.annotations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.annotation {
+  appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--bo-ink);
+  cursor: pointer;
+  pointer-events: auto;
+  will-change: transform;
+}
+.dot {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--bo-ink);
+  border-radius: 50%;
+  background: var(--bo-paper);
+}
+.tag {
+  position: absolute;
+  left: 12px;
+  top: -30px;
+  display: grid;
+  gap: 1px;
+  padding: 4px 7px 5px;
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+  white-space: nowrap;
+  text-align: left;
+}
+.tag::before {
+  /* leader from the dot to the tag */
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 100%;
+  width: 12px;
+  height: 1px;
+  background: var(--bo-ink);
+  transform-origin: left;
+  transform: rotate(-58deg);
+}
+.tagName {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+}
+.tagValue {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: var(--bo-fig-wght);
+  font-size: var(--bo-t-fig-s);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+/* Tag placement per feature (data-side), leader follows */
+.annotation[data-side="nw"] .tag {
+  left: auto;
+  right: 12px;
+}
+.annotation[data-side="nw"] .tag::before {
+  left: auto;
+  right: -12px;
+  transform-origin: right;
+  transform: rotate(58deg);
+}
+.annotation[data-side="se"] .tag {
+  top: 10px;
+}
+.annotation[data-side="se"] .tag::before {
+  top: -1px;
+  transform: rotate(58deg);
+}
+.annotation[data-side="sw"] .tag {
+  left: auto;
+  right: 12px;
+  top: 10px;
+}
+.annotation[data-side="sw"] .tag::before {
+  left: auto;
+  right: -12px;
+  top: -1px;
+  transform-origin: right;
+  transform: rotate(-58deg);
+}
+.annotation[data-hover="true"] .tag,
+.annotation:focus-visible .tag {
+  box-shadow: 0 0 0 1px var(--bo-ink);
+}
+.annotation[data-hover="true"] .dot {
+  background: var(--bo-ink);
+}
+.annotation[aria-pressed="true"] .tag {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.annotation[aria-pressed="true"] .dot {
+  background: var(--bo-ink);
+  box-shadow: 0 0 0 3px var(--bo-paper), 0 0 0 4px var(--bo-ink);
+}
+.annotation:focus-visible {
+  outline: none;
+}
+.annotation:focus-visible .tag {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.stamp {
+  position: static;
+  align-self: flex-start;
+  margin: var(--bo-s3) var(--bo-s4);
+  padding: 3px 7px;
+  border: 1px dashed var(--bo-ink);
+  background: var(--bo-paper);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .annotation {
+    will-change: auto;
+  }
+}

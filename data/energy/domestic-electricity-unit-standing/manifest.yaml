@@ -1,0 +1,46 @@
+indicator_id: domestic-electricity-unit-standing
+title: Domestic electricity unit rates and standing charges
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics
+series_id: QEP 2.2.4 (Average variable unit costs and fixed costs, standard electricity,
+  UK regions, calendar year)
+geography: United Kingdom (K02000001); PES / legacy town regions in notes
+frequency: annual
+unit: GBP_per_kWh (unit_price) or GBP_per_year (fixed_cost)
+definition: 'Average variable unit price (£/kWh) and average fixed cost (£/year) for
+  UK domestic standard electricity by region and payment method. Fixed cost includes
+  standing charge and the first-block premium (unit1−unit2)×split. Official statistics
+  in development. Reconstruct: fixed_cost + unit_price × kWh.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_electricity_unit_standing
+curated_path: curated/observations.csv
+update_cadence: At least quarterly with QEP domestic tables
+raw_evidence:
+- path: raw/2026-11-07/table_224.xlsx
+  retrieved_at: '2026-11-07T09:57:54.157396+00:00'
+  checksum_sha256: 1a28aad7d06bc2696dafef85704e6aa308d7c4b0d1e2fdfcbbd21d4d811f8d02
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4245b97ac6fd9c6a94aae2/table_224__1_.xlsx
+transformations: 'Parse sheet 2.2.4 only (calendar-year standard electricity). Long-format:
+  year × region × payment × measure. Credit→Standard credit. Economy 7 and financial-year
+  sheets not ingested. Geography code fixed to UK; region and PES live in notes.'
+revision_notes: table_224__1_.xlsx Cover Sheet publication date 2026-06-30 (QEP June
+  2026). Some prior years revised for processing errors.
+caveats: Official statistics in development. Not suitable for consumption below the
+  modal split (~900 kWh). Weighted quarterly average — not a live spot tariff. NI
+  standing often presented as zero. Do not treat as Ofgem price-cap levels. Economy
+  7 is a separate sheet.
+related_indicator_ids:
+- domestic-electricity-bills
+- domestic-gas-bills
+- industrial-electricity-prices
+open_questions:
+- Ingest 2.2.4 Economy 7 and/or financial-year sheets as sibling indicators?
+- When to promote regional PES cuts into Regional Price Anatomy UI?
+- 'Gas twin: QEP 2.3.4 for Dissected Bill gas layers.'
+notion_registry_url: ''
+schema_version: '1.0'

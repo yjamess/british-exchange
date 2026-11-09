@@ -1,0 +1,83 @@
+indicator_id: ehs-disrepair
+title: EHS disrepair (standardised basic repair costs) and electrical safety
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistical-data-sets/dwelling-condition-and-safety
+series_id: DA5201 / DA5202 Disrepair and electrics
+geography: England (E92000001); ONS regions E12000001–E12000009 from 2020; EHS sub-national
+  areas 2008–2019 — dwelling sample survey estimates
+frequency: annual
+unit: percent of dwellings
+definition: 'Share of England dwellings by standardised basic repair cost band — the
+  modelled cost (£ per m² of floor area, current prices) of the basic repairs the
+  EHS surveyor records as needed: zero costs (no basic repairs needed), £1–20, £20–35,
+  £35–65, over £65 per m². Plus the share with all five electrical safety features
+  (all PVC wiring, modern earthing, modern consumer unit, MCBs, RCDs). English Housing
+  Survey dwelling sample.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_quality_indicators
+curated_path: curated/observations.csv
+update_cadence: annual (EHS live tables, July)
+raw_evidence:
+- path: raw/2026-11-04/DA5201_Disrepair_and_electrics_-_dwellings.ods
+  retrieved_at: '2026-11-04T23:44:03.742445+00:00'
+  checksum_sha256: c22c79062fc41a30e7cee67d62f70aaf5c7b4f8e68ebc630e1221efe535685d6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d963c92f65594cb02999a/DA5201_Disrepair_and_electrics_-_dwellings.ods
+- path: raw/2026-11-04/DA5202_Disrepair_and_electrics_-_areas.ods
+  retrieved_at: '2026-11-04T23:44:04.167779+00:00'
+  checksum_sha256: 095a426e36d0be2c54d3d806b1b80a281b8e232d8847a904b0735d124cd3715a
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d965992f65594cb02999b/DA5202_Disrepair_and_electrics_-_areas.ods
+transformations: 'Header-driven parse of every year sheet (housing.connectors.ehs_da_parse):
+  measure columns located by header text; legacy (tenure rows) and modern (tenure
+  column blocks) layouts; rows kept for tenure, dwelling age, dwelling type, floor
+  area, region / sub-national area and the all-dwellings summary. Published cells
+  only — ''u'' → suppressed, N/A → missing. Supplementary published tables fill only
+  keys the live tables do not publish (DT3101; 2024-25 annex AT1.6, AT1.8, AT1.9,
+  AT1.10). Series values: no-basic-repair-costs, repair-cost-gbp-1-20-per-m2, repair-cost-gbp-20-35-per-m2,
+  repair-cost-gbp-35-65-per-m2, repair-cost-gbp-over-65-per-m2, all-5-electrical-safety-features.
+  Headline: series=no-basic-repair-costs; breakdown=none.'
+revision_notes: '2026-11-04 v2: adds dwelling-age / dwelling-type / floor-area / region
+  breakdowns, criterion / hazard / damp-type series and 2008–2021 history (v1 had
+  2022–2024 headline only). Energy bands: v1 mis-read 2008–2011 columns (band D shown
+  as A/B/C) — fixed by header-driven parsing; all-social relabelled social-rented
+  (tenure-label note keeps the published label).'
+caveats: 'England survey estimates from the EHS physical (dwelling) survey — not UK,
+  not an administrative count, not an assessment of any individual home. Each dwelling
+  year pools two fieldwork years (e.g. 2024 = April 2023–March 2025). Breakdowns are
+  exactly those published: 2008–2021 characteristic rows (dwelling age / type / floor
+  area / area) are all-tenures only; from 2022 the condition tables cross each characteristic
+  with owner occupied / private rented / social rented, but the tenure-specific cells
+  share one row-level sample size (sample-scope=row-all-tenures). Region (9 ONS regions,
+  E12…) is published from 2020; 2008–2019 only three sub-national areas (Northern;
+  London and South East; Rest of England) with no ONS code. No dwelling type × region,
+  age × region or region × tenure-by-characteristic cross is published. ''u'' = unweighted
+  cell count 1–4 (suppressed, no value). 2020 and 2021 are occupied dwellings only
+  and were modelled differently (no full internal inspection, COVID-19); several criteria
+  are N/A (missing) in 2020–2022. 2022 combines 2021-22 ''external plus'' and 2022-23
+  full surveys (hybrid; compare with caution). Floor-area bands 2020–2022 use modelled
+  internal dimensions. Repair-cost bands are modelled: surveyor-recorded faults priced
+  with a standard schedule (''standardised basic repair costs'', current prices of
+  each survey year), so band boundaries are not inflation-adjusted and the share in
+  higher bands rises with prices as well as with disrepair — compare years with caution.
+  ''Basic'' repairs exclude improvements and modernisation. Mean £/m² columns are
+  published but not ingested (different unit). Electrical safety features are surveyor-observed.'
+related_indicator_ids:
+- ehs-decent-homes
+- ehs-category-1-hazards
+- ehs-damp-surveyor
+- ehs-energy-efficiency-bands
+- ehs-overcrowding
+- ehs-under-occupation
+- ehs-damp-mould-reported
+open_questions:
+- Web loader must filter series=<headline> and breakdown=none for the existing tenure
+  lines (rows now carry breakdowns).
+notion_registry_url: ''
+schema_version: '1.0'

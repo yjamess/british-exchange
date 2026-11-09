@@ -1,0 +1,32 @@
+indicator_id: dwelling-type
+title: Dwelling type (accommodation type)
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/datasets/TS044
+series_id: Census 2021 TS044 Accommodation type
+geography: England, Wales, E&W and English regions
+frequency: census (2021)
+unit: households
+definition: Census 2021 households by accommodation type (detached, semi-detached,
+  terraced, flats and other categories).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.dwelling_type
+curated_path: curated/observations.csv
+update_cadence: decennial census
+raw_evidence:
+- path: raw/2026-11-04/census2021-ts044.zip
+  retrieved_at: '2026-11-04T19:08:04.669698+00:00'
+  checksum_sha256: af7b512615ea9d27ad0b2cec715a6cd4b50832482e0f38ca640c906c352f91bd
+  content_type: application/zip
+  official_release_date: '2023-03-28'
+  http_status: null
+  source_url: https://www.nomisweb.co.uk/output/census/2021/census2021-ts044.zip
+transformations: Parse Nomis bulk ctry + rgn CSVs; demographic=* notes.
+revision_notes: Pinned Nomis bulk zip 2026-11-04 (TS044 v4).
+caveats: HOUSEHOLDS, not dwellings. Not comparable to Live Table 104. Census Day 21
+  March 2021. Definition changes vs 2011.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

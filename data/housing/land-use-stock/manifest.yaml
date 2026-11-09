@@ -1,0 +1,37 @@
+indicator_id: land-use-stock
+title: Land use stock
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/land-use-in-england-2022
+series_id: Land Use Stock 2022 P400a/P400b England
+geography: England (E92000001) — not UK
+frequency: annual (stock; latest release 2022)
+unit: '% of land area or hectares'
+definition: How England’s land is used in 2022 across headline groups (developed,
+  non-developed, vacant, agriculture, forestry/open land/water, residential gardens,
+  residential). Shares from P400a; hectares from P400b.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.land_use_stock
+curated_path: curated/observations.csv
+update_cadence: ad hoc (publisher cadence under review)
+raw_evidence:
+- path: raw/2026-11-04/Live_Tables_Land_Use_Stock_2022.ods
+  retrieved_at: '2026-11-04T12:15:30.392486+00:00'
+  checksum_sha256: 395007ff30ae0b1648d92d6d85679d08ba1fc2d582dc96a2463df41d7e425677
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2022-10-27'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/63590544d3bf7f0bda9c614b/Live_Tables_-_Land_Use_Stock_2022.ods
+transformations: Read England row from P400a and P400b; emit series=<group> with measure=share|hectares
+  in notes.
+revision_notes: Pinned Land Use Stock 2022 published 27 Oct 2022.
+caveats: Single-year stock (2022). England only. Derived from Ordnance Survey products
+  supplied to MHCLG. Residential gardens are classified as non-developed use in these
+  statistics.
+related_indicator_ids:
+- green-belt-area
+- planning-decisions-granted
+open_questions: []
+notion_registry_url: "https://app.notion.com/40e6547176858187b08ec45e88db36dc"
+schema_version: '1.0'

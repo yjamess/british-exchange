@@ -1,0 +1,209 @@
+{
+  "registry_id": "housing-policy-plates",
+  "retrieved_at": "2026-11-05",
+  "note": "Imagery for Domain 10, screened from openly licensed photographs and engravings on Wikimedia Commons (public domain, CC BY, CC BY-SA). Each plate keeps its author, licence and source page; share-alike originals are shared under the same licence. An era is set only when the picture itself dates from that era. Plates are imagery, never evidence.",
+  "plates": [
+    {
+      "id": "h-peabody-1863",
+      "file": "/brand/plates/h-peabody-1863.png",
+      "title": "Peabody dwellings, Commercial Street, Spitalfields",
+      "depicts": "Engraving of the Peabody dwellings for the industrious poor in Commercial Street, Spitalfields, 1863",
+      "made_label": "Engraving, 1863",
+      "era_id": "before-1900",
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [],
+      "author": "Architect: H. A. Darbishire. Engraver unknown.",
+      "licence": "Public domain",
+      "licence_url": null,
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Peabody_Buildings_1863.jpg",
+        "role": "official"
+      },
+      "original_sha256": "422c82fc6b13d01632873f8e1cbadada7e515867d4320c34f1b21400ef15af07",
+      "derivative_note": "Halftone screen of the original by The British Exchange."
+    },
+    {
+      "id": "h-becontree",
+      "file": "/brand/plates/h-becontree.png",
+      "title": "Valence Avenue, Becontree Estate",
+      "depicts": "Houses on Valence Avenue, Becontree Estate, east London, photographed in 2016",
+      "made_label": "Photographed 30 November 2016",
+      "era_id": null,
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [
+        "housing-town-planning-act-1919"
+      ],
+      "author": "Marathon",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Valence_Avenue,_Becontree_Estate_-_geograph.org.uk_-_5213393.jpg",
+        "role": "official"
+      },
+      "original_sha256": "b337e0a6126c1a38e674383af184bc5e11b05ae41cfc47ca9ec7aa35407502d9",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    },
+    {
+      "id": "h-harlow-the-lawn",
+      "file": "/brand/plates/h-harlow-the-lawn.png",
+      "title": "The Lawn, Harlow",
+      "depicts": "The Lawn, Harlow, described by the photographer as the first residential tower block in the UK, seen from Mark Hall Moors in 2021",
+      "made_label": "Photographed 30 May 2021",
+      "era_id": null,
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "author": "Gazamp",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:View_of_The_Lawn,_Harlow,_May_2021.jpg",
+        "role": "official"
+      },
+      "original_sha256": "f00b351551697ae9ffd7aa04f5988b98dc3f46e24b26ba39db278df163d193b3",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    },
+    {
+      "id": "h-prefab-universal-house",
+      "file": "/brand/plates/h-prefab-universal-house.png",
+      "title": "Post-war prefabricated house",
+      "depicts": "A post-war prefabricated house (Universal House, Mark 3: steel frame clad in corrugated asbestos cement) at the Chiltern Open Air Museum",
+      "made_label": "Uploaded 30 October 2006",
+      "era_id": null,
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [],
+      "author": "Antony McCallum (Wyrdlight)",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Prefabfront.jpg",
+        "role": "official"
+      },
+      "original_sha256": "176d49acc88d221bc700256ba9947be383aaaaf99a24da8b9fa58fcfecd10c7c",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    },
+    {
+      "id": "h-waddell-court-1960s",
+      "file": "/brand/plates/h-waddell-court-1960s.png",
+      "title": "Waddell Court, Gorbals, Glasgow",
+      "depicts": "Waddell Court tower blocks in the Gorbals, Glasgow, in the 1960s",
+      "made_label": "1960s photograph",
+      "era_id": "1960-1979",
+      "nations": [
+        "scotland"
+      ],
+      "linked_event_ids": [],
+      "author": "Miles Glendinning",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Tower_Block_UK_photo_glw5-02_(Waddell_Court_1960s).jpg",
+        "role": "official"
+      },
+      "original_sha256": "ea3612db08a8396c9823baa3acde644f01b90c904d1c18ac504a2229f1f20814",
+      "derivative_note": "Halftone screen of the original by The British Exchange."
+    },
+    {
+      "id": "h-thamesmead",
+      "file": "/brand/plates/h-thamesmead.png",
+      "title": "Thamesmead housing estate",
+      "depicts": "Thamesmead housing estate, south-east London, photographed in 2006",
+      "made_label": "Photographed 11 February 2006",
+      "era_id": null,
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [],
+      "author": "Jon Bennett",
+      "licence": "CC BY 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by/2.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Thamesmead_Housing_Estate_01.jpg",
+        "role": "official"
+      },
+      "original_sha256": "456275acaeea7eb58d2e661faf80463117abfcc2b0674388bdcdd270ce86fcfa",
+      "derivative_note": "Halftone screen of the original by The British Exchange."
+    },
+    {
+      "id": "h-ferndale-terraces",
+      "file": "/brand/plates/h-ferndale-terraces.png",
+      "title": "Terraced houses, Ferndale",
+      "depicts": "Terraced houses on the valley side at Ferndale, Rhondda, photographed in 2015",
+      "made_label": "Photographed 4 April 2015",
+      "era_id": null,
+      "nations": [
+        "wales"
+      ],
+      "linked_event_ids": [],
+      "author": "Gareth James",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Terraced_houses_in_Ferndale_-_geograph.org.uk_-_4413551.jpg",
+        "role": "official"
+      },
+      "original_sha256": "4ba7aaf7e24edfb40a8ef5d13b4b1dc4e8b3431fbe794e5dfcfc10d636f7d362",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    },
+    {
+      "id": "h-belfast-road-terraces",
+      "file": "/brand/plates/h-belfast-road-terraces.png",
+      "title": "Terraced housing, Belfast Road",
+      "depicts": "Terraced housing on Belfast Road, Northern Ireland, photographed in 2014",
+      "made_label": "Photographed 9 April 2014",
+      "era_id": null,
+      "nations": [
+        "northern-ireland"
+      ],
+      "linked_event_ids": [],
+      "author": "Ian Paterson",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Terraced_Housing_on_Belfast_Road_-_geograph.org.uk_-_3929419.jpg",
+        "role": "official"
+      },
+      "original_sha256": "0c2dc581efd4a0b6d0b2da9bc9eef41fa902c4bf42ab728e772f57d7642f7d56",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    },
+    {
+      "id": "h-alton-west-1966",
+      "file": "/brand/plates/h-alton-west-1966.png",
+      "title": "Alton West Estate, Roehampton",
+      "depicts": "Slab blocks of the Alton West Estate, Roehampton, across the open parkland in 1966",
+      "made_label": "Photographed 25 April 1966",
+      "era_id": "1960-1979",
+      "nations": [
+        "england"
+      ],
+      "linked_event_ids": [],
+      "author": "Alan Murray-Rust",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "source": {
+        "label": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Alton_West_Estate,_Roehampton,_1966_%E2%80%93_3_-_geograph.org.uk_-_6419729.jpg",
+        "role": "official"
+      },
+      "original_sha256": "e1c611f5c2c3a417463a1f339e7ff74fce843455bb135a1666b2128547175d2d",
+      "derivative_note": "Halftone screen of the original by The British Exchange, shared under the same licence."
+    }
+  ]
+}

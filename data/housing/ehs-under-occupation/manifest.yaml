@@ -1,0 +1,43 @@
+indicator_id: ehs-under-occupation
+title: EHS under-occupation (bedroom standard)
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistics/annex-tables-for-english-housing-survey-2024-to-2025-headline-findings-on-housing-quality-and-energy-efficiency
+series_id: EHS 2024-25 annex AT1.3
+geography: England (E92000001) — household sample survey estimates
+frequency: annual
+unit: percent of households
+definition: Share of households in England with two or more bedrooms more than the
+  bedroom standard requires (under-occupied), by tenure.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_household_measures
+curated_path: curated/observations.csv
+update_cadence: annual (EHS headline report annex)
+raw_evidence:
+- path: raw/2026-11-04/2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods
+  retrieved_at: '2026-11-04T21:32:10.524658+00:00'
+  checksum_sha256: ba55bfa4df07ee2ee30292c961514812ecbd111ea2d21bd9031f16a7a10fb5f6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-01-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6978ebde1c24881f40a4d6cc/2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods
+transformations: Read the percentages block of the annex sheet; attach published thousands
+  and unweighted sample sizes as notes. No derivation.
+revision_notes: '2026-11-04: initial ingest for Domain 07 Space / damp layers.'
+caveats: Household base, not dwellings. Single survey years (AT1.3 carries no averaging
+  note and single-year sample sizes) — unlike ehs-overcrowding, which is a three-year
+  average; do not plot the two as one comparable pair without saying so. 1995-96 to
+  2007-08 Survey of English Housing. 2020-21 sample is very small (7,474 households).
+  Not published by dwelling type, dwelling age or region in this table.
+related_indicator_ids:
+- ehs-overcrowding
+- ehs-under-occupation
+- ehs-damp-mould-reported
+- ehs-damp-surveyor
+- ehs-decent-homes
+open_questions:
+- Live tables FA1422 (full bedroom-standard distribution) and FT1421 were last updated
+  2024/2023 and stop at 2022-23 / 2021-22 — not ingested.
+notion_registry_url: ''
+schema_version: '1.0'

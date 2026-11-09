@@ -1,0 +1,40 @@
+indicator_id: household-net-property-wealth
+title: Household net property wealth
+sector: housing-land
+publisher: Office for National Statistics
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/propertywealthwealthingreatbritain
+series_id: Wealth and Assets Survey Tables 3.8, 3.9 and 3.19
+geography: Great Britain
+frequency: ad_hoc
+unit: £, £ billion, or percent of people
+definition: Net property wealth is self-valued property minus mortgage debt. Percentiles
+  are for households. The age table is the share of people living in households in
+  each band, including people who do not themselves own the home.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.property_wealth
+curated_path: curated/observations.csv
+update_cadence: When ONS publishes a new Wealth and Assets Survey wealth table
+raw_evidence:
+- path: raw/2026-11-05/propertywealthtables.xlsx
+  retrieved_at: '2026-11-05T01:15:46.123820+00:00'
+  checksum_sha256: a8b1ba7b715113d11c37fab1dab582f383dd05fe854efea433e9f3b0c5d3d7f5
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-01-24'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/propertywealthwealthingreatbritain/july2006tojune2016andapril2014tomarch2022/propertywealthtables.xlsx
+transformations: Read Table 3.8 percentile rows, Table 3.9 aggregate net property
+  wealth, and the April 2020 to March 2022 block of Table 3.19. Survey-round headers
+  map to the round's start and end dates.
+revision_notes: Domain 09 ingest 2026-11-05. Edition released 24 January 2025.
+caveats: Accreditation of the Wealth and Assets Survey was suspended from the April
+  2020 to March 2022 round (ONS, 13 June 2025). Values are self-reported, Great Britain,
+  and not Land Registry prices. The lower quartile for all households is £0 because
+  households without property are included. Do not read the age table as personal
+  wealth, and do not treat the aggregate as inheritance.
+related_indicator_ids:
+- residential-mortgage-book
+- mortgage-approvals
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

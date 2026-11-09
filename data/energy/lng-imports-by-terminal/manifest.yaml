@@ -1,0 +1,49 @@
+indicator_id: lng-imports-by-terminal
+title: LNG imports by terminal
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/natural-gas-chapter-4-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 4.6 (Liquefied Natural Gas imports by terminal, GWh)
+geography: United Kingdom (K02000001); terminal names are publisher facility labels
+  (Milford Haven / Kent / Teeside) — not invented landfalls
+frequency: annual
+unit: GWh
+definition: 'UK annual LNG import volumes in gigawatt-hours (GWh) by import terminal
+  from DUKES table 4.6. Terminals: Dragon (Milford Haven), Isle of Grain, South Hook
+  (Milford Haven), Teeside GasPort (Teeside), plus Total LNG imports (kind=aggregate).
+  notes use terminal=<name>; kind=terminal|aggregate; fuel=LNG; mode=LNG.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.lng_imports_by_terminal
+curated_path: curated/observations.csv
+update_cadence: Annual with DUKES natural gas chapter 4 (typically late July)
+raw_evidence:
+- path: raw/2026-11-07/DUKES_4.6.xlsx
+  retrieved_at: '2026-11-07T15:33:44.623175+00:00'
+  checksum_sha256: 5ae07c741aab95e6cec642fd3adb8e1ec4832dedccb1074e2192700e85b49284
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a69f46eb5fc953081705fea/DUKES_4.6.xlsx
+transformations: 'Parse sheet 4.6 header row 6. Long-format: one CSV row per terminal
+  × calendar year. Strip [note N] from terminal and year headers. Keep zeros (pre-commissioning
+  / idle years). Total LNG imports marked kind=aggregate.'
+revision_notes: DUKES_4.6.xlsx published 30 July 2026; years 2000–2025; Cover Sheet
+  states no revisions in this table.
+caveats: 'Entry-point honesty: only DESNZ-named LNG terminals — do not invent pipeline
+  landfalls. From 2016, methodology includes additional cargoes (Note 2 series break).
+  Teeside GasPort has near-zero recent volumes but remains in the published table.
+  Distinct from gas-trade-by-partner (country of origin) and electricity-interconnector-flows.
+  OGL v3.0.'
+related_indicator_ids:
+- gas-trade-by-partner
+- oil-imports-by-country
+- energy-import-dependency
+- electricity-interconnector-flows
+open_questions:
+- Optional join to DUKES 4.5b facility capacity (mm3/day) as a separate non-time-series
+  register — not this indicator.
+- Map coordinates for terminals require a separate authoritative GIS source; do not
+  invent from location text.
+notion_registry_url: ''
+schema_version: '1.0'

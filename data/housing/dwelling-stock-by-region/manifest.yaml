@@ -1,0 +1,32 @@
+indicator_id: dwelling-stock-by-region
+title: Dwelling stock by tenure and region
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-dwelling-stock-including-vacants
+series_id: Live Table 109c (unrounded)
+geography: England and English regions
+frequency: annual (31 March)
+unit: dwellings
+definition: Estimated dwelling stock by tenure for England and English regions, 31
+  March each year.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.dwelling_stock_by_region
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/LiveTable109.ods
+  retrieved_at: '2026-11-04T19:00:28.977860+00:00'
+  checksum_sha256: 2fb92e0ad64000e96279cd7afbae29bdc686b0779ae3aaa834789deb1b25f8a9
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-05-21'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ac3c719c9bd185c481eca13/LiveTable109.ods
+transformations: Parse LT_109c_unrounded; tenure=* notes per region.
+revision_notes: Pinned LiveTable109.ods 2026-11-04 (to 31 March 2025).
+caveats: Dwelling stock estimates (census + net additions). Regional tenure splits
+  incomplete before ~2002. Not household tenure (Census).
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

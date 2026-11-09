@@ -1,0 +1,105 @@
+/* Lab only — UI motion (FlickerFigure + InstrumentSelect). */
+
+.page {
+  display: grid;
+  gap: var(--bo-s5);
+  padding-block: 48px 72px;
+}
+
+.lede {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--bo-text);
+  font-family: var(--bo-f-body);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.section {
+  display: grid;
+  gap: var(--bo-s3);
+  padding-top: var(--bo-s4);
+  border-top: var(--bo-hair);
+}
+
+.note {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--bo-text);
+  font-family: var(--bo-f-body);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s4) var(--bo-s5);
+  align-items: baseline;
+  padding: var(--bo-s4) 0;
+}
+
+.fig {
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.figLive {
+  color: var(--bo-ink);
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.replay {
+  appearance: none;
+  width: fit-content;
+  margin: 0;
+  padding: 10px 14px;
+  border: var(--bo-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.replay:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 14rem));
+  gap: var(--bo-s4);
+  align-items: start;
+  padding: var(--bo-s3) 0;
+}
+
+.live {
+  display: grid;
+  gap: var(--bo-s2);
+  padding: var(--bo-s4);
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+}
+
+.notes {
+  margin: 0;
+  padding-left: 1.25rem;
+  max-width: 40rem;
+  color: var(--bo-text);
+  font-family: var(--bo-f-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.notes code {
+  font-family: var(--bo-f-data);
+  font-size: 0.92em;
+}

@@ -1,0 +1,34 @@
+indicator_id: social-housing-lettings
+title: Social housing lettings (CORE)
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/social-housing-lettings-in-england-april-2024-to-march-2025
+series_id: CORE Table 1a — new social housing lettings
+geography: England (E92000001)
+frequency: annual financial year (flow)
+unit: lettings
+definition: New social housing lettings recorded in CORE for the financial year (Social
+  Rent / Affordable Rent × General Needs / Supported × LA/PRP).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.social_housing_lettings
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/CORE_social_housing_lettings_tenancies_2024-25.ods
+  retrieved_at: '2026-11-04T21:30:46.581287+00:00'
+  checksum_sha256: 73718478033f96bceec3e0ce6bdd97325a128aae068b4b84f6c55dfb56527c9e
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-11-13'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/69147610eba5bda2026fc827/Social_Housing_Lettings_in_England__Tenancies_Summary_Tables__2024-25.ods
+transformations: Parse Table_1a; series=lettings-total plus product splits.
+revision_notes: Domain 08 ingest 2026-11-04.
+caveats: Flow of new lettings — not stock on the register. Do not divide Table 600
+  by lettings to invent an individual waiting time. Coverage and weighting notes in
+  CORE technical notes.
+related_indicator_ids:
+- social-housing-waiting-list
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e65471768581ac8777d45a6566578e"
+schema_version: '1.0'

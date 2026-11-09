@@ -1,0 +1,443 @@
+/* Design lab — Decision Ledger. Shell: slab invert. Pass: dossier interiors. */
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--bo-s7) var(--bo-s5) var(--bo-s9);
+  color: var(--bo-text);
+}
+
+.page nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s4);
+  font-size: var(--bo-t-note);
+}
+
+.page a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+.header {
+  padding: var(--bo-s7) 0 var(--bo-s5);
+  max-width: 62ch;
+}
+
+.header h1,
+.note h2,
+.caption h2 {
+  margin: var(--bo-s3) 0 var(--bo-s3);
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+
+.header h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.header p,
+.note p,
+.caption p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.header strong {
+  font-weight: 500;
+  color: var(--bo-ink);
+}
+
+.note {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s5) 0;
+}
+
+.note h2,
+.caption h2 {
+  font-size: var(--bo-t-ed-m);
+  line-height: 1.15;
+}
+
+.specimen {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s6) 0 var(--bo-s7);
+}
+
+.caption {
+  margin-bottom: var(--bo-s5);
+}
+
+/* ——— Slab shell ——— */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slabClosed,
+.slabOpen {
+  list-style: none;
+}
+
+.slabClosed {
+  background: var(--bo-electric);
+  color: var(--bo-paper);
+}
+
+.slabOpen {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  border: 1px solid var(--bo-electric);
+}
+
+.slabToggle {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.slabToggle:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+
+.year {
+  font-family: var(--bo-f-data);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.slabClosed .title,
+.slabClosed .year,
+.slabClosed .meta {
+  color: var(--bo-paper);
+}
+
+.slabOpen .title {
+  color: var(--bo-electric);
+}
+
+.slabOpen .year,
+.slabOpen .meta {
+  color: var(--bo-text);
+}
+
+/* ——— Shared dossier type ——— */
+
+.dossier {
+  padding: 0 1.15rem 1.35rem;
+}
+
+.lead {
+  margin: 0 0 0.85rem;
+  font-size: 1.08rem;
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 40rem;
+}
+
+.body {
+  margin: 0 0 0.75rem;
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 40rem;
+}
+
+.quietLine {
+  margin: 0 0 1.1rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--bo-text);
+  max-width: 44rem;
+}
+
+.inlineLabel {
+  display: inline;
+  margin-right: 0.4rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.sec {
+  margin: 0 0 0.45rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linkRow a,
+.destList a,
+.register a {
+  color: var(--bo-electric);
+  text-underline-offset: 0.15em;
+}
+
+.destList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.destNote {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--bo-text);
+}
+
+.caveat {
+  margin: 1.15rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--bo-ink-20);
+  font-size: 0.9rem;
+  color: var(--bo-text);
+  line-height: 1.4;
+  max-width: 40rem;
+}
+
+/* ——— Interior 2 · Instrument strip ——— */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  margin: 0 0 1.15rem;
+  padding: 0 0 1rem;
+  border-bottom: 1px solid var(--bo-ink-20);
+}
+
+@media (max-width: 720px) {
+  .strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.strip dt {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.strip dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--bo-f-fig);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--bo-electric);
+}
+
+.stripSub {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.25rem 1.75rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 720px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ——— Interior 3 · Catalogue card ——— */
+
+.catalogue {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(12rem, 0.9fr);
+  gap: 1.25rem 1.75rem;
+  align-items: start;
+}
+
+.catalogue .caveat {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 720px) {
+  .catalogue {
+    grid-template-columns: 1fr;
+  }
+}
+
+.catalogueStory .sec {
+  margin-top: 1rem;
+}
+
+.register {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--bo-ink-20);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.register > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.5rem 0.75rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--bo-ink-20);
+}
+
+.register > div:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.register > div:last-child {
+  padding-bottom: 0;
+}
+
+.register dt {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+  padding-top: 0.15rem;
+}
+
+.register dd {
+  margin: 0;
+  color: var(--bo-union);
+  line-height: 1.35;
+}
+
+.register dd a {
+  display: block;
+}
+
+/* ——— Interior 4 · Chapters ——— */
+
+.chapter {
+  margin: 0 0 0.15rem;
+  padding: 0.85rem 0 0.35rem;
+  border-top: 1px solid var(--bo-ink-20);
+}
+
+.chapterHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.chapterN {
+  font-family: var(--bo-f-data);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--bo-electric);
+}
+
+.chapterTitle {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--bo-electric);
+}
+
+@media (max-width: 640px) {
+  .slabToggle {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+
+  .meta {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+
+  .register > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

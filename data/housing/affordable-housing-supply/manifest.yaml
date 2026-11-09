@@ -1,0 +1,40 @@
+indicator_id: affordable-housing-supply
+title: Affordable housing supply
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-affordable-housing-supply
+series_id: Live Table 1000 additional affordable homes by tenure (England)
+geography: England (E92000001) — not UK
+frequency: annual (financial year)
+unit: dwellings (affordable homes)
+definition: Additional affordable homes provided in England by tenure (social rent,
+  affordable rent, shared ownership, First Homes, etc.) and stage (completions and
+  starts), from MHCLG Live Table 1000.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.affordable_housing_supply
+curated_path: curated/observations.csv
+update_cadence: annual (November affordable housing supply release)
+raw_evidence:
+- path: raw/2026-11-04/Live_Table_1000.ods
+  retrieved_at: '2026-11-05T22:10:12.377321+00:00'
+  checksum_sha256: 9887117323d2ac57306826be6d38a5a000136dc4d7802925f96b97b657793a7d
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-11-20'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a3927d8c6e94f095f3efbce/Live_Table_1000.ods
+transformations: Parse Live_Table_1000 (completions) and Live_Table_1000_Starts; series=<tenure>;
+  category=completions|starts.
+revision_notes: Pinned Live_Table_1000.ods from affordable housing live tables (retrieved
+  2026-11-04).
+caveats: England only — not UK. Affordable supply is a subset of housing supply and
+  is not the same as net additional dwellings or Table 213 new-build completions.
+  Tenure definitions change over time (e.g. shared ownership separately identified
+  from 2014–15).
+related_indicator_ids:
+- housing-completions
+- housing-starts
+- net-additional-dwellings
+open_questions: []
+notion_registry_url: https://app.notion.com/p/40e65471768581dcaf35e17fc0800ce5
+schema_version: '1.0'

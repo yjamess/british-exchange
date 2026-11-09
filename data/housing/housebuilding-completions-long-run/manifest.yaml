@@ -1,0 +1,61 @@
+indicator_id: housebuilding-completions-long-run
+title: Housebuilding completions, long run
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-house-building
+series_id: Live Table 244 (England, 1946–) and Live Table 241 (United Kingdom, 1949–2018,
+  discontinued) — permanent dwellings completed by tenure
+geography: England (E92000001) from Live Table 244; United Kingdom (K02000001) from
+  Live Table 241. Two separate geographies — filter geography_code.
+frequency: annual (calendar year)
+unit: dwellings (completions)
+definition: 'Permanent new-build dwellings completed in the calendar year, by tenure
+  of the developer/owner: private enterprise, housing associations, local authorities,
+  and all dwellings. Building-control-based house building statistics, rounded to
+  the nearest 10.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.housebuilding_completions_long_run
+curated_path: curated/observations.csv
+update_cadence: 'England: re-pin Live Table 244 each quarterly ''indicators of new
+  supply'' release; UK: frozen (Live Table 241 discontinued July 2019).'
+raw_evidence:
+- path: raw/2026-11-05/LiveTable244.ods
+  retrieved_at: '2026-11-05T21:50:29.516987+00:00'
+  checksum_sha256: dcab2c5b89b6a8c3405e99dbf7187600091ea77eb7d658e5edba495826778048
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ab3e27a997a4b2950ccedf8/LiveTable244.ods
+- path: raw/2026-11-05/Discontinued-LiveTable241.xlsx
+  retrieved_at: '2026-11-05T21:50:29.640379+00:00'
+  checksum_sha256: 70424e63e99c97f72329d4d77f9a7f7113292b05ce46dc0ae17c0bdbb57ca64c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2019-07-04'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/5d94affaed915d55461b180a/Discontinued-LiveTable241.xlsx
+transformations: 'LT_244: completion columns only (starts not emitted; starts are
+  blank before the 1960s in the source). LT241: columns D–G; ''..'' (1946–1948) not
+  emitted. series=private-enterprise|housing-association|local-authority|all-completions.
+  Status: ''[p]'' / ''P'' → provisional, else final (''[r]''/''R'' revised but final).'
+revision_notes: 'Pinned 2026-11-05: LiveTable244.ods published 24 September 2026 (2026
+  Q2 release; 2023–2025 revised, 2025 provisional); Discontinued-LiveTable241.xlsx
+  last updated 4 July 2019 (2018 provisional, never finalised in this table).'
+caveats: New-build completions only — not net additional dwellings (no conversions,
+  change of use or demolitions). Source notes say earlier years are less reliable
+  and definitions may not be consistent across the series. England Oct 2005–Mar 2007
+  omits a small number of approved-inspector completions. UK series is GB building-control
+  data plus Northern Ireland data that used different definitions before 2005, and
+  stops at 2018. Tenures may not sum to the total because of rounding to the nearest
+  10. Do not splice England and UK; they are different geographies. Live Table 244
+  annual totals equal the sum of Live Table 213 quarters from 1978 (see data/qa).
+related_indicator_ids:
+- housing-completions
+- housing-starts
+- net-additional-dwellings
+- dwelling-stock-by-tenure
+open_questions:
+- UK figures after 2018 are published by ONS / devolved administrations, not in a
+  single MHCLG UK table; no UK extension is spliced here.
+notion_registry_url: ''
+schema_version: '1.0'

@@ -1,0 +1,46 @@
+indicator_id: cpih-index
+title: CPIH index
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23
+series_id: L522
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Index 2015=100 (CPIH all items)
+definition: UK Consumer Prices Index including owner occupiers' housing costs (CPIH)
+  all-items index level (2015=100). ONS CDID L522 in dataset MM23. Preferred household-cost
+  deflator for Energy real-terms bills. Distinct from CPI (D7BT).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpih_index
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-07/l522_mm23.json
+  retrieved_at: '2026-11-07T12:52:05.675419+00:00'
+  checksum_sha256: 883b0b911e2977ddb0c1aecbe99e42f3b5c45367f868e245579f84801982ce80
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: CPIH index revises with basket/weight updates and corrections.
+caveats: Not CPI (D7BT). Energy must link this Economy series — do not fork under
+  data/energy.
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+- cpi-index
+- domestic-electricity-bills
+- domestic-gas-bills
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -1,0 +1,65 @@
+indicator_id: ehs-repairs-satisfaction
+title: EHS satisfaction with landlord repairs and maintenance
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistical-data-sets/attitudes-and-satisfaction
+series_id: EHS FT5421 trend + 2024-25 PIQ annex AT3.1–3.3
+geography: England (E92000001) — survey estimates / household responses
+frequency: annual
+unit: percent of households
+definition: 'Share of renting households in England satisfied / dissatisfied with
+  the way their landlord carries out repairs and maintenance, by tenure, 1994-95 to
+  2024-25 (FT5421, five-point scale and nets; breakdown=none). 2024-25 detail for
+  leaseholders and renters: by surveyor-assessed housing quality (decent / non-decent
+  / damp present / no damp; breakdown=housing-quality), private renters by who is
+  responsible for repairs (breakdown=repair-responsibility), and main reason for dissatisfaction
+  (series=dissatisfaction-reason-*).'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_lived_experience
+curated_path: curated/observations.csv
+update_cadence: annual (FT5421 live table, July); PIQ annex per report
+raw_evidence:
+- path: raw/2026-11-04/FT5421_trend_in_satisfaction_with_the_way_landlord_carries_out_repairs_and_maintenance_by_tenure.ods
+  retrieved_at: '2026-11-04T23:44:04.355357+00:00'
+  checksum_sha256: c8728bc0e5de17301e9e4401abcb62d936d15fad953765115351f2a403a77dec
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d9d536a73e62ba1029998/FT5421_trend_in_satisfaction_with_the_way_landlord_carries_out_repairs_and_maintenance_by_tenure.ods
+- path: raw/2026-11-04/Chapter_3_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods
+  retrieved_at: '2026-11-04T23:44:04.606357+00:00'
+  checksum_sha256: d30425ff08d0620b954f615713134c7e33f61311c56b745cfe67e0256b892c75
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a43af9593349b85b718d95f/Chapter_3_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods
+transformations: 'Annex sheets split into thousands / percentages / sample sections
+  (housing.connectors.ehs_lived_experience.read_blocks); tenure columns checked against
+  header text; one row per published percentage cell with published thousands and
+  unweighted sample sizes in notes; ''u'' → suppressed. Complements (able to keep
+  warm, home not hot, suitable accommodation, all adaptations installed) not emitted.
+  Sources: https://www.gov.uk/government/statistical-data-sets/attitudes-and-satisfaction
+  ; https://www.gov.uk/government/statistics/english-housing-survey-2024-to-2025-perceptions-and-impacts-of-housing-quality'
+revision_notes: '2026-11-04: initial ingest (Domain 07 housing quality wave 2).'
+caveats: 'Self-reported satisfaction (survey-response). Different bases are never
+  mixed in one series key: FT5421 (breakdown=none) is all renting households, full
+  household sample, and its total includes a few households where no repairs were
+  done or repairs were not the landlord''s responsibility; PIQ AT3.1/3.2 (breakdown=housing-quality
+  / repair-responsibility, category …:all-households / all-private-renters for their
+  own totals) exclude households whose landlord / freeholder / agent is not responsible
+  and use the household subsample — so 2024-25 private renters ''satisfied'' is 72.6%
+  in FT5421 but 67.5% in AT3.1. PIQ adds owner-occupier leaseholders (freeholder/agent
+  repairs). 1994-95 to 2007-08 Survey of English Housing (1994-95 asked October–March
+  only); 2008-09 onwards EHS, with LSVT/ALMO transfers between LA and HA accounted
+  for from 2008-09 (table note 3). FT5421 private renters print an unlabelled values
+  row between 2007-08 and 2008-09 — not ingested (QA). Reasons are a single main reason
+  among dissatisfied households.'
+related_indicator_ids:
+- ehs-decent-homes
+- ehs-damp-surveyor
+- ehs-disrepair
+- ehs-damp-mould-reported
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

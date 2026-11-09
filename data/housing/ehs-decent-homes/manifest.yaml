@@ -1,0 +1,86 @@
+indicator_id: ehs-decent-homes
+title: EHS Decent Homes (non-decent and failed criteria)
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistical-data-sets/dwelling-condition-and-safety
+series_id: DA3201 / DA3202 / DT3101 Decent Homes
+geography: England (E92000001); ONS regions E12000001–E12000009 from 2020; EHS sub-national
+  areas 2008–2019 — dwelling sample survey estimates
+frequency: annual
+unit: percent of dwellings
+definition: 'Share of England dwellings failing the Decent Homes Standard (series=non-decent)
+  and each criterion: minimum standard (HHSRS Category 1 hazard), repair, modern facilities
+  and services, thermal comfort. English Housing Survey dwelling sample.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_quality_indicators
+curated_path: curated/observations.csv
+update_cadence: annual (EHS live tables, July)
+raw_evidence:
+- path: raw/2026-11-04/DA3201_Decent_Homes_-_dwellings.ods
+  retrieved_at: '2026-11-04T20:48:49.757257+00:00'
+  checksum_sha256: 46cbab1bc2f1d085e3970d06eba95bbc9efa8075a5ca9299b51d5ac33ab9124d
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d9585024e48e52f26f4a1/DA3201_Decent_Homes_-_dwellings.ods
+- path: raw/2026-11-04/DA3202_Decent_Homes_-_areas.ods
+  retrieved_at: '2026-11-04T21:32:02.094240+00:00'
+  checksum_sha256: c2ca048f27d2e591473889e3952c9523fea2198c2df58d2825bca0a1b045131f
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d959892f65594cb029998/DA3202_Decent_Homes_-_areas.ods
+- path: raw/2026-11-04/DT3101_Decent_Homes_trend.ods
+  retrieved_at: '2026-11-04T20:48:50.832832+00:00'
+  checksum_sha256: be36e0aada2b6baace958121d6900a1ff25868186ff87f3e6e4d517c040a4da6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d9688ed5ddb5c8626f497/DT3101_Decent_Homes_trend.ods
+transformations: 'Header-driven parse of every year sheet (housing.connectors.ehs_da_parse):
+  measure columns located by header text; legacy (tenure rows) and modern (tenure
+  column blocks) layouts; rows kept for tenure, dwelling age, dwelling type, floor
+  area, region / sub-national area and the all-dwellings summary. Published cells
+  only — ''u'' → suppressed, N/A → missing. Supplementary published tables fill only
+  keys the live tables do not publish (DT3101; 2024-25 annex AT1.6, AT1.8, AT1.9,
+  AT1.10). Series values: non-decent, fails-minimum-standard, fails-repair, fails-modern-facilities,
+  fails-thermal-comfort. Headline: series=non-decent; breakdown=none.'
+revision_notes: '2026-11-04 v2: adds dwelling-age / dwelling-type / floor-area / region
+  breakdowns, criterion / hazard / damp-type series and 2008–2021 history (v1 had
+  2022–2024 headline only). Energy bands: v1 mis-read 2008–2011 columns (band D shown
+  as A/B/C) — fixed by header-driven parsing; all-social relabelled social-rented
+  (tenure-label note keeps the published label).'
+caveats: 'England survey estimates from the EHS physical (dwelling) survey — not UK,
+  not an administrative count, not an assessment of any individual home. Each dwelling
+  year pools two fieldwork years (e.g. 2024 = April 2023–March 2025). Breakdowns are
+  exactly those published: 2008–2021 characteristic rows (dwelling age / type / floor
+  area / area) are all-tenures only; from 2022 the condition tables cross each characteristic
+  with owner occupied / private rented / social rented, but the tenure-specific cells
+  share one row-level sample size (sample-scope=row-all-tenures). Region (9 ONS regions,
+  E12…) is published from 2020; 2008–2019 only three sub-national areas (Northern;
+  London and South East; Rest of England) with no ONS code. No dwelling type × region,
+  age × region or region × tenure-by-characteristic cross is published. ''u'' = unweighted
+  cell count 1–4 (suppressed, no value). 2020 and 2021 are occupied dwellings only
+  and were modelled differently (no full internal inspection, COVID-19); several criteria
+  are N/A (missing) in 2020–2022. 2022 combines 2021-22 ''external plus'' and 2022-23
+  full surveys (hybrid; compare with caution). Floor-area bands 2020–2022 use modelled
+  internal dimensions. Decent Homes ''minimum standard'' uses the 15-hazard model
+  for trend consistency (DT3101; DA3201 note 1). 2006–2007 come from the English House
+  Condition Survey via DT3101; local authority / housing association splits for 2006–2007
+  are not ingested because the 2024-25 annex (AT1.4 note 5) states separate LA/HA
+  estimates are not reliable before 2008-09. 2022–2024 LA/HA/all-private headline
+  rows come from DT3101 (the modern DA3201 layout has no LA/HA split).'
+related_indicator_ids:
+- ehs-category-1-hazards
+- ehs-damp-surveyor
+- ehs-energy-efficiency-bands
+- ehs-disrepair
+- ehs-overcrowding
+- ehs-under-occupation
+- ehs-damp-mould-reported
+open_questions:
+- Web loader must filter series=<headline> and breakdown=none for the existing tenure
+  lines (rows now carry breakdowns).
+notion_registry_url: https://app.notion.com/p/40e6547176858127b963c302ab6ee1b9
+schema_version: '1.0'

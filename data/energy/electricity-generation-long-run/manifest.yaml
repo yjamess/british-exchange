@@ -1,0 +1,46 @@
+indicator_id: electricity-generation-long-run
+title: Electricity generation by fuel since 1920
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/historical-electricity-data
+series_id: DUKES Electricity since 1920 — Estimated Historical Generation
+geography: UK (K02000001)
+frequency: annual
+unit: TWh
+definition: 'Estimated UK electricity generation by fuel, calendar years 1920–2025,
+  from the DESNZ historical electricity workbook (DUKES). Eight fuel groups as published:
+  coal, oil, natural gas, nuclear, wind/wave/solar/hydro, coke and breeze, other fuels,
+  pumped storage.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.electricity_generation_long_run
+curated_path: curated/observations.csv
+update_cadence: Annual — DUKES, late July
+raw_evidence:
+- path: raw/2026-11-06/Electricity_since_1920.xlsx
+  retrieved_at: '2026-11-06T22:30:53.743082+00:00'
+  checksum_sha256: c95cc17e446f76cd4333421be3e2e537fbaf81073c5795385d70a9ae7bdde8de
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a69e449229c578debc1a84d/Electricity_since_1920.xlsx
+transformations: Sheet 'Estimated Historical Generation'. Fuel columns only (total
+  and share columns excluded); GWh ÷ 1000 → TWh. Each year's fuels are checked against
+  the published total. Years before 1996 → observation_status=estimated; 1996+ → final.
+  The published total is emitted as fuel=Total (aggregate).
+revision_notes: ''
+caveats: '1920–1995 are DESNZ estimates: published supply upscaled to generation and
+  apportioned by fuel used. Before 1987 coverage is major power producers, transport
+  undertakings and industrial hydro/nuclear only; 1987–1989 carry a high degree of
+  estimation. Wind, wave, solar and hydro are one published group. Bioenergy sits
+  in ''Other fuels'' (with coke oven gas, blast furnace gas, waste), not in the renewables
+  group. Pumped storage includes battery storage. From 2017 the published total exceeds
+  the sum of the fuel columns by 5–7 TWh (~2%; shares sum to ~0.98); the total is
+  kept as fuel=Total (aggregate) and the residual is not allocated to any fuel. Fuel
+  groups differ from ET 5.1; do not sum or splice the two series.'
+related_indicator_ids:
+- electricity-generation-by-source
+open_questions:
+- Register row in Notion; Validation sample vs DUKES 5.6 for 1996+.
+notion_registry_url: ''
+schema_version: '1.0'

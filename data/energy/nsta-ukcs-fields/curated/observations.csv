@@ -1,0 +1,16 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),478.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=total_features; crs=EPSG:4326; layer=UKCS_offshore_hydrocarbon_fields_WGS84
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),2.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=CONSTRUCTION-FDP APPROV
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),1.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=NO APPRAISAL
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),39.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=POST-COP
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),207.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=PRODUCING
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),193.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=PRODUCTION CEASED
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),21.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=PRODUCTION CEASED - VENT CONSENT NEEDED
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),2.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=PRODUCTION SUSPENDED
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),7.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=PRODUCTION SUSPENDED - POSSIBLE RESERVES REMAIN
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),3.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=SHELVED
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),2.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=UNDER APPRAI-FUTURE FDP
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),1.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=status_count; status=UNKNOWN
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),43.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=field_type_count; field_type=COND
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),183.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=field_type_count; field_type=GAS
+nsta-ukcs-fields,2026-11-07,2026-11-07,UKCS,UK Continental Shelf (offshore),252.0,feature_count,final,NSTA_UKCS_Offshore_Fields_WGS84_2026-11-07,kind=field_type_count; field_type=OIL

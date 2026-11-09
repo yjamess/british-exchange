@@ -80,12 +80,69 @@ export type ObservationsResponse = {
   observations: Observation[];
 };
 
+/** One row of `GET /indicators` — the catalogue listing. */
+export type IndicatorListItem = {
+  indicator_id: string;
+  title: string;
+  sector: string;
+  publisher: string;
+  unit: string;
+  frequency: string;
+  geography: string;
+  series_id: string;
+  caveats: string;
+  source_url: string;
+  notion_registry_url: string;
+  agent_owner: string;
+  licence: string;
+  definition: string;
+  /** Earliest period_start (ISO date), "" when empty. */
+  coverage_start: string;
+  /** Latest period_end (ISO date), "" when empty. */
+  coverage_end: string;
+  observation_count: number;
+  /** Size of the series CSV in bytes (files store); absent from the Postgres listing. */
+  csv_bytes?: number | null;
+  /** Latest official release date among pinned raw evidence (ISO date). */
+  release_date: string;
+  /** Latest retrieval timestamp among pinned raw evidence (ISO). */
+  retrieved_at: string;
+};
+
+export async function fetchIndicators(): Promise<IndicatorListItem[]> {
+  const res = await fetch(`${apiBase()}/indicators`, apiInit());
+  if (!res.ok) {
+    throw new Error(`Failed to load indicators: ${res.status}`);
+  }
+  return res.json() as Promise<IndicatorListItem[]>;
+}
+
+/** The site's one download link for a series' CSV (proxied, so it works off this machine). */
+export const csvHref = (indicatorId: string) => `/api/data/${indicatorId}`;
+
 export function apiBase(): string {
   return process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 }
 
+/**
+ * Fail when the local API is down or wedged.
+ * Housing loads dozens of indicators at once. A short limit aborts the largest
+ * series (regional prices, UK HPI) while the rest are still in flight, and
+ * Next logs that abort as "Failed to set fetch cache". One request alone is
+ * well under a second; the limit has to cover the whole parallel burst.
+ */
+const API_TIMEOUT_MS = 120_000;
+
+function apiInit(init: RequestInit = {}): RequestInit {
+  return {
+    ...init,
+    cache: "no-store",
+    signal: init.signal ?? AbortSignal.timeout(API_TIMEOUT_MS),
+  };
+}
+
 export async function fetchIndicator(id: string): Promise<IndicatorMeta> {
-  const res = await fetch(`${apiBase()}/indicators/${id}`, { cache: "no-store" });
+  const res = await fetch(`${apiBase()}/indicators/${id}`, apiInit());
   if (!res.ok) {
     throw new Error(`Failed to load indicator ${id}: ${res.status}`);
   }
@@ -98,7 +155,7 @@ export async function fetchObservations(
 ): Promise<ObservationsResponse> {
   const qs = new URLSearchParams(params);
   const url = `${apiBase()}/indicators/${id}/observations${qs.size ? `?${qs}` : ""}`;
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, apiInit());
   if (!res.ok) {
     throw new Error(`Failed to load observations for ${id}: ${res.status}`);
   }

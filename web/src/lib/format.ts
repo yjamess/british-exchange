@@ -29,6 +29,7 @@ export function formatPeriodLabel(
   if (!year || !month) return periodStart;
 
   if (kind === "annual") {
+    if (month === 4 && periodEnd?.slice(5, 7) === "03" && Number(periodEnd.slice(0, 4)) === year + 1) return `${year}–${String(year + 1).slice(-2)}`;
     return String(year);
   }
   if (kind === "quarterly") {

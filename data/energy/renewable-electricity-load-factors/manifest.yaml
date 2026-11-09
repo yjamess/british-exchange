@@ -1,0 +1,48 @@
+indicator_id: renewable-electricity-load-factors
+title: Renewable electricity load factors
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/renewable-sources-of-energy-chapter-6-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 6.3 (Load factors for renewable electricity generation, percent)
+geography: UK (K02000001)
+frequency: annual
+unit: percent
+definition: 'UK annual load factors for renewable electricity generation from DUKES
+  table 6.3: generation as a percentage of maximum possible generation. Two bases
+  are published: (1) average of beginning- and end-of-year capacity [note 1]; (2)
+  unchanged-configuration schemes [note 2]. Technology labels are taken from the sheet.
+  Nuclear is not included — this is a renewables table only.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.renewable_electricity_load_factors
+curated_path: curated/observations.csv
+update_cadence: Annual — DUKES renewables chapter, final Thursday of July
+raw_evidence:
+- path: raw/2026-11-07/DUKES_6.3.xlsx
+  retrieved_at: '2026-11-07T09:35:25.473489+00:00'
+  checksum_sha256: 4f0c19f1b063ae20f71e11dd3744c1fb37df484e9873f510e817a3a1711bb53a
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a6a276f8319ab05f7caa1cf/DUKES_6.3.xlsx
+transformations: Parse sheet 6.3. For each of the two stacked tables, read year columns
+  from the header row and emit one Observation per technology × year. notes=fuel=<Label>;
+  basis=average_boe_capacity|unchanged_configuration. Publisher [x] → observation_status=missing
+  with empty value. Parent aggregates (Wind, Hydro, Bioenergy, All renewable technologies)
+  are retained alongside child technologies.
+revision_notes: ''
+caveats: Unit is percent (0–100 scale as published), not a 0–1 fraction. Do not confuse
+  the two bases — prefer average_boe_capacity for headline Capacity ≠ Output unless
+  the UI labels unchanged configuration explicitly. Nuclear load factors are in DUKES
+  5.10 (MPP plant loads), not this series. REPD does not publish load factors and
+  does not cover nuclear.
+related_indicator_ids:
+- electricity-capacity-by-technology
+- electricity-generation-by-source
+- renewable-energy-planning-operational
+open_questions:
+- 'Optional Gate 3: regional standard load factors (Regional Renewable Statistics).'
+- 'Optional: MPP nuclear load factor from DUKES 5.10 as a separate low-carbon companion
+  series.'
+notion_registry_url: https://app.notion.com/41165471768581dfbb30e984c9aa01ba
+schema_version: '1.0'

@@ -1,0 +1,679 @@
+/* Domain 01 stage layout — same outer width for every panel; Housing pipeline pattern. */
+
+.stack {
+  display: grid;
+  gap: var(--bo-s5);
+  width: 100%;
+  min-width: 0;
+}
+
+/* Domain 06 Field Guide — specimen cards (matched energy-tech plates). */
+.specimens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--bo-rule);
+  border-left: var(--bo-hair);
+}
+.specimens li {
+  display: grid;
+  min-width: 0;
+}
+.specimen {
+  appearance: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  gap: var(--bo-s2);
+  align-content: start;
+  min-width: 0;
+  padding: var(--bo-s3) var(--bo-s3) var(--bo-s4);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  border: 0;
+  border-right: var(--bo-hair);
+  border-bottom: var(--bo-hair);
+  box-shadow: inset 0 0 0 0 var(--bo-ink);
+  transition: box-shadow var(--bo-fast) var(--bo-ease);
+}
+.specimen:hover {
+  box-shadow: inset 0 -3px 0 0 var(--bo-ink);
+}
+.specimen[data-selected="true"] {
+  box-shadow: inset 0 0 0 2px var(--bo-ink);
+}
+.specimen:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+.specimenPlate {
+  aspect-ratio: 1;
+  width: 100%;
+  display: block;
+}
+.specimenName {
+  color: var(--bo-text);
+  min-height: 2.8em;
+}
+.specimenShare {
+  font-size: var(--bo-t-stat);
+  line-height: 1;
+}
+.specimenBar {
+  position: relative;
+  display: block;
+  height: 6px;
+  background: var(--bo-ink-10);
+}
+.specimenBar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--bo-ink);
+}
+.specimenCount {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  font-variant-numeric: tabular-nums;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--bo-s4);
+  margin: 0;
+  padding: 0;
+  border-top: var(--bo-hair);
+}
+.metrics > div {
+  display: grid;
+  gap: var(--bo-s1);
+  min-width: 0;
+  padding-top: var(--bo-s3);
+}
+.metrics dt {
+  font-family: var(--bo-font-mono);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+.metrics dd {
+  margin: 0;
+}
+.metrics .note {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+@media (max-width: 900px) {
+  .specimens {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .specimens {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Housing-style map + ranks split (Energy Geography). */
+.geoSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: var(--bo-s6);
+  align-items: start;
+  min-width: 0;
+  width: 100%;
+}
+
+.geoSplit > * {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .geoSplit {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  display: grid;
+  gap: var(--bo-s3);
+  width: 100%;
+  min-width: 0;
+}
+
+.panel > :global(figure) {
+  width: 100%;
+  min-width: 0;
+}
+
+.links {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.links a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* Domain 05 Shock & Response — event card lead (sourced fact, not chart method). */
+.shockLead {
+  margin: var(--bo-s3) 0 0;
+  max-width: 42rem;
+  font-size: var(--bo-t-body);
+  line-height: 1.45;
+  color: var(--bo-ink);
+}
+
+.follow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--bo-s2);
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.follow li {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.follow a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.cutaway {
+  display: grid;
+  gap: var(--bo-s3);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .cutaway {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cutawayPlate {
+  width: 100%;
+  min-height: 12rem;
+}
+
+.cutawayCopy {
+  display: grid;
+  gap: var(--bo-s3);
+  padding: var(--bo-s3);
+  background: var(--bo-paper);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--bo-t-note);
+  color: var(--bo-ink);
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.35rem 0.5rem 0.35rem 0;
+  border-bottom: 1px solid var(--bo-rule, var(--bo-union));
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 500;
+  color: var(--bo-union);
+}
+
+/* Domain 03 — Dissected Bill receipt (Study C) */
+.receipt {
+  display: grid;
+  gap: var(--bo-s4);
+  max-width: 36rem;
+  padding: var(--bo-s5) var(--bo-s4);
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+}
+
+.receiptHead {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: var(--bo-s3);
+  border-bottom: 1px solid var(--bo-ink);
+}
+
+.receiptHead h3 {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: var(--bo-t-d3, 1.5rem);
+  letter-spacing: -0.01em;
+}
+
+.receiptMeta {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-note);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bo-union);
+}
+
+.receiptLayers {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.receiptLayers li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bo-s2);
+  align-items: baseline;
+  padding: 0.65rem 0;
+  border-bottom: 1px dotted color-mix(in srgb, var(--bo-ink) 35%, transparent);
+}
+
+.receiptLayers li:last-child {
+  border-bottom: none;
+}
+
+.receiptLayerLabel {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.receiptLayerLabel strong {
+  font-family: var(--bo-f-body);
+  font-weight: 500;
+  font-size: var(--bo-t-body);
+}
+
+.receiptLayerLabel span {
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.receiptFig {
+  font-family: var(--bo-f-fig);
+  font-weight: 300;
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.receiptTotal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bo-s2);
+  align-items: baseline;
+  padding-top: var(--bo-s3);
+  border-top: 2px solid var(--bo-ink);
+}
+
+.receiptTotal .receiptFig {
+  font-size: 1.75rem;
+}
+
+.receiptNote {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+/* Domain 04 — Extraction ledger (Study C interim) */
+.ledger {
+  display: grid;
+  gap: var(--bo-s4);
+  padding: var(--bo-s5) var(--bo-s4);
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+}
+
+.ledgerHead {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: var(--bo-s3);
+  border-bottom: 1px solid var(--bo-ink);
+}
+
+.ledgerHead h3 {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: var(--bo-t-d3, 1.5rem);
+  letter-spacing: -0.01em;
+}
+
+.ledgerGrid {
+  display: grid;
+  gap: var(--bo-s3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 720px) {
+  .ledgerGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ledgerCell {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: var(--bo-s2);
+  border-top: 1px dotted color-mix(in srgb, var(--bo-ink) 35%, transparent);
+}
+
+.ledgerCell strong {
+  font-family: var(--bo-f-body);
+  font-weight: 500;
+  font-size: var(--bo-t-note);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bo-union);
+}
+
+.ledgerCell .receiptFig {
+  font-size: 1.5rem;
+}
+
+.ledgerCell span {
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.ledgerPeak {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bo-s2);
+  align-items: baseline;
+  padding-top: var(--bo-s3);
+  border-top: 2px solid var(--bo-ink);
+}
+
+.guides {
+  padding: var(--bo-s3) var(--bo-s4);
+  border-top: 1px solid var(--bo-ink-20);
+}
+
+.guides > summary { cursor: pointer; }
+.guides[open] > summary { margin-bottom: var(--bo-s3); }
+
+/* A single comparative apparatus: separate units, simultaneous reading. */
+.paired { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--bo-s5); align-items: start; }
+@media (max-width: 760px) { .paired { grid-template-columns: minmax(0, 1fr); } }
+
+.atlasLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(14rem, 0.55fr);
+  gap: var(--bo-s4);
+  align-items: start;
+  width: 100%;
+}
+/* Energy Geography idle: map alone until a region or place is open. */
+.atlasLayoutMapOnly {
+  grid-template-columns: minmax(0, 1fr);
+}
+.atlasMap { min-width: 0; width: 100%; }
+.geoPanel {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+  border-left: 1px solid var(--bo-ink-20);
+  padding-left: var(--bo-s4);
+  align-content: start;
+}
+.geoPanelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+}
+.geoPanelMeta {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.geoPanelMeta > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bo-s2);
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--bo-ink-20);
+}
+.geoPanelMeta > div:last-child {
+  border-bottom: 0;
+}
+.geoPanelMeta dt {
+  margin: 0;
+  font: 400 0.9rem / 1.3 var(--bo-f-body);
+  color: var(--bo-union);
+}
+.geoPanelMeta dd {
+  margin: 0;
+  text-align: right;
+  color: var(--bo-ink);
+  font: 400 1.05rem / 1.2 var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+}
+.geoPanel .stationList {
+  max-height: min(28rem, 55vh);
+  overflow: auto;
+}
+.atlasReading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bo-s5);
+  min-width: 0;
+  width: 100%;
+}
+.atlasChart {
+  min-width: 0;
+  width: 100%;
+}
+.atlasChart :global(figure),
+.atlasChart :global([class*="plot"]) {
+  width: 100%;
+  max-width: none;
+}
+.atlasReading .stationPanel {
+  border-left: 0;
+  padding-left: 0;
+  border-top: 1px solid var(--bo-ink-20);
+  padding-top: var(--bo-s4);
+  max-width: none;
+}
+.atlasReading .stationList li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--bo-ink-20);
+  font: 400 0.95rem / 1.25 var(--bo-f-body);
+  color: var(--bo-union);
+}
+.atlasReading .stationList li :global(.bo-fig) {
+  flex: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-size: 1rem;
+  color: var(--bo-ink);
+}
+.atlasReading .stationList li :global(.bo-fig .bo-label) {
+  font-size: 0.7rem;
+}
+.regionChip {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+  margin: 0 0 var(--bo-s2);
+}
+.stationPanel {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+  border-left: 1px solid var(--bo-ink-20);
+  padding-left: var(--bo-s4);
+  align-content: start;
+}
+.stationPanel p,
+.stationPanel h3,
+.stationPanel h4 { margin: 0; }
+.stationName {
+  font: 400 clamp(1.35rem, 2.4vw, 1.85rem) / 1.15 var(--bo-f-head);
+  letter-spacing: -0.01em;
+  color: var(--bo-ink);
+}
+.stationValue {
+  display: flex;
+  align-items: baseline;
+  gap: var(--bo-s2);
+  margin: 0;
+  color: var(--bo-ink);
+}
+.stationValue :global(.bo-fig) {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+}
+.stationMeta {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: var(--bo-s2) var(--bo-s4);
+}
+.stationMeta > div {
+  display: grid;
+  gap: 0.15rem;
+}
+.stationMeta dd {
+  margin: 0;
+  color: var(--bo-union);
+  font: 400 0.95rem / 1.3 var(--bo-f-body);
+}
+.stationMeta dd:global(.bo-fig) {
+  color: var(--bo-ink);
+  font-size: 1.25rem;
+}
+.stationTotals { margin: 0; display: grid; gap: var(--bo-s3); }
+.stationTotals dd {
+  margin: 0.2rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--bo-ink);
+  font: 400 0.95rem / 1 var(--bo-f-body);
+}
+.stationTotals dd :global(.bo-fig) {
+  font-size: 1.65rem;
+  line-height: 1;
+}
+.stationContext {
+  display: grid;
+  gap: var(--bo-s2);
+  border-top: 1px solid var(--bo-ink-20);
+  padding-top: var(--bo-s3);
+  margin-top: var(--bo-s1);
+}
+.stationContextValue {
+  display: flex;
+  align-items: baseline;
+  gap: var(--bo-s2);
+  margin: 0;
+  color: var(--bo-ink);
+}
+.stationContextValue :global(.bo-fig) {
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: 1;
+}
+.stationList { list-style: none; padding: 0; margin: 0; }
+.stationList button {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--bo-ink-20);
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  text-align: left;
+  padding: 0.55rem 0;
+  font: 400 0.95rem / 1.25 var(--bo-f-body);
+  cursor: pointer;
+}
+.stationList button :global(.bo-fig) {
+  flex: none;
+  font-size: 1rem;
+  color: var(--bo-ink);
+}
+.stationList button:hover { color: var(--bo-ink); }
+.stationList button:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.stationSearch {
+  display: grid;
+  gap: 0.35rem;
+  flex: 1 1 100%;
+  min-width: min(100%, 36ch);
+  max-width: 40rem;
+  font: 500 var(--bo-t-micro) / 1.2 var(--bo-f-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+.stationSearch input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  font: 400 1rem / 1.3 var(--bo-f-body);
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  border: 1px solid var(--bo-ink);
+  border-radius: 0;
+  padding: 0.55rem 0.65rem;
+}
+.stationSearch input:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+@media (max-width: 800px) {
+  .atlasLayout { grid-template-columns: minmax(0, 1fr); }
+  .stationPanel {
+    border-left: 0;
+    border-top: 1px solid var(--bo-ink-20);
+    padding: var(--bo-s3) 0 0;
+  }
+}
+
+/* North Sea Time Machine — field table (keyboard / table alternative to the map) */
+.tableScroll {
+  max-height: min(32rem, 60vh);
+  overflow: auto;
+}
+.rowCurrent > th,
+.rowCurrent > td {
+  border-bottom: 2px solid var(--bo-ink);
+}

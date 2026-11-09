@@ -66,13 +66,12 @@ export default function DesignLabPage() {
           </div>
 
           <p className={styles.hint}>
-            Plates use Nous imprint lanes (xerox / stipple / letterpress) inside
-            an Every-style perforated edge. Drop your generated art into the face
-            later — or we wire ASCII Magic / nous-branding next.
+            Older homepage sketch (map + imprint plates). The v1 BrandRoot mock is
+            at /design-lab/home.
           </p>
 
-          <Link href="/" className={styles.back}>
-            ← Live home
+          <Link href="/design-lab/home" className={styles.back}>
+            v1 homepage mock →
           </Link>
         </div>
       </main>

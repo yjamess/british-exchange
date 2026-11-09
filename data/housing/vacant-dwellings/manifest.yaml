@@ -1,0 +1,32 @@
+indicator_id: vacant-dwellings
+title: Vacant dwellings
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-dwelling-stock-including-vacants
+series_id: Live Table 615 (all vacants + long-term vacants)
+geography: England, regions and local authority districts
+frequency: annual (October council-tax snapshot)
+unit: dwellings (vacant)
+definition: Empty properties classified for council tax (all vacants) and long-term
+  vacants empty more than six months. Not second homes.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.vacant_dwellings
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/Live_Table_615.ods
+  retrieved_at: '2026-11-04T19:00:27.433147+00:00'
+  checksum_sha256: 16d404d2595e5e779afde9fb6b1f316a47b58388be038838f257a09eb89f4dae
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-11-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a2bf816e50716856ed4afdd/Live_Table_615.ods
+transformations: Parse All_vacants and All_long_term_vacants; emit series=* notes.
+revision_notes: Pinned Live_Table_615.ods 2026-11-04 (through Oct 2025).
+caveats: Council Taxbase definitions — distinct from census unoccupied. Do not equate
+  with second homes. Boundary changes create [x] gaps.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

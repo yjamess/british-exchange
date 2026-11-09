@@ -1,0 +1,36 @@
+indicator_id: mortgage-approvals
+title: Mortgage approvals and secured lending flows
+sector: housing-land
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/statistics/money-and-credit/2026/september-2026
+series_id: LPMVTVX, LPMB4B3, LPMVTVJ, LPMVTVC
+geography: United Kingdom (K02000001)
+frequency: monthly (flow, seasonally adjusted)
+unit: approvals or £ million
+definition: Net mortgage approvals for house purchase, remortgage approvals with a
+  different lender, and gross and net secured lending to individuals.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.mortgage_approvals
+curated_path: curated/observations.csv
+update_cadence: monthly
+raw_evidence:
+- path: raw/2026-11-05/boe_mortgage_flows.csv
+  retrieved_at: '2026-11-05T00:50:41.140150+00:00'
+  checksum_sha256: ec1046c10d2597ac82ecfd72510fefbe4df203d30731006ea633c58acafebbb5
+  content_type: text/csv
+  official_release_date: '2026-10-29'
+  http_status: null
+  source_url: https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01/Jan/1993&Dateto=01/Dec/2026&SeriesCodes=LPMVTVX,LPMB4B3,LPMVTVJ,LPMVTVC&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N
+transformations: Parse the Bank of England IADB CSV. Empty cells are omitted. Quoted
+  mortgage rates stay on the Economy series IUMBV34.
+revision_notes: Domain 09 ingest 2026-11-05.
+caveats: Monthly flows, seasonally adjusted. Do not add to the FCA stock of outstanding
+  mortgage balances. Remortgage approvals cover a change of lender only. Recent months
+  are revised.
+related_indicator_ids:
+- residential-mortgage-book
+- mortgage-rate-2yr-fixed
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

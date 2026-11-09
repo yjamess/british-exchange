@@ -1,0 +1,25 @@
+{
+  "feature_count": 478,
+  "crs": "EPSG:4326",
+  "attribution": "Contains information provided by the North Sea Transition Authority and/or other third parties.",
+  "status_counts": {
+    "CONSTRUCTION-FDP APPROV": 2,
+    "NO APPRAISAL": 1,
+    "POST-COP": 39,
+    "PRODUCING": 207,
+    "PRODUCTION CEASED": 193,
+    "PRODUCTION CEASED - VENT CONSENT NEEDED": 21,
+    "PRODUCTION SUSPENDED": 2,
+    "PRODUCTION SUSPENDED - POSSIBLE RESERVES REMAIN": 7,
+    "SHELVED": 3,
+    "UNDER APPRAI-FUTURE FDP": 2,
+    "UNKNOWN": 1
+  },
+  "field_type_counts": {
+    "COND": 43,
+    "GAS": 183,
+    "OIL": 252
+  },
+  "hub_item_id": "ba711a4be08449329a871d37ae910735",
+  "feature_server_url": "https://services-eu1.arcgis.com/OZMfUznmLTnWccBc/arcgis/rest/services/Offshore_hydrocarbon_fields_(WGS84)/FeatureServer/0"
+}

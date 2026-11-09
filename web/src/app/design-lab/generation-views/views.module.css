@@ -1,0 +1,300 @@
+/* Generation views lab — v1 brand tokens only. */
+.page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px 40px 96px;
+  color: var(--bo-text);
+  font-family: var(--bo-f-body);
+  background: var(--bo-paper);
+}
+.page nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.page a {
+  color: var(--bo-ink);
+  text-underline-offset: 4px;
+}
+.header {
+  max-width: 760px;
+  padding: 56px 0 32px;
+}
+.eyebrow {
+  font: 500 11px var(--bo-f-data);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bo-ink);
+  margin: 0;
+}
+.header h1 {
+  font: 400 clamp(40px, 6vw, 72px) / 1.02 var(--bo-f-head);
+  color: var(--bo-ink);
+  margin: 16px 0;
+}
+.header p:last-child {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Sticky year + key */
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bo-paper);
+  border-block: 1px solid var(--bo-ink);
+  padding: 14px 0;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+}
+.slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 4px 8px;
+  font: 500 11px var(--bo-f-data);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bo-ink);
+}
+.slider strong {
+  font: 400 32px/1 var(--bo-f-fig);
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+.slider input {
+  grid-column: 1 / -1;
+  width: 100%;
+  accent-color: var(--bo-ink);
+}
+.key {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 6px 20px;
+  font-size: 13px;
+}
+.key li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.key b {
+  font: 500 12px var(--bo-f-data);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+}
+.key .keyTotal {
+  grid-template-columns: minmax(0, 1fr) auto;
+  font-weight: 500;
+}
+.swatch {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+/* Studies */
+.study {
+  border-top: 1px solid var(--bo-ink);
+  margin-top: 56px;
+  padding-top: 28px;
+  display: grid;
+  gap: 24px;
+}
+.caption h2 {
+  font: 400 40px/1.05 var(--bo-f-head);
+  color: var(--bo-ink);
+  margin: 8px 0 10px;
+}
+.caption > p:not(.eyebrow) {
+  max-width: 720px;
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+.caption dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  margin: 0;
+  font-size: 13px;
+  max-width: 720px;
+}
+.caption dt {
+  font: 500 11px/1.7 var(--bo-f-data);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bo-ink);
+}
+.caption dd {
+  margin: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.tick {
+  font: 500 10px var(--bo-f-data);
+  fill: var(--bo-text);
+  letter-spacing: 0.03em;
+}
+.note {
+  font: 500 10px var(--bo-f-data);
+  fill: var(--bo-ink);
+  paint-order: stroke;
+  stroke: var(--bo-paper);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.grid {
+  stroke: var(--bo-ink-10);
+  stroke-width: 1;
+}
+.base {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.guide {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  pointer-events: none;
+}
+.leader {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.ring {
+  fill: var(--bo-paper);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+/* A */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 32px;
+}
+.panel {
+  margin: 0;
+  border-top: 1px solid var(--bo-ink-20);
+  padding-top: 10px;
+}
+.panel figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.panelName {
+  font: 400 22px var(--bo-f-head);
+  color: var(--bo-ink);
+}
+.panelValue {
+  font: 400 22px var(--bo-f-fig);
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.panelValue small {
+  font: 500 10px var(--bo-f-data);
+  color: var(--bo-text);
+  letter-spacing: 0.04em;
+}
+
+/* B */
+.rowLabel {
+  font: 400 13px var(--bo-f-body);
+  fill: var(--bo-text);
+}
+.rowValue {
+  font: 500 12px var(--bo-f-data);
+  fill: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.column {
+  fill: var(--bo-ink-10);
+}
+.bar {
+  fill: var(--bo-ink-40);
+}
+.barOn {
+  fill: var(--bo-ink);
+}
+
+/* C */
+.decade {
+  cursor: pointer;
+}
+.decadeLabel,
+.decadeOn {
+  font: 400 18px var(--bo-f-head);
+  fill: var(--bo-text);
+}
+.decadeOn {
+  fill: var(--bo-ink);
+}
+.seg {
+  stroke: var(--bo-paper);
+  stroke-width: 1;
+}
+.segLabel {
+  font: 500 11px var(--bo-f-data);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.decadeFrame {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+/* D */
+.total {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+}
+.endLabel {
+  font: 500 12px var(--bo-f-body);
+}
+
+.source {
+  margin-top: 56px;
+  border-top: 1px solid var(--bo-ink-20);
+  padding-top: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 860px;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 20px 16px 64px;
+  }
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .panels {
+    grid-template-columns: 1fr;
+  }
+  .caption h2 {
+    font-size: 30px;
+  }
+}

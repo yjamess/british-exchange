@@ -1,0 +1,38 @@
+indicator_id: second-homes
+title: Second homes
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/council-taxbase-2025-in-england
+series_id: Council Taxbase Table 4
+geography: England (E92000001)
+frequency: annual (October council-tax snapshot)
+unit: dwellings
+definition: 'Dwellings recorded as second homes for council tax: furnished, with nobody
+  living in them as a main residence. Holiday lets on business rates are excluded.
+  Not Live Table 615 vacants.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.second_homes
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-05/Tables_1_-_5_2025.ods
+  retrieved_at: '2026-11-05T20:08:45.175135+00:00'
+  checksum_sha256: 424cf07dac390a88abf7dda95cdf34de15ad9ff8416fe87cfd46ce1c1f99492d
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-01-21'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a7eef0b0ad4bc475be7de98/Tables_1_-_5_2025.ods
+transformations: Parse Table_4 year columns into series=total, no-discount-or-premium,
+  subject-to-discount, charged-premium. Year stored as 1 October. [x] → missing.
+revision_notes: Pinned Tables_1_-_5_2025.ods revised 21 January 2026. 2025 England
+  total checked at 267,894.
+caveats: England only, 2021–2025. The second-homes premium starts in 2025, so earlier
+  premium cells are missing. A 2021–2024 drop in 'no discount or premium' is the premium
+  starting, not homes disappearing. Not comparable with the English Housing Survey
+  second-homes definition.
+related_indicator_ids:
+- vacant-dwellings
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

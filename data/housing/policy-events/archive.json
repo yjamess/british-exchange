@@ -1,0 +1,641 @@
+{
+  "registry_id": "housing-archive",
+  "retrieved_at": "2026-11-05",
+  "note": "Archive register for Housing Domain 10. Records only: catalogue pages were read, and no images or files were downloaded. image_url points to the holder's own image link and is recorded, not reproduced. can_reproduce is true only for public domain, OGL or CC-BY; the IWM Non-Commercial Licence is false for this project. Discovery record pages returned a bot check to automated fetches, so TNA, Parliamentary Archives and London Archives records were read from Discovery's public records API for the same ids, and rights are recorded as unknown. pending_event_ids name Acts not yet in events.json; move them to linked_event_ids once those events exist. Historic England Archive items were not added because its pages blocked automated reading.",
+  "items": [
+    {
+      "id": "iwm-harlow-designated-area-plan",
+      "title": "POST WAR PLANNING AND RECONSTRUCTION IN BRITAIN: HARLOW NEW TOWN",
+      "holder": "Imperial War Museums",
+      "reference": "(MOW) T 9907",
+      "date_label": "1945-1989 (production)",
+      "date_start": "1945-01-01",
+      "date_end": "1989-12-31",
+      "kind": "photograph",
+      "description": "Ministry of Works official photograph of a plan of the area designated for the construction of Harlow new town.",
+      "url": "https://www.iwm.org.uk/collections/item/object/205132831",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning",
+        "post-war-reconstruction"
+      ],
+      "rights": {
+        "status": "non-commercial",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Image: IWM ((MOW) T 9907). By downloading or embedding you agree to the terms and conditions of the IWM Non Commercial Licence; commercial licences and high-resolution copies via the IWM Image and Film Licensing Team."
+      },
+      "image_url": "https://media.iwm.org.uk/ciim5/26/829/large_000000.jpg"
+    },
+    {
+      "id": "iwm-harlow-mark-hall-area-15-layout",
+      "title": "POST WAR PLANNING AND RECONSTRUCTION IN BRITAIN: HARLOW NEW TOWN",
+      "holder": "Imperial War Museums",
+      "reference": "(MOW) T 30733",
+      "date_label": "1945-1989 (production)",
+      "date_start": "1945-01-01",
+      "date_end": "1989-12-31",
+      "kind": "photograph",
+      "description": "Photograph of the revised layout for Mark Hall Housing Area 15 in Harlow new town, showing 291 dwellings on 19.42 acres.",
+      "url": "https://www.iwm.org.uk/collections/item/object/205133033",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning",
+        "council-housing"
+      ],
+      "rights": {
+        "status": "non-commercial",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Image: IWM ((MOW) T 30733). You can embed or download low-resolution images free of charge for private and non-commercial use under the IWM Non-Commercial Licence."
+      },
+      "image_url": "https://media.iwm.org.uk/ciim5/27/28/large_000000.jpg"
+    },
+    {
+      "id": "iwm-harlow-prentice-place-shops",
+      "title": "POST WAR PLANNING AND RECONSTRUCTION IN BRITAIN: HARLOW NEW TOWN",
+      "holder": "Imperial War Museums",
+      "reference": "(MOW) T 63251",
+      "date_label": "1945-1989 (production)",
+      "date_start": "1945-01-01",
+      "date_end": "1989-12-31",
+      "kind": "photograph",
+      "description": "Photograph of the parade of shops at Prentice Place, Harlow (a second view is (MOW) T 63252).",
+      "url": "https://www.iwm.org.uk/collections/item/object/205203765",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "post-war-reconstruction"
+      ],
+      "rights": {
+        "status": "non-commercial",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Image: IWM ((MOW) T 63251). You can embed or download low-resolution images free of charge for private and non-commercial use (IWM Non Commercial Licence)."
+      },
+      "image_url": "https://media.iwm.org.uk/ciim5/46/732/large_000000.jpg"
+    },
+    {
+      "id": "iwm-prefabs-hull-bomb-site-1955",
+      "title": "POST WAR PLANNING AND RECONSTRUCTION IN BRITAIN: PREFABRICATED HOUSING",
+      "holder": "Imperial War Museums",
+      "reference": "(MOW) T 61478",
+      "date_label": "1955-12-05",
+      "date_start": "1955-12-05",
+      "date_end": "1955-12-05",
+      "kind": "photograph",
+      "description": "A group of prefabricated houses on a former bomb site in Hull.",
+      "url": "https://www.iwm.org.uk/collections/item/object/205212018",
+      "linked_event_ids": [],
+      "topics": [
+        "prefabs",
+        "post-war-reconstruction"
+      ],
+      "rights": {
+        "status": "non-commercial",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Image: IWM ((MOW) T 61478). IWM Non-Commercial Licence: embed or download low-resolution images free of charge for private and non-commercial use."
+      },
+      "image_url": "https://media.iwm.org.uk/ciim5/54/986/large_000000.jpg"
+    },
+    {
+      "id": "iwm-prefab-temporary-bungalow",
+      "title": "POST WAR PLANNING AND RECONSTRUCTION IN BRITAIN: PREFABRICATED HOUSES",
+      "holder": "Imperial War Museums",
+      "reference": "(MOW) T 4550",
+      "date_label": "1945-1989 (production)",
+      "date_start": "1945-01-01",
+      "date_end": "1989-12-31",
+      "kind": "photograph",
+      "description": "A newly completed prefabricated temporary bungalow with an outbuilding.",
+      "url": "https://www.iwm.org.uk/collections/item/object/205212102",
+      "linked_event_ids": [],
+      "topics": [
+        "prefabs",
+        "post-war-reconstruction"
+      ],
+      "rights": {
+        "status": "non-commercial",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Image: IWM ((MOW) T 4550). IWM Non-Commercial Licence; commercial use or high-resolution copies via the IWM Image and Film Licensing Team."
+      },
+      "image_url": "https://media.iwm.org.uk/ciim5/55/70/large_000000.jpg"
+    },
+    {
+      "id": "tna-hlg-91-191-harlow-conference-1945",
+      "title": "Conference of local authorities on the development of a new town at Harlow",
+      "holder": "The National Archives",
+      "reference": "HLG 91/191",
+      "date_label": "1945",
+      "date_start": "1945-01-01",
+      "date_end": "1945-12-31",
+      "kind": "file",
+      "description": "Ministry file on a conference of local authorities about developing a new town at Harlow, filed under Harlow (263) in HLG 91.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2078237",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-91-198-harlow-designation-order",
+      "title": "Designation Order (Harlow)",
+      "holder": "The National Archives",
+      "reference": "HLG 91/198",
+      "date_label": "1946-1947",
+      "date_start": "1946-01-01",
+      "date_end": "1947-12-31",
+      "kind": "file",
+      "description": "File on the Harlow new town designation order, in the Harlow (263) subseries of HLG 91.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2078244",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-90-221-harlow-dc-constitution",
+      "title": "Harlow Development Corporation: constitution and powers",
+      "holder": "The National Archives",
+      "reference": "HLG 90/221",
+      "date_label": "1946-1947",
+      "date_start": "1946-01-01",
+      "date_end": "1947-12-31",
+      "kind": "file",
+      "description": "Ministry of Town and Country Planning file on the constitution and powers of Harlow Development Corporation.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2077513",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-115-639-stevenage-designation",
+      "title": "Stevenage new town designation order",
+      "holder": "The National Archives",
+      "reference": "HLG 115/639",
+      "date_label": "1946-1948",
+      "date_start": "1946-01-01",
+      "date_end": "1948-12-31",
+      "kind": "file",
+      "description": "File on the designation order for Stevenage new town.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C1330889",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-98-711-tcpa-1947-crown-agents",
+      "title": "Town and Country Planning Act 1947: Town and Country Planning (Scotland) Act 1947; land held in the name of the Crown Agents",
+      "holder": "The National Archives",
+      "reference": "HLG 98/711",
+      "date_label": "1949-1952",
+      "date_start": "1949-01-01",
+      "date_end": "1952-12-31",
+      "kind": "file",
+      "description": "File on how the 1947 planning Acts for England and Wales and for Scotland applied to land held in the name of the Crown Agents.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2148096",
+      "linked_event_ids": [
+        "town-country-planning-act-1947"
+      ],
+      "topics": [
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-48-908-addison-subsidy",
+      "title": "Housing assisted scheme subsidy under the Housing and Town Planning Act 1919",
+      "holder": "The National Archives",
+      "reference": "HLG 48/908",
+      "date_label": "1920-1938",
+      "date_start": "1920-01-01",
+      "date_end": "1938-12-31",
+      "kind": "file",
+      "description": "Housing finance file on the subsidy for assisted housing schemes under the 1919 Act.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2070903",
+      "linked_event_ids": [
+        "housing-town-planning-act-1919"
+      ],
+      "topics": [
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-101-721-housing-act-1949-grants",
+      "title": "Housing Act 1949: improvement grants",
+      "holder": "The National Archives",
+      "reference": "HLG 101/721",
+      "date_label": "1953",
+      "date_start": "1953-01-01",
+      "date_end": "1953-12-31",
+      "kind": "file",
+      "description": "File on improvement grants under the Housing Act 1949.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2066203",
+      "linked_event_ids": [
+        "housing-act-1949"
+      ],
+      "topics": [
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-29-423-rent-bill-1957-vol1",
+      "title": "Rent Bill 1957: Pre-introduction: volume 1",
+      "holder": "The National Archives",
+      "reference": "HLG 29/423",
+      "date_label": "1952-1956",
+      "date_start": "1952-01-01",
+      "date_end": "1956-12-31",
+      "kind": "file",
+      "description": "First volume of departmental papers prepared before the Rent Bill 1957 was introduced; later volumes run to HLG 29/432.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C2701137",
+      "linked_event_ids": [
+        "rent-act-1957"
+      ],
+      "topics": [
+        "rent-control"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "tna-hlg-29-1734-right-to-buy-clauses",
+      "title": "Housing Bill 1980: consideration of draft right to buy clauses",
+      "holder": "The National Archives",
+      "reference": "HLG 29/1734",
+      "date_label": "1979 Jan 1-1979 Dec 31",
+      "date_start": "1979-01-01",
+      "date_end": "1979-12-31",
+      "kind": "file",
+      "description": "File on the draft right to buy clauses of the Housing Bill 1980 (HLG 29/1733 covers right to buy in new towns).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/C11339052",
+      "linked_event_ids": [
+        "housing-act-1980"
+      ],
+      "topics": [
+        "right-to-buy",
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-housing-town-planning-act-1919",
+      "title": "Housing, Town Planning, etc Act, c. 35",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1919/9and10G5c35",
+      "date_label": "1919",
+      "date_start": "1919-01-01",
+      "date_end": "1919-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 9 & 10 Geo. V c. 35, in the House of Lords Original Acts series. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/61fab05d-fddc-4ca6-8e0b-3d36b4525253",
+      "linked_event_ids": [
+        "housing-town-planning-act-1919"
+      ],
+      "topics": [
+        "council-housing",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-new-towns-act-1946",
+      "title": "New Towns Act, c. 68",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1946/9and10G6c68",
+      "date_label": "1946",
+      "date_start": "1946-01-01",
+      "date_end": "1946-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 9 & 10 Geo. VI c. 68. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/3f025bdf-a65a-4d0b-9197-7511b1d82862",
+      "linked_event_ids": [
+        "new-towns-act-1946"
+      ],
+      "topics": [
+        "new-towns",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-town-country-planning-act-1947",
+      "title": "Town and Country Planning Act, c. 51",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1947/10and11G6c51",
+      "date_label": "1947",
+      "date_start": "1947-01-01",
+      "date_end": "1947-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 10 & 11 Geo. VI c. 51. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/fa3e3a83-17dc-44e1-b85b-819d47ee8269",
+      "linked_event_ids": [
+        "town-country-planning-act-1947"
+      ],
+      "topics": [
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-housing-act-1949",
+      "title": "Housing Act, c. 60",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1949/1213and14G6c60",
+      "date_label": "1949",
+      "date_start": "1949-01-01",
+      "date_end": "1949-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 12, 13 & 14 Geo. VI c. 60. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/79c495de-8257-4d8a-bcde-074ec376fa9e",
+      "linked_event_ids": [
+        "housing-act-1949"
+      ],
+      "topics": [
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-rent-act-1957",
+      "title": "Rent Act, c. 25",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1957/5and6Eliz2c25",
+      "date_label": "1957",
+      "date_start": "1957-01-01",
+      "date_end": "1957-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 5 & 6 Eliz. II c. 25. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/6c3370fd-4c3b-4106-bc7e-b24d854cf3ca",
+      "linked_event_ids": [
+        "rent-act-1957"
+      ],
+      "topics": [
+        "rent-control"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "pa-housing-act-1980",
+      "title": "Housing Act, c. 51",
+      "holder": "Parliamentary Archives",
+      "reference": "YHL/PO/PU/1/1980/c51",
+      "date_label": "1980",
+      "date_start": "1980-01-01",
+      "date_end": "1980-12-31",
+      "kind": "file",
+      "description": "Original Act of Parliament, 1980 c. 51. Catalogue reference as shown in Discovery (the Parliamentary Archives' own form drops the leading Y).",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/8ccf75f8-1503-4f34-aedd-2fcdd00b58fa",
+      "linked_event_ids": [
+        "housing-act-1980"
+      ],
+      "topics": [
+        "right-to-buy",
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API; the record page states no rights for the item. Document copyright not assessed (Crown or other)."
+      },
+      "image_url": null
+    },
+    {
+      "id": "la-lcc-becontree-architect-drawings",
+      "title": "Becontree Estate Dagenham, Essex",
+      "holder": "London Archives",
+      "reference": "LCC/AR/HS/3/4",
+      "date_label": "1920-1936",
+      "date_start": "1920-01-01",
+      "date_end": "1936-12-31",
+      "kind": "plan",
+      "description": "London County Council Architect's Department housing records for the Becontree Estate in Dagenham, catalogued as folders 1-10.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/6a086425-c548-486b-a310-7b716b9e0e2b",
+      "linked_event_ids": [
+        "housing-town-planning-act-1919"
+      ],
+      "topics": [
+        "council-housing",
+        "planning"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
+      },
+      "image_url": null
+    },
+    {
+      "id": "la-lcc-becontree-general-papers-1919",
+      "title": "Becontree Estate - General papers",
+      "holder": "London Archives",
+      "reference": "LCC/HSG/GEN/1/1",
+      "date_label": "1919-20",
+      "date_start": "1919-01-01",
+      "date_end": "1920-12-31",
+      "kind": "file",
+      "description": "London County Council housing general papers on the Becontree Estate from its first two years.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/e453caa3-297b-47ee-b227-e8eaffd4022c",
+      "linked_event_ids": [
+        "housing-town-planning-act-1919"
+      ],
+      "topics": [
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
+      },
+      "image_url": null
+    },
+    {
+      "id": "la-lcc-becontree-tenants-handbook-1933",
+      "title": "Becontree Estate - Tenants' Handbook",
+      "holder": "London Archives",
+      "reference": "LCC/HSG/GEN/3/11",
+      "date_label": "1933",
+      "date_start": "1933-01-01",
+      "date_end": "1933-12-31",
+      "kind": "pamphlet",
+      "description": "London County Council tenants' handbook for the Becontree Estate.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/0cf33592-7093-48a2-9545-ab786b7cbddd",
+      "linked_event_ids": [],
+      "topics": [
+        "council-housing"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
+      },
+      "image_url": null
+    },
+    {
+      "id": "la-lcc-alton-estate-general-papers",
+      "title": "Alton Estate, Wandsworth - General papers - Roehampton High Street Site",
+      "holder": "London Archives",
+      "reference": "LCC/CL/HSG/2/78",
+      "date_label": "1952-64",
+      "date_start": "1952-01-01",
+      "date_end": "1964-12-31",
+      "kind": "file",
+      "description": "London County Council general papers on the Alton Estate, Wandsworth, about the Roehampton High Street site.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/8b3eb3e2-153c-408d-b3a3-991be2c97cf8",
+      "linked_event_ids": [],
+      "topics": [
+        "council-housing",
+        "high-rise",
+        "post-war-reconstruction"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
+      },
+      "image_url": null
+    },
+    {
+      "id": "la-roehampton-does-it-work-survey",
+      "title": "Roehampton: Does it Work? by I.P. Cowley and results of survey of residents of West Alton Estate",
+      "holder": "London Archives",
+      "reference": "ACC/2201/L1/4/30",
+      "date_label": "n.d",
+      "date_start": null,
+      "date_end": null,
+      "kind": "report",
+      "description": "Report by I.P. Cowley with the results of a survey of residents of the Alton West Estate, Roehampton.",
+      "url": "https://discovery.nationalarchives.gov.uk/details/r/ab1c41bd-cda5-4190-9c56-cfc62b6aef8d",
+      "linked_event_ids": [],
+      "topics": [
+        "council-housing",
+        "high-rise"
+      ],
+      "rights": {
+        "status": "unknown",
+        "licence_url": null,
+        "can_reproduce": false,
+        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
+      },
+      "image_url": null
+    }
+  ]
+}

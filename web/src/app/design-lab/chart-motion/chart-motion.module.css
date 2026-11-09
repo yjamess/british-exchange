@@ -1,0 +1,272 @@
+/* Lab: chart motion studies. Chart marks follow the TimeChart language (instrument.module.css). */
+
+.page {
+  min-height: 100vh;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+}
+.head {
+  display: grid;
+  gap: var(--bo-s4);
+  padding-block: var(--bo-s8) var(--bo-s6);
+  border-bottom: var(--bo-rule);
+}
+.head > :global(.bo-label) {
+  margin: 0;
+  color: var(--bo-text);
+}
+.main {
+  display: grid;
+  gap: var(--bo-s8);
+  padding-block: var(--bo-s7) var(--bo-s9);
+}
+
+/* ——— A study: notes on the left, the stage on the right ——— */
+.study {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--bo-s6);
+  padding-top: var(--bo-s6);
+  border-top: var(--bo-hair);
+}
+.studyHead {
+  display: grid;
+  align-content: start;
+  gap: var(--bo-s3);
+}
+.studyHead > p {
+  margin: 0;
+}
+.studyHead > :global(.bo-label) {
+  color: var(--bo-text);
+}
+.studyHead :global(.bo-note .bo-label) {
+  color: var(--bo-ink);
+}
+.stage {
+  margin: 0;
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+.controls {
+  display: flex;
+  justify-content: flex-end;
+}
+.source {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.02em;
+  color: var(--bo-text);
+}
+.source :global(.bo-label) {
+  margin-right: var(--bo-s3);
+  color: var(--bo-ink);
+}
+
+/* Joined square tabs: selected = solid ink, paper type. */
+.tabs {
+  display: inline-flex;
+  border: var(--bo-rule);
+}
+.tabs button {
+  appearance: none;
+  margin: 0;
+  padding: 6px 12px;
+  border: 0;
+  border-left: var(--bo-rule);
+  border-radius: 0;
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  cursor: pointer;
+}
+.tabs button:first-child {
+  border-left: 0;
+}
+.tabs button[aria-pressed="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.tabs button:focus-visible,
+.replay:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.replay {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+/* ——— Plot ——— */
+.plotWrap {
+  position: relative;
+  width: 100%;
+}
+.plotWrap svg {
+  display: block;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--bo-ink-10);
+  stroke-width: 1;
+}
+.axis {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.tickY,
+.tickX {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  fill: var(--bo-text);
+  font-variant-numeric: tabular-nums;
+}
+.tickY {
+  text-anchor: end;
+  dominant-baseline: middle;
+}
+.tickX {
+  text-anchor: middle;
+}
+.line {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.prov {
+  stroke-dasharray: 0.5 4;
+}
+.ring {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 2;
+}
+.guide {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.inspectable {
+  cursor: crosshair;
+  touch-action: none;
+}
+.inspectable:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 4px;
+}
+
+/* The carriage: a hairline and the period it is printing. */
+.carriage line {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.carriage text {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  fill: var(--bo-ink);
+}
+
+/* Latest label in the right margin (HTML so the figure can flicker). */
+.latest {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  pointer-events: none;
+}
+.latest :global(.bo-label) {
+  color: var(--bo-ink);
+  font-size: var(--bo-t-micro);
+}
+.latestFig {
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+}
+.latestPeriod {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+
+/* Readout above a plot. */
+.readout {
+  display: flex;
+  align-items: baseline;
+  gap: var(--bo-s3);
+  flex-wrap: wrap;
+}
+.readout :global(.bo-label) {
+  color: var(--bo-text);
+}
+.readoutFig {
+  font-size: var(--bo-t-readout);
+  color: var(--bo-ink);
+}
+
+/* Columns: solid ink; provisional in 45° pen hatching. */
+.col {
+  fill: var(--bo-ink);
+}
+.colProv {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.hatchLine {
+  stroke: var(--bo-ink);
+  stroke-width: 1.2;
+}
+
+/* Ranked bars. */
+.bar {
+  fill: var(--bo-ink);
+}
+.rankLabel {
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-ui);
+  fill: var(--bo-text);
+  text-anchor: end;
+  dominant-baseline: middle;
+}
+.rankValues {
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rankValues li {
+  position: absolute;
+  left: 0;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-size: var(--bo-t-fig-s);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+}
+
+@media (max-width: 960px) {
+  .study {
+    grid-template-columns: 1fr;
+  }
+}

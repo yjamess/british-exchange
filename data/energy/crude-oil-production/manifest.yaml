@@ -1,0 +1,50 @@
+indicator_id: crude-oil-production
+title: Crude oil production
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/crude-oil-and-petroleum-production-imports-and-exports
+series_id: 'Crude oil and petroleum: production, imports and exports 1890–2025 — Indigenous
+  production Total'
+geography: UK (K02000001)
+frequency: annual
+unit: million tonnes
+definition: UK indigenous crude oil production (Total), calendar years, from the DESNZ
+  historical crude oil and petroleum workbook. Publisher values are thousand tonnes;
+  curated values are million tonnes (÷1000). Covers the Extraction Century / North
+  Sea production national total. Distinct from primary-energy-production fuel=Oil
+  (Mtoe, ET 1.1) and from field-level NSTA production.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.crude_oil_production
+curated_path: curated/observations.csv
+update_cadence: Annual — with DUKES (late July)
+raw_evidence:
+- path: raw/2026-11-07/Oil_Production_Trade_since_1890.xls
+  retrieved_at: '2026-11-07T00:30:18.980961+00:00'
+  checksum_sha256: 4537b0a9882c28da296104b161bef9a0c79161fad4703040fc3bc245364b7b7d
+  content_type: application/vnd.ms-excel
+  official_release_date: '2026-07-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a69e3a116bc92f51e1a4315/Oil_Production___Trade_since_1890.xls
+transformations: Parse sheet 'Production, Imports & Exports'. Take Indigenous production
+  Total column (thousand tonnes). Divide by 1000 → million tonnes. Emit one Observation
+  per calendar year with a numeric Total. Blank pre-production years are omitted (not
+  zeroed). Landward, feedstocks, imports, exports, and oil-product columns are not
+  ingested in this hand-off.
+revision_notes: Pinned Oil_Production_Trade_since_1890.xls (GOV.UK asset updated 30
+  Jul 2026; retrieved 2026-11-07).
+caveats: 'Sources sheet: years 1890–1920 include some extrapolated product trade;
+  indigenous production Total begins later (~1920). Through 1962 indigenous production
+  includes shale oil. Do not fabricate national totals from incomplete NSTA field
+  maps. Unit conversion thousand tonnes → million tonnes is documented; native thousand
+  tonnes remain in the pinned raw file.'
+related_indicator_ids:
+- primary-energy-production
+- domestic-gas-production
+- historical-coal-production
+- energy-imports-and-exports
+open_questions:
+- 'Optional Gate 3: ingest Landward column; DUKES F.1 NGL split; NSTA field spatial
+  atlas.'
+notion_registry_url: https://app.notion.com/411654717685812d92a6d647e28cd8a3
+schema_version: '1.0'

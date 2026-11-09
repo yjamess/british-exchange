@@ -1,0 +1,47 @@
+indicator_id: plant-load-factors
+title: Plant load factors (major power producers)
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes
+series_id: DUKES 5.10.B Plant load factor (%) and 5.10.C Thermal efficiency (%)
+geography: UK (K02000001) — Major Power Producers
+frequency: annual
+unit: percent
+definition: UK annual plant load factors for Major Power Producers from DUKES table
+  5.10.B (percent), including Nuclear stations, CCGT, conventional thermal, pumped
+  storage, coal-fired subset, all plant, and system load factor. Companion thermal-efficiency
+  rows from table 5.10.C are tagged series=thermal_efficiency. Distinct from renewable
+  load factors in DUKES 6.3.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.plant_load_factors
+curated_path: curated/observations.csv
+update_cadence: Annual — DUKES electricity chapter, final Thursday of July
+raw_evidence:
+- path: raw/2026-11-07/DUKES_5.10.xlsx
+  retrieved_at: '2026-11-07T15:36:04.286360+00:00'
+  checksum_sha256: ee622e8e5bf7ad6643f348f62090a5e76ef03e7e854537448dc323d359ef9c7d
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a6a364b0ddb7e4831c629f2/DUKES_5.10.xlsx
+transformations: Parse sheet '5.10.B and 5.10.C'. For 5.10.B and 5.10.C, read year
+  columns from the Generator Type header row and emit one Observation per generator
+  × year. notes=generator_type=<Label>; series=load_factor|thermal_efficiency. Publisher
+  [x] → missing.
+revision_notes: Gate 3 B3 ingest — not Ready until Validation accepts.
+caveats: MPP scope only (see DUKES note 1) — not all generators. Unit is percent (0–100)
+  as published. Load factors for renewables-as-such belong on DUKES 6.3 (`renewable-electricity-load-factors`);
+  this series is the Field Guide nuclear / conventional plant LF companion. System
+  load factor and 'all plant' are retained — do not sum generator types into all plant
+  in the UI. Simultaneous maximum demand (table 5.10.A) is out of scope for this indicator.
+related_indicator_ids:
+- renewable-electricity-load-factors
+- electricity-capacity-by-technology
+- electricity-generation-by-source
+- uk-power-stations-dukes
+open_questions:
+- 'Optional later: table 5.10.A simultaneous maximum load met (MW) as a separate demand
+  indicator.'
+notion_registry_url: ''
+schema_version: '1.0'

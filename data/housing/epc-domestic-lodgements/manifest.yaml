@@ -1,0 +1,95 @@
+indicator_id: epc-domestic-lodgements
+title: Domestic EPC lodgements by energy efficiency band (England and Wales)
+sector: housing-land
+publisher: MHCLG · Energy Performance of Buildings Certificates statistics
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-energy-performance-of-buildings-certificates
+series_id: EPB live tables D1 (all dwellings), EB1 (existing), NB1 (new) — energy
+  efficiency rating
+geography: England and Wales (K04000001), England (E92000001), Wales (W92000004),
+  English regions (E12000001–E12000009), plus 'Unknown' unallocated lodgements (EPC-UNALLOCATED,
+  region sheet)
+frequency: quarterly
+unit: certificates lodged
+definition: Number of domestic Energy Performance Certificates lodged on the England
+  and Wales register in each calendar quarter (Q4 2008 onwards; calendar-year totals
+  as published for the country sheets), by energy efficiency rating band A–G and 'not
+  recorded' (series=band-a … band-g, band-not-recorded) and in total (series=lodgements-total).
+  breakdown=none is all dwellings (D1); breakdown=dwelling-status splits existing
+  (EB1) and new (NB1) dwellings.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.epc_domestic_lodgements
+curated_path: curated/observations.csv
+update_cadence: quarterly (late Jan / Apr / Jul / Oct; next 2027-01-28)
+raw_evidence:
+- path: raw/2026-11-04/D1-_Domestic_Properties.ods
+  retrieved_at: '2026-11-04T23:50:54.279397+00:00'
+  checksum_sha256: c73a41372718e9860f7e3a1f13314d3be9ec9ec2a4a12ea8d10d99ebefbbb952
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-10-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ae0bbc016428df537606223/D1-_Domestic_Properties.ods
+- path: raw/2026-11-04/EB1-_Existing_Domestic_Properties.ods
+  retrieved_at: '2026-11-04T23:50:55.525059+00:00'
+  checksum_sha256: 95c3babd0aa6487ae03fffdf5741ee2b0bfbcb4d2b3108ff24e8da568ddd9cf6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-10-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ae0ba657b7111c482d80a39/EB1-_Existing_Domestic_Properties.ods
+- path: raw/2026-11-04/NB1-_New_Domestic_Properties.ods
+  retrieved_at: '2026-11-04T23:50:55.899577+00:00'
+  checksum_sha256: 613e5b3c10ccfc23fe2627e2428207c2846eca8f54e71069eae6564ab2f73947
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-10-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ae0bb50e4367e5c8b046788/NB1-_New_Domestic_Properties.ods
+transformations: Read the country (England and Wales / England / Wales), region and
+  (D1 only) local-authority sheets of D1, EB1 and NB1; one row per published count
+  cell (lodgements total + 8 band columns). Quarter 'YYYY/q' → calendar quarter period;
+  year rows → calendar year. Cumulative '(Total)' rows and region rows with no quarter
+  are not ingested (QA reconciles them). Region names → ONS E12 codes; LA codes kept
+  as published; 'Unknown' → EPC-UNALLOCATED. Total floor area (m²) not ingested. No
+  values summed, shared out or modelled.
+revision_notes: '2026-11-04: initial ingest from the 29 October 2026 live tables (data
+  to 30 September 2026). Earlier releases are superseded, not archived here.'
+caveats: 'Administrative record of certificates lodged in the period — NOT the dwelling
+  stock and NOT a survey: buildings need an EPC only when sold, let or constructed
+  (plus some scheme assessments), so dwellings not transacted since 2008 are absent
+  and frequently-let homes recur. One property can have several certificates (repeat
+  or superseded lodgements, e.g. a re-assessment after improvement); counts are certificates,
+  not distinct homes. Selected population — compare with EHS energy efficiency bands
+  (survey estimate of all England dwellings) rather than treating band shares as stock
+  shares. Bands follow the SAP methodology in force at lodgement (RdSAP for existing
+  dwellings); the rating ignores energy prices. LA codes are as published by the register
+  (codes of the authority at lodgement: reorganised areas start or stop mid-series,
+  e.g. North/West Northamptonshire from 2021 Q2, Cumberland / Westmorland and Furness,
+  North Yorkshire and Somerset from 2023 Q2). The 29 Oct 2026 tables were aligned
+  to the address-level open data and region/LA allocation methodology was updated,
+  so figures for all quarters are lower than in earlier releases (publisher cover
+  sheet). Quarters are revised each release. Publisher notes: note 1: On the 20 September
+  2021 the register transitioned to www.gov.uk, prior to this data were provided by
+  a contractor (Landmark) | note 2: The methodology used to assess energy efficiency
+  does not take into account change in energy prices | note 3: The EPC register does
+  not hold data for every domestic and non-domestic building or every building occupied
+  by public authorities in England and Wales. Buildings only require an EPC when,
+  sold, let or constructed. These statistics should, therefore, not be interpreted
+  as a true representation of the whole of the building stock in England and Wales,
+  but viewed as part of a wider package of Government’s provision of information on
+  the energy efficiency of buildings. | note 5: New Dwellings’ include conversions
+  and change of use and require an EPC once construction has been completed.'
+related_indicator_ids:
+- epc-domestic-lodgements-by-local-authority
+- ehs-energy-efficiency-bands
+- ehs-energy-improvement
+- ehs-insulation
+- ehs-heating
+open_questions:
+- Certificate-level data (one row per certificate, with UPRN/address, lodgement date,
+  transaction type, superseding links) is on get-energy-performance-data.communities.gov.uk
+  and requires a GOV.UK One Login account — not used. A deduplicated 'latest certificate
+  per property' stock view would need that pipeline (certificate lifecycle, supersession,
+  address/UPRN matching, expiry after 10 years).
+- EB1 / NB1 local-authority sheets and tables D2–D4 (environmental impact rating,
+  floor area / energy use, transaction type × tenure) are published but not ingested.
+notion_registry_url: ''
+schema_version: '1.0'

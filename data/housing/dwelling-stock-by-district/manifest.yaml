@@ -1,0 +1,34 @@
+indicator_id: dwelling-stock-by-district
+title: Dwelling stock by tenure and local authority
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-dwelling-stock-including-vacants
+series_id: Live Table 100
+geography: England, regions and local authority districts
+frequency: annual (31 March)
+unit: dwellings
+definition: Estimated dwelling stock by local authority and tenure group (LA, PRP,
+  other public, private sector, total), 31 March.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.dwelling_stock_by_district
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/LiveTable100.ods
+  retrieved_at: '2026-11-04T19:00:37.353561+00:00'
+  checksum_sha256: 4c6a22b92aa579d725eefe82765c4b340e1c9b154961a69b97f6ec4f28bae16a
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-05-21'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ac3c6f08fa8f5657c61a8ad/LiveTable100.ods
+transformations: Parse year sheets 2011–2025; tenure=* notes. Skip 2009–2010 (legacy
+  LA codes without modern ONS geography).
+revision_notes: Pinned LiveTable100.ods 2026-11-04 (to 31 March 2025).
+caveats: Private sector combines owner-occupied and private rented — not split at
+  district level. Totals are estimates, not exact counts to the last dwelling. Distinct
+  from household tenure (Census).
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

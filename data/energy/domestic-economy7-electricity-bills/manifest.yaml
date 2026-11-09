@@ -1,0 +1,40 @@
+indicator_id: domestic-economy7-electricity-bills
+title: Domestic Economy 7 electricity bills
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics
+series_id: QEP 2.2.1 Economy 7 / other time-of-use (cash, 4,800 kWh/year, UK)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: GBP
+definition: Average annual domestic Economy 7 and other time-of-use electricity bill
+  in cash terms (pounds) for United Kingdom households, based on a fixed annual consumption
+  of 4,800 kWh. From DESNZ Quarterly Energy Prices table 2.2.1 sheet Economy 7. Distinct
+  from Standard Electricity bills at 3,400 kWh.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_economy7_electricity_bills
+curated_path: curated/observations.csv
+update_cadence: At least quarterly with QEP domestic tables; calendar-year finals
+  typically firm up in the March release
+raw_evidence:
+- path: raw/2026-11-07/table_221.xlsx
+  retrieved_at: '2026-11-07T20:52:30.117091+00:00'
+  checksum_sha256: 818c53fc646ccfb40bbc54d5f22baed07fe17d20ca4b89ae79e821017a6f774b
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-30'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4245907ac6fd9c6a94aae0/table_221__1_.xlsx
+transformations: 'Parse sheet ''2.2.1 (Economy 7)'' only (4,800 kWh). Long-format:
+  one CSV row per year × payment × tariff. Blank Fixed/Variable cells for 2014–2021
+  omitted. Same workbook asset as Standard Electricity 2.2.1.'
+revision_notes: table_221__1_.xlsx Cover Sheet publication date 30/06/2026 (QEP June
+  2026 domestic bills update).
+caveats: Fixed 4,800 kWh assumption (50:50 day/night for Economy 7). Not Ofgem TDCV.
+  Not Standard Electricity 3,400 kWh — do not mix on one unmarked series. Incorporates
+  Energy Price Guarantee from Oct 2022; excludes EBSS £200.
+related_indicator_ids:
+- domestic-electricity-bills
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

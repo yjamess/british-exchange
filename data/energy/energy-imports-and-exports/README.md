@@ -22,7 +22,12 @@
 - **Ingest:** `Quarter supply and use of fuels` — Imports and Exports columns.
 - **Sign:** Exports keep DESNZ balance convention (typically negative).
 - **Notes:** `flow=Imports` or `flow=Exports`.
-- **Not ingested yet:** by-fuel trade (Table 1.3b), DUKES G.1.
+- **Not ingested here:** by-fuel trade (Table 1.3b), DUKES G.1, import dependency ratio.
+- **Complement (Wave A3):** [`energy-import-dependency`](../energy-import-dependency/) — official dependency ratio from the same ET 1.3 workbook. Domain Gate 1 notes: [`energy-imports-security`](../energy-imports-security/).
+
+## Re-check (2026-11-07)
+
+Pinned checksum unchanged: `7e3d230e7cdcc45f3eef2b1ec5c866a30ffc26218fdd486cbae59f55eb34bf81` (228 curated observations).
 
 ## Reproduce
 

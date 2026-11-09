@@ -1,0 +1,44 @@
+indicator_id: nsta-ukcs-fields
+title: NSTA UKCS offshore hydrocarbon fields (WGS84)
+sector: energy-industry
+publisher: North Sea Transition Authority
+source_url: https://open-data-ukcs-transition.hub.arcgis.com/datasets/UKCS-transition::ukcs-offshore-hydrocarbon-fields-wgs84
+series_id: UKCS offshore hydrocarbon fields (WGS84) FeatureServer/0
+geography: UK Continental Shelf offshore only — not onshore Scotland/Wales/NI; not
+  a national petroleum atlas
+frequency: ad_hoc
+unit: feature_count
+definition: Point-in-time count of NSTA UKCS offshore hydrocarbon field polygons (operator
+  outlines at determination / re-determination), summarised by STATUS and FIELDTYPE.
+  Full polygons are pinned GeoJSON (EPSG:4326). Contains information provided by the
+  North Sea Transition Authority and/or other third parties.
+licence: NSTA User Agreement (Open User Licence) — see data/energy/oil-gas-fossil-fuels/licence/README.md;
+  attribution required
+agent_owner: energy
+connector_module: energy.connectors.nsta_ukcs_fields
+curated_path: curated/observations.csv
+update_cadence: Re-fetch when NSTA republishes the Hub layer
+raw_evidence:
+- path: raw/2026-11-07/ukcs_offshore_hydrocarbon_fields_wgs84.geojson
+  retrieved_at: '2026-11-07T15:34:51.764464+00:00'
+  checksum_sha256: df8f8526c18b1817b765e3eaed85b926d77bdaff701a56a4a53ba40a5381681d
+  content_type: application/octet-stream
+  official_release_date: '2026-11-07'
+  http_status: 200
+  source_url: https://open-data-ukcs-transition.hub.arcgis.com/api/download/v1/items/ba711a4be08449329a871d37ae910735/geojson?layers=0
+transformations: Download Hub GeoJSON (WGS84). Pin under raw/<date>/. Write curated/observations.csv
+  (total + status + field_type counts), curated/features.csv (named field attributes,
+  no geometry), and curated/fields.geojson (full FeatureCollection copy).
+revision_notes: ''
+caveats: UKCS offshore fields only. Do not invent onshore Scotland/Wales/NI coverage.
+  Counts are a spatial snapshot, not production volumes — do not fabricate national
+  oil/gas totals from incomplete field coverage. Sibling ED50/ETRS89 Hub layers exist;
+  this package pins WGS84 (EPSG:4326) only. Contains information provided by the North
+  Sea Transition Authority and/or other third parties. Do not reuse NSTA logos.
+related_indicator_ids:
+- nsta-ukcs-licences
+- crude-oil-production
+open_questions:
+- Should Validation sample a named field polygon against the Hub map viewer?
+notion_registry_url: ''
+schema_version: '1.0'

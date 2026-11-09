@@ -2,8 +2,8 @@
 
 Approach:
 1. Pin LiveTable213.ods.
-2. Parse LT_213_quarterly All Completions column for England.
-3. Emit quarterly observations (England only — not UK).
+2. Parse LT_213_quarterly completion columns (all + tenure) for England.
+3. Emit quarterly observations with series= tenure slugs (England only — not UK).
 """
 
 from __future__ import annotations
@@ -37,6 +37,13 @@ UNIT = "dwellings (completions)"
 PERIOD_RE = re.compile(r"^(\d{4})\s+Q([1-4])$")
 MISSING = {"[x]", "[z]", "..", "…", ""}
 
+COMPLETION_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("All Completions", "all-completions"),
+    ("Private Enterprise Completions", "private-enterprise"),
+    ("Housing Association Completions", "housing-association"),
+    ("Local Authority Completions", "local-authority"),
+)
+
 
 def _quarter_bounds(year: int, quarter: int) -> tuple[str, str]:
     start_month = 1 + (quarter - 1) * 3
@@ -69,16 +76,17 @@ def _parse_number(raw: str) -> tuple[float | None, ObservationStatus]:
 def parse_live_table_213(path: Path) -> list[Observation]:
     rows = read_ods_sheet(path, "LT_213_quarterly")
     header_idx = None
-    all_completions_col = None
+    col_map: dict[str, int] = {}
     for i, row in enumerate(rows):
         if row and row[0].strip() == "Period":
             header_idx = i
-            try:
-                all_completions_col = row.index("All Completions")
-            except ValueError as exc:
-                raise ValueError(f"All Completions column missing: {row}") from exc
+            for header, _slug in COMPLETION_COLUMNS:
+                try:
+                    col_map[header] = row.index(header)
+                except ValueError as exc:
+                    raise ValueError(f"Missing column {header}: {row}") from exc
             break
-    if header_idx is None or all_completions_col is None:
+    if header_idx is None:
         raise ValueError("Could not find LT_213_quarterly header row")
 
     observations: list[Observation] = []
@@ -89,26 +97,35 @@ def parse_live_table_213(path: Path) -> list[Observation]:
         if not match:
             continue
         year, quarter = int(match.group(1)), int(match.group(2))
-        cell = row[all_completions_col] if all_completions_col < len(row) else ""
-        value, status = _parse_number(cell)
         start, end = _quarter_bounds(year, quarter)
-        observations.append(
-            Observation(
-                indicator_id="housing-completions",
-                period_start=start,
-                period_end=end,
-                geography_code=ENGLAND_CODE,
-                geography_label=ENGLAND_LABEL,
-                value=value,
-                unit=UNIT,
-                observation_status=status,
-                source_version=SOURCE_VERSION,
-                notes="series=LiveTable213 All Completions; geography=England only",
+        for header, series in COMPLETION_COLUMNS:
+            idx = col_map[header]
+            cell = row[idx] if idx < len(row) else ""
+            value, status = _parse_number(cell)
+            if value is None and status == "missing":
+                continue
+            observations.append(
+                Observation(
+                    indicator_id="housing-completions",
+                    period_start=start,
+                    period_end=end,
+                    geography_code=ENGLAND_CODE,
+                    geography_label=ENGLAND_LABEL,
+                    value=value,
+                    unit=UNIT,
+                    observation_status=status,
+                    source_version=SOURCE_VERSION,
+                    notes=(
+                        f"series={series}; "
+                        f"column={header}; "
+                        "source=MHCLG Live Table 213; "
+                        "geography=England only"
+                    ),
+                )
             )
-        )
     if not observations:
         raise ValueError("No quarterly completions rows parsed")
-    observations.sort(key=lambda obs: obs.period_start)
+    observations.sort(key=lambda obs: (obs.period_start, obs.notes))
     return observations
 
 
@@ -127,13 +144,14 @@ class HousingCompletionsConnector(Connector):
             sector="housing-land",
             publisher="MHCLG",
             source_url=SOURCE_LANDING,
-            series_id="Live Table 213 All Completions (England quarterly)",
+            series_id="Live Table 213 Completions (England quarterly, by tenure)",
             geography="England (E92000001) — not UK",
             frequency="quarterly",
             unit=UNIT,
             definition=(
-                "Permanent dwellings completed in England by all tenures, from "
-                "MHCLG Live Table 213 (Housing supply: indicators of new supply)."
+                "Permanent dwellings completed in England by tenure "
+                "(private enterprise, housing association, local authority, all), "
+                "from MHCLG Live Table 213."
             ),
             licence="Open Government Licence v3.0",
             agent_owner="housing",
@@ -143,14 +161,15 @@ class HousingCompletionsConnector(Connector):
             raw_evidence=list(evidence),
             notion_registry_url="https://app.notion.com/40d654717685810187d8ce37fdff8fcf",
             transformations=(
-                "Parse ODS sheet LT_213_quarterly; keep All Completions column."
+                "Parse LT_213_quarterly completion columns; "
+                "series=all-completions|private-enterprise|housing-association|local-authority."
             ),
             caveats=(
                 "England-only new-build completions; not net additional dwellings "
-                "and not a UK total. Tenure split available in same table but not "
-                "curated here."
+                "and not a UK total. Filter series=all-completions for the headline total."
             ),
-            revision_notes="Pinned LiveTable213 published 24 September 2026.",
+            revision_notes="Pinned LiveTable213 published 24 September 2026; tenure columns added 2026-11-04.",
+            related_indicator_ids=["housing-starts"],
         )
 
     def evidence_from_pinned_raw(self) -> RawEvidence:

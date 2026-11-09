@@ -1,0 +1,232 @@
+{
+  "ACCESS_2018": {
+    "checksum_sha256": "68bc3a3db60f269697df7b6efd7b4a681956862da9b6b0d57b341b4040f3ae49",
+    "file_name": "2018-19_EHS_Adaptations_and_Accessability_Annex_Tables.xlsx",
+    "http_status": "200",
+    "last_modified": "Tue, 07 Jul 2020 10:32:34 GMT",
+    "official_release_date": "2020-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.861458+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/5f044f42d3bf7f76939242da/2018-19_EHS_Adaptations_and_Accessability_Annex_Tables.xlsx"
+  },
+  "ADAPT_1920": {
+    "checksum_sha256": "ba0e69cfcf56873c6c04d06977e47f94b39d6b1e9dc12aaec2c87fa668d238bd",
+    "file_name": "Home_Adaptations_Report_Annex_tables.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 07 Jul 2021 14:16:28 GMT",
+    "official_release_date": "2021-07-08",
+    "retrieved_at": "2026-11-04T23:44:04.765830+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/60e5b73cd3bf7f568cde9062/Home_Adaptations_Report_Annex_tables.ods"
+  },
+  "CH1_QUALITY": {
+    "checksum_sha256": "ba55bfa4df07ee2ee30292c961514812ecbd111ea2d21bd9031f16a7a10fb5f6",
+    "file_name": "2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 27 Jan 2026 16:46:22 GMT",
+    "official_release_date": "2026-01-29",
+    "retrieved_at": "2026-11-04T21:32:10.524658+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6978ebde1c24881f40a4d6cc/2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods"
+  },
+  "CH2_ENERGY": {
+    "checksum_sha256": "12ac595b98bfacddea2014de55f38c05b062d29fc45626c245127ce8fc8094d6",
+    "file_name": "2024-25_EHS_Headline_Report_Chapter_2_Energy_Efficiency_Annex_Tables.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-01-29",
+    "retrieved_at": "2026-11-04T21:10:30.205163+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6978ed0f5da1fd4ddea98c5b/2024-25_EHS_Headline_Report_Chapter_2_Energy_Efficiency_Annex_Tables.ods"
+  },
+  "DA3201": {
+    "checksum_sha256": "46cbab1bc2f1d085e3970d06eba95bbc9efa8075a5ca9299b51d5ac33ab9124d",
+    "file_name": "DA3201_Decent_Homes_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T20:48:49.757257+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d9585024e48e52f26f4a1/DA3201_Decent_Homes_-_dwellings.ods"
+  },
+  "DA3202": {
+    "checksum_sha256": "c2ca048f27d2e591473889e3952c9523fea2198c2df58d2825bca0a1b045131f",
+    "file_name": "DA3202_Decent_Homes_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:11:04 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:32:02.094240+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d959892f65594cb029998/DA3202_Decent_Homes_-_areas.ods"
+  },
+  "DA4101": {
+    "checksum_sha256": "9bdd6880db7e12e8db9da7559da564f7e5f4da6f5bb4d462b547396887414d84",
+    "file_name": "DA4101_Health_and_safety_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T20:48:50.065801+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d95bced5ddb5c8626f494/DA4101_Health_and_safety_-_dwellings.ods"
+  },
+  "DA4102": {
+    "checksum_sha256": "6b3b257db4988127d3f481cee093e8e1b5795b62fe0a804359a29bb85c33f325",
+    "file_name": "DA4102_Health_and_safety_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:12:01 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:32:02.293808+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d95d109605a87f4354512/DA4102_Health_and_safety_-_areas.ods"
+  },
+  "DA5101": {
+    "checksum_sha256": "d94de64041dee2c73dae209253b7212479b7bebdbc3a2d680fd559c9135fefe8",
+    "file_name": "DA5101_Damp_and_mould_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T20:48:50.373511+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d95f7ed5ddb5c8626f495/DA5101_Damp_and_mould_-_dwellings.ods"
+  },
+  "DA5102": {
+    "checksum_sha256": "0a6abb56c40f8fda2f843e92832423034bfc45af7fa6bb9b0fe73d1833821699",
+    "file_name": "DA5102_Damp_and_mould_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:13:08 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:32:02.538123+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d961492f65594cb029999/DA5102_Damp_and_mould_-_areas.ods"
+  },
+  "DA5201": {
+    "checksum_sha256": "c22c79062fc41a30e7cee67d62f70aaf5c7b4f8e68ebc630e1221efe535685d6",
+    "file_name": "DA5201_Disrepair_and_electrics_-_dwellings.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:13:48 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:03.742445+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d963c92f65594cb02999a/DA5201_Disrepair_and_electrics_-_dwellings.ods"
+  },
+  "DA5202": {
+    "checksum_sha256": "095a426e36d0be2c54d3d806b1b80a281b8e232d8847a904b0735d124cd3715a",
+    "file_name": "DA5202_Disrepair_and_electrics_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:14:17 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.167779+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d965992f65594cb02999b/DA5202_Disrepair_and_electrics_-_areas.ods"
+  },
+  "DA6101": {
+    "checksum_sha256": "5fe7b8997f2ea137df56b1a852c93e823e4305064909652bf9f3eccb13be1da8",
+    "file_name": "DA6101_Heating_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:10:29.696999+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da45d92f65594cb0299a0/DA6101_Heating_-_dwellings.ods"
+  },
+  "DA6102": {
+    "checksum_sha256": "7d248b52ce59d6203c8dce4f1cea533d37b476595941f3e159dc05cec110ae5c",
+    "file_name": "DA6102_Heating_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 01:14:17 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:03.471117+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da469ed5ddb5c8626f49f/DA6102_Heating_-_areas.ods"
+  },
+  "DA6201": {
+    "checksum_sha256": "5ade2db9a3bd04b1113cd2cdadfb0f157ae775e9b079ba64ca31f516cbc6b2ca",
+    "file_name": "DA6201_Insulation_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:10:30.041953+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da48209605a87f435451f/DA6201_Insulation_-_dwellings.ods"
+  },
+  "DA6202": {
+    "checksum_sha256": "1d4bb4d5106dc27bb7d95b2f63b75834ba92f4b44e132502d7ca02f2dad361d7",
+    "file_name": "DA6202_Insulation_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 01:14:58 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:03.581789+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da4926a73e62ba102999a/DA6202_Insulation_-_areas.ods"
+  },
+  "DA7101": {
+    "checksum_sha256": "83f7e7a0e32e53eec584973c16616721ae12446478eaccf9ddf214bf74877e85",
+    "file_name": "DA7101_Energy_performance_-_dwellings.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T20:48:50.625435+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da4b1ed5ddb5c8626f4a0/DA7101_Energy_performance_-_dwellings.ods"
+  },
+  "DA7102": {
+    "checksum_sha256": "a25c3a4223d7252426569a0d150ebac9b60906da1b0e96c0366faaa10012e8f5",
+    "file_name": "DA7102_Energy_performance_-_areas.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 01:15:44 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T21:32:03.169514+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4da4c092f65594cb0299a1/DA7102_Energy_performance_-_areas.ods"
+  },
+  "DT3101": {
+    "checksum_sha256": "be36e0aada2b6baace958121d6900a1ff25868186ff87f3e6e4d517c040a4da6",
+    "file_name": "DT3101_Decent_Homes_trend.ods",
+    "http_status": "",
+    "last_modified": "",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T20:48:50.832832+00:00",
+    "timestamp_basis": "file-mtime",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d9688ed5ddb5c8626f497/DT3101_Decent_Homes_trend.ods"
+  },
+  "FT5421": {
+    "checksum_sha256": "c8728bc0e5de17301e9e4401abcb62d936d15fad953765115351f2a403a77dec",
+    "file_name": "FT5421_trend_in_satisfaction_with_the_way_landlord_carries_out_repairs_and_maintenance_by_tenure.ods",
+    "http_status": "200",
+    "last_modified": "Wed, 08 Jul 2026 00:44:03 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.355357+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a4d9d536a73e62ba1029998/FT5421_trend_in_satisfaction_with_the_way_landlord_carries_out_repairs_and_maintenance_by_tenure.ods"
+  },
+  "PIQ_CH2": {
+    "checksum_sha256": "2d9688e3b52f0f66bc52b819f7d80d4a559e3189bf110fa37d4c233bf6bcabcd",
+    "file_name": "Chapter_2_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 30 Jun 2026 11:57:34 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.501115+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a43af2e167a99cf0018d959/Chapter_2_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods"
+  },
+  "PIQ_CH3": {
+    "checksum_sha256": "d30425ff08d0620b954f615713134c7e33f61311c56b745cfe67e0256b892c75",
+    "file_name": "Chapter_3_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods",
+    "http_status": "200",
+    "last_modified": "Tue, 30 Jun 2026 11:59:17 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.606357+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a43af9593349b85b718d95f/Chapter_3_Annex_Tables_Perceptions_and_Impacts_of_Housing_Quality.ods"
+  },
+  "WEATHER": {
+    "checksum_sha256": "c309f2c876b8f839b30c2f1703da02503e6e5ca8b1b7b6281d1ee670000403cb",
+    "file_name": "Weather_Resilient_Homes_Factsheet_Annex_Tables.ods",
+    "http_status": "200",
+    "last_modified": "Thu, 02 Jul 2026 07:06:03 GMT",
+    "official_release_date": "2026-07-09",
+    "retrieved_at": "2026-11-04T23:44:04.660971+00:00",
+    "timestamp_basis": "download",
+    "url": "https://assets.publishing.service.gov.uk/media/6a460ddb045e1108aaa5e921/Weather_Resilient_Homes_Factsheet_Annex_Tables.ods"
+  }
+}

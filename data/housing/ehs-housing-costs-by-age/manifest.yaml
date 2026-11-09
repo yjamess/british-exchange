@@ -1,0 +1,43 @@
+indicator_id: ehs-housing-costs-by-age
+title: Housing costs as a share of income by age
+sector: housing-land
+publisher: Ministry of Housing, Communities and Local Government
+source_url: https://www.gov.uk/government/statistics/english-housing-survey-2024-to-2025-age-cohorts
+series_id: EHS 2024-25 age cohorts AT2.7 and AT4.4
+geography: England
+frequency: annual
+unit: percent of gross household income
+definition: Mean and median share of gross household income spent on a mortgage, private
+  rent or social rent, for household reference persons aged 16 to 34 and 65 or over.
+  Survey years 2024-25 and 2014-15.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_housing_costs_by_age
+curated_path: curated/costs-by-age.json
+update_cadence: annual, with the English Housing Survey age-cohorts release
+raw_evidence:
+- path: raw/EHS_24-25_Age_Cohorts_Chapter_2_Annex_Tables.ods
+  retrieved_at: '2026-11-05T19:38:11.881713+00:00'
+  checksum_sha256: 9abfef6cba6bcaef9c4cc47d15063c5d29796c87d897734a761ebbec117d1620
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-05-14'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a0200538cc72d2f863ea775/EHS_24-25_Age_Cohorts_Chapter_2_Annex_Tables.ods
+- path: raw/EHS_24-25_Age_Cohorts_Chapter_4_Annex_Tables.ods
+  retrieved_at: '2026-11-05T19:38:11.881713+00:00'
+  checksum_sha256: 3401734f2fe6c0b69a18ba6486fef45e4fe6c048a318555b97a21da2b6a4e0c0
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-05-14'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a01fff64fb0713aa63ea75d/EHS_24-25_Age_Cohorts_Chapter_4_Annex_Tables.ods
+transformations: Read Annex Tables 2.7 and 4.4. Keep region, income, children and
+  England total rows. Map the six published blocks (mean, median, sample for 2024-25
+  and 2014-15) onto mortgage, private rent and social rent.
+revision_notes: Pinned 5 November 2026 from the 14 May 2026 publication.
+caveats: Ages 35 to 64 are unpublished in this release. Cells marked u are withheld.
+  Means sit above medians where the lowest income fifth spends a much larger share.
+  This is not a house-price-to-earnings ratio.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

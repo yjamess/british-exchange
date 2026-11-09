@@ -1,0 +1,345 @@
+/*
+ * Housing canvas — the shared plate vocabulary for every domain view
+ * (Quality, Policy, …).
+ * Same primitives as the other housing domains (Insecurity, Supply, Land): template controls,
+ * ruled plate + aside panel, bo-label heads, bo-fig figures, hairline rows, brand charts.
+ * The one addition is the evidence-type tag, which the brief requires on every figure.
+ */
+
+.root {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  container-type: inline-size;
+  container-name: quality;
+}
+
+.lede {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+.note {
+  margin: 0;
+  max-width: 72ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+
+/* ——— Plate: main drawing + aside panel ——— */
+
+.plate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem);
+  border: var(--bo-rule);
+}
+
+.plateMain {
+  position: relative;
+  min-width: 0;
+  padding: var(--bo-s4);
+  border-right: var(--bo-rule);
+}
+
+/* The 3D cutaway fills its plate edge to edge. */
+.plateFlush {
+  padding: 0;
+}
+
+.panel {
+  display: grid;
+  align-content: start;
+  gap: var(--bo-s3);
+  padding: var(--bo-s5);
+  min-width: 0;
+}
+
+.panel > :global(.bo-label),
+.section > :global(.bo-label) {
+  margin: 0;
+  color: var(--bo-ink);
+}
+
+.section {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+  padding-top: var(--bo-s3);
+  border-top: var(--bo-hair);
+}
+
+.big {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--bo-s2) var(--bo-s3);
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.35;
+  color: var(--bo-text);
+}
+
+.big :global(.bo-fig) {
+  font-size: var(--bo-t-stat);
+  line-height: 0.9;
+  color: var(--bo-ink);
+}
+
+.name {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.35;
+  color: var(--bo-ink);
+}
+
+.body {
+  margin: 0;
+  font-size: var(--bo-t-ui);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+.facts {
+  display: grid;
+  gap: var(--bo-s2);
+  margin: 0;
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: var(--bo-s3);
+  padding-bottom: var(--bo-s2);
+  border-bottom: var(--bo-hair);
+}
+
+.facts dt {
+  color: var(--bo-text);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-ink);
+}
+
+.facts a,
+.source a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+.source {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  line-height: 1.5;
+  color: var(--bo-text);
+}
+
+/* ——— Rows: hairline lists of records (as Insecurity) ——— */
+
+.rows {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--bo-rule);
+}
+.row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 4px var(--bo-s4);
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: var(--bo-hair);
+}
+.rowYear {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: var(--bo-fig-wght);
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.rowBtn {
+  appearance: none;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--bo-t-ui);
+  color: var(--bo-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.rowBtn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rowBtn[aria-pressed="true"] {
+  box-shadow: inset 0 -2px 0 var(--bo-ink);
+}
+.rowBtn:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.rowMeta {
+  min-width: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.links {
+  display: grid;
+  gap: var(--bo-s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+.links a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+/* ——— Evidence type (brief: survey estimate / response / administrative / modelled / illustrative) ——— */
+
+.basis {
+  display: flex;
+  gap: var(--bo-s2);
+  align-items: baseline;
+  margin: 0;
+  padding: var(--bo-s2) var(--bo-s3);
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.basis strong {
+  font-weight: 500;
+  color: var(--bo-ink);
+}
+
+.glyph {
+  font-family: var(--bo-f-data);
+  color: var(--bo-ink);
+}
+
+/* Line language: dashed = estimated from a sample; double = administrative record; solid = observed. */
+.basis[data-basis="survey-estimate"] {
+  border: 1px dashed var(--bo-ink);
+}
+.basis[data-basis="survey-response"] {
+  border: 1px dashed var(--bo-ink);
+  border-left: 4px solid var(--bo-ink);
+}
+.basis[data-basis="administrative-record"] {
+  border: 3px double var(--bo-ink);
+}
+.basis[data-basis="modelled-derived"] {
+  border: 1px solid var(--bo-ink-40);
+}
+.basis[data-basis="observed-measure"] {
+  border: 1px solid var(--bo-ink);
+}
+.basis[data-basis="illustrative"] {
+  border: 1px dotted var(--bo-ink);
+}
+
+/* ——— Table alternative inside a disclosure (Inside the Home, Condition) ——— */
+
+.disclosure summary {
+  cursor: pointer;
+  color: var(--bo-ink);
+}
+.disclosure > div {
+  margin-top: var(--bo-s3);
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+  }
+  .rowMeta {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+@media (max-width: 960px) {
+  .plate {
+    grid-template-columns: 1fr;
+  }
+  .plateMain {
+    border-right: 0;
+    border-bottom: var(--bo-rule);
+  }
+}
+
+/* The index rail makes the plate narrower than the window, so a viewport
+   query still leaves two columns. Stack once the plate itself is too narrow
+   for a chart beside a 22rem panel. */
+@container quality (max-width: 680px) {
+  .plate {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .plateMain {
+    border-right: 0;
+    border-bottom: var(--bo-rule);
+  }
+}
+
+/* The cutaway stays the drawing. The short reading sits beside it, and stacks under it when the stage is narrow. */
+.plate:has(.plateFlush) {
+  align-items: start;
+  background: transparent;
+  border: 0;
+  gap: var(--bo-s4);
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+}
+
+@container quality (max-width: 680px) {
+  .plate:has(.plateFlush) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.plate:has(.plateFlush) .plateMain {
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  align-self: start;
+  position: static;
+}
+.plate:has(.plateFlush) .panel {
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+}
+/* The cutaway is the plate. The reading beside it is not a second frame. */
+.plate:has(.plateFlush) .panel[data-plain] {
+  border: 0;
+  background: transparent;
+}
+
+@media (max-width: 960px) {
+  .plate:has(.plateFlush) {
+    grid-template-columns: 1fr;
+  }
+  .plate:has(.plateFlush) .plateMain {
+    position: static;
+  }
+}
+
+.plateMain caption {
+  padding-bottom: var(--bo-s2);
+  text-align: left;
+  color: var(--bo-ink);
+}

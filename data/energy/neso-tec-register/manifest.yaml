@@ -1,0 +1,48 @@
+indicator_id: transmission-entry-capacity-register
+title: Transmission entry capacity (TEC) register
+sector: energy-industry
+publisher: NESO
+source_url: https://www.neso.energy/data-portal/transmission-entry-capacity-tec-register
+series_id: TEC Register (resource_id 17becbab-e3e8-473f-b303-3806f43a6a10)
+geography: Great Britain (K03000001); Northern Ireland excluded
+frequency: ad_hoc
+unit: MW
+definition: 'Contracted Transmission Entry Capacity increments from the NESO TEC Register.
+  Each curated row is one register line: value = MW Increase/Decrease; period = MW
+  Effective From (contractual capacity date). Notes carry Gate (1/2/unassigned), plant
+  type, project status, and project identifiers. Not speculative connection ETAs.
+  Not a DNO topology atlas.'
+licence: NESO Open Data Licence — https://www.neso.energy/data-portal/ngeso-open-licence
+agent_owner: energy
+connector_module: energy.connectors.neso_tec_register
+curated_path: curated/observations.csv
+update_cadence: Twice weekly on NESO data portal (this package is a dated pin)
+raw_evidence:
+- path: raw/2026-11-07/tec-register-05-november-2026.csv
+  retrieved_at: '2026-11-07T15:34:13.911974+00:00'
+  checksum_sha256: 35ec21f98e34e89c1e8e861fe1922c9fc852d69e9154f253539d5bce3bd9a097
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://api.neso.energy/dataset/cbd45e54-e6e2-4a38-99f1-8de6fd96d7c1/resource/17becbab-e3e8-473f-b303-3806f43a6a10/download/tec-register-05-november-2026.csv
+transformations: Pin official CKAN CSV via resource_show download URL. One Observation
+  per usable register row. Prefer value=MW Increase/Decrease with period=MW Effective
+  From (date_basis=mw_effective_from_contractual). Built rows with blank Effective
+  From use value=MW Connected and the register pin date (date_basis=built_connected_pin_snapshot).
+  notes=plant_type=…; gate=1|2|unassigned; project_status=…; project_number=…; project_id=….
+  Do not invent Gate values when blank.
+revision_notes: Gate 3 B3 ingest — not Ready until Validation accepts.
+caveats: Geography is GB (NESO), not UK. Gate may be blank until agreements are countersigned
+  (published as gate=unassigned). Capacity across stages / technology types may duplicate
+  under Connections Reform — do not sum Cumulative Total Capacity across stage rows
+  without dedupe. MW Effective From is a contractual capacity date, not a speculative
+  ETA. Built pin-snapshot rows are connected MW at the pin date, not queue ETAs. National
+  DNO topology remains Blocked — this series is the connections queue only.
+related_indicator_ids:
+- electricity-capacity-by-technology
+- renewable-energy-planning-pipeline
+open_questions:
+- Optional aggregate snapshot by plant_type × gate for queue charts.
+- Thermal constraint costs (NESO) remain a separate Gate 3 candidate.
+notion_registry_url: ''
+schema_version: '1.0'

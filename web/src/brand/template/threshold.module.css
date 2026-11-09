@@ -1,0 +1,45 @@
+/* Brand template — Threshold band between page head and explorer (plate band or data field). */
+
+.figure {
+  margin: 0;
+}
+.band {
+  position: relative;
+  height: clamp(9rem, 18vw, 15rem);
+  overflow: hidden;
+  border-block: var(--bo-rule);
+}
+.plate {
+  position: absolute !important;
+  inset: 0;
+}
+.fieldBand {
+  height: clamp(12rem, 24vw, 20rem);
+}
+.fieldBand > * {
+  position: absolute;
+  inset: 0;
+}
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--bo-s1) var(--bo-s4);
+  padding-block: var(--bo-s3);
+  font-size: 13px;
+  color: var(--bo-text);
+  border-bottom: var(--bo-rule);
+}
+.caption :global(.bo-label) {
+  color: var(--bo-ink);
+}
+.source {
+  margin-left: auto;
+  font-family: var(--bo-f-data);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.source a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}

@@ -1,0 +1,897 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,3540.0388711361497,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1578.32,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,226.82,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,340.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,95.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1263.7986703322922,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,3.875142260789183,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,92.86,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,475.678571714232,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,5.911125690313106,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,27.026830760706357,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,20.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2985.609037989119,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,318.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ecuador; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,164.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,249.26710521923306,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,401.0054315695545,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,736.7178053559194,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,432.84856773733213,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,780.316946214555,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,34.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,0.5790930756404152,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,776.7226621911807,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1218.8365301079114,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,3.4680730037258964,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,266.01244899675976,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1.3118086363154506,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,368.11,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2316.7700000000004,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,242.83325667534356,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,3268.6899999999996,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,420.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,4757.552589461269,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,166.25,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands Antilles; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,6744.26,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,27206.423777099702,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,879.2384684478432,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,47.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia and Pacific; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,16.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,220.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,109.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Papua New Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,317.4527310081148,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,142.26621601506668,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,101.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,10317.374411380912,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1221.49,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,85.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,208.52011547980916,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,5954.168444681194,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,5.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,430.65999999999997,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,599.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,44.97193848994483,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,0.7375687570897598,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ukraine; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1001.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2304.6241065136255,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,2.56824309543194,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Uzbekistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,1124.53,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,707.9259043191146,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2012-01-01,2012-12-31,K02000001,United Kingdom,87378.5924934162,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,6502.333319017858,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1480.9397847362545,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,7.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Argentina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,3.2399999999999998,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,104.60000000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,71.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1666.6700311388977,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,26.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bosnia and Herzegovina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,4.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,100.28068152991547,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1870.8833789820808,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,54.33,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,18.08,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,430.7501879208688,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,18.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,4.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1832.5453021567341,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,209.2422086222791,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ecuador; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,277.5776358363008,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1836.1740518958356,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,94.38500670013995,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,1013.1485324517178,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,873.9161292162131,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,127.34563001014779,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,117.27235528486938,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,544.4992085115382,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.24,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hong Kong (China); product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,15.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Iceland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,871.568654038377,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,896.1325448955749,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,11.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,125.70791307340778,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,54.480000000000004,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,175.67776338385218,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,370.943460218248,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,2524.0063081650806,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,591.955679195434,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,3296.93388206143,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,551.9499999999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,32.193460000000066,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malta; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,6032.990935490742,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=New Zealand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,6117.682837763789,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,23375.55430831664,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,42.78,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,870.9076856059654,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,52.260000000000005,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia and Pacific; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,282.8146277329677,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,37.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Near and Middle East; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,162.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,342.93000000000006,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,158.57,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,184.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,9385.548235913591,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,2808.3078014961143,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,369.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,321.4187411796,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,3200.161770808023,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,3.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,81.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Thailand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,0.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,807.1449123933234,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,322.7902122413593,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,216.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,46.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ukraine; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,421.22999999999996,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,2444.6182023008796,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,4.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Uzbekistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,607.3001344375821,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,22.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Yemen; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,543.7842155500678,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2013-01-01,2013-12-31,K02000001,United Kingdom,88077.80773027371,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,7461.133487446411,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,604.992256217612,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,13.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,211.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,24.979002611668207,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,3068.0916985547037,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,213.29238863251481,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,32.637806999999995,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,1069.8548946232,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,5.7670368776703835,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,17.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,157.540882247248,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,56.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,2.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,2176.3193843575577,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,552.46549342337,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,1379.0458000000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,325.1111143283231,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,1050.5806501603267,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,610.8974183086319,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,12.628038218931614,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,36.128392105454594,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,520.7939291863979,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,87.60284504657069,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hong Kong (China); product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.33,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,16.63,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Iceland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,1004.1380614129976,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,587.0087325771557,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,6.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,173.06000000000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,78.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,978.7260299699526,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,2600.4781591586225,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,144.3370073342756,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,511.40576500000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,471.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,52.81121434370157,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,4330.178924403702,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=New Zealand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,5698.500032118872,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,24546.154251345022,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,79.15933535412053,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,1511.30581,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,145.67,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia and Pacific; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,163.91009,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,63.82,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,228.02744,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Papua New Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,233.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,9.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,159.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,13.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,7253.903135094443,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,2968.500546,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Serbia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,334.74999999999994,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,157.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,3776.941925684457,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,223.84924032245652,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Thailand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,568.4288689228327,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,138.80100000000002,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,360.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,575.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,2649.4771209353526,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,632.30537876823,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Vietnam; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,241.155598,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2014-01-01,2014-12-31,K02000001,United Kingdom,83381.31618609276,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,7353.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,2802.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,23.49,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,253.57,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,3635.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,38.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,388.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,642.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,109.04,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,3.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,60.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,1.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,792.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,269.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,845.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,144.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,827.26,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,825.19,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,172.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,53.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,563.6200000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,9.89,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,1.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hong Kong (China); product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,542.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,272.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Iraq; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,1011.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,23.56,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,217.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,115.91000000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,990.64,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,1543.62,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,204.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,138.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,302.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,65.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,5817.64,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,4959.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,24944.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,39.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,312.24,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,31.94,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,450.41,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,10.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,309.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,9.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,6805.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,2460.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,104.53,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,433.15999999999997,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,5083.2300000000005,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,271.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,98.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,61.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,858.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,2.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Kingdom; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,3325.5699999999997,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,610.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,358.41999999999996,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2015-01-01,2015-12-31,K02000001,United Kingdom,82596.17999999998,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,2773.109306173908,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1215.90922,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,88.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,121.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,2.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,3323.623132699598,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,121.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1168.1452594459795,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,146.13,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,719.4872224447688,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,285.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,516.3494000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,7.99,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,554.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1012.8854902322562,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,582.524302,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,28.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,932.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,118.78,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,501.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,36.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Iraq; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1150.0095077299993,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,23.07,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,165.07999999999998,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,109.21,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,30.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,702.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1136.1794044053981,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,530.41,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1346.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,602.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,82.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malta; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,7507.241779922184,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,3502.006288,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,28534.3497877269,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,12.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,145.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,72.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia and Pacific; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,9.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,65.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Near and Middle East; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,3.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,243.48999999999998,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,25.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,479.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,15.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,7985.786852026755,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,2935.13281,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,445.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,257.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,3005.565759435044,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,11.26,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,134.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,141.21,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,46.919999999999995,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,1719.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,6071.973189849977,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,548.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,64.4,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2016-01-01,2016-12-31,K02000001,United Kingdom,84111.84871209275,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,4464.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,1020.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,65.11,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,28.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,2618.0699999999997,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,383.88,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,89.74,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,29.44,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,578.21,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,270.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,173.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,87.74,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,1413.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,1513.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,88.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,72.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,842.8699999999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,942.3799999999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,28.61,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,3.0,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Iran, Islamic Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,786.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,28.77,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,212.28,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,3.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,566.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,2039.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,187.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,2834.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,159.46,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,15.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,8172.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,4474.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,24995.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,103.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,25.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,5.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,134.17000000000002,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,32.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,911.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,10364.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,2552.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,338.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,555.6800000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,3896.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,104.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,35.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,300.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,1872.56,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,6247.7,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,312.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Venezuela; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,1079.8200000000002,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Non-specified, other; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2017-01-01,2017-12-31,K02000001,United Kingdom,88059.64,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,5971.03806,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,676.19959,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.07092,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Argentina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.020020000000000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,3.9316500000000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,272.76429,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,326.12642999999997,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,3852.9892499999996,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.32078,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.00057,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bulgaria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,993.63598,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,62.22909,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,9.94644,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,2e-05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.0006399999999999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1e-05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.17175,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,453.12768,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,322.94605,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,299.16058000000004,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1155.6856,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1182.1906600000002,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,16.9846,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,727.8615100000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,5.9048,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gibraltar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,32.99856,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.68796,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,837.6063700000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,851.35632,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,15.041979999999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,66.13882000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1.7737699999999998,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,351.47862,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,800.23434,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,331.2524,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1132.90976,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,147.55096,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.0035700000000000003,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,45.38913,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,62.82999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malta; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.25749,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Mexico; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,8109.88136,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,5707.54019,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,20056.80141,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,30.73409,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,539.35238,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,5.35764,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,60.94160000000001,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,44.5467,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,837.06352,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.00019,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,10062.39981,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,3419.0224400000006,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,36.43403,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.00015,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovak Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,720.08206,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,3792.97622,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.3189,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.22732,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Thailand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,3.85061,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,34.96061,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,515.4791899999999,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,0.021660000000000002,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ukraine; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,1690.876,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,10659.92104,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,99.85858,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Venezuela, Bolivarian Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,22.219425,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2018-01-01,2018-12-31,K02000001,United Kingdom,87461.684135,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,4582.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,121.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Argentina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,4.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,181.21,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,419.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,2736.86,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,88.25,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bulgaria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,37.18,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,900.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,193.94,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,22.53,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,782.32,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,300.79,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,75.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,727.53,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,889.61,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,731.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,79.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,1578.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,539.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,12.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,200.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,7.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,226.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,1163.48,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,621.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,877.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,57.66,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,103.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,8627.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,3284.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,19499.81,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,72.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,323.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,9.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,56.08,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Near and Middle East; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,249.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,62.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,779.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,10277.39,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,4269.24,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,319.28,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,530.7,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,1745.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,837.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ukraine; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,697.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,13365.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,12.43,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Venezuela, Bolivarian Republic; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,0.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2019-01-01,2019-12-31,K02000001,United Kingdom,83286.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,1087.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Argentina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,1.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,216.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,2192.28,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,26.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bulgaria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,1687.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,79.6,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,126.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,811.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,513.44,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,246.99,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,812.51,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,606.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,44.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,667.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,13.08,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gibraltar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,75.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,581.35,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,333.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,19.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,155.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.67,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,344.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,722.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,122.41,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,483.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,115.08,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,205.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Mexico; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,72.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Morocco; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,6317.89,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,3165.77,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,14468.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,58.19,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,141.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,65.82,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia Oceania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,2.79,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,159.62,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,54.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,297.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,8449.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,2208.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=South Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,373.64,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,1871.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,140.7,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Thailand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,106.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,84.77,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,674.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,954.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,13072.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,0.0,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2020-01-01,2020-12-31,K02000001,United Kingdom,65036.39,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,1989.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,3.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,22.19,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahamas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,2658.54,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,72.18,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,702.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,5.7,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,472.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ecuador; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,54.39,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,672.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,380.54,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,293.99,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,786.44,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,1.44,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Hong Kong, China; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,691.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,558.18,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,21.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,467.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,186.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,863.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,172.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,2839.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,31.57,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,192.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,5978.16,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,2442.77,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,15390.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,10.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,353.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia Oceania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,4.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,27.73,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,41.26,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,9043.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,1337.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,62.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,35.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=South Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,220.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,2245.81,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,0.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,104.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,27.85,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,727.6,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,1628.79,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,11974.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,1177.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2021-01-01,2021-12-31,K02000001,United Kingdom,66978.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1910.39,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,392.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,65.94,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Argentina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,234.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,3125.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.57,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,91.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1834.44,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,281.92,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,383.51,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,7.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Curaçao; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,54.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,367.57,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,63.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,234.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,450.27,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,379.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,20.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,746.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,193.69,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1.2,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Hong Kong, China; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,2026.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,825.66,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,38.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,328.85,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,939.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,447.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,2114.94,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,21.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1958.66,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,30.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,136.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,5589.29,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1891.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,14969.7,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,32.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1127.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.11,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia Oceania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,13.73,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1082.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,53.41,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,204.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,107.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Romania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,3076.44,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Russian Federation; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,2176.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,144.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,41.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=South Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,491.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,2261.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,112.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,31.78,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Taiwan / Chinese Taipei; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,103.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Trinidad and Tobago; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,137.82,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1001.67,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1987.41,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,17094.81,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,1016.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2022-01-01,2022-12-31,K02000001,United Kingdom,74463.74,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2771.81,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,308.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,55.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,1.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,196.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2802.64,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,267.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bulgaria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,228.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,1788.46,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,734.78,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,60.78,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,127.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.17,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,867.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,4.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,4.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,455.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,521.6,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,29.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Gabon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,437.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,242.6,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Hong Kong, China; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2344.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,679.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,12.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,289.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.88,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,189.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,852.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,3172.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,12.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2625.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,35.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malta; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,7158.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2863.72,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,16032.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,657.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,23.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,860.83,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,25.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,1.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,234.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,3023.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,99.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovak Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovenia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,65.81,thousand tonnes,final,DUKES_3.7_JUL_26,partner=South Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,412.33,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,1201.6,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,1.15,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,11.7,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Taiwan / Chinese Taipei; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,50.07,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,643.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,2276.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,16746.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,718.89,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2023-01-01,2023-12-31,K02000001,United Kingdom,75233.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2067.32,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,537.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.67,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.79,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belarus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,3340.73,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.06,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bosnia and Herzegovina; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,154.21,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,91.66,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1211.32,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Chile; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,365.5,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,250.76,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Congo; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.16,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.24,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,319.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,16.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,127.11,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Equatorial Guinea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,11.79,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Estonia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,255.43,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,467.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,135.31,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,413.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,203.11,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Hong Kong, China; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1.45,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2302.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,3.93,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,600.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,46.13,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,356.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.74,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,550.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,340.04,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,4451.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,12.75,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,4135.3,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1.38,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Luxembourg; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,46.85,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,9.99,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malta; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,7215.46,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2601.37,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,15041.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,336.46,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,45.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia Oceania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,8.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1459.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,14.16,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.07,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,314.62,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2014.32,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.2,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.65,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovak Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,66.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=South Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,829.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1322.18,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2.86,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Taiwan / Chinese Taipei; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,102.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Tunisia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,1092.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,2093.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,21501.97,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,3.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Uzbekistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,983.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2024-01-01,2024-12-31,K02000001,United Kingdom,79889.07,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,2698.25,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Algeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,139.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Angola; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Australia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Austria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Azerbaijan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,45.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Bahrain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,2952.96,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Belgium; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,343.84,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Brazil; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,87.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cameroon; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1363.67,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Canada; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,301.48,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=China, People's Republic of; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.09,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Colombia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Croatia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Cyprus; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Czech Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,359.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Denmark; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,8.92,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Egypt; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,384.49,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Finland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,624.87,thousand tonnes,final,DUKES_3.7_JUL_26,partner=France; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,115.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Georgia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,454.51,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Germany; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,64.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Greece; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.02,thousand tonnes,final,DUKES_3.7_JUL_26,"partner=Hong Kong, China; product=Total oil; kind=partner; fuel=Oil"
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,2.55,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Hungary; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1663.22,thousand tonnes,final,DUKES_3.7_JUL_26,partner=India; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,8.28,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Indonesia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,45.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Iraq; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,620.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Ireland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,22.17,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Israel; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,158.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Italy; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.8,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Japan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1585.68,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kazakhstan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,354.18,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Korea; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,4172.78,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Kuwait; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,14.71,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Latvia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,141.36,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Liberia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,4602.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Libya; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,55.12,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Lithuania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,73.89,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Malaysia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,43.34,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Morocco; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,8480.91,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Netherlands; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,2220.03,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Nigeria; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,12178.23,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Norway; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,244.58,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Oman; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,305.17,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Africa; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.16,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Asia Oceania; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,9.98,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Europe; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1734.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Other Non-OECD Americas; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,43.14,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Poland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,147.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Portugal; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,279.74,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Qatar; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,2104.01,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Saudi Arabia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,139.5,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Singapore; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.1,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovak Republic; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,8.88,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Slovenia; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,643.47,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Spain; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1086.59,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Sweden; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,4.77,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Switzerland; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.4,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Thailand; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,574.39,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkey; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,0.05,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Turkmenistan; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,1750.94,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United Arab Emirates; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,16866.42,thousand tonnes,final,DUKES_3.7_JUL_26,partner=United States; product=Total oil; kind=partner; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,4257.95,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Not elsewhere specified; product=Total oil; kind=aggregate; fuel=Oil
+oil-imports-by-country,2025-01-01,2025-12-31,K02000001,United Kingdom,76591.82,thousand tonnes,final,DUKES_3.7_JUL_26,partner=Total imports; product=Total oil; kind=aggregate; fuel=Oil

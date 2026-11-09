@@ -1,12 +1,10 @@
-"""UK HPI selectable measures — United Kingdom property type and sales volume.
+"""UK HPI selectable measures — UK types/volume plus England market segments.
 
 Approach:
 1. Reuse the pinned UK-HPI-full-file already archived under uk-average-house-price.
-2. Emit long-format rows for Average / Detached / Flat / Semi / Terrace / New / Existing
-   prices plus SalesVolume.
-3. Tag each row with notes series=<slug> so the API series filter and facets work.
-
-This unlocks Price / By type / Volume exploration without waiting for Price Paid.
+2. Emit UK rows for Average / Detached / Flat / Semi / Terrace / New / Existing / SalesVolume.
+3. Emit England rows for FTB / Cash / Mortgage (those columns are empty on UK totals).
+4. Tag each row with notes series=<slug> so the API series filter and facets work.
 """
 
 from __future__ import annotations
@@ -21,7 +19,11 @@ from typing import Sequence
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation, ObservationStatus
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import HOUSING_DATA
 
 PINNED_NAME = "UK-HPI-full-file-2026-08.csv"
@@ -39,9 +41,11 @@ OFFICIAL_RELEASE_DATE = "2026-10-21"
 SOURCE_VERSION = "UK-HPI-full-file-2026-08"
 UK_CODE = "K02000001"
 UK_LABEL = "United Kingdom"
+ENGLAND_CODE = "E92000001"
+ENGLAND_LABEL = "England"
 
-# column → (series slug, unit, human label for notes)
-MEASURES: tuple[tuple[str, str, str], ...] = (
+# column → (series slug, unit)
+UK_MEASURES: tuple[tuple[str, str, str], ...] = (
     ("AveragePrice", "average", "£ (UK HPI)"),
     ("DetachedPrice", "detached", "£ (UK HPI)"),
     ("SemiDetachedPrice", "semi-detached", "£ (UK HPI)"),
@@ -50,6 +54,13 @@ MEASURES: tuple[tuple[str, str, str], ...] = (
     ("NewPrice", "new-build", "£ (UK HPI)"),
     ("OldPrice", "existing", "£ (UK HPI)"),
     ("SalesVolume", "sales-volume", "sales (count)"),
+)
+
+# England-only market segments (blank on United Kingdom rows in the full file).
+ENGLAND_MEASURES: tuple[tuple[str, str, str], ...] = (
+    ("FTBPrice", "first-time-buyer", "£ (UK HPI, England)"),
+    ("CashPrice", "cash", "£ (UK HPI, England)"),
+    ("MortgagePrice", "mortgage", "£ (UK HPI, England)"),
 )
 
 
@@ -62,41 +73,73 @@ def _parse_uk_date(raw: str) -> date:
     return datetime.strptime(raw.strip(), "%d/%m/%Y").date()
 
 
+def _emit_measures(
+    row: dict[str, str],
+    *,
+    measures: tuple[tuple[str, str, str], ...],
+    geography_code: str,
+    geography_label: str,
+    region_note: str,
+) -> list[Observation]:
+    period = _parse_uk_date(row["Date"])
+    start, end = _month_bounds(period)
+    out: list[Observation] = []
+    for column, series, unit in measures:
+        raw = (row.get(column) or "").strip()
+        if not raw:
+            status: ObservationStatus = "missing"
+            value = None
+        else:
+            value = float(raw.replace(",", ""))
+            status = "final"
+        out.append(
+            Observation(
+                indicator_id="uk-hpi-measures",
+                period_start=start,
+                period_end=end,
+                geography_code=geography_code,
+                geography_label=geography_label,
+                value=value,
+                unit=unit,
+                observation_status=status,
+                source_version=SOURCE_VERSION,
+                notes=f"series={series}; region={region_note}; column={column}",
+            )
+        )
+    return out
+
+
 def parse_uk_hpi_measures(csv_path: Path) -> list[Observation]:
     observations: list[Observation] = []
     with csv_path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
         for row in reader:
-            if (row.get("RegionName") or "").strip() != "United Kingdom":
-                continue
-            period = _parse_uk_date(row["Date"])
-            start, end = _month_bounds(period)
-            for column, series, unit in MEASURES:
-                raw = (row.get(column) or "").strip()
-                if not raw:
-                    status: ObservationStatus = "missing"
-                    value = None
-                else:
-                    value = float(raw.replace(",", ""))
-                    status = "provisional"
-                observations.append(
-                    Observation(
-                        indicator_id="uk-hpi-measures",
-                        period_start=start,
-                        period_end=end,
+            name = (row.get("RegionName") or "").strip()
+            if name == "United Kingdom":
+                observations.extend(
+                    _emit_measures(
+                        row,
+                        measures=UK_MEASURES,
                         geography_code=UK_CODE,
                         geography_label=UK_LABEL,
-                        value=value,
-                        unit=unit,
-                        observation_status=status,
-                        source_version=SOURCE_VERSION,
-                        notes=f"series={series}; region=United Kingdom; column={column}",
+                        region_note="United Kingdom",
+                    )
+                )
+            elif name == "England":
+                observations.extend(
+                    _emit_measures(
+                        row,
+                        measures=ENGLAND_MEASURES,
+                        geography_code=ENGLAND_CODE,
+                        geography_label=ENGLAND_LABEL,
+                        region_note="England",
                     )
                 )
     if not observations:
-        raise ValueError("No United Kingdom HPI measure rows")
-    observations.sort(key=lambda obs: (obs.period_start, obs.notes))
-    return observations
+        raise ValueError("No United Kingdom / England HPI measure rows")
+    observations.sort(key=lambda obs: (obs.geography_code, obs.period_start, obs.notes))
+    # Provisional window is per geography (UK types vs England segments).
+    return mark_latest_months_provisional(observations, months=12)
 
 
 class UkHpiMeasuresConnector(Connector):
@@ -127,14 +170,18 @@ class UkHpiMeasuresConnector(Connector):
             sector="housing-land",
             publisher="HM Land Registry / ONS",
             source_url=SOURCE_LANDING,
-            series_id="UK HPI Average/Detached/Flat/New/Old/SalesVolume (United Kingdom)",
-            geography="United Kingdom (K02000001)",
+            series_id=(
+                "UK HPI Average/Detached/Flat/New/Old/SalesVolume (UK); "
+                "FTB/Cash/Mortgage (England)"
+            ),
+            geography="United Kingdom (K02000001); England segments (E92000001)",
             frequency="monthly",
             unit="£ (UK HPI) or sales (count)",
             definition=(
-                "United Kingdom House Price Index measures from the full UK HPI file: "
-                "average and property-type prices plus monthly sales volume. "
-                "Long-format rows keyed by notes series=<slug> for explorer filters."
+                "UK House Price Index measures from the full UK HPI file: UK average "
+                "and property-type prices, new/existing, sales volume; plus England "
+                "first-time buyer, cash and mortgage prices. Long-format rows keyed "
+                "by notes series=<slug>."
             ),
             licence="Open Government Licence v3.0",
             agent_owner="housing",
@@ -144,14 +191,14 @@ class UkHpiMeasuresConnector(Connector):
             raw_evidence=list(evidence),
             notion_registry_url="",
             transformations=(
-                "Filter UK-HPI-full-file to RegionName=United Kingdom. Emit one "
-                "observation per measure column (Average, Detached, Semi, Terrace, "
-                "Flat, New, Old, SalesVolume) with series=<slug> in notes."
+                "UK rows: Average, Detached, Semi, Terrace, Flat, New, Old, SalesVolume. "
+                "England rows: FTB, Cash, Mortgage (blank on UK totals). "
+                "series=<slug> in notes. Latest 12 valued months provisional per geography."
             ),
             caveats=(
                 "Latest ~12 months of UK HPI are provisional and revise. "
-                "Sales volume is a count, not a price — filter series=sales-volume "
-                "separately from price measures. Not a local or postcode series."
+                "FTB/cash/mortgage are England-only in the source file. "
+                "Sales volume is a count, not a price. Not a local or postcode series."
             ),
             revision_notes="Pinned UK-HPI-full-file-2026-08 published 21 Oct 2026.",
             related_indicator_ids=["uk-average-house-price", "house-prices-by-region"],

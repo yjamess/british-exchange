@@ -1,0 +1,84 @@
+indicator_id: ehs-damp-surveyor
+title: EHS damp (surveyor-recorded)
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistical-data-sets/dwelling-condition-and-safety
+series_id: DA5101 / DA5102 Damp and mould + annex AT1.9 / AT1.10
+geography: England (E92000001); ONS regions E12000001–E12000009 from 2020; EHS sub-national
+  areas 2008–2019 — dwelling sample survey estimates
+frequency: annual
+unit: percent of dwellings
+definition: 'Share of England dwellings where the surveyor records damp significant
+  enough to be considered in the HHSRS assessment: any damp, rising damp, penetrating
+  damp, condensation/mould; multiple damp problems (2024, AT1.10). Not resident-reported
+  mould (see ehs-damp-mould-reported).'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_quality_indicators
+curated_path: curated/observations.csv
+update_cadence: annual (EHS live tables, July)
+raw_evidence:
+- path: raw/2026-11-04/DA5101_Damp_and_mould_-_dwellings.ods
+  retrieved_at: '2026-11-04T20:48:50.373511+00:00'
+  checksum_sha256: d94de64041dee2c73dae209253b7212479b7bebdbc3a2d680fd559c9135fefe8
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d95f7ed5ddb5c8626f495/DA5101_Damp_and_mould_-_dwellings.ods
+- path: raw/2026-11-04/DA5102_Damp_and_mould_-_areas.ods
+  retrieved_at: '2026-11-04T21:32:02.538123+00:00'
+  checksum_sha256: 0a6abb56c40f8fda2f843e92832423034bfc45af7fa6bb9b0fe73d1833821699
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a4d961492f65594cb029999/DA5102_Damp_and_mould_-_areas.ods
+- path: raw/2026-11-04/2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods
+  retrieved_at: '2026-11-04T21:32:10.524658+00:00'
+  checksum_sha256: ba55bfa4df07ee2ee30292c961514812ecbd111ea2d21bd9031f16a7a10fb5f6
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-01-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6978ebde1c24881f40a4d6cc/2024-25_EHS_Headline_Report_Chapter_1_Housing_Quality_Annex_Tables.ods
+transformations: 'Header-driven parse of every year sheet (housing.connectors.ehs_da_parse):
+  measure columns located by header text; legacy (tenure rows) and modern (tenure
+  column blocks) layouts; rows kept for tenure, dwelling age, dwelling type, floor
+  area, region / sub-national area and the all-dwellings summary. Published cells
+  only — ''u'' → suppressed, N/A → missing. Supplementary published tables fill only
+  keys the live tables do not publish (DT3101; 2024-25 annex AT1.6, AT1.8, AT1.9,
+  AT1.10). Series values: any-damp, rising-damp, penetrating-damp, condensation-mould,
+  multiple-damp-problems. Headline: series=any-damp; breakdown=none.'
+revision_notes: '2026-11-04 v2: adds dwelling-age / dwelling-type / floor-area / region
+  breakdowns, criterion / hazard / damp-type series and 2008–2021 history (v1 had
+  2022–2024 headline only). Energy bands: v1 mis-read 2008–2011 columns (band D shown
+  as A/B/C) — fixed by header-driven parsing; all-social relabelled social-rented
+  (tenure-label note keeps the published label).'
+caveats: 'England survey estimates from the EHS physical (dwelling) survey — not UK,
+  not an administrative count, not an assessment of any individual home. Each dwelling
+  year pools two fieldwork years (e.g. 2024 = April 2023–March 2025). Breakdowns are
+  exactly those published: 2008–2021 characteristic rows (dwelling age / type / floor
+  area / area) are all-tenures only; from 2022 the condition tables cross each characteristic
+  with owner occupied / private rented / social rented, but the tenure-specific cells
+  share one row-level sample size (sample-scope=row-all-tenures). Region (9 ONS regions,
+  E12…) is published from 2020; 2008–2019 only three sub-national areas (Northern;
+  London and South East; Rest of England) with no ONS code. No dwelling type × region,
+  age × region or region × tenure-by-characteristic cross is published. ''u'' = unweighted
+  cell count 1–4 (suppressed, no value). 2020 and 2021 are occupied dwellings only
+  and were modelled differently (no full internal inspection, COVID-19); several criteria
+  are N/A (missing) in 2020–2022. 2022 combines 2021-22 ''external plus'' and 2022-23
+  full surveys (hybrid; compare with caution). Floor-area bands 2020–2022 use modelled
+  internal dimensions. Damp types are not mutually exclusive (a dwelling can be counted
+  in more than one). Type split not collected 2020–2022 (N/A). 1996–2007 come from
+  the English House Condition Survey via annex AT1.9 (all tenures only).'
+related_indicator_ids:
+- ehs-decent-homes
+- ehs-category-1-hazards
+- ehs-energy-efficiency-bands
+- ehs-disrepair
+- ehs-overcrowding
+- ehs-under-occupation
+- ehs-damp-mould-reported
+open_questions:
+- Web loader must filter series=<headline> and breakdown=none for the existing tenure
+  lines (rows now carry breakdowns).
+notion_registry_url: https://app.notion.com/p/40e65471768581d0855ccfceaedd61fe
+schema_version: '1.0'

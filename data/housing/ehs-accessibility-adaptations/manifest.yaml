@@ -1,0 +1,60 @@
+indicator_id: ehs-accessibility-adaptations
+title: EHS accessibility features and home adaptations
+sector: housing-land
+publisher: MHCLG · English Housing Survey
+source_url: https://www.gov.uk/government/statistics/english-housing-survey-2019-to-2020-home-adaptations
+series_id: EHS 2018 accessibility annex AT1/AT2 + 2019-20 home adaptations annex AT1.1
+  / AT1.3 / AT3.1
+geography: England (E92000001) — survey estimates / household responses
+frequency: ad_hoc
+unit: percent of dwellings / households (see base=)
+definition: 'Accessibility: share of England dwellings with each of the four ''visitability''
+  features recorded by the EHS surveyor — level access to the main entrance, flush
+  threshold (<15mm), WC at entrance level, doorsets and circulation meeting Part M
+  — and all four, by tenure, 2009 and 2018 (survey-estimate). Adaptations: share of
+  households with someone whose long-standing illness or disability requires adaptations
+  (2014-15, 2019-20), and among those households the share whose home is unsuitable
+  and the share lacking an adaptation they need, by tenure and age of the oldest person
+  needing adaptations (survey-response).'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.ehs_lived_experience
+curated_path: curated/observations.csv
+update_cadence: ad hoc (EHS topic reports / fact sheets)
+raw_evidence:
+- path: raw/2026-11-04/2018-19_EHS_Adaptations_and_Accessability_Annex_Tables.xlsx
+  retrieved_at: '2026-11-04T23:44:04.861458+00:00'
+  checksum_sha256: 68bc3a3db60f269697df7b6efd7b4a681956862da9b6b0d57b341b4040f3ae49
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2020-07-09'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/5f044f42d3bf7f76939242da/2018-19_EHS_Adaptations_and_Accessability_Annex_Tables.xlsx
+- path: raw/2026-11-04/Home_Adaptations_Report_Annex_tables.ods
+  retrieved_at: '2026-11-04T23:44:04.765830+00:00'
+  checksum_sha256: ba0e69cfcf56873c6c04d06977e47f94b39d6b1e9dc12aaec2c87fa668d238bd
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2021-07-08'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/60e5b73cd3bf7f568cde9062/Home_Adaptations_Report_Annex_tables.ods
+transformations: 'Annex sheets split into thousands / percentages / sample sections
+  (housing.connectors.ehs_lived_experience.read_blocks); tenure columns checked against
+  header text; one row per published percentage cell with published thousands and
+  unweighted sample sizes in notes; ''u'' → suppressed. Complements (able to keep
+  warm, home not hot, suitable accommodation, all adaptations installed) not emitted.
+  Sources: https://www.gov.uk/government/statistics/english-housing-survey-2018-accessibility-of-english-homes-fact-sheet
+  ; https://www.gov.uk/government/statistics/english-housing-survey-2019-to-2020-home-adaptations'
+revision_notes: '2026-11-04: initial ingest (Domain 07 housing quality wave 2).'
+caveats: 'Old snapshots: accessibility features 2009 and 2018 (dwelling years; fact
+  sheet published 2020), adaptations 2014-15 and 2019-20 (report published 2021).
+  No later EHS accessibility or adaptations tables are published. Accessibility cells
+  are stored unrounded in the source workbook and rounded here to 1 dp (as displayed).
+  Level access is assessed for fewer dwellings (base in notes). Adaptation needs are
+  self-reported and include adaptations already installed; ''unsuitable'' and ''lacks''
+  are among households needing adaptations only. 2019-20 fieldwork ended early (COVID-19,
+  March 2020).'
+related_indicator_ids:
+- ehs-decent-homes
+- ehs-category-1-hazards
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

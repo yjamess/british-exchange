@@ -1,0 +1,516 @@
+/* Changing Current — one ink, brand chart tokens only; tints are screens, never opacity. */
+
+.root {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+}
+
+/* Stream is the instrument — full width by default so a century of fuels can breathe.
+   Composition sits under it as a year readout. The readout stays below the chart at every width. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bo-s5);
+  align-items: start;
+}
+.main {
+  min-width: 0;
+}
+
+/* ——— Year buttons on dated records; Compare chips ——— */
+.chip,
+.pointYear {
+  font: 500 0.6875rem/1 var(--bo-f-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  border: 1px solid var(--bo-ink);
+  border-radius: 0;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+}
+/* Compare question chips keep Caslon. */
+.chip {
+  font: 400 0.95rem/1.1 var(--bo-f-head);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.chip:hover,
+.pointYear:hover,
+.chip[data-selected],
+.pointYear[data-on] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.chip:focus-visible,
+.pointYear:focus-visible,
+.row:focus-visible,
+.stream:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+/* ——— Stream ——— */
+.streamWrap {
+  position: relative;
+  min-width: 0;
+}
+.stream {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+/* Reading legend: every fuel, in stack order, with its value for the selected year. */
+.legend {
+  list-style: none;
+  margin: 0 0 var(--bo-s3);
+  padding: 0 0 var(--bo-s3);
+  border-bottom: var(--bo-hair);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.5rem 1.25rem;
+}
+.legend li {
+  display: grid;
+  grid-template-columns: 0.75rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  font: 400 0.8125rem/1.2 var(--bo-f-body);
+  color: var(--bo-union);
+}
+.legendName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.legendValue {
+  font: 500 0.75rem var(--bo-f-data);
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+}
+/* Thin bands that cannot hold in-plot type — named under the fixed frame, not on the axis. */
+.streamKey {
+  list-style: none;
+  margin: var(--bo-s2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  font: 500 0.6875rem/1.2 var(--bo-f-data);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+.streamKey li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.band {
+  stroke: var(--bo-paper);
+  stroke-width: 0.75;
+  cursor: crosshair;
+}
+.band[data-selected] {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.unallocated {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.reference {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 5 4;
+  pointer-events: none;
+}
+.bandLabel {
+  font-family: var(--bo-f-head);
+  letter-spacing: -0.01em;
+  pointer-events: none;
+}
+.marginLabel polyline {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.halo {
+  paint-order: stroke;
+  stroke: var(--bo-paper);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.marginLabel text,
+.tick {
+  font: 500 0.6875rem var(--bo-f-data);
+  letter-spacing: 0.04em;
+  fill: var(--bo-union);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.grid {
+  stroke: var(--bo-ink-10);
+  stroke-width: 1;
+}
+.zero {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.ruler line {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.era {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+  pointer-events: none;
+}
+.milestone {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+.milestone[data-on] {
+  fill: var(--bo-ink);
+}
+.hoverGuide {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+}
+.carriage {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.carriageTag {
+  fill: var(--bo-ink);
+}
+.carriageText {
+  font: 300 0.95rem var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+  fill: var(--bo-paper);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ——— Composition (the year's readout) ——— */
+.composition {
+  display: grid;
+  gap: var(--bo-s3);
+  border-top: 1px solid var(--bo-ink);
+  padding-top: var(--bo-s3);
+  min-width: 0;
+}
+@media (max-width: 1199px) {
+  /* Under the stream: year + bar + fuel rows as a compact strip, not a tall sidebar. */
+  .composition {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "head head"
+      "total core"
+      "rows rows";
+    column-gap: var(--bo-s4);
+    align-items: end;
+  }
+  .compHead {
+    grid-area: head;
+  }
+  .compTotal {
+    grid-area: total;
+  }
+  .composition .core {
+    grid-area: core;
+    align-self: center;
+  }
+  .composition .note {
+    grid-column: 1 / -1;
+  }
+  .composition .rows {
+    grid-area: rows;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    column-gap: var(--bo-s4);
+  }
+}
+.compHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--bo-s2);
+}
+.compYear {
+  font: 400 2.25rem/1 var(--bo-f-head);
+  color: var(--bo-ink);
+}
+.compTotal {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--bo-s2);
+}
+.compTotal :global(.bo-fig) {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--bo-ink);
+}
+.core {
+  display: flex;
+  height: 1.75rem;
+  min-width: 2px;
+}
+.coreSeg {
+  height: 100%;
+  border-right: 1px solid var(--bo-paper);
+}
+.coreSeg[data-fill="hatch"],
+.swatch[data-fill="hatch"] {
+  background: repeating-linear-gradient(45deg, var(--bo-ink) 0 1.4px, var(--bo-paper) 1.4px 3.5px);
+}
+.coreSeg[data-fill="dots"],
+.swatch[data-fill="dots"] {
+  background: radial-gradient(circle, var(--bo-ink) 0.9px, transparent 1.1px) 0 0 / 4px 4px, var(--bo-paper);
+}
+.coreSeg[data-fill="outline"],
+.swatch[data-fill="outline"] {
+  background: var(--bo-paper);
+  outline: 1px dashed var(--bo-ink);
+  outline-offset: -1px;
+}
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.75rem minmax(0, 1fr) auto 3.4rem;
+  gap: var(--bo-s2);
+  align-items: center;
+  padding: 0.35rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--bo-ink-20);
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  font: 400 0.875rem/1.2 var(--bo-f-body);
+  text-align: left;
+}
+button.row {
+  cursor: pointer;
+}
+button.row:hover,
+.row[data-selected] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.row :global(.bo-fig) {
+  text-align: right;
+  font-size: 1rem;
+}
+.swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: block;
+}
+.rowLabel {
+  min-width: 0;
+}
+
+/* ——— Fuel pane (secondary strip — not a second essay page) ——— */
+.pane {
+  display: grid;
+  gap: var(--bo-s4);
+  border-top: 3px solid var(--bo-ink);
+  padding-top: var(--bo-s4);
+  max-width: 46rem;
+}
+.paneHead {
+  display: flex;
+  gap: var(--bo-s4);
+  align-items: center;
+}
+.panePlate {
+  width: 5.5rem;
+  height: 5.5rem;
+  flex: none;
+  border: 1px solid var(--bo-ink);
+}
+.panePlate > :global(.bo-plate) {
+  width: 100%;
+  height: 100%;
+}
+.paneTitle {
+  margin: 0 0 var(--bo-s1);
+  font: 400 clamp(1.5rem, 3vw, 2.25rem) / 1.1 var(--bo-f-head);
+  color: var(--bo-ink);
+}
+.paneFigs {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s5);
+}
+.how {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+  max-width: 40rem;
+}
+.paneFigs dd {
+  margin: var(--bo-s1) 0 0;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--bo-ink);
+}
+.note {
+  margin: var(--bo-s2) 0 0;
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+.detail {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--bo-s2);
+}
+.detail th,
+.detail td {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--bo-ink-20);
+  font: 400 0.875rem var(--bo-f-body);
+  color: var(--bo-union);
+  text-align: left;
+}
+.detail td:global(.bo-fig) {
+  text-align: right;
+  font-size: 1rem;
+}
+.points,
+.follow {
+  list-style: none;
+  margin: var(--bo-s3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--bo-s2);
+  font-size: 0.875rem;
+  color: var(--bo-union);
+}
+.points li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  gap: var(--bo-s3);
+  align-items: start;
+}
+.points a,
+.follow a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.follow li {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: var(--bo-s2);
+  border-bottom: 1px solid var(--bo-ink-20);
+}
+.follow a {
+  font-family: var(--bo-f-head);
+  font-size: 1.1rem;
+}
+
+/* ——— Compare: two cores joined by ribbons ——— */
+.flow {
+  display: block;
+  max-width: 100%;
+}
+.flowLabel {
+  font: 400 0.95rem var(--bo-f-head);
+  fill: var(--bo-union);
+}
+.flowYear {
+  font: 400 1.75rem var(--bo-f-head);
+  fill: var(--bo-ink);
+}
+.flowFig {
+  font: 300 1rem var(--bo-f-fig);
+  font-variant-numeric: tabular-nums;
+  fill: var(--bo-union);
+}
+.ribbon {
+  stroke: var(--bo-paper);
+  stroke-width: 0.75;
+}
+.questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s2);
+  align-items: center;
+}
+.answer {
+  max-width: 46rem;
+  color: var(--bo-union);
+  margin: 0;
+}
+
+/* Keep the selected-year breakdown stable below the full-width historical chart. */
+.compYear { margin: 0; font-weight: 400; }
+
+/* ——— All-fuels lines (MixViews.tsx) ——— */
+.mixFocus {
+  outline: none;
+}
+.mixFocus:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 4px;
+}
+.linesPlot {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.ring {
+  fill: var(--bo-paper);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.leader {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  pointer-events: none;
+}
+.totalLine {
+  fill: none;
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 4;
+}
+.lineSwatch {
+  width: 0.75rem;
+  height: 0;
+  border-top-width: 2.5px;
+}
+.endLabel polyline {
+  fill: none;
+  stroke-width: 1;
+}
+.endLabel text {
+  font: 400 0.75rem var(--bo-f-body);
+  fill: var(--bo-union);
+}

@@ -1,0 +1,36 @@
+indicator_id: domestic-end-use
+title: Domestic end use by fuel
+sector: energy-industry
+publisher: DESNZ
+source_url: https://www.gov.uk/government/statistics/energy-consumption-in-the-uk-2026
+series_id: ECUK Table U3 — domestic consumption by end use and fuel (ktoe)
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: ktoe
+definition: UK domestic final energy consumption by end use and fuel (ktoe) from ECUK
+  Table U3. One observation per end_use × fuel × year; notes end_use=<label>;fuel=<label>.
+  fuel=Total is the end-use aggregate; end_use=total / end_use=domestic are fuel or
+  sector aggregates.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.domestic_end_use
+curated_path: curated/observations.csv
+update_cadence: Annual — ECUK typically each September
+raw_evidence:
+- path: raw/2026-11-06/ECUK_2026_End_Use_tables.xlsx
+  retrieved_at: '2026-11-06T23:50:19.342807+00:00'
+  checksum_sha256: c2b5723055960875a1bcc383d35a1bc088ba04f90f0fa107a853fdfe6175f122
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6aac067444ec1aa417346c38/ECUK_2026_End_Use_tables.xlsx
+transformations: Parse Table U3 Year header and fuel×end-use columns. Long-format;
+  [x] → missing. Do not stack aggregates with components.
+revision_notes: ECUK 2026 End Use tables; series through 2025.
+caveats: Appliances and some fuel×end-use cells are [x] in early years. Non-domestic
+  end-use detail (U1/U2/U5) starts 2021 and is a separate indicator. Do not animate
+  industry/services end uses from 1970.
+related_indicator_ids: []
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

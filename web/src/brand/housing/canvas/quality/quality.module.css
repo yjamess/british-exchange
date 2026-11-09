@@ -1,0 +1,318 @@
+/* Domain 07 — Inside Britain's Homes / quality instrument. */
+
+.root {
+  display: grid;
+  gap: var(--bo-s5);
+  min-width: 0;
+  padding: var(--bo-s3) 0;
+}
+
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
+  color: var(--bo-text);
+  text-wrap: pretty;
+}
+
+.controls {
+  display: grid;
+  gap: var(--bo-s4);
+  max-width: 40rem;
+}
+
+.yearField {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.yearField :global(.bo-label) {
+  grid-column: 1 / -1;
+}
+
+.yearField input[type="range"] {
+  width: 100%;
+  accent-color: var(--bo-ink);
+}
+
+.yearOut {
+  font-size: var(--bo-t-fig-s);
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+.tenureRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tenureTab {
+  appearance: none;
+  margin: 0;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font: inherit;
+  font-size: var(--bo-t-note);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.tenureTab:hover:not([data-active="true"]),
+.tenureTab[data-active="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.tenureTab:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.instrument {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+  gap: var(--bo-s5);
+  align-items: start;
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  padding: var(--bo-s4);
+}
+
+@media (max-width: 860px) {
+  .instrument {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cutawayWrap {
+  min-width: 0;
+  color: var(--bo-ink);
+}
+
+.cutaway {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  margin: 0 auto;
+}
+
+.ink {
+  stroke: var(--bo-ink);
+  fill: none;
+}
+
+.layerFill {
+  color: var(--bo-ink);
+}
+
+.layerHit:not([data-active="true"]):not(:hover):not(:focus-visible) .layerFill {
+  display: none;
+}
+
+.layerStroke {
+  stroke: var(--bo-ink);
+}
+
+.layerHit {
+  cursor: pointer;
+  outline: none;
+}
+
+.layerHit:focus-visible .layerStroke,
+.layerHit[data-active="true"] .layerStroke {
+  stroke-width: 2.5px;
+}
+
+.bandLabel {
+  font-family: var(--bo-f-data);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+}
+
+.anno {
+  fill: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+}
+
+.plateNote {
+  fill: var(--bo-union);
+  font-family: var(--bo-f-data);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+.panel {
+  display: grid;
+  gap: var(--bo-s4);
+  min-width: 0;
+}
+
+.panelHint {
+  margin: 0;
+  font-size: var(--bo-t-ui);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+
+.detail {
+  margin: 0;
+  padding: var(--bo-s3);
+  border: var(--bo-hair);
+  font-size: var(--bo-t-ui);
+  line-height: 1.45;
+}
+
+.detail dt {
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+  margin-top: 10px;
+}
+
+.detail dt:first-child {
+  margin-top: 0;
+}
+
+.detail dd {
+  margin: 2px 0 0;
+}
+
+.unitHint {
+  display: block;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  font-weight: 400;
+  color: var(--bo-text);
+  margin-top: 2px;
+}
+
+.layerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.layerChip {
+  appearance: none;
+  width: 100%;
+  margin: 0;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  color: var(--bo-ink);
+  font: inherit;
+  text-align: left;
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.layerChip:hover:not([data-active="true"]),
+.layerChip[data-active="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  border-color: var(--bo-ink);
+}
+
+.layerChip:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.chipLabel {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.chipValue {
+  font-size: var(--bo-t-fig-s);
+}
+
+.caveat {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.measureRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.obsBanner {
+  display: grid;
+  gap: var(--bo-s3);
+  padding: var(--bo-s3);
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+}
+
+@media (min-width: 720px) {
+  .obsBanner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--bo-s4);
+  }
+}
+
+.obsBanner > div {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.obsTag {
+  display: inline-block;
+  width: fit-content;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: var(--bo-hair);
+}
+
+.obsTag[data-kind="survey"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+
+.obsTag[data-kind="admin"] {
+  background: var(--bo-paper);
+  color: var(--bo-text);
+}
+
+.obsText {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+  text-wrap: pretty;
+}
+
+.block {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}

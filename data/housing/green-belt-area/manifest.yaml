@@ -1,0 +1,37 @@
+indicator_id: green-belt-area
+title: Green Belt area
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/local-authority-green-belt-statistics-for-england-2025-to-2026
+series_id: Green Belt Statistics Area_since_1997 + Area_by_LA
+geography: England (E92000001) + local authorities / regions
+frequency: annual
+unit: hectares
+definition: Area of land designated as Green Belt in England (hectares), as at 31
+  March. England totals from Area_since_1997; latest local authority and region areas
+  from Area_by_LA.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.green_belt_area
+curated_path: curated/observations.csv
+update_cadence: annual
+raw_evidence:
+- path: raw/2026-11-04/Live_Tables_Green_Belt_Statistics_2025-26.ods
+  retrieved_at: '2026-11-04T12:15:30.215490+00:00'
+  checksum_sha256: 9aabb046f935e13fa274e1568cab055ee524cb7cdd538bd5baaa604e95d16cf5
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-10-22'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6ad7439184361ce7947cd7d5/Live_Tables_-_Green_Belt_Statistics_2025-26.ods
+transformations: Parse ODS Area_since_1997 for England totals; Area_by_LA for latest
+  LA/region hectares. Filter series=england-total vs series=area-by-la.
+revision_notes: Pinned Green Belt Statistics 2025-26 published 22 Oct 2026.
+caveats: England designation only — not UK. Figures rounded to nearest 10 hectares
+  in the national table. 2006/07 break when New Forest National Park land left the
+  Green Belt series. Fixed latest boundaries for LA rows.
+related_indicator_ids:
+- land-use-stock
+- planning-decisions-granted
+open_questions: []
+notion_registry_url: "https://app.notion.com/40e6547176858129a12fd52f783346cb"
+schema_version: '1.0'

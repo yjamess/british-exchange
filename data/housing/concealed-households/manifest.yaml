@@ -1,0 +1,34 @@
+indicator_id: concealed-households
+title: Concealed families (Census 2021)
+sector: housing-land
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/3307ct210451census2021
+series_id: CT21_0451 concealed family status
+geography: England and English regions
+frequency: Census night (21 March 2021)
+unit: families (FRPs)
+definition: Concealed families are couple or lone-parent families in multi-family
+  households where the Family Reference Person is not the Household Reference Person.
+  Selected evidence of hidden housing need — not a full count of sofa surfing.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.concealed_households
+curated_path: curated/observations.csv
+update_cadence: decennial census
+raw_evidence:
+- path: raw/2026-11-04/CT21_0451_Census_2021.xlsx
+  retrieved_at: '2026-11-04T23:01:08.744064+00:00'
+  checksum_sha256: 6cc047d716042cc93a02d13921ad50a0ebcf2b673d4624cbec607f22e0341e74
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-02-26'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/adhocs/3307ct210451census2021/ct210451census2021.xlsx
+transformations: Sum sex×age cells within each concealed family type; emit totals.
+revision_notes: Domain 08 ingest 2026-11-04.
+caveats: Census Day stock of families, not households or people. Disclosure control
+  perturbs small counts. Not comparable with H-CLIC flows.
+related_indicator_ids:
+- statutory-homelessness-assessments
+open_questions: []
+notion_registry_url: "https://app.notion.com/p/40e6547176858100ae7cdbaa453e8c22"
+schema_version: '1.0'
