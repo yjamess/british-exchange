@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-07T16:23:44.883000+00:00",
+  "updated_at": "2026-11-09T18:56:01.996207+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -140,7 +140,7 @@
       "checksum_sha256": "52779776ce610c8ed0171108948d6750139b106681eb79f6c453fc81c5274f25",
       "storage_key": "housing/private-rental-prices/curated/observations.csv.gz",
       "uploaded_at": "2026-11-07T16:15:41.769563+00:00",
-      "local_deleted": true,
+      "local_deleted": false,
       "compression": "gzip",
       "stored_size": 4067560,
       "stored_checksum_sha256": "55a989c46ae6348f3da72bc3a65bb500130cfefe98d9cdce7a4d8ed27743ba7e"

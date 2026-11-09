@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { TimeChart } from "../instrument/TimeChart";
 import {
   ControlRow,
@@ -43,11 +44,9 @@ import {
 import { AnnualSeriesTable } from "./SeriesDataTables";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "border", label: "Border anatomy" },
-  { id: "night", label: "Britain After Dark · lite" },
-  { id: "data", label: "Data" },
-];
+import { NETWORKS_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...NETWORKS_VIEWS];
 
 function clampYear(n: number, years: number[], fallback: number): number {
   if (!Number.isFinite(n) || years.length === 0) return fallback;
@@ -124,8 +123,8 @@ export function NetworksCanvas({
   pack: NetworksPack;
   yearMix?: YearPack | null;
 }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("networks");
   const icRows = pack.interconnectors?.observations ?? [];
   const yearRows = yearMix?.observations ?? [];
 
@@ -152,41 +151,9 @@ export function NetworksCanvas({
       setView(next.view);
       setYear(next.year);
       setIcFlow(next.flow);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "networks");
-      u.set("view", next.view);
-      u.set("year", String(next.year));
-      u.set("flow", next.flow);
-      for (const key of [
-        "measure",
-        "compare",
-        "fuel",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "basis",
-        "bill_fuel",
-        "tech",
-        "lf_basis",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({ view: next.view, year: next.year, flow: next.flow });
     },
-    [view, year, icFlow, pathname],
+    [view, year, icFlow, writeUrl],
   );
 
   const yearPool =

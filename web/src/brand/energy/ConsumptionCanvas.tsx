@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { RegionMap } from "../map";
 import {
@@ -78,14 +79,9 @@ import {
 } from "./consumption-model";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "metabolism", label: "Energy Metabolism" },
-  { id: "appetite", label: "Long-run demand" },
-  { id: "end-use", label: "Energy use" },
-  { id: "geography", label: "Energy Geography" },
-  { id: "useful", label: "Useful Energy Experiment" },
-  { id: "data", label: "Data" },
-];
+import { CONSUMPTION_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...CONSUMPTION_VIEWS];
 
 type GeoSector = "all" | "domestic" | "transport" | "industry-commercial";
 type GeoMeasure = "total" | "intensity";
@@ -110,8 +106,8 @@ function clampYear(n: number, years: number[], fallback: number): number {
 }
 
 export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("consumption");
   const finalRows = pack.final?.observations ?? [];
   const flowRows = pack.flow?.observations ?? [];
   const years = yearsOf(finalRows);
@@ -233,34 +229,30 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
       setCrossEnd(next.crossEnd);
       setRegion(next.region);
       setGeoMeasure(next.geoMeasure);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "consumption");
-      u.set("view", next.view);
-      u.set("measure", next.measure);
-      u.set("year", String(next.year));
-      u.set("compare", String(next.compare));
-      u.set("base", String(next.indexBase));
-      u.set("lens", next.lens);
-      u.set("sector", next.sector);
-      u.set("end_use", next.endUse);
-      u.set("eff_end_use", next.effEndUse);
-      u.set("use_sector", next.useSector);
-      u.set("assume", next.assume);
-      if (next.effOver) u.set("eff", next.effOver);
-      else u.delete("eff");
-      u.set("geo_sector", next.geoSector);
-      u.set("end_scope", next.endScope);
-      u.set("cross_end", next.crossEnd);
-      u.set("geo_measure", next.geoMeasure);
-      if (next.place) u.set("place", next.place);
-      else u.delete("place");
-      if (next.region) u.set("region", next.region);
-      else u.delete("region");
-      u.delete("useful");
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({
+        view: next.view,
+        measure: next.measure,
+        year: next.year,
+        compare: next.compare,
+        base: next.indexBase,
+        lens: next.lens,
+        sector: next.sector,
+        end_use: next.endUse,
+        eff_end_use: next.effEndUse,
+        use_sector: next.useSector,
+        assume: next.assume,
+        eff: next.effOver || null,
+        geo_sector: next.geoSector,
+        end_scope: next.endScope,
+        cross_end: next.crossEnd,
+        geo_measure: next.geoMeasure,
+        place: next.place || null,
+        region: next.region || null,
+        useful: null,
+      });
     },
     [
-      pathname,
+      writeUrl,
       view,
       measure,
       year,
@@ -661,10 +653,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             options={CONSUMPTION_DATA_SERIES.map((x) => ({ value: x.id, label: x.label }))}
             onChange={(v) => {
               setDataSeries(v as ConsumptionDataSeries);
-              const u = new URLSearchParams(searchParams.toString());
-              u.set("view", "data");
-              u.set("dataset", v);
-              window.history.replaceState(null, "", `${pathname}?${u}`);
+              writeUrl({ view: "data", dataset: v });
             }}
           />
         )}

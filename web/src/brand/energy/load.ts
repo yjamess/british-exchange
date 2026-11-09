@@ -80,6 +80,7 @@ import {
   INTERCONNECTOR_FLOWS_ID as NETWORKS_IC_ID,
   type NetworksPack,
 } from "./networks-model";
+import { packAllowed, type EnergyPackKey, type EnergyScope } from "./domain-sources";
 
 export type { AtlasPack, CapacityPack, GenerationPack, YearPack } from "./packs";
 export type { ConsumptionPack };
@@ -1427,4 +1428,133 @@ export async function loadLongRun(): Promise<LongRunPack | null> {
   } catch {
     return null;
   }
+}
+
+/** Empty shells for packs the current domain did not request. */
+const EMPTY_CONSUMPTION: ConsumptionPack = {
+  final: null,
+  flow: null,
+  endUse: null,
+  crossEndUse: null,
+  geography: null,
+  efficiencies: null,
+};
+const EMPTY_PRICES: PricesPack = {
+  domestic: null,
+  gas: null,
+  economy7: null,
+  layers: null,
+  gasLayers: null,
+  industrial: null,
+  ofgem: null,
+  ofgemRegional: null,
+  wholesale: null,
+  cpih: null,
+  earnings: null,
+};
+const EMPTY_FOSSILS: FossilsPack = {
+  crude: null,
+  gas: null,
+  primary: null,
+  coal: null,
+  fields: [],
+  fieldProduction: [],
+  fieldProductionNational: null,
+  reserves: null,
+  oilImports: null,
+  trade: null,
+  dependency: null,
+  attribution: "",
+};
+const EMPTY_IMPORTS: ImportsPack = {
+  dependency: null,
+  trade: null,
+  interconnectors: null,
+  interconnectorCapacity: null,
+  oilPartners: null,
+  gasPartners: null,
+  lngTerminals: null,
+  fossilDependency: null,
+  lowCarbonShare: null,
+  gasStorage: null,
+};
+const EMPTY_MANUFACTURING: ManufacturingPack = {
+  output: null,
+  share: null,
+  employment: null,
+  productivity: null,
+};
+const EMPTY_RENEWABLES: RenewablesPack = {
+  loadFactors: null,
+  pipeline: null,
+  plantLoadFactors: null,
+};
+const EMPTY_NETWORKS: NetworksPack = { interconnectors: null };
+
+export type EnergySectorData = {
+  generation: GenerationPack | null;
+  capacity: CapacityPack | null;
+  longRun: LongRunPack | null;
+  yearMix: YearPack | null;
+  atlas: AtlasPack | null;
+  consumption: ConsumptionPack;
+  prices: PricesPack;
+  fossils: FossilsPack;
+  imports: ImportsPack;
+  manufacturing: ManufacturingPack;
+  renewables: RenewablesPack;
+  networks: NetworksPack;
+};
+
+/**
+ * Load only the packs the selected Energy domain needs.
+ * Pass `scope: "all"` for design-lab or full-sector consumers.
+ * Domain switches must navigate through Next so this runs again server-side.
+ */
+export async function loadEnergy(scope: EnergyScope = "generation"): Promise<EnergySectorData> {
+  const need = (key: EnergyPackKey) => packAllowed(scope, key);
+  const skip = <T>(empty: T) => Promise.resolve(empty);
+
+  const [
+    generation,
+    capacity,
+    longRun,
+    yearMix,
+    atlas,
+    consumption,
+    prices,
+    fossils,
+    imports,
+    manufacturing,
+    renewables,
+    networks,
+  ] = await Promise.all([
+    need("generation") ? loadGeneration() : skip(null),
+    need("capacity") ? loadCapacity() : skip(null),
+    need("longRun") ? loadLongRun() : skip(null),
+    need("yearMix") ? loadYearMix() : skip(null),
+    need("atlas") ? loadAtlas() : skip(null),
+    need("consumption") ? loadConsumption() : skip(EMPTY_CONSUMPTION),
+    need("prices") ? loadPrices() : skip(EMPTY_PRICES),
+    need("fossils") ? loadFossils() : skip(EMPTY_FOSSILS),
+    need("imports") ? loadImports() : skip(EMPTY_IMPORTS),
+    need("manufacturing") ? loadManufacturing() : skip(EMPTY_MANUFACTURING),
+    need("renewables") ? loadRenewables() : skip(EMPTY_RENEWABLES),
+    need("networks") ? loadNetworks() : skip(EMPTY_NETWORKS),
+  ]);
+
+  return {
+    generation,
+    capacity,
+    longRun,
+    yearMix,
+    atlas,
+    consumption,
+    prices,
+    fossils,
+    imports,
+    manufacturing,
+    renewables,
+    networks,
+  };
 }

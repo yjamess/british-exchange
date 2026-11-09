@@ -3,8 +3,70 @@ import type { YearFuel } from './generation-model';
 import type { FuelId } from './fuels';
 
 export type StationGroup = 'renewable' | 'storage' | 'fossil' | 'nuclear';
+/** Owning register — part of the stable station identity (never id alone). */
+export type StationRegister = "repd" | "dukes";
+
 export const MAP_WIDTH = 540;
 export const MAP_HEIGHT = 660;
+
+/**
+ * Stable reference for a power station, independent of Atlas UI state.
+ * Encode in URLs as `station=<register>:<id>` (see `formatStationKey`).
+ */
+export type StationRef = {
+  register: StationRegister;
+  id: string;
+};
+
+/**
+ * Geography as published on the register.
+ *
+ * `regionLabel` is useful for filtering and captions. It is **not** sufficient
+ * for precise spatial or administrative joins — those need validated ONS /
+ * geography codes or geometry (kept null until available).
+ */
+export type StationGeography = {
+  regionLabel: string | null;
+  countryLabel: string | null;
+  /** Mapped coordinates when the register supplies them; not an admin boundary. */
+  lon: number | null;
+  lat: number | null;
+  /** Reserved for future validated joins — always null today. */
+  geographyCode: null;
+  geometryId: null;
+};
+
+/**
+ * Portable selection context: identity, technology, capacity, dates, geography
+ * honesty, and the existing national-generation connection (not site output).
+ * Resolve from atlas points + URL key anywhere — not only inside AtlasStage.
+ */
+export type StationSelection = {
+  ref: StationRef;
+  key: string;
+  name: string;
+  technology: string;
+  group: StationGroup;
+  capacityMw: number;
+  geography: StationGeography;
+  /** Operational (REPD) or commissioned (DUKES) year/date from the owning register. */
+  opened: string | null;
+  operator: string | null;
+  /**
+   * Contextual connection already used by the Atlas evidence panel:
+   * national Energy Trends generation for an explicit technology match.
+   * Never site-level MWh.
+   */
+  nationalGeneration: {
+    fuel: FuelId;
+    year: number;
+    twh: number;
+    share: number | null;
+    provisional: boolean;
+    /** Shareable in-app destination for the national series. */
+    href: string;
+  } | null;
+};
 
 /** Canonical English region / nation labels for ranking and filters. */
 const REGION_ALIAS: Record<string, string> = {
@@ -43,7 +105,36 @@ export function stationGroup(p: AtlasPoint): StationGroup {
   return /battery|storage|flywheel/i.test(p.technology ?? '') ? 'storage' : p.family;
 }
 export function stationTechnology(p: AtlasPoint): string { return p.primaryFuel || p.technology || 'Unspecified'; }
-export function stationKey(p: AtlasPoint): string { return `${p.family === 'renewable' ? 'repd' : 'dukes'}:${p.id}`; }
+
+export function stationRegister(p: AtlasPoint): StationRegister {
+  return p.family === "renewable" ? "repd" : "dukes";
+}
+
+export function stationKey(p: AtlasPoint): string {
+  return formatStationKey({ register: stationRegister(p), id: p.id });
+}
+
+export function formatStationKey(ref: StationRef): string {
+  return `${ref.register}:${ref.id}`;
+}
+
+/** Parse `station=` from the URL. Rejects bare ids without a register namespace. */
+export function parseStationKey(raw: string | null | undefined): StationRef | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  const m = /^(repd|dukes):(.+)$/i.exec(trimmed);
+  if (!m) return null;
+  const id = m[2]!.trim();
+  if (!id) return null;
+  return { register: m[1]!.toLowerCase() as StationRegister, id };
+}
+
+export function findStationPoint(points: readonly AtlasPoint[], rawKey: string | null | undefined): AtlasPoint | null {
+  const ref = parseStationKey(rawKey);
+  if (!ref) return null;
+  const key = formatStationKey(ref);
+  return points.find((p) => stationKey(p) === key) ?? null;
+}
 export function filterStations(
   points: AtlasPoint[],
   family: string,
@@ -98,4 +189,49 @@ export function generationContext(p: AtlasPoint, mix: YearFuel[]) {
   const row = [...mix].filter(r => !r.partial).sort((a,b) => b.year-a.year)[0];
   if (!row || !Number.isFinite(row.byFuel[fuel])) return null;
   return { fuel, year: row.year, twh: row.byFuel[fuel], share: row.total > 0 ? row.byFuel[fuel] / row.total * 100 : null, provisional: row.provisional };
+}
+
+/**
+ * Build a portable selection from register points + optional national mix.
+ * Call from Atlas, deep links, or future connection handlers — same shape everywhere.
+ */
+export function resolveStationSelection(
+  points: readonly AtlasPoint[],
+  rawKey: string | null | undefined,
+  mix: YearFuel[] = [],
+): StationSelection | null {
+  const point = findStationPoint(points, rawKey);
+  if (!point) return null;
+  const ref = { register: stationRegister(point), id: point.id };
+  const ctx = mix.length ? generationContext(point, mix) : null;
+  const regionLabel = point.region?.trim() ? normalizeRegion(point.region) : null;
+  const countryLabel = point.country?.trim() && point.country !== point.region ? point.country.trim() : null;
+  return {
+    ref,
+    key: formatStationKey(ref),
+    name: point.name,
+    technology: stationTechnology(point),
+    group: stationGroup(point),
+    capacityMw: point.mw,
+    geography: {
+      regionLabel: regionLabel === "Unspecified" ? null : regionLabel,
+      countryLabel,
+      lon: Number.isFinite(point.lon) ? point.lon : null,
+      lat: Number.isFinite(point.lat) ? point.lat : null,
+      geographyCode: null,
+      geometryId: null,
+    },
+    opened: stationOpened(point),
+    operator: point.operator?.trim() || null,
+    nationalGeneration: ctx
+      ? {
+          fuel: ctx.fuel,
+          year: ctx.year,
+          twh: ctx.twh,
+          share: ctx.share,
+          provisional: ctx.provisional,
+          href: `/energy?domain=generation&view=data&dataset=quarterly&fuel=${ctx.fuel}&year=${ctx.year}`,
+        }
+      : null,
+  };
 }

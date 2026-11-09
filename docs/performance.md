@@ -1,5 +1,11 @@
 # Data loading and performance
 
+## Changes verified on 9 November 2026
+
+- Energy matches Housing's domain-scoped loading. Dependencies are declared in `web/src/brand/energy/domain-sources.ts`; `/energy` calls `loadEnergy(domain)` so opening Prices no longer also hydrates fossils, imports, manufacturing, atlas, and the other packs.
+- Energy domain switches use `router.push` (not `history.replaceState`) so the server reloads the new domain's packs. In-domain controls still update the URL locally. Domain status in the index is catalogue readiness, not “was this pack present on this request”.
+- Cross-domain packs stay explicit: low-carbon also loads generation + capacity; networks also loads yearMix; industrial-work reuses the manufacturing pack. Policy loads no observation packs.
+
 ## Changes verified on 5 November 2026
 
 - Housing requests only the current domain's dependencies, declared in `web/src/brand/housing/domain-sources.ts`. Add cross-domain dependencies there when a view uses another domain's series.

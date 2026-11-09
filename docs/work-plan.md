@@ -891,6 +891,52 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 3. Orchestrator: mount exact-value tables only when opened; add route loading feedback — implemented.
 4. Orchestrator: measure and document the remaining cold-load cost — recorded in `docs/performance.md`; browser validation unavailable and local Next smoke request timed out. End-to-end cold-page performance remains open.
 
+### Structural — Energy domain-scoped loading (9 November 2026)
+
+- Owner: Orchestrator
+- Status: done
+- Inputs: Housing `loadHousing(domain)` + `domain-sources.ts`; Energy route was loading twelve packs on every `/energy` open
+- Output: `web/src/brand/energy/domain-sources.ts`; `loadEnergy(scope)`; `/energy` reads `?domain=` and loads only that domain’s packs; domain switches use `router.push` so the server refills; docs in `docs/performance.md`
+- Notes: Visual structure unchanged.
+
+### Structural — Energy evidence, readiness, view modules (9 November 2026)
+
+- Owner: Orchestrator
+- Status: done (first tranche)
+- Inputs: consistency risks before completing Energy — evidence content drift; readiness inferred from loads; growing domain/view conditionals
+- Output:
+  - `web/src/brand/energy/views/*` — per-domain tabs, allowed URL params, evidence contract (source, definition, method, geography, period, dataHref)
+  - `npm run test:evidence` — structural audit of those fields + readiness helpers + canvas imports
+  - Domain index status from `domainUiStatus` (never from empty packs); `STAGE_EMPTY` distinguishes **In preparation** vs **Series unavailable**
+  - Domain switches strip query keys via `allowedParams(domain)`
+  - Doc: `docs/energy-evidence-contract.md`
+- Next (still open): wire Notes feet to read evidence modules at runtime (remove parallel copy); Housing `views/` mirror; split large loaders; provenance contract; distinguish missing vs failed at the loader Result layer
+
+### Structural — Explorer URL / browser-history contract (9 November 2026)
+
+- Owner: Orchestrator
+- Status: done (Energy fully migrated)
+- Inputs: Housing push-on-domain / replace-on-control vs Energy’s fragile delete lists; need reliable hops before connections
+- Output:
+  - Shared utility `web/src/brand/navigation/explorer-url.ts` (resolve / patch / switch / commit)
+  - Energy adapter `web/src/brand/energy/navigation.ts` (`useEnergyNavigation`)
+  - Domain hops via `goDomain` (push; portable `year` only)
+  - All Energy canvases (Generation…Policy) use `sync` — no local `history.replaceState`
+  - `npm run test:url`; doc `docs/explorer-url-contract.md`
+- Notes: Not a connection engine — `retain` allowlist is the hook for later typed connections. Housing can point `setQuery` at the same utility when convenient.
+
+### Structural — Portable station selection (9 November 2026)
+
+- Owner: Orchestrator
+- Status: done
+- Inputs: Power Station Atlas as proof that connections fit the Explorer; selection details must not live only in Atlas UI state
+- Output:
+  - `StationRef` / `StationSelection` + `resolveStationSelection` / `parseStationKey` in `station-model.ts`
+  - Atlas evidence panel reads the portable selection (identity, technology, dates, geography honesty, national generation href)
+  - URL `station=repd:…|dukes:…` only; region labels flagged as filter/caption — not join keys (`geographyCode`/`geometryId` reserved null)
+  - `npm run test:station`; doc `docs/station-selection.md`
+- Notes: No employment/government links yet. Future joins must use validated geography identifiers or geometry.
+
 ### Energy generation usability — 7 November 2026
 
 1. Orchestrator: simplify generation navigation and explain each view’s question and coverage — implemented.

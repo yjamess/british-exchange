@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EnergySector } from "@/brand/energy/EnergySector";
-import {
-  loadAtlas,
-  loadCapacity,
-  loadConsumption,
-  loadGeneration,
-  loadLongRun,
-  loadFossils,
-  loadImports,
-  loadManufacturing,
-  loadPrices,
-  loadNetworks,
-  loadRenewables,
-  loadYearMix,
-} from "@/brand/energy/load";
+import { loadEnergy } from "@/brand/energy/load";
+import { resolveEnergyDomain } from "@/brand/energy/domain-sources";
 import { SECTOR_PAGES } from "@/brand/sector-pages";
 import { SectorTemplate } from "@/brand/template";
 import { fetchIndicators } from "@/lib/api";
@@ -22,6 +10,7 @@ import { fetchIndicators } from "@/lib/api";
 export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ sector: string }> };
+type Search = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const config = SECTOR_PAGES[(await params).sector];
@@ -29,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 /** Every sector except Housing, from configuration (web/src/brand/sector-pages.ts). Energy draws Domain 01. */
-export default async function SectorRoute({ params }: Params) {
+export default async function SectorRoute({ params, searchParams }: Params & Search) {
   const sector = (await params).sector;
   const config = SECTOR_PAGES[sector];
   if (!config) notFound();
@@ -41,49 +30,25 @@ export default async function SectorRoute({ params }: Params) {
     titles = {};
   }
   if (sector === "energy") {
-    const [
-      generation,
-      capacity,
-      longRun,
-      yearMix,
-      atlas,
-      consumption,
-      prices,
-      fossils,
-      imports,
-      manufacturing,
-      renewables,
-      networks,
-    ] = await Promise.all([
-      loadGeneration(),
-      loadCapacity(),
-      loadLongRun(),
-      loadYearMix(),
-      loadAtlas(),
-      loadConsumption(),
-      loadPrices(),
-      loadFossils(),
-      loadImports(),
-      loadManufacturing(),
-      loadRenewables(),
-      loadNetworks(),
-    ]);
+    // Same pattern as Housing: hydrate only the selected domain's declared packs.
+    const domain = resolveEnergyDomain((await searchParams).domain);
+    const data = await loadEnergy(domain);
     return (
       <EnergySector
         config={config}
         titles={titles}
-        generation={generation}
-        capacity={capacity}
-        longRun={longRun}
-        yearMix={yearMix}
-        atlas={atlas}
-        consumption={consumption}
-        prices={prices}
-        fossils={fossils}
-        imports={imports}
-        manufacturing={manufacturing}
-        renewables={renewables}
-        networks={networks}
+        generation={data.generation}
+        capacity={data.capacity}
+        longRun={data.longRun}
+        yearMix={data.yearMix}
+        atlas={data.atlas}
+        consumption={data.consumption}
+        prices={data.prices}
+        fossils={data.fossils}
+        imports={data.imports}
+        manufacturing={data.manufacturing}
+        renewables={data.renewables}
+        networks={data.networks}
       />
     );
   }

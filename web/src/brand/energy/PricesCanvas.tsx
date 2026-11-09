@@ -9,7 +9,8 @@
  */
 
 import { useCallback, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { ChangeRows, RankBars, TimeChart } from "../instrument/TimeChart";
 import {
   ControlRow,
@@ -81,13 +82,9 @@ import {
 } from "./prices-model";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "bill", label: "The Dissected Bill" },
-  { id: "afford", label: "What Can You Afford?" },
-  { id: "shock", label: "How far prices rose" },
-  { id: "regions", label: "Geography" },
-  { id: "wholesale", label: "Wholesale fuels" },
-];
+import { PRICES_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...PRICES_VIEWS];
 
 /** Old tab id — still accepted in URLs, maps to How far prices rose. */
 const LEGACY_VIEW: Record<string, string> = { economies: "shock" };
@@ -151,8 +148,8 @@ type ReceiptLine = {
 };
 
 export function PricesCanvas({ pack }: { pack: PricesPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("prices");
   const electricityRows = pack.domestic?.observations ?? [];
   const gasRows = pack.gas?.observations ?? [];
   const economy7Rows = pack.economy7?.observations ?? [];
@@ -260,47 +257,21 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
       setVs(next.vs);
       setKwh(next.kwh);
       setCapPeriod(next.capPeriod);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "prices");
-      u.set("view", next.view);
-      u.set("year", String(next.year));
-      u.set("payment", next.payment);
-      u.set("tariff", next.tariff);
-      u.set("band", next.band);
-      u.set("bill_fuel", next.billFuel);
-      u.set("cap_measure", next.capMeasure);
-      u.set("region_source", next.regionSource);
-      u.set("mpp_measure", next.mppMeasure);
-      if (next.region) u.set("region", next.region);
-      else u.delete("region");
-      if (next.vs) u.set("vs", String(next.vs));
-      else u.delete("vs");
-      if (next.kwh) u.set("kwh", String(next.kwh));
-      else u.delete("kwh");
-      if (next.capPeriod) u.set("cap_period", next.capPeriod);
-      else u.delete("cap_period");
-      for (const key of [
-        "measure",
-        "compare",
-        "fuel",
-        "from",
-        "to",
-        "sector",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-        "show",
-        "bill_measure",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({
+        view: next.view,
+        year: next.year,
+        payment: next.payment,
+        tariff: next.tariff,
+        band: next.band,
+        bill_fuel: next.billFuel,
+        cap_measure: next.capMeasure,
+        region_source: next.regionSource,
+        mpp_measure: next.mppMeasure,
+        region: next.region || null,
+        vs: next.vs || null,
+        kwh: next.kwh || null,
+        cap_period: next.capPeriod || null,
+      });
     },
     [
       view,
@@ -316,7 +287,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
       vs,
       kwh,
       capPeriod,
-      pathname,
+      writeUrl,
     ],
   );
 

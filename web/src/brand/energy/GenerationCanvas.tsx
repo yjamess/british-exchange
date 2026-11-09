@@ -8,7 +8,8 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import {
   ChangeRows,
   RankBars,
@@ -30,13 +31,12 @@ import {
 } from "../template";
 import {
   filterStations,
-  generationContext,
   isMapped,
   normalizeRegion,
+  parseStationKey,
+  resolveStationSelection,
   stationGroup,
   stationKey,
-  stationOpened,
-  stationPlace,
   stationTechnology,
 } from "./station-model";
 import {
@@ -84,15 +84,9 @@ import {
   type LongYear,
 } from "./long-run";
 import s from "./generation.module.css";
+import { GENERATION_VIEWS, STAGE_EMPTY } from "./views";
 
-const VIEWS: ExplorerView[] = [
-  { id: "current", label: "History" },
-  { id: "compare", label: "Compare" },
-  { id: "capacity", label: "Capacity" },
-  { id: "atlas", label: "Map" },
-  { id: "year", label: "Monthly" },
-  { id: "data", label: "Data" },
-];
+const VIEWS: ExplorerView[] = [...GENERATION_VIEWS];
 
 type Measure = "absolute" | "share";
 
@@ -149,8 +143,8 @@ export function GenerationCanvas({
   /** REPD renewables + DUKES 5.11 fossil/nuclear stations. */
   atlas?: AtlasPack | null;
 }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("generation");
   const mix = pack?.mix ?? [];
   const years = yearsOf(mix);
   const latest = years.at(-1) ?? 2024;
@@ -162,16 +156,9 @@ export function GenerationCanvas({
   const allYears = [...new Set([...lrYears, ...years])].sort((a, b) => a - b);
   const state = readState(searchParams, allYears);
   const long = readLong(searchParams);
-  const updateQuery = (patch: Record<string, string | number | null>) => {
-    const u = new URLSearchParams(window.location.search);
-    u.set("domain", "generation");
-    for (const [key, val] of Object.entries(patch)) {
-      if (val == null) u.delete(key); else u.set(key, String(val));
-    }
-    window.history.replaceState(null, "", `${pathname}?${u}`);
-  };
-  const sync = (patch: Partial<GenState>) => updateQuery(patch);
-  const syncLong = (patch: Partial<LongState>) => updateQuery(patch);
+  // Shared URL utility: replaceState + prune to the active view’s declared params.
+  const sync = (patch: Partial<GenState>) => writeUrl(patch);
+  const syncLong = (patch: Partial<LongState>) => writeUrl(patch);
 
   const { view, measure, compare, fuel, from, to } = state;
   const year = view === "capacity" && capacity
@@ -353,8 +340,8 @@ export function GenerationCanvas({
       <>
         <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
         <Stage title="Electricity generation" foot={notesFoot}>
-          <EmptyStage label="Series unavailable">
-            Start the API and refresh. Indicator id: electricity-generation-by-source.
+          <EmptyStage label={STAGE_EMPTY.unavailable.label}>
+            {STAGE_EMPTY.unavailable.hint} Indicator id: electricity-generation-by-source.
           </EmptyStage>
         </Stage>
       </>
@@ -509,7 +496,7 @@ export function GenerationCanvas({
         <MenuControl label="Series" value={useLong ? "history" : "quarterly"} options={[
           ...(lrMix.length ? [{ value: "history", label: "Historical · annual" }] : []),
           { value: "quarterly", label: "Energy Trends · quarterly" },
-        ]} onChange={dataset => updateQuery({ dataset })} />
+        ]} onChange={dataset => writeUrl({ dataset })} />
         {useLong ? <MenuControl label="Fuel" value={long.group ?? "all"} options={[
           { value: "all", label: "All fuels" }, ...LONG_FUELS.filter(f => f.selectable).map(f => ({ value: f.id, label: f.label })),
         ]} onChange={group => syncLong({ group: group === "all" ? null : group as LongFuelId })} /> :
@@ -526,7 +513,7 @@ export function GenerationCanvas({
               { value: "openings", label: "Openings & closures" },
             ]}
             onChange={(atlasMode) =>
-              updateQuery({
+              writeUrl({
                 atlas: atlasMode === "stations" ? null : atlasMode,
                 station: atlasMode === "stations" ? searchParams.get("station") : null,
               })
@@ -544,7 +531,7 @@ export function GenerationCanvas({
                   { value: "fossil", label: "Fossil" },
                   { value: "nuclear", label: "Nuclear" },
                 ]}
-                onChange={(family) => updateQuery({ family, technology: null, station: null })}
+                onChange={(family) => writeUrl({ family, technology: null, station: null })}
               />
               <MenuControl
                 label="Technology"
@@ -561,7 +548,7 @@ export function GenerationCanvas({
                     .sort()
                     .map((value) => ({ value, label: value })),
                 ]}
-                onChange={(technology) => updateQuery({ technology: technology || null, station: null })}
+                onChange={(technology) => writeUrl({ technology: technology || null, station: null })}
               />
             </>
           )}
@@ -572,13 +559,13 @@ export function GenerationCanvas({
                 type="search"
                 value={searchParams.get("q") ?? ""}
                 placeholder="Name, region, operator or technology"
-                onChange={(e) => updateQuery({ q: e.target.value || null, station: null })}
+                onChange={(e) => writeUrl({ q: e.target.value || null, station: null })}
               />
             </label>
           )}
           <ResetButton
             onClick={() =>
-              updateQuery({
+              writeUrl({
                 atlas: null,
                 family: null,
                 technology: null,
@@ -644,9 +631,9 @@ export function GenerationCanvas({
             technology={searchParams.get("technology") ?? ""}
             search={searchParams.get("q") ?? ""}
             region={atlasRegion}
-            selectedId={searchParams.get("station")}
-            onSelect={(station) => updateQuery({ station })}
-            onRegion={(region) => updateQuery({ region, atlas: null, station: null })}
+            selectedId={parseStationKey(searchParams.get("station")) ? searchParams.get("station") : null}
+            onSelect={(station) => writeUrl({ station: parseStationKey(station) ? station : null })}
+            onRegion={(region) => writeUrl({ region, atlas: null, station: null })}
             mix={mix}
           />
         )}
@@ -728,19 +715,19 @@ function AtlasStage({
   if (!atlas) return <EmptyStage label="Station data unavailable">The station register could not be loaded.</EmptyStage>;
   const all: StationPoint[] = [...atlas.renewablePoints, ...(atlas.stations?.points ?? [])];
   const points = filterStations(all, family, technology, search, region);
-  const selected = points.find((p) => stationKey(p) === selectedId) ?? all.find((p) => stationKey(p) === selectedId);
+  // Portable selection (identity · tech · dates · geography honesty) — not Atlas-only state.
+  const selection = resolveStationSelection(all, selectedId, mix);
   const shortlist = [...points].sort((a, b) => b.mw - a.mw).slice(0, 8);
   const capacity = (rows: StationPoint[]) =>
     (rows.reduce((sum, p) => sum + p.mw, 0) / 1000).toLocaleString("en-GB", { maximumFractionDigits: 2 });
   const repd = points.filter((p) => p.family === "renewable");
   const dukes = points.filter((p) => p.family !== "renewable");
-  const context = selected ? generationContext(selected, mix) : null;
-  const peers = selected
+  const peers = selection
     ? all.filter(
         (p) =>
           isMapped(p) &&
-          (p.family === "renewable") === (selected.family === "renewable") &&
-          stationTechnology(p) === stationTechnology(selected),
+          (p.family === "renewable") === (selection.ref.register === "repd") &&
+          stationTechnology(p) === selection.technology,
       )
     : [];
   const peerMw = peers.reduce((sum, p) => sum + p.mw, 0);
@@ -860,8 +847,8 @@ function AtlasStage({
             points={points}
             label="Registered power stations: installed capacity"
             outline={atlas.outline}
-            selectedId={selected ? stationKey(selected) : null}
-            onSelect={onSelect}
+            selectedId={selection?.key ?? null}
+            onSelect={(id) => onSelect(parseStationKey(id) ? id : null)}
           />
         ) : (
           <EmptyStage label="No stations match">Clear the search or choose another technology.</EmptyStage>
@@ -869,60 +856,74 @@ function AtlasStage({
       </div>
 
       <aside className={s.stationPanel} aria-label="Station evidence">
-        {selected ? (
+        {selection ? (
           <>
             <button type="button" className={t.textButton} onClick={() => onSelect(null)}>
               Back to matching stations
             </button>
             <p className="bo-label">
-              {stationTechnology(selected)}
-              {stationGroup(selected) === "storage" ? " · storage" : " · capacity"}
-              {stationPlace(selected) ? ` · ${stationPlace(selected)}` : ""}
+              {selection.technology}
+              {selection.group === "storage" ? " · storage" : " · capacity"}
+              {selection.geography.regionLabel
+                ? ` · ${selection.geography.regionLabel}${
+                    selection.geography.countryLabel ? ` · ${selection.geography.countryLabel}` : ""
+                  }`
+                : ""}
             </p>
-            <h3 className={s.stationName}>{selected.name}</h3>
+            <h3 className={s.stationName}>{selection.name}</h3>
             <p className={s.stationValue}>
-              <span className="bo-fig">{selected.mw.toLocaleString("en-GB", { maximumFractionDigits: 1 })}</span>
+              <span className="bo-fig">
+                {selection.capacityMw.toLocaleString("en-GB", { maximumFractionDigits: 1 })}
+              </span>
               <span className="bo-label">MW</span>
             </p>
             <dl className={s.stationMeta}>
-              {stationOpened(selected) && (
+              {selection.opened && (
                 <div>
-                  <dt className="bo-label">{selected.family === "renewable" ? "Operational" : "Commissioned"}</dt>
-                  <dd className="bo-fig">{stationOpened(selected)}</dd>
+                  <dt className="bo-label">{selection.ref.register === "repd" ? "Operational" : "Commissioned"}</dt>
+                  <dd className="bo-fig">{selection.opened}</dd>
                 </div>
               )}
-              {selected.operator && (
+              {selection.operator && (
                 <div>
                   <dt className="bo-label">Operator</dt>
-                  <dd>{selected.operator}</dd>
+                  <dd>{selection.operator}</dd>
                 </div>
               )}
+              <div>
+                <dt className="bo-label">Register</dt>
+                <dd>{selection.ref.register === "repd" ? "REPD" : "DUKES 5.11"}</dd>
+              </div>
             </dl>
             {peerMw > 0 && (
               <p className={s.links}>
-                {((selected.mw / peerMw) * 100).toFixed(1)}% of mapped {stationTechnology(selected).toLowerCase()} capacity (
-                {peers.length.toLocaleString("en-GB")} sites in this register).
+                {((selection.capacityMw / peerMw) * 100).toFixed(1)}% of mapped {selection.technology.toLowerCase()}{" "}
+                capacity ({peers.length.toLocaleString("en-GB")} sites in this register).
               </p>
             )}
-            {context ? (
+            {selection.nationalGeneration ? (
               <div className={s.stationContext}>
                 <p className="bo-label">
-                  National {fuelById(context.fuel)?.label.toLowerCase()} generation · {context.year}
+                  National {fuelById(selection.nationalGeneration.fuel)?.label.toLowerCase()} generation ·{" "}
+                  {selection.nationalGeneration.year}
                 </p>
                 <p className={s.stationContextValue}>
-                  <span className="bo-fig">{fmtTwh(context.twh)}</span>
-                  <span className="bo-label">TWh{context.share != null ? ` · ${context.share.toFixed(1)}%` : ""}</span>
+                  <span className="bo-fig">{fmtTwh(selection.nationalGeneration.twh)}</span>
+                  <span className="bo-label">
+                    TWh
+                    {selection.nationalGeneration.share != null
+                      ? ` · ${selection.nationalGeneration.share.toFixed(1)}%`
+                      : ""}
+                  </span>
                 </p>
                 <p className={s.links}>
                   UK Energy Trends total for the technology — not this station’s output.{" "}
-                  <a href={`/energy?domain=generation&view=data&dataset=quarterly&fuel=${context.fuel}&year=${context.year}`}>
-                    Inspect the series
-                  </a>
+                  <a href={selection.nationalGeneration.href}>Inspect the series</a>
                 </p>
               </div>
             ) : (
               <p className={s.links}>
-                {stationGroup(selected) === "storage"
+                {selection.group === "storage"
                   ? "Storage shifts electricity between times; MW alone is not stored energy."
                   : "This register measures capacity, not site-level generation."}
               </p>

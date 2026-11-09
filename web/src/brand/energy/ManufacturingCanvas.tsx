@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { TimeChart } from "../instrument/TimeChart";
 import {
   ControlRow,
@@ -49,11 +50,9 @@ import {
 import { AnnualSeriesTable } from "./SeriesDataTables";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "anatomy", label: "The Production Anatomy" },
-  { id: "output-jobs", label: "Output vs Jobs" },
-  { id: "data", label: "Data" },
-];
+import { MANUFACTURING_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...MANUFACTURING_VIEWS];
 
 function clampYear(n: number, years: number[], fallback: number): number {
   if (!Number.isFinite(n) || years.length === 0) return fallback;
@@ -131,8 +130,8 @@ function AnatomyLedger({
 }
 
 export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("manufacturing");
   const outputRows = pack.output?.observations ?? [];
   const shareRows = pack.share?.observations ?? [];
   const employmentRows = pack.employment?.observations ?? [];
@@ -163,44 +162,13 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
   const sync = useCallback(
     (patch: Partial<{ view: string; year: number; measure: AnatomyMeasure }>) => {
       const next = { view, year, measure, ...patch };
-      setView(next.view);
+      const nextView = next.view === "structure" ? "output-jobs" : next.view;
+      setView(nextView);
       setYear(next.year);
       setMeasure(next.measure);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "manufacturing");
-      u.set("view", next.view === "structure" ? "output-jobs" : next.view);
-      u.set("year", String(next.year));
-      u.set("measure", next.measure);
-      for (const key of [
-        "compare",
-        "fuel",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "bill_fuel",
-        "basis",
-        "flow",
-        "tech",
-        "lf_basis",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({ view: nextView, year: next.year, measure: next.measure });
     },
-    [view, year, measure, pathname],
+    [view, year, measure, writeUrl],
   );
 
   const activeView = view === "structure" ? "output-jobs" : view;

@@ -9,7 +9,10 @@
     "lint": "next lint",
     "test:atlas": "node --test scripts/housing-atlas.test.mjs",
     "test:rent": "node --test scripts/rent-selection.test.mjs",
-    "test:affordability": "node --test scripts/affordability-scenario.test.mjs"
+    "test:affordability": "node --test scripts/affordability-scenario.test.mjs",
+    "test:evidence": "node --test scripts/energy-evidence.test.mjs",
+    "test:url": "node --test scripts/explorer-url.test.mjs",
+    "test:station": "node --test scripts/station-selection.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",

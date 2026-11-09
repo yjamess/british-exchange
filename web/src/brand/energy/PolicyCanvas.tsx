@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useMemo, useState, type CSSProperties } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import {
   DecisionLedger,
   EmptyStage,
@@ -95,8 +96,8 @@ const tableLinkStyle: CSSProperties = {
 };
 
 export function PolicyCanvas() {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("policy");
 
   const [openId, setOpenId] = useState<string | null>(() => {
     const fromUrl = searchParams.get("event");
@@ -106,24 +107,9 @@ export function PolicyCanvas() {
   const sync = useCallback(
     (nextId: string | null) => {
       setOpenId(nextId);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "policy");
-      u.delete("view");
-      u.delete("measure");
-      u.delete("year");
-      u.delete("compare");
-      u.delete("fuel");
-      u.delete("from");
-      u.delete("to");
-      u.delete("sector");
-      u.delete("flow");
-      u.delete("tech");
-      u.delete("lf_basis");
-      if (nextId) u.set("event", nextId);
-      else u.delete("event");
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({ event: nextId });
     },
-    [pathname],
+    [writeUrl],
   );
 
   const ledgerEvents = useMemo(() => ORDERED.map(toLedgerEvent), []);

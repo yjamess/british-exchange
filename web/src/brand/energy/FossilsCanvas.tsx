@@ -7,7 +7,8 @@
  */
 
 import { useCallback, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { FieldPointMap, type FieldMapGroup } from "../charts/FieldPointMap";
 import { TimeChart } from "../instrument/TimeChart";
 import {
@@ -80,13 +81,9 @@ import {
 import { dependencySeries, fmtDependencyPct } from "./imports-model";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "northsea", label: "North Sea fields" },
-  { id: "extraction", label: "The Extraction Century" },
-  { id: "gap", label: "The Production Gap" },
-  { id: "reserves", label: "What's left" },
-  { id: "data", label: "Data" },
-];
+import { FOSSIL_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...FOSSIL_VIEWS];
 
 /** Legacy tabs: closures → North Sea ceased; fuels → Extraction Century. */
 function resolveView(raw: string | null): string {
@@ -127,8 +124,8 @@ function clampYear(n: number, years: number[], fallback: number): number {
 }
 
 export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("fossil");
   const crudeRows = pack.crude?.observations ?? [];
   const gasRows = pack.gas?.observations ?? [];
   const primaryRows = pack.primary?.observations ?? [];
@@ -226,57 +223,19 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
       setScale(next.scale);
       setFuel(next.fuel);
       setQuery(next.q);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "fossil");
-      u.set("view", next.view);
-      u.set("year", String(next.year));
-      if (next.view === "northsea") {
-        u.set("atlas_year", String(next.atlas_year));
-        u.set("status", next.status);
-        u.set("scale", next.scale);
-        u.set("fuel", next.fuel);
-        if (next.field) u.set("field", next.field);
-        else u.delete("field");
-        if (next.q) u.set("q", next.q);
-        else u.delete("q");
-      } else {
-        u.delete("atlas_year");
-        u.delete("status");
-        u.delete("field");
-        u.delete("scale");
-        u.delete("fuel");
-        u.delete("q");
-      }
-      if (next.view === "data") {
-        u.set("dataset", dataSeries);
-      } else {
-        u.delete("dataset");
-      }
-      for (const key of [
-        "measure",
-        "compare",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({
+        view: next.view,
+        year: next.year,
+        atlas_year: next.view === "northsea" ? next.atlas_year : null,
+        status: next.view === "northsea" ? next.status : null,
+        scale: next.view === "northsea" ? next.scale : null,
+        fuel: next.view === "northsea" ? next.fuel : null,
+        field: next.view === "northsea" && next.field ? next.field : null,
+        q: next.view === "northsea" && next.q ? next.q : null,
+        dataset: next.view === "data" ? dataSeries : null,
+      });
     },
-    [view, year, atlasYear, status, fieldId, scale, fuel, query, dataSeries, pathname],
+    [view, year, atlasYear, status, fieldId, scale, fuel, query, dataSeries, writeUrl],
   );
 
   const y = clampYear(year, crudeYears.length ? crudeYears : [latest], latest);
@@ -663,11 +622,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
             options={FOSSILS_DATA_SERIES.map((x) => ({ value: x.id, label: x.label }))}
             onChange={(v) => {
               setDataSeries(v as FossilsDataSeries);
-              const u = new URLSearchParams(window.location.search);
-              u.set("domain", "fossil");
-              u.set("view", "data");
-              u.set("dataset", v);
-              window.history.replaceState(null, "", `${pathname}?${u}`);
+              writeUrl({ view: "data", dataset: v });
             }}
           />
         )}
@@ -724,11 +679,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
           onClick={() => {
             if (view === "data") {
               setDataSeries("crude");
-              const u = new URLSearchParams(window.location.search);
-              u.set("domain", "fossil");
-              u.set("view", "data");
-              u.set("dataset", "crude");
-              window.history.replaceState(null, "", `${pathname}?${u}`);
+              writeUrl({ view: "data", dataset: "crude" });
               return;
             }
             sync({

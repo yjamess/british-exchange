@@ -8,7 +8,8 @@
  */
 
 import { useCallback, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { TimeChart } from "../instrument/TimeChart";
 import {
   ControlRow,
@@ -42,11 +43,9 @@ import {
 } from "./jobs-model";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "landscape", label: "The Labour Landscape" },
-  { id: "productivity", label: "Productivity Machine" },
-  { id: "data", label: "Data" },
-];
+import { INDUSTRIAL_WORK_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...INDUSTRIAL_WORK_VIEWS];
 
 function clampYear(n: number, years: number[], fallback: number): number {
   if (!Number.isFinite(n) || years.length === 0) return fallback;
@@ -158,8 +157,8 @@ function FormulaPanel() {
 }
 
 export function JobsCanvas({ pack }: { pack: JobsPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("industrial-work");
   const employmentRows = pack.employment?.observations ?? [];
   const outputRows = pack.output?.observations ?? [];
   const productivityRows = pack.productivity?.observations ?? [];
@@ -188,43 +187,12 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
   const sync = useCallback(
     (patch: Partial<{ view: string; year: number }>) => {
       const next = { view, year, ...patch };
-      setView(next.view);
+      const nextView = next.view === "jobs-output" ? "landscape" : next.view;
+      setView(nextView);
       setYear(next.year);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "industrial-work");
-      u.set("view", next.view === "jobs-output" ? "landscape" : next.view);
-      u.set("year", String(next.year));
-      for (const key of [
-        "measure",
-        "compare",
-        "fuel",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "bill_fuel",
-        "basis",
-        "flow",
-        "tech",
-        "lf_basis",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({ view: nextView, year: next.year });
     },
-    [view, year, pathname],
+    [view, year, writeUrl],
   );
 
   const activeView = view === "jobs-output" ? "landscape" : view;

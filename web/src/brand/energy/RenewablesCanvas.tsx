@@ -7,7 +7,8 @@
  */
 
 import { useCallback, useId, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { EventRail } from "../instrument/EventRail";
 import { ExactRegister } from "../policy";
@@ -69,13 +70,9 @@ import { AnnualSeriesTable } from "./SeriesDataTables";
 import { buildGuideSlices, RenewablesFieldGuide } from "./RenewablesFieldGuide";
 import s from "./generation.module.css";
 
-const VIEWS: ExplorerView[] = [
-  { id: "guide", label: "Field Guide" },
-  { id: "capacity", label: "Capacity ≠ Output" },
-  { id: "pipeline", label: "Pipeline" },
-  { id: "buildout", label: "Buildout" },
-  { id: "data", label: "Data" },
-];
+import { LOW_CARBON_VIEWS } from "./views";
+
+const VIEWS: ExplorerView[] = [...LOW_CARBON_VIEWS];
 
 function clampYear(n: number, years: number[], fallback: number): number {
   if (!Number.isFinite(n) || years.length === 0) return fallback;
@@ -210,8 +207,8 @@ export function RenewablesCanvas({
   generation: GenerationPack | null;
   capacity: CapacityPack | null;
 }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("low-carbon");
   const lfRows = pack.loadFactors?.observations ?? [];
   const plantLfRows = pack.plantLoadFactors?.observations ?? [];
   const pipelineObs = pack.pipeline?.observations ?? [];
@@ -303,46 +300,19 @@ export function RenewablesCanvas({
       setStageId(asPipelineStageId(next.stage, next.lane));
       setPipeTech(next.pipe_tech);
       setEventId(next.event);
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "low-carbon");
-      u.set("view", next.view);
-      u.set("year", String(next.year));
-      u.set("tech", next.tech);
-      u.set("lf_basis", next.lf_basis);
-      u.set("measure", next.measure);
-      u.set("lane", next.lane);
-      u.set("stage", next.stage);
-      u.set("pipe_tech", next.pipe_tech);
-      if (next.event) u.set("event", next.event);
-      else u.delete("event");
-      for (const key of [
-        "compare",
-        "fuel",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "basis",
-        "flow",
-        "bill_fuel",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({
+        view: next.view,
+        year: next.year,
+        tech: next.tech,
+        lf_basis: next.lf_basis,
+        measure: next.measure,
+        lane: next.lane,
+        stage: next.stage,
+        pipe_tech: next.pipe_tech,
+        event: next.event || null,
+      });
     },
-    [view, year, techId, basis, measure, lane, stageId, pipeTech, eventId, pathname],
+    [view, year, techId, basis, measure, lane, stageId, pipeTech, eventId, writeUrl],
   );
 
   const y = clampYear(year, yearPool.length ? yearPool : [latest], latest);

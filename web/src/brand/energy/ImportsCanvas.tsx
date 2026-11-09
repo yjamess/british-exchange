@@ -10,7 +10,8 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEnergyNavigation } from "./navigation";
 import { WorldChoropleth } from "../map";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { DecisionLedger, type LedgerEvent } from "../policy";
@@ -29,6 +30,7 @@ import {
 } from "../template";
 import { ENERGY_SOURCE } from "./citations";
 import { ImportsData } from "./ImportsData";
+import { IMPORTS_VIEWS } from "./views";
 import {
   BASES,
   GAS_MODES,
@@ -114,14 +116,7 @@ function shockToLedgerEvent(event: ShockEvent): LedgerEvent {
   };
 }
 
-const VIEWS: ExplorerView[] = [
-  { id: "lifelines", label: "The Lifelines Map" },
-  { id: "resilience", label: "The Resilience Test" },
-  { id: "shock", label: "Shock & Response" },
-  { id: "connectors", label: "Britain's Connectors" },
-  { id: "trade", label: "Imports and exports" },
-  { id: "data", label: "Data" },
-];
+const VIEWS: ExplorerView[] = [...IMPORTS_VIEWS];
 
 /** Retired Dependency Dial → Resilience (ratio lives there; gross trade is its own tab). */
 const RETIRED_VIEWS: Record<string, string> = { dependency: "resilience" };
@@ -166,8 +161,8 @@ function initialViewFromParams(v: string | null): string {
 }
 
 export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { sync: writeUrl } = useEnergyNavigation("imports");
   const depRows = pack.dependency?.observations ?? [];
   const tradeRows = pack.trade?.observations ?? [];
   const icRows = pack.interconnectors?.observations ?? [];
@@ -232,11 +227,8 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
   // Rewrite retired ?view=dependency bookmarks onto Resilience.
   useEffect(() => {
     if (searchParams.get("view") !== "dependency") return;
-    const u = new URLSearchParams(window.location.search);
-    u.set("domain", "imports");
-    u.set("view", "resilience");
-    window.history.replaceState(null, "", `${pathname}?${u}`);
-  }, [pathname, searchParams]);
+    writeUrl({ view: "resilience" });
+  }, [searchParams, writeUrl]);
 
   const sync = useCallback(
     (
@@ -295,48 +287,21 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
       setListMode(nextList);
       setEventId(nextEvent);
 
-      const u = new URLSearchParams(window.location.search);
-      u.set("domain", "imports");
-      u.set("view", nextView);
-      u.set("year", String(nextYear));
-      u.set("basis", nextBasis);
-      u.set("fuel", nextFuel);
-      u.set("mode", nextMode);
-      // `flow` is view-scoped: lifelines partners vs connectors corridors.
-      u.set("flow", nextView === "connectors" ? nextIc : nextFlow);
-      if (nextPartner) u.set("partner", nextPartner);
-      else u.delete("partner");
-      if (nextView === "lifelines" && nextList !== "top") u.set("list", nextList);
-      else u.delete("list");
-      if (nextView === "shock" && nextEvent) u.set("event", nextEvent);
-      else u.delete("event");
-      for (const key of [
-        "measure",
-        "compare",
-        "from",
-        "to",
-        "sector",
-        "payment",
-        "tariff",
-        "band",
-        "useful",
-        "end_use",
-        "geo_sector",
-        "place",
-        "end_scope",
-        "cross_end",
-        "region",
-        "geo_measure",
-        "base",
-        "eff_end_use",
-        "bill_fuel",
-        "ic_flow",
-      ]) {
-        u.delete(key);
-      }
-      window.history.replaceState(null, "", `${pathname}?${u}`);
+      writeUrl({
+        view: nextView,
+        year: nextYear,
+        basis: nextBasis,
+        fuel: nextFuel,
+        mode: nextMode,
+        // `flow` is view-scoped: lifelines partners vs connectors corridors.
+        flow: nextView === "connectors" ? nextIc : nextFlow,
+        partner: nextPartner || null,
+        list: nextView === "lifelines" && nextList !== "top" ? nextList : null,
+        event: nextView === "shock" && nextEvent ? nextEvent : null,
+        ic_flow: null,
+      });
     },
-    [view, year, basis, icFlow, fuel, flow, mode, partner, listMode, eventId, pathname],
+    [view, year, basis, icFlow, fuel, flow, mode, partner, listMode, eventId, writeUrl],
   );
 
   const fossilYears = yearsOf(fossilRows.filter((r) => (r.notes ?? "").includes("basis=annual")));
