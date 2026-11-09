@@ -7,7 +7,7 @@
  * One Notes foot; chart titles use explorer stageTitle.
  */
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { RegionMap } from "../map";
@@ -365,7 +365,9 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
   );
   const geoPlaces = pack.geography?.places ?? [];
   const geoAuthorities = pack.geography?.authorities ?? [];
-  const laRanks = useMemo(() => {
+  // Plain compute (not useMemo): this block sits after an early return, and Hooks
+  // must not run conditionally — https://react.dev/reference/rules/rules-of-hooks
+  const laRanks = (() => {
     const q = placeQ.trim().toLowerCase();
     const ranked = authorityRankRows(
       geoAuthorities,
@@ -382,7 +384,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
       rows = ranked.filter((r) => regionCodeForAuthorityLabel(r.label, geoPlaces) === region);
     }
     return rows.slice(0, 20);
-  }, [geoAuthorities, geoPlaces, y, geoSector, popPack, intensityOn, placeQ, region]);
+  })();
   const selectedPlace = geoAuthorities.find((p) => p.code === place);
   const selectedPop = selectedPlace ? populationFor(popPack, selectedPlace.code, y) : null;
   const selectedKtoe = selectedPlace?.sectors[geoSector]?.[String(y)];

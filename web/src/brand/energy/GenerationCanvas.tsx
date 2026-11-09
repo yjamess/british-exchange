@@ -7,6 +7,7 @@
  */
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
   ChangeRows,
@@ -1131,9 +1132,9 @@ function DataStage({ observations, fuel }: { observations: Observation[]; fuel: 
           </table>
         </div>
         <p className={s.links}>
-          <a href="/api/data/electricity-generation-by-source">Download full CSV</a>
+          <Link href="/api/data/electricity-generation-by-source">Download full CSV</Link>
           {" · "}
-          <a href="/data?record=electricity-generation-by-source">Catalogue record</a>
+          <Link href="/data?record=electricity-generation-by-source">Catalogue record</Link>
         </p>
       </section>
     </div>
