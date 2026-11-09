@@ -57,7 +57,10 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://british-exchange.vercel.app",
     ],
+    # Preview deploys: https://british-exchange-….vercel.app
+    allow_origin_regex=r"https://british-exchange.*\.vercel\.app",
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["*"],

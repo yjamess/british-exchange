@@ -1,0 +1,6 @@
+# Railway deploy for the FastAPI observation API (not the Next.js app in web/).
+# Docs: https://docs.railway.com/deployments/start-command
+[deploy]
+startCommand = "uv run uvicorn britain_exchange.api:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
