@@ -2,12 +2,13 @@
 
 /**
  * English regions choropleth — Housing atlas instrument language (halftone bands,
- * pan/zoom, Signal selection), reusable across sectors.
+ * pan/zoom, ink selection), reusable across sectors.
  */
 
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { BandScreenDefs } from "./BandScreen";
-import { BAND_RADII, band } from "./model";
+import { MapLegend } from "./MapLegend";
+import { band, equalBreaks } from "./model";
 import s from "./map.module.css";
 import display from "./english-regions-display.json";
 
@@ -101,17 +102,6 @@ function RegionName({ lines, fontSize }: { lines: string[]; fontSize: number }) 
   );
 }
 
-/** Five equal bins across the observed values (same idea as the price map bands). */
-function valueBreaks(values: number[]): number[] {
-  if (values.length === 0) return [0, 1, 2, 3, 4, 5];
-  const sorted = [...values].sort((a, b) => a - b);
-  const lo = sorted[0]!;
-  const hi = sorted[sorted.length - 1]!;
-  if (hi <= lo) return [lo, lo, lo, lo, lo, lo];
-  const step = (hi - lo) / 6;
-  return Array.from({ length: 6 }, (_, i) => lo + step * (i + 1));
-}
-
 export function RegionMap({
   data,
   selected,
@@ -143,7 +133,7 @@ export function RegionMap({
 
   const byCode = useMemo(() => new Map(data.map((d) => [d.code, d])), [data]);
   const thresholds = useMemo(
-    () => valueBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
+    () => equalBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
     [data],
   );
   const bands = useMemo(
@@ -177,10 +167,6 @@ export function RegionMap({
   const hoverShape = hover ? REGION_SHAPES.find((sh) => sh.code === hover) : undefined;
   const selectShape = selected ? REGION_SHAPES.find((sh) => sh.code === selected) : undefined;
   const hoverData = hover ? byCode.get(hover) : undefined;
-
-  const legendVals = data.map((d) => d.value).filter((v): v is number => v != null);
-  const lo = legendVals.length ? Math.min(...legendVals) : 0;
-  const hi = legendVals.length ? Math.max(...legendVals) : 1;
 
   return (
     <div className={`${s.mapSurfaceRegion} ${size === "stage" ? s.mapSurfaceStage : ""}`}>
@@ -302,7 +288,7 @@ export function RegionMap({
               <path
                 d={selectShape.path}
                 fill="none"
-                stroke="var(--bo-signal)"
+                stroke="var(--bo-ink)"
                 strokeWidth="2"
                 vectorEffect="non-scaling-stroke"
               />
@@ -322,27 +308,7 @@ export function RegionMap({
         </g>
       </svg>
 
-      <div className={s.regionLegend}>
-        <span>{legendFormat(lo)}</span>
-        <svg className={s.regionRamp} aria-hidden="true">
-          <BandScreenDefs idPrefix={`${uid}-leg`} />
-          {BAND_RADII.map((_, i) => {
-            const gap = 1.2;
-            const width = (100 - gap * (BAND_RADII.length - 1)) / BAND_RADII.length;
-            return (
-              <rect
-                key={i}
-                x={`${i * (width + gap)}%`}
-                width={`${width}%`}
-                height="10"
-                fill={`url(#${uid}-leg-band-${i})`}
-              />
-            );
-          })}
-        </svg>
-        <span>{legendFormat(hi)}</span>
-        {legendUnit ? <span className={s.regionLegendUnit}>{legendUnit}</span> : null}
-      </div>
+      <MapLegend title={legendUnit} thresholds={thresholds} format={legendFormat} />
     </div>
   );
 }

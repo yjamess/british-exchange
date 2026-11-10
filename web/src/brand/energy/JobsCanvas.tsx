@@ -2,15 +2,17 @@
 
 /**
  * Energy Domain 09 — Jobs & Productivity.
- * Notion flagship = The Labour Landscape (place atlas) — Gate 3 until BRES Ready.
- * Study C interim: national Jobs vs Output ledger + Productivity Machine.
- * Jobs ≠ volume index ≠ output-per-hour — never one unmarked axis; never IoP÷jobs.
+ * Flagship: The Labour Landscape (national).
+ * Productivity machine: official per-hour / per-job + hours component.
+ * Regional employee jobs live on Manufacturing › Places (legacy `view=atlas` redirects there —
+ * see legacy-views.ts); this domain only keeps the regional table on Data.
+ * Never IoP÷jobs; employee jobs ≠ workforce jobs.
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
-import { TimeChart } from "../instrument/TimeChart";
+import { RankBars, TimeChart } from "../instrument/TimeChart";
 import {
   ControlRow,
   EmptyStage,
@@ -24,25 +26,48 @@ import {
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import {
+  ASHE_EARNINGS_ID,
   EMPLOYMENT_ID,
-  OUTPUT_INDEX_ID,
   OUTPUT_PER_HOUR_ID,
+  OUTPUT_PER_JOB_ID,
+  PAY_MEASURES,
+  PAY_SHEETS,
+  PRODUCTIVITY_HOURS_ID,
+  PRODUCTIVITY_MEASURES,
+  asheDivisionChangeRanks,
+  asheDivisionRanks,
+  ashePayRows,
+  asheSectionChange,
+  asheSectionMedian,
+  bresRankForYear,
+  bresYearsOf,
   employmentSeries,
   employmentYearMean,
+  fmtBresThousands,
+  fmtGbp,
   fmtIndex,
   fmtJobsThousands,
+  fmtPctChange,
   outputIndexSeries,
   outputIndexYearMean,
-  pctChange,
+  outputPerJobSeries,
+  outputPerJobYearMean,
+  productivityHoursSeries,
+  productivityHoursYearMean,
   productivitySeries,
   productivityYearMean,
+  completeMonthlyYears,
+  completeQuarterlyYears,
   yearsOf,
   type JobsPack,
+  type PayMeasure,
+  type PaySheet,
+  type ProductivityMeasure,
 } from "./jobs-model";
 import s from "./generation.module.css";
-
 import { INDUSTRIAL_WORK_VIEWS } from "./views";
 
 const VIEWS: ExplorerView[] = [...INDUSTRIAL_WORK_VIEWS];
@@ -53,184 +78,151 @@ function clampYear(n: number, years: number[], fallback: number): number {
   return years.reduce((best, y) => (Math.abs(y - n) < Math.abs(best - n) ? y : best), years[0]!);
 }
 
-function LandscapeLedger({
-  year,
-  jobs,
-  volume,
-  productivity,
-  firstYear,
-  jobsChange,
-  volumeChange,
-}: {
-  year: number;
-  jobs: number | null;
-  volume: number | null;
-  productivity: number | null;
-  firstYear: number;
-  jobsChange: number | null;
-  volumeChange: number | null;
-}) {
-  return (
-    <article className={s.ledger} aria-label={`Labour Landscape national card, ${year}`}>
-      <header className={s.ledgerHead}>
-        <p className={s.receiptMeta}>United Kingdom · SIC 2007 section C · Manufacturing</p>
-        <h3>The Labour Landscape</h3>
-        <p className={s.receiptMeta}>
-          {year} · Study C interim · national totals · place atlas deferred
-        </p>
-      </header>
-
-      <div className={s.ledgerGrid} style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
-        <div className={s.ledgerCell}>
-          <strong>Workforce jobs</strong>
-          <span className={s.receiptFig}>{jobs != null ? fmtJobsThousands(jobs) : "—"}</span>
-          <span>
-            Thousands · SA · mean of quarters
-            {jobsChange != null
-              ? ` · ${jobsChange > 0 ? "+" : jobsChange < 0 ? "−" : ""}${Math.abs(jobsChange).toFixed(0)}% since ${firstYear}`
-              : ""}
-          </span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Volume index</strong>
-          <span className={s.receiptFig}>{volume != null ? fmtIndex(volume) : "—"}</span>
-          <span>
-            Index of Production · mean of months
-            {volumeChange != null
-              ? ` · ${volumeChange > 0 ? "+" : volumeChange < 0 ? "−" : ""}${Math.abs(volumeChange).toFixed(0)}% since ${firstYear}`
-              : ""}
-          </span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Output per hour</strong>
-          <span className={s.receiptFig}>
-            {productivity != null ? fmtIndex(productivity) : "—"}
-          </span>
-          <span>Index 2023 = 100 · official series · not volume ÷ jobs</span>
-        </div>
-      </div>
-
-      <p className={s.receiptNote}>
-        Job losses do not prove output losses. Output gains do not prove job gains. Each measure has its
-        own unit and source. Notion flagship remains a place atlas once BRES × geography is Ready.
-      </p>
-    </article>
-  );
-}
-
-function FormulaPanel() {
-  return (
-    <article className={s.ledger} aria-label="Productivity formula diagram">
-      <header className={s.ledgerHead}>
-        <p className={s.receiptMeta}>Mechanical diagram · not a data chart</p>
-        <h3>How output per hour is defined</h3>
-      </header>
-      <div className={s.ledgerGrid} style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }}>
-        <div className={s.ledgerCell}>
-          <strong>Output</strong>
-          <span className={s.receiptFig}>GVA / volume</span>
-          <span>ONS productivity numerator</span>
-        </div>
-        <div className={s.ledgerCell} style={{ alignItems: "center", justifyContent: "center" }}>
-          <span className={s.receiptFig}>÷</span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Hours</strong>
-          <span className={s.receiptFig}>Hours worked</span>
-          <span>Hours worked · further detail in Gate 3</span>
-        </div>
-        <div className={s.ledgerCell} style={{ alignItems: "center", justifyContent: "center" }}>
-          <span className={s.receiptFig}>=</span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Output per hour</strong>
-          <span className={s.receiptFig}>Index</span>
-          <span>2023 = 100 · seasonally adjusted · series below</span>
-        </div>
-      </div>
-      <p className={s.receiptNote}>
-        This diagram explains the official concept. We do not invent hours from workforce jobs, and we do
-        not plot volume ÷ jobs as productivity. Whole-economy labour productivity sits in Economy.
-      </p>
-    </article>
-  );
-}
-
 export function JobsCanvas({ pack }: { pack: JobsPack }) {
   const searchParams = useSearchParams();
   const { sync: writeUrl } = useEnergyNavigation("industrial-work");
   const employmentRows = pack.employment?.observations ?? [];
   const outputRows = pack.output?.observations ?? [];
   const productivityRows = pack.productivity?.observations ?? [];
+  const perJobRows = pack.outputPerJob?.observations ?? [];
+  const hoursRows = pack.productivityHours?.observations ?? [];
+  const asheRows = pack.asheEarnings?.observations ?? [];
+  const bresRows = pack.bresByRegion?.observations ?? [];
 
   const jobsLine = employmentSeries(employmentRows);
   const outputSeries = outputIndexSeries(outputRows);
   const prodLine = productivitySeries(productivityRows);
+  const perJobLine = outputPerJobSeries(perJobRows);
+  const hoursLine = productivityHoursSeries(hoursRows);
 
-  const jobYears = yearsOf(employmentRows);
-  const outputYears = yearsOf(outputRows);
+  const jobYears = completeQuarterlyYears(employmentRows);
+  const outputYears = completeMonthlyYears(outputRows);
+  const bresYearsAll = useMemo(() => bresYearsOf(bresRows), [bresRows]);
   const yearUnion = [...new Set([...jobYears, ...outputYears])].sort((a, b) => a - b);
-  const latest = yearUnion.at(-1) ?? 2025;
-  const earliest = yearUnion[0] ?? 1997;
+  const latestNational = yearUnion.at(-1) ?? 2025;
 
-  const [view, setView] = useState(() =>
-    VIEWS.some((v) => v.id === searchParams.get("view"))
-      ? searchParams.get("view")!
-      : searchParams.get("view") === "jobs-output"
-        ? "landscape"
-        : "landscape",
+  const [view, setView] = useState(() => {
+    const v = searchParams.get("view");
+    if (v === "jobs-output") return "landscape";
+    return VIEWS.some((x) => x.id === v) ? v! : "landscape";
+  });
+  const [year, setYear] = useState(() => Number(searchParams.get("year") || latestNational));
+  const [measure, setMeasure] = useState<ProductivityMeasure>(() =>
+    PRODUCTIVITY_MEASURES.includes(searchParams.get("measure") as ProductivityMeasure)
+      ? (searchParams.get("measure") as ProductivityMeasure)
+      : "hour",
   );
-  const [year, setYear] = useState(() =>
-    clampYear(Number(searchParams.get("year") || latest), yearUnion.length ? yearUnion : [latest], latest),
+  const [payMeasure, setPayMeasure] = useState<PayMeasure>(() =>
+    PAY_MEASURES.includes(searchParams.get("pay_measure") as PayMeasure)
+      ? (searchParams.get("pay_measure") as PayMeasure)
+      : "weekly_gross",
+  );
+  const [paySheet, setPaySheet] = useState<PaySheet>(() =>
+    PAY_SHEETS.includes(searchParams.get("sheet") as PaySheet)
+      ? (searchParams.get("sheet") as PaySheet)
+      : "Full-Time",
   );
 
   const sync = useCallback(
-    (patch: Partial<{ view: string; year: number }>) => {
-      const next = { view, year, ...patch };
+    (
+      patch: Partial<{
+        view: string;
+        year: number;
+        measure: ProductivityMeasure;
+        pay_measure: PayMeasure;
+        sheet: PaySheet;
+      }>,
+    ) => {
+      const next = {
+        view,
+        year,
+        measure,
+        pay_measure: payMeasure,
+        sheet: paySheet,
+        ...patch,
+      };
       const nextView = next.view === "jobs-output" ? "landscape" : next.view;
       setView(nextView);
       setYear(next.year);
-      writeUrl({ view: nextView, year: next.year });
+      setMeasure(next.measure);
+      setPayMeasure(next.pay_measure);
+      setPaySheet(next.sheet);
+      writeUrl({
+        view: nextView,
+        year: nextView === "pay" ? null : next.year,
+        measure: nextView === "productivity" ? next.measure : null,
+        pay_measure: nextView === "pay" ? next.pay_measure : null,
+        sheet: nextView === "pay" ? next.sheet : null,
+      });
     },
-    [view, year, writeUrl],
+    [view, year, measure, payMeasure, paySheet, writeUrl],
   );
 
   const activeView = view === "jobs-output" ? "landscape" : view;
-  const y = clampYear(year, yearUnion.length ? yearUnion : [latest], latest);
+
+  const activeYears = yearUnion.length ? yearUnion : [latestNational];
+  const latest = latestNational;
+  const y = clampYear(year, activeYears, latest);
+
   const yearJobs = employmentYearMean(employmentRows, y);
   const yearOutput = outputIndexYearMean(outputRows, y);
   const yearProd = productivityYearMean(productivityRows, y);
-
-  const firstJobsYear = jobYears[0] ?? earliest;
-  const firstOutputYear = outputYears[0] ?? earliest;
-  const firstJobs = employmentYearMean(employmentRows, firstJobsYear);
-  const firstOutput = outputIndexYearMean(outputRows, firstOutputYear);
-  const jobsChange =
-    yearJobs != null && firstJobs != null ? pctChange(firstJobs, yearJobs) : null;
-  const volumeChange =
-    yearOutput != null && firstOutput != null ? pctChange(firstOutput, yearOutput) : null;
+  const yearPerJob = outputPerJobYearMean(perJobRows, y);
+  const yearHours = productivityHoursYearMean(hoursRows, y);
+  const activeProd = measure === "job" ? yearPerJob : yearProd;
 
   const jobsReady = Boolean(pack.employment?.observations.length);
   const outputReady = Boolean(pack.output?.observations.length);
   const prodReady = Boolean(pack.productivity?.observations.length);
+  const perJobReady = Boolean(pack.outputPerJob?.observations.length);
+  const hoursReady = Boolean(pack.productivityHours?.observations.length);
+  const asheReady = Boolean(pack.asheEarnings?.observations.length);
+  const bresReady = Boolean(pack.bresByRegion?.observations.length);
+
+  const payCut = useMemo(
+    () => ashePayRows(asheRows, payMeasure, paySheet),
+    [asheRows, payMeasure, paySheet],
+  );
+  const paySection = asheSectionMedian(payCut);
+  const paySectionCh = asheSectionChange(payCut);
+  const payRanks = useMemo(() => asheDivisionRanks(payCut), [payCut]);
+  const payChanges = useMemo(() => asheDivisionChangeRanks(payCut), [payCut]);
 
   const figures: ExplorerFigure[] =
-    activeView === "productivity"
+    activeView === "pay"
       ? [
           {
-            label: `${y} output per hour`,
-            value: yearProd != null ? fmtIndex(yearProd) : "—",
+            label: payMeasure === "hourly_ex_ot" ? "Manufacturing median hourly" : "Manufacturing median weekly",
+            value: paySection != null ? fmtGbp(paySection, payMeasure) : "—",
+            note: `${paySheet} · section C · cash pounds · 2025`,
+          },
+          {
+            label: "Year-on-year",
+            value: paySectionCh != null ? fmtPctChange(paySectionCh) : "—",
+            note: "Published annual percentage change",
+          },
+          {
+            label: "Branches shown",
+            value: String(payRanks.length || "—"),
+            note: "Industries with a published median",
+          },
+        ]
+      : activeView === "productivity"
+      ? [
+          {
+            label: measure === "job" ? `${y} output per job` : `${y} output per hour`,
+            value: activeProd != null ? fmtIndex(activeProd) : "—",
             note: "2023 = 100 · seasonally adjusted · mean of quarters",
+          },
+          {
+            label: `${y} hours index`,
+            value: yearHours != null ? fmtIndex(yearHours) : "—",
+            note: "Official productivity hours · not Workforce Jobs",
           },
           {
             label: `${y} workforce jobs`,
             value: yearJobs != null ? fmtJobsThousands(yearJobs) : "—",
-            note: "Context only · not the denominator",
-          },
-          {
-            label: "Formula",
-            value: "Official",
-            note: "Not volume ÷ jobs · not whole-economy",
+            note: "Context only · separate series",
           },
         ]
       : [
@@ -251,27 +243,73 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
           },
         ];
 
-  const yearOptions = (yearUnion.length ? yearUnion : [latest]).map((yy) => ({
-    value: String(yy),
-    label: String(yy),
-  }));
+  const yearOptions = activeYears.map((yy) => ({ value: String(yy), label: String(yy) }));
+
+  const dirty =
+    (activeView !== "pay" && y !== latest) ||
+    (activeView === "productivity" && measure !== "hour") ||
+    (activeView === "pay" && (payMeasure !== "weekly_gross" || paySheet !== "Full-Time"));
 
   return (
     <>
       <ExplorerHead views={VIEWS} view={activeView} onView={(id) => sync({ view: id })} />
-      {(activeView === "landscape" || activeView === "productivity") && (
-        <FigureStrip figures={figures} />
-      )}
+      {activeView !== "data" && <FigureStrip figures={figures} />}
 
       {activeView !== "data" && (
         <ControlRow>
-          <MenuControl
-            label="Year"
-            value={String(y)}
-            options={yearOptions}
-            onChange={(v) => sync({ year: Number(v) })}
-          />
-          <ResetButton onClick={() => sync({ year: latest })} />
+          {activeView === "productivity" && (
+            <MenuControl
+              label="Measure"
+              value={measure}
+              options={[
+                { value: "hour", label: "Output per hour" },
+                { value: "job", label: "Output per job" },
+              ]}
+              onChange={(v) => sync({ measure: v as ProductivityMeasure })}
+            />
+          )}
+          {activeView === "pay" && asheReady && (
+            <>
+              <MenuControl
+                label="Pay"
+                value={payMeasure}
+                options={[
+                  { value: "weekly_gross", label: "Weekly · gross" },
+                  { value: "hourly_ex_ot", label: "Hourly · excluding overtime" },
+                ]}
+                onChange={(v) => sync({ pay_measure: v as PayMeasure })}
+              />
+              <MenuControl
+                label="Employees"
+                value={paySheet}
+                options={[
+                  { value: "Full-Time", label: "Full-time" },
+                  { value: "All", label: "All employees" },
+                ]}
+                onChange={(v) => sync({ sheet: v as PaySheet })}
+              />
+            </>
+          )}
+          {activeView !== "pay" ? (
+            <MenuControl
+              label="Year"
+              value={String(y)}
+              options={yearOptions}
+              onChange={(v) => sync({ year: Number(v) })}
+            />
+          ) : null}
+          {dirty ? (
+            <ResetButton
+              onClick={() =>
+                sync({
+                  year: latest,
+                  measure: "hour",
+                  pay_measure: "weekly_gross",
+                  sheet: "Full-Time",
+                })
+              }
+            />
+          ) : null}
         </ControlRow>
       )}
 
@@ -280,106 +318,368 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
           activeView === "data"
             ? "Data · Jobs & Productivity"
             : activeView === "productivity"
-              ? `Productivity Machine · ${y}`
-              : `The Labour Landscape · ${y}`
+              ? `Productivity machine · ${y}`
+              : activeView === "pay"
+                ? `Manufacturing pay · 2025 · ${paySheet === "Full-Time" ? "full-time" : "all employees"}`
+                : `The labour landscape · ${y}`
         }
         meta={
           activeView === "productivity"
-            ? "Official output per hour · formula diagram · not volume ÷ jobs"
-            : activeView === "data"
-              ? "Ready series · ONS · place atlas deferred"
-              : "UK · section C · Study C interim · national totals"
+            ? measure === "job"
+              ? "Official output per job · hours component · not output divided by jobs"
+              : "Official output per hour · hours component · not output divided by jobs"
+            : activeView === "pay"
+              ? payMeasure === "hourly_ex_ot"
+                ? "UK · median hourly pay excluding overtime · cash pounds"
+                : "UK · median weekly gross pay · cash pounds"
+              : activeView === "data"
+                ? "Observation tables · ONS"
+                : "UK · manufacturing · jobs · volume · productivity"
+        }
+        follow={
+          <EnergyStageFollow
+            domain="industrial-work"
+            view={activeView}
+            selection={{ year: y }}
+            label={`Jobs · ${activeView}`}
+          />
         }
         foot={
           <FigureRecord
             source={
               activeView === "productivity"
                 ? ENERGY_SOURCE.jobsProductivity
-                : ENERGY_SOURCE.jobsLandscape
+                : activeView === "pay"
+                  ? ENERGY_SOURCE.jobsPay
+                  : ENERGY_SOURCE.jobsLandscape
             }
             definition={
               activeView === "productivity"
                 ? [
-                    "Productivity Machine: official manufacturing output-per-hour index with a labelled formula diagram.",
+                    "Productivity machine: official manufacturing output-per-hour or output-per-job index, with the published hours component.",
                     "Hours worked are not reconstructed from workforce jobs. Whole-economy labour productivity sits in Economy.",
                   ]
-                : activeView === "data"
-                  ? "Catalogue records for Ready Domain 09 national series (shared with Manufacturing)."
-                  : [
-                      "Study C interim for The Labour Landscape — national Jobs vs Output until regional employment geography is Ready.",
-                      "Jobs and volume stay on separate charts. A falling jobs line beside a rising volume line is a comparison, not a causal story.",
-                    ]
+                : activeView === "pay"
+                    ? [
+                        "ASHE median earnings for manufacturing as a whole and by two-digit industry — cash pounds for one April pay period.",
+                        "Median is the preferred average. Full-time and all-employee figures are different populations.",
+                      ]
+                  : activeView === "data"
+                    ? [
+                        "Tables for manufacturing workforce jobs, volume, productivity indexes, hours, pay and regional employee jobs.",
+                      ]
+                    : [
+                        "National manufacturing jobs set beside volume and output per hour — three separate ONS series.",
+                        "Place ranks live on Manufacturing › Places. Job losses do not prove output losses.",
+                      ]
             }
             method={
               activeView === "productivity"
                 ? [
-                    "ONS manufacturing output per hour: quarterly index (2023 = 100, seasonally adjusted); year figure = mean of quarters.",
-                    "Formula panel is explanatory only — not a plotted hours series.",
+                    "ONS PRDY: quarterly indexes (2023 = 100, seasonally adjusted); year figure = mean of quarters.",
+                    "Output per hour is published directly by ONS, not derived as volume ÷ jobs; the hours chart is the official DK3V index, not Workforce Jobs.",
                   ]
-                : activeView === "data"
-                  ? [
-                      "Open each catalogue record for definition, caveats, download and release provenance.",
-                      "Employment Atlas, Industrial Lives and ASHE earnings remain Gate 3 — Domain 09 is not complete.",
-                    ]
-                  : [
-                      "Jobs: ONS workforce jobs, quarterly seasonally adjusted thousands; year = mean of quarters. Volume: Index of Production, monthly; year = mean of months.",
-                      "Productivity: official ONS output-per-hour series — never Index of Production divided by jobs. National manufacturing section only; no place marks.",
-                    ]
+                : activeView === "pay"
+                    ? [
+                        "ONS ASHE Table 4 (2025 revised). Weekly = gross; hourly = excluding overtime. Year-on-year is the annual percentage change as ONS publishes it; prior-year pounds are not published in this pin and are not back-calculated.",
+                        "Suppressed industries are omitted. This pin is one year — not a long cash time series. Real pounds would need Economy CPIH and a clear label.",
+                      ]
+                  : activeView === "data"
+                    ? [
+                        "Year figures for quarterly series are means of quarters; volume uses means of months.",
+                        "Regional jobs: Table 4 for all manufacturing; Nomis for division × region. Pay: ASHE Table 4 medians.",
+                      ]
+                    : [
+                        "Jobs: ONS workforce jobs, quarterly seasonally adjusted thousands; year = mean of quarters. Volume: Index of Production, monthly; year = mean of months.",
+                        "Productivity: official ONS output-per-hour series — never Index of Production divided by jobs.",
+                      ]
             }
             dataHref={
               activeView === "data"
                 ? "/data"
                 : activeView === "productivity"
-                  ? `/data?record=${OUTPUT_PER_HOUR_ID}`
-                  : `/data?record=${EMPLOYMENT_ID}`
+                  ? measure === "job"
+                    ? `/data?record=${OUTPUT_PER_JOB_ID}`
+                    : `/data?record=${OUTPUT_PER_HOUR_ID}`
+                  : activeView === "pay"
+                    ? `/data?record=${ASHE_EARNINGS_ID}`
+                    : `/data?record=${EMPLOYMENT_ID}`
             }
           />
         }
       >
         {activeView === "data" ? (
-          <div className={s.stack}>
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>Catalogue records</h3>
-              <ul className={s.follow}>
-                <li>
-                  <a href={`/data?record=${EMPLOYMENT_ID}`}>Manufacturing employment</a>
-                  <span>
-                    ONS workforce jobs · quarterly thousands · seasonally adjusted
-                  </span>
-                </li>
-                <li>
-                  <a href={`/data?record=${OUTPUT_INDEX_ID}`}>Manufacturing output index</a>
-                  <span>
-                    ONS Index of Production · Jobs vs Output pairing · monthly volume index
-                  </span>
-                </li>
-                <li>
-                  <a href={`/data?record=${OUTPUT_PER_HOUR_ID}`}>Manufacturing output per hour</a>
-                  <span>
-                    ONS labour productivity · quarterly index · 2023 = 100 · seasonally adjusted
-                  </span>
-                </li>
-              </ul>
-              <p className={s.links}>
-                Employment Atlas, Industrial Lives, ASHE earnings and hours components remain Gate 3 —
-                Domain 09 is not complete. History long-run employment is a catalogue link only — never
-                forked here.
-              </p>
-            </section>
-          </div>
+          !jobsReady && !outputReady && !prodReady && !bresReady && !asheReady ? (
+            <EmptyStage label="Jobs series unavailable">
+              Manufacturing employment figures are not available right now.
+            </EmptyStage>
+          ) : (
+            <div className={s.stack}>
+              {jobsReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>Workforce jobs · thousands · seasonally adjusted · year means</p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Jobs</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {jobYears.map((yy) => {
+                          const v = employmentYearMean(employmentRows, yy);
+                          return (
+                            <tr key={yy}>
+                              <th scope="row">{yy}</th>
+                              <td>{v != null ? fmtJobsThousands(v) : "—"}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {outputReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>Volume index · year means</p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Index</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {outputYears.map((yy) => {
+                          const v = outputIndexYearMean(outputRows, yy);
+                          return (
+                            <tr key={yy}>
+                              <th scope="row">{yy}</th>
+                              <td>{v != null ? fmtIndex(v) : "—"}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {prodReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>Output per hour · 2023 = 100 · year means</p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Index</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {yearsOf(productivityRows).map((yy) => {
+                          const v = productivityYearMean(productivityRows, yy);
+                          return (
+                            <tr key={yy}>
+                              <th scope="row">{yy}</th>
+                              <td>{v != null ? fmtIndex(v) : "—"}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {perJobReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>Output per job · 2023 = 100 · year means</p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Index</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {yearsOf(perJobRows).map((yy) => {
+                          const v = outputPerJobYearMean(perJobRows, yy);
+                          return (
+                            <tr key={yy}>
+                              <th scope="row">{yy}</th>
+                              <td>{v != null ? fmtIndex(v) : "—"}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {hoursReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>Productivity hours · 2023 = 100 · year means</p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Year</th>
+                          <th scope="col">Index</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {yearsOf(hoursRows).map((yy) => {
+                          const v = productivityHoursYearMean(hoursRows, yy);
+                          return (
+                            <tr key={yy}>
+                              <th scope="row">{yy}</th>
+                              <td>{v != null ? fmtIndex(v) : "—"}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {bresReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>
+                    Employee jobs by region · thousands ·{" "}
+                    {bresYearsAll.includes(y) ? y : (bresYearsAll.at(-1) ?? y)}
+                  </p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Region</th>
+                          <th scope="col">Jobs</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {bresRankForYear(
+                          bresRows,
+                          bresYearsAll.includes(y) ? y : (bresYearsAll.at(-1) ?? y),
+                        ).map((r) => (
+                          <tr key={r.id}>
+                            <th scope="row">{r.label}</th>
+                            <td>{fmtBresThousands(r.v)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              {asheReady ? (
+                <div className={t.tableGroup}>
+                  <p className={t.stageTitle}>
+                    Median pay · full-time · weekly gross · 2025
+                  </p>
+                  <div className={t.tableWrap}>
+                    <table className={t.table}>
+                      <thead>
+                        <tr>
+                          <th scope="col">Industry code</th>
+                          <th scope="col">Industry</th>
+                          <th scope="col">Median £</th>
+                          <th scope="col">Year-on-year</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {ashePayRows(asheRows, "weekly_gross", "Full-Time").map((r) => (
+                          <tr key={r.sic}>
+                            <th scope="row">{r.sic}</th>
+                            <td>{r.label}</td>
+                            <td>{fmtGbp(r.median, "weekly_gross")}</td>
+                            <td>
+                              {r.annualPctChange != null ? fmtPctChange(r.annualPctChange) : "—"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )
+        ) : activeView === "pay" ? (
+          !asheReady || payCut.length === 0 ? (
+            <EmptyStage label="Manufacturing pay unavailable">
+              Manufacturing earnings figures are not available right now.
+            </EmptyStage>
+          ) : (
+            <div className={s.stack}>
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  Median pay by manufacturing branch ·{" "}
+                  {payMeasure === "hourly_ex_ot" ? "hourly" : "weekly"} · 2025
+                </h3>
+                {payRanks.length === 0 ? (
+                  <EmptyStage label="No branch medians for this cut">
+                    Try Full-time or another pay measure.
+                  </EmptyStage>
+                ) : (
+                  <RankBars
+                    label={
+                      payMeasure === "hourly_ex_ot"
+                        ? `Median hourly pay · ${paySheet} · 2025`
+                        : `Median weekly pay · ${paySheet} · 2025`
+                    }
+                    rows={payRanks}
+                    format={(v) => fmtGbp(v, payMeasure)}
+                  />
+                )}
+              </section>
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  Year-on-year change in the median · published %
+                </h3>
+                {payChanges.length === 0 ? (
+                  <EmptyStage label="No published annual changes">
+                    Suppressed or missing percentage changes for this cut.
+                  </EmptyStage>
+                ) : (
+                  <RankBars
+                    label={`Median pay · annual change · ${paySheet} · 2025`}
+                    rows={payChanges}
+                    format={fmtPctChange}
+                  />
+                )}
+              </section>
+            </div>
+          )
         ) : activeView === "productivity" ? (
           <div className={s.stack}>
             <section className={s.panel}>
-              <FormulaPanel />
-            </section>
-            <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Output per hour · {yearsOf(productivityRows)[0] ?? "—"}–
-                {yearsOf(productivityRows).at(-1) ?? "—"}
+                {measure === "job" ? "Output per job" : "Output per hour"} ·{" "}
+                {measure === "job"
+                  ? `${yearsOf(perJobRows)[0] ?? "—"}–${yearsOf(perJobRows).at(-1) ?? "—"}`
+                  : `${yearsOf(productivityRows)[0] ?? "—"}–${yearsOf(productivityRows).at(-1) ?? "—"}`}
               </h3>
-              {!prodReady || prodLine.points.length === 0 ? (
+              {measure === "job" ? (
+                !perJobReady || perJobLine.points.length === 0 ? (
+                  <EmptyStage label="Output per job unavailable">
+                    Manufacturing output per job is not available right now.
+                  </EmptyStage>
+                ) : (
+                  <TimeChart
+                    label="Manufacturing output per job"
+                    series={[perJobLine]}
+                    cadence="quarterly"
+                    kind="line"
+                    format={(v) => fmtIndex(v)}
+                    rules={[{ id: "year", t: y, label: String(y), active: true }]}
+                  />
+                )
+              ) : !prodReady || prodLine.points.length === 0 ? (
                 <EmptyStage label="Productivity series unavailable">
-                  Load <code>{OUTPUT_PER_HOUR_ID}</code>.
+                  Manufacturing output per hour is not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -391,68 +691,41 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
                 />
               )}
-              <p className={s.links}>
-                Index 2023 = 100, seasonally adjusted. Distinct from Economy whole-economy productivity. See{" "}
-                <a href={`/data?record=${OUTPUT_PER_HOUR_ID}`}>Output per hour</a>.
-              </p>
             </section>
             <section className={s.panel}>
-              <h3 className={t.stageTitle}>Exact figures · {y}</h3>
-              <table className={s.table}>
-                <thead>
-                  <tr>
-                    <th>Measure</th>
-                    <th>Value</th>
-                    <th>Unit</th>
-                    <th>Source</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Output per hour</td>
-                    <td>{yearProd != null ? fmtIndex(yearProd) : "—"}</td>
-                    <td>index 2023=100</td>
-                    <td>
-                      <a href={`/data?record=${OUTPUT_PER_HOUR_ID}`}>Output per hour</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Workforce jobs (context)</td>
-                    <td>{yearJobs != null ? fmtJobsThousands(yearJobs) : "—"}</td>
-                    <td>thousands</td>
-                    <td>
-                      <a href={`/data?record=${EMPLOYMENT_ID}`}>Manufacturing employment</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <h3 className={t.stageTitle}>
+                Hours · productivity hours index ·{" "}
+                {yearsOf(hoursRows)[0] ?? "—"}–{yearsOf(hoursRows).at(-1) ?? "—"}
+              </h3>
+              {!hoursReady || hoursLine.points.length === 0 ? (
+                <EmptyStage label="Hours series unavailable">
+                  Manufacturing productivity hours are not available right now.
+                </EmptyStage>
+              ) : (
+                <TimeChart
+                  label="Manufacturing productivity hours"
+                  series={[hoursLine]}
+                  cadence="quarterly"
+                  kind="line"
+                  format={(v) => fmtIndex(v)}
+                  rules={[{ id: "year", t: y, label: String(y), active: true }]}
+                />
+              )}
             </section>
           </div>
         ) : !jobsReady && !outputReady ? (
           <EmptyStage label="Jobs series unavailable">
-            Load Ready <code>{EMPLOYMENT_ID}</code> and <code>{OUTPUT_INDEX_ID}</code>.
+            Manufacturing employment and output figures are not available right now.
           </EmptyStage>
         ) : (
           <div className={s.stack}>
             <section className={s.panel}>
-              <LandscapeLedger
-                year={y}
-                jobs={yearJobs}
-                volume={yearOutput}
-                productivity={yearProd}
-                firstYear={Math.min(firstJobsYear, firstOutputYear)}
-                jobsChange={jobsChange}
-                volumeChange={volumeChange}
-              />
-            </section>
-
-            <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Jobs · thousands · SA · {jobYears[0] ?? "—"}–{jobYears.at(-1) ?? "—"}
+                Jobs · thousands · seasonally adjusted · {jobYears[0] ?? "—"}–{jobYears.at(-1) ?? "—"}
               </h3>
               {!jobsReady || jobsLine.points.length === 0 ? (
                 <EmptyStage label="Employment series unavailable">
-                  Load <code>{EMPLOYMENT_ID}</code>.
+                  Manufacturing employment is not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -468,15 +741,15 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
 
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Volume · Index of Production · {outputYears[0] ?? "—"}–{outputYears.at(-1) ?? "—"}
+                Output · production index · {outputYears[0] ?? "—"}–{outputYears.at(-1) ?? "—"}
               </h3>
               {!outputReady || outputSeries.points.length === 0 ? (
                 <EmptyStage label="Output index unavailable">
-                  Load <code>{OUTPUT_INDEX_ID}</code>.
+                  Manufacturing output is not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label="Manufacturing output index (IoP C)"
+                  label="Manufacturing output index"
                   series={[outputSeries]}
                   cadence="monthly"
                   kind="line"
@@ -484,60 +757,7 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
                 />
               )}
-              <p className={s.links}>
-                Separate axes on purpose. Quarterly jobs vs monthly volume — disclosed frequency difference.
-                Productivity lives on{" "}
-                <a href={`/energy?domain=industrial-work&view=productivity&year=${y}`}>
-                  Productivity Machine
-                </a>
-                .
-              </p>
             </section>
-
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>Exact figures · {y}</h3>
-              <table className={s.table}>
-                <thead>
-                  <tr>
-                    <th>Measure</th>
-                    <th>Value</th>
-                    <th>Unit</th>
-                    <th>Source</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Workforce jobs</td>
-                    <td>{yearJobs != null ? fmtJobsThousands(yearJobs) : "—"}</td>
-                    <td>thousands</td>
-                    <td>
-                      <a href={`/data?record=${EMPLOYMENT_ID}`}>Manufacturing employment</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Volume index</td>
-                    <td>{yearOutput != null ? fmtIndex(yearOutput) : "—"}</td>
-                    <td>index</td>
-                    <td>
-                      <a href={`/data?record=${OUTPUT_INDEX_ID}`}>Manufacturing output index</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Output per hour</td>
-                    <td>{yearProd != null ? fmtIndex(yearProd) : "—"}</td>
-                    <td>index 2023=100</td>
-                    <td>
-                      <a href={`/data?record=${OUTPUT_PER_HOUR_ID}`}>Output per hour</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
-
-            {!prodReady ? (
-              <p className={s.links}>Output per hour not loaded — Productivity Machine will be empty.</p>
-            ) : null}
-
           </div>
         )}
       </Stage>

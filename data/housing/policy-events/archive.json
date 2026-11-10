@@ -612,30 +612,6 @@
         "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
       },
       "image_url": null
-    },
-    {
-      "id": "la-roehampton-does-it-work-survey",
-      "title": "Roehampton: Does it Work? by I.P. Cowley and results of survey of residents of West Alton Estate",
-      "holder": "London Archives",
-      "reference": "ACC/2201/L1/4/30",
-      "date_label": "n.d",
-      "date_start": null,
-      "date_end": null,
-      "kind": "report",
-      "description": "Report by I.P. Cowley with the results of a survey of residents of the Alton West Estate, Roehampton.",
-      "url": "https://discovery.nationalarchives.gov.uk/details/r/ab1c41bd-cda5-4190-9c56-cfc62b6aef8d",
-      "linked_event_ids": [],
-      "topics": [
-        "council-housing",
-        "high-rise"
-      ],
-      "rights": {
-        "status": "unknown",
-        "licence_url": null,
-        "can_reproduce": false,
-        "note": "Catalogue record read through the Discovery records API (held by The London Archives: City of London); no rights for the item stated."
-      },
-      "image_url": null
     }
   ]
 }

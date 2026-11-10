@@ -1,17 +1,23 @@
 "use client";
 
 /**
- * Ages: one chart at a time. The breakdown sits inside the figure.
- * The domain Data tab lists the series. The numbers for this chart sit under it.
+ * Ages: one chart at a time. Breakdown control lives in HousingExplorer.
+ * Exact values stay under the figure in a closed disclosure.
  */
 
-import { ControlRow, MenuControl, explorerClasses as t } from "../../..";
+import { EmptyStage, explorerClasses as t } from "../../..";
 import { ChangeRows, RankBars } from "../../../instrument/TimeChart";
 import type { EhsHousingCostsByAge, EhsMortgageByAge } from "../../load";
-import x from "../explorer.module.css";
+import gen from "../../../energy/generation.module.css";
 import s from "./affordability.module.css";
 
 export type AgesDisplay = "share" | "place" | "mortgage" | "data";
+
+export const AGES_BREAKDOWN_OPTIONS: { value: "share" | "place" | "mortgage"; label: string }[] = [
+  { value: "share", label: "Income share" },
+  { value: "place", label: "Private rent" },
+  { value: "mortgage", label: "Mortgage" },
+];
 
 const AGE_LABEL: Record<string, string> = {
   "16 to 24": "16–24",
@@ -24,68 +30,71 @@ const AGE_LABEL: Record<string, string> = {
   all: "All ages",
 };
 
-const pct = (value: number | null) =>
-  value == null ? "—" : `${value.toFixed(1)}%`;
+const pct = (value: number | null) => (value == null ? "—" : `${value.toFixed(1)}%`);
 const whole = (value: number | null) =>
   value == null ? "—" : value.toLocaleString("en-GB");
 
-const READING: Record<AgesDisplay, string> = {
+const READING: Record<"share" | "place" | "mortgage", string> = {
   share:
     "Mean share of gross household income spent on the mortgage or the rent, for households in England that pay one. The open square is 2014–15 and the solid square is 2024–25. The survey publishes ages 16–34 and 65 or over.",
   place:
     "Mean private rent as a share of income for households aged 16–34, in London, in England, and in the rest of England.",
   mortgage:
     "Mortgage payment as a share of household income for owners buying with a mortgage. This series includes ages 35–64. Ages 16–24 rest on a small sample.",
-  data: "A mean is the average share and a median is the middle household. The first table is every household paying rent or a mortgage. The second is owners buying with a mortgage, and it includes ages 35–64.",
 };
 
-export function agesReading(display: AgesDisplay): string {
-  return READING[display];
+export function agesFoot(display: AgesDisplay): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  const key = display === "data" ? "share" : display;
+  return {
+    definition: READING[key],
+    method: [
+      "A mean is the average share and a median is the middle household.",
+      key === "mortgage"
+        ? "The mortgage table includes ages 35–64; the income-share chart does not always."
+        : "The exact values for every age band sit in the closed table under the chart.",
+    ],
+    source:
+      key === "mortgage"
+        ? "MHCLG · English Housing Survey · mortgage payment by age · England"
+        : "MHCLG · English Housing Survey · housing costs by age · England",
+    dataHref: key === "mortgage" ? "/data#ehs-mortgage-by-age" : "/data#ehs-housing-costs-by-age",
+  };
 }
 
 export function AgesView({
   display,
   costs,
   mortgage,
-  onBreakdown,
 }: {
   display: AgesDisplay;
   costs: EhsHousingCostsByAge | null;
   mortgage: EhsMortgageByAge | null;
-  /** Income share, private rent, or mortgage. Data is the domain tab, not a choice here. */
-  onBreakdown?: (value: "share" | "place" | "mortgage") => void;
 }) {
   const latestMortgage = mortgage?.years.at(-1);
-  // Older links used ages=data. That table now sits under the figure, open.
   const breakdown = display === "data" ? "share" : display;
   const rows = latestMortgage?.rows ?? [];
   return (
-    <div className={s.ages}>
-      <ControlRow label="Ages breakdown">
-        <MenuControl
-          label="Breakdown"
-          value={breakdown}
-          options={[
-            { value: "share", label: "Income share" },
-            { value: "place", label: "Private rent" },
-            { value: "mortgage", label: "Mortgage" },
-          ]}
-          onChange={(value) => onBreakdown?.(value)}
-        />
-      </ControlRow>
-      {breakdown === "share" && <ShareChart costs={costs} />}
-      {breakdown === "place" && <PlaceChart costs={costs} />}
-      {breakdown === "mortgage" && <MortgageChart mortgage={mortgage} />}
-      <details
-        className={s.agesTable}
-        {...(display === "data" ? { open: true } : {})}
-      >
+    <div className={gen.stack}>
+      <section className={gen.panel}>
+        <h3 className={t.stageTitle}>
+          {breakdown === "share"
+            ? "Income share by age · England"
+            : breakdown === "place"
+              ? "Private rent · ages 16–34"
+              : "Mortgage payment by age · England"}
+        </h3>
+        {breakdown === "share" && <ShareChart costs={costs} />}
+        {breakdown === "place" && <PlaceChart costs={costs} />}
+        {breakdown === "mortgage" && <MortgageChart mortgage={mortgage} />}
+      </section>
+      <details className={s.agesTable} {...(display === "data" ? { open: true } : {})}>
         <summary className="bo-disclosure">All ages as a table</summary>
-        <DataTables
-          costs={costs}
-          latestYear={latestMortgage?.year}
-          rows={rows}
-        />
+        <DataTables costs={costs} latestYear={latestMortgage?.year} rows={rows} />
       </details>
     </div>
   );
@@ -111,12 +120,11 @@ function ShareChart({ costs }: { costs: EhsHousingCostsByAge | null }) {
       });
     }) ?? [];
   rows.sort((a, b) => b.to - a.to);
-  if (!costs || rows.length === 0)
+  if (!costs || rows.length === 0) {
     return (
-      <p className={x.pricePaidLead}>
-        The age-cohort tables are not loaded on this copy.
-      </p>
+      <EmptyStage label="In preparation">The age-cohort tables are not loaded. No estimated figures.</EmptyStage>
     );
+  }
   return (
     <ChangeRows
       label={`Mean housing cost as a share of gross household income, England, ${costs.earlierYear} and ${costs.latestYear}`}
@@ -138,20 +146,13 @@ function PlaceChart({ costs }: { costs: EhsHousingCostsByAge | null }) {
   const rows = [
     { id: "london", label: "London", v: mean("London") },
     { id: "england", label: "England", v: mean("all households") },
-    {
-      id: "rest",
-      label: "Rest of England",
-      v: mean("England excluding London"),
-    },
-  ].flatMap((row) =>
-    row.v == null ? [] : [{ id: row.id, label: row.label, v: row.v }],
-  );
-  if (!costs || rows.length === 0)
+    { id: "rest", label: "Rest of England", v: mean("England excluding London") },
+  ].flatMap((row) => (row.v == null ? [] : [{ id: row.id, label: row.label, v: row.v }]));
+  if (!costs || rows.length === 0) {
     return (
-      <p className={x.pricePaidLead}>
-        The private-rent rows are not loaded on this copy.
-      </p>
+      <EmptyStage label="In preparation">The private-rent rows are not loaded. No estimated figures.</EmptyStage>
     );
+  }
   return (
     <RankBars
       label={`Mean private rent as a share of income, ages 16 to 34, ${costs.latestYear}`}
@@ -166,20 +167,13 @@ function MortgageChart({ mortgage }: { mortgage: EhsMortgageByAge | null }) {
   const rows = (latest?.rows ?? []).flatMap((row) =>
     row.incomeRatio == null
       ? []
-      : [
-          {
-            id: row.age,
-            label: AGE_LABEL[row.age] ?? row.age,
-            v: row.incomeRatio,
-          },
-        ],
+      : [{ id: row.age, label: AGE_LABEL[row.age] ?? row.age, v: row.incomeRatio }],
   );
-  if (!latest || rows.length === 0)
+  if (!latest || rows.length === 0) {
     return (
-      <p className={x.pricePaidLead}>
-        The mortgage age table is not loaded on this copy.
-      </p>
+      <EmptyStage label="In preparation">The mortgage age table is not loaded. No estimated figures.</EmptyStage>
     );
+  }
   return (
     <RankBars
       label={`Mortgage payment as a share of household income by age, England, ${latest.year}`}
@@ -201,77 +195,64 @@ function DataTables({
   return (
     <div className={s.agesData}>
       {costs && (
-        <div className={x.tableSlot}>
-          <div className={t.tableWrap}>
-            <table
-              className={t.table}
-              aria-label={`Housing cost as a share of income, England, ${costs.earlierYear} and ${costs.latestYear}`}
-            >
-              <thead>
-                <tr>
-                  <th scope="col">Age</th>
-                  <th scope="col">Housing cost</th>
-                  <th scope="col">Mean {costs.latestYear}</th>
-                  <th scope="col">Median {costs.latestYear}</th>
-                  <th scope="col">Mean {costs.earlierYear}</th>
-                  <th scope="col">Sample {costs.latestYear}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {costs.cohorts.flatMap((cohort) => {
-                  const england = cohort.rows.find(
-                    (row) => row.place === "all households",
-                  );
-                  if (!england) return [];
-                  return england.tenures.map((tenure) => (
-                    <tr key={`${cohort.age}-${tenure.id}`}>
-                      <th scope="row">{AGE_LABEL[cohort.age] ?? cohort.age}</th>
-                      <td>{tenure.label}</td>
-                      <td>{pct(tenure.latest.mean)}</td>
-                      <td>{pct(tenure.latest.median)}</td>
-                      <td>{pct(tenure.earlier.mean)}</td>
-                      <td>{whole(tenure.latest.sample)}</td>
-                    </tr>
-                  ));
-                })}
-              </tbody>
-            </table>
-          </div>
+        <div className={t.tableWrap}>
+          <table
+            className={t.table}
+            aria-label={`Housing cost as a share of income, England, ${costs.earlierYear} and ${costs.latestYear}`}
+          >
+            <thead>
+              <tr>
+                <th scope="col">Age</th>
+                <th scope="col">Housing cost</th>
+                <th scope="col">Mean {costs.latestYear}</th>
+                <th scope="col">Median {costs.latestYear}</th>
+                <th scope="col">Mean {costs.earlierYear}</th>
+                <th scope="col">Sample {costs.latestYear}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {costs.cohorts.flatMap((cohort) => {
+                const england = cohort.rows.find((row) => row.place === "all households");
+                if (!england) return [];
+                return england.tenures.map((tenure) => (
+                  <tr key={`${cohort.age}-${tenure.id}`}>
+                    <th scope="row">{AGE_LABEL[cohort.age] ?? cohort.age}</th>
+                    <td>{tenure.label}</td>
+                    <td>{pct(tenure.latest.mean)}</td>
+                    <td>{pct(tenure.latest.median)}</td>
+                    <td>{pct(tenure.earlier.mean)}</td>
+                    <td>{whole(tenure.latest.sample)}</td>
+                  </tr>
+                ));
+              })}
+            </tbody>
+          </table>
         </div>
       )}
       {rows.length > 0 && (
-        <div className={x.tableSlot}>
-          <div className={t.tableWrap}>
-            <table
-              className={t.table}
-              aria-label={`Mortgage payment by age, England, ${latestYear}`}
-            >
-              <thead>
-                <tr>
-                  <th scope="col">Age</th>
-                  <th scope="col">Mortgage as % of income</th>
-                  <th scope="col">Mean payment · £ / week</th>
-                  <th scope="col">Households · thousands</th>
-                  <th scope="col">Sample</th>
+        <div className={t.tableWrap}>
+          <table className={t.table} aria-label={`Mortgage payment by age, England, ${latestYear}`}>
+            <thead>
+              <tr>
+                <th scope="col">Age</th>
+                <th scope="col">Mortgage as % of income</th>
+                <th scope="col">Mean payment · £ / week</th>
+                <th scope="col">Households · thousands</th>
+                <th scope="col">Sample</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.age}>
+                  <th scope="row">{AGE_LABEL[row.age] ?? row.age}</th>
+                  <td>{row.incomeRatio == null ? "—" : `${row.incomeRatio.toFixed(0)}%`}</td>
+                  <td>{whole(row.meanWeekly)}</td>
+                  <td>{whole(row.householdsThousands)}</td>
+                  <td>{whole(row.sample)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.age}>
-                    <th scope="row">{AGE_LABEL[row.age] ?? row.age}</th>
-                    <td>
-                      {row.incomeRatio == null
-                        ? "—"
-                        : `${row.incomeRatio.toFixed(0)}%`}
-                    </td>
-                    <td>{whole(row.meanWeekly)}</td>
-                    <td>{whole(row.householdsThousands)}</td>
-                    <td>{whole(row.sample)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

@@ -35,7 +35,7 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
   const data = useMemo(() => appetiteData(rows, lens, scope), [rows, lens, scope]);
 
   if (!data.years.length) {
-    return <p className={s.links}>No ECUK C1 observations are loaded.</p>;
+    return <p className={s.links}>Long-run energy demand figures are not available right now.</p>;
   }
 
   const first = data.years[0]!;
@@ -105,8 +105,7 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
             {totA > 0
               ? ` (${totB - totA >= 0 ? "+" : "−"}${fmtKtoe(Math.abs(totB - totA))}, ${(((totB - totA) / totA) * 100).toFixed(1)}%)`
               : ""}
-            . Open markers are {yearA}; solid markers are {yearB}. A fall beside a rise is shown, not explained as
-            substitution.
+            .
           </p>
         </section>
       )}

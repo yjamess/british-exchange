@@ -1,24 +1,46 @@
 "use client";
 
 /**
- * Domain 06 — Energy Field Guide specimen grid.
+ * Domain 06 — Energy field guide specimen grid.
  * Matched plates are illustrative forms only; MW / TWh / % sit as labelled measures.
+ * The selected specimen plays its loop (rotors, water, plume, sea) from a tone atlas;
+ * the rest stay still. Reduced motion shows the still frame.
  */
 
 import { ENERGY_TECH_PLATES, Plate } from "../Plate";
+import { HalftoneMotion, type MotionAtlas } from "../motion";
 import { explorerClasses as t } from "../template";
 import {
   FIELD_TECHS,
   fmtGw,
   fmtLoadPct,
   fmtTwh,
-  journeysForTech,
   plannedMwForTech,
   type FieldTechId,
   type GuideMeasure,
   type PipelineRow,
 } from "./renewables-model";
 import s from "./generation.module.css";
+
+/** energy-tech-types.py atlases: 20 frames, 4×5, 500px square. Frame 0 = the still plate. */
+const techAtlas = (file: string): MotionAtlas => ({
+  src: `/brand/plates/${file}-atlas-4x5-500.jpg`,
+  cols: 4,
+  rows: 5,
+  frames: 20,
+  frameWidth: 500,
+  frameHeight: 500,
+});
+
+/** Loop speed per form: rotors and water move, clouds and sea drift slowly. */
+const TECH_MOTION: Record<FieldTechId, { atlas: MotionAtlas; fps: number }> = {
+  "offshore-wind": { atlas: techAtlas("e-offshore"), fps: 10 },
+  "onshore-wind": { atlas: techAtlas("e-onshore"), fps: 10 },
+  solar: { atlas: techAtlas("e-solar"), fps: 4 },
+  hydro: { atlas: techAtlas("e-hydro"), fps: 8 },
+  bioenergy: { atlas: techAtlas("e-bioenergy"), fps: 6 },
+  nuclear: { atlas: techAtlas("e-nuclear"), fps: 5 },
+};
 
 export type GuideSlice = {
   id: FieldTechId;
@@ -63,9 +85,9 @@ function formatMeasure(slice: GuideSlice, measure: GuideMeasure): string {
 }
 
 function measureNote(measure: GuideMeasure, nuclear: boolean): string {
-  if (measure === "built") return "Installed · DUKES 5.12";
-  if (measure === "generating") return "Annual · ET 5.1";
-  return nuclear ? "DUKES 5.10 · nuclear stations" : "DUKES 6.3 · load factor";
+  if (measure === "built") return "Installed capacity";
+  if (measure === "generating") return "Annual generation";
+  return nuclear ? "Nuclear stations" : "Load factor";
 }
 
 export function RenewablesFieldGuide({
@@ -86,16 +108,13 @@ export function RenewablesFieldGuide({
     .map((x) => measureValue(x, measure))
     .filter((v): v is number => v != null && v > 0);
   const max = values.length ? Math.max(...values) : 1;
-  const journeys = journeysForTech(
-    FIELD_TECHS.find((t) => t.id === selected.id) ?? FIELD_TECHS[0]!,
-  );
 
   return (
     <div className={s.stack}>
       <section className={s.panel}>
         <ul
           className={s.specimens}
-          aria-label={`Energy Field Guide · ${year} · ${measure}`}
+          aria-label={`Energy field guide · ${year} · ${measure}`}
         >
           {slices.map((slice) => {
             const plate = ENERGY_TECH_PLATES[slice.id];
@@ -111,7 +130,16 @@ export function RenewablesFieldGuide({
                   aria-pressed={techId === slice.id}
                   aria-label={`${slice.label}: ${formatMeasure(slice, measure)}`}
                 >
-                  {plate ? (
+                  {plate && techId === slice.id && TECH_MOTION[slice.id] ? (
+                    <span className={s.specimenPlate} aria-hidden="true">
+                      <HalftoneMotion
+                        atlas={TECH_MOTION[slice.id].atlas}
+                        fps={TECH_MOTION[slice.id].fps}
+                        cell={2.4}
+                        fallbackSrc={plate.src}
+                      />
+                    </span>
+                  ) : plate ? (
                     <Plate src={plate.src} fit="contain" className={s.specimenPlate} />
                   ) : (
                     <span className={s.specimenPlate} aria-hidden="true" />
@@ -146,14 +174,14 @@ export function RenewablesFieldGuide({
             <dd className="bo-fig">
               {selected.capacityMw != null ? fmtGw(selected.capacityMw) : "—"}
             </dd>
-            <dd className={s.note}>DUKES 5.12 · {year}</dd>
+            <dd className={s.note}>Installed capacity · {year}</dd>
           </div>
           <div>
             <dt>Annual generation</dt>
             <dd className="bo-fig">
               {selected.generationTwh != null ? fmtTwh(selected.generationTwh) : "—"}
             </dd>
-            <dd className={s.note}>ET 5.1 · calendar year</dd>
+            <dd className={s.note}>Calendar year</dd>
           </div>
           <div>
             <dt>Load factor</dt>
@@ -161,14 +189,14 @@ export function RenewablesFieldGuide({
               {selected.loadPct != null ? fmtLoadPct(selected.loadPct) : "—"}
             </dd>
             <dd className={s.note}>
-              {selected.nuclear ? "DUKES 5.10" : "DUKES 6.3"}
+              {selected.nuclear ? "Nuclear stations" : "Published load factor"}
             </dd>
           </div>
           <div>
             <dt>Active planning</dt>
             <dd className="bo-fig">
               {selected.nuclear
-                ? "Not in REPD"
+                ? "Not in planning data"
                 : selected.plannedMw != null
                   ? fmtGw(selected.plannedMw)
                   : "—"}
@@ -176,21 +204,10 @@ export function RenewablesFieldGuide({
             <dd className={s.note}>
               {selected.nuclear
                 ? "Nuclear is outside the renewable planning database"
-                : "REPD non-operational · active lane"}
+                : "Planning register · not yet operating"}
             </dd>
           </div>
         </dl>
-      </section>
-
-      <section className={s.panel}>
-        <ul className={s.follow} aria-label="Observatory journeys">
-          {journeys.map((j) => (
-            <li key={j.id}>
-              <a href={j.href}>{j.label}</a>
-              <span>{j.note}</span>
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   );

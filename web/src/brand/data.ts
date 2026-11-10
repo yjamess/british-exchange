@@ -5,6 +5,11 @@
 
 export type Pt = { t: number; v: number; provisional?: boolean };
 
+/** Energy charts never plot provisional points — drop them at series-build time. */
+export function finalPts(points: Pt[]): Pt[] {
+  return points.filter((p) => !p.provisional);
+}
+
 export type Series = {
   id: string;
   label: string;

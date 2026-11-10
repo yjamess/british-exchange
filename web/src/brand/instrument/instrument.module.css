@@ -77,14 +77,14 @@
   margin-left: auto;
 }
 
-.table { border-top: var(--bo-hair); padding-top: var(--bo-s3); }
-.tableScroll { max-height: 320px; overflow: auto; margin-top: var(--bo-s3); border: var(--bo-hair); }
-.table table { width: 100%; border-collapse: collapse; font-size: var(--bo-t-note); font-variant-numeric: tabular-nums; }
-.table th, .table td { text-align: right; vertical-align: bottom; padding: 6px 10px; border-bottom: var(--bo-hair); white-space: nowrap; }
-.table th:first-child, .table td:first-child { text-align: left; }
-.table thead th { position: sticky; top: 0; background: var(--bo-paper); font-family: var(--bo-f-data); font-size: var(--bo-t-micro); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
-.table thead th:not(:first-child) { padding-right: calc(10px - 0.06em); }
-.table tbody th { font-weight: 400; color: var(--bo-text); }
+/* Exact-values disclosure — table body uses shared explorerClasses.table */
+.exact {
+  display: grid;
+  gap: var(--bo-s3);
+  border-top: var(--bo-hair);
+  padding-top: var(--bo-s3);
+  min-width: 0;
+}
 
 /* Ranked bars */
 .rank { margin: 0; display: grid; gap: 2px; }
@@ -106,7 +106,16 @@
 .rankButton:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 2px; }
 .rankRow b { text-align: right; font-size: var(--bo-t-fig); color: var(--bo-ink); }
 .rankTrack { position: relative; height: 10px; }
-.rankTrack i { position: absolute; inset: 0 auto 0 0; background: var(--bo-ink); }
+.rankTrack i { position: absolute; top: 0; bottom: 0; background: var(--bo-ink); }
+.rankSigned .rankTrack::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  border-left: var(--bo-hair);
+}
 .rankActive .rankTrack i { background: var(--bo-ink); }
 .rankActive span:first-child { color: var(--bo-ink); font-weight: 500; }
 .rankTrack em { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1px dashed var(--bo-ink); }

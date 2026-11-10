@@ -8,13 +8,14 @@
  * The full measure × group matrix stays available as a table.
  */
 
-import { useEffect, useMemo, useState } from "react";
-import { ControlRow, MenuControl, RankBars, TimeChart, explorerClasses as tc } from "../../..";
+import { useMemo } from "react";
+import { ControlRow, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart, explorerClasses as tc } from "../../..";
 import { ENGLAND, caveatsOf, prettyCat, type Breakdown, type Cell } from "./cutaway/evidence";
 import { BASIS, TENURES, type Basis } from "./cutaway/features";
-import { useQualityEvidence } from "./cutaway/useEvidence";
-import type { InsideFoot } from "./InsideHomes";
+import type { Evidence } from "./cutaway/useEvidence";
 import { BasisTag, UnavailableControl } from "./parts";
+import type { ConditionKind, ConditionState, QualityFoot } from "./state";
+import { CONDITION_KIND_OPTIONS } from "./state";
 import q from "../plate.module.css";
 import r from "./stateOfRepair.module.css";
 
@@ -137,14 +138,8 @@ const REPORTED: Row[] = [
   },
 ];
 
-type ColumnKind = "tenure" | Exclude<Breakdown, "none" | "sub-national-area">;
-const KINDS: { id: ColumnKind; label: string }[] = [
-  { id: "tenure", label: "Tenure" },
-  { id: "dwelling-age", label: "Dwelling age" },
-  { id: "dwelling-type", label: "Dwelling type" },
-  { id: "floor-area", label: "Floor area" },
-  { id: "region", label: "Region" },
-];
+type ColumnKind = ConditionKind;
+const KINDS = CONDITION_KIND_OPTIONS;
 
 function pick(cells: Cell[], row: Row, kind: ColumnKind, col: string, tenure: string, year: number | null): Cell | undefined {
   return cells.find((c) => {
@@ -159,15 +154,104 @@ const keyOf = (rw: Row) => `${rw.ind}|${rw.series}`;
 const nameOf = (rw: Row) => rw.short ?? rw.label;
 const pct = (v: number) => `${v.toFixed(1)}%`;
 
-export function StateOfRepair({ onFoot }: { onFoot?: (foot: InsideFoot) => void }) {
-  const { evidence, failed } = useQualityEvidence();
-  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
-  const [kind, setKind] = useState<ColumnKind>("tenure");
-  const [tenure, setTenure] = useState("all-tenures");
-  const [year, setYear] = useState<number | null>(null);
-  const [measure, setMeasure] = useState(keyOf(SURVEYED[0]!));
-  const [colPick, setColPick] = useState<string | null>(null);
+export function stateOfRepairFoot(state: ConditionState, evidence: Evidence | null): QualityFoot {
+  const cells = evidence?.cells ?? [];
+  const row = SURVEYED.find((rw) => keyOf(rw) === state.measure) ?? SURVEYED[0]!;
+  const kind = state.kind;
+  const inKind = (c: Cell) =>
+    kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
+  const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
+  const years = [...new Set(relevant.map((c) => c.year))].sort((a, b) => a - b);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const kindLabel = KINDS.find((k) => k.value === kind)!.label;
+  const caveats = caveatsOf(pick(cells, row, kind, state.col ?? "all-tenures", state.tenure, y));
+  return {
+    definition: row.definition,
+    method: [
+      years.length > 0 ? `Coverage. England · ${years[0]}–${years[years.length - 1]} · by ${kindLabel.toLowerCase()}.` : "",
+      "Surveyor inspections and residents' reports are different observations and sit apart.",
+      ...caveats,
+    ].filter(Boolean),
+    source: `${evidence?.sources[row.ind]?.publisher ?? "MHCLG · English Housing Survey"} · ${row.table}`,
+    dataHref: `/data#${row.ind}`,
+  };
+}
 
+type ConditionShared = {
+  state: ConditionState;
+  onChange: (next: Partial<ConditionState>) => void;
+  evidence: Evidence | null;
+  failed: boolean;
+};
+
+export function StateOfRepairControls({ state, onChange, evidence, failed }: ConditionShared) {
+  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
+  const kind = state.kind;
+  const inKind = (c: Cell) =>
+    kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
+  const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
+  const years = [...new Set(relevant.map((c) => c.year))].sort((a, b) => a - b);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const tenures = kind === "tenure" ? [] : TENURES.filter((x) => x.core && relevant.some((c) => c.year === y && c.tenure === x.id));
+  const t = kind === "tenure" ? "all-tenures" : tenures.some((x) => x.id === state.tenure) ? state.tenure : (tenures[0]?.id ?? "all-tenures");
+  const row = SURVEYED.find((rw) => keyOf(rw) === state.measure) ?? SURVEYED[0]!;
+  const dirty = state.measure !== keyOf(SURVEYED[0]!) || kind !== "tenure" || state.tenure !== "all-tenures" || state.year != null;
+  return (
+    <ControlRow label="Condition controls">
+      <MenuControl
+        label="Measure"
+        value={keyOf(row)}
+        options={SURVEYED.map((rw) => ({ value: keyOf(rw), label: nameOf(rw) }))}
+        onChange={(v) => onChange({ measure: v })}
+      />
+      <MenuControl
+        label="Compare by"
+        value={kind}
+        options={KINDS}
+        onChange={(v) => onChange({ kind: v, col: null })}
+      />
+      {kind !== "tenure" &&
+        (tenures.length > 0 ? (
+          <MenuControl
+            label="Tenure"
+            value={t}
+            options={tenures.map((x) => ({ value: x.id, label: x.label }))}
+            onChange={(v) => onChange({ tenure: v })}
+          />
+        ) : (
+          <UnavailableControl label="Tenure" reason={evidence ? "Not published for this comparison" : "Loading…"} />
+        ))}
+      {years.length > 0 && y != null ? (
+        <MenuControl
+          label="Period"
+          value={String(y)}
+          options={[...years].reverse().map((v) => ({ value: String(v), label: String(v) }))}
+          onChange={(v) => onChange({ year: Number(v) })}
+        />
+      ) : (
+        <UnavailableControl label="Period" reason={failed ? "Evidence unavailable." : "Loading…"} />
+      )}
+      {dirty && (
+        <ResetButton
+          onClick={() =>
+            onChange({ measure: keyOf(SURVEYED[0]!), kind: "tenure", tenure: "all-tenures", year: null, col: null })
+          }
+        />
+      )}
+    </ControlRow>
+  );
+}
+
+export function StateOfRepair({ state, onChange, evidence, failed }: ConditionShared) {
+  const kind = state.kind;
+  const tenure = state.tenure;
+  const year = state.year;
+  const measure = state.measure;
+  const colPick = state.col;
+  const setMeasure = (v: string) => onChange({ measure: v });
+  const setColPick = (v: string | null) => onChange({ col: v });
+
+  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
   const inKind = (c: Cell) =>
     kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
   const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
@@ -191,7 +275,7 @@ export function StateOfRepair({ onFoot }: { onFoot?: (foot: InsideFoot) => void 
 
   const row = SURVEYED.find((rw) => keyOf(rw) === measure) ?? SURVEYED[0]!;
   const col = columns.find((c) => c.id === colPick) ?? columns[0];
-  const kindLabel = KINDS.find((k) => k.id === kind)!.label;
+  const kindLabel = KINDS.find((k) => k.value === kind)!.label;
   const tenureLabel = TENURES.find((x) => x.id === t)?.label ?? "All tenures";
 
   // Main: the chosen measure across every group, against England (all dwellings) as the reference mark.
@@ -235,67 +319,15 @@ export function StateOfRepair({ onFoot }: { onFoot?: (foot: InsideFoot) => void 
   const reportedLabel = reported?.label || "2023–25";
 
   const cellText = (c: Cell | undefined) => (!c ? "—" : c.status === "suppressed" ? "u" : c.v == null ? "n/c" : c.v.toFixed(1));
-  const caveats = caveatsOf(cell);
-  const coverage = years.length > 0 ? `England · ${years[0]}–${years[years.length - 1]} · by ${kindLabel.toLowerCase()}` : "";
-  const sourceLine = `${evidence?.sources[row.ind]?.publisher ?? "MHCLG · English Housing Survey"} · ${row.table}${reported ? " · AT1.11" : ""}`;
-  const caveatText = caveats.join("\n");
-
-  useEffect(() => {
-    onFoot?.({ source: sourceLine, coverage, caveats: caveatText ? caveatText.split("\n") : [] });
-  }, [onFoot, sourceLine, coverage, caveatText]);
 
   return (
     <div className={q.root}>
-      <p className={q.lede}>
-        The State of Repair: damp, disrepair and serious hazards across England&apos;s homes. Choose a measure and how to break it down; groups the
-        survey does not publish are named, not estimated. Surveyor inspections and residents&apos; reports are different observations and sit apart.
-      </p>
-
-      <ControlRow label="Condition controls">
-        <MenuControl
-          label="Measure"
-          value={keyOf(row)}
-          options={SURVEYED.map((rw) => ({ value: keyOf(rw), label: nameOf(rw) }))}
-          onChange={setMeasure}
-        />
-        <MenuControl
-          label="Compare by"
-          value={kind}
-          options={KINDS.map((k) => ({ value: k.id, label: k.label }))}
-          onChange={(v) => {
-            setKind(v);
-            setColPick(null);
-          }}
-        />
-        {kind !== "tenure" &&
-          (tenures.length > 0 ? (
-            <MenuControl
-              label="Tenure"
-              value={t}
-              options={tenures.map((x) => ({ value: x.id, label: x.label }))}
-              onChange={setTenure}
-            />
-          ) : (
-            <UnavailableControl label="Tenure" reason={evidence ? "Not published for this comparison" : "Loading…"} />
-          ))}
-        {years.length > 0 && y != null ? (
-          <MenuControl
-            label="Period"
-            value={String(y)}
-            options={[...years].reverse().map((v) => ({ value: String(v), label: String(v) }))}
-            onChange={(v) => setYear(Number(v))}
-          />
-        ) : (
-          <UnavailableControl label="Period" reason={failed ? "Evidence unavailable." : "Loading…"} />
-        )}
-      </ControlRow>
-
-      <div className={q.plate}>
+<div className={q.plate}>
         <div className={q.plateMain}>
           {failed ? (
-            <p className={q.note}>The survey tables could not be loaded. No estimated figures.</p>
+            <EmptyStage label="In preparation">The survey tables could not be loaded. No estimated figures.</EmptyStage>
           ) : !evidence ? (
-            <p className={q.note}>Loading the survey evidence…</p>
+            <EmptyStage label="Loading">Loading the survey evidence…</EmptyStage>
           ) : (
             <div className={r.main}>
               <p className="bo-label">

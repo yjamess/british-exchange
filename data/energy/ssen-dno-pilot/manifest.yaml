@@ -1,0 +1,50 @@
+indicator_id: ssen-distribution-network-atlas
+title: SSEN distribution network atlas (DNO pilot)
+sector: energy-industry
+publisher: SSEN Distribution
+source_url: https://data.ssen.co.uk/@ssen-distribution/ssen-substation-data
+series_id: ssen-substation-data + ssen-overhead-lines (pilot pin)
+geography: SEPD (central southern England) + SHEPD (north of Scotland) licence areas
+  only — not GB-wide
+frequency: ad_hoc
+unit: feature_count
+definition: Point-in-time counts of SSEN Distribution substations and overhead-line
+  segments, plus a lean display atlas (Primary/Grid/Switching points and EHV/EHV+
+  overhead routes in WGS84). Pilot for Invisible Grid — not national topology and
+  not spare capacity.
+licence: Creative Commons Attribution 4.0 (CC BY 4.0) · IB1-O — © SSEN Distribution;
+  see portal Rights on each data asset
+agent_owner: energy
+connector_module: energy.connectors.ssen_dno_pilot
+curated_path: curated/observations.csv
+update_cadence: Re-pin when SSEN republishes weekly open assets
+raw_evidence:
+- path: raw/2026-11-09/substation-locations-nov-2026.csv
+  retrieved_at: '2026-11-09T23:52:22.422164+00:00'
+  checksum_sha256: 6eb19abd1fe18a265dc1e10e8cab408aff30d9f72f26145d53db8e1e3b2f9025
+  content_type: text/csv
+  official_release_date: '2026-11-09'
+  http_status: null
+  source_url: https://data.ssen.co.uk/@ssen-distribution/ssen-substation-data
+- path: raw/2026-11-09/overhead-lines-nov-1-2026.csv
+  retrieved_at: '2026-11-09T23:52:22.422164+00:00'
+  checksum_sha256: 132740b30562358922e81f3b22d1e973afa329908c5272b6138da22024b7f768
+  content_type: text/csv
+  official_release_date: '2026-11-09'
+  http_status: null
+  source_url: https://data.ssen.co.uk/@ssen-distribution/ssen-overhead-lines
+transformations: Pin operator CSVs under raw/<date>/. Summarise counts to curated/observations.csv.
+  Build curated/atlas.json with Existing Primary/Grid/Switching substations (OSGB→WGS84)
+  and EHV/EHV+ overhead LINESTRING lon/lat routes. Archive raw CSVs to Supabase Storage.
+revision_notes: ''
+caveats: 'Pilot geography only (SEPD+SHEPD). Overhead lines only — no underground.
+  Display atlas omits HV 11 kV segments (still in raw). Do not invent spare capacity
+  or treat this as a national DNO product. Attribution: © SSEN Distribution.'
+related_indicator_ids:
+- transmission-entry-capacity-register
+- electricity-interconnector-flows
+open_questions:
+- Pin SSEN licence-area boundary polygons for map clipping.
+- Confirm Overhead Lines portal Rights text matches CC BY 4.0.
+notion_registry_url: 'https://app.notion.com/p/4136547176858141b066ff8d9b836ca9'
+schema_version: '1.0'

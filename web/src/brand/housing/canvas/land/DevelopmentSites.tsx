@@ -1,27 +1,24 @@
 "use client";
 
 /**
- * Domain 06 — Britain's Development Potential (statistical inventory).
- * Brownfield register totals from Planning Data — registration ≠ deliverable home.
+ * Domain 06 — Britain's Development Potential.
+ * Brownfield register totals. Measure control lives in HousingExplorer.
+ * Registration ≠ deliverable home.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { EmptyStage, explorerClasses as t } from "../../..";
 import { fmt, fmtT } from "../../../data";
 import { RankBars } from "../../../instrument/TimeChart";
-import { ControlRow, MenuControl } from "../../../template";
 import type { HousingV1 } from "../../load";
-import s from "./land.module.css";
+import gen from "../../../energy/generation.module.css";
+
+export type SitesFocus = "permission" | "authority";
 
 type Props = {
   sites: HousingV1["brownfield"];
+  focus: SitesFocus;
 };
-
-type Focus = "permission" | "authority";
-
-const MEASURES: { value: Focus; label: string }[] = [
-  { value: "permission", label: "By permission status" },
-  { value: "authority", label: "By local authority" },
-];
 
 const PERMISSION_LABELS: Record<string, string> = {
   permissioned: "Permissioned",
@@ -32,9 +29,39 @@ const PERMISSION_LABELS: Record<string, string> = {
   "other-or-unclear": "Other / unclear wording",
 };
 
-export function DevelopmentSites({ sites }: Props) {
-  const [focus, setFocus] = useState<Focus>("permission");
+export const SITES_MEASURE_OPTIONS: { value: SitesFocus; label: string }[] = [
+  { value: "permission", label: "By permission status" },
+  { value: "authority", label: "By local authority" },
+];
 
+export function sitesFoot(sites: HousingV1["brownfield"]): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  const asAt = sites.asAt != null ? fmtT(sites.asAt, "annual") : null;
+  return {
+    definition:
+      "A site on the brownfield register is not a deliverable, viable or available home. Ownership, infrastructure and planning outcomes still apply.",
+    method: [
+      sites.sitesWithEstimate != null && sites.siteCount != null
+        ? `${fmt.count(sites.sitesWithEstimate)} of ${fmt.count(sites.siteCount)} sites publish a maximum dwelling figure. The rest publish none — a blank is missing, not zero.`
+        : "A blank dwelling maximum is missing, not zero.",
+      "Do not treat the published sum of maxima as pipeline capacity Britain can build.",
+      "Free-text permission statuses outside the data standard are grouped as “Other / unclear wording”.",
+      "Authority ranks use Planning Data local-authority entities — not ONS GSS codes yet.",
+      "Coverage is incomplete across England.",
+    ].filter(Boolean),
+    source:
+      asAt != null
+        ? `MHCLG · Planning Data · brownfield land register · England · as at ${asAt}`
+        : "MHCLG · Planning Data · brownfield land register · England",
+    dataHref: "/data#brownfield-land",
+  };
+}
+
+export function DevelopmentSites({ sites, focus }: Props) {
   const permissionBars = useMemo(
     () =>
       sites.byPermission
@@ -59,61 +86,40 @@ export function DevelopmentSites({ sites }: Props) {
 
   if (sites.siteCount == null) {
     return (
-      <p className={s.lede}>
-        Brownfield register statistics are not loaded yet. The Exchange does not show estimates.
-      </p>
+      <EmptyStage label="In preparation">
+        Brownfield register statistics are not loaded yet. No estimated figures.
+      </EmptyStage>
     );
   }
 
   const asAt = sites.asAt != null ? fmtT(sites.asAt, "annual") : null;
 
   return (
-    <div className={s.root}>
-      <p className={s.lede}>
-        Recorded brownfield land on local planning authority registers in England
-        {asAt ? ` (as at ${asAt})` : ""}, via MHCLG Planning Data. A site on the register is not
-        the same as a deliverable, viable, or available home — ownership willingness,
-        infrastructure and planning outcomes still apply. Coverage is incomplete across England.
-      </p>
-
-      <p className={s.caveat}>
-        {sites.sitesWithEstimate != null && sites.siteCount != null
-          ? `${fmt.count(sites.sitesWithEstimate)} of ${fmt.count(sites.siteCount)} sites publish a maximum. The other ${fmt.count(sites.siteCount - sites.sitesWithEstimate)} publish none. A blank maximum is missing, not zero. `
-          : "A blank dwelling maximum is missing, not zero. "}
-        Do not treat the published sum as pipeline capacity Britain can build.
-      </p>
-
-      <ControlRow>
-        <MenuControl label="Measure" value={focus} options={MEASURES} onChange={setFocus} />
-      </ControlRow>
-
+    <div className={gen.stack}>
       {focus === "permission" && permissionBars.length > 0 && (
-        <div className={s.block}>
-          <p className="bo-label">Sites by planning-permission status (canonised)</p>
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>
+            Sites by permission status · England{asAt ? ` · ${asAt}` : ""}
+          </h3>
           <RankBars
             label="Brownfield sites by permission status, England"
             rows={permissionBars}
             format={fmt.count}
           />
-          <p className={s.caveat}>
-            Free-text LPA statuses outside the data standard are grouped as “Other / unclear
-            wording”.
-          </p>
-        </div>
+        </section>
       )}
 
       {focus === "authority" && authorityBars.length > 0 && (
-        <div className={s.block}>
-          <p className="bo-label">Local authorities · most registered sites</p>
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>
+            Local authorities with most registered sites · England{asAt ? ` · ${asAt}` : ""}
+          </h3>
           <RankBars
             label="Brownfield register sites by local authority (top)"
             rows={authorityBars}
             format={fmt.count}
           />
-          <p className={s.caveat}>
-            Authority ranks use Planning Data local-authority entities — not ONS GSS codes yet.
-          </p>
-        </div>
+        </section>
       )}
     </div>
   );

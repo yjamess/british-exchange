@@ -31,7 +31,6 @@ Shared shape: `src/britain_exchange/policy_event.py`. Housing file: `data/housin
 ## Not in this slice
 
 - Building the Welfare State as a long essay, or any archival image (rights not checked).
-- A scored promise-versus-delivery chart.
 - The institutional diagram.
 - Council-house sales. Dwelling stock by tenure stays on Stock, as context only.
 
@@ -39,4 +38,4 @@ Shared shape: `src/britain_exchange/policy_event.py`. Housing file: `data/housin
 
 1. Pin the commencement order for Housing Act 1980, Chapter I.
 2. Add an Act only after its assent, extent and commencement have each been read.
-3. Score a target only when the pledge and the series share geography, period and unit.
+3. Score a target only when the pledge and the series share geography, period and unit. Right to Buy one-for-one (2012) is scored against `right-to-buy-one-for-one` (2026-11-10).

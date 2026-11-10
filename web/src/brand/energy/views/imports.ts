@@ -8,7 +8,8 @@ export const importsViews = {
   views: [
     {
       id: "lifelines",
-      label: "The Lifelines Map",
+      label: "Lifelines",
+      instrument: "The lifelines map",
       params: ["year", "basis", "fuel", "flow", "mode", "partner", "list"],
       evidence: {
         source: ENERGY_SOURCE.importsLifelines,
@@ -24,7 +25,8 @@ export const importsViews = {
     },
     {
       id: "resilience",
-      label: "The Resilience Test",
+      label: "Resilience",
+      instrument: "The resilience test",
       params: ["year", "basis"],
       evidence: {
         source: ENERGY_SOURCE.importsResilience,
@@ -39,7 +41,8 @@ export const importsViews = {
     },
     {
       id: "shock",
-      label: "Shock & Response",
+      label: "Shock",
+      instrument: "Shock and response",
       params: ["year", "event"],
       evidence: {
         source: ENERGY_SOURCE.importsShock,
@@ -54,7 +57,8 @@ export const importsViews = {
     },
     {
       id: "connectors",
-      label: "Britain's Connectors",
+      label: "Connectors",
+      instrument: "Britain's connectors",
       params: ["year", "flow", "basis"],
       evidence: {
         source: ENERGY_SOURCE.importsConnectors,
@@ -69,7 +73,8 @@ export const importsViews = {
     },
     {
       id: "trade",
-      label: "Imports and exports",
+      label: "Trade",
+      instrument: "Imports and exports",
       params: ["year", "basis"],
       evidence: {
         source: ENERGY_SOURCE.importsTrade,

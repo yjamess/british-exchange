@@ -2,18 +2,43 @@
 
 /**
  * Domain 04 — Tenure over time.
- * Brand ShareArea: one ink, bands told apart by print pattern (solid / hatch / stipple),
- * not by hue. Shares of owner-occupied + private rented + social rented dwellings.
+ * Brand ShareArea: one ink, bands told apart by print pattern (solid / hatch / stipple).
+ * Shares of owner-occupied + private rented + social rented dwellings.
  */
 
 import { useMemo } from "react";
+import { EmptyStage, explorerClasses as t } from "../../..";
 import { ShareArea, type Band } from "../../../charts/ShareArea";
 import type { HousingV1 } from "../../load";
-import s from "./stock.module.css";
+import gen from "../../../energy/generation.module.css";
 
 type Props = {
   tenure: HousingV1["tenure"];
 };
+
+export function tenureFoot(tenure: HousingV1["tenure"]): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  const first = tenure.years[0];
+  const last = tenure.years[tenure.years.length - 1];
+  return {
+    definition:
+      "How England’s dwelling stock has shifted between owner-occupied, private rented and social rented homes.",
+    method: [
+      first != null && last != null ? `Coverage. England · ${first}–${last}.` : "",
+      "Shares are of these three groups (Live Table 104).",
+      "Unit = dwellings, not households.",
+    ].filter(Boolean),
+    source:
+      first != null && last != null
+        ? `MHCLG · Live Table 104 · England · ${first}–${last}`
+        : "MHCLG · Live Table 104 · England",
+    dataHref: "/data#dwelling-stock-by-tenure",
+  };
+}
 
 export function TenureView({ tenure }: Props) {
   const bands: Band[] = useMemo(() => {
@@ -22,10 +47,9 @@ export function TenureView({ tenure }: Props) {
     const totals = years.map((_, i) => (owner[i] ?? 0) + (privateRented[i] ?? 0) + (social[i] ?? 0));
     const share = (vals: number[]) =>
       vals.map((v, i) => {
-        const t = totals[i] ?? 0;
-        return t > 0 ? v / t : 0;
+        const tot = totals[i] ?? 0;
+        return tot > 0 ? v / tot : 0;
       });
-    // Bottom → top: social (solid), private (hatch), owner (stipple) — largest band often on top.
     return [
       { id: "social", label: "Social rented", pattern: "solid" as const, values: share(social) },
       { id: "private", label: "Private rented", pattern: "hatch" as const, values: share(privateRented) },
@@ -35,25 +59,23 @@ export function TenureView({ tenure }: Props) {
 
   if (tenure.years.length < 2 || bands.length === 0) {
     return (
-      <p className={s.lede}>
-        Dwelling stock by tenure is not loaded yet. The Exchange does not show estimates.
-      </p>
+      <EmptyStage label="In preparation">
+        Dwelling stock by tenure is not loaded yet. No estimated figures.
+      </EmptyStage>
     );
   }
 
   return (
-    <div className={s.root}>
-      <p className={s.lede}>
-        How England’s dwelling stock has shifted between owner-occupied, private rented and social
-        rented homes. Shares are of these three groups (Live Table 104). Unit = dwellings, not
-        households.
-      </p>
-      <ShareArea
-        years={tenure.years}
-        bands={bands}
-        height={380}
-        label="Dwelling stock by tenure, England — share over time"
-      />
+    <div className={gen.stack}>
+      <section className={gen.panel}>
+        <h3 className={t.stageTitle}>Dwelling stock by tenure · England · share over time</h3>
+        <ShareArea
+          years={tenure.years}
+          bands={bands}
+          height={380}
+          label="Dwelling stock by tenure, England — share over time"
+        />
+      </section>
     </div>
   );
 }

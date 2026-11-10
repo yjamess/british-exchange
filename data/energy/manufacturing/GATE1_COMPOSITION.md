@@ -41,7 +41,7 @@ Until subsector catalogue has Ready cuts:
 
 ## Locked for Gate 2 rebuild
 
-**Study C (interim).** True flagship name remains **The Production Anatomy**. Full catalogue waits on subsector Ready series.
+**Study C (interim)** shipped 2026-11-07. **Superseded for flagship UI (2026-11-10):** Ready `manufacturing-iop-by-division` powers Production Anatomy catalogue (ChangeRows of index levels + branch dial). National four-measure card remains as section C context. Study B illustrated tiles still rejected (no Ready product ledger).
 
 ## Journeys
 

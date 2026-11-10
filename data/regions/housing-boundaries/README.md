@@ -53,7 +53,7 @@ The download step refuses to overwrite existing evidence. Updating the boundary 
 - **Isles of Scilly (`E06000053`)** has a boundary but no HPI series. Show no data. Never substitute England, the South West or neighbouring Cornwall.
 - Every HPI local-authority code has a corresponding boundary. The 45 other HPI geographies are counties, metropolitan counties, inner/outer London, regions, nations and UK/GB/England-and-Wales aggregates. These do not belong in the local-authority map layer.
 - This layer uses fixed **December 2025 boundaries for every observation date**. It does not animate historical boundary changes or reallocate values. The HPI source's own geographical series definitions still apply.
-- Local-authority boundaries do not invent region polygons. Separate **English region** BUC geometry (ONS Regions December 2025) is archived as `curated/english-regions.geojson` and projected for the Housing explorer as `curated/english-regions-display.json` (copied into `web/src/brand/housing/atlas/` for the region choropleth).
+- Local-authority boundaries do not invent region polygons. Separate **English region** BUC geometry (ONS Regions December 2025) is archived as `curated/english-regions.geojson` and projected for the Housing explorer as `curated/english-regions-display.json` (copied into `web/src/brand/map/` for the shared region choropleth).
 - No postcode coordinates, postcode polygons or address data are included. The rights for this boundary layer do not establish rights for future postcode/property products.
 
 ## Validation

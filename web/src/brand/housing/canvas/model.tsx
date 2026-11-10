@@ -5,7 +5,6 @@ import { TimeChart, RankBars, type ChartSeries, type Cadence } from "../../instr
 import { fmt, fmtFY, fmtT, type Pt } from "../../data";
 import type { HousingV1 } from "../load";
 import { priceCatalogue } from "./PricesData";
-import { ORDERED as POLICY_ORDERED, coverage as policyCoverage, markDate as policyMarkDate } from "./policy/events";
 import { INSECURITY_RECORDS } from "./insecurity/InsecurityData";
 import { qKey, stockLabel } from "./insecurity/periods";
 
@@ -99,9 +98,6 @@ export const DOMAINS: Domain[] = [
     status: "ready",
   },
 ];
-
-export const EXPANDED_W = "22rem";
-export const CONDENSED_W = "6.75rem";
 
 /* ——— Data helpers ——— */
 
@@ -218,9 +214,7 @@ export const VIEWS: Partial<Record<DomainId, View[]>> = {
     { id: "table", label: "Data" },
   ],
   policy: [
-    { id: "time", label: "Time machine" },
-    { id: "eras", label: "Housing eras" },
-    { id: "observatory", label: "Policy observatory" },
+    { id: "time", label: "Timeline" },
     { id: "promise", label: "Promise vs delivery" },
     { id: "archive", label: "Archive" },
     { id: "table", label: "Data" },
@@ -298,15 +292,6 @@ function volumeLagSentence(d: HousingV1): string {
   const avg = last(d.price);
   if (!isLater(avg, sales)) return "";
   return ` The average-price series continues to ${fmtT(avg!.t)}.`;
-}
-
-/** How to read the UK HPI sales-volume chart. Coverage dates sit in the facts row. */
-export function transactionVolumeLead(d: HousingV1): string {
-  const sales = last(d.sales);
-  if (!sales) {
-    return "The UK House Price Index sales-volume series is not loaded. It is separate from recorded-sales search.";
-  }
-  return `A count of transactions in the index, not a sum of Price Paid search results.${volumeLagSentence(d)}`;
 }
 
 /** Extra method line under the map. The readout already says nominal or count. */
@@ -1090,7 +1075,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         plot: () => null,
         sourceIds: ["land-use-stock", "brownfield-land", "green-belt-area"].filter((id) => d.sources[id]),
         derived:
-          "Search opens one English council from Planning Data. Flood polygons are counted, not drawn. Historical geometries, appeals, local-plan allocations and individual applications are not in this view. Land use is 2022. Brownfield marks are the England register, clipped.",
+          "Search opens one English council from publisher open data (ONS, MHCLG, EA flood, Natural England, Historic England) plus Planning Data dumps for brownfield, Article 4 and TPO. Historical geometries, appeals, local-plan allocations and individual applications are not in this view. Land use is 2022. Brownfield marks are the England register, clipped.",
       };
     }
     case "quality": {
@@ -1190,7 +1175,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
       if (view === "temporary") {
         return {
           title: "A temporary life",
-          series: line(i.taHouseholds, "Households in TA"),
+          series: line(i.taHouseholds, "Households in temporary accommodation"),
           cadence: "quarterly",
           format: fmt.count,
           plot: () => null,
@@ -1199,7 +1184,8 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
             "temporary-accommodation-households",
             "temporary-accommodation-children",
           ]),
-          derived: "Length of stay so far for households in TA on one date (a stock), not completed stays",
+          derived:
+            "Length of stay so far for households in temporary accommodation on one date (a stock), not completed stays",
         };
       }
       if (view === "displacement") {
@@ -1215,7 +1201,8 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
             "temporary-accommodation-children",
             "temporary-accommodation-duration",
           ]),
-          derived: "Out-of-area share = TA9 ÷ TA1, same authority and date. Placements are counted by placing authority only",
+          derived:
+            "Out-of-area share = households placed outside the authority ÷ households in temporary accommodation, same authority and date. Placements are counted by placing authority only",
         };
       }
       if (view === "need") {
@@ -1296,7 +1283,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         };
       }
       return {
-        title: "Who owns Britain?",
+        title: "Titles held by companies · England and Wales",
         series: [],
         cadence: "annual",
         format: fmt.count,
@@ -1306,20 +1293,16 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
     }
     case "policy": {
       const titles: Record<string, string> = {
-        time: "How Britain came to live this way",
-        eras: "Housing eras",
-        observatory: "Policy observatory",
-        promise: "Promise versus delivery",
-        archive: "Archive",
-        table: "Policy records on this page",
+        time: "Housing policy timeline",
+        promise: "The promise ledger",
+        archive: "From the archives",
+        table: "Policy data",
       };
       const derived: Record<string, string> = {
-        time: "Royal Assent places the mark. Commencement is a separate date. An overlapping series is context, not an effect.",
-        eras: "The ranges are for browsing the register. They are not claims that a reform began or ended with the years on the label. A short or empty range means few or no checked records fall in it.",
-        observatory: "Each record keeps its own dates and sources. A relationship is shown only when a source states it.",
-        promise: "A promise is set beside a result only when both count the same thing, for the same place and the same period. A pledge that cannot be matched is not scored.",
-        archive: "Catalogue records are linked to the policies they document. Nothing is reproduced unless its licence allows it.",
-        table: "One row per checked record, in date order. A date the source did not pin says so. Nothing is estimated.",
+        time: "Royal Assent places the mark; commencement is a separate date. Eras are ranges for reading the register, not claims that a reform began or ended in those years. A connection between records is shown only when a source states it. Context series are optional — pick them under Context series; two things in the same years are not evidence that one caused the other.",
+        promise: "Open a pledge for the verdict. A promise is set beside a result only when both count the same thing, for the same place and the same period. Listed pledges stay in the register — they are not scored down.",
+        archive: "Open a piece to read what it is and where it lives. We link to the archive's own page; we do not host the file here unless the licence allows it. Related laws are context only.",
+        table: "One row per record, in date order. A date the source did not record says so. Nothing is estimated.",
       };
       return {
         title: titles[view] ?? titles.time,
@@ -1584,11 +1567,6 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           allV && { label: "All vacants", value: fmt.countCompact(allV.v), note: "England · Table 615" },
           longV && { label: "Long-term", value: fmt.countCompact(longV.v), note: ">6 months empty" },
           rate && { label: "Vacancy rate", value: fmt.pct(rate.v, 2), note: "October vacants ÷ 31 March stock" },
-          last(d.secondHomes.total) && {
-            label: "Second homes",
-            value: fmt.countCompact(last(d.secondHomes.total)!.v),
-            note: "Council Taxbase · not vacants",
-          },
         ].filter(Boolean) as Figure[];
       }
       if (view === "types") {
@@ -1635,13 +1613,11 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
       }
       if (i < 0) return [];
       const tot = T.owner[i]! + T.privateRented[i]! + T.social[i]!;
-      const all = T.total[i] ? { label: "All dwellings", value: fmt.countCompact(T.total[i]!), note: "England" } : null;
       return [
         { label: "Owner-occupied", value: fmt.pct((T.owner[i]! / tot) * 100), note: `31 March ${T.years[i]}` },
         { label: "Private rented", value: fmt.pct((T.privateRented[i]! / tot) * 100), note: `31 March ${T.years[i]}` },
         { label: "Social rented", value: fmt.pct((T.social[i]! / tot) * 100), note: `31 March ${T.years[i]}` },
-        all,
-      ].filter(Boolean) as Figure[];
+      ];
     }
     case "supply": {
       const r = last(d.completionsYear);
@@ -1756,13 +1732,14 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         return [
           recv && { label: "Applications received", value: fmt.count(recv.v), note: fmtT(recv.t, "quarterly") },
           dec && { label: "Applications decided", value: fmt.count(dec.v), note: fmtT(dec.t, "quarterly") },
-          pl && { label: "Decisions granted", value: fmt.count(pl.v), note: fmtT(pl.t, "quarterly") },
-          grantRate != null &&
-            dec && {
-              label: "Share of decisions granted",
-              value: `${grantRate.toFixed(0)}%`,
-              note: "Granted ÷ decided · same quarter (not received)",
-            },
+          pl && {
+            label: "Decisions granted",
+            value: fmt.count(pl.v),
+            note:
+              grantRate != null
+                ? `${fmtT(pl.t, "quarterly")} · ${grantRate.toFixed(0)}% of decisions`
+                : fmtT(pl.t, "quarterly"),
+          },
         ].filter(Boolean) as Figure[];
       }
       const bf = d.brownfield;
@@ -1809,12 +1786,6 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         const wall = last(
           d.quality.insulation.wall.find((x) => x.tenure === "all-tenures")?.points ?? [],
         );
-        const improvable = last(
-          d.quality.improvement.improvable.find((x) => x.tenure === "all-tenures")?.points ?? [],
-        );
-        const meanCost = last(
-          d.quality.improvement.meanCost.find((x) => x.tenure === "all-tenures")?.points ?? [],
-        );
         return [
           energy && {
             label: "Bands A–C · England",
@@ -1831,20 +1802,12 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
             value: fmt.pct(wall.v),
             note: fmtT(wall.t, "annual"),
           },
-          improvable && {
-            label: "Improvable to C",
-            value: fmt.pct(improvable.v),
-            note: meanCost
-              ? `Mean £${Math.round(meanCost.v).toLocaleString("en-GB")}`
-              : "SAP-modelled",
-          },
         ].filter(Boolean) as Figure[];
       }
       return [
         decent && { label: "Non-decent", value: fmt.pct(decent.v), note: fmtT(decent.t, "annual") },
         haz && { label: "Category 1 hazard", value: fmt.pct(haz.v), note: fmtT(haz.t, "annual") },
         damp && { label: "Surveyor damp", value: fmt.pct(damp.v), note: fmtT(damp.t, "annual") },
-        energy && { label: "Bands A–C", value: fmt.pct(energy.v), note: fmtT(energy.t, "annual") },
       ].filter(Boolean) as Figure[];
     }
     case "insecurity": {
@@ -1859,9 +1822,13 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           ? all.bands.filter((b) => b.id !== "under-6-months" && b.id !== "6-months-to-1-year").reduce((a, b) => a + b.v, 0)
           : null;
         return [
-          h.taHouseholds != null && { label: "Households in TA", value: fmt.count(h.taHouseholds), note: taDate },
+          h.taHouseholds != null && {
+            label: "In temporary homes",
+            value: fmt.count(h.taHouseholds),
+            note: taDate,
+          },
           h.taChildren != null && { label: "Children", value: fmt.count(h.taChildren), note: "Same date" },
-          long != null && { label: "A year or more", value: fmt.count(long), note: "TA4 · same date" },
+          long != null && { label: "A year or more", value: fmt.count(long), note: "Same date" },
         ].filter(Boolean) as Figure[];
       }
       if (view === "displacement") {
@@ -1869,9 +1836,14 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           h.outOfAreaEngland != null && {
             label: "Placed out of area",
             value: fmt.count(h.outOfAreaEngland),
-            note: "England · TA9 stock",
+            note: "England · stock",
           },
-          h.taHouseholds != null && { label: "Households in TA", value: fmt.count(h.taHouseholds), note: taDate },
+          h.taHouseholds != null && {
+            label: "In temporary homes",
+            value: fmt.count(h.taHouseholds),
+            note: taDate,
+          },
+          h.taChildren != null && { label: "Children", value: fmt.count(h.taChildren), note: "Same date" },
         ].filter(Boolean) as Figure[];
       }
       if (view === "need") {
@@ -1884,11 +1856,20 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
             value: fmt.count(lets.v),
             note: `Flow · ${yearOf(lets.t)}–${String((yearOf(lets.t) + 1) % 100).padStart(2, "0")}`,
           },
+          h.concealedFamilies != null && {
+            label: "Concealed families",
+            value: fmt.count(h.concealedFamilies),
+            note: "Census Day 2021",
+          },
         ].filter(Boolean) as Figure[];
       }
       const owed = i.assessmentsOwed.at(-1);
       return [
-        h.taHouseholds != null && { label: "Households in TA", value: fmt.count(h.taHouseholds), note: taDate },
+        h.taHouseholds != null && {
+          label: "In temporary homes",
+          value: fmt.count(h.taHouseholds),
+          note: taDate,
+        },
         owed && { label: "Owed a duty", value: fmt.count(owed.v), note: `Flow · ${fmtT(owed.t, "quarterly")}` },
         rough && {
           label: "Sleeping rough",
@@ -1904,11 +1885,28 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           ? null
           : `£${(millions / 1000).toLocaleString("en-GB", { maximumFractionDigits: 1, minimumFractionDigits: 1 })}bn`;
       if (view === "ownership" || view === "") {
+        const titles = d.ownership.titles;
+        const p = titles.period;
+        const when = p
+          ? `England and Wales · ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(p.slice(5, 7)) - 1]} ${p.slice(0, 4)}`
+          : "England and Wales";
         return [
-          { label: "Relationship types", value: "Four", note: "Title · charge · control · beneficial owner" },
-          { label: "Joined on", value: "Number", note: "Company or entity number, never a name" },
-          { label: "Named titles", value: "Not loaded", note: "CCOD and OCOD need a Land Registry account" },
-        ];
+          titles.uk.total != null && {
+            label: "Titles held by UK companies",
+            value: fmt.count(titles.uk.total),
+            note: when,
+          },
+          titles.overseas.total != null && {
+            label: "Titles held by overseas companies",
+            value: fmt.count(titles.overseas.total),
+            note: when,
+          },
+          titles.ukCompanies != null && {
+            label: "UK companies holding titles",
+            value: fmt.count(titles.ukCompanies),
+            note: when,
+          },
+        ].filter(Boolean) as Figure[];
       }
       if (view === "wealth") {
         const median = h.medianNetPropertyWealth;
@@ -1932,25 +1930,9 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         },
       ].filter(Boolean) as Figure[];
     }
-    case "policy": {
-      const c = policyCoverage();
-      const ordered = POLICY_ORDERED.filter((e) => policyMarkDate(e));
-      const earliest = ordered[0];
-      const latest = ordered[ordered.length - 1];
-      return [
-        { label: "Checked records", value: String(c.total), note: c.byType.map((x) => `${x.n} ${x.type === "statutory_instrument" ? "SIs" : x.type + "s"}`).join(" · ") },
-        earliest && {
-          label: "Earliest record",
-          value: policyMarkDate(earliest)!.slice(0, 4),
-          note: earliest.title,
-        },
-        latest && {
-          label: "Latest record",
-          value: policyMarkDate(latest)!.slice(0, 4),
-          note: latest.title,
-        },
-      ].filter(Boolean) as Figure[];
-    }
+    case "policy":
+      // Figures come from policyFigures(PolicyPayload) — register loads from Storage pack.
+      return [];
     default:
       return [];
   }

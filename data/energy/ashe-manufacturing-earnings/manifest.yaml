@@ -1,0 +1,46 @@
+indicator_id: ashe-manufacturing-earnings
+title: ASHE manufacturing median earnings
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/industry2digitsicashetable4
+series_id: ASHE Table 4 · SIC 2007 2-digit · manufacturing
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: GBP median (weekly gross or hourly excluding overtime)
+definition: 'Annual Survey of Hours and Earnings (ASHE) Table 4 medians for UK manufacturing
+  (SIC 2007 section C and divisions 10–33). Weekly pay is gross; hourly pay excludes
+  overtime. Sheets: All employee jobs and Full-Time employee jobs. Median is ONS''s
+  preferred average of earnings.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.ashe_manufacturing_earnings
+curated_path: curated/observations.csv
+update_cadence: annual (ASHE Table 4 edition)
+raw_evidence:
+- path: raw/2026-11-10/ashetable42025revised.zip
+  retrieved_at: '2026-11-10T01:59:42.046037+00:00'
+  checksum_sha256: df87c313d1cb40bf499f1ec001076bcb9c9884c6443d76b186f09e84ff614bc3
+  content_type: application/zip
+  official_release_date: '2025-10-22'
+  http_status: null
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/industry2digitsicashetable4
+transformations: Pin ASHE Table 4 zip (ashetable42025revised.zip). Extract 4.1a (weekly
+  gross) and 4.6a (hourly excluding overtime). Parse All and Full-Time sheets. Keep
+  Manufacturing section C and divisions 10–33 with published median values. Skip suppressed
+  cells (:, x). Reference year 2025 (April pay period for weekly/hourly). Job counts
+  are indicative only — stored in notes, not as values.
+revision_notes: 2025 revised edition pin 2026-11-10. ASHE revises provisional years;
+  re-pin the zip on re-ingest.
+caveats: Employee jobs only — not self-employed. Median ≠ mean. Full-Time ≠ All. Hourly
+  excluding overtime ≠ gross hourly. Job-count column is indicative, not a reliable
+  BRES/Workforce Jobs total. This pin is one year (2025 revised); multi-year change
+  needs further editions. Cash pounds — real terms would restate with Economy CPIH
+  and must be labelled.
+related_indicator_ids:
+- manufacturing-employment
+- manufacturing-output-per-hour
+- cpih-index
+open_questions:
+- 'Optional later: Male/Female sheets; older Table 4 editions for a longer spine.'
+notion_registry_url: https://app.notion.com/41465471768581e3bfbbc844f0357d31
+schema_version: '1.0'

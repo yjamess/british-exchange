@@ -3,7 +3,7 @@
 **Opened:** 2026-11-07  
 **Owners:** Energy (data) · Orchestrator/UI (Gate 2–3 explorer)  
 **Domain Notion:** https://app.notion.com/p/41065471768581b6a1f2c431166de362  
-**Mode:** Gate 3 UI wire shipped (Ofgem + CPIH + Cost Shock + Regional) — Domain 03 **not** complete (income burden, wholesale, full Ofgem history, Gate 4)
+**Mode:** **complete** (Gate 4 passed 2026-11-09) — audit [gate4-audit-prices.md](gate4-audit-prices.md). Backlog only: Annex 9 map polish · editorial essay.
 
 ## Locked question
 
@@ -58,17 +58,17 @@ uv run python -m economy.connectors.cpih_index
 4. Bill controls stay short: Fuel · Year · Region · Payment · Use · Compare. Real-terms sits as a receipt memo when CPIH is loaded.
 5. **The Cost Shock** — three indexed lines; Notes say units/geography differ.
 6. **Regional Price Anatomy** — RankBars with UK dashed reference; select a region in URL.
-7. Do **not** claim Domain 03 complete.
+7. Gate 4 closed — wholesale Notes, Geography RankBars, Reset, EmptyStage copy.
 
-## Still open
+## Backlog (not Gate 4)
 
 | Item | Status |
 |------|--------|
-| Income burden / earnings scenario (“What Can You Afford?” beyond CPIH) | open — needs Ready income/earnings link |
-| Wholesale price series | open — not ingested |
-| Full Ofgem history + Annex 9 regional rates | open — pin is recent GB-average periods only |
-| Economy 7 / 4,800 kWh cut | open |
-| Gate 4 structural + a11y audit · editorial essay | open |
+| Afford (pay share) | **shipped** — ONS earnings |
+| Wholesale MPP fuels | **shipped** |
+| Economy 7 typical bill | **shipped** — unit/standing layers still absent |
+| Full Ofgem history + Annex 9 map | polish — RankBars live; map deferred |
+| Editorial essay | open |
 
 ## Forbidden (still)
 
@@ -76,4 +76,3 @@ uv run python -m economy.connectors.cpih_index
 - Mix nominal GBP bills with industrial p/kWh on one cash axis (index chart is OK when labelled)
 - Mix electricity and gas bills on one unmarked cash series
 - Fork CPIH under `data/energy/`
-- Claim Domain 03 complete

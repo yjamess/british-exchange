@@ -68,6 +68,8 @@ class PledgeMatch:
     geography_code: str
     unit: str
     aggregation: Aggregation
+    # Extra dimension filters (e.g. {"category": "ahp-2021-26"}), matched by the UI on observation dimensions.
+    dimensions: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,6 +86,7 @@ class Pledge:
     made_by: str
     made_date: date
     made_date_note: str | None
+    made_date_precision: Literal["day", "month"]
     nations: tuple[str, ...]
     statement: str
     sources: tuple[RecordSource, ...]
@@ -171,6 +174,7 @@ def _pledge(item: Any, event_ids: set[str] | None) -> Pledge:
         made_by=_text(item, "made_by", pid),
         made_date=_required_date(item.get("made_date"), "made_date", pid),
         made_date_note=_optional_text(item, "made_date_note", pid),
+        made_date_precision=_precision(item.get("made_date_precision"), pid),
         nations=nations,
         statement=statement,
         sources=sources,
@@ -189,6 +193,15 @@ def _pledge(item: Any, event_ids: set[str] | None) -> Pledge:
         ),
         status_note=_text(item, "status_note", pid),
     )
+
+
+
+def _precision(raw: Any, pid: str) -> Literal["day", "month"]:
+    if raw is None:
+        return "day"
+    if raw not in ("day", "month"):
+        raise ValueError(f"{pid}: made_date_precision must be 'day' or 'month'")
+    return raw
 
 
 def _check_statement(statement: str, pid: str) -> None:
@@ -245,7 +258,22 @@ def _match(item: Any, pid: str) -> PledgeMatch:
         geography_code=geo,
         unit=_text(item, "unit", pid),
         aggregation=aggregation,
+        dimensions=_dimensions(item.get("dimensions"), pid),
     )
+
+
+_DIMENSION_KEYS: frozenset[str] = frozenset({"category", "fuel", "demographic"})
+
+
+def _dimensions(raw: Any, pid: str) -> tuple[tuple[str, str], ...]:
+    if raw is None:
+        return ()
+    if not isinstance(raw, dict) or not all(isinstance(v, str) and v for v in raw.values()):
+        raise ValueError(f"{pid}: match.dimensions must map dimension names to non-empty strings")
+    unknown = set(raw) - _DIMENSION_KEYS
+    if unknown:
+        raise ValueError(f"{pid}: match.dimensions has unknown keys {sorted(unknown)}")
+    return tuple(sorted(raw.items()))
 
 
 def _funding(item: Any, pid: str) -> Funding:

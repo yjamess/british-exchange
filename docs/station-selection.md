@@ -30,6 +30,10 @@ resolveStationSelection(atlasPoints, searchParams.get("station"), annualMix)
 - Two registers, incomplete coverage — not every licensed generator.
 - Region labels are not spatial joins. Future employment / government / LA links must use validated geography codes or geometry, not the region string alone.
 
+## Connections
+
+National generation hop is registered as `gen.station→gen.data` in `web/src/brand/connections/energy.ts` (see [connections-contract.md](connections-contract.md)). Atlas evidence uses `FollowLink`.
+
 ## Not in scope yet
 
-Employment, government, or other sector connections. Keep using `nationalGeneration.href` / `retain` on the explorer URL utility when those arrive.
+Employment, government, or other sector connections. Those need validated geography codes (`geographyCode` / `geometryId`) and cloud-ready destination instruments.

@@ -34,7 +34,7 @@
 | ID | Location | Issue | Canonical | Priority | Status |
 |----|----------|-------|-----------|----------|--------|
 | R06-01 | Field Guide / Capacity year default | `yearPool` included ET 5.1 part-year **2026**, so default year showed capacity/LF as — while generation had a partial sum | Prefer latest capacity (or LF) year for default | P0 | **Fixed** — default `latest` from capacity/LF years |
-| R06-02 | Capacity ≠ Output | Always-on “Exact figures” table competed with Notes / TimeChart exact grammar | Closed `ExactRegister` disclosure | P1 | **Fixed** |
+| R06-02 | Capacity ≠ Output | Always-on “Exact figures” table competed with Notes / TimeChart exact grammar | Field card + Notes + TimeChart exact — no echo table | P1 | **Fixed** — removed (was briefly an ExactRegister) |
 | R06-03 | FieldCard | Body `receiptNote` restated method | Method only in Notes foot | P1 | **Fixed** — removed |
 | R06-04 | Field Guide / Buildout journeys | “Contextual · Contextual — …” doubled kind into the note | Note alone | P2 | **Fixed** |
 | R06-05 | Buildout | Policy annotations deferred with Ready industrial-policy JSON available | EventRail + context link to Policy domain | P1 | **Fixed** — EventRail from Ready events |

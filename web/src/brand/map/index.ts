@@ -1,6 +1,6 @@
 /**
- * Shared map instruments — English-region + world choropleths, halftone bands.
- * Prefer `import { RegionMap, WorldChoropleth } from "@/brand"` (or `@/brand/map`).
+ * Shared map instruments — English-region + world choropleths, legend, halftone bands.
+ * Prefer `import { RegionMap, WorldChoropleth, MapLegend } from "@/brand"` (or `@/brand/map`).
  */
 
 export {
@@ -15,5 +15,6 @@ export {
   type WorldCountryDatum,
   type WorldCountryShape,
 } from "./WorldChoropleth";
+export { MapLegend, type MapLegendProps } from "./MapLegend";
 export { BandScreenDefs, LegendBandDefs } from "./BandScreen";
-export { band, BAND_CELL, BAND_RADII } from "./model";
+export { band, equalBreaks, BAND_CELL, BAND_RADII } from "./model";

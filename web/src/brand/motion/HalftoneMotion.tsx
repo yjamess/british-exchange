@@ -45,7 +45,7 @@ float hash(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){vec2 uv=(v-.5)*crop+.5;float t=mix(tone(f0,uv),tone(f1,uv),mx);vec2 px=gl_FragCoord.xy;
 float g=hash(floor(px)+floor(time*24.)*vec2(17.,31.))-.5;
 if(mode<.5){float a=.7853982;vec2 q=vec2(px.x*cos(a)+px.y*sin(a),-px.x*sin(a)+px.y*cos(a))*6.2831853/cell;
-float s=.5+.25*(cos(q.x)+cos(q.y));float cov=1.-t+g*.14;float k=1.-smoothstep(cov-.035,cov+.035,s);gl_FragColor=vec4(mix(paper,ink,k),1.);}
+float s=.5+.25*(cos(q.x)+cos(q.y));float cov=1.-t+g*.14;float k=(1.-smoothstep(cov-.035,cov+.035,s))*step(t,.985);gl_FragColor=vec4(mix(paper,ink,k),1.);}
 else{float tt=clamp(t+g*.26,0.,1.);tt=smoothstep(.12,.98,tt);vec3 c=tt<.5?mix(deep,ink,tt*2.):mix(ink,hi,(tt-.5)*2.);gl_FragColor=vec4(c,1.);}}`;
 
 export function HalftoneMotion({
@@ -55,6 +55,7 @@ export function HalftoneMotion({
   cell = 5.5,
   paused = false,
   fallback,
+  fallbackSrc,
   label,
   className = "",
   style,
@@ -68,6 +69,8 @@ export function HalftoneMotion({
   paused?: boolean;
   /** Static plate shown if WebGL is unavailable. */
   fallback?: PlateName;
+  /** Or a mask file shown if WebGL or the atlas fails (e.g. a specimen plate). */
+  fallbackSrc?: string;
   /** Accessible description; omit for decorative use. */
   label?: string;
   className?: string;
@@ -159,9 +162,10 @@ export function HalftoneMotion({
     };
     drawRef.current = () => draw();
 
+    let tex: WebGLTexture | null = null;
     const img = new Image();
     img.onload = () => {
-      const tex = gl.createTexture();
+      tex = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, tex);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -197,12 +201,27 @@ export function HalftoneMotion({
       ro.disconnect();
       io.disconnect();
       drawRef.current = () => {};
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      img.onload = null;
+      img.onerror = null;
+      // Free GPU objects but keep the context: React may re-run this effect on the same canvas
+      // (dev Strict Mode), and a lost context cannot compile shaders again.
+      if (tex) gl.deleteTexture(tex);
+      gl.deleteBuffer(buf);
+      gl.deleteProgram(prog);
     };
   }, [a.src, a.cols, a.rows, a.frames, a.frameWidth, a.frameHeight, fps, cell]);
 
-  if (failed && fallback) {
-    return <Plate name={fallback} className={className} style={style} label={label} />;
+  if (failed && (fallback || fallbackSrc)) {
+    return (
+      <Plate
+        name={fallback}
+        src={fallback ? undefined : fallbackSrc}
+        fit={fallback ? "cover" : "contain"}
+        className={className}
+        style={{ width: "100%", height: "100%", ...style }}
+        label={label}
+      />
+    );
   }
   return (
     <canvas

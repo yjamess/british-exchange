@@ -25,10 +25,13 @@ export const IMPORT_DEPENDENCY_ID = "energy-import-dependency";
 export const FOSSIL_PRIMARY_FUELS = ["Coal", "Petroleum", "Natural gas"] as const;
 export type FossilPrimaryFuel = (typeof FOSSIL_PRIMARY_FUELS)[number];
 
-/** Plain labels for the oil-equivalent chart (publisher still uses Petroleum / Natural gas in notes). */
+/**
+ * Plain labels for the oil-equivalent chart (publisher still uses Petroleum / Natural gas in notes).
+ * ET 1.1 "Petroleum" production is crude oil and NGLs (natural gas liquids), not refined oil products.
+ */
 export const FOSSIL_PRIMARY_LABEL: Record<FossilPrimaryFuel, string> = {
   Coal: "Coal",
-  Petroleum: "Oil products",
+  Petroleum: "Crude oil and NGLs",
   "Natural gas": "Gas",
 };
 
@@ -343,11 +346,11 @@ export function reservesMeasureSeries(
   measure: string,
 ): { id: string; label: string; points: Pt[] } {
   const labels: Record<string, string> = {
-    oil_2p_mt: "Oil still counted as 2P",
-    oil_1p_mt: "Oil still counted as 1P",
+    oil_2p_mt: "Oil still counted as recoverable",
+    oil_1p_mt: "Oil still counted as recoverable · proven only",
     oil_production_mt: "Oil extracted that year",
-    gas_2p_bcm: "Gas still counted as 2P",
-    oil_2c_mt: "Oil contingent · 2C",
+    gas_2p_bcm: "Gas still counted as recoverable",
+    oil_2c_mt: "Oil contingent resources",
   };
   const points: Pt[] = [];
   for (const r of rows) {
@@ -364,7 +367,8 @@ export function reservesMeasureSeries(
   return {
     id: measure,
     label: labels[measure] ?? measure,
-    points,
+    // Energy charts do not plot provisional points.
+    points: points.filter((p) => !p.provisional),
   };
 }
 

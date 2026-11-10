@@ -1,0 +1,55 @@
+indicator_id: parliament-housing-milestones
+title: Homes added since the start of Parliament
+sector: housing-land
+publisher: MHCLG (DLUHC for the 2019 Parliament)
+source_url: https://www.gov.uk/government/statistics/housing-supply-indicators-of-new-supply-england-april-to-june-2026/housing-supply-indicators-of-new-supply-england-april-to-june-2026
+series_id: Indicators of new supply Apr-Jun 2026, Parliament table; Measuring progress
+  towards one million homes, Table 1
+geography: England (E92000001); English regions for category=parliament-2024
+frequency: ad_hoc
+unit: dwellings (net additional)
+definition: Net additional homes in England counted from the day a Parliament first
+  met, as the government measures its housing pledges. category=parliament-2024 counts
+  from 9 July 2024 (the 1.5 million homes milestone); category=parliament-2019 counts
+  from 17 December 2019 (the one million homes manifesto pledge). net-additions-in-period
+  is each published period; progress-since-start-of-parliament is the published running
+  total.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.parliament_housing_milestones
+curated_path: curated/observations.csv
+update_cadence: 'quarterly with Housing supply: indicators of new supply (2024 Parliament);
+  2019 note is final'
+raw_evidence:
+- path: raw/2026-11-10/indicators_of_new_supply_2026_q2.json
+  retrieved_at: '2026-11-10T10:36:17.173957+00:00'
+  checksum_sha256: ad238395050c6bbde385d7c298cfb66c4b3fe7a27a13049c430f9e899a78b71f
+  content_type: application/json
+  official_release_date: '2026-09-24'
+  http_status: null
+  source_url: https://www.gov.uk/api/content/government/statistics/housing-supply-indicators-of-new-supply-england-april-to-june-2026/housing-supply-indicators-of-new-supply-england-april-to-june-2026
+- path: raw/2026-11-10/measuring_progress_one_million_homes.json
+  retrieved_at: '2026-11-10T10:36:17.174431+00:00'
+  checksum_sha256: 6a075e73ae560786eb2303ce94ece14eaeb5b5ad6248dd89b1ae887368b30842
+  content_type: application/json
+  official_release_date: '2024-05-24'
+  http_status: null
+  source_url: https://www.gov.uk/api/content/government/publications/measuring-progress-towards-one-million-homes/measuring-progress-towards-one-million-homes
+transformations: Parse the HTML tables from the GOV.UK Content API body. Column labels
+  map to dates explicitly (unknown labels fail). Values copied as published; nothing
+  is apportioned here.
+revision_notes: Pinned Content API JSON of both pages, retrieved 2026-11-10.
+caveats: Periods after the latest annual net additions release are EPC-based estimates
+  (new-build EPC lodgements less a demolitions allowance), rounded by the publisher
+  and replaced by outturn later; they are marked estimated. Part years at the start
+  of a Parliament are split by the publisher using weekly EPC lodgements. The 2024-25
+  column of the 2024 table is the whole financial year, including weeks before 9 July
+  2024. The 2019 table is a departmental note (May 2024), not an official statistic,
+  and was not updated after the Parliament ended. Rounded period values may not sum
+  to the total.
+related_indicator_ids:
+- net-additional-dwellings
+- epc-domestic-lodgements
+open_questions: []
+notion_registry_url: https://app.notion.com/p/4146547176858167b249f485aa4f9995
+schema_version: '1.0'

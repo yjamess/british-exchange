@@ -602,6 +602,7 @@ export function Stage({
   bar = "hairline",
   size = "normal",
   framed = true,
+  follow,
   foot,
   expandable = false,
   children,
@@ -618,6 +619,11 @@ export function Stage({
   framed?: boolean;
   /** "wide": taller well for maps. "compact": the frame follows short content, such as a two-part split. */
   size?: "normal" | "wide" | "compact";
+  /**
+   * FollowStep (connections) — sits under the framed figure, outside the border,
+   * below Notes behind a hairline. Never put Follow inside the stage body.
+   */
+  follow?: ReactNode;
   /** Usually <FigureRecord/>, often via <SourceLine/>. */
   foot?: ReactNode;
   /**
@@ -684,6 +690,43 @@ export function Stage({
       <div className={s.stageBody}>{children}</div>
       </figure>
       {foot != null && <div className={s.stageFoot}>{foot}</div>}
+      {follow != null && <StageFollow>{follow}</StageFollow>}
+    </div>
+  );
+}
+
+/**
+ * Next reading, under the Notes foot. Its hairline draws from the frame's left edge the
+ * first time it scrolls into view. Only the rule moves; the copy is still.
+ * Above the fold, without JS, or with reduced motion, the rule is simply drawn.
+ */
+function StageFollow({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [rule, setRule] = useState<"wait" | "draw" | undefined>(undefined);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let first = true;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          if (!first) setRule("draw");
+          io.disconnect();
+        } else if (first) {
+          setRule("wait");
+        }
+        first = false;
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={s.stageFollow} data-rule={rule}>
+      {children}
     </div>
   );
 }

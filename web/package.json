@@ -12,7 +12,8 @@
     "test:affordability": "node --test scripts/affordability-scenario.test.mjs",
     "test:evidence": "node --test scripts/energy-evidence.test.mjs",
     "test:url": "node --test scripts/explorer-url.test.mjs",
-    "test:station": "node --test scripts/station-selection.test.mjs"
+    "test:station": "node --test scripts/station-selection.test.mjs",
+    "test:connections": "node --test scripts/connections.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",

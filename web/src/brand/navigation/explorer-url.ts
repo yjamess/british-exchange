@@ -56,7 +56,8 @@ export type ExplorerUrlResult = {
   view: string;
 };
 
-const CORE = ["domain", "view"] as const;
+/** Arrival chip keys (`via` / `via_return`) survive view prune — see connections contract. */
+const CORE = ["domain", "view", "via", "via_return"] as const;
 
 function viewIds(contract: DomainUrlContract): Set<string> {
   return new Set(contract.views.map((v) => v.id));

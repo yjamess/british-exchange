@@ -1,0 +1,42 @@
+indicator_id: manufacturing-productivity-hours
+title: Manufacturing productivity hours
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/dk3v/prdy
+series_id: DK3V
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: Index 2023=100, SA (productivity hours, manufacturing)
+definition: 'UK productivity hours for SIC 2007 section C Manufacturing: seasonally
+  adjusted index (2023=100). ONS CDID DK3V in PRDY (Labour productivity time series).
+  This is the official hours component used with output to form output per hour —
+  not a count of Workforce Jobs.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_productivity_hours
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS labour productivity / PRDY)
+raw_evidence:
+- path: raw/2026-11-10/dk3v_prdy.json
+  retrieved_at: '2026-11-10T02:29:06.901098+00:00'
+  checksum_sha256: transform-only
+  content_type: application/json
+  official_release_date: null
+  http_status: null
+  source_url: ''
+transformations: Download ONS timeseries JSON (DK3V/PRDY /data). Keep quarters only
+  (annual aggregates omitted). Map year+Q→ISO calendar quarter bounds. Geography fixed
+  to K02000001. Values = index 2023=100 SA; empty → missing. observation_status=provisional
+  (PRDY revises).
+revision_notes: Hours revise with labour-input and LFS/RTI revisions each PRDY release.
+  Re-pin raw JSON on re-ingest; compare checksums.
+caveats: Index of hours worked in manufacturing productivity accounts — not thousands
+  of jobs (JWR7) and not ASHE paid hours. Do not divide IoP by this index to invent
+  a private productivity series; use official DJK6 / DJ4P. National section C only.
+related_indicator_ids:
+- manufacturing-output-per-hour
+- manufacturing-output-per-job
+- manufacturing-employment
+open_questions: []
+notion_registry_url: https://app.notion.com/414654717685812eb6a1f1dbe97cc368
+schema_version: '1.0'

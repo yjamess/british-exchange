@@ -44,7 +44,7 @@ export const FOSSILS_DATA_SERIES: { id: FossilsDataSeries; label: string; record
   { id: "primary", label: "Primary fossil fuels", record: PRIMARY_PRODUCTION_ID },
   { id: "fields", label: "Offshore fields", record: NSTA_FIELDS_ID },
   { id: "field-production", label: "Field production sums", record: NSTA_FIELD_PRODUCTION_ID },
-  { id: "reserves", label: "What's left (2P)", record: UK_RESERVES_ID },
+  { id: "reserves", label: "What's left", record: UK_RESERVES_ID },
 ];
 
 function fig(v: number | null | undefined, digits = 1): string {
@@ -84,7 +84,7 @@ function CrudeTable({ pack }: { pack: FossilsPack }) {
   const titleId = useId();
   const points = crudeOilSeries(pack.crude?.observations ?? []).points;
   if (!points.length) {
-    return <EmptyStage label="Crude series unavailable">Indigenous crude oil did not load.</EmptyStage>;
+    return <EmptyStage label="Crude series unavailable">Indigenous crude oil production is not available right now.</EmptyStage>;
   }
   return (
     <div className={t.tableGroup}>
@@ -119,7 +119,7 @@ function GasTable({ pack }: { pack: FossilsPack }) {
   const titleId = useId();
   const points = gasAnnualSeries(pack.gas?.observations ?? []).points;
   if (!points.length) {
-    return <EmptyStage label="Gas series unavailable">Domestic gas production did not load.</EmptyStage>;
+    return <EmptyStage label="Gas series unavailable">Domestic gas production is not available right now.</EmptyStage>;
   }
   return (
     <div className={t.tableGroup}>
@@ -154,7 +154,7 @@ function CoalTable({ pack }: { pack: FossilsPack }) {
   const titleId = useId();
   const points = coalMtSeries(pack.coal?.observations ?? []).points;
   if (!points.length) {
-    return <EmptyStage label="Coal series unavailable">Historical coal production did not load.</EmptyStage>;
+    return <EmptyStage label="Coal series unavailable">Historical coal production is not available right now.</EmptyStage>;
   }
   return (
     <div className={t.tableGroup}>
@@ -190,13 +190,13 @@ function PrimaryTable({ pack }: { pack: FossilsPack }) {
   const stack = primaryFossilStack(pack.primary?.observations ?? []);
   const years = [...new Set(stack.flatMap((s) => s.points.map((p) => p.t)))].sort((a, b) => b - a);
   if (!years.length) {
-    return <EmptyStage label="Primary series unavailable">Primary energy production did not load.</EmptyStage>;
+    return <EmptyStage label="Primary series unavailable">Primary energy production is not available right now.</EmptyStage>;
   }
   const byId = new Map(stack.map((s) => [s.id, new Map(s.points.map((p) => [p.t, p]))]));
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Primary energy · Coal / Petroleum / Natural gas · Mtoe
+        Primary energy · Coal / Petroleum (crude oil and NGLs) / Natural gas · Mtoe
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
@@ -232,12 +232,12 @@ function FieldsTable({ pack }: { pack: FossilsPack }) {
   const timelines = fieldTimelines(pack.fieldProduction);
   const rows = [...pack.fields].sort((a, b) => a.name.localeCompare(b.name));
   if (!rows.length) {
-    return <EmptyStage label="Field register unavailable">NSTA offshore fields did not load.</EmptyStage>;
+    return <EmptyStage label="Field register unavailable">UK offshore field records are not available right now.</EmptyStage>;
   }
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        NSTA UKCS offshore fields · {rows.length.toLocaleString("en-GB")} · status today
+        UK offshore fields · {rows.length.toLocaleString("en-GB")} · status today
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
@@ -276,7 +276,7 @@ function FieldProductionTable({ pack }: { pack: FossilsPack }) {
   );
   if (!years.length) {
     return (
-      <EmptyStage label="Field production unavailable">NSTA field production sums did not load.</EmptyStage>
+      <EmptyStage label="Field production unavailable">Field production sums are not available right now.</EmptyStage>
     );
   }
   const oilBy = new Map(oil.points.map((p) => [p.t, p]));
@@ -328,7 +328,7 @@ function ReservesTable({ pack }: { pack: FossilsPack }) {
     ]),
   ].sort((a, b) => b - a);
   if (!years.length) {
-    return <EmptyStage label="Remaining estimates unavailable">UK oil and gas reserves did not load.</EmptyStage>;
+    return <EmptyStage label="Remaining estimates unavailable">UK oil and gas reserve estimates are not available right now.</EmptyStage>;
   }
   const a = new Map(oil2p.points.map((p) => [p.t, p]));
   const b = new Map(oilEx.points.map((p) => [p.t, p]));
@@ -336,16 +336,16 @@ function ReservesTable({ pack }: { pack: FossilsPack }) {
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Still counted as 2P · beside oil extracted that year
+        Still counted as recoverable · beside oil extracted that year
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
           <thead>
             <tr>
               <th scope="col">Year</th>
-              <th scope="col">Oil 2P · Mt</th>
+              <th scope="col">Oil recoverable · Mt</th>
               <th scope="col">Oil extracted · Mt</th>
-              <th scope="col">Gas 2P · bcm</th>
+              <th scope="col">Gas recoverable · bcm</th>
             </tr>
           </thead>
           <tbody>

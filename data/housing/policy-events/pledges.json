@@ -1,14 +1,24 @@
 {
   "registry_id": "housing-pledges",
-  "retrieved_at": "2026-11-05",
+  "retrieved_at": "2026-11-10",
   "note": "Promise vs Delivery register for Housing Domain 10. A promise is set beside a result only when the pledge and the series share geography, period and unit. Every other pledge is listed with the reason it is not scored, and its match is null. Delivered values are never stored here; the UI computes them from the API using match. context_indicator_ids are context to show nearby, not a score. Statements are short quotations from official or manifesto text. Overlap between a pledge and a series is not evidence that the policy caused the result.",
   "pledges": [
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "house-building-completions-by-country",
+        "series": "completions",
+        "geography_code": "K03000001",
+        "unit": "dwellings-per-year",
+        "aggregation": "per-period",
+        "dimensions": {
+          "category": "all"
+        }
+      },
+      "scorable": true,
       "funding": [],
       "linked_event_ids": [],
       "context_indicator_ids": [
+        "house-building-completions-by-country",
         "housebuilding-completions-long-run"
       ],
       "made_date_note": "Polling day of the 1951 general election. The manifesto's own publication date is not pinned.",
@@ -24,7 +34,12 @@
       "statement": "\"Our target remains 300,000 houses a year.\"",
       "sources": [
         {
-          "label": "HC Deb 20 November 1951 vol 494 cc211-3 (Housing programme)",
+          "label": "Conservative and Unionist Party, Britain Strong and Free (1951 general election manifesto), archived copy",
+          "url": "https://web.archive.org/web/20240410023003/http://www.conservativemanifesto.com/1951/1951-conservative-manifesto.shtml",
+          "role": "manifesto"
+        },
+        {
+          "label": "HC Deb 20 November 1951 vol 494 cc211-3 (Housing programme): Macmillan, 'a target which we shall aim to achieve'",
           "url": "https://api.parliament.uk/historic-hansard/commons/1951/nov/20/programme",
           "role": "official"
         },
@@ -32,23 +47,44 @@
           "label": "HC Deb 20 July 1954 vol 530 cc1152-4 (Annual housing programme)",
           "url": "https://api.parliament.uk/historic-hansard/commons/1954/jul/20/annual-housing-programme",
           "role": "official"
+        },
+        {
+          "label": "HC Deb 4 December 1951 (Housing): permanent houses and flats, Great Britain",
+          "url": "https://hansard.parliament.uk/commons/1951-12-04/debates/e7a4c47d-b982-404b-af60-325d82926da3/Housing",
+          "role": "official"
+        },
+        {
+          "label": "HL Deb 26 February 1952 (The housing situation)",
+          "url": "https://api.parliament.uk/historic-hansard/lords/1952/feb/26/the-housing-situation",
+          "role": "official"
+        },
+        {
+          "label": "ONS, Indicators of house building, UK: permanent dwellings started and completed by country, Tables 3a-3e (23 October 2026)",
+          "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/ukhousebuildingpermanentdwellingsstartedandcompleted",
+          "role": "primary"
         }
       ],
       "target": {
         "value": 300000,
         "unit": "dwellings-per-year",
-        "geography_code": null,
-        "period_start": null,
-        "period_end": null,
-        "period_note": "An annual rate with no start or end year. The manifesto does not name the area it covers. Nations listed are Great Britain as a working reading only; Northern Ireland had its own housing administration."
+        "geography_code": "K03000001",
+        "period_start": "1952-01-01",
+        "period_end": "1954-12-31",
+        "period_note": "Each calendar year wholly inside the Parliament elected on the pledge (first met 31 October 1951, dissolved 6 May 1955). 1955 is left out because the Parliament ended in May."
       },
-      "measure_definition": "'Houses' is not defined in the manifesto: it does not say whether completions or approvals are meant, or whether flats count. Commons exchanges in 1951 and 1954 discuss annual totals of houses without naming the area.",
-      "not_scored_reason": "The source defines neither geography nor measure. The long-run completions series covers England (Live Table 244) and the UK (Live Table 241); neither can be assumed to be the pledge's area, so the target is listed, not scored.",
-      "status_note": "Manifesto wording read on conservativemanifesto.com, an unofficial archive served over http only, so it is not linked. The Hansard sources record the target being discussed in the Commons. The long-run series can be shown alongside as context only."
+      "measure_definition": "Permanent houses and flats completed in Great Britain in a calendar year, all builders. The pledge itself defines nothing; this is the measure used in the Commons and Lords exchanges of 1951 and 1952. Great Britain is England + Wales + Scotland from ONS country tables; prefabs are excluded.",
+      "not_scored_reason": null,
+      "status_note": "The target was first exceeded in 1953, and output peaked in 1954. A 1984 Commons remark dates the target to 1954, but that was the peak year."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "net-additional-dwellings",
+        "series": "net-additions",
+        "geography_code": "E92000001",
+        "unit": "dwellings-per-year",
+        "aggregation": "latest"
+      },
+      "scorable": true,
       "funding": [
         {
           "amount_gbp": 15300000000,
@@ -83,18 +119,24 @@
       "target": {
         "value": 300000,
         "unit": "dwellings-per-year",
-        "geography_code": null,
-        "period_start": null,
-        "period_end": null,
-        "period_note": "'By the end of this Parliament' applies to reaching the highest supply since 1970. The 300,000 rate is only something to be 'on track to reach', with no year given. 'Mid-2020s' does not appear in the Budget's housing text."
+        "geography_code": "E92000001",
+        "period_start": "2017-04-01",
+        "period_end": "2025-03-31",
+        "period_note": "Exchange assumption: 'on track to reach' 300,000 is read as reaching it by 2025, the middle of the decade; the Budget gives no year. The verdict is the financial year 2024-25 (April 2024 to March 2025), the latest outturn ending in 2025. Earlier years from 2017-18 show the path."
       },
-      "measure_definition": "'Housing supply' is not defined in the Budget text. Its baseline of 217,000 for 2016-17 is close to England net additional dwellings for that year, but the document does not say which statistic it uses.",
-      "not_scored_reason": "No year is set for the 300,000 rate, and neither the measure nor the geography is stated in the source. Listed, not scored.",
-      "status_note": "Nations is England because housing is devolved and the Budget's housing measures are for England; the text itself does not name the nation. Net additional dwellings can be shown alongside as context only."
+      "measure_definition": "Net additional dwellings in England (MHCLG Live Table 118), one financial year. The Budget's 2016-17 baseline of 217,000 matches the net additions figure published at the time; the Budget itself does not name the statistic.",
+      "not_scored_reason": null,
+      "status_note": "The year 2025 is an assumption made here, not stated in the Budget. 2025-26 outturn is due in November 2026; MHCLG's interim estimate for that year is also below 300,000."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "net-additional-dwellings",
+        "series": "net-additions",
+        "geography_code": "E92000001",
+        "unit": "dwellings-per-year",
+        "aggregation": "latest"
+      },
+      "scorable": true,
       "funding": [],
       "linked_event_ids": [],
       "context_indicator_ids": [
@@ -120,17 +162,26 @@
         "value": 300000,
         "unit": "dwellings-per-year",
         "geography_code": "E92000001",
-        "period_start": null,
-        "period_end": null,
-        "period_note": "'By the mid-2020s' is not defined as a year or a financial year in the manifesto."
+        "period_start": "2020-04-01",
+        "period_end": "2025-03-31",
+        "period_note": "Exchange assumption: 'by the mid-2020s' is read as 2025, as for the 2017 Budget pledge. The verdict is financial year 2024-25 (April 2024 to March 2025), the latest outturn ending in 2025. Years from 2020-21 show the path."
       },
-      "measure_definition": "'Homes' is not defined in the manifesto. Government usually reports housing supply in England as net additional dwellings, but the manifesto does not say so.",
-      "not_scored_reason": "'Mid-2020s' is not a defined period, and the source does not say which measure counts. The target is listed, not scored as an annual target.",
-      "status_note": "The manifesto does not name England explicitly. Housing is devolved, and the related million-homes ambition was later measured for England (see conservative-2019-million-homes-this-parliament)."
+      "measure_definition": "Net additional dwellings in England (MHCLG Live Table 118), one financial year: the measure government used for its housing supply ambitions in this period.",
+      "not_scored_reason": null,
+      "status_note": "The year 2025 is an assumption made here; the manifesto gives none. The manifesto does not name England explicitly; housing is devolved and the related million-homes ambition was measured for England."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "parliament-housing-milestones",
+        "series": "progress-since-start-of-parliament",
+        "geography_code": "E92000001",
+        "unit": "dwellings",
+        "aggregation": "latest",
+        "dimensions": {
+          "category": "parliament-2019"
+        }
+      },
+      "scorable": true,
       "funding": [],
       "linked_event_ids": [],
       "context_indicator_ids": [
@@ -168,20 +219,30 @@
         "unit": "dwellings",
         "geography_code": "E92000001",
         "period_start": "2019-12-17",
-        "period_end": null,
-        "period_note": "DLUHC (May 2024) counted from 17 December 2019, when the Parliament first met, to 19 May 2024. The manifesto says only 'over the next Parliament'. The end date is DLUHC's estimate cut-off, not a defined period end."
+        "period_end": "2024-05-30",
+        "period_note": "From 17 December 2019, the day the Parliament first met, to 30 May 2024, when it was dissolved. DLUHC's count runs to 19 May 2024, its data cut-off."
       },
-      "measure_definition": "DLUHC states that the target tracks net additional dwellings in England. Its 2024 estimate apportioned part financial years using EPC lodgements and is not an official statistic.",
-      "not_scored_reason": "The period runs from 17 December 2019 and does not line up with the financial-year net additional dwellings series. Scoring would require part-year apportionment, which DLUHC did with an EPC-based estimate that is not an official statistic. Listed, not scored.",
-      "status_note": "DLUHC's own May 2024 estimate is recorded in its publication; it is not reproduced here and is not an official statistic."
+      "measure_definition": "Net additional dwellings in England since 17 December 2019, as DLUHC counted it in May 2024: outturn net additions to 2022-23, with EPC-based estimates for part years and for April 2023 onwards.",
+      "not_scored_reason": null,
+      "status_note": "Scored on DLUHC's own departmental estimate (May 2024), not an official statistic. It was not updated after the Parliament ended."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "parliament-housing-milestones",
+        "series": "progress-since-start-of-parliament",
+        "geography_code": "E92000001",
+        "unit": "dwellings",
+        "aggregation": "latest",
+        "dimensions": {
+          "category": "parliament-2024"
+        }
+      },
+      "scorable": true,
       "funding": [],
       "linked_event_ids": [],
       "context_indicator_ids": [
-        "net-additional-dwellings"
+        "net-additional-dwellings",
+        "parliament-housing-milestones"
       ],
       "made_date_note": "Plan for Change publication date. The figure appeared earlier in the Labour Party's 2024 manifesto.",
       "id": "government-2024-1-5-million-homes-england",
@@ -202,23 +263,42 @@
           "label": "MHCLG, Net supply of housing (statistics collection)",
           "url": "https://www.gov.uk/government/collections/net-supply-of-housing",
           "role": "primary"
+        },
+        {
+          "label": "MHCLG, Housing supply: indicators of new supply, England: April to June 2026 (24 September 2026)",
+          "url": "https://www.gov.uk/government/statistics/housing-supply-indicators-of-new-supply-england-april-to-june-2026/housing-supply-indicators-of-new-supply-england-april-to-june-2026",
+          "role": "primary"
+        },
+        {
+          "label": "Dissolution and Calling of Parliament Act 2022, section 4",
+          "url": "https://www.legislation.gov.uk/ukpga/2022/11/section/4",
+          "role": "official"
         }
       ],
       "target": {
         "value": 1500000,
         "unit": "dwellings",
         "geography_code": "E92000001",
-        "period_start": null,
-        "period_end": null,
-        "period_note": "'This Parliament': it first met in July 2024 and must end by mid-2029, with no fixed end date. The Plan does not say which financial years of net additional dwellings count."
+        "period_start": "2024-07-09",
+        "period_end": "2029-07-08",
+        "period_note": "'This Parliament': counted from 9 July 2024, the day it first met, as MHCLG counts it. 8 July 2029 is the latest possible last day: a Parliament dissolves on the fifth anniversary of first meeting. Progress to date, not a final result."
       },
-      "measure_definition": "The Plan says progress will be measured through 'the number of net additional dwellings delivered in England over the course of this Parliament' (MHCLG net supply of housing statistics).",
-      "not_scored_reason": "Geography (England) and measure (net additional dwellings) match the series, but the period does not. The Parliament has no fixed end date, and its start (July 2024) falls inside financial year 2024-25. Government has not said how part years count. Listed, not scored until the period is defined.",
-      "status_note": "This is the closest pledge to being scorable. If government publishes the financial years it counts, add a match to net-additional-dwellings (series=net-additions, E92000001, aggregation=sum) with that period."
+      "measure_definition": "Net additional dwellings in England since 9 July 2024, as estimated by MHCLG in its quarterly indicators of new supply: outturn net additions where published, and new-build EPC lodgements less demolitions for later periods.",
+      "not_scored_reason": null,
+      "status_note": "The Parliament is still sitting, so this is progress so far. Recent periods are estimates that MHCLG replaces with annual net additions when they are published; the next update is due in December 2026."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "affordable-homes-programme-delivery",
+        "series": "cumulative-starts",
+        "geography_code": "E92000001",
+        "unit": "dwellings",
+        "aggregation": "latest",
+        "dimensions": {
+          "category": "ahp-2016-23"
+        }
+      },
+      "scorable": true,
       "funding": [
         {
           "amount_gbp": 9800000000,
@@ -232,13 +312,14 @@
       ],
       "linked_event_ids": [],
       "context_indicator_ids": [
+        "affordable-homes-programme-delivery",
         "affordable-housing-supply"
       ],
-      "made_date_note": "Date of the MHCLG report giving the final target and budget. The programme began as the Shared Ownership and Affordable Homes Programme 2016 to 2021 and its target was revised over time; the date the 250,000 figure was set is not pinned.",
+      "made_date_note": "June 2018, when the Department set its revised and final targets (NAO 2022, para 1.9); the source gives the month only. The quotation is MHCLG's later description of that target (annual report, January 2026).",
       "id": "affordable-homes-programme-2016-23",
       "title": "Affordable Homes Programme 2016 to 2023: around 250,000 homes",
       "made_by": "DCLG / MHCLG, delivered by Homes England and the Greater London Authority",
-      "made_date": "2026-01-07",
+      "made_date": "2018-06-01",
       "nations": [
         "England"
       ],
@@ -250,9 +331,14 @@
           "role": "official"
         },
         {
-          "label": "National Audit Office, The Affordable Homes Programme since 2015 (September 2022)",
+          "label": "National Audit Office, The Affordable Homes Programme since 2015 (September 2022), paras 1.8-1.9",
           "url": "https://www.nao.org.uk/reports/the-affordable-homes-programme-since-2015/",
           "role": "official"
+        },
+        {
+          "label": "Homes England, Housing Statistics 1 April 2025 to 31 March 2026 (25 June 2026), Table 1",
+          "url": "https://www.gov.uk/government/statistics/housing-statistics-1-april-2025-to-31-march-2026",
+          "role": "primary"
         }
       ],
       "target": {
@@ -260,16 +346,26 @@
         "unit": "dwellings",
         "geography_code": "E92000001",
         "period_start": "2016-04-01",
-        "period_end": null,
-        "period_note": "Programme from 2016. Homes had to start by March 2023, with some outside London allowed to start later. Completions run beyond 2023, so no completion end date is defined."
+        "period_end": "2024-03-31",
+        "period_note": "Homes started from April 2016. The start deadline was March 2023, extended to March 2024 for some homes outside London; completions continue later. The published total is at 31 March 2025, after starts closed."
       },
-      "measure_definition": "Homes funded through the programme (starts and completions recorded by Homes England and the GLA). This is a subset of affordable housing supply.",
-      "not_scored_reason": "affordable-housing-supply counts all new affordable homes in England, including Section 106 and other funding routes, not just homes funded by this programme. No programme-level delivery series is in the registry. Listed, not scored.",
-      "status_note": "The NAO's 2022 report reviews programme targets and delivery since 2015."
+      "measure_definition": "Housing starts counted towards the programme in England, Homes England plus the GLA. The final targets set in June 2018 were for starts (Homes England 130,000, GLA 116,000). They include some 2015 programme homes and 'no grant' homes started without programme funding.",
+      "not_scored_reason": null,
+      "status_note": "By March 2025 starts reached 250,142, around 20% of them 'nil grant' homes; 210,058 homes had been completed, with completions still coming in.",
+      "made_date_precision": "month"
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "affordable-homes-programme-delivery",
+        "series": "starts",
+        "geography_code": "E92000001",
+        "unit": "dwellings",
+        "aggregation": "sum",
+        "dimensions": {
+          "category": "ahp-2021-26"
+        }
+      },
+      "scorable": true,
       "funding": [
         {
           "amount_gbp": 11500000000,
@@ -309,6 +405,16 @@
           "label": "National Audit Office, The Affordable Homes Programme since 2015 (September 2022)",
           "url": "https://www.nao.org.uk/reports/the-affordable-homes-programme-since-2015/",
           "role": "official"
+        },
+        {
+          "label": "Homes England, Housing Statistics 1 April 2025 to 31 March 2026 (25 June 2026), Table 1",
+          "url": "https://www.gov.uk/government/statistics/housing-statistics-1-april-2025-to-31-march-2026",
+          "role": "primary"
+        },
+        {
+          "label": "Greater London Authority, affordable housing statistics (to end of June 2026), Table 1",
+          "url": "https://www.london.gov.uk/programmes-strategies/housing-and-land/increasing-housing-supply/affordable-housing-statistics",
+          "role": "primary"
         }
       ],
       "target": {
@@ -317,20 +423,27 @@
         "geography_code": "E92000001",
         "period_start": "2021-04-01",
         "period_end": "2026-03-31",
-        "period_note": "'Delivered over 5 years from 2021 to 2026'. Almost all homes must start by March 2026, and completions follow later. July 2024 revised targets: 110,000 to 130,000 homes, with no annual targets."
+        "period_note": "'Delivered over 5 years from 2021 to 2026'. Scored on homes started on site from April 2021 to March 2026, the programme's start deadline. Completions follow, to March 2029 outside London. July 2024 revised targets: 110,000 to 130,000 homes, with no annual targets."
       },
-      "measure_definition": "Homes funded by the programme through Homes England and the GLA. The 180,000 was conditional ('should economic conditions allow'). The NAO reported that agency targets totalled 157,000 at launch.",
-      "not_scored_reason": "affordable-housing-supply measures all affordable supply in England, not homes funded by this programme. The headline was also conditional and has since been replaced by a 110,000 to 130,000 range. Listed, not scored.",
-      "status_note": "Revised July 2024 targets: 110,000 to 130,000 homes, including at least 40,000 for social rent (MHCLG annual report 2024 to 2025)."
+      "measure_definition": "Affordable homes started on site with programme funding, Homes England (outside London) plus the GLA (London), summed over the five financial years 2021-22 to 2025-26. The 180,000 was conditional ('should economic conditions allow').",
+      "not_scored_reason": null,
+      "status_note": "The headline was conditional and was replaced in July 2024 by a 110,000 to 130,000 range, including at least 40,000 for social rent. The NAO reported that agency targets totalled 157,000 at launch."
     },
     {
-      "match": null,
-      "scorable": false,
+      "match": {
+        "indicator_id": "right-to-buy-one-for-one",
+        "series": "replacement-ratio",
+        "geography_code": "E92000001",
+        "unit": "replacement-per-additional-sale",
+        "aggregation": "per-period"
+      },
+      "scorable": true,
       "funding": [],
       "linked_event_ids": [
         "housing-act-1980"
       ],
       "context_indicator_ids": [
+        "right-to-buy-sales-and-replacements",
         "dwelling-stock-by-tenure"
       ],
       "made_date_note": "Press release date. The changes took effect from 2 April 2012, following consultation from December 2011.",
@@ -352,19 +465,24 @@
           "label": "DCLG, Reinvigorating Right to Buy and one-for-one replacement: information for local authorities (March 2012)",
           "url": "https://www.gov.uk/government/publications/reinvigorating-right-to-buy-factsheet-for-local-authorities--2",
           "role": "official"
+        },
+        {
+          "label": "MHCLG, Right to Buy sales and replacements, England: 2024 to 2025 (21 August 2025), Figure 7",
+          "url": "https://www.gov.uk/government/statistics/right-to-buy-sales-and-replacements-england-2024-to-2025",
+          "role": "primary"
         }
       ],
       "target": {
         "value": 1,
-        "unit": "replacements-per-additional-sale",
+        "unit": "replacement-per-additional-sale",
         "geography_code": "E92000001",
         "period_start": "2012-04-02",
-        "period_end": null,
-        "period_note": "From 2 April 2012 with no end date. Applies to additional sales above the forecast baseline, not to all sales."
+        "period_end": "2025-03-31",
+        "period_note": "From 2 April 2012. Each year compares replacements since April 2012 with additional sales up to three years earlier, as MHCLG measured it. Scored to March 2025: MHCLG stopped reporting the target after the Government response of 2 July 2025. Applies to additional sales above the pre-2012 baseline, not all sales."
       },
-      "measure_definition": "Each additional Right to Buy sale (above the pre-reform forecast) is to be matched by a new affordable rented home, through starts or acquisitions funded partly by retained receipts.",
-      "not_scored_reason": "There is no Right to Buy sales-and-replacements series in the registry. dwelling-stock-by-tenure measures stock, not sales or replacements. Listed, not scored.",
-      "status_note": "The Housing Act 1980 created the statutory right to buy. The 2012 pledge changed discounts and the use of receipts in England."
+      "measure_definition": "Cumulative receipt-funded new-build starts and acquisitions since April 2012, divided by cumulative additional Right to Buy sales (above the pre-2012 baseline) up to three years earlier. MHCLG publishes both figures; the ratio is computed from them. 1 or more means the national target was met that year.",
+      "not_scored_reason": null,
+      "status_note": "The Housing Act 1980 created the statutory right to buy. The 2012 pledge changed discounts and the use of receipts in England. From 2023-24 Homes England stopped separately recording receipt-funded starts, so replacements may be undercounted."
     },
     {
       "match": null,
@@ -382,6 +500,7 @@
       ],
       "linked_event_ids": [],
       "context_indicator_ids": [
+        "help-to-buy-equity-loan",
         "housing-completions"
       ],
       "made_date_note": null,
@@ -414,8 +533,8 @@
         "period_note": "The Budget notes that the scheme would continue until March 2021. No start date is given for counting the 'another 135,000'."
       },
       "measure_definition": "Purchases of new-build homes supported by a Help to Buy equity loan in England (MHCLG Help to Buy statistics).",
-      "not_scored_reason": "There is no Help to Buy series in the registry, and the start of the count is not defined. A target counted in buyers cannot be matched to a dwellings series. Listed, not scored.",
-      "status_note": "Help to Buy statistics are published quarterly by MHCLG and could be added as a separate source."
+      "not_scored_reason": "Monthly Help to Buy completions are now in the registry (help-to-buy-equity-loan), and one completion is one buyer. The Budget does not say from which date 'another 135,000' is counted, so the period is undefined. Listed, not scored.",
+      "status_note": "The 2013-2021 scheme was followed by a 2021-2023 scheme for first-time buyers only. The scheme closed on 31 May 2023; the November 2023 release is final."
     }
   ]
 }

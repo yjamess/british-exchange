@@ -1,0 +1,84 @@
+/* Locked Follow chrome: Primary step (lab 1) + Arrival chip (lab 4). */
+
+/* Lives under the Stage frame (stageFollow), not inside the bordered body. */
+.followStep {
+  display: grid;
+  gap: var(--bo-s2);
+}
+
+.kicker {
+  margin: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness var(--bo-fast) var(--bo-ease);
+}
+
+.title:hover {
+  text-decoration-thickness: 2px;
+}
+
+.title:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title { transition: none; }
+}
+
+.titleMuted {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+  color: var(--bo-union);
+}
+
+.honesty {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 48ch;
+}
+
+.meta {
+  margin: 0;
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+
+.arrival {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+  margin: 0 0 var(--bo-s4);
+  padding: 0.35rem 0.65rem;
+  border: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+  background: var(--bo-paper);
+}
+
+.arrival strong {
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+
+.arrival a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}

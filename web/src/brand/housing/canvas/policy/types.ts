@@ -119,6 +119,8 @@ export type Pledge = {
   /** Series to read alongside the pledge. Context only — never a score. */
   context_indicator_ids?: string[];
   made_date_note?: string;
+  /** "month" when the source gives only a month: show month and year, not a day. */
+  made_date_precision?: "day" | "month";
   status_note: string;
 };
 export type PledgeRegistry = { registry_id: string; retrieved_at: string; note: string; pledges: Pledge[] };
@@ -167,6 +169,12 @@ export type PlateRecord = {
 export type PlateRegistry = { registry_id: string; retrieved_at: string; note: string; plates: PlateRecord[] };
 
 export type PolicyPayload = {
+  /** Event register from pack `housing.policy-events` (Storage / API — never a webpack data/ import). */
+  events: PolicyEvent[];
+  eras: Era[];
+  relationships: Relationship[];
+  retrieved_at: string;
+  note: string;
   plates: PlateRegistry | null;
   trackNote: string | null;
   tracks: TrackPayload[];

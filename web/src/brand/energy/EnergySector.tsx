@@ -11,6 +11,14 @@ import type { ImportsPack } from "./imports-model";
 import type { ManufacturingPack } from "./manufacturing-model";
 import type { RenewablesPack } from "./renewables-model";
 import type { NetworksPack } from "./networks-model";
+import {
+  EMPTY_POLICY_EVENTS_PACK,
+  type PolicyEventsPack,
+} from "./policy-events";
+import {
+  EMPTY_SHOCK_EVENTS_PACK,
+  type ShockEventsPack,
+} from "./imports-shock-events";
 
 /** Energy & Industry page: BrandRoot → SectorPage → Explorer, with Ready domain canvases. */
 export function EnergySector({
@@ -68,9 +76,29 @@ export function EnergySector({
     lowCarbonShare: null,
     gasStorage: null,
   },
-  manufacturing = { output: null, share: null, employment: null, productivity: null },
+  manufacturing = {
+    output: null,
+    share: null,
+    employment: null,
+    productivity: null,
+    iopByDivision: null,
+    iopWeights: null,
+    outputPerJob: null,
+    productivityHours: null,
+    asheEarnings: null,
+    bresByRegion: null,
+    bresByDivisionRegion: null,
+  },
   renewables = { loadFactors: null, pipeline: null, plantLoadFactors: null },
-  networks = { interconnectors: null },
+  networks = {
+    interconnectors: null,
+    interconnectorCapacity: null,
+    tec: null,
+    ssenAtlas: null,
+    ssenCounts: null,
+  },
+  policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
   titles?: Record<string, string>;
@@ -86,6 +114,8 @@ export function EnergySector({
   manufacturing?: ManufacturingPack;
   renewables?: RenewablesPack;
   networks?: NetworksPack;
+  policyEvents?: PolicyEventsPack;
+  shockEvents?: ShockEventsPack;
 }) {
   return (
     <BrandRoot>
@@ -105,6 +135,8 @@ export function EnergySector({
           manufacturing={manufacturing}
           renewables={renewables}
           networks={networks}
+          policyEvents={policyEvents}
+          shockEvents={shockEvents}
         />
       </Suspense>
     </BrandRoot>

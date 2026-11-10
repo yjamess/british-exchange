@@ -1,7 +1,11 @@
-"""FastAPI surface over Ready observations.
+"""FastAPI surface over Ready observations and curated packs.
 
 Prefers PostgreSQL when DATABASE_URL is set; otherwise falls back to local
-curated CSV packages under data/.
+curated CSV packages under data/ (dev only). Production / Railway require
+Postgres — see ``BX_REQUIRE_POSTGRES`` and ``britain_exchange.runtime``.
+
+Curated explorer packs (atlas, stations, geography) are served from
+``GET /packs/{pack_id}`` — local disk when present, else Supabase Storage.
 
 Run:
   export DATABASE_URL=postgresql://britain@127.0.0.1:5432/britain_exchange
@@ -12,6 +16,7 @@ from __future__ import annotations
 
 import csv
 import io
+import json
 import logging
 from dataclasses import asdict
 from typing import Any
@@ -32,6 +37,8 @@ from britain_exchange.chart_contract import (
     infer_chart_kind,
 )
 from britain_exchange.dimensions import merge_row_dimensions
+from britain_exchange.packs import PACK_REGISTRY, PackBlob, get_pack, get_pack_rel, list_packs
+from britain_exchange.runtime import postgres_required_but_missing, require_postgres
 from britain_exchange.store import (
     get_indicator_db,
     list_indicators_db,
@@ -47,10 +54,24 @@ app = FastAPI(
     description=(
         "Serve verified indicator observations with typed dimensions and "
         "current-release selection. Uses PostgreSQL when DATABASE_URL is set; "
-        "else local curated files. Energy fuel totals are excluded from default "
-        "observation queries. Water interruptions stay company-level only."
+        "else local curated files (dev only). Curated packs come from disk or "
+        "Supabase Storage via /packs. Energy fuel totals are excluded from "
+        "default observation queries. Water interruptions stay company-level only."
     ),
 )
+
+
+def _refuse_files_store() -> None:
+    """Block Ready series from the laptop when production requires Postgres."""
+    if postgres_required_but_missing(using_postgres=using_postgres()):
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "Ready series require PostgreSQL in this environment. "
+                "Set DATABASE_URL to the Supabase Database URI and restart. "
+                "GET /health reports store and require_postgres."
+            ),
+        )
 
 app.add_middleware(
     CORSMiddleware,
@@ -219,21 +240,86 @@ def _enrich_observation_rows(
 
 
 @app.get("/health")
-def health() -> dict[str, Any]:
+def health() -> Response:
     # Never return the URL itself — only whether the process can see it.
     from britain_exchange.db import database_url
 
     url = database_url()
-    return {
-        "status": "ok",
-        "store": "postgres" if using_postgres() else "files",
+    store = "postgres" if using_postgres() else "files"
+    required = require_postgres()
+    ok = not postgres_required_but_missing(using_postgres=using_postgres())
+    payload = {
+        "status": "ok" if ok else "unavailable",
+        "store": store,
+        "require_postgres": required,
         "database_url_set": url is not None,
         "database_url_scheme": (url.split(":", 1)[0] if url else None),
     }
+    # Railway healthcheckPath=/health — 503 fails the deploy when Postgres is missing.
+    return Response(
+        content=json.dumps(payload),
+        media_type="application/json",
+        status_code=200 if ok else 503,
+    )
+
+
+@app.get("/packs")
+def packs_index() -> dict[str, Any]:
+    """Allowlisted curated blobs (atlas, stations, geography) for explorers."""
+    return {"packs": list_packs()}
+
+
+def _pack_response(blob: PackBlob) -> Response:
+    return Response(
+        content=blob.body,
+        media_type=blob.media_type,
+        headers={
+            "X-BX-Pack-Source": blob.source,
+            "X-BX-Pack-Path": f"data/{blob.rel_path}",
+            "Cache-Control": "public, max-age=300, stale-while-revalidate=3600",
+        },
+    )
+
+
+@app.get("/packs/rel/{rel_path:path}")
+def pack_by_rel(rel_path: str) -> Response:
+    """Allowlisted curated path under data/ (e.g. planning-layers district plates)."""
+    try:
+        blob = get_pack_rel(rel_path)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"Pack path {rel_path} is not on disk and not reachable in Supabase Storage. "
+                f"Push it with: uv run python -m britain_exchange.archive_data push data/{rel_path}"
+            ),
+        ) from None
+    return _pack_response(blob)
+
+
+@app.get("/packs/{pack_id}")
+def pack_body(pack_id: str) -> Response:
+    try:
+        blob = get_pack(pack_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Unknown pack: {pack_id}") from None
+    except FileNotFoundError:
+        rel = PACK_REGISTRY.get(pack_id, pack_id)
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"Pack {pack_id} is not on disk and not reachable in Supabase Storage. "
+                f"Push it with: uv run python -m britain_exchange.archive_data push data/{rel}"
+            ),
+        ) from None
+    return _pack_response(blob)
 
 
 @app.get("/indicators")
 def list_indicators() -> list[dict[str, Any]]:
+    _refuse_files_store()
     if using_postgres():
         return list_indicators_db()
     items: list[dict[str, Any]] = []
@@ -272,6 +358,7 @@ def list_indicators() -> list[dict[str, Any]]:
 
 @app.get("/indicators/{indicator_id}")
 def get_indicator(indicator_id: str) -> dict[str, Any]:
+    _refuse_files_store()
     if using_postgres():
         payload = get_indicator_db(indicator_id)
         if payload is None:
@@ -350,6 +437,7 @@ def get_observations_csv(indicator_id: str) -> Response:
     Files store: the curated CSV as written by the connector (suppressed cells kept, values empty).
     Postgres: the current release, in the same columns.
     """
+    _refuse_files_store()
     if using_postgres():
         meta = get_indicator_db(indicator_id)
         if meta is None:
@@ -423,6 +511,7 @@ def get_observations(
     ),
     limit: int | None = Query(default=None, ge=1, le=10_000),
 ) -> dict[str, Any]:
+    _refuse_files_store()
     available_dimensions: dict[str, Any] = {}
     if using_postgres():
         meta = get_indicator_db(indicator_id)
@@ -677,3 +766,53 @@ def housing_rent_map(
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+def _district_code(code: str) -> bool:
+    return len(code) == 9 and code[:3] in {"E06", "E07", "E08", "E09"}
+
+
+@app.get("/housing/land-layers/{code}")
+def housing_land_layers(code: str) -> Response:
+    """One English council's Land Explorer plate.
+
+    Prefer a pinned or live-cache pack (disk / Storage). On a miss, build from
+    publisher FeatureServers (including EA flood) plus Storage CSV dumps via
+    the housing connector. Next.js never spawns Python — this is the live path.
+    """
+    if not _district_code(code):
+        raise HTTPException(status_code=404, detail="Not an English local authority district code.")
+
+    for rel in (
+        f"housing/planning-layers/curated/{code}.json",
+        f"housing/planning-layers/curated/live/{code}.json",
+    ):
+        try:
+            return _pack_response(get_pack_rel(rel))
+        except (FileNotFoundError, ValueError):
+            pass
+
+    from housing.connectors.planning_layers import query_place
+
+    try:
+        place = query_place(code)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001 — publisher / geometry failures surface as 502
+        logger.exception("Live land-layer query failed for %s", code)
+        detail = (
+            f"Land layers for {code} could not be built from ONS / MHCLG / EA / Natural England / "
+            f"Historic England open data ({exc.__class__.__name__}). "
+            "The Exchange does not invent geometry."
+        )
+        raise HTTPException(status_code=502, detail=detail) from exc
+
+    body = json.dumps(place, separators=(",", ":")).encode("utf-8")
+    return Response(
+        content=body,
+        media_type="application/json",
+        headers={
+            "X-BX-Pack-Source": "live-query",
+            "Cache-Control": "public, max-age=3600",
+        },
+    )

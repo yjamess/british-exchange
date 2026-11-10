@@ -8,7 +8,8 @@ export const lowCarbonViews = {
   views: [
     {
       id: "guide",
-      label: "Field Guide",
+      label: "Guide",
+      instrument: "Field guide",
       params: ["tech", "year", "measure", "event"],
       evidence: {
         source: ENERGY_SOURCE.renewablesField,
@@ -24,7 +25,8 @@ export const lowCarbonViews = {
     },
     {
       id: "capacity",
-      label: "Capacity ≠ Output",
+      label: "Capacity",
+      instrument: "Capacity and output",
       params: ["tech", "year", "lf_basis"],
       evidence: {
         source: ENERGY_SOURCE.renewablesField,

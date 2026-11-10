@@ -19,15 +19,18 @@
  * because it is ~100× the drawing's height.
  *
  * URL state (owned by HousingExplorer): place (region code; England = none), to (FY start
- * year — shared with other domains' period), vs (comparison year), part (selected term).
+ * year — shared with other domains' period), vs (comparison year), part (selected term),
+ * panel (section | ledger). Controls live in HousingExplorer ControlRows, not in the body.
  */
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PrintSelect, type PrintOption } from "../../../PrintSelect";
+import { EmptyStage } from "../../..";
 import { fmt, niceTicks } from "../../../data";
 import { useWidth } from "../../../useWidth";
 import type { HousingV1, SupplyLedgerYear } from "../../load";
 import s from "./supplyMachine.module.css";
+
+export type MachinePanel = "section" | "ledger";
 
 export type SupplyMachineState = {
   place: string;
@@ -36,6 +39,7 @@ export type SupplyMachineState = {
   /** Comparison FY start year; null = off. */
   vs: number | null;
   part: TermId | null;
+  panel: MachinePanel;
 };
 
 type Props = {
@@ -43,6 +47,85 @@ type Props = {
   state: SupplyMachineState;
   onChange: (next: Partial<SupplyMachineState>) => void;
 };
+
+export const MACHINE_PANEL_OPTIONS: { value: MachinePanel; label: string }[] = [
+  { value: "section", label: "Section" },
+  { value: "ledger", label: "Ledger" },
+];
+
+const yearOfRow = (r: SupplyLedgerYear) => Math.floor(r.t + 1e-6);
+
+export function supplyPlaceOptions(machine: HousingV1["supplyMachine"]): { value: string; label: string }[] {
+  return machine.places.map((p) => ({ value: p.code, label: p.label }));
+}
+
+export function supplyYearOptions(
+  machine: HousingV1["supplyMachine"],
+  place: string,
+): { value: string; label: string }[] {
+  const rows = machine.byPlace[place] ?? [];
+  return [...rows].reverse().map((r) => ({
+    value: String(yearOfRow(r)),
+    label: r.status === "provisional" ? `${r.fy} (P)` : r.fy,
+  }));
+}
+
+export function supplyVsOptions(
+  machine: HousingV1["supplyMachine"],
+  place: string,
+  year: number | null,
+): { value: string; label: string }[] {
+  const rows = machine.byPlace[place] ?? [];
+  const y = year ?? (rows.length ? yearOfRow(rows[rows.length - 1]!) : null);
+  return [
+    { value: "", label: "No comparison" },
+    ...rows
+      .filter((r) => y == null || yearOfRow(r) !== y)
+      .map((r) => ({ value: String(yearOfRow(r)), label: r.fy })),
+  ];
+}
+
+export function supplyMachineFoot(
+  machine: HousingV1["supplyMachine"],
+  state: SupplyMachineState,
+): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  const place = machine.places.find((p) => p.code === state.place) ?? machine.places[0] ?? null;
+  const rows = place ? (machine.byPlace[place.code] ?? []) : [];
+  const years = rows.map(yearOfRow);
+  const year = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const row = year != null ? (rows.find((r) => yearOfRow(r) === year) ?? null) : null;
+  const residual = row?.residual ?? 0;
+  const gap =
+    row != null
+      ? (row.net ?? 0) -
+        TERMS.filter((t) => t.id !== "net").reduce((sum, t) => sum + (contribution(row, t) ?? 0), 0) -
+        residual
+      : 0;
+  const check = row ? unreconciledNote(row, gap) : null;
+  const publisher = row
+    ? row.notes.filter((n) => NOTE_TEXT[n] && NOTE_TEXT[n] !== check && !(n === "[note 6]" && residual === 0))
+    : [];
+  return {
+    definition:
+      "Net additional dwellings is the change in the dwelling stock in a financial year. New build is only one term; conversions, change of use, demolitions and the Census adjustment also count.",
+    method: [
+      "Identity (Live Table 118 note 1): net = new build + net conversions + net change of use + net other gains − demolitions + Census adjustment (+ residual, note 6).",
+      "The section uses one vertical scale per place across every year so comparisons are honest. Demolitions hang below the running level. Census is dashed: a statistical reconciliation, not buildings.",
+      "A gap between the published terms and the published net is printed as unreconciled — never absorbed.",
+      check ?? "",
+      ...publisher.map((n) => NOTE_TEXT[n]!),
+    ].filter(Boolean),
+    source: row
+      ? `MHCLG · Live Table 118 · ${place?.label ?? "England"} · ${row.fy}${row.status === "provisional" ? " · provisional" : ""}`
+      : "MHCLG · Live Table 118 · England and English regions",
+    dataHref: "/data#net-additional-dwellings",
+  };
+}
 
 export type TermId = "new-build" | "conversions" | "change-of-use" | "other-gains" | "demolitions" | "census" | "net";
 
@@ -168,13 +251,6 @@ const TERMS: Term[] = [
 ];
 const PARTS = TERMS.filter((t) => t.id !== "net");
 
-/** Definitions for the Data page. The machine shows the number; the words live with the series. */
-export const supplyTermDefinitions = TERMS.map((term) => ({
-  id: term.id,
-  label: term.label,
-  op: term.op,
-  definition: term.definition,
-}));
 const TERM_IDS = new Set<string>(TERMS.map((t) => t.id));
 export const isTermId = (v: string | null): v is TermId => v != null && TERM_IDS.has(v);
 
@@ -185,7 +261,6 @@ const NOTE_TEXT: Record<string, string> = {
 
 const signed = (v: number) => (Math.abs(v) < 0.5 ? "0" : `${v < 0 ? "−" : "+"}${fmt.count(Math.abs(v))}`);
 const signedCompact = (v: number) => `${v < 0 ? "−" : "+"}${fmt.countCompact(Math.abs(v))}`;
-const yearOfRow = (r: SupplyLedgerYear) => Math.floor(r.t + 1e-6);
 
 /** Signed contribution of a term in a year (demolitions negative); null if not published. */
 function contribution(r: SupplyLedgerYear, term: Term): number | null {
@@ -536,14 +611,12 @@ function Section({
   );
 }
 
-type MachinePanel = "section" | "ledger";
-
 /* ——— Main ——— */
 
 export function SupplyMachine({ machine, state, onChange }: Props) {
   const [wrapRef, width] = useWidth<HTMLDivElement>(900);
-  const [panel, setPanel] = useState<MachinePanel>("section");
   const uid = "sm";
+  const panel = state.panel;
 
   const place = machine.places.find((p) => p.code === state.place) ?? machine.places[0] ?? null;
   const placeCode = place?.code ?? null;
@@ -575,10 +648,9 @@ export function SupplyMachine({ machine, state, onChange }: Props) {
 
   if (!place || !rowB) {
     return (
-      <div className={s.empty}>
-        <p className="bo-label">Net supply not loaded</p>
-        <p>MHCLG Live Table 118 is not available from the API yet. The Exchange does not show estimates.</p>
-      </div>
+      <EmptyStage label="In preparation">
+        MHCLG Live Table 118 is not available from the API yet. No estimated figures.
+      </EmptyStage>
     );
   }
 
@@ -593,207 +665,145 @@ export function SupplyMachine({ machine, state, onChange }: Props) {
   const residual = (r: SupplyLedgerYear) => r.residual ?? 0;
   const gapOf = (r: SupplyLedgerYear, sum: number) => (r.net ?? 0) - sum - residual(r);
 
-  const placeOptions: PrintOption<string>[] = machine.places.map((p) => ({ value: p.code, label: p.label }));
-  const vsOptions: PrintOption<string>[] = [
-    { value: "", label: "No comparison" },
-    ...rows.filter((r) => yearOfRow(r) !== year).map((r) => ({ value: String(yearOfRow(r)), label: r.fy })),
-  ];
-
   const gapB = gapOf(rowB, exactB.sum);
-  const checkText = unreconciledNote(rowB, gapB);
-  const notes = rowB.notes.filter((n) => NOTE_TEXT[n] && NOTE_TEXT[n] !== checkText && !(n === "[note 6]" && residual(rowB) === 0));
   const closing = (rowB.net ?? 0) - exactB.sum;
-
-  const yearOptions: PrintOption<string>[] = [...rows].reverse().map((r) => ({
-    value: String(yearOfRow(r)),
-    label: r.status === "provisional" ? `${r.fy} (P)` : r.fy,
-  }));
-  const panelOptions: PrintOption<MachinePanel>[] = [
-    { value: "section", label: "Section" },
-    { value: "ledger", label: "Ledger" },
-  ];
 
   return (
     <div className={s.root}>
-      {/* One row of menus. The year is a choice, not a second chart. */}
-      <div className={s.controls}>
-        <div className={s.ctl}>
-          <span className="bo-label" id={`${uid}-panel`}>
-            View
-          </span>
-          <PrintSelect
-            labelledBy={`${uid}-panel`}
-            value={panel}
-            options={panelOptions}
-            onChange={(v) => setPanel(v)}
-          />
-        </div>
-        <div className={s.ctl}>
-          <span className="bo-label" id={`${uid}-place`}>
-            Place
-          </span>
-          <PrintSelect labelledBy={`${uid}-place`} value={place.code} options={placeOptions} onChange={(v) => onChange({ place: v })} />
-        </div>
-        <div className={s.ctl}>
-          <span className="bo-label" id={`${uid}-year`}>
-            Financial year
-            {rowB.status === "provisional" && <span className={s.prov}> · provisional</span>}
-          </span>
-          <PrintSelect
-            labelledBy={`${uid}-year`}
-            value={String(year)}
-            options={yearOptions}
-            onChange={(v) => onChange({ year: Number(v) })}
-          />
-        </div>
-        <div className={s.ctl}>
-          <span className="bo-label" id={`${uid}-vs`}>
-            Compare with
-          </span>
-          <PrintSelect
-            labelledBy={`${uid}-vs`}
-            value={vs != null ? String(vs) : ""}
-            options={vsOptions}
-            onChange={(v) => onChange({ vs: v ? Number(v) : null })}
-          />
-        </div>
-      </div>
-
       {panel === "section" && (
-      <div className={s.sheet}>
-        <div ref={wrapRef} className={s.drawing}>
-          <Section
-            uid={uid}
-            width={width}
-            b={secB}
-            a={secA}
-            rowB={rowB}
-            rowA={rowA}
-            scale={scale}
-            part={part}
-            onPart={(id) => onChange({ part: part === id ? null : id })}
-            placeLabel={place.label}
-          />
-          {Math.abs(closing) >= 0.5 && (
-            <p className={s.datumNote}>
-              <span className="bo-label">Closing gap</span>
-              <span>
-                The run of terms ends {signed(-closing)} from the published net (the heavy tick before 07): residual {signed(residual(rowB))}
-                {Math.abs(gapB) >= 0.5 ? `, unreconciled ${signed(gapB)}` : ""}. See the ledger.
-              </span>
-            </p>
-          )}
+        <div className={s.sheet}>
+          <div ref={wrapRef} className={s.drawing}>
+            <Section
+              uid={uid}
+              width={width}
+              b={secB}
+              a={secA}
+              rowB={rowB}
+              rowA={rowA}
+              scale={scale}
+              part={part}
+              onPart={(id) => onChange({ part: part === id ? null : id })}
+              placeLabel={place.label}
+            />
+            {Math.abs(closing) >= 0.5 && (
+              <p className={s.datumNote}>
+                <span className="bo-label">Closing gap</span>
+                <span>
+                  The run of terms ends {signed(-closing)} from the published net (the heavy tick before 07): residual{" "}
+                  {signed(residual(rowB))}
+                  {Math.abs(gapB) >= 0.5 ? `, unreconciled ${signed(gapB)}` : ""}. See the ledger.
+                </span>
+              </p>
+            )}
+          </div>
         </div>
-      </div>
       )}
 
       {panel === "ledger" && (
-      <div className={s.ledgerWrap}>
-        <table className={s.ledger}>
-          <caption>
-            <span className="bo-label">Ledger</span> {place.label}, {rowB.fy}
-            {rowA ? ` against ${rowA.fy}` : ""}. Dwellings, MHCLG Live Table 118 (unrounded).
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Term</th>
-              <th scope="col" className={s.num}>
-                {rowB.fy}
-                {rowB.status === "provisional" ? " (P)" : ""}
-              </th>
-              {rowA && (
-                <>
-                  <th scope="col" className={s.num}>
-                    {rowA.fy}
-                    {rowA.status === "provisional" ? " (P)" : ""}
-                  </th>
-                  <th scope="col" className={s.num}>
-                    Change
-                  </th>
-                </>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {PARTS.map((t) => {
-              const v = contribution(rowB, t);
-              const va = rowA ? contribution(rowA, t) : null;
-              return (
-                <tr key={t.id} data-on={part === t.id || undefined}>
-                  <th scope="row">
-                    <button type="button" className={s.rowButton} aria-pressed={part === t.id} onClick={() => onChange({ part: part === t.id ? null : t.id })}>
-                      <span className={s.op2}>{t.op}</span> {t.id === "census" && rowB.censusLabel ? rowB.censusLabel : t.label}
-                    </button>
-                  </th>
-                  <td className={s.num}>{v == null ? "n/a" : signed(v)}</td>
-                  {rowA && (
-                    <>
-                      <td className={s.num}>{va == null ? "n/a" : signed(va)}</td>
-                      <td className={s.num}>{v == null || va == null ? "—" : signed(v - va)}</td>
-                    </>
-                  )}
-                </tr>
-              );
-            })}
-            <tr>
-              <th scope="row">
-                <span className={s.op2}>+</span> Residual (note 6)
-              </th>
-              <td className={s.num}>{rowB.residual == null ? "n/a" : signed(rowB.residual)}</td>
-              {rowA && (
-                <>
-                  <td className={s.num}>{rowA.residual == null ? "n/a" : signed(rowA.residual)}</td>
-                  <td className={s.num}>—</td>
-                </>
-              )}
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row">Sum of published terms</th>
-              <td className={s.num}>{fmt.count(exactB.sum + residual(rowB))}</td>
-              {rowA && exactA && (
-                <>
-                  <td className={s.num}>{fmt.count(exactA.sum + residual(rowA))}</td>
-                  <td className={s.num}>{signed(exactB.sum + residual(rowB) - exactA.sum - residual(rowA))}</td>
-                </>
-              )}
-            </tr>
-            <tr className={s.netRow}>
-              <th scope="row">
-                <span className={s.op2}>=</span> Net additional dwellings, published
-              </th>
-              <td className={s.num}>{rowB.net == null ? "—" : fmt.count(rowB.net)}</td>
-              {rowA && (
-                <>
-                  <td className={s.num}>{rowA.net == null ? "—" : fmt.count(rowA.net)}</td>
-                  <td className={s.num}>{rowB.net == null || rowA.net == null ? "—" : signed(rowB.net - rowA.net)}</td>
-                </>
-              )}
-            </tr>
-            <tr>
-              <th scope="row">Unreconciled</th>
-              <td className={s.num}>{signed(gapOf(rowB, exactB.sum))}</td>
-              {rowA && exactA && (
-                <>
-                  <td className={s.num}>{signed(gapOf(rowA, exactA.sum))}</td>
-                  <td className={s.num} />
-                </>
-              )}
-            </tr>
-          </tfoot>
-        </table>
-        <div className={s.ledgerSide}>
-          <p className={s.check}>
-            <span className="bo-label">Check</span> {checkText}
-          </p>
-          {notes.map((n) => (
-            <p key={n} className={s.check}>
-              <span className="bo-label">Publisher</span> {NOTE_TEXT[n]}
-            </p>
-          ))}
+        <div className={s.ledgerWrap}>
+          <table className={s.ledger}>
+            <caption>
+              <span className="bo-label">Ledger</span> {place.label}, {rowB.fy}
+              {rowA ? ` against ${rowA.fy}` : ""}. Dwellings, MHCLG Live Table 118 (unrounded).
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Term</th>
+                <th scope="col" className={s.num}>
+                  {rowB.fy}
+                  {rowB.status === "provisional" ? " (P)" : ""}
+                </th>
+                {rowA && (
+                  <>
+                    <th scope="col" className={s.num}>
+                      {rowA.fy}
+                      {rowA.status === "provisional" ? " (P)" : ""}
+                    </th>
+                    <th scope="col" className={s.num}>
+                      Change
+                    </th>
+                  </>
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {PARTS.map((t) => {
+                const v = contribution(rowB, t);
+                const va = rowA ? contribution(rowA, t) : null;
+                return (
+                  <tr key={t.id} data-on={part === t.id || undefined}>
+                    <th scope="row">
+                      <button
+                        type="button"
+                        className={s.rowButton}
+                        aria-pressed={part === t.id}
+                        onClick={() => onChange({ part: part === t.id ? null : t.id })}
+                      >
+                        <span className={s.op2}>{t.op}</span>{" "}
+                        {t.id === "census" && rowB.censusLabel ? rowB.censusLabel : t.label}
+                      </button>
+                    </th>
+                    <td className={s.num}>{v == null ? "n/a" : signed(v)}</td>
+                    {rowA && (
+                      <>
+                        <td className={s.num}>{va == null ? "n/a" : signed(va)}</td>
+                        <td className={s.num}>{v == null || va == null ? "—" : signed(v - va)}</td>
+                      </>
+                    )}
+                  </tr>
+                );
+              })}
+              <tr>
+                <th scope="row">
+                  <span className={s.op2}>+</span> Residual (note 6)
+                </th>
+                <td className={s.num}>{rowB.residual == null ? "n/a" : signed(rowB.residual)}</td>
+                {rowA && (
+                  <>
+                    <td className={s.num}>{rowA.residual == null ? "n/a" : signed(rowA.residual)}</td>
+                    <td className={s.num}>—</td>
+                  </>
+                )}
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Sum of published terms</th>
+                <td className={s.num}>{fmt.count(exactB.sum + residual(rowB))}</td>
+                {rowA && exactA && (
+                  <>
+                    <td className={s.num}>{fmt.count(exactA.sum + residual(rowA))}</td>
+                    <td className={s.num}>{signed(exactB.sum + residual(rowB) - exactA.sum - residual(rowA))}</td>
+                  </>
+                )}
+              </tr>
+              <tr className={s.netRow}>
+                <th scope="row">
+                  <span className={s.op2}>=</span> Net additional dwellings, published
+                </th>
+                <td className={s.num}>{rowB.net == null ? "—" : fmt.count(rowB.net)}</td>
+                {rowA && (
+                  <>
+                    <td className={s.num}>{rowA.net == null ? "—" : fmt.count(rowA.net)}</td>
+                    <td className={s.num}>
+                      {rowB.net == null || rowA.net == null ? "—" : signed(rowB.net - rowA.net)}
+                    </td>
+                  </>
+                )}
+              </tr>
+              <tr>
+                <th scope="row">Unreconciled</th>
+                <td className={s.num}>{signed(gapOf(rowB, exactB.sum))}</td>
+                {rowA && exactA && (
+                  <>
+                    <td className={s.num}>{signed(gapOf(rowA, exactA.sum))}</td>
+                    <td className={s.num} />
+                  </>
+                )}
+              </tr>
+            </tfoot>
+          </table>
         </div>
-      </div>
       )}
     </div>
   );

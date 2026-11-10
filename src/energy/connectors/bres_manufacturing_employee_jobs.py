@@ -210,7 +210,8 @@ class BresManufacturingEmployeeJobsConnector(Connector):
                 "sheet, locate Manufacturing row; take Total employees / All "
                 "(not Total employment). Map sheet titles to GSS codes; trim "
                 "trailing spaces. Period = calendar year bounds. "
-                "observation_status=provisional (survey revises)."
+                "observation_status=provisional only for the latest provisional "
+                "edition; revised editions are final."
             ),
             revision_notes=(
                 "Each reference year has provisional then revised editions. "
@@ -406,8 +407,10 @@ class BresManufacturingEmployeeJobsConnector(Connector):
                 f"BRES Table 4 {edition.year} {edition.status_label} "
                 f"({edition.filename})"
             )
-            # Survey estimates revise; keep provisional even for "revised" editions.
-            status: ObservationStatus = "provisional"
+            # ONS edition label → Exchange status. Revised files are final until replaced.
+            status: ObservationStatus = (
+                "provisional" if edition.status_label == "provisional" else "final"
+            )
             start, end = _year_bounds(edition.year)
             seen_regions: set[str] = set()
             for sheet_name in wb.sheetnames:

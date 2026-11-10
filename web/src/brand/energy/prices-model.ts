@@ -207,7 +207,7 @@ export function industrialPriceSeries(
   const filtered = industrialBandRows(rows, band);
   return {
     id: `ind-${band}`,
-    label: `${band} (excl. CCL)`,
+    label: `${band} · quarterly (excl. CCL)`,
     points: filtered
       .filter((r) => r.value != null && Number.isFinite(Number(r.value)))
       .map((r) => ({
@@ -421,17 +421,17 @@ export function costShockSeries(
     series: [
       {
         id: "shock-elec",
-        label: "Domestic electricity bill",
+        label: "Domestic electricity bill (cash)",
         points: indexPoints(elec, baseYear),
       },
       {
         id: "shock-gas",
-        label: "Domestic gas bill",
+        label: "Domestic gas bill (cash)",
         points: indexPoints(gas, baseYear),
       },
       {
         id: "shock-ind",
-        label: `Industry electricity (${band.replace("Large of which ", "")})`,
+        label: `Industry electricity (cash, ${band.replace("Large of which ", "")})`,
         points: indexPoints(ind, baseYear),
       },
     ].filter((s) => s.points.length > 0),

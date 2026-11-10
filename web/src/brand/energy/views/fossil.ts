@@ -8,7 +8,8 @@ export const fossilViews = {
   views: [
     {
       id: "northsea",
-      label: "North Sea fields",
+      label: "Fields",
+      instrument: "North Sea fields",
       params: ["year", "atlas_year", "scale", "fuel", "status", "field", "q"],
       evidence: {
         source: ENERGY_SOURCE.fossilsNorthSea,
@@ -24,7 +25,8 @@ export const fossilViews = {
     },
     {
       id: "extraction",
-      label: "The Extraction Century",
+      label: "Extraction",
+      instrument: "The extraction century",
       params: ["year", "fuel"],
       evidence: {
         source: ENERGY_SOURCE.fossilsFuels,
@@ -37,7 +39,8 @@ export const fossilViews = {
     },
     {
       id: "gap",
-      label: "The Production Gap",
+      label: "Gap",
+      instrument: "The production gap",
       params: ["year"],
       evidence: {
         source: ENERGY_SOURCE.fossilsGap,
@@ -50,7 +53,8 @@ export const fossilViews = {
     },
     {
       id: "reserves",
-      label: "What's left",
+      label: "Reserves",
+      instrument: "What's left",
       params: ["year"],
       evidence: {
         source: ENERGY_SOURCE.fossilsReserves,

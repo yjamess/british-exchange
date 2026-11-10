@@ -6,9 +6,7 @@
  * Observation provisional flags are preserved for dotted traces and exact-value status.
  */
 
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { apiBase, fetchIndicator, fetchObservations, type IndicatorMeta, type Observation } from "@/lib/api";
+import { apiBase, fetchIndicator, fetchObservations, fetchPackJson, type IndicatorMeta, type Observation } from "@/lib/api";
 import { toT, type Pt } from "../data";
 import { sourceAllowed, type HousingScope } from "./domain-sources";
 import { categoryLabel } from "./canvas/renting/selection";
@@ -55,10 +53,9 @@ export type EhsMortgageByAge = {
   years: { year: string; rows: EhsAgeRow[] }[];
 };
 
-function loadEhsMortgageByAge(): EhsMortgageByAge | null {
+async function loadEhsMortgageByAge(): Promise<EhsMortgageByAge | null> {
   try {
-    const file = path.resolve(process.cwd(), "../data/housing/ehs-mortgage-by-age/curated/by-age.json");
-    return JSON.parse(readFileSync(file, "utf8")) as EhsMortgageByAge;
+    return await fetchPackJson<EhsMortgageByAge>("housing.ehs-mortgage-by-age");
   } catch {
     return null;
   }
@@ -104,10 +101,9 @@ export type EhsHousingCostsByAge = {
   cohorts: EhsCostCohort[];
 };
 
-function loadEhsHousingCostsByAge(): EhsHousingCostsByAge | null {
+async function loadEhsHousingCostsByAge(): Promise<EhsHousingCostsByAge | null> {
   try {
-    const file = path.resolve(process.cwd(), "../data/housing/ehs-housing-costs-by-age/curated/costs-by-age.json");
-    return JSON.parse(readFileSync(file, "utf8")) as EhsHousingCostsByAge;
+    return await fetchPackJson<EhsHousingCostsByAge>("housing.ehs-costs-by-age");
   } catch {
     return null;
   }
@@ -461,6 +457,9 @@ export type HousingV1 = {
     /** Latest quarter shares of gross advances (percent). */
     advanceShares: { id: string; label: string; v: number }[];
     ltvShares: { id: string; label: string; v: number }[];
+    /** Quarterly history of the same shares (percent of gross advances). LTV bands sum to 100; purposes overlap. */
+    ltvHistory: { id: string; label: string; points: Pt[] }[];
+    purposeHistory: { id: string; label: string; points: Pt[] }[];
     /** ONS Wealth and Assets Survey. Pounds, all households. */
     p25AllHouseholds: Pt[];
     medianAllHouseholds: Pt[];
@@ -469,6 +468,14 @@ export type HousingV1 = {
     aggregateNet: Pt[];
     /** Table 3.19, April 2020–March 2022. Share of people in each band. */
     ageDistribution: { id: string; label: string; bands: { id: string; label: string; v: number }[] }[];
+    /** HM Land Registry CCOD + OCOD — titles held by companies, latest monthly release. */
+    titles: {
+      period: string;
+      uk: OwnerTitles;
+      overseas: OwnerTitles;
+      /** Distinct UK company registration numbers holding at least one title. */
+      ukCompanies: number | null;
+    };
     headlines: {
       housePurchaseApprovals: number | null;
       remortgageApprovals: number | null;
@@ -575,6 +582,60 @@ function source(meta: IndicatorMeta, rows: Observation[]): Source {
 }
 
 const seriesRows = (rows: Observation[], key: string) => rows.filter((r) => r.dimensions?.series === key);
+
+export type OwnerTitles = {
+  total: number | null;
+  freehold: number | null;
+  leasehold: number | null;
+  /** Local authorities, ONS LAD 2024 codes. */
+  places: { code: string; name: string; v: number }[];
+  /** Land Registry proprietorship category of the first proprietor. */
+  types: { id: string; label: string; v: number }[];
+  /** Overseas only: country where the first proprietor is incorporated. */
+  countries: { id: string; label: string; v: number }[];
+};
+
+const EW_CODE = "K04000001";
+const SMALL_WORDS = new Set(["Of", "And", "The", "Da", "De"]);
+/** Land Registry country names arrive in capitals; title-case them without "Isle Of Man". */
+const noteLabel = (r: Observation) =>
+  (/category_label=([^;]+)/.exec(r.notes ?? "")?.[1]?.trim() ?? "")
+    .split(" ")
+    .map((w, i) => (i > 0 && SMALL_WORDS.has(w) ? w.toLowerCase() : w))
+    .join(" ");
+
+/** CCOD (uk-company) + OCOD (overseas-company) counts for the latest monthly release. */
+function corporateTitlesOf(all: Observation[]): HousingV1["ownership"]["titles"] {
+  const period = all.reduce((m, r) => (r.period_start > m ? r.period_start : m), "");
+  const rows = all.filter((r) => r.period_start === period && r.value != null);
+  const ew = (r: Observation) => r.geography_code === EW_CODE;
+  const one = (pick: (r: Observation) => boolean) => rows.find(pick)?.value ?? null;
+  const owner = (origin: "uk-company" | "overseas-company"): OwnerTitles => {
+    const origins = rows.filter((r) => r.dimensions?.series === "owner-origin" && r.dimensions?.category === origin);
+    const tenure = (t: string) => one((r) => origins.includes(r) && ew(r) && r.dimensions?.demographic === t);
+    const ranked = (series: string) =>
+      rows
+        .filter((r) => ew(r) && r.dimensions?.series === series)
+        .map((r) => ({ id: r.dimensions?.category ?? "", label: noteLabel(r), v: r.value! }))
+        .sort((a, b) => b.v - a.v);
+    return {
+      total: tenure(""),
+      freehold: tenure("freehold"),
+      leasehold: tenure("leasehold"),
+      places: origins
+        .filter((r) => !ew(r) && !r.dimensions?.demographic)
+        .map((r) => ({ code: r.geography_code, name: r.geography_label, v: r.value! })),
+      types: ranked(`${origin}-owner-type`),
+      countries: origin === "overseas-company" ? ranked("overseas-country") : [],
+    };
+  };
+  return {
+    period,
+    uk: owner("uk-company"),
+    overseas: owner("overseas-company"),
+    ukCompanies: one((r) => ew(r) && r.dimensions?.series === "proprietors"),
+  };
+}
 
 /** Deflate nominal £ series to the latest CPI index level (same calendar months only). */
 function realPrices(nominal: Pt[], cpi: Pt[]): Pt[] {
@@ -721,6 +782,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     load("mortgage-approvals"),
     load("residential-mortgage-book"),
     load("household-net-property-wealth"),
+    load("corporate-owned-titles"),
   ]);
   const [
     price,
@@ -787,6 +849,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     mortgageApprovals,
     mortgageBook,
     propertyWealth,
+    corporateTitles,
   ] = loaded;
 
   const sources: Record<string, Source> = {};
@@ -803,6 +866,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     mortgageApprovals,
     mortgageBook,
     propertyWealth,
+    corporateTitles,
     completions,
     stock,
     greenBelt,
@@ -851,8 +915,9 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     if (x) sources[x.meta.indicator_id] = source(x.meta, x.rows);
   }
 
-  const ehsHousingCostsByAge = scope === "all" || scope === "affordability" ? loadEhsHousingCostsByAge() : null;
-  const ehsMortgageByAge = scope === "all" || scope === "affordability" ? loadEhsMortgageByAge() : null;
+  const ehsHousingCostsByAge =
+    scope === "all" || scope === "affordability" ? await loadEhsHousingCostsByAge() : null;
+  const ehsMortgageByAge = scope === "all" || scope === "affordability" ? await loadEhsMortgageByAge() : null;
   if (ehsHousingCostsByAge) {
     const cells = ehsHousingCostsByAge.cohorts.reduce((sum, cohort) => sum + cohort.rows.length, 0);
     sources["ehs-housing-costs-by-age"] = {
@@ -2060,6 +2125,18 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
           ...share("ltv-90-to-95-share", "90% to 95%"),
           ...share("ltv-over-95-share", "Over 95%"),
         ],
+        ltvHistory: [
+          { id: "ltv-up-to-75", label: "Up to 75%", points: seriesPts(mortgageBook, "ltv-up-to-75-share") },
+          { id: "ltv-75-to-90", label: "75% to 90%", points: seriesPts(mortgageBook, "ltv-75-to-90-share") },
+          { id: "ltv-90-to-95", label: "90% to 95%", points: seriesPts(mortgageBook, "ltv-90-to-95-share") },
+          { id: "ltv-over-95", label: "Over 95%", points: seriesPts(mortgageBook, "ltv-over-95-share") },
+        ],
+        purposeHistory: [
+          { id: "house-purchase", label: "House purchase", points: seriesPts(mortgageBook, "house-purchase-share-of-advances") },
+          { id: "first-time-buyer", label: "Of which first-time buyers", points: seriesPts(mortgageBook, "first-time-buyer-share-of-advances") },
+          { id: "remortgage", label: "Remortgage", points: seriesPts(mortgageBook, "remortgage-share-of-advances") },
+          { id: "buy-to-let", label: "Buy to let", points: seriesPts(mortgageBook, "buy-to-let-share-of-advances") },
+        ],
         p25AllHouseholds: seriesPts(propertyWealth, "p25-all-households"),
         medianAllHouseholds,
         p75AllHouseholds: seriesPts(propertyWealth, "p75-all-households"),
@@ -2074,6 +2151,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
             return row?.value == null ? [] : [{ id: band.id, label: band.label, v: row.value }];
           }),
         })),
+        titles: corporateTitlesOf(corporateTitles?.rows ?? []),
         headlines: {
           housePurchaseApprovals: lastValue(housePurchaseApprovals),
           remortgageApprovals: lastValue(remortgageApprovals),

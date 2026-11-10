@@ -1,0 +1,72 @@
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--bo-s7) var(--bo-s5) var(--bo-s9);
+  color: var(--bo-text);
+  background: var(--bo-paper);
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--bo-t-note);
+}
+.nav a { color: var(--bo-ink); text-underline-offset: 3px; }
+
+.header { padding: var(--bo-s7) 0 var(--bo-s5); max-width: 62ch; }
+.header h1,
+.caption h2 {
+  margin: var(--bo-s3) 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+.header h1 { font-size: clamp(2.2rem, 4vw, 3.25rem); line-height: 1.05; }
+.caption h2 { font-size: var(--bo-t-ed-m); line-height: 1.15; }
+.header p,
+.caption p { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; max-width: 62ch; }
+
+.option {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s5) 0 var(--bo-s8);
+  display: grid;
+  gap: var(--bo-s5);
+}
+
+/* Placeholder plot — one ink line on hairline grid. */
+.plot { display: block; width: 100%; height: auto; }
+.grid { stroke: var(--bo-ink-20); stroke-width: 1; }
+.line { fill: none; stroke: var(--bo-ink); stroke-width: 2; }
+
+/* B and C: rows under the frame start level with its border. */
+.edge { min-width: 0; padding: 0; }
+.ruled { border-top: var(--bo-hair); padding-top: var(--bo-s4); }
+
+/* C: one-line Next reading. */
+.next {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--bo-s2) var(--bo-s4);
+  border-top: var(--bo-hair);
+  padding-top: var(--bo-s3);
+}
+.next p { margin: 0; }
+.nextKicker { color: var(--bo-ink); }
+.nextLink,
+.nextMuted {
+  font-size: var(--bo-t-small);
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.nextMuted { color: var(--bo-union); }
+.nextLink:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 3px; }
+.nextDest {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  text-align: right;
+}
+@media (max-width: 640px) {
+  .next { grid-template-columns: 1fr; }
+  .nextDest { text-align: left; }
+}

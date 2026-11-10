@@ -1,7 +1,7 @@
 import { ENERGY_SOURCE } from "../citations";
 import type { DomainViews } from "./types";
 
-/** Policy has no view tabs — one Decision Ledger stage. */
+/** Policy has no view tabs — one decision ledger stage. */
 export const policyViews = {
   domain: "policy",
   status: "ready",
@@ -9,12 +9,13 @@ export const policyViews = {
   views: [
     {
       id: "ledger",
-      label: "The Decision Ledger",
+      label: "Ledger",
+      instrument: "The decision ledger",
       params: ["event"],
       evidence: {
         source: ENERGY_SOURCE.policy,
         definition: [
-          "Archival Decision Ledger: one chronological list of checked industrial and energy decisions.",
+          "The decision ledger: one chronological list of checked industrial and energy decisions.",
           "Closed rows are electric; open a row for the catalogue card — story beside the register.",
         ],
         method: [

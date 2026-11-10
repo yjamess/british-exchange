@@ -52,16 +52,20 @@ def source_version(description: dict[str, Any], series_id: str, dataset_id: str)
 
 
 def parse_numeric(raw: object) -> tuple[float | None, ObservationStatus]:
-    """Parse ONS string/number; empty / ``..`` → missing."""
+    """Parse ONS string/number; empty / ``..`` → missing.
+
+    Valued cells are ``final``. Callers mark the recent revision window with
+    ``mark_latest_months_provisional`` (Housing / GVA pattern).
+    """
     if raw is None:
         return None, "missing"
     if isinstance(raw, (int, float)):
-        return float(raw), "provisional"
+        return float(raw), "final"
     text = str(raw).strip()
     if not text or text in {"..", "…", "-", "n/a", "N/A"}:
         return None, "missing"
     try:
-        return float(text.replace(",", "")), "provisional"
+        return float(text.replace(",", "")), "final"
     except ValueError as exc:
         raise ValueError(f"Non-numeric ONS value: {raw!r}") from exc
 

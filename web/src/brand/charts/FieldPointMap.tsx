@@ -6,6 +6,7 @@
  * Marks default to status groups (producing / ceased / other). A caller may pass its own
  * groups (e.g. what the records say about each field in one year) and a measured size:
  * square area ∝ a published value on one fixed scale.
+ * One ink: groups are told apart by print (solid, stipple, hatch, cross, open), never by colour.
  */
 
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
@@ -18,13 +19,43 @@ import {
 import { MAP_HEIGHT, MAP_WIDTH, stationPosition } from "../energy/station-model";
 import s from "./station-map.module.css";
 
-export type FieldMapGroup = { id: string; label: string; fill: string; open?: boolean };
+export type FieldPrint = "solid" | "stipple" | "hatch" | "cross" | "open";
+export type FieldMapGroup = { id: string; label: string; print: FieldPrint };
+
+const INK = "var(--bo-ink)";
+
+const STATUS_PRINT: Record<FieldStatusGroup, FieldPrint> = {
+  producing: "solid",
+  ceased: "hatch",
+  other: "stipple",
+};
 
 const STATUS_GROUPS: FieldMapGroup[] = (["producing", "ceased", "other"] as FieldStatusGroup[]).map((g) => ({
   id: g,
   label: fieldStatusLabel(g),
-  fill: g === "producing" ? "var(--bo-chart-1)" : g === "ceased" ? "var(--bo-chart-2)" : "var(--bo-chart-5)",
+  print: STATUS_PRINT[g],
 }));
+
+/** Key swatch for a print: the same screen as the mark, in the one ink. */
+function swatchStyle(print: FieldPrint) {
+  const hatch = (deg: number, last: boolean) =>
+    `repeating-linear-gradient(${deg}deg, ${INK} 0 1px, ${last ? "var(--bo-paper)" : "transparent"} 1px 3px)`;
+  switch (print) {
+    case "solid":
+      return { background: INK, borderColor: INK };
+    case "stipple":
+      return {
+        background: `var(--bo-paper) radial-gradient(circle, ${INK} 0.8px, transparent 1.1px) 0 0 / 3px 3px`,
+        borderColor: INK,
+      };
+    case "hatch":
+      return { background: hatch(45, true), borderColor: INK };
+    case "cross":
+      return { background: `${hatch(45, false)}, ${hatch(-45, true)}`, borderColor: INK };
+    case "open":
+      return { background: "var(--bo-paper)", borderColor: INK, borderStyle: "dashed" as const };
+  }
+}
 
 const HALF = 2.4;
 const HALF_MIN = 0.9;
@@ -251,18 +282,29 @@ export function FieldPointMap({
           onPointerLeave={() => setHoverId(null)}
         >
           <defs>
-            {groups.map((g) => (
-              <pattern
-                key={g.id}
-                id={`${uid}-screen-${g.id}`}
-                width={SCREEN.pitch}
-                height={SCREEN.pitch}
-                patternUnits="userSpaceOnUse"
-                patternTransform={`scale(${unit}) rotate(45)`}
-              >
-                <circle cx={SCREEN.pitch / 2} cy={SCREEN.pitch / 2} r={SCREEN.r} fill={g.fill} />
-              </pattern>
-            ))}
+            {groups
+              .filter((g) => g.print === "stipple" || g.print === "hatch" || g.print === "cross")
+              .map((g) => (
+                <pattern
+                  key={g.id}
+                  id={`${uid}-screen-${g.id}`}
+                  width={SCREEN.pitch}
+                  height={SCREEN.pitch}
+                  patternUnits="userSpaceOnUse"
+                  patternTransform={`scale(${unit}) rotate(45)`}
+                >
+                  {g.print === "stipple" ? (
+                    <circle cx={SCREEN.pitch / 2} cy={SCREEN.pitch / 2} r={SCREEN.r} fill={INK} />
+                  ) : (
+                    <>
+                      <line x1={SCREEN.pitch / 2} y1={0} x2={SCREEN.pitch / 2} y2={SCREEN.pitch} stroke={INK} strokeWidth={0.9} />
+                      {g.print === "cross" ? (
+                        <line x1={0} y1={SCREEN.pitch / 2} x2={SCREEN.pitch} y2={SCREEN.pitch / 2} stroke={INK} strokeWidth={0.9} />
+                      ) : null}
+                    </>
+                  )}
+                </pattern>
+              ))}
           </defs>
           <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
             {outline ? <path d={outline} className={s.land} /> : null}
@@ -278,8 +320,9 @@ export function FieldPointMap({
                     : Math.max(HALF_MIN, HALF_MAX * Math.sqrt(Math.min(1, Math.max(0, share))));
               const hit = Math.max(half + 2.5 / view.z, 3.5 / view.z);
               const active = selectedId === p.id;
-              const solid = !group.open && half / unit < SOLID_BELOW;
-              const print = group.open ? "open" : solid ? "solid" : "screen";
+              const open = group.print === "open";
+              const solid = !open && (group.print === "solid" || half / unit < SOLID_BELOW);
+              const print = open ? "open" : solid ? "solid" : "screen";
               return (
                 <g
                   key={p.id}
@@ -308,14 +351,14 @@ export function FieldPointMap({
                     width={half * 2}
                     height={half * 2}
                     fill={
-                      group.open
+                      open
                         ? "var(--bo-paper)"
                         : solid
-                          ? group.fill
+                          ? INK
                           : `url(#${uid}-screen-${group.id})`
                     }
-                    stroke={group.fill}
-                    strokeDasharray={group.open ? `${1.2 / view.z} ${1.2 / view.z}` : undefined}
+                    stroke={INK}
+                    strokeDasharray={open ? `${1.2 / view.z} ${1.2 / view.z}` : undefined}
                   />
                   {active && (
                     <rect
@@ -324,7 +367,7 @@ export function FieldPointMap({
                       width={(half + 1.5) * 2}
                       height={(half + 1.5) * 2}
                       fill="none"
-                      stroke="var(--bo-signal)"
+                      stroke="var(--bo-ink)"
                       strokeWidth={1.2 / view.z}
                     />
                   )}
@@ -401,16 +444,12 @@ export function FieldPointMap({
         </svg>
       </div>
 
-      <ul className={s.key} aria-label="What the coloured squares mean">
+      <ul className={s.key} aria-label="What the squares mean">
         {groups.map((g) => (
           <li key={g.id} className={s.keyItem}>
             <span
               className={s.swatch}
-              style={
-                g.open
-                  ? { background: "var(--bo-paper)", borderColor: g.fill, borderStyle: "dashed" }
-                  : { background: g.fill, borderColor: g.fill }
-              }
+              style={swatchStyle(g.print)}
               aria-hidden="true"
             />
             {g.label}

@@ -133,7 +133,7 @@ export function apiBase(): string {
  */
 const API_TIMEOUT_MS = 120_000;
 
-function apiInit(init: RequestInit = {}): RequestInit {
+export function apiInit(init: RequestInit = {}): RequestInit {
   return {
     ...init,
     cache: "no-store",
@@ -160,4 +160,38 @@ export async function fetchObservations(
     throw new Error(`Failed to load observations for ${id}: ${res.status}`);
   }
   return res.json() as Promise<ObservationsResponse>;
+}
+
+/**
+ * Curated explorer packs (atlas, stations, geography, …) from the Exchange API.
+ * Served from local disk in dev or Supabase Storage in deploy — never from Next.js node:fs.
+ */
+export async function fetchPackJson<T>(packId: string): Promise<T> {
+  const res = await fetch(`${apiBase()}/packs/${packId}`, apiInit());
+  if (!res.ok) {
+    throw new Error(`Failed to load pack ${packId}: ${res.status}`);
+  }
+  return res.json() as Promise<T>;
+}
+
+export async function fetchPackText(packId: string): Promise<string> {
+  const res = await fetch(`${apiBase()}/packs/${packId}`, apiInit());
+  if (!res.ok) {
+    throw new Error(`Failed to load pack ${packId}: ${res.status}`);
+  }
+  return res.text();
+}
+
+/** Allowlisted curated path under data/ (e.g. housing/planning-layers/curated/E09000033.json). */
+export async function fetchPackRelText(relPath: string): Promise<string> {
+  const cleaned = relPath.replace(/^\/+/, "").replace(/^data\//, "");
+  const res = await fetch(`${apiBase()}/packs/rel/${cleaned}`, apiInit());
+  if (!res.ok) {
+    throw new Error(`Failed to load pack path ${cleaned}: ${res.status}`);
+  }
+  return res.text();
+}
+
+export async function fetchPackRelJson<T>(relPath: string): Promise<T> {
+  return JSON.parse(await fetchPackRelText(relPath)) as T;
 }

@@ -35,7 +35,43 @@ function yearOf(raw: string | number | null | undefined): number | null {
   return Number.isFinite(y) && y >= 1800 && y <= 2100 ? y : null;
 }
 
-/** Installed GW by region for the mapped selection (REPD + DUKES points). */
+/**
+ * Capacity buckets that may be summed on their own but never into one fleet total:
+ * - `generation` — REPD renewable generators (excluding storage)
+ * - `storage`    — REPD batteries / pumped storage etc. (power that moves energy in time)
+ * - `thermal`    — DUKES 5.11 fossil and nuclear major power producers
+ * The two registers differ in dates and coverage, and storage MW is not additional generation.
+ */
+export type CapacityBucket = "generation" | "storage" | "thermal";
+
+export const CAPACITY_BUCKETS: { id: CapacityBucket; label: string; register: string }[] = [
+  { id: "generation", label: "Renewables", register: "Planning register" },
+  { id: "storage", label: "Storage", register: "Planning register" },
+  { id: "thermal", label: "Fossil and nuclear", register: "Power producers register" },
+];
+
+export function capacityBucket(p: AtlasPoint): CapacityBucket {
+  const group = stationGroup(p);
+  if (group === "storage") return "storage";
+  return group === "renewable" ? "generation" : "thermal";
+}
+
+/** Installed GW and site count for one bucket only. */
+export function bucketTotals(points: AtlasPoint[], bucket: CapacityBucket): { gw: number; sites: number } {
+  let mw = 0;
+  let sites = 0;
+  for (const p of points) {
+    if (capacityBucket(p) !== bucket) continue;
+    mw += p.mw;
+    sites += 1;
+  }
+  return { gw: mw / 1000, sites };
+}
+
+/**
+ * Installed GW by region for the mapped selection. Pass points from a single
+ * capacity bucket (see `capacityBucket`) — rows from different buckets must not be mixed.
+ */
 export function regionCapacityRows(points: AtlasPoint[]): { id: string; label: string; v: number; sites: number }[] {
   const acc = new Map<string, { mw: number; sites: number }>();
   for (const p of points) {

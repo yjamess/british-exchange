@@ -35,7 +35,9 @@ export type EnergyPackKey =
   | "imports"
   | "manufacturing"
   | "renewables"
-  | "networks";
+  | "networks"
+  | "policyEvents"
+  | "shockEvents";
 
 /**
  * Packs required to render each domain canvas.
@@ -46,13 +48,14 @@ export const DOMAIN_PACKS = {
   consumption: ["consumption"],
   prices: ["prices"],
   fossil: ["fossils"],
-  imports: ["imports"],
-  "low-carbon": ["renewables", "generation", "capacity"],
+  imports: ["imports", "shockEvents"],
+  /** Buildout Chronology marks policy events on the renewables timeline. */
+  "low-carbon": ["renewables", "generation", "capacity", "policyEvents"],
   networks: ["networks", "yearMix"],
   manufacturing: ["manufacturing"],
   "industrial-work": ["manufacturing"],
-  /** Decision Ledger is curated events, not observation packs. */
-  policy: [],
+  /** Decision Ledger is curated events (API / Storage pack), not observation series. */
+  policy: ["policyEvents"],
 } as const satisfies Record<EnergyDomainId, readonly EnergyPackKey[]>;
 
 export type EnergyScope = EnergyDomainId | "all";
@@ -80,6 +83,8 @@ export function packsFor(scope: EnergyScope): readonly EnergyPackKey[] {
       "manufacturing",
       "renewables",
       "networks",
+      "policyEvents",
+      "shockEvents",
     ];
   }
   return DOMAIN_PACKS[scope];

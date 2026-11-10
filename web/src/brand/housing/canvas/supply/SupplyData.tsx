@@ -7,9 +7,10 @@
  */
 
 import { useId } from "react";
+import { EmptyStage, explorerClasses as t } from "../../..";
 import { fmt, fmtFY, fmtT, toT } from "../../../data";
-import { explorerClasses as t } from "../../..";
 import type { HousingV1, Source, SupplyLedgerYear } from "../../load";
+import gen from "../../../energy/generation.module.css";
 import s from "./supply.module.css";
 
 const ENGLAND = "E92000001";
@@ -82,22 +83,34 @@ function gapLabel(v: number | null): string {
   return `${sign}${fmt.count(Math.abs(v))}`;
 }
 
+export function supplyDataFoot(): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  return {
+    definition:
+      "Each row is a series on this domain. Planning applications, quarterly dwellings, affordable products and financial-year net additions are different counts.",
+    method: [
+      "Downloads stay on the data catalogue.",
+      "The England ledger below uses the Live Table 118 identity, including provisional years.",
+    ],
+    source: "MHCLG · Live Tables 118, 122, 213, 1000 · England",
+    dataHref: "/data#net-additional-dwellings",
+  };
+}
+
 export function SupplyData({ data }: { data: HousingV1 }) {
   const rows = [...(data.supplyMachine.byPlace[ENGLAND] ?? [])].reverse();
   const titleId = useId();
 
   return (
-    <div className={s.root}>
-      <p className={s.lede}>
-        Each row is a series on this domain. Planning applications, quarterly dwellings, affordable
-        products and financial-year net additions are different counts. Downloads stay on the data
-        catalogue.
-      </p>
-
-      <div className={s.block}>
-        <p className={t.stageTitle} id={`${titleId}-series`}>
+    <div className={gen.stack}>
+      <section className={gen.panel}>
+        <h3 className={t.stageTitle} id={`${titleId}-series`}>
           Supply series on this page
-        </p>
+        </h3>
         <div className={t.tableWrap}>
           <table className={`${t.table} ${s.series}`} aria-labelledby={`${titleId}-series`}>
             <thead>
@@ -118,27 +131,23 @@ export function SupplyData({ data }: { data: HousingV1 }) {
                     <td>{series.what}</td>
                     <td>{src ? `${src.unit} · ${src.frequency}` : "Not loaded"}</td>
                     <td>{src ? latestLabel(src) : "—"}</td>
-                    <td>
-                      {src ? (
-                        <a href={`/data#${series.id}`}>{series.id}</a>
-                      ) : (
-                        "—"
-                      )}
-                    </td>
+                    <td>{src ? <a href={`/data#${series.id}`}>{series.id}</a> : "—"}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
 
-      <div className={s.block}>
-        <p className={t.stageTitle} id={`${titleId}-ledger`}>
+      <section className={gen.panel}>
+        <h3 className={t.stageTitle} id={`${titleId}-ledger`}>
           The housing supply machine — how the dwelling stock changed
-        </p>
+        </h3>
         {rows.length === 0 ? (
-          <p className={s.lede}>The England ledger is not loaded. The Exchange does not show estimates.</p>
+          <EmptyStage label="In preparation">
+            The England ledger is not loaded. No estimated figures.
+          </EmptyStage>
         ) : (
           <div className={t.tableWrap}>
             <table className={`${t.table} ${s.ledger}`} aria-labelledby={`${titleId}-ledger`}>
@@ -178,7 +187,7 @@ export function SupplyData({ data }: { data: HousingV1 }) {
             </table>
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }

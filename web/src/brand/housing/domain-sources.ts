@@ -8,7 +8,7 @@ export const DOMAIN_SOURCES = {
   land: ["green-belt-area", "land-use-stock", "planning-decisions-granted", "brownfield-land"],
   quality: ["ehs-decent-homes", "ehs-category-1-hazards", "ehs-damp-surveyor", "ehs-energy-efficiency-bands", "ehs-heating", "ehs-insulation", "ehs-energy-improvement"],
   insecurity: ["statutory-homelessness-assessments", "homelessness-prevention-outcomes", "homelessness-relief-outcomes", "homelessness-main-duty", "temporary-accommodation-households", "temporary-accommodation-children", "temporary-accommodation-by-type", "temporary-accommodation-duration", "temporary-accommodation-out-of-area", "rough-sleeping-snapshot", "social-housing-waiting-list", "social-housing-lettings", "possession-claims", "concealed-households", "homelessness-support-needs", "homelessness-priority-need", "homelessness-devolved-ta", "temporary-accommodation-spend", "rough-sleeping-framework"],
-  ownership: ["mortgage-approvals", "residential-mortgage-book", "household-net-property-wealth", "mortgage-rate-2yr-fixed"],
+  ownership: ["mortgage-approvals", "residential-mortgage-book", "household-net-property-wealth", "mortgage-rate-2yr-fixed", "corporate-owned-titles"],
   policy: [],
 } as const;
 

@@ -8,8 +8,10 @@ export const pricesViews = {
   views: [
     {
       id: "bill",
-      label: "The Dissected Bill",
-      params: ["year", "payment", "tariff", "band", "bill_fuel", "kwh", "region", "region_source", "cap_measure", "cap_period"],
+      label: "Bill",
+      instrument: "The dissected bill",
+      // `vs` is the Compare-with year; it must be declared here or the URL prune drops it.
+      params: ["year", "payment", "tariff", "band", "bill_fuel", "kwh", "region", "vs", "region_source", "cap_measure", "cap_period"],
       evidence: {
         source: ENERGY_SOURCE.pricesDomesticElectricity,
         definition: "Domestic electricity and gas bills dissected into unit rates, standing charges and payment method.",
@@ -24,7 +26,8 @@ export const pricesViews = {
     },
     {
       id: "afford",
-      label: "What Can You Afford?",
+      label: "Afford",
+      instrument: "What can you afford?",
       params: ["year", "bill_fuel", "payment", "tariff", "band", "vs"],
       evidence: {
         source: ENERGY_SOURCE.pricesAfford,
@@ -40,7 +43,8 @@ export const pricesViews = {
     },
     {
       id: "shock",
-      label: "How far prices rose",
+      label: "Shock",
+      instrument: "How far prices rose",
       params: ["year", "bill_fuel", "payment", "tariff", "band"],
       evidence: {
         source: ENERGY_SOURCE.pricesShock,
@@ -69,7 +73,8 @@ export const pricesViews = {
     },
     {
       id: "wholesale",
-      label: "Wholesale fuels",
+      label: "Wholesale",
+      instrument: "Wholesale fuels",
       params: ["year", "mpp_measure"],
       evidence: {
         source: ENERGY_SOURCE.pricesWholesale,

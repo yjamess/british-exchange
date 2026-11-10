@@ -24,6 +24,7 @@ import {
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import { FossilsData, FOSSILS_DATA_SERIES, type FossilsDataSeries } from "./FossilsData";
 import {
@@ -99,17 +100,18 @@ const STATUS_FILTERS = [
   { value: "other", label: "Other" },
 ] as const;
 
-const YEAR_STATE_FILL: Record<FieldYearState, Omit<FieldMapGroup, "id" | "label">> = {
-  reported: { fill: "var(--bo-chart-1)" },
-  quiet: { fill: "var(--bo-chart-3)" },
-  after: { fill: "var(--bo-chart-2)" },
-  archive: { fill: "var(--bo-chart-5)" },
-  undated: { fill: "var(--bo-slate, #5A6072)", open: true },
+/** One ink: states are told apart by print, never by colour. */
+const YEAR_STATE_FILL: Record<FieldYearState, Pick<FieldMapGroup, "print">> = {
+  reported: { print: "solid" },
+  quiet: { print: "stipple" },
+  after: { print: "hatch" },
+  archive: { print: "cross" },
+  undated: { print: "open" },
 };
 
-function fieldTypeLabel(t: string): string {
-  const u = t.toUpperCase();
-  return u === "OIL" ? "Oil" : u === "GAS" ? "Gas" : u === "COND" ? "Gas condensate" : t || "—";
+function fieldTypeLabel(type: string): string {
+  const u = type.toUpperCase();
+  return u === "OIL" ? "Oil" : u === "GAS" ? "Gas" : u === "COND" ? "Gas condensate" : type || "—";
 }
 
 function sentence(text: string): string {
@@ -145,6 +147,14 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
   const primaryYears = [
     ...new Set(primaryStack.flatMap((s) => s.points.map((p) => p.t))),
   ].sort((a, b) => a - b);
+  const oil2pYears = reservesMeasureSeries(reserveRows, "oil_2p_mt").points.map((p) => p.t);
+  const reserveYears = [
+    ...new Set([
+      ...oil2pYears,
+      ...reservesMeasureSeries(reserveRows, "gas_2p_bcm").points.map((p) => p.t),
+      ...reservesMeasureSeries(reserveRows, "oil_production_mt").points.map((p) => p.t),
+    ]),
+  ].sort((a, b) => a - b);
 
   const timelines = useMemo(() => fieldTimelines(pack.fieldProduction), [pack.fieldProduction]);
   const archive = useMemo(() => productionArchiveSpan(pack.fieldProduction), [pack.fieldProduction]);
@@ -159,12 +169,22 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
     return out.length ? out : [2025];
   }, [pack.fields, timelines, archive]);
 
-  const latest = crudeYears.at(-1) ?? gasYears.at(-1) ?? primaryYears.at(-1) ?? 2025;
+  const [view, setView] = useState(() => resolveView(searchParams.get("view")));
+  const menuYears =
+    view === "reserves" || view === "gap"
+      ? reserveYears.length
+        ? reserveYears
+        : crudeYears
+      : crudeYears.length
+        ? crudeYears
+        : gasYears.length
+          ? gasYears
+          : primaryYears;
+  const latest = menuYears.at(-1) ?? crudeYears.at(-1) ?? gasYears.at(-1) ?? primaryYears.at(-1) ?? 2025;
   const earliest = crudeYears[0] ?? coalYears[0] ?? 1920;
 
-  const [view, setView] = useState(() => resolveView(searchParams.get("view")));
   const [year, setYear] = useState(() =>
-    clampYear(Number(searchParams.get("year") || latest), crudeYears.length ? crudeYears : [latest], latest),
+    clampYear(Number(searchParams.get("year") || latest), menuYears.length ? menuYears : [latest], latest),
   );
   const [atlasYear, setAtlasYear] = useState(() =>
     clampYear(
@@ -238,7 +258,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
     [view, year, atlasYear, status, fieldId, scale, fuel, query, dataSeries, writeUrl],
   );
 
-  const y = clampYear(year, crudeYears.length ? crudeYears : [latest], latest);
+  const y = clampYear(year, menuYears.length ? menuYears : [latest], latest);
   const ay = clampYear(atlasYear, atlasYears, atlasYears.at(-1) ?? 2025);
   const crudeY = crudeValueInYear(crudeRows, y);
   const gasY = gasAnnualValue(gasRows, y);
@@ -405,7 +425,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                     {
                       label: "Ceased fields",
                       value: String(ceasedFields.length),
-                      note: "Status today · ceased or post-COP",
+                      note: "Status today · production ceased",
                     },
                     {
                       label: `On the map in ${ay}`,
@@ -428,15 +448,30 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           : "Fields with oil or gas reported that year",
                     },
                   ]),
-          {
-            label: "Selected field",
-            value: selectedField ? sentence(selectedField.nameShort || selectedField.name) : "—",
-            note: selectedField
-              ? selectedState
-                ? fieldYearStateLabel(selectedState, ay)
-                : `Not started by ${ay}`
-              : "Choose a square or a name in the list",
-          },
+          ...(scale === "field"
+            ? [
+                {
+                  label: "Selected field",
+                  value: selectedField
+                    ? sentence(selectedField.nameShort || selectedField.name)
+                    : "—",
+                  note: selectedField
+                    ? selectedState
+                      ? fieldYearStateLabel(selectedState, ay)
+                      : `Not started by ${ay}`
+                    : "Choose a square or a name in the list",
+                },
+              ]
+            : [
+                {
+                  label: "View by",
+                  value: scale === "national" ? "United Kingdom" : "Fuel totals",
+                  note:
+                    scale === "national"
+                      ? "National DESNZ series · not a field sum"
+                      : "Offshore fields reporting · not a UK total",
+                },
+              ]),
         ]
       : view === "gap"
         ? [
@@ -446,7 +481,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                 const pt = fossilTotal.points.find((p) => p.t === y);
                 return pt ? fmtMtoe(pt.v) : "—";
               })(),
-              note: "Coal, oil products and gas · oil-equivalent",
+              note: "Coal, crude oil and NGLs, and gas · oil-equivalent",
             },
             {
               label: `${y} energy imports`,
@@ -468,7 +503,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
         : view === "reserves"
             ? [
                 {
-                  label: `${y} oil still counted as 2P`,
+                  label: `${y} oil still counted as recoverable`,
                   value: (() => {
                     const pt = oil2p.points.find((p) => p.t === y);
                     return pt ? fmtMt(pt.v) : "—";
@@ -476,7 +511,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   note: "Remaining estimate · not extraction",
                 },
                 {
-                  label: `${y} gas still counted as 2P`,
+                  label: `${y} gas still counted as recoverable`,
                   value: (() => {
                     const pt = gas2p.points.find((p) => p.t === y);
                     return pt ? fmtBcm(pt.v) : "—";
@@ -510,11 +545,38 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   },
                 ];
 
-  const yearOptions = (crudeYears.length ? crudeYears : [latest]).map((yy) => ({
+  const yearOptions = (menuYears.length ? menuYears : [latest]).map((yy) => ({
     value: String(yy),
     label: String(yy),
   }));
   const atlasYearOptions = atlasYears.map((yy) => ({ value: String(yy), label: String(yy) }));
+
+  // Reset covers only what the current tab exposes, compared with that tab's real default
+  // (the value the page opens with when the URL has no params). Settings from other tabs stay
+  // untouched and never make Reset appear. `null` = nothing to reset on this tab.
+  const defaultAtlasYear = atlasYears.at(-1) ?? 2025;
+  const resetAction: (() => void) | null = (() => {
+    if (view === "data") {
+      if (dataSeries === "crude") return null;
+      return () => {
+        setDataSeries("crude");
+        writeUrl({ view: "data", dataset: "crude" });
+      };
+    }
+    if (view === "northsea") {
+      if (!fieldsReady) return null;
+      // Status filter and search only exist (and only filter) when viewing by field.
+      const fieldOnlyDirty = scale === "field" && (status !== "all" || Boolean(query));
+      const dirty =
+        ay !== defaultAtlasYear || scale !== "field" || fuel !== "all" || Boolean(fieldId) || fieldOnlyDirty;
+      if (!dirty) return null;
+      return () =>
+        sync({ atlas_year: defaultAtlasYear, status: "all", field: "", scale: "field", fuel: "all", q: "" });
+    }
+    // extraction · gap · reserves share the single Year control.
+    if (!crudeReady || y === latest) return null;
+    return () => sync({ year: latest });
+  })();
 
   const footSource =
     view === "northsea" && scale === "national"
@@ -536,7 +598,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
           ]
         : [
             "Each square is an offshore oil or gas field on the UK Continental Shelf, placed at the centre of the NSTA field outline. Britain's coast is drawn on the main map and again in the corner locator, so a zoomed field still shows where it sits relative to the UK.",
-            "Colour shows what the production records say for that field in the chosen year. With one fuel chosen, square area is that field's reported production that year, on one fixed scale for every year.",
+            "The print of each square shows what the production records say for that field in the chosen year. With one fuel chosen, square area is that field's reported production that year, on one fixed scale for every year.",
             "Fuel sums add up the offshore fields that reported that year. They are not UK totals. The full field and production files sit under Data.",
             ...(status === "ceased"
               ? [
@@ -547,18 +609,18 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
       : view === "gap"
         ? [
             "UK fossil fuel production set beside energy imports and exports (oil-equivalent), and crude oil beside oil imports (tonnes).",
-            "The figure strip shows this year's published import-dependency share. The full dependency history lives on Imports › The Resilience Test — not duplicated here.",
+            "The figure strip shows this year's published import-dependency share. The full dependency history lives on Imports › The resilience test — not duplicated here.",
           ]
         : view === "reserves"
             ? [
-                "Still counted as 2P / 1P / 3P means remaining oil or gas judged commercial, with rising confidence bands — not what was extracted in a year.",
+                "Still counted as recoverable means remaining oil or gas judged commercial. 2P is proven plus probable; 1P is proven only; 3P adds possible. Not what was extracted in a year.",
                 "Contingent (2C) means discovered volumes not yet ready for commercial development. Undiscovered potential is not plotted here.",
                 "Oil extracted that year is on its own chart because remaining estimates dwarf annual extraction.",
               ]
             : view === "data"
                 ? [
                     "Archive tables for the Domain 04 series behind this explorer. Unit is in the title; cells are figures only.",
-                    "Open the catalogue record for definition, caveats, download and release provenance. NSTA packages require attribution.",
+                    "Open the catalogue record for definition, caveats, download and release provenance. The publisher requires attribution.",
                   ]
                 : [
                     "UK production of crude oil, natural gas and coal over time, plus fossil fuels as oil-equivalent energy.",
@@ -590,13 +652,13 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
           ]
       : view === "gap"
         ? [
-            "UK fossil fuel production is coal, oil products and gas added as oil-equivalent energy. Imports and exports use the same energy unit. Charts share one start year so they can be read across.",
+            "UK fossil fuel production is coal, crude oil and NGLs (natural gas liquids), and gas added as oil-equivalent energy. Imports and exports use the same energy unit. Charts share one start year so they can be read across.",
             "Crude oil (Mt) beside oil imports (Mt) is a separate oil panel — not the same as the oil-equivalent energy chart above.",
             "Import dependency (ET 1.3) is one published share in the figure strip; follow Imports › Resilience for the time series and sibling ratios.",
           ]
         : view === "reserves"
             ? [
-                "Still counted as 2P means remaining oil or gas judged commercial at that date. Extracted that year is a separate flow on its own chart because the two differ hugely in size.",
+                "Still counted as recoverable (2P, proven plus probable) means remaining oil or gas judged commercial at that date. Extracted that year is a separate flow on its own chart because the two differ hugely in size.",
                 "Classification changes (notably around 2015) break long-run comparability. Remaining estimates are never the same as a year's extraction.",
               ]
               : view === "data"
@@ -606,7 +668,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   ]
                 : [
                     `Crude oil and coal are million tonnes as published. Gas is shown in bcm, converted from published gigawatt hours at about ${GAS_GWH_PER_BCM.toLocaleString("en-GB")} GWh per bcm (roughly 11 kWh per cubic metre).`,
-                    "The oil-equivalent chart (coal, oil products, gas) uses a different energy unit — do not read it as tonnes of crude. Through 1962 crude includes shale oil. Years without production are omitted, not zeroed.",
+                    "The oil-equivalent chart (coal, crude oil and NGLs, gas) uses a different energy unit — do not read it as tonnes of crude. Through 1962 crude includes shale oil. Years without production are omitted, not zeroed.",
                   ];
 
   return (
@@ -675,24 +737,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
             )}
           </>
         )}
-        <ResetButton
-          onClick={() => {
-            if (view === "data") {
-              setDataSeries("crude");
-              writeUrl({ view: "data", dataset: "crude" });
-              return;
-            }
-            sync({
-              year: latest,
-              atlas_year: atlasYears.at(-1) ?? 2025,
-              status: "all",
-              field: "",
-              scale: "field",
-              fuel: "all",
-              q: "",
-            });
-          }}
-        />
+        {resetAction && <ResetButton onClick={resetAction} />}
       </ControlRow>
 
       <Stage
@@ -708,10 +753,10 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                     ? `Ceased offshore fields · ${ay}`
                     : `Offshore oil and gas fields · ${ay}`
               : view === "gap"
-                ? `The Production Gap · ${y}`
+                ? `The production gap · ${y}`
                 : view === "reserves"
                   ? `What's left · ${y}`
-                    : `The Extraction Century · ${y}`
+                    : `The extraction century · ${y}`
         }
         meta={
           view === "northsea"
@@ -719,7 +764,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
               ? "United Kingdom · DESNZ"
               : status === "ceased" && scale === "field"
                 ? `UK Continental Shelf · status today ceased · not coal mines${archive ? ` · records ${archive.first}–${archive.last}` : ""}`
-                : `UK Continental Shelf · offshore · NSTA${archive ? ` · production records ${archive.first}–${archive.last}` : ""}`
+                : `UK Continental Shelf · offshore${archive ? ` · production records ${archive.first}–${archive.last}` : ""}`
             : view === "gap"
               ? "Production beside imports · labelled units"
               : view === "reserves"
@@ -727,6 +772,14 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                 : view === "data"
                     ? "Archive table · figures only · unit in the title"
                     : `UK · ${earliest}–${latest} · Mt · bcm · oil-equivalent`
+        }
+        follow={
+          <EnergyStageFollow
+            domain="fossil"
+            view={view}
+            selection={{ year: y }}
+            label={`Fossil fuels · ${view}`}
+          />
         }
         foot={
           <FigureRecord
@@ -753,7 +806,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
           <FossilsData pack={pack} series={dataSeries} />
         ) : view === "northsea" ? (
           !fieldsReady && scale !== "national" ? (
-            <EmptyStage label="Field map unavailable">The NSTA offshore field records have not loaded.</EmptyStage>
+            <EmptyStage label="Field map unavailable">Offshore field records are not available right now.</EmptyStage>
           ) : (
             <div className={s.stack}>
               {scale === "field" && (
@@ -917,7 +970,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                       <h3 className={t.stageTitle}>Oil from offshore fields · million tonnes</h3>
                       {oilSum.points.length === 0 ? (
                         <EmptyStage label="Field production unavailable">
-                          Field oil figures have not loaded.
+                          Field oil figures are not available right now.
                         </EmptyStage>
                       ) : (
                         <TimeChart
@@ -927,7 +980,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtMt(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       )}
@@ -938,7 +990,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                       <h3 className={t.stageTitle}>Gas from offshore fields · bcm</h3>
                       {gasSum.points.length === 0 ? (
                         <EmptyStage label="Field production unavailable">
-                          Field gas figures have not loaded.
+                          Field gas figures are not available right now.
                         </EmptyStage>
                       ) : (
                         <TimeChart
@@ -948,7 +1000,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtBcm(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       )}
@@ -964,7 +1015,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                       <h3 className={t.stageTitle}>UK crude oil · million tonnes</h3>
                       {!crudeReady || crudeSeries.points.length === 0 ? (
                         <EmptyStage label="Crude oil unavailable">
-                          UK crude oil figures have not loaded.
+                          UK crude oil figures are not available right now.
                         </EmptyStage>
                       ) : (
                         <TimeChart
@@ -974,7 +1025,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtMt(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       )}
@@ -984,7 +1034,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                     <section className={s.panel}>
                       <h3 className={t.stageTitle}>UK gas · bcm</h3>
                       {!gasReady || gasSeries.points.length === 0 ? (
-                        <EmptyStage label="Gas unavailable">UK gas figures have not loaded.</EmptyStage>
+                        <EmptyStage label="Gas unavailable">UK gas figures are not available right now.</EmptyStage>
                       ) : (
                         <TimeChart
                           label="UK gas"
@@ -993,7 +1043,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtBcm(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       )}
@@ -1017,12 +1066,11 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtKt(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       ) : (
                         <EmptyStage label="No oil reported">
-                          The NSTA records show no oil for this field.
+                          The production records show no oil for this field.
                         </EmptyStage>
                       )}
                     </section>
@@ -1040,7 +1088,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                           kind="line"
                           format={(v) => fmtBcm(v)}
                           rules={ayRule}
-                          leaders={false}
                           showTable={false}
                         />
                       ) : (
@@ -1067,7 +1114,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                       cadence="annual"
                       kind="bars"
                       format={(v) => `${v.toLocaleString("en-GB")} fields`}
-                      leaders={false}
                       showTable={false}
                     />
                   )}
@@ -1084,8 +1130,8 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                 {gapEnergyFrom != null ? ` · from ${gapEnergyFrom}` : ""}
               </h3>
               {fossilTotal.points.length === 0 || importsMtoe.points.length === 0 ? (
-                <EmptyStage label="Production Gap series unavailable">
-                  UK fossil production or energy trade figures have not loaded.
+                <EmptyStage label="Production gap unavailable">
+                  UK fossil production or energy trade figures are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -1095,7 +1141,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtMtoe(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={true}
                   showTable={false}
                 />
               )}
@@ -1107,7 +1152,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
               </h3>
               {crudeGap.points.length === 0 || oilImports.points.length === 0 ? (
                 <EmptyStage label="Oil gap series unavailable">
-                  Crude oil or oil import figures have not loaded.
+                  Crude oil or oil import figures are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -1117,50 +1162,27 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtMt(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={true}
                   showTable={false}
                 />
               )}
             </section>
-            <ul className={s.follow} style={{ marginTop: "var(--bo-s5)" }}>
-              <li>
-                <a href={`/energy?domain=imports&view=resilience&year=${y}`}>
-                  The Resilience Test
-                </a>
-                <span>
-                  {(() => {
-                    const pt = depAnnual.points.find((p) => p.t === y);
-                    return pt
-                      ? `Import dependency ${fmtDependencyPct(pt.v)} · sibling ratios · ${y}`
-                      : `Import dependency and sibling ratios · ${y}`;
-                  })()}
-                </span>
-              </li>
-              <li>
-                <a href={`/energy?domain=imports&view=trade&year=${y}`}>
-                  Imports and exports
-                </a>
-                <span>All-fuel trade totals · {y}</span>
-              </li>
-            </ul>
           </div>
         ) : view === "reserves" ? (
           <div className={s.stack}>
             <section className={s.panel}>
-              <h3 className={t.stageTitle}>Oil still counted as 2P · million tonnes</h3>
+              <h3 className={t.stageTitle}>Oil still counted as recoverable · million tonnes</h3>
               {oil2p.points.length === 0 ? (
                 <EmptyStage label="Remaining oil series unavailable">
-                  Remaining oil estimates have not loaded.
+                  Remaining oil estimates are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label="Oil still counted as 2P"
+                  label="Oil still counted as recoverable"
                   series={[oil2p]}
                   cadence="annual"
                   kind="line"
                   format={(v) => fmtMt(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={false}
                   showTable={false}
                 />
               )}
@@ -1169,7 +1191,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
               <h3 className={t.stageTitle}>Oil extracted that year · million tonnes</h3>
               {oilProdBook.points.length === 0 ? (
                 <EmptyStage label="Oil extraction series unavailable">
-                  The oil extraction column has not loaded.
+                  The oil extraction column is not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -1179,26 +1201,24 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtMt(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={false}
                   showTable={false}
                 />
               )}
             </section>
             <section className={s.panel}>
-              <h3 className={t.stageTitle}>Gas still counted as 2P · bcm</h3>
+              <h3 className={t.stageTitle}>Gas still counted as recoverable · bcm</h3>
               {gas2p.points.length === 0 ? (
                 <EmptyStage label="Remaining gas series unavailable">
-                  Remaining gas estimates have not loaded.
+                  Remaining gas estimates are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label="Gas still counted as 2P"
+                  label="Gas still counted as recoverable"
                   series={[gas2p]}
                   cadence="annual"
                   kind="line"
                   format={(v) => fmtBcm(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={false}
                   showTable={false}
                 />
               )}
@@ -1206,7 +1226,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
           </div>
         ) : !crudeReady ? (
           <EmptyStage label="Crude oil unavailable">
-            UK crude oil figures have not loaded.
+            UK crude oil figures are not available right now.
           </EmptyStage>
         ) : (
           <div className={s.stack}>
@@ -1224,7 +1244,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   { id: "year", t: y, label: String(y), active: true },
                   ...(peakPt ? [{ id: "peak", t: peakPt.t, label: `Peak ${peakPt.t}`, active: false }] : []),
                 ]}
-                leaders={false}
                 showTable={false}
               />
             </section>
@@ -1233,7 +1252,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                 UK gas · bcm · {gasYears[0] ?? "—"}–{gasYears.at(-1) ?? "—"}
               </h3>
               {!gasReady || gasSeries.points.length === 0 ? (
-                <EmptyStage label="Gas series unavailable">UK gas figures have not loaded.</EmptyStage>
+                <EmptyStage label="Gas series unavailable">UK gas figures are not available right now.</EmptyStage>
               ) : (
                 <TimeChart
                   label="UK gas"
@@ -1242,7 +1261,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtBcm(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={false}
                   showTable={false}
                 />
               )}
@@ -1252,7 +1270,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                 UK coal · million tonnes · {coalYears[0] ?? "—"}–{coalYears.at(-1) ?? "—"}
               </h3>
               {!coalReady || coalSeries.points.length === 0 ? (
-                <EmptyStage label="Coal series unavailable">UK coal figures have not loaded.</EmptyStage>
+                <EmptyStage label="Coal series unavailable">UK coal figures are not available right now.</EmptyStage>
               ) : (
                 <TimeChart
                   label="UK coal"
@@ -1261,19 +1279,18 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtMt(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={false}
                   showTable={false}
                 />
               )}
             </section>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Fossil fuels as oil-equivalent energy · coal, oil products and gas ·{" "}
+                Fossil fuels as oil-equivalent energy · coal, crude oil and NGLs, and gas ·{" "}
                 {primaryYears[0] ?? "—"}–{primaryYears.at(-1) ?? "—"}
               </h3>
               {!primaryReady || primaryStack.every((sr) => sr.points.length === 0) ? (
                 <EmptyStage label="Oil-equivalent series unavailable">
-                  Fossil fuel energy figures have not loaded.
+                  Fossil fuel energy figures are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -1283,7 +1300,6 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   kind="line"
                   format={(v) => fmtMtoe(v)}
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                  leaders={true}
                   showTable={false}
                 />
               )}

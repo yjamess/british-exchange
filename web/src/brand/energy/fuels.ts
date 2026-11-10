@@ -4,6 +4,8 @@
  * See docs/agent-kickoff-generation.md.
  */
 
+import { followFuelConnection } from "../connections/energy";
+
 export type FuelId =
   | "coal"
   | "gas"
@@ -78,7 +80,7 @@ export function fuelById(id: string): FuelDef | undefined {
   return FUELS.find((f) => f.id === id);
 }
 
-/** Contextual Follow-this-fuel hops (why + destination). Direct = stay on Data for that fuel. */
+/** Contextual Follow-this-fuel hops — backed by ENERGY_CONNECTIONS. */
 export function followFuel(id: FuelId): {
   type: "direct" | "contextual";
   why: string;
@@ -86,33 +88,18 @@ export function followFuel(id: FuelId): {
   href: string;
   label: string;
 } {
-  if (id === "gas") {
+  const hit = followFuelConnection(id);
+  if (hit?.href) {
+    const kind = hit.connection.kind === "direct" ? "direct" : "contextual";
     return {
-      type: "contextual",
-      why: "Gas-fired generation depends on domestic production and imports — different measures, same fuel story.",
-      learn: "Open Oil, gas and fossil fuels for production series already in the catalogue.",
-      href: "/energy?domain=fossil",
-      label: "Follow gas into fossil fuels",
+      type: kind,
+      why: hit.connection.why,
+      learn: hit.connection.learn,
+      href: hit.href,
+      label: hit.connection.label,
     };
   }
-  if (id === "coal") {
-    return {
-      type: "contextual",
-      why: "Coal’s retreat in the mix is linked to production, imports and policy — not explained by generation alone.",
-      learn: "Open fossil fuels for related production evidence (where Ready).",
-      href: "/energy?domain=fossil",
-      label: "Follow coal into fossil fuels",
-    };
-  }
-  if (id === "onshore-wind" || id === "offshore-wind" || id === "solar" || id === "nuclear") {
-    return {
-      type: "contextual",
-      why: "Low-carbon capacity and generation are related but not the same series.",
-      learn: "Open Renewables and nuclear (stage still in preparation).",
-      href: "/energy?domain=low-carbon",
-      label: "Follow into renewables and nuclear",
-    };
-  }
+  // Safety net if the registry omits a fuel — still a typed direct hop.
   return {
     type: "direct",
     why: "Same official generation series, filtered to this fuel.",

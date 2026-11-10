@@ -2,7 +2,7 @@
   "registry_id": "energy-industrial-policy-events",
   "title": "Industrial policy events",
   "sector": "energy-industry",
-  "retrieved_at": "2026-11-07",
+  "retrieved_at": "2026-11-10",
   "note": "Acts, programmes and institutions shaping Britain's energy and industrial trajectory. The mark is Royal Assent for an Act and the start date for a programme. Commencement, announcement and repeal stay separate. An overlapping Ready series is context, never an effect.",
   "eras": [
     {
@@ -34,11 +34,19 @@
       "citation": "10 & 11 Geo. 6 c. 54",
       "aliases": [],
       "type": "act",
-      "topics": ["electricity", "energy", "regulation"],
+      "topics": [
+        "electricity",
+        "energy",
+        "regulation"
+      ],
       "summary": "Established the British Electricity Authority and Area Electricity Boards, transferring electricity undertakers into public ownership. Royal Assent is printed as 13 August 1947. The Act (except specified savings) was later repealed by the Electricity Act 1989.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "Great Britain",
-      "nations": ["england", "wales", "scotland"],
+      "nations": [
+        "england",
+        "wales",
+        "scotland"
+      ],
       "extent": "Creates the British Electricity Authority and Area Boards for the supply of electricity in Great Britain, with related functions for the North of Scotland Hydro-Electric Board. Northern Ireland is not treated as within the nationalisation scheme recorded here.",
       "announcement_date": null,
       "enactment_date": "1947-08-13",
@@ -73,7 +81,7 @@
           "id": "electricity-generation-by-source",
           "title": "Electricity generation by source",
           "domain": "generation",
-          "view": "history",
+          "view": "current",
           "relationship": "context",
           "note": "National fuel mix is context for the public-ownership era — not an effect of the 1947 Act alone."
         }
@@ -85,20 +93,43 @@
       "citation": "1989 c. 29",
       "aliases": [],
       "type": "act",
-      "topics": ["electricity", "energy", "regulation"],
+      "topics": [
+        "electricity",
+        "energy",
+        "regulation"
+      ],
       "summary": "Replaced the nationalised electricity boards with a licensing framework for generation, transmission and supply, and provided for vesting of Board assets in companies nominated by the Secretary of State. Royal Assent is printed as 27 July 1989.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "Great Britain",
-      "nations": ["england", "wales", "scotland"],
+      "nations": [
+        "england",
+        "wales",
+        "scotland"
+      ],
       "extent": "Core licensing and vesting provisions apply to England, Wales and Scotland. Later modifications transfer Director General functions to GEMA (Utilities Act 2000). Northern Ireland electricity law is not treated as identical here.",
       "announcement_date": null,
       "enactment_date": "1989-07-27",
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "1989-09-01",
+          "instrument": "S.I. 1989/1369",
+          "citation": "Electricity Act 1989 (Commencement No. 1) Order 1989",
+          "url": "https://www.legislation.gov.uk/uksi/1989/1369/made",
+          "scope": "First provisions in force (Director General, consumers' committees, interpretation). Further Parts followed by later orders."
+        },
+        {
+          "date": "1990-03-31",
+          "instrument": "S.I. 1990/117",
+          "citation": "Electricity Act 1989 (Commencement No. 2) Order 1990",
+          "url": "https://www.legislation.gov.uk/uksi/1990/117/made",
+          "scope": "Major vesting / licensing provisions and repeal of the 1947 Act (with savings)."
+        }
+      ],
       "status": "in_force",
-      "status_note": "Revised text remains on legislation.gov.uk. Individual commencement orders for Parts are not exhaustively pinned in this seed — open the primary text for appointment detail.",
+      "status_note": "Revised text remains on legislation.gov.uk. First commencement 1 September 1989 (S.I. 1989/1369); transfer/repeal wave 31 March 1990 (S.I. 1990/117). Later commencement orders exist — this seed pins the principal early dates, not every SI.",
       "sources": [
         {
           "label": "Introductory Text",
@@ -116,7 +147,7 @@
           "id": "electricity-generation-by-source",
           "title": "Electricity generation by source",
           "domain": "generation",
-          "view": "history",
+          "view": "current",
           "relationship": "context",
           "note": "Generation mix after privatisation is context — not proof the Act caused fuel substitution."
         },
@@ -136,20 +167,43 @@
       "citation": "2000 c. 27",
       "aliases": [],
       "type": "act",
-      "topics": ["electricity", "energy", "regulation"],
+      "topics": [
+        "electricity",
+        "energy",
+        "regulation"
+      ],
       "summary": "Established the Gas and Electricity Markets Authority (Ofgem's statutory board) and the Gas and Electricity Consumer Council, and amended gas and electricity regulation. Royal Assent is printed as 28 July 2000.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "Great Britain",
-      "nations": ["england", "wales", "scotland"],
+      "nations": [
+        "england",
+        "wales",
+        "scotland"
+      ],
       "extent": "Creates GEMA and amends GB gas and electricity legislation. Consumer-body successors and later transfers are noted on legislation.gov.uk modifications; Northern Ireland regulators are separate.",
       "announcement_date": null,
       "enactment_date": "2000-07-28",
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "2000-09-29",
+          "instrument": "S.I. 2000/2412",
+          "citation": "Utilities Act 2000 (Commencement No. 1 and Saving) Order 2000",
+          "url": "https://www.legislation.gov.uk/uksi/2000/2412/made",
+          "scope": "First appointed day for listed provisions (interpretation, savings powers, etc.). Sections 68 and 110 were already in force at Royal Assent."
+        },
+        {
+          "date": "2000-11-01",
+          "instrument": "S.I. 2000/2917",
+          "citation": "Utilities Act 2000 (Commencement No. 2) Order 2000",
+          "url": "https://www.legislation.gov.uk/uksi/2000/2917/made",
+          "scope": "Creation of GEMA and the Gas and Electricity Consumer Council (and related Schedules)."
+        }
+      ],
       "status": "in_force",
-      "status_note": "Key functions later transferred (e.g. consumer representation). Commencement orders are not exhaustively listed in this seed.",
+      "status_note": "Key functions later transferred (e.g. consumer representation). Principal early commencements: 29 September 2000 (S.I. 2000/2412) and 1 November 2000 GEMA (S.I. 2000/2917). Further orders followed.",
       "sources": [
         {
           "label": "Introductory Text",
@@ -179,20 +233,44 @@
       "citation": "2008 c. 27",
       "aliases": [],
       "type": "act",
-      "topics": ["climate", "energy", "renewables"],
+      "topics": [
+        "climate",
+        "energy",
+        "renewables"
+      ],
       "summary": "Set a 2050 greenhouse-gas reduction target, created a system of carbon budgets and established the Committee on Climate Change. Royal Assent is printed as 26 November 2008.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "United Kingdom",
-      "nations": ["england", "wales", "scotland", "northern-ireland"],
+      "nations": [
+        "england",
+        "wales",
+        "scotland",
+        "northern-ireland"
+      ],
       "extent": "United Kingdom. Section 95 defines national authorities as the Secretary of State, Scottish Ministers, Welsh Ministers and the relevant Northern Ireland department.",
       "announcement_date": null,
       "enactment_date": "2008-11-26",
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "2008-11-26",
+          "instrument": "Act s.100(1)",
+          "citation": "Climate Change Act 2008 s.100(1)",
+          "url": "https://www.legislation.gov.uk/ukpga/2008/27/section/100",
+          "scope": "Part 1 (carbon target and budgeting), Part 2 (Committee on Climate Change) and the commencement Part come into force on Royal Assent."
+        },
+        {
+          "date": "2009-01-26",
+          "instrument": "Act s.100(5)",
+          "citation": "Climate Change Act 2008 s.100(5)",
+          "url": "https://www.legislation.gov.uk/ukpga/2008/27/section/100",
+          "scope": "Other provisions (except those with special rules) come into force two months after Royal Assent."
+        }
+      ],
       "status": "in_force",
-      "status_note": "Carbon-budget numbers and later target amendments are not copied into this seed. Promise vs outcome needs commensurate official targets and series before scoring.",
+      "status_note": "Carbon-budget numbers and later target amendments are not copied into this seed. Commencement: Parts 1–2 on Royal Assent (26 November 2008); most remaining provisions on 26 January 2009 (s.100). Promise vs outcome needs commensurate official targets and series before scoring.",
       "sources": [
         {
           "label": "Introductory Text",
@@ -210,7 +288,7 @@
           "id": "electricity-generation-by-source",
           "title": "Electricity generation by source",
           "domain": "generation",
-          "view": "history",
+          "view": "current",
           "relationship": "context",
           "note": "Low-carbon share of generation is context for the Act's era — not a carbon-budget compliance score."
         },
@@ -230,20 +308,45 @@
       "citation": "2023 c. 52",
       "aliases": [],
       "type": "act",
-      "topics": ["energy", "electricity", "regulation", "renewables"],
+      "topics": [
+        "energy",
+        "electricity",
+        "regulation",
+        "renewables"
+      ],
       "summary": "Wide energy-system statute covering carbon capture and storage licensing, hydrogen, the Independent System Operator and Planner, heat networks, energy-intensive industry support, offshore energy and civil nuclear provision. Royal Assent is printed as 26 October 2023.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "United Kingdom",
-      "nations": ["england", "wales", "scotland", "northern-ireland"],
-      "extent": "United Kingdom with Part-by-Part variation. Individual Part extents and commencements are not exhaustively pinned in this seed — read the primary text and appointment SIs.",
+      "nations": [
+        "england",
+        "wales",
+        "scotland",
+        "northern-ireland"
+      ],
+      "extent": "United Kingdom with Part-by-Part variation. See primary text and appointment regulations for remaining extents.",
       "announcement_date": null,
       "enactment_date": "2023-10-26",
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "2023-10-26",
+          "instrument": "Act s.334(2)",
+          "citation": "Energy Act 2023 s.334(2)",
+          "url": "https://www.legislation.gov.uk/ukpga/2023/52/section/334",
+          "scope": "Listed provisions come into force on Royal Assent (including this Part and specified hydrogen / system-operator / nuclear items). Not the whole Act."
+        },
+        {
+          "date": "2023-12-26",
+          "instrument": "Act s.334(3)",
+          "citation": "Energy Act 2023 s.334(3)",
+          "url": "https://www.legislation.gov.uk/ukpga/2023/52/section/334",
+          "scope": "Further listed Parts/Chapters come into force two months after Royal Assent. Remaining provisions commence by regulations."
+        }
+      ],
       "status": "partially_in_force",
-      "status_note": "Many provisions commence by order. This seed records Royal Assent only; do not treat the whole Act as operative on 26 October 2023.",
+      "status_note": "Partially in force. Seed pins Royal-Assent wave (26 October 2023) and two-month wave (26 December 2023) from s.334; many other provisions commence by separate regulations — do not treat the whole Act as operative on assent.",
       "sources": [
         {
           "label": "Introductory Text",
@@ -279,13 +382,26 @@
       "id": "modern-industrial-strategy-2025",
       "title": "Modern Industrial Strategy 2025",
       "citation": "DBT Industrial Strategy collection",
-      "aliases": ["Invest 2035", "UK's Modern Industrial Strategy"],
+      "aliases": [
+        "Invest 2035",
+        "UK's Modern Industrial Strategy"
+      ],
       "type": "programme",
-      "topics": ["industrial-strategy", "investment", "manufacturing", "energy"],
+      "topics": [
+        "industrial-strategy",
+        "investment",
+        "manufacturing",
+        "energy"
+      ],
       "summary": "Ten-year cross-government industrial strategy published by the Department for Business and Trade, with sector plans including Clean Energy Industries. This record uses the GOV.UK collection published date as the programme start mark — it is not an Act and has no Royal Assent.",
       "institution": "Department for Business and Trade",
       "jurisdiction": "United Kingdom",
-      "nations": ["england", "wales", "scotland", "northern-ireland"],
+      "nations": [
+        "england",
+        "wales",
+        "scotland",
+        "northern-ireland"
+      ],
       "extent": "United Kingdom strategy documents. Devolved delivery and funding routes differ by nation and are not enumerated here.",
       "announcement_date": null,
       "enactment_date": null,

@@ -151,28 +151,50 @@ export const TENURE_PLATES = {
 export const ENERGY_TECH_PLATES = {
   "offshore-wind": {
     src: "/brand/plates/e-offshore.png",
-    alt: "Halftone specimen drawing of an offshore wind turbine standing in open water",
+    alt: "Halftone specimen drawing of an offshore wind turbine on its monopile and transition piece, with more of the farm behind in open sea",
   },
   "onshore-wind": {
     src: "/brand/plates/e-onshore.png",
-    alt: "Halftone specimen drawing of an onshore wind turbine on open ground",
+    alt: "Halftone specimen drawing of an onshore wind turbine on a hilltop above hedged fields, with more turbines on the ridge behind",
   },
   solar: {
     src: "/brand/plates/e-solar.png",
-    alt: "Halftone specimen drawing of a ground-mounted solar panel array",
+    alt: "Halftone specimen drawing of rows of ground-mounted solar panels on mown grass",
   },
   hydro: {
     src: "/brand/plates/e-hydro.png",
-    alt: "Halftone specimen drawing of a hydroelectric dam wall and spillway",
+    alt: "Halftone specimen drawing of a curved concrete dam across a valley, with the reservoir behind, a spillway and the river below",
   },
   bioenergy: {
     src: "/brand/plates/e-bioenergy.png",
-    alt: "Halftone specimen drawing of a bioenergy plant hall with a flue stack",
+    alt: "Halftone specimen drawing of a biomass power station: fuel storage domes, a conveyor to the boiler house, and a tall stack",
   },
   nuclear: {
     src: "/brand/plates/e-nuclear.png",
-    alt: "Halftone specimen drawing of a reactor dome beside a cooling tower — illustrative form, not a named site",
+    alt: "Halftone specimen drawing of a coastal nuclear station: reactor dome, turbine hall and vent stack by the sea — illustrative form, not a named site",
   },
+} as const satisfies Record<string, { src: string; alt: string }>;
+
+/**
+ * Manufacturing branch specimens — one per SIC 2007 broad branch (subsections CA–CM),
+ * keyed by SIC code. Matched set from manufacturing-types.py: same camera, floor and light.
+ * Illustrative forms of what each branch makes; plate size is not output or share.
+ */
+const mfg = (file: string, alt: string) => ({ src: `/brand/plates/m-${file}.png`, alt: `Halftone specimen drawing of ${alt}` });
+export const MANUFACTURING_PLATES = {
+  CA: mfg("food", "a pyramid of food tins"),
+  CB: mfg("textiles", "a bolt of cloth on a cradle beside three cones of yarn"),
+  CC: mfg("paper", "two paper reels, one standing and one lying on its side"),
+  CD: mfg("refinery", "a refinery distillation column with platforms and a smaller column beside it"),
+  CE: mfg("chemicals", "a chemical reactor vessel on four legs with nozzles and an agitator drive"),
+  CF: mfg("pharma", "a tray of crimp-capped medicine vials"),
+  CG: mfg("rubber", "an upright tyre beside a stack of bricks"),
+  CH: mfg("metals", "rolled steel I-beams stacked on timber bearers"),
+  CI: mfg("electronics", "a circuit board with chips, capacitors and a finned heatsink"),
+  CJ: mfg("electrical", "a finned electric motor with its terminal box and shaft"),
+  CK: mfg("machinery", "a centre lathe with headstock, chuck, carriage and tailstock"),
+  CL: mfg("transport", "a jet engine on its transport stand"),
+  CM: mfg("furniture", "a Windsor chair"),
 } as const satisfies Record<string, { src: string; alt: string }>;
 
 /**

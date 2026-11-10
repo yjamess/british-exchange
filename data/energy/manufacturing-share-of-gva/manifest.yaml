@@ -26,7 +26,7 @@ raw_evidence:
   source_url: https://www.ons.gov.uk/economy/grossvalueaddedgva/timeseries/l4nt/wgdp/data
 transformations: Download ONS timeseries JSON (L4NT/WGDP /data). Keep years array.
   Parse weight (parts per thousand); curated value = weight/10 as % of GVA. Period
-  = calendar year. Geography K02000001. observation_status=provisional (Blue Book
+  = calendar year. Geography K02000001. Latest year provisional (Blue Book
   revises). Raw weight retained in notes as weight_ppt=.
 revision_notes: Industry weights revise with Blue Book. Recent years may be held constant
   until the next BB (check forward-filled years in raw). Re-pin raw JSON on re-ingest.

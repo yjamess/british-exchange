@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Explorer,
@@ -11,64 +11,158 @@ import {
   MultiMenuControl,
   PeriodControl,
   ResetButton,
+  SearchControl,
   Stage,
   EmptyStage,
   FigureRecord,
   SourceLine,
   DataTable,
   REF_ICON_PLATES,
+  explorerClasses,
   type ExplorerDomain,
   type PrintOption,
   type SourceRow,
 } from "../..";
+import {
+  ArrivalFrom,
+  FollowStep,
+  buildArrivalContext,
+  primaryHousingConnection,
+  readArrival,
+  resolveHousingConnectionHref,
+} from "../../connections";
 import type { HousingV1, Source } from "../load";
 import { apiBase } from "@/lib/api";
-import { CornerCloud } from "../CornerCloud";
 import { PricePaidSearch } from "./PricePaidSearch";
-import { PricesData } from "./PricesData";
+import { PricesData, pricesDataFoot, pricesTransactionsFoot } from "./PricesData";
 import { PricesMapStage, type PricesMapPayload } from "./PricesMapStage";
 import {
   AffordabilityExperiment,
+  experimentFoot,
   parseScenarioParams,
   scenarioToQuery,
 } from "./affordability/AffordabilityExperiment";
-import { WhoCanAfford } from "./affordability/WhoCanAfford";
-import { AgesView, agesReading } from "./affordability/AgesView";
-import { AffordabilityData } from "./affordability/AffordabilityData";
+import { WhoCanAfford, householdsFoot } from "./affordability/WhoCanAfford";
+import { AgesView, AGES_BREAKDOWN_OPTIONS, agesFoot } from "./affordability/AgesView";
+import { AffordabilityData, affordabilityDataFoot } from "./affordability/AffordabilityData";
 import { normaliseScenario, scenarioDefaults } from "./affordability/scenario";
-import { ChangingHousingFabric } from "./stock/ChangingHousingFabric";
-import { TypesView } from "./stock/TypesView";
-import { GeographyView } from "./stock/GeographyView";
-import { VacancyView } from "./stock/VacancyView";
-import { TenureView } from "./stock/TenureView";
-import { StockData } from "./stock/StockData";
-import { SupplyMachine, isTermId, type SupplyMachineState } from "./supply/SupplyMachine";
-import { SupplyGeography } from "./supply/SupplyGeography";
-import { WhoBuilds } from "./supply/WhoBuilds";
-import { SupplyData } from "./supply/SupplyData";
-import { LandData } from "./land/LandData";
-import { PlanningDecisionMachine } from "./land/PlanningDecisionMachine";
-import { DevelopmentSites } from "./land/DevelopmentSites";
-import { HistoricalChange } from "./land/HistoricalChange";
-import { InsideHomes, type InsideFoot } from "./quality/InsideHomes";
-import { EnergyView } from "./quality/EnergyView";
-import { StateOfRepair } from "./quality/StateOfRepair";
-import { QualityGeography } from "./quality/QualityGeography";
-import { QualityData } from "./quality/QualityData";
-import { LandExplorer } from "./land/LandExplorer";
-import { Pathways, type PathwaysState } from "./insecurity/Pathways";
-import { WhoOwns, isCategory, isRecordId, type Category, type RecordId } from "./ownership/WhoOwns";
-import { MortgageMachine } from "./ownership/MortgageMachine";
-import { PropertyWealth } from "./ownership/PropertyWealth";
-import { OwnershipData } from "./ownership/OwnershipData";
-import { PolicyCanvas } from "./policy/PolicyCanvas";
-import { POLICY_RETRIEVED, coverage as policyCoverage, eventById, formatIso as policyDate } from "./policy/events";
-import { TemporaryLife } from "./insecurity/TemporaryLife";
-import { Displacement, type DisplacementMode } from "./insecurity/Displacement";
-import { keyParam, parseKeyParam } from "./insecurity/periods";
-import { HousingNeed } from "./insecurity/HousingNeed";
-import { InsecurityData } from "./insecurity/InsecurityData";
-import { RentCanvas } from "./renting/RentCanvas";
+import {
+  ChangingHousingFabric,
+  fabricFoot,
+  fabricYearOptions,
+} from "./stock/ChangingHousingFabric";
+import { TypesView, typesFoot, typesPlaceOptions } from "./stock/TypesView";
+import {
+  GeographyView,
+  STOCK_GEO_MEASURE_OPTIONS,
+  stockGeoYearOptions,
+  stockGeographyFoot,
+  type StockGeoMeasure,
+} from "./stock/GeographyView";
+import { VacancyView, vacancyFoot } from "./stock/VacancyView";
+import { TenureView, tenureFoot } from "./stock/TenureView";
+import { StockData, stockDataFoot } from "./stock/StockData";
+import {
+  SupplyMachine,
+  isTermId,
+  MACHINE_PANEL_OPTIONS,
+  supplyMachineFoot,
+  supplyPlaceOptions,
+  supplyVsOptions,
+  supplyYearOptions,
+  type MachinePanel,
+  type SupplyMachineState,
+} from "./supply/SupplyMachine";
+import {
+  SupplyGeography,
+  GEOGRAPHY_MEASURE_OPTIONS,
+  geographyFoot,
+  type GeographyMeasure,
+} from "./supply/SupplyGeography";
+import {
+  WhoBuilds,
+  WHO_BUILDS_MEASURE_OPTIONS,
+  whoBuildsFigures,
+  whoBuildsFoot,
+  type WhoBuildsMode,
+} from "./supply/WhoBuilds";
+import { SupplyData, supplyDataFoot } from "./supply/SupplyData";
+import { LandData, landDataFoot } from "./land/LandData";
+import {
+  PlanningDecisionMachine,
+  planningFoot,
+  planningQuarterOptions,
+  type StageId as PlanningStageId,
+} from "./land/PlanningDecisionMachine";
+import {
+  DevelopmentSites,
+  SITES_MEASURE_OPTIONS,
+  sitesFoot,
+  type SitesFocus,
+} from "./land/DevelopmentSites";
+import {
+  GB_HISTORY_YEARS,
+  HistoricalChange,
+  historyFoot,
+  type GbHistoryYear,
+} from "./land/HistoricalChange";
+import { InsideHomes, InsideHomesControls, insideHomesFoot } from "./quality/InsideHomes";
+import { EnergyView, EnergyViewControls, energyViewFoot } from "./quality/EnergyView";
+import { StateOfRepair, StateOfRepairControls, stateOfRepairFoot } from "./quality/StateOfRepair";
+import { QualityGeography, QualityGeographyControls, qualityGeographyFoot } from "./quality/QualityGeography";
+import { QualityData, QualityDataControls, qualityDataFoot } from "./quality/QualityData";
+import { useQualityEvidence } from "./quality/cutaway/useEvidence";
+import { ENGLAND as QUALITY_ENGLAND } from "./quality/cutaway/evidence";
+import {
+  parseConditionKind,
+  parseEnergyCat,
+  type ConditionState,
+  type EnergyState,
+  type GeographyState,
+  type InsideState,
+  type QualityDataState,
+} from "./quality/state";
+import { LandExplorer, explorerFoot } from "./land/LandExplorer";
+import {
+  Pathways,
+  pathwayFoot,
+  pathwayQuarterKeys,
+  pathwayStageOptions,
+  type PathwaysState,
+} from "./insecurity/Pathways";
+import {
+  WHO_OWNS_OWNER_OPTIONS,
+  WhoOwns,
+  isOwner,
+  whoOwnsFoot,
+  type Owner,
+} from "./ownership/WhoOwns";
+import { MortgageMachine, mortgageFoot } from "./ownership/MortgageMachine";
+import { PropertyWealth, wealthAgeOptions, wealthFoot } from "./ownership/PropertyWealth";
+import { OwnershipData, ownershipDataFoot } from "./ownership/OwnershipData";
+import { PolicyCanvas, PolicyControls, parsePolicyState, policyFigures, policyFootRows, type PolicyView } from "./policy/PolicyCanvas";
+import { usePolicyData } from "./policy/usePolicyData";
+import { TemporaryLife, temporaryFoot, temporaryTypeOptions } from "./insecurity/TemporaryLife";
+import {
+  Displacement,
+  DISPLACEMENT_MEASURE_OPTIONS,
+  displacementFoot,
+  type DisplacementMode,
+} from "./insecurity/Displacement";
+import { keyParam, parseKeyParam, flowLabel, qKey } from "./insecurity/periods";
+import { toT } from "../../data";
+import { HousingNeed, needFoot, needYearOptions } from "./insecurity/HousingNeed";
+import {
+  InsecurityData,
+  insecurityDataFoot,
+  insecurityDataOptions,
+} from "./insecurity/InsecurityData";
+import {
+  LETTINGS_BREAKDOWN_OPTIONS,
+  RentCanvas,
+  lettingsFoot,
+  rentDataFoot,
+} from "./renting/RentCanvas";
 import { MAX_RENT_PLACES, RENT_UK, applyWindow, categoryLabel, rentAreasParam } from "./renting/selection";
 import { useRenting } from "./renting/useRenting";
 import {
@@ -78,11 +172,11 @@ import {
   figuresFor,
   pricesMapReading,
   stageFor,
-  transactionVolumeLead,
   yearOf,
   type Controls,
   type DomainId,
 } from "./model";
+import gen from "../../energy/generation.module.css";
 import s from "./explorer.module.css";
 
 /**
@@ -208,20 +302,94 @@ export function HousingExplorer({
   const rawSegment = searchParams.get("segment");
   const segment: Controls["segment"] =
     rawSegment === "ftb" ? "ftb" : rawSegment === "finance" ? "finance" : "new";
-  const [qualityIndicator, setQualityIndicator] = useState(searchParams.get("qi") ?? "");
-  const [insideFoot, setInsideFoot] = useState<InsideFoot | null>(null);
-  const onInsideFoot = useCallback((next: InsideFoot) => {
-    setInsideFoot((cur) =>
-      cur &&
-      cur.source === next.source &&
-      cur.coverage === next.coverage &&
-      cur.dataHref === next.dataHref &&
-      cur.caveats.join("\n") === next.caveats.join("\n") &&
-      (cur.definition ?? []).join("\n") === (next.definition ?? []).join("\n")
-        ? cur
-        : next,
-    );
-  }, []);
+  const { evidence: qualityEvidence, failed: qualityFailed } = useQualityEvidence();
+  const insideState = useMemo<InsideState>(
+    () => ({
+      feature: searchParams.get("qf") || "rating",
+      archetype: searchParams.get("qarch") ?? "",
+      area: searchParams.get("qar") || QUALITY_ENGLAND,
+      tenure: searchParams.get("qt") || "all-tenures",
+      year: num(searchParams.get("qy")),
+    }),
+    [searchParams],
+  );
+  const setInsideState = (next: Partial<InsideState>) =>
+    setQuery({
+      ...("feature" in next ? { qf: next.feature === "rating" ? null : (next.feature ?? null) } : {}),
+      ...("archetype" in next ? { qarch: next.archetype || null } : {}),
+      ...("area" in next ? { qar: next.area === QUALITY_ENGLAND || !next.area ? null : next.area } : {}),
+      ...("tenure" in next ? { qt: next.tenure === "all-tenures" || !next.tenure ? null : next.tenure } : {}),
+      ...("year" in next ? { qy: next.year != null ? String(next.year) : null } : {}),
+    });
+  const energyState = useMemo<EnergyState>(
+    () => ({
+      cat: parseEnergyCat(searchParams.get("qcat")),
+      archetype: searchParams.get("qarch") ?? "",
+      area: searchParams.get("qar") || QUALITY_ENGLAND,
+      tenure: searchParams.get("qt") || "all-tenures",
+      year: num(searchParams.get("qy")),
+      focus: searchParams.get("qfocus"),
+    }),
+    [searchParams],
+  );
+  const setEnergyState = (next: Partial<EnergyState>) =>
+    setQuery({
+      ...("cat" in next ? { qcat: next.cat === "bands" || !next.cat ? null : next.cat } : {}),
+      ...("archetype" in next ? { qarch: next.archetype || null } : {}),
+      ...("area" in next ? { qar: next.area === QUALITY_ENGLAND || !next.area ? null : next.area } : {}),
+      ...("tenure" in next ? { qt: next.tenure === "all-tenures" || !next.tenure ? null : next.tenure } : {}),
+      ...("year" in next ? { qy: next.year != null ? String(next.year) : null } : {}),
+      ...("focus" in next ? { qfocus: next.focus } : {}),
+    });
+  const conditionState = useMemo<ConditionState>(
+    () => ({
+      measure: searchParams.get("qm") || "ehs-decent-homes|non-decent",
+      kind: parseConditionKind(searchParams.get("qk")),
+      tenure: searchParams.get("qt") || "all-tenures",
+      year: num(searchParams.get("qy")),
+      col: searchParams.get("qcol"),
+    }),
+    [searchParams],
+  );
+  const setConditionState = (next: Partial<ConditionState>) =>
+    setQuery({
+      ...("measure" in next
+        ? { qm: next.measure === "ehs-decent-homes|non-decent" || !next.measure ? null : next.measure }
+        : {}),
+      ...("kind" in next ? { qk: next.kind === "tenure" || !next.kind ? null : next.kind } : {}),
+      ...("tenure" in next ? { qt: next.tenure === "all-tenures" || !next.tenure ? null : next.tenure } : {}),
+      ...("year" in next ? { qy: next.year != null ? String(next.year) : null } : {}),
+      ...("col" in next ? { qcol: next.col } : {}),
+    });
+  const geographyState = useMemo<GeographyState>(
+    () => ({
+      feature: searchParams.get("qf") || "fabric",
+      tenure: searchParams.get("qt") || "all-tenures",
+      year: num(searchParams.get("qy")),
+      picked: searchParams.get("qpick"),
+    }),
+    [searchParams],
+  );
+  const setGeographyState = (next: Partial<GeographyState>) =>
+    setQuery({
+      ...("feature" in next ? { qf: next.feature === "fabric" || !next.feature ? null : next.feature } : {}),
+      ...("tenure" in next ? { qt: next.tenure === "all-tenures" || !next.tenure ? null : next.tenure } : {}),
+      ...("year" in next ? { qy: next.year != null ? String(next.year) : null } : {}),
+      ...("picked" in next ? { qpick: next.picked } : {}),
+    });
+  const qualityDataState = useMemo<QualityDataState>(
+    () => ({
+      indicator: searchParams.get("qi") ?? "",
+      series: searchParams.get("qs"),
+    }),
+    [searchParams],
+  );
+  const setQualityDataState = (next: Partial<QualityDataState>) =>
+    setQuery({
+      ...("indicator" in next ? { qi: next.indicator || null } : {}),
+      ...("series" in next ? { qs: next.series } : {}),
+    });
+  const qualityIndicator = qualityDataState.indicator;
   const controls = useMemo<Controls>(
     () => ({ places, measure, segment, qualityIndicator }),
     [places, measure, segment, qualityIndicator],
@@ -325,6 +493,11 @@ export function HousingExplorer({
       bed: null,
       lettings: null,
       ages: null,
+      own: null,
+      wa: null,
+      // Arrival chip is for Follow hops — clear on a manual domain rail change.
+      via: null,
+      via_return: null,
     });
 
   const boeRate = data.mortgageRate[data.mortgageRate.length - 1]?.v ?? null;
@@ -412,32 +585,143 @@ export function HousingExplorer({
     setQuery({ place: placesParam(unique.length > 0 ? unique : ["uk"]) });
   };
 
-  // Domain 05 Supply Machine — place (England or an English region), FY start year, comparison, term.
+  // Domain 05 Supply — Machine / Who builds / Geography controls in the URL.
+  const supplyPanel: MachinePanel = searchParams.get("panel") === "ledger" ? "ledger" : "section";
+  const whoBuildsMode: WhoBuildsMode =
+    searchParams.get("wb") === "starts"
+      ? "starts"
+      : searchParams.get("wb") === "affordable"
+        ? "affordable"
+        : "completions";
+  const geographyMeasure: GeographyMeasure = searchParams.get("gm") === "share" ? "share" : "count";
   const supplyState = useMemo<SupplyMachineState>(() => {
     const known = data.supplyMachine.byPlace;
     const code = (placeRaw ?? "").split(",").map((p) => p.trim()).find((p) => p in known) ?? "E92000001";
     const vsRaw = num(searchParams.get("vs"));
     const partRaw = searchParams.get("part");
-    return { place: code, year: toParam, vs: vsRaw, part: isTermId(partRaw) ? partRaw : null };
-  }, [data.supplyMachine.byPlace, placeRaw, toParam, searchParams]);
+    return {
+      place: code,
+      year: toParam,
+      vs: vsRaw,
+      part: isTermId(partRaw) ? partRaw : null,
+      panel: supplyPanel,
+    };
+  }, [data.supplyMachine.byPlace, placeRaw, toParam, searchParams, supplyPanel]);
   const setSupply = (next: Partial<SupplyMachineState>) =>
     setQuery({
       ...("place" in next ? { place: next.place === "E92000001" ? null : (next.place ?? null) } : {}),
       ...("year" in next ? { to: next.year != null ? String(next.year) : null, from: null } : {}),
       ...("vs" in next ? { vs: next.vs != null ? String(next.vs) : null } : {}),
       ...("part" in next ? { part: next.part ?? null } : {}),
+      ...("panel" in next ? { panel: next.panel === "ledger" ? "ledger" : null } : {}),
     });
+  const supplyPlaceOpts = useMemo(
+    () => (active === "supply" ? supplyPlaceOptions(data.supplyMachine) : []),
+    [active, data.supplyMachine],
+  );
+  const supplyYearOpts = useMemo(
+    () => (active === "supply" ? supplyYearOptions(data.supplyMachine, supplyState.place) : []),
+    [active, data.supplyMachine, supplyState.place],
+  );
+  const supplyVsOpts = useMemo(
+    () => (active === "supply" ? supplyVsOptions(data.supplyMachine, supplyState.place, supplyState.year) : []),
+    [active, data.supplyMachine, supplyState.place, supplyState.year],
+  );
+  const supplyFoot = useMemo(() => {
+    if (active !== "supply") return null;
+    if (view === "machine" || view === "") return supplyMachineFoot(data.supplyMachine, supplyState);
+    if (view === "who-builds") return whoBuildsFoot(whoBuildsMode);
+    if (view === "geography") return geographyFoot(data.supplyGeography, geographyMeasure);
+    if (view === "table") return supplyDataFoot();
+    return null;
+  }, [active, view, data.supplyMachine, data.supplyGeography, supplyState, whoBuildsMode, geographyMeasure]);
+  const qualityFoot = useMemo(() => {
+    if (active !== "quality") return null;
+    if (view === "inside" || view === "") return insideHomesFoot(insideState, qualityEvidence);
+    if (view === "energy") return energyViewFoot(energyState, qualityEvidence);
+    if (view === "condition") return stateOfRepairFoot(conditionState, qualityEvidence);
+    if (view === "geography") return qualityGeographyFoot(geographyState, qualityEvidence);
+    if (view === "table") return qualityDataFoot(qualityDataState, qualityEvidence);
+    return null;
+  }, [
+    active,
+    view,
+    insideState,
+    energyState,
+    conditionState,
+    geographyState,
+    qualityDataState,
+    qualityEvidence,
+  ]);
 
-  // Domain 09 Who owns — the network's category filter and selected record.
-  const rawCat = searchParams.get("cat");
-  const rawRec = searchParams.get("rec");
-  const networkCategory: Category = isCategory(rawCat) ? rawCat : "all";
-  const networkRecord: RecordId | null = isRecordId(rawRec) ? rawRec : null;
-  const setNetwork = (next: { category?: Category; record?: RecordId | null }) =>
-    setQuery({
-      ...("category" in next ? { cat: next.category === "all" ? null : (next.category ?? null) } : {}),
-      ...("record" in next ? { rec: next.record ?? null } : {}),
-    });
+  // Domain 04 Stock — year / place / measure in the URL.
+  const stockYear = num(searchParams.get("sy"));
+  const stockPlaceRaw = searchParams.get("sp");
+  const stockPlace =
+    stockPlaceRaw && data.dwellingTypes.places.some((p) => p.id === stockPlaceRaw)
+      ? stockPlaceRaw
+      : (data.dwellingTypes.places[0]?.id ?? null);
+  const stockGeoMeasure: StockGeoMeasure =
+    searchParams.get("sgm") === "private"
+      ? "private"
+      : searchParams.get("sgm") === "social"
+        ? "social"
+        : searchParams.get("sgm") === "total"
+          ? "total"
+          : "owner";
+  const fabricYearOpts = useMemo(
+    () => (active === "stock" ? fabricYearOptions(data.tenure) : []),
+    [active, data.tenure],
+  );
+  const typesPlaceOpts = useMemo(
+    () => (active === "stock" ? typesPlaceOptions(data.dwellingTypes) : []),
+    [active, data.dwellingTypes],
+  );
+  const stockGeoYearOpts = useMemo(
+    () => (active === "stock" ? stockGeoYearOptions(data.stockGeography) : []),
+    [active, data.stockGeography],
+  );
+  const stockFoot = useMemo(() => {
+    if (active !== "stock") return null;
+    if (view === "composition" || view === "") return fabricFoot(data.tenure, stockYear);
+    if (view === "types") return typesFoot(data.dwellingTypes, stockPlace);
+    if (view === "geography") return stockGeographyFoot(data.stockGeography, stockGeoMeasure, stockYear);
+    if (view === "vacancy") return vacancyFoot(data.vacancy, data.secondHomes);
+    if (view === "tenure") return tenureFoot(data.tenure);
+    if (view === "table") return stockDataFoot();
+    return null;
+  }, [active, view, data.tenure, data.dwellingTypes, data.stockGeography, data.vacancy, data.secondHomes, stockYear, stockPlace, stockGeoMeasure]);
+
+  const affordFoot = useMemo(() => {
+    if (active !== "affordability") return null;
+    if (view === "experiment") {
+      const bench = priceBenchmarks.find((p) => p.code === benchmarkCode) ?? priceBenchmarks[0];
+      return experimentFoot({
+        rateSourceNote,
+        depositPercent: scenarioInput.depositPercent,
+        benchmarkName: bench?.name,
+      });
+    }
+    if (view === "ages") return agesFoot(agesView);
+    if (view === "households") return householdsFoot(data.purchaseAffordRegions, data.purchaseAffordGrid);
+    if (view === "table") return affordabilityDataFoot();
+    return null;
+  }, [
+    active,
+    view,
+    priceBenchmarks,
+    benchmarkCode,
+    rateSourceNote,
+    scenarioInput.depositPercent,
+    agesView,
+    data.purchaseAffordRegions,
+    data.purchaseAffordGrid,
+  ]);
+
+  // Domain 09 Who owns — owner (?own=overseas) and the shared map ?area= in the URL.
+  const rawOwner = searchParams.get("own");
+  const titleOwner: Owner = isOwner(rawOwner) ? rawOwner : "uk";
+  const [whoOwnsSearch, setWhoOwnsSearch] = useState("");
 
   // Domain 08 Housing insecurity — view state in the URL so every reading is shareable.
   const pathwaysState = useMemo<PathwaysState>(
@@ -464,6 +748,121 @@ export function HousingExplorer({
   const taType = searchParams.get("ta");
   const displacementMode: DisplacementMode = searchParams.get("mode") === "share" ? "share" : "rate";
   const needYear = num(searchParams.get("yr"));
+  const insecuritySeriesRaw = searchParams.get("is") ?? "";
+  const [displacementSearch, setDisplacementSearch] = useState("");
+  const pathwayKeys = useMemo(
+    () => (active === "insecurity" ? pathwayQuarterKeys(data.insecurity) : []),
+    [active, data.insecurity],
+  );
+  const pathwayLatest = pathwayKeys[pathwayKeys.length - 1] ?? 0;
+  const insecurityDataOpts = useMemo(
+    () => (active === "insecurity" ? insecurityDataOptions(data.sources) : []),
+    [active, data.sources],
+  );
+  const insecuritySeries =
+    insecurityDataOpts.some((o) => o.value === insecuritySeriesRaw)
+      ? insecuritySeriesRaw
+      : (insecurityDataOpts[0]?.value ?? "");
+  const temporaryOpts = useMemo(
+    () => (active === "insecurity" ? temporaryTypeOptions(data.insecurity) : []),
+    [active, data.insecurity],
+  );
+  const needOpts = useMemo(
+    () => (active === "insecurity" ? needYearOptions(data.insecurity) : []),
+    [active, data.insecurity],
+  );
+  const insecurityFoot = useMemo(() => {
+    if (active !== "insecurity") return null;
+    if (view === "temporary") return temporaryFoot(data.insecurity, taType);
+    if (view === "displacement") return displacementFoot(data.insecurity, displacementMode);
+    if (view === "need") return needFoot(data.insecurity, needYear);
+    if (view === "table") return insecurityDataFoot(data.insecurity, data.sources, insecuritySeries);
+    return pathwayFoot(data.insecurity, pathwaysState);
+  }, [active, view, data.insecurity, data.sources, taType, displacementMode, needYear, insecuritySeries, pathwaysState]);
+  const wealthAgeRaw = searchParams.get("wa");
+  const wealthAgeOpts = useMemo(
+    () => (active === "ownership" ? wealthAgeOptions(data.ownership) : []),
+    [active, data.ownership],
+  );
+  const wealthAgeId =
+    wealthAgeRaw && wealthAgeOpts.some((o) => o.value === wealthAgeRaw)
+      ? wealthAgeRaw
+      : (wealthAgeOpts.find((o) => o.value === "age-all-persons")?.value ?? wealthAgeOpts[0]?.value ?? "age-all-persons");
+
+  const ownershipMortgageFoot = useMemo(
+    () => (active === "ownership" && view === "mortgages" ? mortgageFoot(data.ownership) : null),
+    [active, view, data.ownership],
+  );
+  const ownershipWhoOwnsFoot = useMemo(
+    () =>
+      active === "ownership" && (view === "ownership" || view === "")
+        ? whoOwnsFoot(data.ownership.titles, titleOwner)
+        : null,
+    [active, view, data.ownership.titles, titleOwner],
+  );
+  const ownershipWealthFoot = useMemo(
+    () => (active === "ownership" && view === "wealth" ? wealthFoot(data.ownership, wealthAgeId) : null),
+    [active, view, data.ownership, wealthAgeId],
+  );
+  const ownershipDataNotes = useMemo(
+    () => (active === "ownership" && view === "table" ? ownershipDataFoot() : null),
+    [active, view],
+  );
+  const pricesFoot = useMemo(() => {
+    if (active !== "prices") return null;
+    if (view === "table") return pricesDataFoot(data);
+    if (view === "transactions") return pricesTransactionsFoot(data);
+    return null;
+  }, [active, view, data]);
+
+  // Domain 06 Planning & land — controls in the URL.
+  const planningQuarterOpts = useMemo(
+    () => (active === "land" ? planningQuarterOptions(data.planningFlow) : []),
+    [active, data.planningFlow],
+  );
+  const planningQRaw = searchParams.get("pq");
+  const planningQParsed = planningQRaw != null ? Number(planningQRaw) : null;
+  const planningQuarterIndex =
+    planningQParsed != null &&
+    Number.isFinite(planningQParsed) &&
+    planningQuarterOpts.some((o) => o.index === planningQParsed)
+      ? planningQParsed
+      : null;
+  const planningFocusRaw = searchParams.get("pf");
+  const planningFocus: PlanningStageId | null =
+    planningFocusRaw === "received" || planningFocusRaw === "decided" || planningFocusRaw === "granted"
+      ? planningFocusRaw
+      : null;
+  const sitesFocus: SitesFocus = searchParams.get("sm") === "authority" ? "authority" : "permission";
+  const gbyRaw = searchParams.get("gby") ?? "";
+  const gbHistoryYear: GbHistoryYear = (GB_HISTORY_YEARS as readonly string[]).includes(gbyRaw)
+    ? (gbyRaw as GbHistoryYear)
+    : "2024-25";
+  const [landSearch, setLandSearch] = useState("");
+  const [landAuthorities, setLandAuthorities] = useState<{ code: string; name: string }[]>([]);
+  useEffect(() => {
+    if (active !== "land") return;
+    let live = true;
+    fetch("/housing/land-layers/authorities")
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((j: { authorities: { code: string; name: string }[] }) => {
+        if (live) setLandAuthorities(j.authorities ?? []);
+      })
+      .catch(() => {
+        if (live) setLandAuthorities([]);
+      });
+    return () => {
+      live = false;
+    };
+  }, [active]);
+  const landFoot = useMemo(() => {
+    if (active !== "land") return null;
+    if (view === "decisions" || view === "planning") return planningFoot(data.planningFlow, planningQuarterIndex);
+    if (view === "sites") return sitesFoot(data.brownfield);
+    if (view === "history") return historyFoot(data.greenBelt, gbHistoryYear);
+    if (view === "table") return landDataFoot();
+    return explorerFoot();
+  }, [active, view, data.planningFlow, data.brownfield, data.greenBelt, planningQuarterIndex, gbHistoryYear]);
 
   const rent = useRenting(
     active === "renting",
@@ -477,10 +876,25 @@ export function HousingExplorer({
     mapDate,
     lettingsView,
   );
+  const rentFoot = useMemo(() => {
+    if (active !== "renting") return null;
+    if (view === "tenancies") return lettingsFoot(lettingsView);
+    if (view === "table") return rentDataFoot(rent.placeName);
+    return null;
+  }, [active, view, lettingsView, rent.placeName]);
   const stage = useMemo(() => stageFor(active, view, controls, data), [active, view, controls, data]);
+  const policyState = useMemo(() => parsePolicyState(new URLSearchParams(searchParams.toString())), [searchParams]);
+  const { data: policyData } = usePolicyData(active === "policy");
   const figures = useMemo(
-    () => (active === "renting" ? rent.figures : figuresFor(active, data, view, controls)),
-    [active, rent.figures, data, view, controls],
+    () =>
+      active === "renting"
+        ? rent.figures
+        : active === "policy"
+          ? policyFigures(view === "promise" || view === "archive" || view === "table" ? view : "time", policyState, policyData)
+          : active === "supply" && view === "who-builds"
+            ? whoBuildsFigures(data.whoBuilds, whoBuildsMode)
+            : figuresFor(active, data, view, controls),
+    [active, rent.figures, data, view, controls, policyState, policyData, whoBuildsMode],
   );
 
   // Period bounds come from the view's own series. A from/to inherited from
@@ -576,13 +990,7 @@ export function HousingExplorer({
   const isOwnershipWealth = active === "ownership" && view === "wealth";
   const isOwnershipData = active === "ownership" && view === "table";
   const isPolicy = active === "policy";
-  const policyEventId = searchParams.get("event");
-  const policyEraId = searchParams.get("era");
-  const policyEvent = isPolicy ? eventById(policyEventId) : null;
-  const policyView =
-    view === "eras" || view === "observatory" || view === "promise" || view === "archive" || view === "time" || view === "table"
-      ? view
-      : "time";
+  const policyView: PolicyView = view === "promise" || view === "archive" || view === "table" ? view : "time";
   const showPlaceControls = Boolean(stage?.place) && measure !== "real";
   const mapMode = isAffordMap ? "price" : measure === "change" ? "change" : "price";
   const mapTitle = isAffordMap
@@ -680,7 +1088,7 @@ export function HousingExplorer({
 
   const noteRows = (notes?: string[]): SourceRow[] =>
     (notes ?? []).filter(Boolean).map((text) => ({ label: "Reading", text }));
-  const catalogueFoot = !(isMap && activeMap) && !isPolicy && !isOwnershipNetwork;
+  const catalogueFoot = !(isMap && activeMap) && !isPolicy;
   const recordRows: SourceRow[] = isMap && activeMap
     ? [
         {
@@ -701,45 +1109,26 @@ export function HousingExplorer({
         ...(isRentMap ? noteRows(rent.reading) : []),
       ]
     : isPolicy
-      ? [
-          policyEvent
-            ? {
-                label: "Primary record",
-                text: policyEvent.title,
-                linkLabel: policyEvent.citation,
-              }
-            : {
-                label: "Register",
-                text: "data/housing/policy-events",
-                linkLabel: `${policyCoverage().total} records checked against their primary sources, ${policyDate(POLICY_RETRIEVED)}`,
-              },
-        ]
-      : isOwnershipNetwork
-          ? [
-              {
-                label: "Register",
-                text: "Commercial and corporate ownership data · HM Land Registry",
-                linkLabel: "Illustrative records. No named company or title is drawn until a CCOD or OCOD release is pinned.",
-              },
-            ]
-          : isRenting && view === "tenancies"
-            ? [
-                {
-                  label: "Reading",
-                  text:
-                    lettingsView === "needs"
-                      ? "General needs: housing not designated for a specific group requiring support. Supported housing: facilities or features for a group requiring support. Neither describes tenancy length or security."
-                      : lettingsView === "rent"
-                        ? "Social rent, affordable rent and intermediate rent are three ways of charging for the same new lettings. They are not monthly rents in pounds."
-                        : lettingsView === "data"
-                          ? "New social housing lettings in England, financial years April to March. Rent type and needs type are separate breakdowns of the same total."
-                          : "Counts are new lettings, not unique households, newly built homes or private tenancy starts. Existing homes can be relet.",
-                },
-              ]
-            : [
-                ...noteRows(isRenting ? rent.reading : stage?.reading),
-                ...(isAges ? noteRows([agesReading(agesView)]) : []),
-              ];
+      ? policyFootRows(policyView, policyState, policyData)
+      : noteRows(isRenting ? rent.reading : stage?.reading);
+
+  const arrival = readArrival(searchParams);
+  const followConn =
+    domain.status === "ready"
+      ? primaryHousingConnection({ domain: active, view }, {})
+      : null;
+  const followHref = followConn
+    ? resolveHousingConnectionHref(
+        followConn,
+        {},
+        searchParams,
+        buildArrivalContext({
+          label: `Housing · ${domain.short}`,
+          pathname,
+          searchParams,
+        }),
+      )
+    : null;
 
   return (
     <Explorer
@@ -751,13 +1140,480 @@ export function HousingExplorer({
       condensed={condensed}
       onCondensedChange={setCondensed}
       ground={ground}
-      decor={<CornerCloud />}
     >
+      <ArrivalFrom from={arrival.from} returnHref={arrival.returnHref} />
       {/* 1 · Head: where you are, the question, the views */}
       <ExplorerHead views={views} view={view} onView={selectView} />
 
       {/* 2 · Figures: the domain at a glance */}
       <FigureStrip figures={figures} />
+      {isPolicy && <PolicyControls view={policyView} state={policyState} onChange={setQuery} />}
+
+      {/* Renting (Domain 02) — Social rent breakdown outside the Stage. */}
+      {isRenting && view === "tenancies" && (
+        <ControlRow label="Social rent controls">
+          <MenuControl
+            label="Breakdown"
+            value={lettingsView === "data" ? "history" : lettingsView}
+            options={LETTINGS_BREAKDOWN_OPTIONS}
+            onChange={(v) => setQuery({ lettings: v === "history" ? null : v })}
+          />
+          {lettingsView !== "history" && lettingsView !== "data" && (
+            <ResetButton onClick={() => setQuery({ lettings: null })} />
+          )}
+        </ControlRow>
+      )}
+
+      {/* Affordability (Domain 03) — controls outside the Stage. */}
+      {isExperiment && priceBenchmarks.length > 0 && (
+        <ControlRow label="Budget controls">
+          <MenuControl
+            label="Price benchmark"
+            value={benchmarkCode}
+            options={priceBenchmarks.map((place) => ({ value: place.code, label: place.name }))}
+            onChange={(v) => setQuery({ bench: v === "uk" ? null : v })}
+          />
+          {benchmarkCode !== "uk" && <ResetButton onClick={() => setQuery({ bench: null })} />}
+        </ControlRow>
+      )}
+      {isAges && (
+        <ControlRow label="Ages controls">
+          <MenuControl
+            label="Breakdown"
+            value={agesView === "data" ? "share" : agesView}
+            options={AGES_BREAKDOWN_OPTIONS}
+            onChange={(v) => setQuery({ ages: v === "share" ? null : v })}
+          />
+          {agesView !== "share" && agesView !== "data" && (
+            <ResetButton onClick={() => setQuery({ ages: null })} />
+          )}
+        </ControlRow>
+      )}
+
+      {/* Stock (Domain 04) — controls outside the Stage. */}
+      {isComposition && fabricYearOpts.length > 0 && (
+        <ControlRow label="Composition controls">
+          <MenuControl
+            label="As at 31 March"
+            value={
+              stockYear != null && fabricYearOpts.some((o) => o.value === String(stockYear))
+                ? String(stockYear)
+                : (fabricYearOpts[0]?.value ?? "")
+            }
+            options={fabricYearOpts}
+            onChange={(v) => {
+              const latest = fabricYearOpts[0]?.value;
+              setQuery({ sy: v === latest ? null : v });
+            }}
+          />
+          {stockYear != null && <ResetButton onClick={() => setQuery({ sy: null })} />}
+        </ControlRow>
+      )}
+      {isStockTypes && typesPlaceOpts.length > 0 && (
+        <ControlRow label="Types controls">
+          <MenuControl
+            label="Geography"
+            value={stockPlace ?? typesPlaceOpts[0]!.value}
+            options={typesPlaceOpts}
+            onChange={(v) => {
+              const first = typesPlaceOpts[0]?.value;
+              setQuery({ sp: v === first ? null : v });
+            }}
+          />
+          {stockPlaceRaw != null && <ResetButton onClick={() => setQuery({ sp: null })} />}
+        </ControlRow>
+      )}
+      {isStockGeography && (
+        <ControlRow label="Stock geography controls">
+          <MenuControl
+            label="Measure"
+            value={stockGeoMeasure}
+            options={STOCK_GEO_MEASURE_OPTIONS}
+            onChange={(v) => setQuery({ sgm: v === "owner" ? null : v })}
+          />
+          {stockGeoYearOpts.length > 0 && (
+            <MenuControl
+              label="As at 31 March"
+              value={
+                stockYear != null && stockGeoYearOpts.some((o) => o.value === String(stockYear))
+                  ? String(stockYear)
+                  : (stockGeoYearOpts[0]?.value ?? "")
+              }
+              options={stockGeoYearOpts}
+              onChange={(v) => {
+                const latest = stockGeoYearOpts[0]?.value;
+                setQuery({ sy: v === latest ? null : v });
+              }}
+            />
+          )}
+          {(stockGeoMeasure !== "owner" || stockYear != null) && (
+            <ResetButton onClick={() => setQuery({ sgm: null, sy: null })} />
+          )}
+        </ControlRow>
+      )}
+
+      {/* Quality (Domain 07) — controls outside the Stage. */}
+      {isQualityInside && (
+        <InsideHomesControls
+          state={insideState}
+          onChange={setInsideState}
+          evidence={qualityEvidence}
+          failed={qualityFailed}
+        />
+      )}
+      {isQualityEnergy && (
+        <EnergyViewControls
+          state={energyState}
+          onChange={setEnergyState}
+          evidence={qualityEvidence}
+          failed={qualityFailed}
+        />
+      )}
+      {isQualityCondition && (
+        <StateOfRepairControls
+          state={conditionState}
+          onChange={setConditionState}
+          evidence={qualityEvidence}
+          failed={qualityFailed}
+        />
+      )}
+      {isQualityGeography && (
+        <QualityGeographyControls
+          state={geographyState}
+          onChange={setGeographyState}
+          evidence={qualityEvidence}
+          failed={qualityFailed}
+        />
+      )}
+      {isQualityData && (
+        <QualityDataControls
+          state={qualityDataState}
+          onChange={setQualityDataState}
+          evidence={qualityEvidence}
+          failed={qualityFailed}
+        />
+      )}
+
+      {/* Supply (Domain 05) — controls outside the Stage. */}
+      {isSupplyMachine && (
+        <ControlRow label="Supply machine controls">
+          <MenuControl
+            label="View"
+            value={supplyState.panel}
+            options={MACHINE_PANEL_OPTIONS}
+            onChange={(v) => setSupply({ panel: v })}
+          />
+          <MenuControl
+            label="Place"
+            value={supplyState.place}
+            options={supplyPlaceOpts}
+            onChange={(v) => setSupply({ place: v })}
+          />
+          {supplyYearOpts.length > 0 && (
+            <MenuControl
+              label="Financial year"
+              value={
+                supplyState.year != null && supplyYearOpts.some((o) => o.value === String(supplyState.year))
+                  ? String(supplyState.year)
+                  : (supplyYearOpts[0]?.value ?? "")
+              }
+              options={supplyYearOpts}
+              onChange={(v) => setSupply({ year: Number(v) })}
+            />
+          )}
+          <MenuControl
+            label="Compare with"
+            value={supplyState.vs != null ? String(supplyState.vs) : ""}
+            options={supplyVsOpts}
+            onChange={(v) => setSupply({ vs: v ? Number(v) : null })}
+          />
+          {(supplyState.panel !== "section" ||
+            supplyState.place !== "E92000001" ||
+            supplyState.year != null ||
+            supplyState.vs != null ||
+            supplyState.part != null) && (
+            <ResetButton
+              onClick={() =>
+                setQuery({
+                  panel: null,
+                  place: null,
+                  to: null,
+                  from: null,
+                  vs: null,
+                  part: null,
+                })
+              }
+            />
+          )}
+        </ControlRow>
+      )}
+      {isWhoBuilds && (
+        <ControlRow label="Who builds controls">
+          <MenuControl
+            label="Measure"
+            value={whoBuildsMode}
+            options={WHO_BUILDS_MEASURE_OPTIONS}
+            onChange={(v) => setQuery({ wb: v === "completions" ? null : v })}
+          />
+          {whoBuildsMode !== "completions" && (
+            <ResetButton onClick={() => setQuery({ wb: null })} />
+          )}
+        </ControlRow>
+      )}
+      {isSupplyGeography && (
+        <ControlRow label="Geography controls">
+          <MenuControl
+            label="Measure"
+            value={geographyMeasure}
+            options={GEOGRAPHY_MEASURE_OPTIONS}
+            onChange={(v) => setQuery({ gm: v === "count" ? null : v })}
+          />
+          {geographyMeasure !== "count" && (
+            <ResetButton onClick={() => setQuery({ gm: null })} />
+          )}
+        </ControlRow>
+      )}
+
+      {/* Shelter (Domain 08) — controls outside the Stage, matching Energy Consumption. */}
+      {active === "insecurity" && isInsecurityPathways && (
+        <ControlRow label="Pathway controls">
+          <MenuControl
+            label="View"
+            value={pathwaysState.read}
+            options={[
+              { value: "diagram", label: "This stage" },
+              { value: "table", label: "All stages" },
+            ]}
+            onChange={(v) => setPathways({ read: v === "table" ? "table" : "diagram" })}
+          />
+          <MenuControl
+            label="Stage"
+            value={pathwaysState.node ?? "assess"}
+            options={pathwayStageOptions()}
+            onChange={(id) => setPathways({ node: id })}
+          />
+          <MenuControl
+            label="Place"
+            value={pathwaysState.place ?? "england"}
+            options={[
+              { value: "england", label: "England" },
+              ...data.insecurity.pathwayPlaces.map((p) => ({
+                value: p.code,
+                label: p.kind === "region" ? `${p.name} (region)` : p.name,
+              })),
+            ]}
+            onChange={(v) => setPathways({ place: v === "england" ? null : v })}
+          />
+          {pathwaysState.place ? (
+            <MenuControl
+              label="Quarter"
+              value="place"
+              options={[
+                {
+                  value: "place",
+                  label: `${flowLabel(
+                    (() => {
+                      const p = data.insecurity.pathwayPlaces.find((x) => x.code === pathwaysState.place);
+                      return p ? qKey(toT(p.period)) : pathwayLatest;
+                    })(),
+                  )} · latest by place`,
+                },
+              ]}
+              onChange={() => undefined}
+            />
+          ) : (
+            <MenuControl
+              label="Quarter"
+              value={keyParam(pathwaysState.q != null && pathwayKeys.includes(pathwaysState.q) ? pathwaysState.q : pathwayLatest)}
+              options={[...pathwayKeys].reverse().map((k) => ({ value: keyParam(k), label: flowLabel(k) }))}
+              onChange={(v) => {
+                const next = parseKeyParam(v);
+                setPathways({ q: next == null || next === pathwayLatest ? null : next });
+              }}
+            />
+          )}
+          {(pathwaysState.node || pathwaysState.q != null || pathwaysState.place || pathwaysState.read === "table") && (
+            <ResetButton onClick={() => setPathways({ node: null, q: null, place: null, read: "diagram" })} />
+          )}
+        </ControlRow>
+      )}
+      {isInsecurityTemporary && (
+        <ControlRow label="Temporary accommodation controls">
+          <MenuControl
+            label="Accommodation type"
+            value={taType ?? temporaryOpts[0]?.value ?? "all-types"}
+            options={temporaryOpts}
+            onChange={(id) => setQuery({ ta: id === "all-types" ? null : id })}
+          />
+          {taType && <ResetButton onClick={() => setQuery({ ta: null })} />}
+        </ControlRow>
+      )}
+      {isInsecurityDisplacement && (
+        <ControlRow label="Displacement controls">
+          <MenuControl
+            label="Measure"
+            value={displacementMode}
+            options={DISPLACEMENT_MEASURE_OPTIONS}
+            onChange={(m) => setQuery({ mode: m === "rate" ? null : m })}
+          />
+          <SearchControl
+            label="Find an authority"
+            value={displacementSearch}
+            placeholder="Type a local authority"
+            onChange={(v) => {
+              setDisplacementSearch(v);
+              const hit = data.insecurity.taPlaces.find(
+                (p) => p.name.toLowerCase() === v.trim().toLowerCase(),
+              );
+              if (hit) setQuery({ area: hit.code });
+            }}
+          />
+          {(displacementMode !== "rate" || mapArea || displacementSearch) && (
+            <ResetButton
+              onClick={() => {
+                setDisplacementSearch("");
+                setQuery({ mode: null, area: null });
+              }}
+            />
+          )}
+        </ControlRow>
+      )}
+      {isInsecurityNeed && needOpts.length > 0 && (
+        <ControlRow label="Housing need controls">
+          <MenuControl
+            label="Year"
+            value={String(needYear ?? needOpts[0]!.year)}
+            options={needOpts.map((o) => ({ value: o.value, label: o.label }))}
+            onChange={(v) => {
+              const next = Number(v);
+              setQuery({ yr: next === needOpts[0]!.year ? null : String(next) });
+            }}
+          />
+          {needYear != null && <ResetButton onClick={() => setQuery({ yr: null })} />}
+        </ControlRow>
+      )}
+      {isInsecurityData && insecurityDataOpts.length > 0 && (
+        <ControlRow label="Insecurity data">
+          <MenuControl
+            label="Series"
+            value={insecuritySeries}
+            options={insecurityDataOpts}
+            onChange={(id) =>
+              setQuery({ is: id === insecurityDataOpts[0]?.value ? null : id })
+            }
+          />
+          {insecuritySeriesRaw && <ResetButton onClick={() => setQuery({ is: null })} />}
+        </ControlRow>
+      )}
+      {isOwnershipNetwork && (
+        <ControlRow label="Who owns controls">
+          <MenuControl
+            label="Owner"
+            value={titleOwner}
+            options={WHO_OWNS_OWNER_OPTIONS}
+            onChange={(id) => setQuery({ own: id === "uk" ? null : id })}
+          />
+          <SearchControl
+            label="Find an authority"
+            value={whoOwnsSearch}
+            placeholder="Type a local authority"
+            onChange={(v) => {
+              setWhoOwnsSearch(v);
+              const hit = data.ownership.titles[titleOwner].places.find(
+                (p) => p.name.toLowerCase() === v.trim().toLowerCase(),
+              );
+              if (hit) setQuery({ area: hit.code });
+            }}
+          />
+          {(titleOwner !== "uk" || mapArea || whoOwnsSearch) && (
+            <ResetButton
+              onClick={() => {
+                setWhoOwnsSearch("");
+                setQuery({ own: null, area: null });
+              }}
+            />
+          )}
+        </ControlRow>
+      )}
+      {isOwnershipWealth && wealthAgeOpts.length > 0 && (
+        <ControlRow label="Wealth controls">
+          <MenuControl
+            label="Age"
+            value={wealthAgeId}
+            options={wealthAgeOpts}
+            onChange={(v) => setQuery({ wa: v === "age-all-persons" ? null : v })}
+          />
+          {wealthAgeRaw != null && <ResetButton onClick={() => setQuery({ wa: null })} />}
+        </ControlRow>
+      )}
+
+      {/* Planning & land (Domain 06) — controls outside the Stage. */}
+      {isLandExplorer && (
+        <ControlRow label="Land explorer controls">
+          <SearchControl
+            label="Find a council"
+            value={landSearch}
+            placeholder="Type a local authority"
+            onChange={(v) => {
+              setLandSearch(v);
+              const hit = landAuthorities.find(
+                (a) => a.name.toLowerCase() === v.trim().toLowerCase() || a.code.toLowerCase() === v.trim().toLowerCase(),
+              );
+              if (hit) setQuery({ lad: hit.code });
+            }}
+          />
+          {lad && (
+            <ResetButton
+              onClick={() => {
+                setLandSearch("");
+                setQuery({ lad: null });
+              }}
+            />
+          )}
+        </ControlRow>
+      )}
+      {isLandSites && (
+        <ControlRow label="Development sites controls">
+          <MenuControl
+            label="Measure"
+            value={sitesFocus}
+            options={SITES_MEASURE_OPTIONS}
+            onChange={(id) => setQuery({ sm: id === "permission" ? null : id })}
+          />
+          {sitesFocus !== "permission" && (
+            <ResetButton onClick={() => setQuery({ sm: null })} />
+          )}
+        </ControlRow>
+      )}
+      {isLandHistory && (
+        <ControlRow label="Historical change controls">
+          <MenuControl
+            label="Boundary year"
+            value={gbHistoryYear}
+            options={GB_HISTORY_YEARS.map((y) => ({ value: y, label: y }))}
+            onChange={(id) => setQuery({ gby: id === "2024-25" ? null : id })}
+          />
+          {gbyRaw !== "" && <ResetButton onClick={() => setQuery({ gby: null })} />}
+        </ControlRow>
+      )}
+      {isLandDecisionMachine && planningQuarterOpts.length > 0 && (
+        <ControlRow label="Planning decisions controls">
+          <MenuControl
+            label="Quarter"
+            value={String(planningQuarterIndex ?? planningQuarterOpts[0]!.index)}
+            options={planningQuarterOpts.map((o) => ({ value: o.value, label: o.label }))}
+            onChange={(v) => {
+              const next = Number(v);
+              const latest = planningQuarterOpts[0]!.index;
+              setQuery({ pq: next === latest ? null : String(next) });
+            }}
+          />
+          {(planningQuarterIndex != null || planningFocus != null) && (
+            <ResetButton onClick={() => setQuery({ pq: null, pf: null })} />
+          )}
+        </ControlRow>
+      )}
+
       {showRentControls && rent.periodNote ? (
         <p className="bo-label">{rent.periodNote}</p>
       ) : periodInvalid ? (
@@ -867,6 +1723,10 @@ export function HousingExplorer({
                 : agesView === "mortgage"
                   ? "Mortgage payment by age · England"
                   : "Housing costs by age · England"
+              : isOwnershipNetwork
+                ? titleOwner === "overseas"
+                  ? "Titles held by overseas companies · England and Wales"
+                  : "Titles held by UK companies · England and Wales"
               : isMap
                 ? mapTitle
                 : (stage?.title ?? domain.title)
@@ -874,18 +1734,104 @@ export function HousingExplorer({
         bar={stageBar}
         framed={!(active === "supply" && view === "pipeline")}
         size={isMap ? "wide" : isRenting && view === "tenancies" && lettingsView === "needs" ? "compact" : "normal"}
-        expandable={active === "insecurity" || isOwnershipNetwork}
+        expandable={false}
+        follow={
+          followConn ? (
+            <FollowStep
+              connection={followConn}
+              href={followHref}
+              destination={followConn.destinationLabel}
+            />
+          ) : null
+        }
         foot={
-          domain.status === "preparation" ? undefined : (isQualityInside || isQualityEnergy || isQualityCondition || isQualityGeography || isQualityData || isStockGeography || isSupplyGeography || isLandDecisionMachine || active === "ownership") && insideFoot ? (
+          domain.status === "preparation" ? undefined : insecurityFoot ? (
             <FigureRecord
-              source={insideFoot.source}
-              dataHref={insideFoot.dataHref}
-              definition={insideFoot.definition}
-              method={[
-                insideFoot.coverage ? `Coverage. ${insideFoot.coverage}` : "",
-                insideFoot.caveats.length ? `Caveats. ${insideFoot.caveats.join(" ")}` : "",
-                ...(Array.isArray(stage?.derived) ? stage.derived : stage?.derived ? [stage.derived] : []),
-              ].filter(Boolean)}
+              source={insecurityFoot.source}
+              dataHref={
+                "dataHref" in insecurityFoot && typeof insecurityFoot.dataHref === "string"
+                  ? insecurityFoot.dataHref
+                  : undefined
+              }
+              definition={insecurityFoot.definition}
+              method={insecurityFoot.method}
+            />
+          ) : ownershipMortgageFoot ? (
+            <FigureRecord
+              source={ownershipMortgageFoot.source}
+              dataHref={ownershipMortgageFoot.dataHref}
+              definition={ownershipMortgageFoot.definition}
+              method={ownershipMortgageFoot.method}
+            />
+          ) : ownershipWhoOwnsFoot ? (
+            <FigureRecord
+              source={ownershipWhoOwnsFoot.source}
+              dataHref={ownershipWhoOwnsFoot.dataHref}
+              definition={ownershipWhoOwnsFoot.definition}
+              method={ownershipWhoOwnsFoot.method}
+            />
+          ) : ownershipWealthFoot ? (
+            <FigureRecord
+              source={ownershipWealthFoot.source}
+              dataHref={ownershipWealthFoot.dataHref}
+              definition={ownershipWealthFoot.definition}
+              method={ownershipWealthFoot.method}
+            />
+          ) : ownershipDataNotes ? (
+            <FigureRecord
+              source={ownershipDataNotes.source}
+              dataHref={ownershipDataNotes.dataHref}
+              definition={ownershipDataNotes.definition}
+              method={ownershipDataNotes.method}
+            />
+          ) : pricesFoot ? (
+            <FigureRecord
+              source={pricesFoot.source}
+              dataHref={pricesFoot.dataHref}
+              definition={pricesFoot.definition}
+              method={pricesFoot.method}
+            />
+          ) : supplyFoot ? (
+            <FigureRecord
+              source={supplyFoot.source}
+              dataHref={supplyFoot.dataHref}
+              definition={supplyFoot.definition}
+              method={supplyFoot.method}
+            />
+          ) : qualityFoot ? (
+            <FigureRecord
+              source={qualityFoot.source}
+              dataHref={qualityFoot.dataHref}
+              definition={qualityFoot.definition}
+              method={qualityFoot.method}
+            />
+          ) : stockFoot ? (
+            <FigureRecord
+              source={stockFoot.source}
+              dataHref={stockFoot.dataHref}
+              definition={stockFoot.definition}
+              method={stockFoot.method}
+            />
+          ) : affordFoot ? (
+            <FigureRecord
+              source={affordFoot.source}
+              dataHref={affordFoot.dataHref}
+              definition={affordFoot.definition}
+              method={affordFoot.method}
+            />
+          ) : rentFoot ? (
+            <FigureRecord
+              source={rentFoot.source}
+              dataHref={rentFoot.dataHref}
+              definition={rentFoot.definition}
+              method={rentFoot.method}
+            />
+          ) : landFoot ? (
+            <FigureRecord
+              source={landFoot.source}
+              dataHref={"dataHref" in landFoot ? (landFoot.dataHref as string | undefined) : undefined}
+              definition={landFoot.definition}
+              method={landFoot.method}
             />
           ) : (
             <SourceLine
@@ -939,7 +1885,6 @@ export function HousingExplorer({
             afford={data.afford}
             benchmarks={priceBenchmarks}
             benchmarkCode={benchmarkCode}
-            onBenchmark={(code) => setQuery({ bench: code === "uk" ? null : code })}
             defaults={scenarioBase}
             rateSourceNote={rateSourceNote}
           />
@@ -950,14 +1895,13 @@ export function HousingExplorer({
             display={agesView}
             costs={data.ehsHousingCostsByAge}
             mortgage={data.ehsMortgageByAge}
-            onBreakdown={(value) => setQuery({ view: "ages", ages: value === "share" ? null : value })}
           />
         ) : isComposition ? (
-          <ChangingHousingFabric tenure={data.tenure} />
+          <ChangingHousingFabric tenure={data.tenure} year={stockYear} />
         ) : isStockTypes ? (
-          <TypesView types={data.dwellingTypes} />
+          <TypesView types={data.dwellingTypes} placeId={stockPlace} />
         ) : isStockGeography ? (
-          <GeographyView geography={data.stockGeography} onFoot={onInsideFoot} />
+          <GeographyView geography={data.stockGeography} measure={stockGeoMeasure} year={stockYear} />
         ) : isStockVacancy ? (
           <VacancyView vacancy={data.vacancy} secondHomes={data.secondHomes} />
         ) : isStockTenure ? (
@@ -967,82 +1911,91 @@ export function HousingExplorer({
         ) : isSupplyMachine ? (
           <SupplyMachine machine={data.supplyMachine} state={supplyState} onChange={setSupply} />
         ) : isSupplyGeography ? (
-          <SupplyGeography geography={data.supplyGeography} onFoot={onInsideFoot} />
+          <SupplyGeography geography={data.supplyGeography} measure={geographyMeasure} />
         ) : isWhoBuilds ? (
-          <WhoBuilds whoBuilds={data.whoBuilds} />
+          <WhoBuilds whoBuilds={data.whoBuilds} mode={whoBuildsMode} />
         ) : isSupplyData ? (
           <SupplyData data={data} />
         ) : isLandData ? (
           <LandData data={data} />
         ) : isLandDecisionMachine ? (
-          <PlanningDecisionMachine planning={data.planningFlow} onFoot={onInsideFoot} />
+          <PlanningDecisionMachine
+            planning={data.planningFlow}
+            quarterIndex={planningQuarterIndex}
+            focus={planningFocus}
+            onFocus={(next) => setQuery({ pf: next })}
+          />
         ) : isLandExplorer ? (
           <LandExplorer england={data.brownfield} code={lad || null} onCode={(next) => setQuery({ lad: next })} />
         ) : isLandSites ? (
-          <DevelopmentSites sites={data.brownfield} />
+          <DevelopmentSites sites={data.brownfield} focus={sitesFocus} />
         ) : isLandHistory ? (
-          <HistoricalChange greenBelt={data.greenBelt} />
+          <HistoricalChange greenBelt={data.greenBelt} year={gbHistoryYear} />
         ) : isQualityInside ? (
-          <InsideHomes onFoot={onInsideFoot} />
+          <InsideHomes
+            state={insideState}
+            onChange={setInsideState}
+            evidence={qualityEvidence}
+            failed={qualityFailed}
+          />
         ) : isQualityEnergy ? (
-          <EnergyView onFoot={onInsideFoot} />
+          <EnergyView
+            state={energyState}
+            onChange={setEnergyState}
+            evidence={qualityEvidence}
+            failed={qualityFailed}
+          />
         ) : isQualityGeography ? (
-          <QualityGeography onFoot={onInsideFoot} />
+          <QualityGeography
+            state={geographyState}
+            onChange={setGeographyState}
+            evidence={qualityEvidence}
+            failed={qualityFailed}
+          />
         ) : isQualityCondition ? (
-          <StateOfRepair onFoot={onInsideFoot} />
+          <StateOfRepair
+            state={conditionState}
+            onChange={setConditionState}
+            evidence={qualityEvidence}
+            failed={qualityFailed}
+          />
         ) : isQualityData ? (
           <QualityData
-            indicator={qualityIndicator}
-            onIndicator={(id) => {
-              setQualityIndicator(id);
-              setQuery({ qi: id });
-            }}
-            onFoot={onInsideFoot}
+            state={qualityDataState}
+            onChange={setQualityDataState}
+            evidence={qualityEvidence}
+            failed={qualityFailed}
           />
         ) : isInsecurityPathways ? (
-          <Pathways insecurity={data.insecurity} state={pathwaysState} onChange={setPathways} />
+          <Pathways insecurity={data.insecurity} state={pathwaysState} />
         ) : isInsecurityTemporary ? (
-          <TemporaryLife insecurity={data.insecurity} type={taType} onType={(id) => setQuery({ ta: id })} />
+          <TemporaryLife insecurity={data.insecurity} type={taType} />
         ) : isInsecurityDisplacement ? (
           <Displacement
             insecurity={data.insecurity}
             area={mapArea}
             mode={displacementMode}
-            onChange={(next) =>
-              setQuery({
-                ...("area" in next ? { area: next.area ?? null } : {}),
-                ...("mode" in next ? { mode: next.mode ?? null } : {}),
-              })
-            }
+            onArea={(code) => setQuery({ area: code })}
           />
         ) : isInsecurityNeed ? (
-          <HousingNeed
-            insecurity={data.insecurity}
-            year={needYear}
-            onYear={(y) => setQuery({ yr: y != null ? String(y) : null })}
-          />
+          <HousingNeed insecurity={data.insecurity} year={needYear} />
         ) : isInsecurityData ? (
-          <InsecurityData insecurity={data.insecurity} sources={data.sources} />
+          <InsecurityData insecurity={data.insecurity} sources={data.sources} seriesId={insecuritySeries} />
         ) : isOwnershipNetwork ? (
-          <WhoOwns category={networkCategory} record={networkRecord} onChange={setNetwork} onFoot={onInsideFoot} />
+          <WhoOwns
+            titles={data.ownership.titles}
+            owner={titleOwner}
+            area={mapArea}
+            onArea={(code) => setQuery({ area: code })}
+          />
         ) : isOwnershipMortgages ? (
-          <MortgageMachine
-            ownership={data.ownership}
-            mortgageRate={data.mortgageRate}
-            onFoot={onInsideFoot}
-          />
+          <MortgageMachine ownership={data.ownership} mortgageRate={data.mortgageRate} />
         ) : isOwnershipWealth ? (
-          <PropertyWealth ownership={data.ownership} onFoot={onInsideFoot} />
+          <PropertyWealth ownership={data.ownership} ageId={wealthAgeId} />
         ) : isOwnershipData ? (
-          <OwnershipData sources={data.sources} onFoot={onInsideFoot} />
+          <OwnershipData ownership={data.ownership} />
         ) : isPolicy ? (
-          <PolicyCanvas
-            view={policyView}
-            eventId={policyEventId}
-            eraId={policyEraId}
-            onSelect={(id) => setQuery({ event: id })}
-            onEra={(id) => setQuery({ era: id, event: null })}
-          />
+          <PolicyCanvas view={policyView} state={policyState} onChange={setQuery} />
         ) : isRentBody ? (
           <RentCanvas
             view={view}
@@ -1056,7 +2009,6 @@ export function HousingExplorer({
             loading={rent.loading}
             error={rent.error}
             insecurity={data.insecurity}
-            onLettings={(value) => setQuery({ view: "tenancies", lettings: value === "history" ? null : value })}
           />
         ) : isPricesData ? (
           <PricesData data={data} />
@@ -1065,13 +2017,12 @@ export function HousingExplorer({
         ) : isTable ? (
           <DataTable series={clipped} cadence={stage.cadence} format={stage.format} />
         ) : isTransactions ? (
-          <div className={s.transactionsStage}>
+          <div className={gen.stack}>
             <PricePaidSearch apiBase={apiBase()} meta={data.pricePaid} />
-            <section className={s.transactionsVolume} aria-labelledby="hpi-volume-title">
-              <h3 id="hpi-volume-title" className={s.sectionTitle}>
+            <section className={gen.panel} aria-labelledby="hpi-volume-title">
+              <h3 id="hpi-volume-title" className={explorerClasses.stageTitle}>
                 Monthly transaction count
               </h3>
-              <p className={s.pricePaidLead}>{transactionVolumeLead(data)}</p>
               {stage.plot(clipped, stage.cadence)}
             </section>
           </div>

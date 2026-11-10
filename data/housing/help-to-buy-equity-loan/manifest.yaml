@@ -1,0 +1,44 @@
+indicator_id: help-to-buy-equity-loan
+title: Help to Buy equity loan completions
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/help-to-buy-equity-loan-scheme-data-to-31-may-2023
+series_id: 'Help to Buy: Equity Loan Table 2 (monthly completions and values, England)'
+geography: England (E92000001) — not UK
+frequency: monthly
+unit: 'legal completions (equity-loan-value and property-value: GBP million)'
+definition: Purchases of new-build homes in England completed with a Help to Buy equity
+  loan, by month, April 2013 to May 2023. series=completions counts legal completions
+  (one per purchase); equity-loan-value is the government loan at completion and property-value
+  the total purchase price, both in £ million. category gives the 2013-2021 scheme,
+  the 2021-2023 scheme (first-time buyers only, regional price caps) or all.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.help_to_buy_equity_loan
+curated_path: curated/observations.csv
+update_cadence: none — final release; the scheme closed on 31 May 2023
+raw_evidence:
+- path: raw/2026-11-10/Help_to_Buy_Tables.ods
+  retrieved_at: '2026-11-10T09:47:47.774954+00:00'
+  checksum_sha256: 1e979a1ff8ff66eef5d5d8d622c63d689d05139f9a2567f3af6dca6eeb567576
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2023-11-16'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/654a1cb43ff5770013a88154/Help_to_Buy_Tables.ods
+transformations: Parse Table_2_-_Monthly. Month rows are checked against each published
+  year row and the cumulative total for completions. category=all sums the two schemes
+  by month.
+revision_notes: Pinned Help_to_Buy_Tables.ods from the final release (16 November
+  2023), retrieved 2026-11-10.
+caveats: England only. Legacy FirstBuy completions after 1 April 2013 are excluded.
+  The two schemes overlapped in April and May 2021. Completions count purchases, not
+  new homes built, and are not additional supply. Values are revised figures from
+  the final release.
+related_indicator_ids:
+- housing-completions
+- net-additional-dwellings
+open_questions:
+- First-time buyer completions are published quarterly (Release Table 2) and are not
+  yet ingested.
+notion_registry_url: https://app.notion.com/p/41465471768581cb8e8be7556dd1bd5f
+schema_version: '1.0'

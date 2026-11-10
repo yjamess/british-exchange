@@ -1,6 +1,6 @@
 /**
  * Shared region choropleth chrome — Housing atlas language, reusable across sectors.
- * One ink; Signal marks selection only.
+ * One ink; selection is an ink outline (Signal stays on keyboard focus only).
  */
 
 .mapSurfaceRegion {
@@ -114,16 +114,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.worldLegend {
-  width: 100%;
-  max-width: 28rem;
-}
-
-.worldLegend .regionRamp {
-  max-width: 14rem;
-  flex: 1 1 10rem;
-}
-
 .mapSurfaceRegion .mapTools {
   display: inline-flex;
   position: absolute;
@@ -178,39 +168,46 @@
   fill: var(--bo-ink);
 }
 
-.regionLegend {
-  display: flex;
-  align-items: baseline;
+/* Distinct choropleth legend — same rows as Housing prices map. */
+.mapLegend {
+  margin-top: 2px;
+  padding-top: 12px;
+  border-top: var(--bo-hair);
+  display: grid;
   gap: 8px;
   width: fit-content;
   max-width: 100%;
   pointer-events: none;
 }
 
-.regionLegend > span {
-  flex: none;
-  font-family: var(--bo-f-fig);
-  font-stretch: var(--bo-fig-wdth);
-  font-weight: 400;
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  color: var(--bo-ink);
-  font-variant-numeric: tabular-nums;
+.mapLegendTitle {
+  margin: 0 0 2px;
 }
 
-.regionLegend > span.regionLegendUnit {
-  font-family: var(--bo-f-body);
-  font-stretch: normal;
-  font-weight: 400;
-  font-size: 0.7rem;
+.legendDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.mapLegendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro, 0.6875rem);
   color: var(--bo-text);
 }
 
-.regionRamp {
-  flex: 1 1 auto;
-  width: 100%;
-  max-width: 9rem;
-  height: 10px;
+.mapLegendSwatch {
+  width: 36px;
+  height: 14px;
+  flex-shrink: 0;
   display: block;
-  min-width: 4rem;
+}
+
+.worldLegend {
+  width: 100%;
+  max-width: 18rem;
 }

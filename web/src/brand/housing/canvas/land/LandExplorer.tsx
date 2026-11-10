@@ -2,13 +2,13 @@
 
 /**
  * Domain 06 — Land Explorer (flagship).
- * Pick a place; switch on Planning Data layers (designations, heritage, development, constraints)
+ * Pick a place; switch on designation, heritage, development and constraint layers
  * and read where they intersect. Every mark opens its record: name, reference, dates, publisher,
  * source link. Land use for the same place sits beside the map, England as the reference.
  *
- * Data: Planning Data, asked when a council is opened, served by
- * /housing/land-layers/[code]. Clipped to each district; current records only.
- * Nothing is stored for all 309 councils in advance.
+ * Data: publisher FeatureServers (ONS, MHCLG, NE, HE, EA flood) plus Planning Data CSV dumps
+ * for brownfield / Article 4 / TPO, served by /housing/land-layers/[code].
+ * Clipped to each district; current records only. Nothing is stored for all 309 councils in advance.
  * One ink: layers are told apart by pen hatching and outline, not by fills of opacity.
  */
 
@@ -50,7 +50,7 @@ type Place = {
   landUseEngland: Share[];
   /** Records the API could not return (named, not silently dropped). */
   gaps?: { dataset: string; offset: number; reason: string }[];
-  coverage?: { mode: "pinned" | "live"; layers?: Record<string, CoverageLayer> };
+  coverage?: { mode: "pinned" | "live" | "publishers"; layers?: Record<string, CoverageLayer> };
 };
 type Index = {
   source: { publisher: string; url: string; retrieved: string; licence: string; landUse: string };
@@ -67,6 +67,7 @@ const GROUPS: { id: Group; label: string }[] = [
 ];
 
 const DEFAULT_ON = new Set([
+  "flood-risk-zone",
   "green-belt",
   "conservation-area",
   "site-of-special-scientific-interest",
@@ -138,6 +139,25 @@ const dateGB = (iso?: string) => {
 
 type EnglandRegister = HousingV1["brownfield"];
 
+export function explorerFoot(): {
+  definition: string;
+  method: string[];
+  source: string;
+} {
+  return {
+    definition:
+      "One English council at a time. Layers are clipped to the district — current designations only.",
+    method: [
+      "Flood zones 2 and 3 come live from the Environment Agency Flood Map for Planning (ignores defences). Dense districts may truncate at 400 polygons.",
+      "Historical geometries, appeals, local-plan allocations and individual applications are not in this view.",
+      "Land use is 2022. Brownfield marks are the England register, clipped — registration is not a deliverable home.",
+      "The Green Belt series on Historical change is hectares over time, not a rewound boundary map.",
+    ],
+    source:
+      "ONS · MHCLG · Environment Agency · Historic England · Natural England · Planning Data collection dumps · councils",
+  };
+}
+
 export function LandExplorer({
   england,
   code,
@@ -155,8 +175,6 @@ export function LandExplorer({
   const [failed, setFailed] = useState(false);
   const [on, setOn] = useState<Set<string>>(() => new Set(DEFAULT_ON));
   const [picked, setPicked] = useState<{ dataset: string; f: Feature } | null>(null);
-  const [authorities, setAuthorities] = useState<{ code: string; name: string }[]>([]);
-  const [search, setSearch] = useState("");
   const [placeError, setPlaceError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -168,21 +186,6 @@ export function LandExplorer({
         setIndex(j);
       })
       .catch(() => live && setFailed(true));
-    return () => {
-      live = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    let live = true;
-    fetch("/housing/land-layers/authorities")
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((j: { authorities: { code: string; name: string }[] }) => {
-        if (live) setAuthorities(j.authorities ?? []);
-      })
-      .catch(() => {
-        if (live) setAuthorities([]);
-      });
     return () => {
       live = false;
     };
@@ -239,17 +242,11 @@ export function LandExplorer({
   }, [place]);
 
   if (failed) {
-    return <p className={s.note}>Land layers could not be loaded. The Exchange does not show estimates.</p>;
+    return (
+      <p className={s.note}>Land layers could not be loaded. The Exchange does not show estimates.</p>
+    );
   }
   if (!index) return <p className={s.note}>Loading places…</p>;
-
-  const query = search.trim().toLowerCase();
-  const matches =
-    query.length < 2
-      ? []
-      : authorities
-          .filter((a) => a.name.toLowerCase().includes(query) || a.code.toLowerCase() === query)
-          .slice(0, 8);
 
   const orgs = index.orgs ?? {};
   const toggle = (ds: string) =>
@@ -266,45 +263,8 @@ export function LandExplorer({
 
   return (
     <div className={s.root}>
-      <form
-        className={s.search}
-        role="search"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (matches[0]) onCode(matches[0].code);
-        }}
-      >
-        <label className={s.searchLabel} htmlFor={`${uid}-place`}>
-          <span className="bo-label">Any English local authority</span>
-          <input
-            id={`${uid}-place`}
-            className={s.searchInput}
-            value={search}
-            placeholder="Search a council — for example Leeds"
-            autoComplete="off"
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </label>
-        {matches.length > 0 && (
-          <ul className={s.searchList}>
-            {matches.map((a) => (
-              <li key={a.code}>
-                <button type="button" className={s.searchHit} onClick={() => { onCode(a.code); setSearch(a.name); }}>
-                  {a.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </form>
-
-      <p className={s.note}>
-        Tick a layer to draw it on this council. Click a mark to read its record. Search replaces the council.
-        Flood zones are counted beside the layer, not drawn. Older boundaries are on Historical change, as hectares, not as a map.
-      </p>
-
       {loading && !place && (
-        <p className={s.note}>Drawing this council from Planning Data. The boundary appears when the layers arrive.</p>
+        <p className={s.note}>Drawing this council from publisher open data. The boundary appears when the layers arrive.</p>
       )}
       {placeError && <p className={s.note}>{placeError}</p>}
 
@@ -420,7 +380,9 @@ export function LandExplorer({
                 {nf.format(place.areaHa)} ha · layers clipped to the district · current records only
                 {place.coverage?.mode === "pinned"
                   ? " · stored geometry for this council"
-                  : " · live Planning Data query · flood polygons counted, not drawn"}
+                  : place.coverage?.mode === "publishers"
+                    ? " · ONS, MHCLG, EA flood, Natural England and Historic England · brownfield, Article 4 and TPO from Planning Data dumps"
+                    : " · live Planning Data query"}
                 {" · select any mark for its record"}
               </span>
             </figcaption>
@@ -464,7 +426,14 @@ export function LandExplorer({
                             </span>
                           )}
                           {countOnly && cov?.note && <span className={s.gapNote}>{cov.note}</span>}
-                          {cov?.status === "failed" && <span className={s.gapNote}>Planning Data did not return this layer.</span>}
+                          {cov?.status === "publisher-omit" && cov?.note && <span className={s.gapNote}>{cov.note}</span>}
+                          {cov?.status === "failed" && (
+                            <span className={s.gapNote}>
+                              {place.coverage?.mode === "publishers"
+                                ? "This publisher feed did not return the layer for this council."
+                                : "Planning Data did not return this layer."}
+                            </span>
+                          )}
                           {(place.gaps ?? []).some((g) => g.dataset === l.dataset) && (
                             <span className={s.gapNote}>
                               {(place.gaps ?? []).filter((g) => g.dataset === l.dataset).length} record(s) could not be retrieved from Planning Data; shares exclude them.
@@ -489,12 +458,6 @@ export function LandExplorer({
             <p className="bo-label">Land use · {place.name} against England · 2022</p>
             <LandUse rows={place.landUse} england={place.landUseEngland} />
           </section>
-
-          <p className={s.source}>
-            <span className="bo-label">Source</span> {index.source.publisher} — Historic England, Natural England, Environment Agency and council layers via{" "}
-            <a href={index.source.url}>planning.data.gov.uk</a>, retrieved {dateGB(index.source.retrieved)}. Land use: {index.source.landUse}. {index.source.licence}.
-            Coverage shares are computed by the Exchange from layers clipped to the district.
-          </p>
         </div>
       )}
     </div>
@@ -636,18 +599,19 @@ function RecordCard({ dataset, layer, f, orgs, onClose }: { dataset: string; lay
           ))}
       </dl>
       <p className={s.caveat}>{CAVEAT[dataset]}</p>
-      <p className={s.links}>
-        {doc && (
-          <a href={doc} target="_blank" rel="noreferrer">
-            Source record ↗
-          </a>
-        )}
-        {p.entity && (
-          <a href={`https://www.planning.data.gov.uk/entity/${p.entity}`} target="_blank" rel="noreferrer">
-            Planning Data entity {p.entity} ↗
-          </a>
-        )}
-      </p>
+      {(doc || p.entity) && (
+        <p className={s.links}>
+          {doc ? (
+            <a href={doc} target="_blank" rel="noreferrer">
+              Official record
+            </a>
+          ) : (
+            <a href={`https://www.planning.data.gov.uk/entity/${p.entity}`} target="_blank" rel="noreferrer">
+              Planning Data record
+            </a>
+          )}
+        </p>
+      )}
     </div>
   );
 }

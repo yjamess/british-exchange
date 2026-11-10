@@ -18,7 +18,11 @@ const input = await readFile(srcPath, "utf8");
 const rewritten = input
   .replace(/from ["']\.\/packs["']/g, 'from "data:text/javascript,export {}"')
   .replace(/from ["']\.\/generation-model["']/g, 'from "data:text/javascript,export {}"')
-  .replace(/from ["']\.\/fuels["']/g, 'from "data:text/javascript,export {}"');
+  .replace(/from ["']\.\/fuels["']/g, 'from "data:text/javascript,export {}"')
+  .replace(
+    /from ["']\.\.\/connections\/energy["']/g,
+    'from "data:text/javascript,export function stationNationalGenerationHref(fuel,year){return `/energy?domain=generation&view=data&dataset=quarterly&fuel=${fuel}&year=${year}`}"',
+  );
 const { outputText } = ts.transpileModule(rewritten, {
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
 });

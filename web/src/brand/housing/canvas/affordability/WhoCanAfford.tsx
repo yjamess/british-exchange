@@ -2,14 +2,14 @@
 
 /**
  * Domain 03 — Who can afford Britain?
- * Official ONS purchase affordability (household disposable income vs house prices):
- * 1 · each nation / English region, first financial year → latest (ChangeRows), England on top
- * 2 · England income decile × price decile for the latest year, in stepped solid tones with a key
+ * Official ONS purchase affordability (household disposable income vs house prices).
  */
 
+import { EmptyStage, explorerClasses as t } from "../../..";
 import { fmt } from "../../../data";
 import type { HousingV1 } from "../../load";
 import { ChangeRows } from "../../../instrument/TimeChart";
+import gen from "../../../energy/generation.module.css";
 import s from "./affordability.module.css";
 
 const ORDER = ["10th", "20th", "30th", "40th", "50th", "60th", "70th", "80th", "90th"];
@@ -35,6 +35,32 @@ type Props = {
   grid: HousingV1["purchaseAffordGrid"];
 };
 
+export function householdsFoot(
+  regions: HousingV1["purchaseAffordRegions"],
+  grid: HousingV1["purchaseAffordGrid"],
+): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
+  const withData = regions.filter((r) => r.points.length > 1);
+  const lastT = withData[0]?.points.at(-1)?.t;
+  return {
+    definition:
+      "Years of household disposable income needed to buy a home — official ONS purchase-affordability ratios (price ÷ income). Not the AFF1 workplace-earnings years-of-pay series.",
+    method: [
+      "The years are financial years, April to March: 2023–24, not the calendar year 2023.",
+      lastT != null ? `Latest financial year on the grid: ${fy(lastT)}.` : "",
+      grid.length > 0
+        ? "Read across a heat-map row: a household at that income percentile, and how many years of its disposable income each price percentile costs."
+        : "",
+    ].filter(Boolean),
+    source: "ONS · Housing purchase affordability · England and nations / English regions",
+    dataHref: "/data#housing-purchase-affordability",
+  };
+}
+
 export function WhoCanAfford({ regions, grid }: Props) {
   const withData = regions.filter((r) => r.points.length > 1);
   const england = withData.find((r) => r.id === "E92000001");
@@ -46,42 +72,54 @@ export function WhoCanAfford({ regions, grid }: Props) {
   const lastT = withData[0]?.points.at(-1)?.t;
 
   const byKey = new Map(grid.map((g) => [`${g.income}|${g.price}`, g.value]));
+
+  if (withData.length === 0 && grid.length === 0) {
+    return (
+      <EmptyStage label="In preparation">
+        Purchase-affordability series is not loaded yet. No estimated figures.
+      </EmptyStage>
+    );
+  }
+
   const ratio = (v: number) => `${v.toFixed(1)}×`;
 
   return (
-    <div className={s.who}>
-      <p className={s.lede}>
-        Years of household disposable income needed to buy a home — official ONS purchase-affordability
-        ratios (price ÷ income). Not the AFF1 workplace-earnings years-of-pay series. The years are
-        financial years, April to March: 2023–24, not the calendar year 2023.
-      </p>
-
+    <div className={gen.stack}>
       {rows.length > 0 && firstT !== undefined && lastT !== undefined && (
-        <div className={s.whoBlock}>
-          <p className={s.sectionTitle}>
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>
             Median income to median price · {fy(firstT)} to {fy(lastT)}
-          </p>
+          </h3>
           <ChangeRows
             label={`Median housing purchase affordability by nation and English region, ${fy(firstT)} and ${fy(lastT)}`}
             rows={rows}
-            reference={england ? { label: "England", from: england.points[0]!.v, to: england.points.at(-1)!.v } : undefined}
+            reference={
+              england
+                ? { label: "England", from: england.points[0]!.v, to: england.points.at(-1)!.v }
+                : undefined
+            }
             fromLabel={fy(firstT)}
             toLabel={`${fy(lastT)} · latest`}
             format={ratio}
             axisFormat={(v) => `${v.toFixed(0)}×`}
           />
-        </div>
+        </section>
       )}
 
       {grid.length > 0 && (
-        <div className={s.whoBlock}>
-          <p className={s.sectionTitle}>
-            England · income percentile × house-price percentile · {lastT !== undefined ? fy(lastT) : "latest year"}
-          </p>
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>
+            England · income percentile × house-price percentile ·{" "}
+            {lastT !== undefined ? fy(lastT) : "latest year"}
+          </h3>
           <div className={s.heatWrap}>
             <p className={s.heatAxisX}>House price percentile →</p>
             <p className={s.heatAxisY}>Household income percentile →</p>
-            <div className={s.heat} role="table" aria-label="England purchase affordability by income and house-price percentile">
+            <div
+              className={s.heat}
+              role="table"
+              aria-label="England purchase affordability by income and house-price percentile"
+            >
               <div className={s.heatCorner} aria-hidden="true" />
               {ORDER.map((p) => (
                 <div key={`h-${p}`} className={s.heatHead} role="columnheader">
@@ -126,11 +164,7 @@ export function WhoCanAfford({ regions, grid }: Props) {
               Median income, median price
             </li>
           </ul>
-          <p className={s.note}>
-            Read across a row: a household at that income percentile, and how many years of its disposable income
-            each price percentile costs. Bottom-left is the cheapest home for the highest income; top-right the reverse.
-          </p>
-        </div>
+        </section>
       )}
     </div>
   );

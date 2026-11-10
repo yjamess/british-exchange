@@ -1,0 +1,47 @@
+indicator_id: right-to-buy-one-for-one
+title: Right to Buy one-for-one replacement
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistics/right-to-buy-sales-and-replacements-england-2024-to-2025
+series_id: Right to Buy sales and replacements 2024-25, Figure 7 (one-for-one replacement
+  target)
+geography: England (E92000001) — not UK
+frequency: annual
+unit: 'dwellings (replacement-ratio: replacements per additional sale)'
+definition: The national one-for-one replacement measure as published by MHCLG. Additional
+  sales are Right to Buy sales above a pre-2012 baseline forecast. The replacement
+  target in a year is the cumulative additional sales up to three years earlier. Cumulative
+  replacements are receipt-funded new-build starts plus acquisitions since April 2012.
+  series=replacement-ratio is cumulative replacements divided by the target (1 means
+  the target is met).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.right_to_buy
+curated_path: curated/observations.csv
+update_cadence: none — MHCLG stopped reporting the target after the 2 July 2025 consultation
+  response
+raw_evidence:
+- path: raw/2026-11-10/Graph_Tables_2024-25.ods
+  retrieved_at: '2026-11-10T09:51:34.788808+00:00'
+  checksum_sha256: 0a49ec4b0e233c745a4b5ca1110ac05cc70db06e7591953d68e4733f662831da
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-08-21'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/68a34ede32d2c63f869343b6/Graph_Tables.ods
+transformations: Parse Figure_7 of the 2024-25 graph tables. Year label is the financial-year
+  end (2013 = 2012-13). replacement-ratio is derived here from two published columns;
+  every other value is copied as published.
+revision_notes: Pinned Graph_Tables.ods from the 21 August 2025 release, retrieved
+  2026-11-10.
+caveats: England only, national target (not per council). The series ends at 2024-25
+  because MHCLG stopped reporting the target from the 2025-26 release; it is not extended
+  here. Homes England has not separately recorded receipt-funded starts since 2023-24,
+  so replacements from 2023-24 may be undercounted. The replacement window was three
+  years for the target as published, although councils have had five years to spend
+  receipts since April 2021. replacement-ratio is derived and is context for the pledge,
+  not evidence of what caused the gap.
+related_indicator_ids:
+- right-to-buy-sales-and-replacements
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41465471768581419fdce592c0a7ad48
+schema_version: '1.0'

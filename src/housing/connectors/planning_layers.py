@@ -671,9 +671,11 @@ def _brownfield_capacity(features: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def query_place(code: str, *, use_cache: bool = True) -> dict[str, Any]:
-    """One English district: pinned plate if we have it, otherwise a live Planning Data query.
+    """One English district for Land Explorer.
 
-    The result is cached under curated/live so the next visit does not call the API again.
+    Order: pinned plate → live cache → accredited publisher FeatureServers
+    (ONS boundary, MHCLG Green Belt, Natural England, Historic England).
+    Does not call planning.data.gov.uk on the default path.
     """
     if not (len(code) == 9 and code[:3] in {"E06", "E07", "E08", "E09"}):
         raise ValueError(f"{code} is not an English local authority district code")
@@ -682,23 +684,44 @@ def query_place(code: str, *, use_cache: bool = True) -> dict[str, Any]:
         place = json.loads(pinned.read_text())
         place["coverage"] = {"mode": "pinned"}
         return place
-    LIVE_DIR.mkdir(parents=True, exist_ok=True)
     cache = LIVE_DIR / f"{code}.json"
     if use_cache and cache.is_file():
         return json.loads(cache.read_text())
 
+    from housing.connectors.publisher_layers import query_place_publishers
+
+    return query_place_publishers(code)
+
+
+def query_place_planning_data(code: str) -> dict[str, Any]:
+    """Legacy live query against planning.data.gov.uk (optional; not the default path)."""
+    if not (len(code) == 9 and code[:3] in {"E06", "E07", "E08", "E09"}):
+        raise ValueError(f"{code} is not an English local authority district code")
     names = {row["code"]: row["name"] for row in authorities()}
     if code not in names:
         raise ValueError(f"{code} is not in the 2022 English local authority list")
     name = names[code]
     land_use = land_use_rows()
+    cache = LIVE_DIR / f"{code}.json"
 
     with httpx.Client(headers={"User-Agent": USER_AGENT}, follow_redirects=True, timeout=LIVE_TIMEOUT) as client:
-        district_response = client.get(
-            f"{API}/entity.geojson",
-            params={"dataset": "local-authority-district", "reference": code},
-        )
-        district_response.raise_for_status()
+        # Shorter backoff than pin downloads — the Land Explorer request budget is ~90s.
+        district_response: httpx.Response | None = None
+        district_waits = (2, 5, 10, 20)
+        for attempt in range(len(district_waits) + 1):
+            try:
+                district_response = client.get(
+                    f"{API}/entity.geojson",
+                    params={"dataset": "local-authority-district", "reference": code},
+                    timeout=LIVE_TIMEOUT,
+                )
+                district_response.raise_for_status()
+                break
+            except (httpx.HTTPError, httpx.TimeoutException):
+                if attempt == len(district_waits):
+                    raise
+                time.sleep(district_waits[attempt])
+        assert district_response is not None
         district_features = district_response.json().get("features") or []
         if not district_features:
             raise ValueError(f"Planning Data has no district boundary for {code}")
@@ -824,7 +847,12 @@ def query_place(code: str, *, use_cache: bool = True) -> dict[str, Any]:
             "layers": coverage_layers,
         },
     }
-    cache.write_text(json.dumps(place, separators=(",", ":")))
+    # Cache is best-effort: Railway / read-only hosts still return the plate.
+    try:
+        LIVE_DIR.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(place, separators=(",", ":")))
+    except OSError:
+        pass
     return place
 
 

@@ -1,21 +1,250 @@
 "use client";
 
 /**
- * Domain 08 — Data. Every indicator behind the domain in one readable table (measure type,
- * unit, span, geography, publisher, release, record), the brief's research figures checked
- * against the loaded releases, and the definitions that keep stocks, flows and jurisdictions
- * apart.
+ * Domain 08 — Data. Observation tables for Ready series (Energy / Land pattern).
+ * Series picker lives in HousingExplorer's outer ControlRow.
  */
 
-import { useId } from "react";
-import { fmt } from "../../../data";
-import { explorerClasses as t } from "../../..";
+import { useId, useMemo } from "react";
+import { EmptyStage, explorerClasses as t } from "../../..";
+import { fmt, fmtT, type Pt } from "../../../data";
 import type { HousingV1, Source } from "../../load";
-import s from "./insecurity.module.css";
+import { flowLabel, qKey, stockLabel } from "./periods";
+import gen from "../../../energy/generation.module.css";
 
-type Props = { insecurity: HousingV1["insecurity"]; sources: HousingV1["sources"] };
+type Ins = HousingV1["insecurity"];
 
-/** Domain 08 indicators, in reading order. The catalogue opens each one with `?record=`. */
+type Props = {
+  insecurity: Ins;
+  sources: HousingV1["sources"];
+  seriesId: string;
+};
+
+type SeriesDef = {
+  id: string;
+  label: string;
+  measure: string;
+  points: (d: Ins) => Pt[];
+  cadence: "quarterly" | "annual";
+  asStock?: boolean;
+};
+
+/** Domain 08 series that have a loaded England time series in the pack. */
+export const INSECURITY_DATA_SERIES: SeriesDef[] = [
+  {
+    id: "statutory-homelessness-assessments",
+    label: "Assessments owed prevention or relief",
+    measure: "Flow · quarter",
+    points: (d) => d.assessmentsOwed,
+    cadence: "quarterly",
+  },
+  {
+    id: "assessments-total",
+    label: "Initial assessments (total)",
+    measure: "Flow · quarter",
+    points: (d) => d.assessmentsTotal,
+    cadence: "quarterly",
+  },
+  {
+    id: "homelessness-prevention-outcomes",
+    label: "Prevention duties ended",
+    measure: "Flow · quarter",
+    points: (d) => d.preventionEnded,
+    cadence: "quarterly",
+  },
+  {
+    id: "homelessness-relief-outcomes",
+    label: "Relief duties ended",
+    measure: "Flow · quarter",
+    points: (d) => d.reliefEnded,
+    cadence: "quarterly",
+  },
+  {
+    id: "homelessness-main-duty",
+    label: "Main duty decisions",
+    measure: "Flow · quarter",
+    points: (d) => d.mainDutyTotal,
+    cadence: "quarterly",
+  },
+  {
+    id: "temporary-accommodation-households",
+    label: "Households in temporary accommodation",
+    measure: "Stock · quarter end",
+    points: (d) => d.taHouseholds,
+    cadence: "quarterly",
+    asStock: true,
+  },
+  {
+    id: "temporary-accommodation-children",
+    label: "Children in temporary accommodation",
+    measure: "Stock · quarter end",
+    points: (d) => d.taChildren,
+    cadence: "quarterly",
+    asStock: true,
+  },
+  {
+    id: "rough-sleeping-snapshot",
+    label: "Rough sleeping autumn snapshot",
+    measure: "Stock · one autumn night",
+    points: (d) => d.roughSleeping,
+    cadence: "annual",
+    asStock: true,
+  },
+  {
+    id: "possession-claims",
+    label: "Landlord possession claims",
+    measure: "Flow · quarter",
+    points: (d) => d.possessionLandlordClaims,
+    cadence: "quarterly",
+  },
+  {
+    id: "social-housing-waiting-list",
+    label: "Households on housing registers",
+    measure: "Stock · 31 March",
+    points: (d) => d.waitingList,
+    cadence: "annual",
+    asStock: true,
+  },
+  {
+    id: "social-housing-lettings",
+    label: "New social housing lettings",
+    measure: "Flow · financial year",
+    points: (d) => d.lettings,
+    cadence: "annual",
+  },
+  {
+    id: "homelessness-support-needs",
+    label: "Owed a duty with support needs",
+    measure: "Flow · quarter",
+    points: (d) => d.supportNeedsSeries,
+    cadence: "quarterly",
+  },
+];
+
+export function insecurityDataOptions(sources: HousingV1["sources"]): { value: string; label: string }[] {
+  return INSECURITY_DATA_SERIES.filter((row) => {
+    if (row.id === "assessments-total") return Boolean(sources["statutory-homelessness-assessments"]);
+    return Boolean(sources[row.id]);
+  }).map((row) => ({ value: row.id, label: row.label }));
+}
+
+export function insecurityDataFoot(
+  insecurity: Ins,
+  sources: HousingV1["sources"],
+  seriesId: string,
+): { definition: string; method: string[]; source: string; dataHref?: string } {
+  const def = INSECURITY_DATA_SERIES.find((r) => r.id === seriesId) ?? INSECURITY_DATA_SERIES[0]!;
+  const srcKey = def.id === "assessments-total" ? "statutory-homelessness-assessments" : def.id;
+  const src = sources[srcKey];
+  return {
+    definition: `${def.label}. ${def.measure}.`,
+    method: [
+      "Stocks are point-in-time counts; flows are events in a period — they are never added together.",
+      "Homelessness is not rough sleeping. England figures are not a UK rate.",
+      "Housing-register totals divided by lettings is not a waiting time.",
+      insecurity.headlines.homelessnessSpendNet != null
+        ? "RO4 spending is annual council expenditure, not a cost per household in temporary accommodation."
+        : "",
+    ].filter(Boolean),
+    source: src
+      ? [src.publisher, src.release, src.geography, src.unit].filter(Boolean).join(" · ")
+      : "Official releases · see catalogue",
+    dataHref: src ? `/data?record=${srcKey}` : undefined,
+  };
+}
+
+function periodCell(p: Pt, cadence: "quarterly" | "annual", asStock?: boolean): string {
+  if (cadence === "quarterly") {
+    const k = qKey(p.t);
+    return asStock ? stockLabel(k) : flowLabel(k);
+  }
+  return fmtT(p.t, "annual");
+}
+
+export function InsecurityData({ insecurity, sources, seriesId }: Props) {
+  const titleId = useId();
+  const options = insecurityDataOptions(sources);
+  const activeId = options.some((o) => o.value === seriesId) ? seriesId : options[0]?.value ?? "";
+  const def = INSECURITY_DATA_SERIES.find((r) => r.id === activeId) ?? INSECURITY_DATA_SERIES[0]!;
+  const points = useMemo(() => [...def.points(insecurity)].sort((a, b) => b.t - a.t), [def, insecurity]);
+  const srcKey = def.id === "assessments-total" ? "statutory-homelessness-assessments" : def.id;
+  const src: Source | undefined = sources[srcKey];
+
+  if (options.length === 0) {
+    return (
+      <EmptyStage label="In preparation">
+        Housing insecurity series are not loaded yet. No estimated figures.
+      </EmptyStage>
+    );
+  }
+
+  if (points.length === 0) {
+    return (
+      <EmptyStage label="No observations">
+        {def.label} has no loaded points in this build.
+      </EmptyStage>
+    );
+  }
+
+  return (
+    <div className={gen.stack}>
+      <div className={t.tableGroup}>
+        <p className={t.stageTitle} id={titleId}>
+          {def.label} · {def.measure}
+          {src?.unit ? ` · ${src.unit}` : ""}
+        </p>
+        <div className={t.tableWrap}>
+          <table className={t.table} aria-labelledby={titleId}>
+            <thead>
+              <tr>
+                <th scope="col">Period</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {points.map((p) => (
+                <tr key={p.t}>
+                  <th scope="row">{periodCell(p, def.cadence, def.asStock)}</th>
+                  <td>{fmt.count(p.v)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {insecurity.devolvedTa.length > 0 && activeId === "temporary-accommodation-households" && (
+        <div className={t.tableGroup}>
+          <p className={t.stageTitle}>Devolved temporary accommodation · separate legal definitions</p>
+          <div className={t.tableWrap}>
+            <table className={t.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Nation</th>
+                  <th scope="col">Period</th>
+                  <th scope="col">Households</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...insecurity.devolvedTa]
+                  .sort((a, b) => b.period.localeCompare(a.period))
+                  .map((row) => (
+                    <tr key={`${row.id}-${row.period}`}>
+                      <th scope="row">{row.label}</th>
+                      <td>{row.period}</td>
+                      <td>{fmt.count(row.v)}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Kept for model.tsx source-id lists. */
 export const INSECURITY_RECORDS: { id: string; measure: string; area: string }[] = [
   { id: "statutory-homelessness-assessments", measure: "Flow · quarter", area: "Statutory homelessness" },
   { id: "homelessness-prevention-outcomes", measure: "Flow · quarter", area: "Prevention" },
@@ -37,233 +266,3 @@ export const INSECURITY_RECORDS: { id: string; measure: string; area: string }[]
   { id: "temporary-accommodation-spend", measure: "Flow · £ thousand, financial year", area: "Council spending" },
   { id: "homelessness-devolved-ta", measure: "Stock · jurisdiction-specific", area: "Devolved returns" },
 ];
-
-/** Research figures quoted in the domain brief, checked against what is loaded. */
-const BRIEF_FIGURES: {
-  claim: string;
-  expected: number;
-  period: string;
-  unit: string;
-  actual: (d: HousingV1["insecurity"]) => number | null;
-}[] = [
-  {
-    claim: "Households in temporary accommodation",
-    expected: 135_580,
-    period: "Stock · 31 Mar 2026",
-    unit: "households",
-    actual: (d) => d.headlines.taHouseholds,
-  },
-  {
-    claim: "Children in those households",
-    expected: 177_530,
-    period: "Stock · 31 Mar 2026",
-    unit: "children",
-    actual: (d) => d.headlines.taChildren,
-  },
-  {
-    claim: "Assessed as owed a prevention or relief duty",
-    expected: 83_850,
-    period: "Flow · Jan–Mar 2026",
-    unit: "households",
-    actual: (d) => d.headlines.assessmentsOwed,
-  },
-  {
-    claim: "Estimated sleeping rough on one night",
-    expected: 4_793,
-    period: "Stock · autumn 2025",
-    unit: "people",
-    actual: (d) => d.headlines.roughSleeping,
-  },
-];
-
-const GLOSSARY: { term: string; body: string }[] = [
-  {
-    term: "Stock",
-    body: "A count on one date, such as households in temporary accommodation on 31 March. It cannot be added to a quarter's assessments.",
-  },
-  {
-    term: "Flow",
-    body: "A count of events during a period, such as duties owed or ended in a quarter, or lettings in a year.",
-  },
-  {
-    term: "Homelessness is not rough sleeping",
-    body: "Statutory homelessness is a legal and administrative route. Rough sleeping is a separate single-night estimate, and most homeless households never sleep rough.",
-  },
-  {
-    term: "Process is not a cohort",
-    body: "The Pathways diagram shows the legal sequence. Each count comes from its own table and cohort, so the figures are not the same households moving through.",
-  },
-  {
-    term: "England is not the UK",
-    body: "Scotland, Wales and Northern Ireland have different homelessness law. Their figures are shown separately and never added to England's.",
-  },
-  {
-    term: "No invented waiting time",
-    body: "Dividing housing-register totals by lettings does not give any household's predicted wait.",
-  },
-  {
-    term: "Spend is not a unit cost",
-    body: "RO4 is annual council spending in £ thousand. Dividing it by the TA stock does not give a cost per household.",
-  },
-  {
-    term: "Snapshot is not the monthly framework",
-    body: "The autumn snapshot is an official single-night estimate. The data framework is management information about people seen over a month.",
-  },
-  {
-    term: "Hidden homelessness",
-    body: "Sofa surfing and other insecure arrangements are mostly not in administrative records. Census concealed families are one partial strand of evidence.",
-  },
-];
-
-const span = (src: Source) => {
-  const a = src.first.slice(0, 7);
-  const b = src.last.slice(0, 7);
-  return a === b ? a : `${a} → ${b}`;
-};
-
-export function InsecurityData({ insecurity, sources }: Props) {
-  const h = insecurity.headlines;
-  const devolved = insecurity.devolvedTa ?? [];
-  const rows = INSECURITY_RECORDS.map((i) => ({ ...i, src: sources[i.id] })).filter((r) => r.src);
-  const missing = INSECURITY_RECORDS.filter((i) => !sources[i.id]);
-  const spendBn = h.homelessnessSpendNet != null ? (h.homelessnessSpendNet / 1_000_000).toFixed(2) : null;
-  const titleId = useId();
-
-  return (
-    <div className={s.root}>
-      <p className={s.lede}>
-        Every indicator behind Housing insecurity, with its measure type, period, geography and
-        source release. Open any record for the full observations and source trail.
-      </p>
-
-      <div className={t.tableGroup}>
-        <p className={t.stageTitle} id={`${titleId}-records`}>
-          Housing insecurity data
-        </p>
-        <div className={s.tableWrap}>
-        <table className={s.table} aria-labelledby={`${titleId}-records`}>
-          <thead>
-            <tr>
-              <th scope="col">Indicator</th>
-              <th scope="col">Research area</th>
-              <th scope="col">Measure</th>
-              <th scope="col">Unit</th>
-              <th scope="col">Span</th>
-              <th scope="col">Geography</th>
-              <th scope="col">Publisher · release</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(({ id, measure, area, src }) => (
-              <tr key={id}>
-                <th scope="row">
-                  <a href={`/data?record=${id}`}>{src!.title}</a>
-                </th>
-                <td>{area}</td>
-                <td>{measure}</td>
-                <td>{src!.unit}</td>
-                <td>{span(src!)}</td>
-                <td>{src!.geography}</td>
-                <td>
-                  {src!.publisher}
-                  {src!.release ? ` · ${src!.release}` : ""}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-      </div>
-      {missing.length > 0 && (
-        <p className={s.note}>
-          Not loaded in this build: {missing.map((m) => m.id).join(", ")}. These are not estimated.
-        </p>
-      )}
-
-      <div className={t.tableGroup}>
-        <p className={t.stageTitle} id={`${titleId}-brief`}>
-          Research figures checked against the loaded release
-        </p>
-        <div className={s.tableWrap}>
-        <table className={s.table} aria-labelledby={`${titleId}-brief`}>
-          <thead>
-            <tr>
-              <th scope="col">Figure</th>
-              <th scope="col">Period</th>
-              <th scope="col" className={s.num}>
-                Brief
-              </th>
-              <th scope="col" className={s.num}>
-                Loaded
-              </th>
-              <th scope="col">Check</th>
-            </tr>
-          </thead>
-          <tbody>
-            {BRIEF_FIGURES.map((f) => {
-              const v = f.actual(insecurity);
-              const status = v == null ? "Not loaded" : Math.round(v) === f.expected ? "Matches" : "Differs, check revision";
-              return (
-                <tr key={f.claim}>
-                  <th scope="row">{f.claim}</th>
-                  <td>{f.period}</td>
-                  <td className={s.num}>{fmt.count(f.expected)}</td>
-                  <td className={s.num}>{v == null ? "—" : fmt.count(v)}</td>
-                  <td>{status}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        </div>
-      </div>
-
-      <section className={s.section} aria-label="Definitions">
-        <p className="bo-label">Definitions</p>
-        <dl className={s.facts}>
-          {GLOSSARY.map((g) => (
-            <div key={g.term}>
-              <dt className="bo-label">{g.term}</dt>
-              <dd>{g.body}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <div className={s.split}>
-        <section className={s.section} aria-label="Devolved temporary accommodation">
-          <p className="bo-label">Devolved returns · separate legal definitions</p>
-          {devolved.length > 0 ? (
-            <ul className={s.rows}>
-              {devolved.map((d) => (
-                <li key={`${d.id}-${d.period}`} className={s.row}>
-                  <span className={s.rowName}>{d.label}</span>
-                  <span className={s.rowValue}>{fmt.count(d.v)}</span>
-                  <span className={s.rowMeta}>households in TA · {d.period}</span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className={s.note}>Devolved returns are not loaded yet.</p>
-          )}
-          <p className={s.note}>Each nation counts temporary accommodation under its own law. These are not a UK total.</p>
-        </section>
-        <section className={s.section} aria-label="Cost and monthly rough sleeping">
-          <p className="bo-label">Context for future views</p>
-          <p className={s.body}>
-            The Cost of Insecurity is not built. A spending total does not stand in for it.
-            England homelessness net current expenditure in 2024–25 was{" "}
-            <strong>{spendBn != null ? `£${spendBn} billion` : "—"}</strong> (RO4, £ thousand ÷
-            1,000,000). That is council spending for the year. It is not a cost per household, and
-            it is not linked to outcomes.
-          </p>
-          <p className={s.body}>
-            People seen sleeping rough over June 2026:{" "}
-            <strong>{h.roughSleepingMonth != null ? fmt.count(h.roughSleepingMonth) : "—"}</strong>{" "}
-            (data framework management information, not the autumn snapshot).
-          </p>
-        </section>
-      </div>
-    </div>
-  );
-}

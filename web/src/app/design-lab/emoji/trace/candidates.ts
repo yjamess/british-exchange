@@ -1,0 +1,60 @@
+/** Fluent Emoji (Microsoft, MIT) High Contrast candidates for tracing. Files in public/design-lab/emoji-sources/fluent/. */
+export const CANDIDATES = [
+  { sector: "Economy", code: "EC", items: [
+    { code: "EC1", name: "Money with wings", file: "money-with-wings.svg", source: "assets/Money with wings/High Contrast/money_with_wings_high_contrast.svg" },
+    { code: "EC2", name: "Pound banknote", file: "pound-banknote.svg", source: "assets/Pound banknote/High Contrast/pound_banknote_high_contrast.svg" },
+    { code: "EC3", name: "Coin", file: "coin.svg", source: "assets/Coin/High Contrast/coin_high_contrast.svg" },
+    { code: "EC4", name: "Chart increasing", file: "chart-increasing.svg", source: "assets/Chart increasing/High Contrast/chart_increasing_high_contrast.svg" },
+    { code: "EC5", name: "Bank", file: "bank.svg", source: "assets/Bank/High Contrast/bank_high_contrast.svg" },
+    { code: "EC6", name: "Money bag", file: "money-bag.svg", source: "assets/Money bag/High Contrast/money_bag_high_contrast.svg" },
+  ] },
+  { sector: "Energy", code: "EN", items: [
+    { code: "EN1", name: "High voltage", file: "high-voltage.svg", source: "assets/High voltage/High Contrast/high_voltage_high_contrast.svg" },
+    { code: "EN2", name: "Electric plug", file: "electric-plug.svg", source: "assets/Electric plug/High Contrast/electric_plug_high_contrast.svg" },
+    { code: "EN3", name: "Light bulb", file: "light-bulb.svg", source: "assets/Light bulb/High Contrast/light_bulb_high_contrast.svg" },
+    { code: "EN4", name: "Factory", file: "factory.svg", source: "assets/Factory/High Contrast/factory_high_contrast.svg" },
+    { code: "EN5", name: "Fuel pump", file: "fuel-pump.svg", source: "assets/Fuel pump/High Contrast/fuel_pump_high_contrast.svg" },
+    { code: "EN6", name: "Battery", file: "battery.svg", source: "assets/Battery/High Contrast/battery_high_contrast.svg" },
+  ] },
+  { sector: "Housing", code: "HO", items: [
+    { code: "HO1", name: "House", file: "house.svg", source: "assets/House/High Contrast/house_high_contrast.svg" },
+    { code: "HO2", name: "House with garden", file: "house-with-garden.svg", source: "assets/House with garden/High Contrast/house_with_garden_high_contrast.svg" },
+    { code: "HO3", name: "Houses", file: "houses.svg", source: "assets/Houses/High Contrast/houses_high_contrast.svg" },
+    { code: "HO4", name: "Key", file: "key.svg", source: "assets/Key/High Contrast/key_high_contrast.svg" },
+    { code: "HO5", name: "Building construction", file: "building-construction.svg", source: "assets/Building construction/High Contrast/building_construction_high_contrast.svg" },
+  ] },
+  { sector: "People", code: "PE", items: [
+    { code: "PE1", name: "Busts in silhouette", file: "busts-in-silhouette.svg", source: "assets/Busts in silhouette/High Contrast/busts_in_silhouette_high_contrast.svg" },
+    { code: "PE2", name: "Bust in silhouette", file: "bust-in-silhouette.svg", source: "assets/Bust in silhouette/High Contrast/bust_in_silhouette_high_contrast.svg" },
+    { code: "PE3", name: "People hugging", file: "people-hugging.svg", source: "assets/People hugging/High Contrast/people_hugging_high_contrast.svg" },
+    { code: "PE4", name: "Handshake", file: "handshake.svg", source: "assets/Handshake/High Contrast/handshake_high_contrast.svg" },
+    { code: "PE5", name: "Waving hand", file: "waving-hand.svg", source: "assets/Waving hand/Default/High Contrast/waving_hand_high_contrast_default.svg" },
+  ] },
+  { sector: "Government", code: "GO", items: [
+    { code: "GO1", name: "Ballot box with ballot", file: "ballot-box-with-ballot.svg", source: "assets/Ballot box with ballot/High Contrast/ballot_box_with_ballot_high_contrast.svg" },
+    { code: "GO2", name: "Classical building", file: "classical-building.svg", source: "assets/Classical building/High Contrast/classical_building_high_contrast.svg" },
+    { code: "GO3", name: "Scroll", file: "scroll.svg", source: "assets/Scroll/High Contrast/scroll_high_contrast.svg" },
+    { code: "GO4", name: "Megaphone", file: "megaphone.svg", source: "assets/Megaphone/High Contrast/megaphone_high_contrast.svg" },
+  ] },
+  { sector: "Infrastructure", code: "IN", items: [
+    { code: "IN1", name: "Locomotive", file: "locomotive.svg", source: "assets/Locomotive/High Contrast/locomotive_high_contrast.svg" },
+    { code: "IN2", name: "High-speed train", file: "high-speed-train.svg", source: "assets/High-speed train/High Contrast/high-speed_train_high_contrast.svg" },
+    { code: "IN3", name: "Railway track", file: "railway-track.svg", source: "assets/Railway track/High Contrast/railway_track_high_contrast.svg" },
+    { code: "IN4", name: "Bridge at night", file: "bridge-at-night.svg", source: "assets/Bridge at night/High Contrast/bridge_at_night_high_contrast.svg" },
+    { code: "IN5", name: "Motorway", file: "motorway.svg", source: "assets/Motorway/High Contrast/motorway_high_contrast.svg" },
+  ] },
+  { sector: "Regions", code: "RE", items: [
+    { code: "RE1", name: "World map", file: "world-map.svg", source: "assets/World map/High Contrast/world_map_high_contrast.svg" },
+    { code: "RE2", name: "Round pushpin", file: "round-pushpin.svg", source: "assets/Round pushpin/High Contrast/round_pushpin_high_contrast.svg" },
+    { code: "RE3", name: "Compass", file: "compass.svg", source: "assets/Compass/High Contrast/compass_high_contrast.svg" },
+    { code: "RE4", name: "Globe showing europe-africa", file: "globe-showing-europe-africa.svg", source: "assets/Globe showing europe-africa/High Contrast/globe_showing_europe-africa_high_contrast.svg" },
+    { code: "RE5", name: "Globe with meridians", file: "globe-with-meridians.svg", source: "assets/Globe with meridians/High Contrast/globe_with_meridians_high_contrast.svg" },
+  ] },
+  { sector: "History", code: "HI", items: [
+    { code: "HI1", name: "Hourglass done", file: "hourglass-done.svg", source: "assets/Hourglass done/High Contrast/hourglass_done_high_contrast.svg" },
+    { code: "HI2", name: "Mantelpiece clock", file: "mantelpiece-clock.svg", source: "assets/Mantelpiece clock/High Contrast/mantelpiece_clock_high_contrast.svg" },
+    { code: "HI3", name: "Scroll", file: "scroll.svg", source: "assets/Scroll/High Contrast/scroll_high_contrast.svg" },
+    { code: "HI4", name: "Old key", file: "old-key.svg", source: "assets/Old key/High Contrast/old_key_high_contrast.svg" },
+    { code: "HI5", name: "Classical building", file: "classical-building.svg", source: "assets/Classical building/High Contrast/classical_building_high_contrast.svg" },
+  ] },
+] as const;

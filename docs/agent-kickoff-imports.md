@@ -42,12 +42,15 @@ uv run python -m energy.connectors.neso_interconnector_register --fetch
 # …plus earlier Lifelines / dependency connectors
 ```
 
-## Still open (honest residual)
+## Gate 4
+
+**Passed 2026-11-09** — [gate4-audit-imports.md](gate4-audit-imports.md). Domain complete for Explorer close.
+
+## Backlog (honest residual)
 
 - LNG UK terminal map pins — draft at `data/energy/lng-terminal-geo/` (3 harbour-authority pins sourced; Teesside blocked; RankBars until Ready + Validation)
 - Study B fake partner shipping routes / landfalls remains **rejected**
 - Optional DUKES 4.4b site mcm register (static; not the annual stock series)
-- Gate 4 structural / a11y audit
 
 ## Unit lock (publisher native)
 

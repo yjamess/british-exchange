@@ -14,25 +14,15 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { ChipToggles, ControlRow, DualScramble, DUAL_DIGITS, MenuControl, RankBars, TimeChart, explorerClasses as tc } from "../../..";
+import { ChipToggles, ControlRow, DualScramble, DUAL_DIGITS, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart, explorerClasses as tc } from "../../..";
 import { HomeCutaway3D } from "./cutaway/HomeCutaway3D";
-import { useQualityEvidence } from "./cutaway/useEvidence";
 import { BASIS, FEATURES, LAYERS, TENURES } from "./cutaway/features";
 import { ENGLAND, archetypesOf, areasOf, caveatsOf, prettyCat, slice, type Breakdown, type Cell } from "./cutaway/evidence";
+import type { Evidence } from "./cutaway/useEvidence";
 import { BasisTag, UnavailableControl } from "./parts";
+import type { InsideState, QualityFoot } from "./state";
 import q from "../plate.module.css";
 import h from "./insideHomes.module.css";
-
-/** What the stage foot should say for the feature in focus. */
-export type InsideFoot = {
-  source: string;
-  coverage: string;
-  caveats: string[];
-  /** What the number is. Shown under Notes, not beside the figure. */
-  definition?: string[];
-  /** Catalogue link for this indicator. The record uses /data when this is absent. */
-  dataHref?: string;
-};
 
 const pct = (v: number | null | undefined) => (v == null ? "—" : `${v.toFixed(1)}%`);
 
@@ -48,14 +38,156 @@ function periodLabel(c: Cell | undefined, year: number | null): string {
   return year != null ? String(year) : "—";
 }
 
-export function InsideHomes({ onFoot }: { onFoot?: (foot: InsideFoot) => void }) {
-  const { evidence, failed } = useQualityEvidence();
+export function insideHomesFoot(
+  state: InsideState,
+  evidence: Evidence | null,
+): QualityFoot {
+  const cells = evidence?.cells ?? [];
+  const feature = FEATURES.find((f) => f.id === state.feature) ?? FEATURES[0]!;
+  const archetypes = archetypesOf(cells, feature.ind, feature.series);
+  const areas = areasOf(cells, feature.ind, feature.series);
+  const arch = archetypes.some((a) => a.value === state.archetype) ? state.archetype : "";
+  const ar = arch ? ENGLAND : areas.some((a) => a.value === state.area) ? state.area : ENGLAND;
+  const sl = slice(cells, feature.ind, feature.series, { archetype: arch, area: ar });
+  const years = [...new Set(sl.map((c) => c.year))].sort((a, b) => a - b);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const atYear = sl.filter((c) => c.year === y);
+  const tenuresHere = TENURES.filter((t) => atYear.some((c) => c.tenure === t.id));
+  const t = tenuresHere.some((x) => x.id === state.tenure) ? state.tenure : (tenuresHere[0]?.id ?? "all-tenures");
+  const cell = atYear.find((c) => c.tenure === t);
+  const scope = arch
+    ? archetypes.find((a) => a.value === arch)?.label
+    : ar === ENGLAND
+      ? "England"
+      : areas.find((a) => a.value === ar)?.label;
+  const src = evidence?.sources[feature.ind];
+  const caveats = caveatsOf(cell);
+  return {
+    definition: `${feature.definition}${feature.periodNote ? ` ${feature.periodNote}.` : ""}`,
+    method: [
+      years.length > 0
+        ? `Coverage. ${scope} · ${years[0]}–${years[years.length - 1]} · ${tenuresHere.map((x) => x.label).join(", ")}.`
+        : "",
+      BASIS[feature.basis].note,
+      ...caveats,
+      "The cutaway is illustrative. It does not describe any particular property.",
+    ].filter(Boolean),
+    source: `${src?.publisher ?? "MHCLG · English Housing Survey"} · ${feature.table}`,
+    dataHref: `/data#${feature.ind}`,
+  };
+}
+
+type Shared = {
+  state: InsideState;
+  onChange: (next: Partial<InsideState>) => void;
+  evidence: Evidence | null;
+  failed: boolean;
+};
+
+export function InsideHomesControls({ state, onChange, evidence, failed }: Shared) {
+  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
+  const feature = FEATURES.find((f) => f.id === state.feature) ?? FEATURES[0]!;
+  const archetypes = useMemo(() => archetypesOf(cells, feature.ind, feature.series), [cells, feature]);
+  const areas = useMemo(() => areasOf(cells, feature.ind, feature.series), [cells, feature]);
+  const arch = archetypes.some((a) => a.value === state.archetype) ? state.archetype : "";
+  const ar = arch ? ENGLAND : areas.some((a) => a.value === state.area) ? state.area : ENGLAND;
+  const sl = useMemo(() => slice(cells, feature.ind, feature.series, { archetype: arch, area: ar }), [cells, feature, arch, ar]);
+  const years = useMemo(() => [...new Set(sl.map((c) => c.year))].sort((a, b) => a - b), [sl]);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const atYear = sl.filter((c) => c.year === y);
+  const tenuresHere = TENURES.filter((t) => atYear.some((c) => c.tenure === t.id));
+  const t = tenuresHere.some((x) => x.id === state.tenure) ? state.tenure : (tenuresHere[0]?.id ?? "all-tenures");
+  const archOptions = [{ value: "", label: "All dwellings" }, ...archetypes.map((a) => ({ value: a.value, label: a.label }))];
+  const areaOptions = [
+    { value: ENGLAND, label: "England" },
+    ...areas.map((a) => ({
+      value: a.value,
+      label: a.kind === "region" ? a.label : `${a.label} (to 2019)`,
+    })),
+  ];
+  const dirty =
+    state.feature !== "rating" ||
+    state.archetype !== "" ||
+    state.area !== ENGLAND ||
+    state.tenure !== "all-tenures" ||
+    state.year != null;
+
+  return (
+    <ControlRow label="Inside the home controls">
+      <MenuControl
+        label="Feature"
+        value={feature.id}
+        options={FEATURES.map((f) => ({ value: f.id, label: f.label }))}
+        onChange={(v) => onChange({ feature: v })}
+      />
+      {archetypes.length > 0 ? (
+        <MenuControl
+          label="Dwelling archetype"
+          value={arch}
+          options={archOptions}
+          onChange={(v) => onChange({ archetype: v, ...(v ? { area: ENGLAND } : {}) })}
+        />
+      ) : (
+        <UnavailableControl label="Dwelling archetype" reason={evidence ? "Not published for this measure" : failed ? "Evidence unavailable" : "Loading…"} />
+      )}
+      {areas.length > 0 ? (
+        <MenuControl
+          label="Area"
+          value={ar}
+          options={areaOptions}
+          onChange={(v) => onChange({ area: v, ...(v !== ENGLAND ? { archetype: "" } : {}) })}
+        />
+      ) : (
+        <UnavailableControl label="Area" reason={`England${evidence ? " · regions not published" : ""}`} />
+      )}
+      {tenuresHere.length > 0 ? (
+        <MenuControl
+          label="Tenure"
+          value={t}
+          options={tenuresHere.map((x) => ({ value: x.id, label: x.label }))}
+          onChange={(v) => onChange({ tenure: v })}
+        />
+      ) : (
+        <UnavailableControl label="Tenure" reason={evidence ? "Not published for this selection" : "Loading…"} />
+      )}
+      {years.length > 0 && y != null ? (
+        <MenuControl
+          label="Period"
+          value={String(y)}
+          options={[...years].reverse().map((yy) => {
+            const c = sl.find((x) => x.year === yy && x.label);
+            return { value: String(yy), label: c?.label || String(yy) };
+          })}
+          onChange={(v) => onChange({ year: Number(v) })}
+        />
+      ) : (
+        <UnavailableControl label="Period" reason={evidence ? "No years published" : "Loading…"} />
+      )}
+      {dirty && (
+        <ResetButton
+          onClick={() =>
+            onChange({
+              feature: "rating",
+              archetype: "",
+              area: ENGLAND,
+              tenure: "all-tenures",
+              year: null,
+            })
+          }
+        />
+      )}
+    </ControlRow>
+  );
+}
+
+export function InsideHomes({ state, onChange, evidence, failed }: Shared) {
   const payload = evidence;
-  const [active, setActive] = useState("rating");
-  const [archetype, setArchetype] = useState("");
-  const [area, setArea] = useState(ENGLAND);
-  const [tenure, setTenure] = useState("all-tenures");
-  const [year, setYear] = useState<number | null>(null);
+  const active = state.feature;
+  const setActive = (id: string) => onChange({ feature: id });
+  const archetype = state.archetype;
+  const area = state.area;
+  const tenure = state.tenure;
+  const year = state.year;
   const [mobile, setMobile] = useState(false);
   const [webgl, setWebgl] = useState(true);
   const [stills, setStills] = useState<Record<string, string> | null>(null);
@@ -71,7 +203,6 @@ export function InsideHomes({ onFoot }: { onFoot?: (foot: InsideFoot) => void })
   const cells = useMemo(() => payload?.cells ?? [], [payload]);
   const feature = FEATURES.find((f) => f.id === active) ?? FEATURES[0]!;
   const layer = LAYERS.find((l) => l.id === feature.layer)!;
-  const src = payload?.sources[feature.ind];
 
   // Options for this feature (published only). Archetype and area are never crossed in the source.
   const archetypes = useMemo(() => archetypesOf(cells, feature.ind, feature.series), [cells, feature]);
@@ -194,86 +325,10 @@ export function InsideHomes({ onFoot }: { onFoot?: (foot: InsideFoot) => void })
         .map((c) => ({ t: c.year, v: c.v! })),
     [sl, t],
   );
-  const caveats = caveatsOf(cell);
   const scope = arch ? archetypes.find((a) => a.value === arch)?.label : ar === ENGLAND ? "England" : areas.find((a) => a.value === ar)?.label;
-  const coverage =
-    years.length > 0 ? `${scope} · ${years[0]}–${years[years.length - 1]} · ${tenuresHere.map((x) => x.label).join(", ")}` : "";
-  const sourceLine = `${src?.publisher ?? "MHCLG · English Housing Survey"} · ${feature.table}`;
-  const caveatText = caveats.join("\n");
-
-  useEffect(() => {
-    onFoot?.({ source: sourceLine, coverage, caveats: caveatText ? caveatText.split("\n") : [] });
-  }, [onFoot, sourceLine, coverage, caveatText]);
-
-  const archOptions = [{ value: "", label: "All dwellings" }, ...archetypes.map((a) => ({ value: a.value, label: a.label }))];
-  const areaOptions = [
-    { value: ENGLAND, label: "England" },
-    ...areas.map((a) => ({
-      value: a.value,
-      label: a.kind === "region" ? a.label : `${a.label} (to 2019)`,
-    })),
-  ];
 
   return (
     <div className={q.root}>
-      <p className={q.lede}>
-        An engraved cutaway of a typical British home. Select a part of the house to open the evidence behind it — English Housing Survey estimates by
-        dwelling, area, tenure and year. The drawing guides exploration; it does not describe any particular property.
-      </p>
-
-      {/* Filters — follow the selected feature; only what is published is offered */}
-      <ControlRow label="Evidence filters">
-        {archetypes.length > 0 ? (
-          <MenuControl
-            label="Dwelling archetype"
-            value={arch}
-            options={archOptions}
-            onChange={(v) => {
-              setArchetype(v);
-              if (v) setArea(ENGLAND);
-            }}
-          />
-        ) : (
-          <UnavailableControl label="Dwelling archetype" reason={payload ? "Not published for this measure" : "Loading…"} />
-        )}
-        {areas.length > 0 ? (
-          <MenuControl
-            label="Area"
-            value={ar}
-            options={areaOptions}
-            onChange={(v) => {
-              setArea(v);
-              if (v !== ENGLAND) setArchetype("");
-            }}
-          />
-        ) : (
-          <UnavailableControl label="Area" reason={`England${payload ? " · regions not published" : ""}`} />
-        )}
-        {tenuresHere.length > 0 ? (
-          <MenuControl
-            label="Tenure"
-            value={t}
-            options={tenuresHere.map((x) => ({ value: x.id, label: x.label }))}
-            onChange={setTenure}
-          />
-        ) : (
-          <UnavailableControl label="Tenure" reason={payload ? "Not published for this selection" : "Loading…"} />
-        )}
-        {years.length > 0 && y != null ? (
-          <MenuControl
-            label="Period"
-            value={String(y)}
-            options={[...years].reverse().map((yy) => {
-              const c = sl.find((x) => x.year === yy && x.label);
-              return { value: String(yy), label: c?.label || String(yy) };
-            })}
-            onChange={(v) => setYear(Number(v))}
-          />
-        ) : (
-          <UnavailableControl label="Period" reason={payload ? "No years published" : "Loading…"} />
-        )}
-      </ControlRow>
-
       <div className={q.plate}>
         <div className={`${q.plateMain} ${q.plateFlush}`}>
           {webgl && !mobile && (
@@ -341,12 +396,9 @@ export function InsideHomes({ onFoot }: { onFoot?: (foot: InsideFoot) => void })
           </p>
 
           {failed ? (
-            <section className={q.section} aria-label="Evidence unavailable">
-              <p className="bo-label">Evidence unavailable</p>
-              <p className={q.note}>The survey tables could not be loaded. Try again later. No estimated figures.</p>
-            </section>
+            <EmptyStage label="In preparation">The survey tables could not be loaded. No estimated figures.</EmptyStage>
           ) : !payload ? (
-            <p className={q.note}>Loading the survey evidence…</p>
+            <EmptyStage label="Loading">Loading the survey evidence…</EmptyStage>
           ) : (
             <>
               <p className={q.big}>

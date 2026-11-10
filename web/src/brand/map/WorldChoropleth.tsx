@@ -2,13 +2,14 @@
 
 /**
  * World-country choropleth — Natural Earth 110m paths, Housing map grammar
- * (halftone bands, paper name tags, Signal selection). Missing countries stay
+ * (halftone bands, paper name tags, ink selection). Missing countries stay
  * empty; valued partners get labels.
  */
 
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { BandScreenDefs } from "./BandScreen";
-import { BAND_RADII, band } from "./model";
+import { MapLegend } from "./MapLegend";
+import { band, equalBreaks } from "./model";
 import s from "./map.module.css";
 import display from "./world-countries-display.json";
 
@@ -167,16 +168,6 @@ function focusBounds(shape: WorldCountryShape): [number, number, number, number]
   ];
 }
 
-function valueBreaks(values: number[]): number[] {
-  if (values.length === 0) return [0, 1, 2, 3, 4, 5];
-  const sorted = [...values].sort((a, b) => a - b);
-  const lo = sorted[0]!;
-  const hi = sorted[sorted.length - 1]!;
-  if (hi <= lo) return [lo, lo, lo, lo, lo, lo];
-  const step = (hi - lo) / 6;
-  return Array.from({ length: 6 }, (_, i) => lo + step * (i + 1));
-}
-
 function CountryTag({
   name,
   value,
@@ -273,7 +264,7 @@ export function WorldChoropleth({
   }, [valuedShapes]);
 
   const thresholds = useMemo(
-    () => valueBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
+    () => equalBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
     [data],
   );
   const bands = useMemo(
@@ -323,10 +314,6 @@ export function WorldChoropleth({
   const selectShape = selected ? WORLD_COUNTRY_SHAPES.find((sh) => sh.id === selected) : undefined;
   const hoverData = hover ? byId.get(hover) : undefined;
   const selectData = selectShape ? byId.get(selectShape.id) : undefined;
-
-  const legendVals = data.map((d) => d.value).filter((v): v is number => v != null);
-  const lo = legendVals.length ? Math.min(...legendVals) : 0;
-  const hi = legendVals.length ? Math.max(...legendVals) : 1;
 
   const captionPrimary = hoverShape
     ? shortName(hoverShape)
@@ -463,7 +450,7 @@ export function WorldChoropleth({
               <path
                 d={selectShape.path}
                 fill="none"
-                stroke="var(--bo-signal)"
+                stroke="var(--bo-ink)"
                 strokeWidth="2"
                 vectorEffect="non-scaling-stroke"
               />
@@ -492,27 +479,12 @@ export function WorldChoropleth({
         </g>
       </svg>
 
-      <div className={`${s.regionLegend} ${s.worldLegend}`}>
-        <span>{legendFormat(lo)}</span>
-        <svg className={s.regionRamp} aria-hidden="true">
-          <BandScreenDefs idPrefix={`${uid}-leg`} />
-          {BAND_RADII.map((_, i) => {
-            const gap = 1.2;
-            const width = (100 - gap * (BAND_RADII.length - 1)) / BAND_RADII.length;
-            return (
-              <rect
-                key={i}
-                x={`${i * (width + gap)}%`}
-                width={`${width}%`}
-                height="10"
-                fill={`url(#${uid}-leg-band-${i})`}
-              />
-            );
-          })}
-        </svg>
-        <span>{legendFormat(hi)}</span>
-        {legendUnit ? <span className={s.regionLegendUnit}>{legendUnit}</span> : null}
-      </div>
+      <MapLegend
+        className={s.worldLegend}
+        title={legendUnit}
+        thresholds={thresholds}
+        format={legendFormat}
+      />
     </div>
   );
 }

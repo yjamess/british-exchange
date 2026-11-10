@@ -20,15 +20,15 @@ import {
   FigureStrip,
   MenuControl,
   ResetButton,
-  SearchControl,
   Stage,
   explorerClasses as t,
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import { EnergyStageFollow } from "../connections";
+import { fmtT } from "../data";
 import { ENERGY_SOURCE } from "./citations";
 import { BillReceipt, type BillLine, type Print } from "./BillReceipt";
-import { PricesGeography } from "./PricesGeography";
 import { USAGE_OPTIONS, annualPay, capBreakdown, fmtKwh, fmtPence, payShareSeries, ratesFor, regionsForYear } from "./bill-model";
 import {
   BILL_FUELS,
@@ -43,21 +43,21 @@ import {
   DOMESTIC_GAS_UNIT_STANDING_ID,
   INDUSTRIAL_BANDS,
   INDUSTRIAL_PRICES_ID,
+  MPP_FUEL_PRICES_ID,
   MPP_MEASURES,
   MPP_MEASURE_LABEL,
+  NOMINAL_EARNINGS_ID,
   OFGEM_CAP_ID,
+  OFGEM_CAP_REGIONAL_ID,
   OFGEM_MEASURES,
   OFGEM_MEASURE_LABEL,
   PAYMENTS,
   REGION_SOURCES,
-  REGION_SOURCE_LABEL,
   TARIFFS,
-  billLayersFor,
   cpihAnnualAverage,
   costShockSeries,
   domesticBillRows,
   domesticBillSeries,
-  englandCodeForPriceId,
   fmtGbpBill,
   fmtPct1,
   fmtPenceKwh,
@@ -166,7 +166,12 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
   const industrialYears = yearsOf(industrialRows);
 
   const [view, setView] = useState(() => asView(searchParams.get("view")));
-  const [billFuel, setBillFuel] = useState<BillFuel>(() => asBillFuel(searchParams.get("bill_fuel")));
+  const [requestedBillFuel, setBillFuel] = useState<BillFuel>(() => asBillFuel(searchParams.get("bill_fuel")));
+  // Regional rebuild needs unit + standing layers, which Economy 7 does not have. A deep link
+  // (view=regions&bill_fuel=economy7) must read as electricity, not rank standard rates under an
+  // Economy 7 label at 4,800 kWh. The tab handler does the same on navigation; this covers URLs.
+  const billFuel: BillFuel =
+    view === "regions" && requestedBillFuel === "economy7" ? "electricity" : requestedBillFuel;
   const [capMeasure, setCapMeasure] = useState<OfgemMeasure>(() =>
     asCapMeasure(searchParams.get("cap_measure")),
   );
@@ -208,7 +213,6 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
   const [kwh, setKwh] = useState(() => Number(searchParams.get("kwh")) || 0);
   const [capPeriod, setCapPeriod] = useState(() => searchParams.get("cap_period") || "");
   /** Local region search on Geography — selection still syncs via `region`. */
-  const [regionQ, setRegionQ] = useState("");
 
   const sync = useCallback(
     (
@@ -292,7 +296,19 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
   );
 
   const activeBillYears = yearsOf(billRows);
-  const y = clampYear(year, activeBillYears.length ? activeBillYears : [latest], latest);
+  // Afford needs a full calendar year of ONS weekly pay (12 months). Never fall back to
+  // bill-only years — that leaves the year menu on 2025 with an empty chart.
+  const affordYears = activeBillYears.filter((yy) => annualPay(earningsRows, yy) != null);
+  const affordReady = affordYears.length > 0;
+  const menuYears =
+    view === "afford"
+      ? affordYears
+      : activeBillYears.length
+        ? activeBillYears
+        : [latest];
+  const y = menuYears.length
+    ? clampYear(year, menuYears, menuYears.at(-1) ?? latest)
+    : latest;
   const activeRows = billRows;
   const cashSeries = domesticBillSeries(activeRows, payment, tariff);
   const realPack = realBillSeries(cashSeries, cpihRows);
@@ -372,7 +388,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
           key: "real",
           label: `In ${cpihBase.year} prices`,
           detail: `${realTotal != null ? "Bill for the year" : "Published typical bill"}, adjusted for inflation`,
-          about: `The same pounds restated in ${cpihBase.year} prices using the ONS CPIH index. This is an Exchange calculation, not a DESNZ figure.`,
+          about: `The same pounds restated in ${cpihBase.year} prices using the ONS CPIH index. Calculated from DESNZ and ONS figures — not a DESNZ published bill.`,
           value: realTotal ?? realTypical,
           href: `/data?record=${CPIH_INDEX_ID}`,
         }
@@ -382,7 +398,16 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
     ...(vsYear != null ? [{ id: "vs", t: vsYear, label: String(vsYear), active: true }] : []),
   ];
 
-  const industrialSeries = industrialPriceSeries(industrialRows, band);
+  const industrialQuarterly = industrialPriceSeries(industrialRows, band);
+  // The chart legend prints the series' last point, so name that quarter in the label: the strip
+  // above shows the selected year's mean of quarters, a different (and differently sized) number.
+  const industrialLatest = industrialQuarterly.points.at(-1);
+  const industrialSeries = {
+    ...industrialQuarterly,
+    label: industrialLatest
+      ? `${industrialQuarterly.label} · latest ${fmtT(industrialLatest.t, "quarterly")}`
+      : industrialQuarterly.label,
+  };
   const industrialAvg = industrialYearAverage(industrialRows, band, y);
 
   const electricityReady = Boolean(pack.domestic?.observations.length);
@@ -457,7 +482,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
             {
               label: "Share of pay",
               value: burden != null ? fmtPct1(burden) : "—",
-              note: `Typical ${billFuelLabel.toLowerCase()} bill ÷ average pay`,
+              note: `Typical ${billFuelLabel.toLowerCase()} bill as a share of average pay`,
             },
           ]
         : view === "wholesale"
@@ -488,7 +513,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
             {
               label: "Index base",
               value: shock.baseYear != null ? String(shock.baseYear) : "—",
-              note: "Each line starts at 1× this year — not £ or p/kWh",
+              note: "Cash prices, each line starts at 1× this year — not £ or p/kWh",
             },
             {
               label: `${y} electricity bill`,
@@ -496,9 +521,9 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               note: "Cash · UK · grounding only · not the chart axis",
             },
             {
-              label: `${y} industry avg`,
+              label: `${y} industry mean`,
               value: industrialAvg != null ? fmtPenceKwh(industrialAvg) : "—",
-              note: "Cash · GB · grounding only · not the chart axis",
+              note: "Mean of the year’s published quarters · cash · GB · the chart below ends on the latest quarter",
             },
           ]
         : view === "regions"
@@ -527,7 +552,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               ]
             : [
               {
-                label: `${regionY} UK reconstruct`,
+                label: `${regionY} United Kingdom`,
                 value: regionRanks.reference != null ? fmtGbpBill(regionRanks.reference.v) : "—",
                 note: `${payment} · ${assumedKwh.toLocaleString("en-GB")} kWh · cash`,
               },
@@ -569,7 +594,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
             ];
 
   const yearOptions = (
-    view === "regions" && regionYearList.length ? regionYearList : activeBillYears.length ? activeBillYears : [latest]
+    view === "regions" && regionYearList.length ? regionYearList : menuYears
   ).map((yy) => ({
     value: String(yy),
     label: String(yy),
@@ -598,21 +623,26 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
 
   const footDefinition =
     view === "shock"
+      ? [
+          "How far prices rose: domestic electricity and gas bills with industrial electricity as multiples of a shared base year (1× = that year), all in cash (nominal) terms — not adjusted for inflation. Legend figures like 1.95× mean nearly twice the base-year level — not pounds, pence or a payment method.",
+          "Cash household bills live on The dissected bill. The second chart here is industry in cash p/kWh (GB manufacturing), one point per quarter: its legend shows the latest quarter, while the figure above it is the selected year’s mean of quarters. Never plotted on the same axis as household £/year.",
+        ]
+      : view === "regions"
         ? [
-            "How far prices rose: domestic electricity and gas bills with industrial electricity as multiples of a shared base year (1× = that year). Legend figures like 1.95× mean nearly twice the base-year level — not pounds, pence or a payment method.",
-            "Cash household bills live on The Dissected Bill. The second chart here is industry in cash p/kWh (GB manufacturing) — never plotted on the same axis as household £/year.",
+            "Geography: ranked bills by published region from the chosen source — DESNZ unit and standing rebuilt into a typical bill, or Ofgem’s price-cap regions.",
+            "DESNZ and Ofgem use different regional cuts. Neither is a postcode tariff.",
           ]
-        : view === "regions"
+        : view === "afford"
           ? [
-              "Geography: bills by published region from the chosen source — DESNZ reconstructed unit and standing, or Ofgem’s price-cap regions. Search and the ranked list cover every published area; the map draws English regions only where names align with ONS English regions.",
-              "DESNZ areas follow PES / LDZ cuts; Ofgem uses charge-restriction regions. They are not the same geography, and neither is a postcode tariff.",
+              billFuel === "economy7"
+                ? "Economy 7’s published typical bill (DESNZ, UK, 4,800 kWh) as a share of average pay, beside the standard single-rate electricity bill for comparison."
+                : "Each fuel’s published typical bill (DESNZ, UK, at its fixed typical use) divided by a year of average pay: the mean of ONS average weekly earnings for the year’s twelve months, times 52.",
+              "Average pay is regular pay per employee before tax, excluding bonuses. It is not household income, and many households have more than one earner or none.",
             ]
-          : view === "afford"
+          : view === "wholesale"
             ? [
-                billFuel === "economy7"
-                  ? "Economy 7’s published typical bill (DESNZ, UK, 4,800 kWh) as a share of average pay, beside the standard single-rate electricity bill for comparison."
-                  : "Each fuel’s published typical bill (DESNZ, UK, at its fixed typical use) divided by a year of average pay: the mean of ONS average weekly earnings for the year’s twelve months, times 52.",
-                "Average pay is regular pay per employee before tax, excluding bonuses. It is not household income, and many households have more than one earner or none.",
+                "Prices paid by major power producers for the fuels they burn to make electricity — not household bills and not the Ofgem price cap.",
+                "Each fuel has its own published unit. Lines are not summed into one fuel cost.",
               ]
             : billFuel === "economy7"
               ? [
@@ -621,31 +651,36 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               : [
                   "An illustrative bill: the standing charge plus the unit rate times the energy you choose to use in a year. Both prices are DESNZ averages across suppliers for the chosen region and way of paying, so the bill is a guide, not any supplier's tariff.",
                   "The published typical bill is DESNZ's own UK figure at a fixed use, shown for reference.",
+                  "Hover or focus a line on the receipt to read what it is; with nothing selected the side panel shows the bill for the year.",
                 ];
 
   const footMethod =
     view === "shock"
+      ? [
+          "Each indexed series is divided by its value in the first shared calendar year (shown as 1×). Industrial index points use the mean of published quarters in each year; the cash industry chart shows the full quarterly series.",
+          "Domestic geography is UK; industry is GB manufacturing, Climate Change Levy excluded. Bill payment and tariff cuts change which domestic bill is indexed — they are not the legend numbers.",
+          "Not an Ofgem price-cap history and not a wholesale gas or power benchmark.",
+        ]
+      : view === "regions"
         ? [
-            "Each indexed series is divided by its value in the first shared calendar year (shown as 1×). Industrial index points use the mean of published quarters in each year; the cash industry chart shows the full quarterly series.",
-            "Domestic geography is UK; industry is GB manufacturing, Climate Change Levy excluded. Bill payment and tariff cuts change which domestic bill is indexed — they are not the legend numbers.",
-            "Not an Ofgem price-cap history and not a wholesale gas or power benchmark.",
+            regionSource === "ofgem"
+              ? "Ofgem figures are Annex 9 default-tariff caps by charge-restriction region, including VAT. Great Britain only — not Northern Ireland."
+              : "DESNZ rebuild = fixed cost + unit rate × typical kWh for the selected payment and year. The United Kingdom dashed reference uses the same method for the UK cut.",
+            "Ranked bars cover every published area in the chosen source. Scotland, Wales and Northern Ireland appear when the publisher includes them.",
           ]
-        : view === "regions"
+        : view === "afford"
           ? [
-              regionSource === "ofgem"
-                ? "Ofgem figures are Annex 9 levelised default-tariff caps by charge-restriction region, including VAT. Great Britain only — not Northern Ireland."
-                : "DESNZ reconstruction = fixed cost + unit rate × typical kWh for the selected payment and year. The United Kingdom dashed reference is the same method for the UK cut.",
-              "The English map is a name alignment for display, not a statistical join of PES, LDZ or Ofgem areas onto ONS English regions. Scotland, Wales, Northern Ireland and cross-border labels stay on the ranked list.",
-              "Source can switch between DESNZ and Ofgem on this tab; more regional series can join the same layout later.",
+              "Both figures are in cash pounds of the same year, so the share needs no inflation adjustment.",
+              "Average pay is for Great Britain; bills are for the United Kingdom. Years without twelve published months of pay are left out.",
+              "Calculated from DESNZ and ONS figures — not an official affordability or fuel-poverty measure.",
             ]
-          : view === "afford"
+          : view === "wholesale"
             ? [
-                "Both figures are in cash pounds of the same year, so the share needs no inflation adjustment.",
-                "Average pay is for Great Britain; bills are for the United Kingdom. Years without twelve published months of pay are left out.",
-                "This is an Exchange calculation from DESNZ and ONS figures, not an official affordability or fuel-poverty measure.",
+                "DESNZ Quarterly Energy Prices table for fuels purchased by major power producers. Periods and units follow the published table.",
+                "Not a household bill, not the Ofgem price cap, and not a spot wholesale market price.",
               ]
             : [
-                `Real cost on the receipt restates cash pounds in ${cpihBase?.year ?? "latest"} prices using the ONS CPIH index (annual average). This is an Exchange calculation, not a DESNZ figure.`,
+                `Real cost on the receipt restates cash pounds in ${cpihBase?.year ?? "latest"} prices using the ONS CPIH index (annual average). Calculated from DESNZ and ONS figures — not a DESNZ published bill.`,
                 "Typical use has changed: DESNZ's typical bills now assume 3,400 kWh of electricity and 11,200 kWh of gas a year (earlier releases used 3,600 kWh for electricity and are not mixed in here). Ofgem's price cap uses its own, lower typical use, so the two are not the same figure.",
                 "Region names changed: electricity prices are published for city areas to 2012 and for regions from 2013; gas switches in 2018. Each year offers only the regions published for it, and a comparison shows a gap where a region is not published in both years.",
                 "Bills include the Energy Price Guarantee from October 2022. They do not deduct the Energy Bills Support Scheme, which gave UK customers £200 of support in 2022.",
@@ -658,25 +693,35 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
 
   const dataHref =
     view === "shock"
-        ? `/data?record=${DOMESTIC_BILLS_ID}`
-        : view === "regions"
-          ? `/data?record=${layersRecordId}`
-          : layersReady
-            ? `/data?record=${layersRecordId}`
-            : `/data?record=${billRecordId}`;
+      ? `/data?record=${DOMESTIC_BILLS_ID}`
+      : view === "wholesale"
+        ? `/data?record=${MPP_FUEL_PRICES_ID}`
+        : view === "afford"
+          ? `/data?record=${NOMINAL_EARNINGS_ID}`
+          : view === "regions"
+            ? regionSource === "ofgem"
+              ? `/data?record=${OFGEM_CAP_REGIONAL_ID}`
+              : `/data?record=${layersRecordId}`
+            : layersReady
+              ? `/data?record=${layersRecordId}`
+              : `/data?record=${billRecordId}`;
 
   const stageTitle =
     view === "shock"
-        ? `How far prices rose · times the ${shock.baseYear ?? "base"} level (1× = that year)`
+        ? `Indexed prices · domestic and industry · cash · ${shock.baseYear ?? "base"} = 1×`
         : view === "afford"
-          ? `What Can You Afford? · ${billFuelLabel} · share of average pay · ${y}`
+          ? affordReady
+            ? `What can you afford? · ${billFuelLabel} · share of average pay · ${y}`
+            : `What can you afford? · ${billFuelLabel} · share of average pay`
           : view === "wholesale"
-            ? `Wholesale fuels · ${MPP_MEASURE_LABEL[mppMeasure]} · generator input prices`
+            ? wholesaleReady
+              ? `Wholesale fuels · ${MPP_MEASURE_LABEL[mppMeasure]} · generator input prices`
+              : "Wholesale fuels · generator input prices"
             : view === "regions"
               ? regionSource === "ofgem"
                 ? `Geography · Ofgem cap · ${OFGEM_MEASURE_LABEL[capMeasure]} · ${ofgemPeriodLabel}`
                 : `Geography · DESNZ · ${billFuelLabel} · ${payment} · ${regionY}`
-              : `The Dissected Bill · ${billFuelLabel} · ${billRegion} · ${y}`;
+              : `The dissected bill · ${billFuelLabel} · ${billRegion} · ${y}`;
 
   const stageMeta =
     view === "shock"
@@ -684,11 +729,11 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
         : view === "afford"
           ? "UK bills · GB average pay before tax · cash"
           : view === "wholesale"
-            ? "DESNZ QEP 3.2.1 · p/kWh · not day-ahead power · not household bills"
+            ? "DESNZ Quarterly Energy Prices · p/kWh · not day-ahead power · not household bills"
             : view === "regions"
               ? regionSource === "ofgem"
-                ? "Map · search · ranked list · Ofgem GB charge-restriction regions"
-                : `Map · search · ranked list · DESNZ @ ${assumedKwh.toLocaleString("en-GB")} kWh`
+                ? "Ranked list · Ofgem GB charge-restriction regions"
+                : `Ranked list · DESNZ @ ${assumedKwh.toLocaleString("en-GB")} kWh`
               : layerRows.length
                 ? `${payment} · ${fmtKwh(billKwh)} a year · published averages · not a supplier tariff`
                 : `Published typical bill · UK · ${fmtKwh(assumedKwh)} a year`;
@@ -699,19 +744,19 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
         views={VIEWS}
         view={view}
         onView={(id) => {
-          // Regional reconstruct needs unit/standing layers — Economy 7 has none.
-          if (id === "regions" && billFuel === "economy7") {
-            sync({ view: id, billFuel: "electricity" });
-            return;
-          }
-          sync({ view: id });
+          // Regional rebuild needs unit/standing layers — Economy 7 has none.
+          // Tariff is only a control on Shock and Afford; reset it elsewhere so Bill stays Overall.
+          const patch: { view: string; billFuel?: BillFuel; tariff?: TariffId } = { view: id };
+          if (id === "regions" && billFuel === "economy7") patch.billFuel = "electricity";
+          if (id !== "shock" && id !== "afford" && tariff !== "All") patch.tariff = "All";
+          sync(patch);
         }}
       />
       {(view === "bill" ||
         view === "shock" ||
         view === "regions" ||
-        view === "afford" ||
-        view === "wholesale") && <FigureStrip figures={figures} />}
+        (view === "afford" && affordReady) ||
+        (view === "wholesale" && wholesaleReady)) && <FigureStrip figures={figures} />}
 
       <ControlRow>
           {(view === "bill" || (view === "regions" && regionSource === "desnz") || view === "afford") &&
@@ -807,7 +852,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
           {(view === "bill" ||
             view === "shock" ||
             (view === "regions" && regionSource === "desnz") ||
-            view === "afford") &&
+            (view === "afford" && affordReady)) &&
             (billReady || view === "shock") && (
               <MenuControl
                 label="Year"
@@ -841,7 +886,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
           {(view === "bill" ||
             view === "shock" ||
             (view === "regions" && regionSource === "desnz") ||
-            view === "afford") &&
+            (view === "afford" && affordReady)) &&
             billReady && (
               <MenuControl
                 label={view === "shock" ? "Bill payment" : "Payment"}
@@ -850,7 +895,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 onChange={(v) => sync({ payment: v as PaymentId })}
               />
             )}
-          {(view === "shock" || view === "afford") && billReady && (
+          {(view === "shock" || (view === "afford" && affordReady)) && billReady && (
             <MenuControl
               label={view === "shock" ? "Bill tariff" : "Tariff"}
               value={tariff}
@@ -880,28 +925,52 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               onChange={(v) => sync({ kwh: Number(v) === assumedKwh ? 0 : Number(v) })}
             />
           )}
-          <ResetButton
-            onClick={() =>
-              sync({
-                year: latest,
-                payment: "Overall",
-                tariff: "All",
-                band: "Average",
-                billFuel: "electricity",
-                capMeasure: "elec_single",
-                region: "",
-                regionSource: "desnz",
-                mppMeasure: "gas_mpp_p_kwh",
-                vs: 0,
-                kwh: 0,
-              })
-            }
-          />
+          {(
+            y !== latest ||
+            payment !== "Overall" ||
+            tariff !== "All" ||
+            band !== "Average" ||
+            billFuel !== "electricity" ||
+            capMeasure !== "elec_single" ||
+            Boolean(region) ||
+            regionSource !== "desnz" ||
+            Boolean(capPeriod) ||
+            mppMeasure !== "gas_mpp_p_kwh" ||
+            vs !== 0 ||
+            billKwh !== assumedKwh
+          ) && (
+            <ResetButton
+              onClick={() =>
+                sync({
+                  year: latest,
+                  payment: "Overall",
+                  tariff: "All",
+                  band: "Average",
+                  billFuel: "electricity",
+                  capMeasure: "elec_single",
+                  capPeriod: "",
+                  region: "",
+                  regionSource: "desnz",
+                  mppMeasure: "gas_mpp_p_kwh",
+                  vs: 0,
+                  kwh: 0,
+                })
+              }
+            />
+          )}
         </ControlRow>
 
       <Stage
         title={stageTitle}
         meta={stageMeta}
+        follow={
+          <EnergyStageFollow
+            domain="prices"
+            view={view}
+            selection={{ year: y }}
+            label={`Prices · ${view}`}
+          />
+        }
         foot={
           <FigureRecord
             source={footSource}
@@ -913,19 +982,21 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
       >
         {!billReady && view !== "shock" && view !== "wholesale" ? (
           <EmptyStage label="Domestic bills unavailable">
-            Load <code>{billRecordId}</code> via the Exchange API or curated CSV under{" "}
-            <code>data/energy/{billRecordId}/</code>.
+            Household bill figures for this selection are not available right now.
           </EmptyStage>
         ) : view === "shock" ? (
           <div className={s.stack}>
             <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Domestic and industry as multiples of {shock.baseYear ?? "the base year"} · cash
+              </h3>
               {!shock.series.length ? (
                 <EmptyStage label="No overlapping years for an index">
                   Need domestic electricity, domestic gas and industrial prices in the same calendar years.
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label={`How far prices rose · times ${shock.baseYear ?? "base"} level`}
+                  label={`How far prices rose · cash prices, times ${shock.baseYear ?? "base"} level`}
                   series={shock.series}
                   cadence="annual"
                   kind="line"
@@ -946,11 +1017,11 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               </h3>
               {!industrialReady || industrialSeries.points.length === 0 ? (
                 <EmptyStage label="Industrial prices unavailable">
-                  Load <code>{INDUSTRIAL_PRICES_ID}</code> (already Ready — do not re-ingest).
+                  Industrial electricity prices are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label={`Industrial electricity price · ${band} · excl. CCL`}
+                  label={`Industrial electricity price · ${band} · cash · excl. CCL`}
                   series={[industrialSeries]}
                   cadence="quarterly"
                   kind="line"
@@ -987,7 +1058,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               </h3>
               {!layersReady || regionRanks.rows.length === 0 ? (
                 <EmptyStage label="Regional layers unavailable">
-                  Load unit and standing for {billFuel}, or choose a year and payment with regional cuts.
+                  Regional bills are not available for this fuel, year and payment method. Choose another year or payment method.
                 </EmptyStage>
               ) : (
                 <RankBars
@@ -1006,69 +1077,94 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
         ) : view === "wholesale" ? (
           <div className={s.stack}>
             <section className={s.panel}>
-              {wholesaleSeries.points.length === 0 ? (
-                <EmptyStage label="No prices for this fuel">Choose another fuel.</EmptyStage>
+              {!wholesaleReady ? (
+                <EmptyStage label="Wholesale fuel prices unavailable">
+                  Prices paid by major power producers are not available right now.
+                </EmptyStage>
+              ) : wholesaleSeries.points.length === 0 ? (
+                <>
+                  <h3 className={t.stageTitle}>
+                    {MPP_MEASURE_LABEL[mppMeasure]} · price paid by power stations
+                  </h3>
+                  <EmptyStage label="No prices for this fuel">
+                    Choose another fuel from the control above.
+                  </EmptyStage>
+                </>
               ) : (
-                <TimeChart
-                  key={`wholesale-${mppMeasure}`}
-                  label={`${MPP_MEASURE_LABEL[mppMeasure]}, price paid by power stations`}
-                  series={[wholesaleSeries]}
-                  cadence="quarterly"
-                  kind="line"
-                  format={(v) => fmtPenceKwh(v)}
-                  showTable={false}
-                />
+                <>
+                  <h3 className={t.stageTitle}>
+                    {MPP_MEASURE_LABEL[mppMeasure]} · price paid by power stations · p/kWh
+                  </h3>
+                  <TimeChart
+                    key={`wholesale-${mppMeasure}`}
+                    label={`${MPP_MEASURE_LABEL[mppMeasure]}, price paid by power stations`}
+                    series={[wholesaleSeries]}
+                    cadence="quarterly"
+                    kind="line"
+                    format={(v) => fmtPenceKwh(v)}
+                  />
+                </>
               )}
             </section>
           </div>
         ) : view === "afford" ? (
-          <div className={s.stack}>
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>
-                {billFuel === "economy7"
-                  ? `Economy 7 and standard electricity as a share of average pay · ${payment} · %`
-                  : billFuel === "gas"
-                    ? `Gas and electricity as a share of average pay · ${payment} · %`
-                    : `Electricity and gas as a share of average pay · ${payment} · %`}
-              </h3>
-              {affordSeries.every((sr) => sr.points.length === 0) ? (
-                <EmptyStage label="No matching years">Average pay is published for full years from 2000.</EmptyStage>
-              ) : (
-                <TimeChart
-                  key={`afford-${billFuel}-${payment}-${tariff}`}
-                  label={
-                    billFuel === "economy7"
-                      ? "Economy 7 and standard electricity bills as a share of average pay"
-                      : "Typical electricity and gas bills as a share of average pay"
-                  }
-                  series={affordSeries.filter((sr) => sr.points.length > 0)}
-                  cadence="annual"
-                  kind="line"
-                  marks
-                  zero
-                  format={(v) => `${v.toFixed(1)}%`}
-                  rules={[{ id: "year", t: y, label: String(y), active: true }]}
-                />
-              )}
-            </section>
-            {affordByPayment.length > 0 && (
+          !affordReady ? (
+            <EmptyStage label="Average pay unavailable">
+              Share-of-pay needs a full calendar year of ONS average weekly earnings beside the bill
+              series. That pay series is not available here yet.
+            </EmptyStage>
+          ) : (
+            <div className={s.stack}>
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
-                  By way of paying · {billFuelLabel} · {y} · share of average pay
+                  {billFuel === "economy7"
+                    ? `Economy 7 and standard electricity as a share of average pay · ${payment} · %`
+                    : billFuel === "gas"
+                      ? `Gas and electricity as a share of average pay · ${payment} · %`
+                      : `Electricity and gas as a share of average pay · ${payment} · %`}
                 </h3>
-                <RankBars
-                  key={`afford-pay-${billFuel}-${y}-${tariff}`}
-                  label={`Typical ${billFuelLabel} bill as a share of average pay by payment method, ${y}`}
-                  rows={affordByPayment}
-                  format={(v) => `${v.toFixed(1)}%`}
-                />
+                {affordSeries.every((sr) => sr.points.length === 0) ? (
+                  <EmptyStage label="No matching years">
+                    Average pay is published for full years from 2000. Choose another year or payment
+                    cut.
+                  </EmptyStage>
+                ) : (
+                  <TimeChart
+                    key={`afford-${billFuel}-${payment}-${tariff}`}
+                    label={
+                      billFuel === "economy7"
+                        ? "Economy 7 and standard electricity bills as a share of average pay"
+                        : "Typical electricity and gas bills as a share of average pay"
+                    }
+                    series={affordSeries.filter((sr) => sr.points.length > 0)}
+                    cadence="annual"
+                    kind="line"
+                    marks
+                    zero
+                    format={(v) => `${v.toFixed(1)}%`}
+                    rules={[{ id: "year", t: y, label: String(y), active: true }]}
+                  />
+                )}
               </section>
-            )}
-          </div>
+              {affordByPayment.length > 0 && (
+                <section className={s.panel}>
+                  <h3 className={t.stageTitle}>
+                    By way of paying · {billFuelLabel} · {y} · share of average pay
+                  </h3>
+                  <RankBars
+                    key={`afford-pay-${billFuel}-${y}-${tariff}`}
+                    label={`Typical ${billFuelLabel} bill as a share of average pay by payment method, ${y}`}
+                    rows={affordByPayment}
+                    format={(v) => `${v.toFixed(1)}%`}
+                  />
+                </section>
+              )}
+            </div>
+          )
         ) : billSeries.points.length === 0 ? (
-          <EmptyStage label="No bill points for this payment and tariff">
-            Fixed and Variable tariff splits are published from 2022. Switch Tariff to All, or choose a year
-            from 2022 onward.
+          <EmptyStage label="No bill points for this payment">
+            Fixed and Variable tariff splits are published from 2022. Choose Overall payment, or a year from
+            2022 onward.
           </EmptyStage>
         ) : (
           <div className={s.stack}>

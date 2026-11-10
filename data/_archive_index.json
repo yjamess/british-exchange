@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-09T18:56:01.996207+00:00",
+  "updated_at": "2026-11-10T14:39:57.998669+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -12,6 +12,215 @@
       "compression": null,
       "stored_size": null,
       "stored_checksum_sha256": null
+    },
+    {
+      "path": "data/energy/electricity-generation-long-run/curated/observations.csv",
+      "size": 138048,
+      "checksum_sha256": "a1280ee652c90b08ea45f2c91c5d5ee694a712d9aa94ecbac7ac8c5ff140b0b3",
+      "storage_key": "energy/electricity-generation-long-run/curated/observations.csv",
+      "uploaded_at": "2026-11-09T20:05:17.294972+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 138048,
+      "stored_checksum_sha256": "a1280ee652c90b08ea45f2c91c5d5ee694a712d9aa94ecbac7ac8c5ff140b0b3"
+    },
+    {
+      "path": "data/energy/electricity-generation-long-run/curated/station-history.json",
+      "size": 318538,
+      "checksum_sha256": "3d3817f62d802e62db23ee603913d06e5ba26090862478a7b43c03279836d31e",
+      "storage_key": "energy/electricity-generation-long-run/curated/station-history.json",
+      "uploaded_at": "2026-11-09T20:05:16.435523+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 318538,
+      "stored_checksum_sha256": "3d3817f62d802e62db23ee603913d06e5ba26090862478a7b43c03279836d31e"
+    },
+    {
+      "path": "data/energy/energy-imports-security/shock-events.json",
+      "size": 6254,
+      "checksum_sha256": "be4c2e1931870b61c26a51c58e6d2b1d43881787e937f88f816feb36e688def4",
+      "storage_key": "energy/energy-imports-security/shock-events.json",
+      "uploaded_at": "2026-11-10T02:57:53.425794+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 6254,
+      "stored_checksum_sha256": "be4c2e1931870b61c26a51c58e6d2b1d43881787e937f88f816feb36e688def4"
+    },
+    {
+      "path": "data/energy/industrial-policy/events.json",
+      "size": 20304,
+      "checksum_sha256": "5e0ab4318a796d6628029a8e9951447a2e16b768ef46ec3a3cb609346028a2ae",
+      "storage_key": "energy/industrial-policy/events.json",
+      "uploaded_at": "2026-11-10T02:57:46.004721+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 20304,
+      "stored_checksum_sha256": "5e0ab4318a796d6628029a8e9951447a2e16b768ef46ec3a3cb609346028a2ae"
+    },
+    {
+      "path": "data/energy/manufacturing-iop-by-division/curated/annual_means.json",
+      "size": 1014476,
+      "checksum_sha256": "baf158f560a986fbff3066e4635df45c959895adbb1f9a9a291e41ddab9b9027",
+      "storage_key": "energy/manufacturing-iop-by-division/curated/annual_means.json",
+      "uploaded_at": "2026-11-10T01:22:17.532480+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1014476,
+      "stored_checksum_sha256": "baf158f560a986fbff3066e4635df45c959895adbb1f9a9a291e41ddab9b9027"
+    },
+    {
+      "path": "data/energy/manufacturing-iop-by-division/curated/weights.json",
+      "size": 633248,
+      "checksum_sha256": "aec8c61453d33a14bf9590b1bc86e7c132d43fd5557a316c05ac7b1a8fcdb2c6",
+      "storage_key": "energy/manufacturing-iop-by-division/curated/weights.json",
+      "uploaded_at": "2026-11-10T01:30:23.402782+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 633248,
+      "stored_checksum_sha256": "aec8c61453d33a14bf9590b1bc86e7c132d43fd5557a316c05ac7b1a8fcdb2c6"
+    },
+    {
+      "path": "data/energy/nsta-field-production/curated/annual_by_field.csv",
+      "size": 1261173,
+      "checksum_sha256": "c88e8b90a72aa8e2226627c8b21d10eb1211de2960cc6e1dd9f586864ebfcef0",
+      "storage_key": "energy/nsta-field-production/curated/annual_by_field.csv",
+      "uploaded_at": "2026-11-09T20:05:25.402928+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1261173,
+      "stored_checksum_sha256": "c88e8b90a72aa8e2226627c8b21d10eb1211de2960cc6e1dd9f586864ebfcef0"
+    },
+    {
+      "path": "data/energy/nsta-ukcs-fields/curated/atlas_points.json",
+      "size": 154885,
+      "checksum_sha256": "28de460d26881edeaf6fad9b657dd239857b3061570939e6e3d32878ab7db117",
+      "storage_key": "energy/nsta-ukcs-fields/curated/atlas_points.json",
+      "uploaded_at": "2026-11-09T20:05:23.972639+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 154885,
+      "stored_checksum_sha256": "28de460d26881edeaf6fad9b657dd239857b3061570939e6e3d32878ab7db117"
+    },
+    {
+      "path": "data/energy/ofgem-default-tariff-cap/curated/components.json",
+      "size": 2588232,
+      "checksum_sha256": "6afd3618fdcee663a6c9b4cdcf1cc1d02da7a431975e29eadbc7630ea22a079b",
+      "storage_key": "energy/ofgem-default-tariff-cap/curated/components.json",
+      "uploaded_at": "2026-11-09T20:05:22.986936+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 2588232,
+      "stored_checksum_sha256": "6afd3618fdcee663a6c9b4cdcf1cc1d02da7a431975e29eadbc7630ea22a079b"
+    },
+    {
+      "path": "data/energy/primary-energy-flow-allocation/curated/assumed_efficiencies.json",
+      "size": 61007,
+      "checksum_sha256": "c9bb0c78027c60cf7aa75f3291b974ab63f382b4283e81133e2e4b2bc97cc03b",
+      "storage_key": "energy/primary-energy-flow-allocation/curated/assumed_efficiencies.json",
+      "uploaded_at": "2026-11-09T20:05:18.413598+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 61007,
+      "stored_checksum_sha256": "c9bb0c78027c60cf7aa75f3291b974ab63f382b4283e81133e2e4b2bc97cc03b"
+    },
+    {
+      "path": "data/energy/renewable-energy-planning-operational/curated/atlas.json",
+      "size": 1079197,
+      "checksum_sha256": "e44ace4b087572dc802913d476553f636f3eeddf77ac845d34eef1bce5d4c9c2",
+      "storage_key": "energy/renewable-energy-planning-operational/curated/atlas.json",
+      "uploaded_at": "2026-11-09T20:05:14.911825+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1079197,
+      "stored_checksum_sha256": "e44ace4b087572dc802913d476553f636f3eeddf77ac845d34eef1bce5d4c9c2"
+    },
+    {
+      "path": "data/energy/ssen-dno-pilot/curated/atlas.json",
+      "size": 5600179,
+      "checksum_sha256": "38d9d2289482f97c0070f6ef9baab67a0a667f8b04c01ddc53827e9223e8ae84",
+      "storage_key": "energy/ssen-dno-pilot/curated/atlas.json",
+      "uploaded_at": "2026-11-09T23:54:44.210872+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 5600179,
+      "stored_checksum_sha256": "38d9d2289482f97c0070f6ef9baab67a0a667f8b04c01ddc53827e9223e8ae84"
+    },
+    {
+      "path": "data/energy/ssen-dno-pilot/curated/spatial_meta.json",
+      "size": 1087,
+      "checksum_sha256": "a0f68a0a196e6558628e13d954b5543390dc1c3cbf1a7dd2504b74b253493559",
+      "storage_key": "energy/ssen-dno-pilot/curated/spatial_meta.json",
+      "uploaded_at": "2026-11-09T23:55:04.316271+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1087,
+      "stored_checksum_sha256": "a0f68a0a196e6558628e13d954b5543390dc1c3cbf1a7dd2504b74b253493559"
+    },
+    {
+      "path": "data/energy/ssen-dno-pilot/raw/2026-11-09/overhead-lines-nov-1-2026.csv",
+      "size": 40776531,
+      "checksum_sha256": "132740b30562358922e81f3b22d1e973afa329908c5272b6138da22024b7f768",
+      "storage_key": "energy/ssen-dno-pilot/raw/2026-11-09/overhead-lines-nov-1-2026.csv",
+      "uploaded_at": "2026-11-09T23:54:24.473571+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 40776531,
+      "stored_checksum_sha256": "132740b30562358922e81f3b22d1e973afa329908c5272b6138da22024b7f768"
+    },
+    {
+      "path": "data/energy/ssen-dno-pilot/raw/2026-11-09/retrieval.json",
+      "size": 1617,
+      "checksum_sha256": "3827e70365f082d3f37b6de3c67d6199f9a2bab7545b6a0dcbe88ea76e966ac4",
+      "storage_key": "energy/ssen-dno-pilot/raw/2026-11-09/retrieval.json",
+      "uploaded_at": "2026-11-09T23:54:24.966644+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1617,
+      "stored_checksum_sha256": "3827e70365f082d3f37b6de3c67d6199f9a2bab7545b6a0dcbe88ea76e966ac4"
+    },
+    {
+      "path": "data/energy/ssen-dno-pilot/raw/2026-11-09/substation-locations-nov-2026.csv",
+      "size": 18202223,
+      "checksum_sha256": "6eb19abd1fe18a265dc1e10e8cab408aff30d9f72f26145d53db8e1e3b2f9025",
+      "storage_key": "energy/ssen-dno-pilot/raw/2026-11-09/substation-locations-nov-2026.csv",
+      "uploaded_at": "2026-11-09T23:54:38.404982+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 18202223,
+      "stored_checksum_sha256": "6eb19abd1fe18a265dc1e10e8cab408aff30d9f72f26145d53db8e1e3b2f9025"
+    },
+    {
+      "path": "data/energy/subnational-final-consumption/curated/authorities.json",
+      "size": 1137712,
+      "checksum_sha256": "5c9772cb441fc45ba130d91a25ebbeb373b7355e77cc5b0561235fec1abecb09",
+      "storage_key": "energy/subnational-final-consumption/curated/authorities.json",
+      "uploaded_at": "2026-11-09T20:05:20.796521+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1137712,
+      "stored_checksum_sha256": "5c9772cb441fc45ba130d91a25ebbeb373b7355e77cc5b0561235fec1abecb09"
+    },
+    {
+      "path": "data/energy/subnational-final-consumption/curated/geography.json",
+      "size": 49925,
+      "checksum_sha256": "34ad2068a6e605c29165a0618841f12fa54b35f00ff74ed951cadf5415c4941b",
+      "storage_key": "energy/subnational-final-consumption/curated/geography.json",
+      "uploaded_at": "2026-11-09T20:05:19.422323+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 49925,
+      "stored_checksum_sha256": "34ad2068a6e605c29165a0618841f12fa54b35f00ff74ed951cadf5415c4941b"
+    },
+    {
+      "path": "data/energy/uk-power-stations-dukes/curated/stations.json",
+      "size": 67990,
+      "checksum_sha256": "4c7ea4099029f26214dac61fb6a28dd8a8e8d0779046571f61810a479c69f0e2",
+      "storage_key": "energy/uk-power-stations-dukes/curated/stations.json",
+      "uploaded_at": "2026-11-09T20:05:15.599743+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 67990,
+      "stored_checksum_sha256": "4c7ea4099029f26214dac61fb6a28dd8a8e8d0779046571f61810a479c69f0e2"
     },
     {
       "path": "data/history/bank-of-england-millennium-gdp/raw/2026-11-03/a-millennium-of-macroeconomic-data-for-the-uk.xlsx",
@@ -47,6 +256,61 @@
       "stored_checksum_sha256": "4c23dd392a498691eac92659aec283fb43f28118bd80511dc87fc595974195eb"
     },
     {
+      "path": "data/housing/affordable-homes-programme-delivery/curated/observations.csv",
+      "size": 26648,
+      "checksum_sha256": "10498444bed87df28710b2790ef9b8419bbab7df30eabcf95e25cbea9209df1a",
+      "storage_key": "housing/affordable-homes-programme-delivery/curated/observations.csv",
+      "uploaded_at": "2026-11-10T11:19:20.548336+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 26648,
+      "stored_checksum_sha256": "10498444bed87df28710b2790ef9b8419bbab7df30eabcf95e25cbea9209df1a"
+    },
+    {
+      "path": "data/housing/affordable-homes-programme-delivery/raw/2026-11-10/GLA_stats_general_programmes_Q1_2026-27.xlsx",
+      "size": 125787,
+      "checksum_sha256": "768f0196df59d4214116db7724b26f0ea7bd0c7757d0d760170bc11e555a95fb",
+      "storage_key": "housing/affordable-homes-programme-delivery/raw/2026-11-10/GLA_stats_general_programmes_Q1_2026-27.xlsx",
+      "uploaded_at": "2026-11-10T11:19:20.766288+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 125787,
+      "stored_checksum_sha256": "768f0196df59d4214116db7724b26f0ea7bd0c7757d0d760170bc11e555a95fb"
+    },
+    {
+      "path": "data/housing/affordable-homes-programme-delivery/raw/2026-11-10/Housing_Statistics_tables_June_2026.ods",
+      "size": 494504,
+      "checksum_sha256": "82a7c4a62d763e596f09d855112a931ca1a695228f9f5c09f9aa8aefac62c8ce",
+      "storage_key": "housing/affordable-homes-programme-delivery/raw/2026-11-10/Housing_Statistics_tables_June_2026.ods",
+      "uploaded_at": "2026-11-10T11:19:21.353740+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 494504,
+      "stored_checksum_sha256": "82a7c4a62d763e596f09d855112a931ca1a695228f9f5c09f9aa8aefac62c8ce"
+    },
+    {
+      "path": "data/housing/affordable-homes-programme-delivery/raw/2026-11-10/ahp_annual_report_2024-25.json",
+      "size": 41765,
+      "checksum_sha256": "8384cab5ae3cb3a3dcbc96175d26a1689f6ca179a6be0d50795d2b81cb74d0de",
+      "storage_key": "housing/affordable-homes-programme-delivery/raw/2026-11-10/ahp_annual_report_2024-25.json",
+      "uploaded_at": "2026-11-10T11:19:21.698384+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 41765,
+      "stored_checksum_sha256": "8384cab5ae3cb3a3dcbc96175d26a1689f6ca179a6be0d50795d2b81cb74d0de"
+    },
+    {
+      "path": "data/housing/article-4-direction-area/raw/2026-11-10/article-4-direction-area.csv",
+      "size": 24146018,
+      "checksum_sha256": "2641ec4b85c6876307b44fb6d10b2d6f0ed254f9021cfdd36e78a037b09c0f2f",
+      "storage_key": "housing/article-4-direction-area/raw/2026-11-10/article-4-direction-area.csv",
+      "uploaded_at": "2026-11-10T13:10:35.731103+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 24146018,
+      "stored_checksum_sha256": "2641ec4b85c6876307b44fb6d10b2d6f0ed254f9021cfdd36e78a037b09c0f2f"
+    },
+    {
       "path": "data/housing/brownfield-land/raw/2026-11-04/brownfield-land.csv",
       "size": 31754206,
       "checksum_sha256": "91023750fcfa10994311bdef6f1f1b240fedb197e001edecad1ba46c9977eef6",
@@ -58,15 +322,59 @@
       "stored_checksum_sha256": "91023750fcfa10994311bdef6f1f1b240fedb197e001edecad1ba46c9977eef6"
     },
     {
+      "path": "data/housing/corporate-owned-titles/curated/observations.csv",
+      "size": 180305,
+      "checksum_sha256": "9783f365da143d71187a669eaa8cb628136bf3eb3b628565df7555b6f18bf9f6",
+      "storage_key": "housing/corporate-owned-titles/curated/observations.csv",
+      "uploaded_at": "2026-11-10T13:22:07.444129+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 180305,
+      "stored_checksum_sha256": "9783f365da143d71187a669eaa8cb628136bf3eb3b628565df7555b6f18bf9f6"
+    },
+    {
+      "path": "data/housing/corporate-owned-titles/raw/ons-lad-dec-2024.json",
+      "size": 29472,
+      "checksum_sha256": "4696854dddb37cfa2b42015e81cc92f674992b38bf6d8c99468017a485c2a21e",
+      "storage_key": "housing/corporate-owned-titles/raw/ons-lad-dec-2024.json",
+      "uploaded_at": "2026-11-10T13:22:07.865536+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 29472,
+      "stored_checksum_sha256": "4696854dddb37cfa2b42015e81cc92f674992b38bf6d8c99468017a485c2a21e"
+    },
+    {
       "path": "data/housing/dwelling-stock-by-district/curated/observations.csv",
       "size": 5327646,
       "checksum_sha256": "1ebcb57685136dc5a1b8bb390998233536f531ea6f1270ed6f661f30ee2896ff",
       "storage_key": "housing/dwelling-stock-by-district/curated/observations.csv",
-      "uploaded_at": "2026-11-07T16:23:44.868746+00:00",
-      "local_deleted": true,
+      "uploaded_at": "2026-11-10T14:37:19.987413+00:00",
+      "local_deleted": false,
       "compression": null,
       "stored_size": 5327646,
       "stored_checksum_sha256": "1ebcb57685136dc5a1b8bb390998233536f531ea6f1270ed6f661f30ee2896ff"
+    },
+    {
+      "path": "data/housing/ehs-housing-costs-by-age/curated/costs-by-age.json",
+      "size": 46590,
+      "checksum_sha256": "943d8d051658446bee1d7485415bd7bb982d39c5bd56183937174f644f7bb16b",
+      "storage_key": "housing/ehs-housing-costs-by-age/curated/costs-by-age.json",
+      "uploaded_at": "2026-11-10T14:37:11.409382+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 46590,
+      "stored_checksum_sha256": "943d8d051658446bee1d7485415bd7bb982d39c5bd56183937174f644f7bb16b"
+    },
+    {
+      "path": "data/housing/ehs-mortgage-by-age/curated/by-age.json",
+      "size": 4631,
+      "checksum_sha256": "8df0a7f3355a6e68d06e9d075140e6435da6e9a403ce718f1b28e9f28aabf356",
+      "storage_key": "housing/ehs-mortgage-by-age/curated/by-age.json",
+      "uploaded_at": "2026-11-09T20:11:36.898160+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 4631,
+      "stored_checksum_sha256": "8df0a7f3355a6e68d06e9d075140e6435da6e9a403ce718f1b28e9f28aabf356"
     },
     {
       "path": "data/housing/epc-domestic-lodgements-by-local-authority/curated/observations.csv",
@@ -91,6 +399,149 @@
       "stored_checksum_sha256": "8c53017de690dcb7d80aee9a8de3569e1a11d95c04c235a4cc149e45fd970ac4"
     },
     {
+      "path": "data/housing/help-to-buy-equity-loan/curated/observations.csv",
+      "size": 215263,
+      "checksum_sha256": "fbc6036695e59e9729d0f38ac649c91a7e20047429720fe7801c699063591cf5",
+      "storage_key": "housing/help-to-buy-equity-loan/curated/observations.csv",
+      "uploaded_at": "2026-11-10T10:32:25.595508+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 215263,
+      "stored_checksum_sha256": "fbc6036695e59e9729d0f38ac649c91a7e20047429720fe7801c699063591cf5"
+    },
+    {
+      "path": "data/housing/help-to-buy-equity-loan/raw/2026-11-10/Help_to_Buy_Tables.ods",
+      "size": 836563,
+      "checksum_sha256": "1e979a1ff8ff66eef5d5d8d622c63d689d05139f9a2567f3af6dca6eeb567576",
+      "storage_key": "housing/help-to-buy-equity-loan/raw/2026-11-10/Help_to_Buy_Tables.ods",
+      "uploaded_at": "2026-11-10T10:32:26.134760+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 836563,
+      "stored_checksum_sha256": "1e979a1ff8ff66eef5d5d8d622c63d689d05139f9a2567f3af6dca6eeb567576"
+    },
+    {
+      "path": "data/housing/house-building-completions-by-country/curated/observations.csv",
+      "size": 708904,
+      "checksum_sha256": "5d86f90404cd2507700569dbf58a51cdc0b4525c3dc9eab2fbd21111a1527537",
+      "storage_key": "housing/house-building-completions-by-country/curated/observations.csv",
+      "uploaded_at": "2026-11-10T10:59:36.145108+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 708904,
+      "stored_checksum_sha256": "5d86f90404cd2507700569dbf58a51cdc0b4525c3dc9eab2fbd21111a1527537"
+    },
+    {
+      "path": "data/housing/house-building-completions-by-country/raw/2026-11-10/indicatorsofukhousebuilding.xlsx",
+      "size": 247348,
+      "checksum_sha256": "6529e7b782309cbdf76ca39017174e12ad2a9a205d1d4bd89d073682986e14b8",
+      "storage_key": "housing/house-building-completions-by-country/raw/2026-11-10/indicatorsofukhousebuilding.xlsx",
+      "uploaded_at": "2026-11-10T10:59:36.797625+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 247348,
+      "stored_checksum_sha256": "6529e7b782309cbdf76ca39017174e12ad2a9a205d1d4bd89d073682986e14b8"
+    },
+    {
+      "path": "data/housing/house-price-to-earnings-ratio/curated/afford-atlas.json",
+      "size": 77188,
+      "checksum_sha256": "1c7524700bd37bd40478de43b3ece0ecdd40b317d54356e49d95bb089b534ddc",
+      "storage_key": "housing/house-price-to-earnings-ratio/curated/afford-atlas.json",
+      "uploaded_at": "2026-11-09T20:11:36.247187+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 77188,
+      "stored_checksum_sha256": "1c7524700bd37bd40478de43b3ece0ecdd40b317d54356e49d95bb089b534ddc"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-average.json",
+      "size": 986435,
+      "checksum_sha256": "eceb483b17d622ba0c5b923b363fcb2f2e0ebf57cd5348dfb32c429392aa8f3e",
+      "storage_key": "housing/housing-atlas/curated/atlas-average.json",
+      "uploaded_at": "2026-11-09T20:11:24.729084+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 986435,
+      "stored_checksum_sha256": "eceb483b17d622ba0c5b923b363fcb2f2e0ebf57cd5348dfb32c429392aa8f3e"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-detached.json",
+      "size": 1000970,
+      "checksum_sha256": "55285b14568f3a9cfb3be85f5a30b49732fe29508b9e603570ac02d477af972c",
+      "storage_key": "housing/housing-atlas/curated/atlas-detached.json",
+      "uploaded_at": "2026-11-09T20:11:26.074620+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1000970,
+      "stored_checksum_sha256": "55285b14568f3a9cfb3be85f5a30b49732fe29508b9e603570ac02d477af972c"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-existing.json",
+      "size": 978125,
+      "checksum_sha256": "2247dd80f7d1a44f74bcdf3057abba4efac6ad363515c6bffbe4e25ad0f87464",
+      "storage_key": "housing/housing-atlas/curated/atlas-existing.json",
+      "uploaded_at": "2026-11-09T20:11:32.708252+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 978125,
+      "stored_checksum_sha256": "2247dd80f7d1a44f74bcdf3057abba4efac6ad363515c6bffbe4e25ad0f87464"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-flat.json",
+      "size": 944233,
+      "checksum_sha256": "fead40b952c4e8da1b759301cacf23125d6e5efc3128ef0f7c34c8335568d190",
+      "storage_key": "housing/housing-atlas/curated/atlas-flat.json",
+      "uploaded_at": "2026-11-09T20:11:30.032462+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 944233,
+      "stored_checksum_sha256": "fead40b952c4e8da1b759301cacf23125d6e5efc3128ef0f7c34c8335568d190"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-new-build.json",
+      "size": 985627,
+      "checksum_sha256": "5199eae37441661b30ba1fb8d32de48e39b1c1366a9960da181fa129b12cd061",
+      "storage_key": "housing/housing-atlas/curated/atlas-new-build.json",
+      "uploaded_at": "2026-11-09T20:11:31.538756+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 985627,
+      "stored_checksum_sha256": "5199eae37441661b30ba1fb8d32de48e39b1c1366a9960da181fa129b12cd061"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-sales-volume.json",
+      "size": 598001,
+      "checksum_sha256": "7dabef4fcc3f3f9e4ca3ae6f33edffe8dd71e73dc91b6ebc34d45dc47e43af21",
+      "storage_key": "housing/housing-atlas/curated/atlas-sales-volume.json",
+      "uploaded_at": "2026-11-09T20:11:33.809060+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 598001,
+      "stored_checksum_sha256": "7dabef4fcc3f3f9e4ca3ae6f33edffe8dd71e73dc91b6ebc34d45dc47e43af21"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-semi-detached.json",
+      "size": 983414,
+      "checksum_sha256": "64a77b92c16a98d2e67f70f2d9a30b2c7259beec5c06a722f132132ee3ac171f",
+      "storage_key": "housing/housing-atlas/curated/atlas-semi-detached.json",
+      "uploaded_at": "2026-11-09T20:11:27.420814+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 983414,
+      "stored_checksum_sha256": "64a77b92c16a98d2e67f70f2d9a30b2c7259beec5c06a722f132132ee3ac171f"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/atlas-terraced.json",
+      "size": 966689,
+      "checksum_sha256": "1db975e88180b1dc0ecc41dbb50e64c9ae726395b1870dcce2a5547818cf02b2",
+      "storage_key": "housing/housing-atlas/curated/atlas-terraced.json",
+      "uploaded_at": "2026-11-09T20:11:28.630592+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 966689,
+      "stored_checksum_sha256": "1db975e88180b1dc0ecc41dbb50e64c9ae726395b1870dcce2a5547818cf02b2"
+    },
+    {
       "path": "data/housing/housing-atlas/curated/atlas.json",
       "size": 7260045,
       "checksum_sha256": "4ce07cf7faac51bb5f2307aa768fc39fdd8c1a17dfd2492a6c81d12f5e7fe75d",
@@ -100,6 +551,127 @@
       "compression": null,
       "stored_size": 7260045,
       "stored_checksum_sha256": "4ce07cf7faac51bb5f2307aa768fc39fdd8c1a17dfd2492a6c81d12f5e7fe75d"
+    },
+    {
+      "path": "data/housing/housing-atlas/curated/topics.json",
+      "size": 26794,
+      "checksum_sha256": "64e24f7e7a468c6d3f151785e1ce26a0f535e1069d2c2ff863a08573ff1a8c7e",
+      "storage_key": "housing/housing-atlas/curated/topics.json",
+      "uploaded_at": "2026-11-09T20:11:34.387654+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 26794,
+      "stored_checksum_sha256": "64e24f7e7a468c6d3f151785e1ce26a0f535e1069d2c2ff863a08573ff1a8c7e"
+    },
+    {
+      "path": "data/housing/parliament-housing-milestones/curated/observations.csv",
+      "size": 16637,
+      "checksum_sha256": "b6fddd2b29a19f07d8bbc5f3baa4bd2da9f5c55eed2b6de2c162783de19fdc9f",
+      "storage_key": "housing/parliament-housing-milestones/curated/observations.csv",
+      "uploaded_at": "2026-11-10T10:37:09.107215+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 16637,
+      "stored_checksum_sha256": "b6fddd2b29a19f07d8bbc5f3baa4bd2da9f5c55eed2b6de2c162783de19fdc9f"
+    },
+    {
+      "path": "data/housing/parliament-housing-milestones/raw/2026-11-10/indicators_of_new_supply_2026_q2.json",
+      "size": 67648,
+      "checksum_sha256": "ad238395050c6bbde385d7c298cfb66c4b3fe7a27a13049c430f9e899a78b71f",
+      "storage_key": "housing/parliament-housing-milestones/raw/2026-11-10/indicators_of_new_supply_2026_q2.json",
+      "uploaded_at": "2026-11-10T10:37:09.416898+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 67648,
+      "stored_checksum_sha256": "ad238395050c6bbde385d7c298cfb66c4b3fe7a27a13049c430f9e899a78b71f"
+    },
+    {
+      "path": "data/housing/parliament-housing-milestones/raw/2026-11-10/measuring_progress_one_million_homes.json",
+      "size": 19162,
+      "checksum_sha256": "6a075e73ae560786eb2303ce94ece14eaeb5b5ad6248dd89b1ae887368b30842",
+      "storage_key": "housing/parliament-housing-milestones/raw/2026-11-10/measuring_progress_one_million_homes.json",
+      "uploaded_at": "2026-11-10T10:37:09.735075+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 19162,
+      "stored_checksum_sha256": "6a075e73ae560786eb2303ce94ece14eaeb5b5ad6248dd89b1ae887368b30842"
+    },
+    {
+      "path": "data/housing/planning-layers/curated/authorities.json",
+      "size": 18032,
+      "checksum_sha256": "4ab1e7a8889f316e489870826c4863e147ecc848495bdef4a7fee83e37b0f848",
+      "storage_key": "housing/planning-layers/curated/authorities.json",
+      "uploaded_at": "2026-11-09T20:11:38.206953+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 18032,
+      "stored_checksum_sha256": "4ab1e7a8889f316e489870826c4863e147ecc848495bdef4a7fee83e37b0f848"
+    },
+    {
+      "path": "data/housing/planning-layers/curated/index.json",
+      "size": 7324,
+      "checksum_sha256": "787c0e4e22aa53394059d08ab32d7f83baacec3fc695fe72a0b8f03e0bb9832e",
+      "storage_key": "housing/planning-layers/curated/index.json",
+      "uploaded_at": "2026-11-09T20:11:38.829271+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 7324,
+      "stored_checksum_sha256": "787c0e4e22aa53394059d08ab32d7f83baacec3fc695fe72a0b8f03e0bb9832e"
+    },
+    {
+      "path": "data/housing/policy-events/archive.json",
+      "size": 25075,
+      "checksum_sha256": "24274a0c7dba931d438ec9a255312051f8b40fa1e5929780946420ded1d56556",
+      "storage_key": "housing/policy-events/archive.json",
+      "uploaded_at": "2026-11-10T14:37:14.223938+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 25075,
+      "stored_checksum_sha256": "24274a0c7dba931d438ec9a255312051f8b40fa1e5929780946420ded1d56556"
+    },
+    {
+      "path": "data/housing/policy-events/events.json",
+      "size": 127449,
+      "checksum_sha256": "1d5ef70c1a01412829c0c66af6c68b6d157d6747b1bf29c8c8866c486f37f64e",
+      "storage_key": "housing/policy-events/events.json",
+      "uploaded_at": "2026-11-10T14:37:14.585007+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 127449,
+      "stored_checksum_sha256": "1d5ef70c1a01412829c0c66af6c68b6d157d6747b1bf29c8c8866c486f37f64e"
+    },
+    {
+      "path": "data/housing/policy-events/plates.json",
+      "size": 8995,
+      "checksum_sha256": "0dd87dc2ed9b3dac11ede99642199bc374a18e4867820cdd9b4e6ab7f52b3d3e",
+      "storage_key": "housing/policy-events/plates.json",
+      "uploaded_at": "2026-11-10T14:37:14.931239+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 8995,
+      "stored_checksum_sha256": "0dd87dc2ed9b3dac11ede99642199bc374a18e4867820cdd9b4e6ab7f52b3d3e"
+    },
+    {
+      "path": "data/housing/policy-events/pledges.json",
+      "size": 27847,
+      "checksum_sha256": "3df41cd80a57c734e3bfea120a8c720e680aba1087c983e76395d06a4170351b",
+      "storage_key": "housing/policy-events/pledges.json",
+      "uploaded_at": "2026-11-10T14:37:15.196097+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 27847,
+      "stored_checksum_sha256": "3df41cd80a57c734e3bfea120a8c720e680aba1087c983e76395d06a4170351b"
+    },
+    {
+      "path": "data/housing/policy-events/tracks.json",
+      "size": 4489,
+      "checksum_sha256": "6e7852f57df7aeeed6d11fd072293734fb670424794971c17dd42ff7e32638cb",
+      "storage_key": "housing/policy-events/tracks.json",
+      "uploaded_at": "2026-11-10T14:37:15.467202+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 4489,
+      "stored_checksum_sha256": "6e7852f57df7aeeed6d11fd072293734fb670424794971c17dd42ff7e32638cb"
     },
     {
       "path": "data/housing/price-paid-2025/curated/transactions.csv",
@@ -146,6 +718,17 @@
       "stored_checksum_sha256": "55a989c46ae6348f3da72bc3a65bb500130cfefe98d9cdce7a4d8ed27743ba7e"
     },
     {
+      "path": "data/housing/private-rental-prices/curated/rent-atlas.json",
+      "size": 775014,
+      "checksum_sha256": "62e1cb5d3a2eaa87ac747d54a600c5e8ef8bd52d1f28239115cba0fd1fc23420",
+      "storage_key": "housing/private-rental-prices/curated/rent-atlas.json",
+      "uploaded_at": "2026-11-09T20:11:35.578190+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 775014,
+      "stored_checksum_sha256": "62e1cb5d3a2eaa87ac747d54a600c5e8ef8bd52d1f28239115cba0fd1fc23420"
+    },
+    {
       "path": "data/housing/private-rental-prices/raw/2026-11-03/pipr_monthly.xlsx",
       "size": 18807933,
       "checksum_sha256": "0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c",
@@ -157,15 +740,103 @@
       "stored_checksum_sha256": "0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c"
     },
     {
+      "path": "data/housing/right-to-buy-one-for-one/curated/observations.csv",
+      "size": 27838,
+      "checksum_sha256": "deb3c2a0ed2f07225878342d9c1ad710e662efd00ec0125538a18c9cd35aac58",
+      "storage_key": "housing/right-to-buy-one-for-one/curated/observations.csv",
+      "uploaded_at": "2026-11-10T10:32:24.605597+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 27838,
+      "stored_checksum_sha256": "deb3c2a0ed2f07225878342d9c1ad710e662efd00ec0125538a18c9cd35aac58"
+    },
+    {
+      "path": "data/housing/right-to-buy-one-for-one/raw/2026-11-10/Graph_Tables_2024-25.ods",
+      "size": 61738,
+      "checksum_sha256": "0a49ec4b0e233c745a4b5ca1110ac05cc70db06e7591953d68e4733f662831da",
+      "storage_key": "housing/right-to-buy-one-for-one/raw/2026-11-10/Graph_Tables_2024-25.ods",
+      "uploaded_at": "2026-11-10T10:32:24.930847+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 61738,
+      "stored_checksum_sha256": "0a49ec4b0e233c745a4b5ca1110ac05cc70db06e7591953d68e4733f662831da"
+    },
+    {
+      "path": "data/housing/right-to-buy-sales-and-replacements/curated/observations.csv",
+      "size": 715090,
+      "checksum_sha256": "a2f5f41d86fda37da376f1939659dd7b4a6e063e4c6c7f708a0947de78c57327",
+      "storage_key": "housing/right-to-buy-sales-and-replacements/curated/observations.csv",
+      "uploaded_at": "2026-11-10T10:32:21.502020+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 715090,
+      "stored_checksum_sha256": "a2f5f41d86fda37da376f1939659dd7b4a6e063e4c6c7f708a0947de78c57327"
+    },
+    {
+      "path": "data/housing/right-to-buy-sales-and-replacements/raw/2026-11-10/LT_691.ods",
+      "size": 165589,
+      "checksum_sha256": "6e090af3e9c5c1edd8375b363c55b08f04e1839ccd06e9bc27950c5e95e3fa63",
+      "storage_key": "housing/right-to-buy-sales-and-replacements/raw/2026-11-10/LT_691.ods",
+      "uploaded_at": "2026-11-10T10:32:21.981911+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 165589,
+      "stored_checksum_sha256": "6e090af3e9c5c1edd8375b363c55b08f04e1839ccd06e9bc27950c5e95e3fa63"
+    },
+    {
+      "path": "data/housing/right-to-buy-sales-and-replacements/raw/2026-11-10/LT_693.ods",
+      "size": 148063,
+      "checksum_sha256": "03cebff77cdf62d23f08d8fff3f1ae4f95e3bb9604590a82cf77fa2cbd0013b5",
+      "storage_key": "housing/right-to-buy-sales-and-replacements/raw/2026-11-10/LT_693.ods",
+      "uploaded_at": "2026-11-10T10:32:22.353398+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 148063,
+      "stored_checksum_sha256": "03cebff77cdf62d23f08d8fff3f1ae4f95e3bb9604590a82cf77fa2cbd0013b5"
+    },
+    {
+      "path": "data/housing/right-to-buy-sales-and-replacements/raw/2026-11-10/Right_to_Buy_replacements_open_data.csv",
+      "size": 410590,
+      "checksum_sha256": "88fff7f5325bff83a89843bb5bd5ec7609fdb36901b0befde1e8f9e1492d8067",
+      "storage_key": "housing/right-to-buy-sales-and-replacements/raw/2026-11-10/Right_to_Buy_replacements_open_data.csv",
+      "uploaded_at": "2026-11-10T10:32:23.374045+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 410590,
+      "stored_checksum_sha256": "88fff7f5325bff83a89843bb5bd5ec7609fdb36901b0befde1e8f9e1492d8067"
+    },
+    {
+      "path": "data/housing/right-to-buy-sales-and-replacements/raw/2026-11-10/Right_to_Buy_sales_open_data.csv",
+      "size": 435554,
+      "checksum_sha256": "90bf3928b4775a4517261fb01645a75dff57f62b99ef0b707b42c99436c38f41",
+      "storage_key": "housing/right-to-buy-sales-and-replacements/raw/2026-11-10/Right_to_Buy_sales_open_data.csv",
+      "uploaded_at": "2026-11-10T10:32:23.983617+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 435554,
+      "stored_checksum_sha256": "90bf3928b4775a4517261fb01645a75dff57f62b99ef0b707b42c99436c38f41"
+    },
+    {
       "path": "data/housing/rough-sleeping-framework/curated/observations.csv",
       "size": 10835171,
       "checksum_sha256": "4840b31b75257e75a3b2deaa47302a610b5b39cb058a5bd50b31423c971d3444",
       "storage_key": "housing/rough-sleeping-framework/curated/observations.csv",
-      "uploaded_at": "2026-11-07T16:22:30.820742+00:00",
-      "local_deleted": true,
+      "uploaded_at": "2026-11-10T14:39:57.998457+00:00",
+      "local_deleted": false,
       "compression": null,
       "stored_size": 10835171,
       "stored_checksum_sha256": "4840b31b75257e75a3b2deaa47302a610b5b39cb058a5bd50b31423c971d3444"
+    },
+    {
+      "path": "data/housing/tree-preservation-zone/raw/2026-11-10/tree-preservation-zone.csv",
+      "size": 145183244,
+      "checksum_sha256": "4a7dffb522532823edb6f746830fdf9a10b4a44d5cbe338d40a66091f5137d06",
+      "storage_key": "housing/tree-preservation-zone/raw/2026-11-10/tree-preservation-zone.csv.gz",
+      "uploaded_at": "2026-11-10T13:10:59.133480+00:00",
+      "local_deleted": true,
+      "compression": "gzip",
+      "stored_size": 32555742,
+      "stored_checksum_sha256": "45032d01b8e6e28c116a6a1569c7244b0289b04016b40dec7142f1f5cf1adfa1"
     },
     {
       "path": "data/housing/uk-average-house-price/raw/2026-11-03/UK-HPI-full-file-2026-08.csv",
@@ -278,6 +949,17 @@
       "stored_checksum_sha256": "bc2fb3d7020bbd1a641be6e09eebee00b7b0ae24385a6db4681d6613a37d68e9"
     },
     {
+      "path": "data/people/subnational-population-estimate/curated/population.json",
+      "size": 198742,
+      "checksum_sha256": "0cd1945acec0b96c49e992438983d0957b3700780bbfd3b83c90b7c78641589f",
+      "storage_key": "people/subnational-population-estimate/curated/population.json",
+      "uploaded_at": "2026-11-09T20:05:26.217294+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 198742,
+      "stored_checksum_sha256": "0cd1945acec0b96c49e992438983d0957b3700780bbfd3b83c90b7c78641589f"
+    },
+    {
       "path": "data/people/subnational-population-estimate/raw/2026-11-07/myebtablesuk20112025.xlsx",
       "size": 50208665,
       "checksum_sha256": "d9ff4766d114ace7a40c351ba697f4a875e9e80270d9f58185319a26791f2c53",
@@ -309,6 +991,50 @@
       "compression": null,
       "stored_size": 7580400,
       "stored_checksum_sha256": "dde90f4ca1aeca2749a6fe61f00c4f3daef58c1bec232b6da1130a16d6686c90"
+    },
+    {
+      "path": "data/regions/housing-boundaries/curated/boundaries-display.json",
+      "size": 733520,
+      "checksum_sha256": "43e92f3d0db25954b6d3f9c5f3f91d860fd28ac12c92412d50e224c95f80ea83",
+      "storage_key": "regions/housing-boundaries/curated/boundaries-display.json",
+      "uploaded_at": "2026-11-09T20:11:44.554560+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 733520,
+      "stored_checksum_sha256": "43e92f3d0db25954b6d3f9c5f3f91d860fd28ac12c92412d50e224c95f80ea83"
+    },
+    {
+      "path": "data/regions/housing-boundaries/curated/boundaries.geojson",
+      "size": 1039108,
+      "checksum_sha256": "fca73d3ba1405dc6452cf079da944b45995cd0948ac969e096b40673c2c09103",
+      "storage_key": "regions/housing-boundaries/curated/boundaries.geojson",
+      "uploaded_at": "2026-11-09T20:05:27.892871+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1039108,
+      "stored_checksum_sha256": "fca73d3ba1405dc6452cf079da944b45995cd0948ac969e096b40673c2c09103"
+    },
+    {
+      "path": "data/regions/housing-boundaries/curated/english-regions-display.json",
+      "size": 159015,
+      "checksum_sha256": "55145abf4bc78af3b29cfaa660bd97148ca657fcec0359231840e2009cce7bb7",
+      "storage_key": "regions/housing-boundaries/curated/english-regions-display.json",
+      "uploaded_at": "2026-11-09T20:11:43.064944+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 159015,
+      "stored_checksum_sha256": "55145abf4bc78af3b29cfaa660bd97148ca657fcec0359231840e2009cce7bb7"
+    },
+    {
+      "path": "data/regions/housing-boundaries/curated/source.json",
+      "size": 1184,
+      "checksum_sha256": "ae42b9b7638a97161c2ffe81b51ac7ac45c44d6dbb06d0be60d3300986c7c3eb",
+      "storage_key": "regions/housing-boundaries/curated/source.json",
+      "uploaded_at": "2026-11-09T20:05:28.744100+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 1184,
+      "stored_checksum_sha256": "ae42b9b7638a97161c2ffe81b51ac7ac45c44d6dbb06d0be60d3300986c7c3eb"
     }
   ]
 }

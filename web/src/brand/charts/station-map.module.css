@@ -172,7 +172,7 @@
   text-transform: uppercase;
 }
 
-/* A station is a printed tint: hairline square in its family ink + dot screen (set inline). */
+/* A station is a printed tint: hairline square in the one ink + a family screen (set inline). */
 .station {
   outline: none;
 }
@@ -276,17 +276,22 @@
   border: 1px solid var(--bo-ink);
 }
 
-/* Key swatches match the marks: hairline square in the family ink with its dot screen. */
+/* Key swatches match the marks: one ink; renewables dots, fossil hatch, nuclear cross-hatch, storage open. */
 .swatch[data-kind] {
+  --sw: var(--bo-ink);
   width: 0.75rem;
   height: 0.75rem;
-  background: var(--bo-paper) radial-gradient(circle, var(--sw) 0.8px, transparent 1.1px) 0 0 / 3px 3px;
+  background: var(--bo-paper);
   border-color: var(--sw);
 }
-.swatch[data-kind="renewable"] { --sw: var(--bo-chart-4); }
-.swatch[data-kind="fossil"] { --sw: var(--bo-chart-2); }
-.swatch[data-kind="nuclear"] { --sw: var(--bo-chart-1); }
-.swatch[data-kind="storage"] { --sw: var(--bo-chart-5); background: var(--bo-paper); border-width: 1.5px; }
+.swatch[data-kind="renewable"] { background: var(--bo-paper) radial-gradient(circle, var(--sw) 0.8px, transparent 1.1px) 0 0 / 3px 3px; }
+.swatch[data-kind="fossil"] { background: repeating-linear-gradient(45deg, var(--sw) 0 1px, var(--bo-paper) 1px 3px); }
+.swatch[data-kind="nuclear"] {
+  background:
+    repeating-linear-gradient(45deg, var(--sw) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, var(--sw) 0 1px, var(--bo-paper) 1px 3px);
+}
+.swatch[data-kind="storage"] { border-width: 1.5px; }
 
 .sizeKey {
   display: inline-flex;

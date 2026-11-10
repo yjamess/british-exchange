@@ -37,7 +37,16 @@ export type EvidenceContract = {
 
 export type ViewSpec = {
   id: string;
+  /**
+   * Short task label for the view tab (Housing style: History, Map, Data).
+   * Not the instrument name — that belongs on the figure Stage title.
+   */
   label: string;
+  /**
+   * Optional instrument title for the figure (e.g. “The Production Anatomy”).
+   * Tabs stay short; Stages and Notes keep the full name.
+   */
+  instrument?: string;
   /**
    * Query keys this view may set, besides `domain` and `view`.
    * Keeps navigation parameters from leaking across domains.

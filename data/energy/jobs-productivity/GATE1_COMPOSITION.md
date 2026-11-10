@@ -41,7 +41,11 @@ Until Labour Landscape has Ready place cuts:
 
 ## Locked for Gate 2 rebuild
 
-**Study C (interim).** True flagship name remains **The Labour Landscape**. Atlas / lives wait on regional and event evidence.
+**Study C (interim).** True flagship name remains **The Labour Landscape**.
+
+## Gate 3 unlock (2026-11-10)
+
+BRES Table 4 + Nomis division×region shipped Ready under Manufacturing — **Employment Atlas** reuses those packages (no fork). Productivity Machine deepened with official DJ4P (output per job) and DK3V (hours). Industrial Lives and ASHE remain backlog.
 
 ## Journeys
 

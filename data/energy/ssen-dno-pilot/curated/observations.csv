@@ -1,0 +1,33 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),125900.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=total_substations; layer=points
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),140057.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=total_overhead_line_segments; layer=lines; coverage=overhead_only
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),4649.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=atlas_substations; filter=Existing+Primary|Grid/Bulk Supply pt|Switching Station
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),14412.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=atlas_ohl_segments; filter=EHV|EHV+
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),65709.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_owner; owner=SEPD
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),60191.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_owner; owner=SHEPD
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),18.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Buried Distribution
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),7.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Consumers
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),5.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Grid/Bulk Supply pt
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),42239.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Ground Mounted Distribution
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),87.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Pillar Distribution
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),77226.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Pole Mounted Distribution
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),1176.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Primary
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),18.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Sealing End Compound
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),252.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Secondary
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),180.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Secondary (Pad Mounted)
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),1087.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Site Only
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),2.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Supergrid
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),3603.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_type; type=Switching Station
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),2011.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_status; status=Abandoned
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),121959.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_status; status=Existing
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),1930.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=substations_by_status; status=Removed
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),13269.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_network_type; network_type=EHV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),1143.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_network_type; network_type=EHV+
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),125645.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_network_type; network_type=HV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),125418.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=11.000 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),1143.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=132.000 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),3.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=2.000 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),6.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=22.000 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),13258.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=33.000 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),224.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=6.600 kV
+ssen-distribution-network-atlas,2026-11-09,2026-11-09,SSEN,SSEN Distribution (SEPD + SHEPD licence areas),5.0,feature_count,final,SSEN_DNO_pilot_2026-11-09,kind=ohl_by_voltage; voltage=66.000 kV

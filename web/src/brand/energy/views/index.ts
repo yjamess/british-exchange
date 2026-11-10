@@ -65,6 +65,18 @@ export function viewSpec(domain: EnergyDomainId, viewId: string): ViewSpec | und
   return mod.views.find((v) => v.id === viewId) ?? mod.views.find((v) => v.id === mod.defaultView);
 }
 
+/**
+ * Link to an Energy view named by outside data (e.g. the policy register's
+ * `linked_indicators`). A view id that does not exist for the domain falls back
+ * to that domain's default view, so a stale id can never produce a dead link.
+ */
+export function energyViewHref(domain: string, view?: string | null): string {
+  const mod = (ENERGY_DOMAIN_VIEWS as Record<string, DomainViews | undefined>)[domain];
+  if (!mod) return "/energy";
+  const known = view != null && mod.views.some((v) => v.id === view);
+  return `/energy?domain=${domain}&view=${known ? view : mod.defaultView}`;
+}
+
 /** Params allowed for a domain (union of its views), always including domain + view. */
 export function allowedParams(domain: EnergyDomainId): ReadonlySet<string> {
   const keys = new Set<string>(["domain", "view"]);

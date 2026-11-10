@@ -8,9 +8,15 @@
 
 import { useId } from "react";
 import { EmptyStage, explorerClasses as t } from "../template";
+import { ENERGY_SOURCE } from "./citations";
 import {
+  CROSS_SECTOR_END_USE_ID,
+  DOMESTIC_END_USE_ID,
+  FINAL_CONSUMPTION_ID,
   FLOW_STAGES,
+  PRIMARY_FLOW_ID,
   SECTORS,
+  SUBNATIONAL_ID,
   geographyRankRows,
   noteMap,
   yearsOf,
@@ -26,12 +32,79 @@ export type ConsumptionDataSeries =
   | "geography";
 
 export const CONSUMPTION_DATA_SERIES: { id: ConsumptionDataSeries; label: string }[] = [
-  { id: "c1", label: "Final consumption (C1)" },
-  { id: "w1", label: "Primary allocation (W1)" },
-  { id: "u3", label: "Domestic end use (U3)" },
+  { id: "c1", label: "Final consumption" },
+  { id: "w1", label: "Primary allocation" },
+  { id: "u3", label: "Domestic end use" },
   { id: "cross", label: "Cross-sector end use" },
   { id: "geography", label: "Subnational geography" },
 ];
+
+/**
+ * Notes foot for the Data tab: each series cites its own publication and record.
+ * (The foot used to fall through to the Final consumption C1 citation for every series.)
+ */
+export function consumptionDataFoot(
+  series: ConsumptionDataSeries,
+  pack: ConsumptionPack,
+): { source: string; definition: string; method: string[]; recordId: string } {
+  const caveats = (...texts: (string | null | undefined)[]) => texts.filter((x): x is string => Boolean(x));
+  switch (series) {
+    case "w1":
+      return {
+        source: ENERGY_SOURCE.consumptionUseful,
+        definition: "UK primary energy flow allocation by destination stage (ktoe) from DESNZ ECUK Table W1.",
+        method: caveats(
+          "National series, not filtered by sector. Official Statistics in Development; coverage starts later than Table C1.",
+          pack.flow?.meta.caveats,
+        ),
+        recordId: PRIMARY_FLOW_ID,
+      };
+    case "u3":
+      return {
+        source: ENERGY_SOURCE.consumptionEndUse,
+        definition: "UK domestic final energy consumption by end use (ktoe) from DESNZ ECUK Table U3, fuel=Total.",
+        method: caveats(
+          "fuel=Total is an aggregate; component fuels are not summed with it. Some early years leave end uses unpublished.",
+          pack.endUse?.meta.caveats,
+        ),
+        recordId: DOMESTIC_END_USE_ID,
+      };
+    case "cross":
+      return {
+        source: ENERGY_SOURCE.consumptionEndUse,
+        definition: "UK final energy consumption by end use across non-transport sectors (ktoe), as published in ECUK.",
+        method: caveats(
+          "Transport is not in this cut. Coverage is shorter than the domestic end-use series.",
+          pack.crossEndUse?.meta.caveats,
+        ),
+        recordId: CROSS_SECTOR_END_USE_ID,
+      };
+    case "geography":
+      return {
+        source: ENERGY_SOURCE.consumptionGeography,
+        definition:
+          "Subnational total final energy consumption (ktoe) for UK nations, English regions and local authorities, from DESNZ, 2005 onward.",
+        method: caveats(
+          "This is not national ECUK Table C1: coverage starts in 2005 and transport scope differs (road and rail only; unallocated rows exist).",
+          "Nation and region totals and local-authority rows are different grains — do not add them together.",
+          pack.geography?.note,
+          pack.geography?.authoritiesNote,
+          pack.geography?.meta?.caveats,
+        ),
+        recordId: SUBNATIONAL_ID,
+      };
+    default:
+      return {
+        source: ENERGY_SOURCE.consumptionFinal,
+        definition: "UK final energy consumption by sector (ktoe) from DESNZ Energy Consumption in the UK (ECUK) Table C1.",
+        method: caveats(
+          "fuel=Total is a sector aggregate; component fuels are shown separately and must not be summed with Total.",
+          pack.final?.meta.caveats,
+        ),
+        recordId: FINAL_CONSUMPTION_ID,
+      };
+  }
+}
 
 function yearOf(periodStart: string): number {
   return Number(periodStart.slice(0, 4));
@@ -82,8 +155,8 @@ function C1Table({ pack }: { pack: ConsumptionPack }) {
   const rows = pack.final?.observations ?? [];
   if (!rows.length) {
     return (
-      <EmptyStage label="C1 series unavailable">
-        Final energy consumption by sector did not load.
+      <EmptyStage label="Final consumption unavailable">
+        Final energy consumption by sector is not available right now.
       </EmptyStage>
     );
   }
@@ -134,8 +207,8 @@ function W1Table({ pack }: { pack: ConsumptionPack }) {
   const rows = pack.flow?.observations ?? [];
   if (!rows.length) {
     return (
-      <EmptyStage label="W1 series unavailable">
-        Primary energy flow allocation did not load.
+      <EmptyStage label="Primary allocation unavailable">
+        Primary energy flow allocation is not available right now.
       </EmptyStage>
     );
   }
@@ -149,7 +222,7 @@ function W1Table({ pack }: { pack: ConsumptionPack }) {
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Primary allocation · W1 stages · ktoe
+        Primary allocation · stages · ktoe
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
@@ -185,7 +258,7 @@ function EndUseTable({ pack }: { pack: ConsumptionPack }) {
   const rows = pack.endUse?.observations ?? [];
   if (!rows.length) {
     return (
-      <EmptyStage label="U3 series unavailable">Domestic end-use data did not load.</EmptyStage>
+      <EmptyStage label="Domestic end use unavailable">Domestic end-use data is not available right now.</EmptyStage>
     );
   }
   const years = [...yearsOf(rows)].reverse();
@@ -242,7 +315,7 @@ function CrossTable({ pack }: { pack: ConsumptionPack }) {
   if (!rows.length) {
     return (
       <EmptyStage label="Cross-sector series unavailable">
-        Cross-sector end-use data did not load.
+        Cross-sector end-use data is not available right now.
       </EmptyStage>
     );
   }
@@ -310,7 +383,7 @@ function GeographyTable({
   if (!geo || geo.places.length === 0) {
     return (
       <EmptyStage label="Subnational geography unavailable">
-        Run the subnational-final-consumption connector and refresh.
+        Regional and local energy consumption figures are not available right now.
       </EmptyStage>
     );
   }

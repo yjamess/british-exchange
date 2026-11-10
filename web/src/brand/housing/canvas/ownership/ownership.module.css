@@ -171,11 +171,128 @@
   outline-offset: 2px;
 }
 
+/* ——— Mortgage overview: inventory (same grammar as Housing Need) ——— */
+
+.section {
+  display: grid;
+  gap: var(--bo-s3);
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.35;
+  color: var(--bo-ink);
+}
+
+.big {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--bo-s2) var(--bo-s3);
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.35;
+  color: var(--bo-text);
+}
+
+.big :global(.bo-fig) {
+  font-size: var(--bo-t-readout);
+  line-height: 0.9;
+  color: var(--bo-ink);
+}
+
+.metaLine {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s2) var(--bo-s4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.key li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.keySwatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--bo-ink);
+  box-sizing: border-box;
+}
+
+.keySwatch[data-fill="solid"] {
+  background: var(--bo-ink);
+}
+
+.keySwatch[data-fill="screen"] {
+  background: radial-gradient(var(--bo-ink) 1.2px, var(--bo-paper) 1.3px);
+  background-size: 4px 4px;
+}
+
+.keySwatch[data-fill="open"] {
+  background: var(--bo-paper);
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  border: var(--bo-rule);
+}
+
+.inventory > .section {
+  padding: var(--bo-s4);
+}
+
+.neq {
+  display: grid;
+  place-items: center;
+  padding: 0 var(--bo-s3);
+  border-inline: var(--bo-hair);
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-size: var(--bo-t-readout);
+  color: var(--bo-ink);
+}
+
+.dotGrid {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (max-width: 720px) {
   .layer,
   .barRow,
   .stage {
     grid-template-columns: 1fr;
+  }
+
+  .inventory {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .neq {
+    padding: var(--bo-s2) 0;
+    border-inline: 0;
+    border-block: var(--bo-hair);
   }
 }
 

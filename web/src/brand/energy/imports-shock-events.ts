@@ -1,9 +1,9 @@
 /**
  * Domain 05 — Shock & Response editorial register.
- * JSON is the record; this module only reads it. Overlap with Ready series is context, never cause.
+ * Pack: energy.imports-shock-events (API / Storage — never a webpack data/ import).
  */
 
-import raw from "../../../../data/energy/energy-imports-security/shock-events.json";
+import { fetchPackJson } from "@/lib/api";
 import type {
   GasMode,
   InterconnectorCorridor,
@@ -61,7 +61,7 @@ export type ShockEvent = {
   sources: ShockSource[];
 };
 
-type ShockRegistry = {
+export type ShockEventsPack = {
   registry_id: string;
   title: string;
   retrieved_at: string;
@@ -69,11 +69,18 @@ type ShockRegistry = {
   events: ShockEvent[];
 };
 
-const registry = raw as ShockRegistry;
+/** Fallback when the pack is not requested for this domain or the API is unavailable. */
+export const EMPTY_SHOCK_EVENTS_PACK: ShockEventsPack = {
+  registry_id: "",
+  title: "",
+  retrieved_at: "",
+  note: "",
+  events: [],
+};
 
-export const SHOCK_EVENTS: ShockEvent[] = registry.events;
-export const SHOCK_RETRIEVED = registry.retrieved_at;
-export const SHOCK_NOTE = registry.note;
+export async function loadShockEventsPack(): Promise<ShockEventsPack> {
+  return fetchPackJson<ShockEventsPack>("energy.imports-shock-events");
+}
 
 export const SHOCK_KIND_LABEL: Record<ShockKind, string> = {
   disruption: "Disruption",
@@ -81,13 +88,13 @@ export const SHOCK_KIND_LABEL: Record<ShockKind, string> = {
   "trade-shift": "Trade shift",
 };
 
-export function shockById(id: string | null | undefined): ShockEvent | undefined {
+export function shockById(events: ShockEvent[], id: string | null | undefined): ShockEvent | undefined {
   if (!id) return undefined;
-  return SHOCK_EVENTS.find((e) => e.id === id);
+  return events.find((e) => e.id === id);
 }
 
-export function defaultShockId(): string {
-  return SHOCK_EVENTS[0]?.id ?? "";
+export function defaultShockId(events: ShockEvent[]): string {
+  return events[0]?.id ?? "";
 }
 
 export function markYear(event: ShockEvent): number {

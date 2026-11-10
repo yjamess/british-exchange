@@ -1,26 +1,41 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
+/**
+ * Housing atlas / map packs — server only.
+ * Curated JSON comes from the Exchange API packs surface (disk or Supabase Storage),
+ * not from Next.js node:fs.
+ */
+
 import { cache } from "react";
-import { fetchIndicator, fetchObservations, type Observation } from "@/lib/api";
+import { fetchIndicator, fetchObservations, fetchPackJson, type Observation } from "@/lib/api";
 import type { Atlas, Evidence, Geometry, LandUseShare, MapShape, TopicRow, Topics } from "./model";
 
-const dataRoot = path.resolve(process.cwd(), "../data");
-const read = async <T,>(name: string): Promise<T> => JSON.parse(await readFile(path.join(dataRoot, name), "utf8"));
-type RawAtlas = Omit<Atlas, "areas" | "measure"> & { areas: (Omit<Atlas["areas"][number], "values"> & { values: Record<string, (number | null)[]> })[] };
+type RawAtlas = Omit<Atlas, "areas" | "measure"> & {
+  areas: (Omit<Atlas["areas"][number], "values"> & { values: Record<string, (number | null)[]> })[];
+};
 type StaticTopics = Omit<Topics, "greenBelt" | "landUse" | "planning" | "sources"> & {
   sources: Pick<Topics["sources"], "tenure" | "completions" | "rent" | "affordability">;
 };
-const loadRaw = cache(() => read<RawAtlas>("housing/housing-atlas/curated/atlas.json"));
+
+const ATLAS_MEASURE_PACK: Record<string, string> = {
+  average: "housing.atlas-average",
+  detached: "housing.atlas-detached",
+  "semi-detached": "housing.atlas-semi-detached",
+  terraced: "housing.atlas-terraced",
+  flat: "housing.atlas-flat",
+  "new-build": "housing.atlas-new-build",
+  existing: "housing.atlas-existing",
+  "sales-volume": "housing.atlas-sales-volume",
+};
+
+const loadRaw = cache(() => fetchPackJson<RawAtlas>("housing.atlas"));
+
 /**
  * Prefer a per-measure slim file (~1MB) over parsing the multi-measure archive (~7MB).
  * Slim files are generated offline; fall back to slicing the archive if missing.
  */
 export async function loadAtlas(measure = "average"): Promise<Atlas> {
-  const selected = ["average", "detached", "semi-detached", "terraced", "flat", "new-build", "existing", "sales-volume"].includes(measure)
-    ? measure
-    : "average";
+  const selected = ATLAS_MEASURE_PACK[measure] ? measure : "average";
   try {
-    return await read<Atlas>(`housing/housing-atlas/curated/atlas-${selected}.json`);
+    return await fetchPackJson<Atlas>(ATLAS_MEASURE_PACK[selected]!);
   } catch {
     const raw = await loadRaw();
     return {
@@ -35,7 +50,7 @@ export async function loadAtlas(measure = "average"): Promise<Atlas> {
 }
 
 /** PIPR average monthly rent by geography — same Atlas shape as HPI for AreaMap reuse. */
-const loadRentRaw = cache(() => read<RawAtlas>("housing/private-rental-prices/curated/rent-atlas.json"));
+const loadRentRaw = cache(() => fetchPackJson<RawAtlas>("housing.rent-atlas"));
 export async function loadRentAtlas(measure = "average-rent"): Promise<Atlas> {
   const raw = await loadRentRaw();
   const selected = raw.measures.some((m) => m.id === measure) ? measure : "average-rent";
@@ -50,9 +65,7 @@ export async function loadRentAtlas(measure = "average-rent"): Promise<Atlas> {
 }
 
 /** AFF1 workplace median price-to-earnings by LA / region (annual). */
-const loadAffordRaw = cache(() =>
-  read<RawAtlas>("housing/house-price-to-earnings-ratio/curated/afford-atlas.json"),
-);
+const loadAffordRaw = cache(() => fetchPackJson<RawAtlas>("housing.afford-atlas"));
 
 /**
  * Spread of AFF1 median price-to-earnings across English local authorities, per year:
@@ -169,7 +182,10 @@ async function loadLandTopics(): Promise<Pick<Topics, "greenBelt" | "landUse" | 
 }
 
 export const loadTopics = cache(async (): Promise<Topics> => {
-  const [base, land] = await Promise.all([read<StaticTopics>("housing/housing-atlas/curated/topics.json"), loadLandTopics()]);
+  const [base, land] = await Promise.all([
+    fetchPackJson<StaticTopics>("housing.atlas-topics"),
+    loadLandTopics(),
+  ]);
   return {
     ...base,
     greenBelt: land.greenBelt,
@@ -180,21 +196,24 @@ export const loadTopics = cache(async (): Promise<Topics> => {
 });
 
 type Position = [number, number];
-type Feature = { properties: { code: string; name: string }; geometry: { type: "Polygon" | "MultiPolygon"; coordinates: Position[][] | Position[][][] } };
+type Feature = {
+  properties: { code: string; name: string };
+  geometry: { type: "Polygon" | "MultiPolygon"; coordinates: Position[][] | Position[][][] };
+};
 /**
  * Equirectangular display with longitude scaled at 55°N; shapes are not spatial query inputs.
  * Prefer pre-projected `boundaries-display.json` (no GeoJSON parse / project on each cold start).
  */
 export const loadGeometry = cache(async (): Promise<Geometry> => {
   try {
-    const display = await read<{ shapes: MapShape[]; source: Evidence }>(
-      "regions/housing-boundaries/curated/boundaries-display.json",
+    const display = await fetchPackJson<{ shapes: MapShape[]; source: Evidence }>(
+      "regions.boundaries-display",
     );
     return { shapes: display.shapes, source: display.source };
   } catch {
     const [geo, source] = await Promise.all([
-      read<{ features: Feature[] }>("regions/housing-boundaries/curated/boundaries.geojson"),
-      read<Evidence>("regions/housing-boundaries/curated/source.json"),
+      fetchPackJson<{ features: Feature[] }>("regions.gb-boundaries"),
+      fetchPackJson<Evidence>("regions.gb-boundaries-source"),
     ]);
     const polygons = (f: Feature): Position[][][] =>
       f.geometry.type === "Polygon"
@@ -253,7 +272,9 @@ export const loadGeometry = cache(async (): Promise<Geometry> => {
 /** Every searchable place: local authorities with boundaries, plus regions, nations and the UK. */
 export const loadPlaces = cache(async () => {
   const [geometry, raw] = await Promise.all([loadGeometry(), loadRaw()]);
-  const local = geometry.shapes.map(shape => ({ code: shape.code, name: shape.name, level: "local" as const }));
-  const wider = raw.areas.filter(area => area.level !== "local").map(area => ({ code: area.code, name: area.name.replace(/ Region$/, ""), level: area.level }));
+  const local = geometry.shapes.map((shape) => ({ code: shape.code, name: shape.name, level: "local" as const }));
+  const wider = raw.areas
+    .filter((area) => area.level !== "local")
+    .map((area) => ({ code: area.code, name: area.name.replace(/ Region$/, ""), level: area.level }));
   return [...wider, ...local];
 });

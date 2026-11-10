@@ -67,11 +67,14 @@ export default function DesignLabPage() {
 
           <p className={styles.hint}>
             Older homepage sketch (map + imprint plates). The v1 BrandRoot mock is
-            at /design-lab/home.
+            at /design-lab/home. Follow / connections chrome: /design-lab/follow.
           </p>
 
           <Link href="/design-lab/home" className={styles.back}>
             v1 homepage mock →
+          </Link>
+          <Link href="/design-lab/follow" className={styles.back}>
+            Follow treatments →
           </Link>
         </div>
       </main>

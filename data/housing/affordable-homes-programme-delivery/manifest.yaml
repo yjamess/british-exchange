@@ -1,0 +1,68 @@
+indicator_id: affordable-homes-programme-delivery
+title: Affordable Homes Programme delivery
+sector: housing-land
+publisher: Homes England; Greater London Authority; MHCLG
+source_url: https://www.gov.uk/government/collections/housing-statistics
+series_id: Homes England Housing Statistics Table 1; GLA affordable housing statistics
+  Table 1; MHCLG AHP annual report 2024-25
+geography: England (E92000001); Homes England categories are England outside London
+frequency: annual
+unit: dwellings (affordable homes)
+definition: Affordable homes started on site and completed each financial year with
+  funding from the Affordable Homes Programme. category=ahp-2021-26 adds Homes England
+  (outside London) and the GLA (London) for the 2021 to 2026 programme; the agency
+  categories give each part. category=soahp-2016-21-homes-england is Homes England's
+  part of the 2016 to 2023 programme (named Shared Ownership and Affordable Homes
+  Programme 2016-21), outside London only. series=cumulative-starts|cumulative-completions
+  are the programme totals to 31 March 2025 from the MHCLG annual report (England,
+  London, and Homes England regions), for category=ahp-2016-23 and ahp-2021-26.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.affordable_homes_programme
+curated_path: curated/observations.csv
+update_cadence: Homes England twice a year (June, December); GLA quarterly
+raw_evidence:
+- path: raw/2026-11-10/Housing_Statistics_tables_June_2026.ods
+  retrieved_at: '2026-11-10T11:18:56.757726+00:00'
+  checksum_sha256: 82a7c4a62d763e596f09d855112a931ca1a695228f9f5c09f9aa8aefac62c8ce
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-06-25'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a3bd88ceaee00074150f38b/Housing_Statistics_tables_June_2026.ods
+- path: raw/2026-11-10/GLA_stats_general_programmes_Q1_2026-27.xlsx
+  retrieved_at: '2026-11-10T11:18:56.759729+00:00'
+  checksum_sha256: 768f0196df59d4214116db7724b26f0ea7bd0c7757d0d760170bc11e555a95fb
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-08-11'
+  http_status: null
+  source_url: https://www.london.gov.uk/media/113767/download?attachment
+- path: raw/2026-11-10/ahp_annual_report_2024-25.json
+  retrieved_at: '2026-11-10T11:18:56.760803+00:00'
+  checksum_sha256: 8384cab5ae3cb3a3dcbc96175d26a1689f6ca179a6be0d50795d2b81cb74d0de
+  content_type: application/json
+  official_release_date: '2026-01-07'
+  http_status: null
+  source_url: https://www.gov.uk/api/content/government/publications/the-affordable-homes-programme-annual-report-2024-to-2025/the-affordable-homes-programme-annual-report-2024-to-2025
+transformations: 'Homes England: full financial-year blocks of Table 1, Total Affordable
+  starts and completions for the two programmes. GLA: full financial-year blocks of
+  Table 1, summing every line under ''AH: 2021-26 programme''; the partial current
+  year is skipped. ahp-2021-26 = Homes England + GLA by year. Annual report: tables
+  and the England starts sentence parsed from the GOV.UK Content API body; London
+  + Homes England must equal England, and regions must sum to the Homes England totals.'
+revision_notes: Pinned Homes England June 2026 tables and GLA Q1 2026-27 general programmes
+  file, retrieved 2026-11-10.
+caveats: 'Programme homes only: this is a subset of all affordable housing supply
+  and differs from Live Table 1000. The GLA reports no 2021 to 2026 programme lines
+  before 2023-24, so earlier England totals are Homes England only. Homes England
+  starts to March 2025 are 942 below the MHCLG annual report (76,265 vs 77,207); completions
+  match it exactly. London''s 2016 to 2023 programme is not included because the GLA
+  lines cannot be mapped to the programme total. Starts and completions are different
+  milestones: completions continue after the start deadline (March 2026, with limited
+  exceptions) to March 2029 outside London.'
+related_indicator_ids:
+- affordable-housing-supply
+open_questions:
+- 'London AHP 2016-23 delivery by year: needs a GLA programme mapping that reconciles
+  with the MHCLG total (116,782 starts).'
+notion_registry_url: https://app.notion.com/p/41465471768581f08e33e03b5b339328
+schema_version: '1.0'

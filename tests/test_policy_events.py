@@ -150,11 +150,9 @@ def test_linked_indicators_point_at_real_series_and_views() -> None:
     for event in registry.events:
         for link in event.linked_indicators:
             assert link.relationship == "context"
-            curated = [
-                ROOT / "data" / sector / link.indicator_id / "curated" / "observations.csv"
-                for sector in ("housing", "regions")
-            ]
-            assert any(path.exists() for path in curated), link.indicator_id
+            # A real series has a manifest on disk; its curated CSV may live only in Supabase.
+            manifests = [ROOT / "data" / sector / link.indicator_id / "manifest.yaml" for sector in ("housing", "regions")]
+            assert any(path.exists() for path in manifests), link.indicator_id
             domain = re.search(rf"\n\s+{re.escape(link.domain)}: \[(.*?)\]", views_block, re.S)
             assert domain, f"{event.id}: unknown domain {link.domain}"
             assert f'id: "{link.view}"' in domain.group(1), f"{event.id}: unknown view {link.view}"

@@ -183,6 +183,14 @@
   margin: 2px 0 0;
 }
 
+.metaLine {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
 .caveat {
   margin: 0;
   max-width: 62ch;

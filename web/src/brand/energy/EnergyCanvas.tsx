@@ -6,6 +6,7 @@
  */
 
 import { useSearchParams } from "next/navigation";
+import { ArrivalFrom, readArrival } from "../connections";
 import { primaryPackLoaded, type EnergyDomainId } from "./domain-sources";
 import { useEnergyNavigation } from "./navigation";
 import {
@@ -46,6 +47,8 @@ import type { ManufacturingPack } from "./manufacturing-model";
 import type { RenewablesPack } from "./renewables-model";
 import type { NetworksPack } from "./networks-model";
 import { jobsPackFromManufacturing } from "./jobs-model";
+import { EMPTY_POLICY_EVENTS_PACK, type PolicyEventsPack } from "./policy-events";
+import { EMPTY_SHOCK_EVENTS_PACK, type ShockEventsPack } from "./imports-shock-events";
 
 export function EnergyView({
   config,
@@ -102,9 +105,29 @@ export function EnergyView({
     lowCarbonShare: null,
     gasStorage: null,
   },
-  manufacturing = { output: null, share: null, employment: null, productivity: null },
+  manufacturing = {
+    output: null,
+    share: null,
+    employment: null,
+    productivity: null,
+    iopByDivision: null,
+    iopWeights: null,
+    outputPerJob: null,
+    productivityHours: null,
+    asheEarnings: null,
+    bresByRegion: null,
+    bresByDivisionRegion: null,
+  },
   renewables = { loadFactors: null, pipeline: null, plantLoadFactors: null },
-  networks = { interconnectors: null },
+  networks = {
+    interconnectors: null,
+    interconnectorCapacity: null,
+    tec: null,
+    ssenAtlas: null,
+    ssenCounts: null,
+  },
+  policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
   titles: Record<string, string>;
@@ -120,6 +143,8 @@ export function EnergyView({
   manufacturing?: ManufacturingPack;
   renewables?: RenewablesPack;
   networks?: NetworksPack;
+  policyEvents?: PolicyEventsPack;
+  shockEvents?: ShockEventsPack;
 }) {
   const hero = useSearchParams().get("domain") ? "band" : "full";
   return (
@@ -139,6 +164,8 @@ export function EnergyView({
         manufacturing={manufacturing}
         renewables={renewables}
         networks={networks}
+        policyEvents={policyEvents}
+        shockEvents={shockEvents}
       />
     </SectorPage>
   );
@@ -199,9 +226,29 @@ function EnergyCanvas({
     lowCarbonShare: null,
     gasStorage: null,
   },
-  manufacturing = { output: null, share: null, employment: null, productivity: null },
+  manufacturing = {
+    output: null,
+    share: null,
+    employment: null,
+    productivity: null,
+    iopByDivision: null,
+    iopWeights: null,
+    outputPerJob: null,
+    productivityHours: null,
+    asheEarnings: null,
+    bresByRegion: null,
+    bresByDivisionRegion: null,
+  },
   renewables = { loadFactors: null, pipeline: null, plantLoadFactors: null },
-  networks = { interconnectors: null },
+  networks = {
+    interconnectors: null,
+    interconnectorCapacity: null,
+    tec: null,
+    ssenAtlas: null,
+    ssenCounts: null,
+  },
+  policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
   titles: Record<string, string>;
@@ -217,6 +264,8 @@ function EnergyCanvas({
   manufacturing?: ManufacturingPack;
   renewables?: RenewablesPack;
   networks?: NetworksPack;
+  policyEvents?: PolicyEventsPack;
+  shockEvents?: ShockEventsPack;
 }) {
   const params = useSearchParams();
   const ids = config.domains.map((d) => d.id);
@@ -263,8 +312,11 @@ function EnergyCanvas({
   });
   const stageState = domainStageState(activeDomain, loaded);
 
+  const arrival = readArrival(params);
+
   return (
     <Explorer sector={config.label} indexLabel={config.indexLabel} domains={domains} active={active} onSelectDomain={select}>
+      <ArrivalFrom from={arrival.from} returnHref={arrival.returnHref} />
       {stageState === "preparation" ? (
         <>
           <ExplorerHead />
@@ -313,9 +365,14 @@ function EnergyCanvas({
       ) : active === "fossil" ? (
         <FossilsCanvas pack={fossils} />
       ) : active === "imports" ? (
-        <ImportsCanvas pack={imports} />
+        <ImportsCanvas pack={imports} shockEvents={shockEvents} />
       ) : active === "low-carbon" ? (
-        <RenewablesCanvas pack={renewables} generation={generation} capacity={capacity} />
+        <RenewablesCanvas
+          pack={renewables}
+          generation={generation}
+          capacity={capacity}
+          policyEvents={policyEvents}
+        />
       ) : active === "networks" ? (
         <NetworksCanvas pack={networks} yearMix={yearMix} />
       ) : active === "manufacturing" ? (
@@ -323,7 +380,7 @@ function EnergyCanvas({
       ) : active === "industrial-work" ? (
         <JobsCanvas pack={jobsPackFromManufacturing(manufacturing)} />
       ) : active === "policy" ? (
-        <PolicyCanvas />
+        <PolicyCanvas policyEvents={policyEvents} />
       ) : (
         <>
           <ExplorerHead />

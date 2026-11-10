@@ -17,8 +17,13 @@ type Props = {
   empty?: string;
   /** Prefix for aria-controls ids when several ledgers sit on one page. */
   idPrefix?: string;
-  /** Extra body inside the open dossier (chart, Exact values table, …). */
+  /** Extra body inside the open catalogue dossier (chart, Exact values table, …). */
   renderOpen?: (event: LedgerEvent) => ReactNode;
+  /**
+   * Replace the catalogue dossier with a custom open panel (e.g. Promise verdict).
+   * Slabs stay shared; only the open interior changes. When set, `renderOpen` is ignored.
+   */
+  renderPanel?: (event: LedgerEvent) => ReactNode;
 };
 
 export function DecisionLedger({
@@ -28,6 +33,7 @@ export function DecisionLedger({
   empty = "No record matches the current filters.",
   idPrefix = "policy-dossier",
   renderOpen,
+  renderPanel,
 }: Props) {
   if (events.length === 0) {
     return <p className={s.ledgerEmpty}>{empty}</p>;
@@ -55,9 +61,13 @@ export function DecisionLedger({
               </span>
             </button>
             <div id={panelId} hidden={!open}>
-              {open ? (
-                <CatalogueDossier event={event}>{renderOpen?.(event)}</CatalogueDossier>
-              ) : null}
+              {open
+                ? renderPanel
+                  ? renderPanel(event)
+                  : (
+                      <CatalogueDossier event={event}>{renderOpen?.(event)}</CatalogueDossier>
+                    )
+                : null}
             </div>
           </li>
         );

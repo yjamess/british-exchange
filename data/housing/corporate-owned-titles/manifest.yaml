@@ -1,0 +1,62 @@
+indicator_id: corporate-owned-titles
+title: Titles held by UK and overseas companies
+sector: housing-land
+publisher: HM Land Registry
+source_url: https://use-land-property-data.service.gov.uk/datasets
+series_id: CCOD and OCOD full files (UK and overseas companies that own property)
+geography: England and Wales; local authorities (ONS LAD December 2024)
+frequency: monthly
+unit: titles, or companies
+definition: 'Registered titles in England and Wales whose registered proprietor is
+  a company or other corporate body, as at the monthly release. A title is a registered
+  estate, not a home: one title can cover many addresses or none. Owner type and country
+  are those of the first proprietor.'
+licence: 'HM Land Registry CCOD and OCOD licence, accepted on the Use land and property
+  data service. Attribution: contains HM Land Registry data © Crown copyright and
+  database right. Only aggregate counts are republished.'
+agent_owner: housing
+connector_module: housing.connectors.corporate_ownership
+curated_path: curated/observations.csv
+update_cadence: Monthly; HM Land Registry publishes in the first working days
+raw_evidence:
+- path: raw/ons-lad-dec-2024.json
+  retrieved_at: '2026-11-10T13:19:17.145012+00:00'
+  checksum_sha256: 4696854dddb37cfa2b42015e81cc92f674992b38bf6d8c99468017a485c2a21e
+  content_type: application/json
+  official_release_date: ''
+  http_status: null
+  source_url: https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD_DEC_2024_UK_NC/FeatureServer/0/query?where=1%3D1&outFields=LAD24CD,LAD24NM,LAD24NMW&returnGeometry=false&f=json
+- path: not-retained/OCOD_FULL_2026_11.zip
+  retrieved_at: '2026-11-10T13:19:22.942448+00:00'
+  checksum_sha256: 79cfe2cbf5dd371bbbf8160b5274fa16b7393312aff35b3567867de86d9d9772
+  content_type: application/zip
+  official_release_date: '2026-11-03'
+  http_status: 200
+  source_url: https://use-land-property-data.service.gov.uk/api/v1/datasets/ocod/OCOD_FULL_2026_11.zip
+- path: not-retained/CCOD_FULL_2026_11.zip
+  retrieved_at: '2026-11-10T13:21:06.413875+00:00'
+  checksum_sha256: efdf0691f989e1d5189ddadb567ac658b5fc59b071bb4bf531b376b5fde7bc53
+  content_type: application/zip
+  official_release_date: '2026-11-03'
+  http_status: 200
+  source_url: https://use-land-property-data.service.gov.uk/api/v1/datasets/ccod/CCOD_FULL_2026_11.zip
+transformations: Stream each full-file CSV, skip the 'Row Count:' trailer and check
+  it equals the rows read. Count titles by origin (CCOD = UK company, OCOD = overseas
+  company), tenure, district, first proprietor's category and, for OCOD, first proprietor's
+  country. Districts map to ONS LAD December 2024 codes by name, with four aliases.
+  Distinct UK companies = distinct registration numbers across proprietors 1–4. Each
+  run appends its month.
+revision_notes: Domain 09 ingest 2026-11-10, release 2026-11.
+caveats: Raw zips are not retained (CCOD is 1.59 GB unzipped); the manifest keeps
+  their checksums. HM Land Registry's API serves only the current month, so a past
+  month cannot be re-fetched. Titles held by individuals are not in these files. Counts
+  are titles, not properties or land area. A title with a UK and an overseas company
+  proprietor can appear in both files.
+related_indicator_ids:
+- dwelling-stock-by-tenure
+- residential-mortgage-book
+open_questions:
+- Confirm licence terms for republishing title-level rows before any company lookup
+  (phase 4).
+notion_registry_url: https://app.notion.com/p/4146547176858197a85ff9f2b0f03bae
+schema_version: '1.0'

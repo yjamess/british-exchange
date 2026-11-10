@@ -5,15 +5,9 @@
  * One archive table per Ready series. Catalogue links stay in the Stage Notes foot.
  */
 
-import { EmptyStage } from "../template";
+import { EmptyStage, explorerClasses as t } from "../template";
 import { AnnualSeriesTable } from "./SeriesDataTables";
 import {
-  FOSSIL_FUEL_DEPENDENCY_ID,
-  IMPORT_DEPENDENCY_ID,
-  IMPORTS_EXPORTS_ID,
-  INTERCONNECTOR_CAPACITY_ID,
-  LOW_CARBON_ENERGY_SHARE_ID,
-  NATURAL_GAS_STORAGE_ID,
   dependencySeries,
   fmtMw,
   gasStorageSeries,
@@ -24,7 +18,13 @@ import {
   type ImportsPack,
 } from "./imports-model";
 import s from "./generation.module.css";
-import { explorerClasses as t } from "../template";
+
+function quarterLabel(t: number): string {
+  if (Number.isInteger(t)) return String(t);
+  const year = Math.floor(t);
+  const q = Math.round((t - year) * 4) + 1;
+  return `Q${q} ${year}`;
+}
 
 export function ImportsData({ pack }: { pack: ImportsPack }) {
   const depRows = pack.dependency?.observations ?? [];
@@ -60,23 +60,17 @@ export function ImportsData({ pack }: { pack: ImportsPack }) {
   if (!any) {
     return (
       <EmptyStage label="Import series unavailable">
-        Load the Ready packages for dependency, trade, resilience ratios, gas storage and
-        interconnector capacity.
+        Import dependency, trade and resilience figures are not available right now.
       </EmptyStage>
     );
   }
 
   return (
     <div className={s.stack}>
-      <p className="bo-prose" style={{ margin: 0, maxWidth: "42rem" }}>
-        Each table is one Ready series at its published frequency. Partner and corridor ranks stay
-        on Lifelines and Connectors — not duplicated here as full country or corridor archives.
-      </p>
-
       {annualDep.points.length > 0 ? (
         <AnnualSeriesTable
           title="Energy import dependency"
-          unit={`% · annual · ${IMPORT_DEPENDENCY_ID}`}
+          unit="% · annual"
           points={annualDep.points.map((p) => ({ t: p.t, v: p.v * 100 }))}
           format={(v) => v.toFixed(1)}
         />
@@ -84,7 +78,7 @@ export function ImportsData({ pack }: { pack: ImportsPack }) {
       {fossil.points.length > 0 ? (
         <AnnualSeriesTable
           title="Fossil fuel dependency"
-          unit={`% · annual · ${FOSSIL_FUEL_DEPENDENCY_ID}`}
+          unit="% · annual"
           points={fossil.points.map((p) => ({ t: p.t, v: p.v * 100 }))}
           format={(v) => v.toFixed(1)}
         />
@@ -92,7 +86,7 @@ export function ImportsData({ pack }: { pack: ImportsPack }) {
       {lowCarbon.points.length > 0 ? (
         <AnnualSeriesTable
           title="Low carbon share"
-          unit={`% · annual · ${LOW_CARBON_ENERGY_SHARE_ID}`}
+          unit="% · annual"
           points={lowCarbon.points.map((p) => ({ t: p.t, v: p.v * 100 }))}
           format={(v) => v.toFixed(1)}
         />
@@ -101,45 +95,67 @@ export function ImportsData({ pack }: { pack: ImportsPack }) {
       {tradeSeries
         .filter((series) => series.points.length > 0)
         .map((series) => (
-          <AnnualSeriesTable
-            key={series.id}
-            title={series.label}
-            unit={`ktoe · ${IMPORTS_EXPORTS_ID}`}
-            points={series.points}
-            format={(v) => v.toLocaleString("en-GB", { maximumFractionDigits: 0 })}
-          />
+          <div key={series.id} className={t.tableGroup}>
+            <p className={t.stageTitle}>
+              {series.label} · ktoe · quarterly
+            </p>
+            <div className={t.tableWrap}>
+              <table className={t.table}>
+                <thead>
+                  <tr>
+                    <th scope="col">Period</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...series.points]
+                    .sort((a, b) => b.t - a.t)
+                    .map((p) => (
+                      <tr key={p.t}>
+                        <th scope="row">{quarterLabel(p.t)}</th>
+                        <td>
+                          {p.v.toLocaleString("en-GB", { maximumFractionDigits: 0 })}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         ))}
 
       {stock.points.length > 0 ? (
         <AnnualSeriesTable
           title="Natural gas stock"
-          unit={`GWh · ${NATURAL_GAS_STORAGE_ID}`}
+          unit="GWh"
           points={stock.points}
           format={(v) => v.toLocaleString("en-GB", { maximumFractionDigits: 0 })}
+          cadence="monthly"
         />
       ) : null}
       {capacity.points.length > 0 ? (
         <AnnualSeriesTable
           title="Natural gas storage capacity"
-          unit={`GWh · ${NATURAL_GAS_STORAGE_ID}`}
+          unit="GWh"
           points={capacity.points}
           format={(v) => v.toLocaleString("en-GB", { maximumFractionDigits: 0 })}
+          cadence="annual"
         />
       ) : null}
 
       {icCapRanks.length > 0 ? (
         <div className={t.tableGroup}>
           <p className={t.stageTitle}>
-            Built interconnector capacity · MW import TEC
-            {icCapPin ? ` · pin ${icCapPin}` : ""} · {INTERCONNECTOR_CAPACITY_ID}
+            Built interconnector capacity · MW
+            {icCapPin ? ` · as at ${icCapPin}` : ""}
           </p>
           <div className={t.tableWrap}>
             <table className={t.table}>
               <thead>
                 <tr>
                   <th scope="col">Project</th>
-                  <th scope="col">Import TEC</th>
-                  <th scope="col">Export (notes)</th>
+                  <th scope="col">Import capacity</th>
+                  <th scope="col">Export capacity</th>
                 </tr>
               </thead>
               <tbody>

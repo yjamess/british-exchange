@@ -1,7 +1,7 @@
 /*
  * Decision Ledger — brand instrument for policy / event domains.
  * Electric closed slab → paper open → Interior 3 catalogue card.
- * Tokens: --bo-electric / --bo-paper only. No sector pigment.
+ * Type: brand tokens only (docs/visual-identity.md). No ad-hoc rem sizes.
  */
 
 .ledger {
@@ -16,6 +16,7 @@
 .ledgerEmpty {
   margin: 0;
   font-size: var(--bo-t-note);
+  line-height: 1.45;
   color: var(--bo-text);
 }
 
@@ -56,20 +57,30 @@
   outline-offset: 3px;
 }
 
-.slabYear {
+/* Mono labels — same size as .bo-label */
+.slabYear,
+.slabMeta,
+.sec,
+.dossierInstrumentLabel,
+.register dt {
   font-family: var(--bo-f-data);
-  font-size: 0.7rem;
+  font-size: var(--bo-t-label);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--bo-track-label, 0.06em);
   text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.slabYear {
+  margin: 0;
 }
 
 .slabTitle {
   margin: 0;
   font-family: var(--bo-f-head);
   font-weight: 400;
-  font-size: clamp(1.35rem, 2.8vw, 1.95rem);
-  line-height: 1.08;
+  font-size: var(--bo-t-ed-m);
+  line-height: 1.12;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
@@ -80,11 +91,6 @@
   gap: 0.35rem 0.75rem;
   align-items: center;
   justify-content: flex-end;
-  font-family: var(--bo-f-data);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .slabClosed .slabTitle,
@@ -106,28 +112,22 @@
   padding: 0 1.15rem 1.35rem;
 }
 
-.lead {
+/* Story column — one reading size for summary and extent */
+.lead,
+.body {
   margin: 0 0 0.85rem;
-  font-size: 1.08rem;
-  line-height: 1.45;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
   color: var(--bo-union);
   max-width: 40rem;
 }
 
 .body {
-  margin: 0 0 0.75rem;
-  line-height: 1.45;
-  color: var(--bo-union);
-  max-width: 40rem;
+  margin-bottom: 0.75rem;
 }
 
 .sec {
   margin: 0 0 0.45rem;
-  font-family: var(--bo-f-data);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--bo-text);
 }
 
@@ -140,26 +140,61 @@
   gap: 0.65rem;
 }
 
-.destList a {
+.destList a,
+.destList button {
+  font-size: var(--bo-t-small);
+  line-height: 1.4;
   color: var(--bo-electric);
   text-underline-offset: 0.15em;
+}
+
+.destList button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--bo-t-small);
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+
+.destList button:hover {
+  text-decoration: underline;
+}
+
+.destList button:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
 }
 
 .destNote {
   display: block;
   margin-top: 0.2rem;
-  font-size: 0.9rem;
-  line-height: 1.35;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
   color: var(--bo-text);
+}
+
+.destNote a {
+  color: var(--bo-electric);
+  text-underline-offset: 0.15em;
+}
+
+.destNote a {
+  color: var(--bo-electric);
+  text-underline-offset: 0.15em;
 }
 
 .caveat {
   margin: 1.15rem 0 0;
   padding-top: 0.85rem;
   border-top: 1px solid var(--bo-ink-20);
-  font-size: 0.9rem;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
   color: var(--bo-text);
-  line-height: 1.4;
   max-width: 40rem;
 }
 
@@ -186,11 +221,6 @@
 
 .dossierInstrumentLabel {
   margin: 0;
-  font-family: var(--bo-f-data);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--bo-text);
 }
 
@@ -226,25 +256,121 @@
 
 .register dt {
   margin: 0;
-  font-family: var(--bo-f-data);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--bo-text);
   padding-top: 0.15rem;
 }
 
 .register dd {
   margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.45;
   color: var(--bo-union);
-  line-height: 1.35;
 }
 
 .register dd a {
   display: block;
   color: var(--bo-electric);
   text-underline-offset: 0.15em;
+}
+
+/* ——— Promise verdict (open panel via DecisionLedger renderPanel) ——— */
+
+.verdict {
+  padding: 0 1.15rem 1.35rem;
+  display: grid;
+  gap: 1.15rem;
+  min-width: 0;
+}
+
+.verdictQuote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: 42rem;
+}
+
+.verdictQuote p {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--bo-electric);
+  text-wrap: pretty;
+}
+
+.verdictMade {
+  margin: 0.65rem 0 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label, 0.06em);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
+.verdictGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--bo-electric);
+  min-width: 0;
+}
+
+.verdictCell {
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border-left: 1px solid var(--bo-ink-20);
+}
+
+.verdictCell:first-child {
+  border-left: 0;
+}
+
+.verdictCell .sec {
+  margin: 0 0 0.45rem;
+}
+
+.verdictValue {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.4;
+  color: var(--bo-union);
+}
+
+.verdictStamp {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-small);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: var(--bo-electric);
+}
+
+.verdictFinding {
+  margin: 0;
+  max-width: 42rem;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  color: var(--bo-union);
+}
+
+@media (max-width: 720px) {
+  .verdictGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .verdictCell {
+    border-left: 0;
+    border-top: 1px solid var(--bo-ink-20);
+  }
+
+  .verdictCell:first-child {
+    border-top: 0;
+  }
 }
 
 .disclosure {

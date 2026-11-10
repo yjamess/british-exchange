@@ -1,13 +1,19 @@
 /**
- * Server-only loaders for Energy Domain 01.
- * Client components must import types/helpers from packs.ts — not this file —
- * because long-run loading uses node:fs (Next.js App Router boundary).
+ * Server-only loaders for Energy explorers.
+ * Client components must import types/helpers from packs.ts — not this file.
+ * Curated blobs (atlas, stations, geography) come from the Exchange API packs
+ * surface (disk in local API, Supabase Storage in deploy) — not Next.js node:fs.
  */
 
 import { stationPosition } from "./station-model";
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { fetchIndicator, fetchObservations, type IndicatorMeta, type Observation } from "@/lib/api";
+import {
+  fetchIndicator,
+  fetchObservations,
+  fetchPackJson,
+  fetchPackText,
+  type IndicatorMeta,
+  type Observation,
+} from "@/lib/api";
 import {
   CROSS_SECTOR_END_USE_ID,
   DOMESTIC_END_USE_ID,
@@ -64,7 +70,14 @@ import {
   type ImportsPack,
 } from "./imports-model";
 import {
+  BRES_BY_DIVISION_REGION_ID,
+  BRES_EMPLOYEE_JOBS_ID,
+  ASHE_EARNINGS_ID,
+  OUTPUT_PER_JOB_ID,
+  PRODUCTIVITY_HOURS_ID,
   EMPLOYMENT_ID,
+  IOP_BY_DIVISION_ID,
+  IOP_WEIGHTS_ID,
   OUTPUT_INDEX_ID,
   OUTPUT_PER_HOUR_ID,
   SHARE_GVA_ID,
@@ -78,9 +91,22 @@ import {
 } from "./renewables-model";
 import {
   INTERCONNECTOR_FLOWS_ID as NETWORKS_IC_ID,
+  SSEN_ATLAS_ID,
+  TEC_REGISTER_ID,
   type NetworksPack,
+  type SsenAtlasPack,
 } from "./networks-model";
 import { packAllowed, type EnergyPackKey, type EnergyScope } from "./domain-sources";
+import {
+  EMPTY_POLICY_EVENTS_PACK,
+  loadPolicyEventsPack,
+  type PolicyEventsPack,
+} from "./policy-events";
+import {
+  EMPTY_SHOCK_EVENTS_PACK,
+  loadShockEventsPack,
+  type ShockEventsPack,
+} from "./imports-shock-events";
 
 export type { AtlasPack, CapacityPack, GenerationPack, YearPack } from "./packs";
 export type { ConsumptionPack };
@@ -90,6 +116,8 @@ export type { ImportsPack };
 export type { ManufacturingPack };
 export type { RenewablesPack };
 export type { NetworksPack };
+export type { PolicyEventsPack };
+export type { ShockEventsPack };
 export { atlasTechRows, capacityRowsForYear, yearMonthlyStack } from "./packs";
 
 export const GENERATION_ID = "electricity-generation-by-source";
@@ -99,13 +127,16 @@ export const ATLAS_ID = "renewable-energy-planning-operational";
 export const STATIONS_ID = "uk-power-stations-dukes";
 
 /** GB land outline in station/field map coordinates — context only, never an indicator. */
-function loadGbOutline(): { outline?: string; outlineAttribution?: string } {
+async function loadGbOutline(): Promise<{ outline?: string; outlineAttribution?: string }> {
   try {
-    const dir = path.resolve(process.cwd(), "../data/regions/housing-boundaries/curated");
-    const geo = JSON.parse(readFileSync(path.join(dir, "boundaries.geojson"), "utf8"));
-    const source = JSON.parse(readFileSync(path.join(dir, "source.json"), "utf8"));
+    const [geo, source] = await Promise.all([
+      fetchPackJson<{
+        features: { geometry: { type: string; coordinates: number[][][] | number[][][][] } }[];
+      }>("regions.gb-boundaries"),
+      fetchPackJson<{ attribution?: string; note?: string }>("regions.gb-boundaries-source"),
+    ]);
     const outline = geo.features
-      .flatMap((f: { geometry: { type: string; coordinates: number[][][] | number[][][][] } }) => {
+      .flatMap((f) => {
         const polygons =
           f.geometry.type === "Polygon"
             ? [f.geometry.coordinates as number[][][]]
@@ -123,7 +154,7 @@ function loadGbOutline(): { outline?: string; outlineAttribution?: string } {
         );
       })
       .join("");
-    return { outline, outlineAttribution: source.attribution as string };
+    return { outline, outlineAttribution: (source.attribution ?? source.note ?? "") as string };
   } catch {
     return {};
   }
@@ -213,23 +244,17 @@ export async function loadConsumption(): Promise<ConsumptionPack> {
   return { final, flow, endUse, crossEndUse, geography, efficiencies };
 }
 
-function loadAssumedEfficiencies(): AssumedEfficienciesPack | null {
+async function loadAssumedEfficiencies(): Promise<AssumedEfficienciesPack | null> {
   try {
-    const root = path.resolve(process.cwd(), "../data/energy/primary-energy-flow-allocation");
-    return JSON.parse(
-      readFileSync(path.join(root, "curated/assumed_efficiencies.json"), "utf8"),
-    ) as AssumedEfficienciesPack;
+    return await fetchPackJson<AssumedEfficienciesPack>("energy.assumed-efficiencies");
   } catch {
     return null;
   }
 }
 
-function loadPopulationPack(): GeographyPack["population"] {
+async function loadPopulationPack(): Promise<GeographyPack["population"]> {
   try {
-    const root = path.resolve(process.cwd(), "../data/people/subnational-population-estimate");
-    return JSON.parse(
-      readFileSync(path.join(root, "curated/population.json"), "utf8"),
-    ) as NonNullable<GeographyPack["population"]>;
+    return await fetchPackJson<NonNullable<GeographyPack["population"]>>("people.population");
   } catch {
     return null;
   }
@@ -243,16 +268,18 @@ async function loadGeography(): Promise<GeographyPack | null> {
     } catch {
       meta = null;
     }
-    const root = path.resolve(process.cwd(), "../data/energy/subnational-final-consumption");
-    const raw = JSON.parse(readFileSync(path.join(root, "curated/geography.json"), "utf8")) as {
-      years: number[];
-      places: GeographyPack["places"];
-      note: string;
-    };
-    const auth = JSON.parse(readFileSync(path.join(root, "curated/authorities.json"), "utf8")) as {
-      places: GeographyPack["authorities"];
-      note: string;
-    };
+    const [raw, auth, population] = await Promise.all([
+      fetchPackJson<{
+        years: number[];
+        places: GeographyPack["places"];
+        note: string;
+      }>("energy.geography"),
+      fetchPackJson<{
+        places: GeographyPack["authorities"];
+        note: string;
+      }>("energy.authorities"),
+      loadPopulationPack(),
+    ]);
     return {
       meta,
       years: raw.years,
@@ -260,7 +287,7 @@ async function loadGeography(): Promise<GeographyPack | null> {
       authorities: auth.places,
       note: raw.note,
       authoritiesNote: auth.note,
-      population: loadPopulationPack(),
+      population,
     };
   } catch {
     return null;
@@ -269,72 +296,68 @@ async function loadGeography(): Promise<GeographyPack | null> {
 
 export async function loadAtlas(): Promise<AtlasPack | null> {
   try {
-    const [meta, obs] = await Promise.all([
+    const [meta, obs, atlas, outlinePack] = await Promise.all([
       fetchIndicator(ATLAS_ID),
       fetchObservations(ATLAS_ID, { limit: "10000" }),
+      fetchPackJson<{
+        offshore_mw: number;
+        operational_sites: number;
+        sites_with_coordinates?: number;
+        tiles: { code: string; name: string; mw: number }[];
+        largest_sites: AtlasPack["largestSites"];
+        points?: {
+          id: string;
+          name: string;
+          mw: number;
+          technology: string;
+          family: "renewable";
+          region?: string;
+          country?: string;
+          operator?: string;
+          operational_date?: string;
+          lon: number;
+          lat: number;
+        }[];
+      }>("energy.atlas"),
+      loadGbOutline(),
     ]);
-    const root = path.resolve(process.cwd(), "../data/energy/renewable-energy-planning-operational");
-    const atlas = JSON.parse(readFileSync(path.join(root, "curated/atlas.json"), "utf8")) as {
-      offshore_mw: number;
-      operational_sites: number;
-      sites_with_coordinates?: number;
-      tiles: { code: string; name: string; mw: number }[];
-      largest_sites: AtlasPack["largestSites"];
-      points?: {
-        id: string;
-        name: string;
-        mw: number;
-        technology: string;
-        family: "renewable";
-        region?: string;
-        country?: string;
-        operator?: string;
-        operational_date?: string;
-        lon: number;
-        lat: number;
-      }[];
-    };
     const sourceVersion = obs.observations.find((r) => r.source_version)?.source_version ?? "";
 
     let stations: AtlasPack["stations"] = null;
     try {
-      const stationsRoot = path.resolve(process.cwd(), "../data/energy/uk-power-stations-dukes");
-      const sj = JSON.parse(readFileSync(path.join(stationsRoot, "curated/stations.json"), "utf8")) as {
-        station_count: number;
-        stations_with_coordinates: number;
-        skipped_northern_ireland: number;
-        largest_stations: {
-          id: string;
-          name: string;
-          technology: string;
-          primary_fuel: string;
-          family: "fossil" | "nuclear";
-          mw: number;
-          region: string;
-          country: string;
-        }[];
-        points: {
-          id: string;
-          name: string;
-          mw: number;
-          technology: string;
-          primary_fuel: string;
-          family: "fossil" | "nuclear";
-          region?: string;
-          country?: string;
-          operator?: string;
-          year_commissioned?: number;
-          lon: number;
-          lat: number;
-        }[];
-        extract?: string;
-      };
-      let stationsMeta: IndicatorMeta | null = null;
-      try {
-        stationsMeta = await fetchIndicator(STATIONS_ID);
-      } catch {
-        stationsMeta = null;
-      }
+      const [sj, stationsMeta] = await Promise.all([
+        fetchPackJson<{
+          station_count: number;
+          stations_with_coordinates: number;
+          skipped_northern_ireland: number;
+          largest_stations: {
+            id: string;
+            name: string;
+            technology: string;
+            primary_fuel: string;
+            family: "fossil" | "nuclear";
+            mw: number;
+            region: string;
+            country: string;
+          }[];
+          points: {
+            id: string;
+            name: string;
+            mw: number;
+            technology: string;
+            primary_fuel: string;
+            family: "fossil" | "nuclear";
+            region?: string;
+            country?: string;
+            operator?: string;
+            year_commissioned?: number;
+            lon: number;
+            lat: number;
+          }[];
+          extract?: string;
+        }>("energy.stations"),
+        fetchIndicator(STATIONS_ID).catch(() => null),
+      ]);
       stations = {
         meta: stationsMeta,
         stationCount: sj.station_count,
@@ -370,15 +393,9 @@ export async function loadAtlas(): Promise<AtlasPack | null> {
       stations = null;
     }
 
-    const { outline, outlineAttribution } = loadGbOutline();
-
     let history: AtlasPack["history"] = null;
     try {
-      const histPath = path.resolve(
-        process.cwd(),
-        "../data/energy/electricity-generation-long-run/curated/station-history.json",
-      );
-      const raw = JSON.parse(readFileSync(histPath, "utf8")) as {
+      const raw = await fetchPackJson<{
         sheet: string;
         caveat: string;
         source_version: string;
@@ -391,7 +408,7 @@ export async function loadAtlas(): Promise<AtlasPack | null> {
           capacity_mw: number | null;
           fuel: string | null;
         }[];
-      };
+      }>("energy.station-history");
       history = {
         sheet: raw.sheet,
         caveat: raw.caveat,
@@ -413,8 +430,8 @@ export async function loadAtlas(): Promise<AtlasPack | null> {
     return {
       meta,
       observations: obs.observations,
-      outline,
-      outlineAttribution,
+      outline: outlinePack.outline,
+      outlineAttribution: outlinePack.outlineAttribution,
       offshoreMw: atlas.offshore_mw,
       operationalSites: atlas.operational_sites,
       sitesWithCoordinates: atlas.sites_with_coordinates ?? atlas.points?.length ?? 0,
@@ -454,10 +471,10 @@ const RELATED: { id: string; title: string; frequency: string }[] = [
   { id: "industrial-energy-consumption", title: "Industrial energy consumption", frequency: "annual" },
 ];
 
-function csvRows(file: string): Record<string, string>[] {
-  const text = readFileSync(file, "utf8").trim().split(/\r?\n/);
-  const head = text[0]!.split(",");
-  return text.slice(1).map((line) => {
+function csvRowsFromText(text: string): Record<string, string>[] {
+  const lines = text.trim().split(/\r?\n/);
+  const head = lines[0]!.split(",");
+  return lines.slice(1).map((line) => {
     // Quoted cells (fuel labels with commas) — a small CSV split is enough for this file shape.
     const cells: string[] = [];
     let cur = "";
@@ -686,30 +703,6 @@ const EARNINGS_META: IndicatorMeta = {
 
 type CuratedSector = "energy" | "economy" | "history";
 
-function curatedObservations(packageId: string, sector: CuratedSector = "energy"): Observation[] {
-  const file = path.join(
-    path.resolve(process.cwd(), `../data/${sector}`),
-    packageId,
-    "curated/observations.csv",
-  );
-  return csvRows(file).map((r) => ({
-    indicator_id: r.indicator_id ?? packageId,
-    period_start: r.period_start ?? "",
-    period_end: r.period_end ?? "",
-    geography_code: r.geography_code ?? "",
-    geography_label:
-      r.geography_label ||
-      (packageId === DOMESTIC_BILLS_ID || packageId === DOMESTIC_GAS_BILLS_ID || packageId === CPIH_INDEX_ID
-        ? "United Kingdom"
-        : "Great Britain"),
-    value: r.value === "" || r.value == null ? null : Number(r.value),
-    unit: r.unit ?? "",
-    observation_status: r.observation_status ?? "final",
-    source_version: r.source_version ?? "",
-    notes: r.notes ?? "",
-  }));
-}
-
 async function loadSeriesPack(
   id: string,
   fallbackMeta: IndicatorMeta,
@@ -725,22 +718,12 @@ async function loadSeriesPack(
       meta,
       observations: obs.observations,
       sourceVersion,
-      retrievedNote: `Loaded from the Exchange API (pinned raw under data/${sector}/${id}/).`,
+      retrievedNote: `Loaded from the Exchange API (Supabase Postgres; ${sector}/${id}).`,
     };
   } catch {
-    try {
-      const observations = curatedObservations(id, sector);
-      if (!observations.length) return null;
-      const sourceVersion = observations.find((r) => r.source_version)?.source_version ?? "";
-      return {
-        meta: fallbackMeta,
-        observations,
-        sourceVersion,
-        retrievedNote: `Loaded from curated CSV under data/${sector}/${id}/ (API unavailable).`,
-      };
-    } catch {
-      return null;
-    }
+    // Cloud completeness: no laptop CSV fallback — Ready series must come from the API.
+    void fallbackMeta;
+    return null;
   }
 }
 
@@ -772,9 +755,7 @@ export async function loadPrices(): Promise<PricesPack> {
   ]);
   let capComponents: PricesPack["capComponents"] = null;
   try {
-    capComponents = JSON.parse(
-      readFileSync(path.resolve(process.cwd(), "../data/energy/ofgem-default-tariff-cap/curated/components.json"), "utf8"),
-    );
+    capComponents = await fetchPackJson<PricesPack["capComponents"]>("energy.ofgem-components");
   } catch {
     capComponents = null;
   }
@@ -918,38 +899,34 @@ const OIL_IMPORTS_META: IndicatorMeta = {
   notion_registry_url: "",
 };
 
-function loadFieldAtlasPoints(): FieldPoint[] {
+async function loadFieldAtlasPoints(): Promise<FieldPoint[]> {
   try {
-    const file = path.join(
-      path.resolve(process.cwd(), "../data/energy/nsta-ukcs-fields/curated/atlas_points.json"),
+    const payload = await fetchPackJson<{ points?: FieldPoint[]; attribution?: string }>(
+      "energy.nsta-field-points",
     );
-    const payload = JSON.parse(readFileSync(file, "utf8")) as {
-      points?: FieldPoint[];
-      attribution?: string;
-    };
     return payload.points ?? [];
   } catch {
     return [];
   }
 }
 
-function loadFieldAnnualRows(): FieldAnnual[] {
+async function loadFieldAnnualRows(): Promise<FieldAnnual[]> {
   try {
-    const file = path.join(
-      path.resolve(process.cwd(), "../data/energy/nsta-field-production/curated/annual_by_field.csv"),
-    );
-    return csvRows(file).map((r) => ({
-      fieldName: r.field_name ?? "",
-      year: Number(r.year),
-      oilTonnes: Number(r.oil_tonnes || 0),
-      gasToPipelineKsm3: Number(r.gas_to_pipeline_ksm3 || 0),
-      dryGasKsm3: Number(r.dry_gas_ksm3 || 0),
-      associatedGasKsm3: Number(r.associated_gas_ksm3 || 0),
-      condensateTonnes: Number(r.condensate_tonnes || 0),
-      months: Number(r.months || 0),
-      location: r.location ?? "",
-      region: r.field_region ?? "",
-    })).filter((r) => r.fieldName && Number.isFinite(r.year));
+    const text = await fetchPackText("energy.nsta-field-annual");
+    return csvRowsFromText(text)
+      .map((r) => ({
+        fieldName: r.field_name ?? "",
+        year: Number(r.year),
+        oilTonnes: Number(r.oil_tonnes || 0),
+        gasToPipelineKsm3: Number(r.gas_to_pipeline_ksm3 || 0),
+        dryGasKsm3: Number(r.dry_gas_ksm3 || 0),
+        associatedGasKsm3: Number(r.associated_gas_ksm3 || 0),
+        condensateTonnes: Number(r.condensate_tonnes || 0),
+        months: Number(r.months || 0),
+        location: r.location ?? "",
+        region: r.field_region ?? "",
+      }))
+      .filter((r) => r.fieldName && Number.isFinite(r.year));
   } catch {
     return [];
   }
@@ -1007,21 +984,25 @@ export async function loadFossils(): Promise<FossilsPack> {
       notion_registry_url: "",
     }),
   ]);
-  const { outline, outlineAttribution } = loadGbOutline();
+  const [outlinePack, fields, fieldProduction] = await Promise.all([
+    loadGbOutline(),
+    loadFieldAtlasPoints(),
+    loadFieldAnnualRows(),
+  ]);
   return {
     crude,
     gas,
     primary,
     coal,
-    fields: loadFieldAtlasPoints(),
-    fieldProduction: loadFieldAnnualRows(),
+    fields,
+    fieldProduction,
     fieldProductionNational,
     reserves,
     oilImports,
     trade,
     dependency,
-    outline,
-    outlineAttribution,
+    outline: outlinePack.outline,
+    outlineAttribution: outlinePack.outlineAttribution,
     attribution:
       "Contains information provided by the North Sea Transition Authority and/or other third parties.",
   };
@@ -1317,10 +1298,64 @@ export async function loadRenewables(): Promise<RenewablesPack> {
   return { loadFactors, pipeline, plantLoadFactors };
 }
 
+const TEC_REGISTER_META: IndicatorMeta = {
+  indicator_id: TEC_REGISTER_ID,
+  title: "Transmission entry capacity (TEC) register",
+  sector: "energy-industry",
+  publisher: "NESO",
+  source_url: "https://www.neso.energy/data-portal/transmission-entry-capacity-tec-register",
+  series_id: "TEC Register (resource_id 17becbab-e3e8-473f-b303-3806f43a6a10)",
+  geography: "Great Britain (K03000001)",
+  frequency: "ad_hoc",
+  unit: "MW",
+  definition:
+    "Contracted Transmission Entry Capacity increments from the NESO TEC Register. Not speculative ETAs. Not a DNO topology atlas.",
+  licence: "NESO Open Data Licence",
+  caveats:
+    "GB only. Gate may be unassigned. Do not sum stage rows without dedupe. MW Effective From is contractual, not a delivery promise.",
+  revision_notes: "NESO TEC Register pin 2026-11-07.",
+  notion_registry_url: "",
+};
+
+const SSEN_ATLAS_META: IndicatorMeta = {
+  indicator_id: SSEN_ATLAS_ID,
+  title: "SSEN distribution network atlas (DNO pilot)",
+  sector: "energy-industry",
+  publisher: "SSEN Distribution",
+  source_url: "https://data.ssen.co.uk/@ssen-distribution/ssen-substation-data",
+  series_id: "ssen-substation-data + ssen-overhead-lines (pilot pin)",
+  geography: "SEPD + SHEPD licence areas only — not GB-wide",
+  frequency: "ad_hoc",
+  unit: "feature_count",
+  definition:
+    "SSEN Distribution substations and overhead-line segments plus a lean display atlas for the Invisible Grid pilot.",
+  licence: "Creative Commons Attribution 4.0 (CC BY 4.0) · IB1-O — © SSEN Distribution",
+  caveats:
+    "Pilot geography only. Overhead only. Not spare capacity. Not a national DNO product.",
+  revision_notes: "SSEN operator pin 2026-11-09.",
+  notion_registry_url: "https://app.notion.com/p/4136547176858141b066ff8d9b836ca9",
+};
+
 export async function loadNetworks(): Promise<NetworksPack> {
-  // Same Ready ET 5.6 package as Imports Connectors — link, do not fork curated data.
-  const interconnectors = await loadSeriesPack(NETWORKS_IC_ID, INTERCONNECTOR_META);
-  return { interconnectors };
+  // Link Ready packages already used elsewhere — do not fork curated data.
+  const [interconnectors, interconnectorCapacity, tec, ssenCounts, ssenAtlas, outlinePack] =
+    await Promise.all([
+      loadSeriesPack(NETWORKS_IC_ID, INTERCONNECTOR_META),
+      loadSeriesPack(INTERCONNECTOR_CAPACITY_ID, INTERCONNECTOR_CAPACITY_META),
+      loadSeriesPack(TEC_REGISTER_ID, TEC_REGISTER_META),
+      loadSeriesPack(SSEN_ATLAS_ID, SSEN_ATLAS_META),
+      fetchPackJson<SsenAtlasPack>("energy.ssen-dno-atlas").catch(() => null),
+      loadGbOutline(),
+    ]);
+  return {
+    interconnectors,
+    interconnectorCapacity,
+    tec,
+    ssenCounts,
+    ssenAtlas,
+    outline: outlinePack.outline,
+    outlineAttribution: outlinePack.outlineAttribution,
+  };
 }
 
 const OUTPUT_META: IndicatorMeta = {
@@ -1395,35 +1430,294 @@ const PRODUCTIVITY_META: IndicatorMeta = {
   notion_registry_url: "https://app.notion.com/41165471768581c89c2ce8e92d3134e3",
 };
 
+const OUTPUT_PER_JOB_META: IndicatorMeta = {
+  indicator_id: OUTPUT_PER_JOB_ID,
+  title: "Manufacturing output per job",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/dj4p/prdy",
+  series_id: "DJ4P / PRDY (Manufacturing C output per job, 2023=100 SA)",
+  geography: "United Kingdom (K02000001)",
+  frequency: "quarterly",
+  unit: "index (2023=100, SA)",
+  definition: "UK manufacturing (SIC section C) output per filled job, seasonally adjusted index.",
+  licence: "Open Government Licence v3.0",
+  caveats: "Not IoP÷jobs; distinct from output per hour (DJK6).",
+  revision_notes: "ONS productivity revisions.",
+  notion_registry_url: "",
+};
+
+const PRODUCTIVITY_HOURS_META: IndicatorMeta = {
+  indicator_id: PRODUCTIVITY_HOURS_ID,
+  title: "Manufacturing productivity hours",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/dk3v/prdy",
+  series_id: "DK3V / PRDY (Manufacturing C productivity hours, 2023=100 SA)",
+  geography: "United Kingdom (K02000001)",
+  frequency: "quarterly",
+  unit: "index (2023=100, SA)",
+  definition:
+    "UK manufacturing (SIC section C) productivity hours index — the official hours component in labour productivity.",
+  licence: "Open Government Licence v3.0",
+  caveats: "Hours index ≠ Workforce Jobs (JWR7). Not ASHE paid hours.",
+  revision_notes: "ONS productivity revisions.",
+  notion_registry_url: "https://app.notion.com/414654717685812eb6a1f1dbe97cc368",
+};
+
+const ASHE_EARNINGS_META: IndicatorMeta = {
+  indicator_id: ASHE_EARNINGS_ID,
+  title: "ASHE manufacturing median earnings",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/industry2digitsicashetable4",
+  series_id: "ASHE Table 4 · SIC 2007 manufacturing · median",
+  geography: "United Kingdom (K02000001)",
+  frequency: "annual",
+  unit: "GBP median (weekly gross or hourly excluding overtime)",
+  definition:
+    "ASHE Table 4 medians for UK manufacturing section C and divisions 10–33 (All and Full-Time employee jobs).",
+  licence: "Open Government Licence v3.0",
+  caveats: "Cash pounds; median ≠ mean; Full-Time ≠ All; not Workforce Jobs.",
+  revision_notes: "ASHE 2025 revised pin 2026-11-10.",
+  notion_registry_url: "https://app.notion.com/41465471768581e3bfbbc844f0357d31",
+};
+
+const IOP_BY_DIVISION_META: IndicatorMeta = {
+  indicator_id: IOP_BY_DIVISION_ID,
+  title: "Manufacturing IoP by SIC division / subsection",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction/current",
+  series_id: "DIOP · SIC 2007 section C subsections CA–CM and divisions 10–33",
+  geography: "United Kingdom (K02000001)",
+  frequency: "monthly",
+  unit: "index (chained volume, SA; base year = 100)",
+  definition:
+    "Monthly seasonally adjusted chained-volume Index of Production levels for manufacturing subsections and divisions. Index levels are not industry size.",
+  licence: "Open Government Licence v3.0",
+  caveats:
+    "Not Ready headline K22A. Not GVA shares. ONS combines divisions 11+12 as DM4H. Indices are not additive.",
+  revision_notes: "DIOP pin 2026-11-07.",
+  notion_registry_url: "",
+};
+
+const IOP_WEIGHTS_META: IndicatorMeta = {
+  indicator_id: IOP_WEIGHTS_ID,
+  title: "Manufacturing IoP weights by SIC division / subsection",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction/current",
+  series_id: "DIOP · annual GVA weights · section C, subsections CA–CM, divisions 10–33",
+  geography: "United Kingdom (K02000001)",
+  frequency: "annual",
+  unit: "parts per thousand of the Index of Production (GVA weight)",
+  definition:
+    "ONS annual GVA weights used to combine the Index of Production, in parts per thousand of all production. Subsections and divisions each add up to manufacturing.",
+  licence: "Open Government Licence v3.0",
+  caveats: "Weights describe each branch's share of production value, not its volume growth.",
+  revision_notes: "DIOP pin 2026-11-07.",
+  notion_registry_url: "",
+};
+
+const BRES_META: IndicatorMeta = {
+  indicator_id: BRES_EMPLOYEE_JOBS_ID,
+  title: "BRES manufacturing employee jobs by region",
+  sector: "energy-industry",
+  publisher: "ONS",
+  source_url:
+    "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/regionbybroadindustrygroupsicbusinessregisterandemploymentsurveybrestable4",
+  series_id: "BRES Table 4 · Manufacturing · Total employees",
+  geography: "UK countries and English regions",
+  frequency: "annual",
+  unit: "thousands of employee jobs",
+  definition:
+    "Manufacturing (SIC section C) employee jobs by UK region from BRES Table 4. Not the workforce-jobs series.",
+  licence: "Open Government Licence v3.0",
+  caveats: "2024 provisional excludes Northern Ireland. Employee jobs ≠ workforce jobs.",
+  revision_notes: "BRES Table 4 annual editions.",
+  notion_registry_url: "",
+};
+
+const BRES_DIVISION_META: IndicatorMeta = {
+  indicator_id: BRES_BY_DIVISION_REGION_ID,
+  title: "BRES manufacturing employee jobs by division and region",
+  sector: "energy-industry",
+  publisher: "ONS via Nomis",
+  source_url: "https://www.nomisweb.co.uk/datasets/newbres6pub",
+  series_id: "Nomis NM_189_1 · SIC divisions × regions · Employees",
+  geography: "Great Britain countries and English regions",
+  frequency: "annual",
+  unit: "thousands of employee jobs",
+  definition:
+    "Manufacturing SIC division employee jobs by GB region from Nomis open-access BRES. No Northern Ireland.",
+  licence: "Open Government Licence v3.0",
+  caveats: "GB only. Rounded counts. Division sums will not exactly match Table 4 totals.",
+  revision_notes: "Nomis BRES open access annual editions.",
+  notion_registry_url: "",
+};
+
+type IopAnnualPack = {
+  indicator_id?: string;
+  source_version?: string;
+  observation_count?: number;
+  observations: Array<{
+    indicator_id?: string;
+    period_start: string;
+    period_end: string;
+    geography_code?: string;
+    geography_label?: string;
+    value: number | null;
+    unit?: string;
+    observation_status?: string;
+    source_version?: string;
+    notes?: string;
+    dimensions?: { series?: string; category?: string };
+  }>;
+};
+
+/**
+ * Multi-series IoP — lean annual year-mean pack (not the ~34k-row monthly CSV).
+ * Catalogue ChangeRows and branch dials only need one point per year per SIC break.
+ */
+async function loadIopByDivision(): Promise<SeriesPack | null> {
+  return loadIopPack("energy.manufacturing-iop-annual", IOP_BY_DIVISION_ID, IOP_BY_DIVISION_META);
+}
+
+/** ONS annual IoP weights — additive composition of manufacturing (Production Anatomy). */
+async function loadIopWeights(): Promise<SeriesPack | null> {
+  return loadIopPack("energy.manufacturing-iop-weights", IOP_WEIGHTS_ID, IOP_WEIGHTS_META);
+}
+
+async function loadIopPack(
+  packId: string,
+  indicatorId: string,
+  fallbackMeta: IndicatorMeta,
+): Promise<SeriesPack | null> {
+  try {
+    const pack = await fetchPackJson<IopAnnualPack>(packId);
+    const observations: Observation[] = (pack.observations ?? []).map((r) => ({
+      indicator_id: r.indicator_id || indicatorId,
+      period_start: r.period_start ?? "",
+      period_end: r.period_end ?? "",
+      geography_code: r.geography_code ?? "K02000001",
+      geography_label: r.geography_label ?? "United Kingdom",
+      value: r.value != null && Number.isFinite(Number(r.value)) ? Number(r.value) : null,
+      unit: r.unit ?? "",
+      observation_status: r.observation_status ?? "final",
+      source_version: r.source_version ?? pack.source_version ?? "",
+      notes: r.notes ?? "",
+      dimensions: {
+        fuel: "",
+        water_company: "",
+        water_company_name: "",
+        demographic: "",
+        series: r.dimensions?.series ?? "",
+        category: r.dimensions?.category ?? "",
+      },
+    }));
+    if (!observations.length) return null;
+    const meta = await fetchIndicator(indicatorId).catch(() => fallbackMeta);
+    const sourceVersion =
+      pack.source_version ||
+      observations.find((row) => row.source_version)?.source_version ||
+      "";
+    return {
+      meta,
+      observations,
+      sourceVersion,
+      retrievedNote: `Loaded from pack ${packId} (${observations.length} annual rows).`,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function loadManufacturing(): Promise<ManufacturingPack> {
-  const [output, share, employment, productivity] = await Promise.all([
+  const [
+    output,
+    share,
+    employment,
+    productivity,
+    outputPerJob,
+    productivityHours,
+    asheEarnings,
+    iopByDivision,
+    iopWeights,
+    bresByRegion,
+    bresByDivisionRegion,
+  ] = await Promise.all([
     loadSeriesPack(OUTPUT_INDEX_ID, OUTPUT_META),
     loadSeriesPack(SHARE_GVA_ID, SHARE_META),
     loadSeriesPack(EMPLOYMENT_ID, EMPLOYMENT_META),
     loadSeriesPack(OUTPUT_PER_HOUR_ID, PRODUCTIVITY_META),
+    loadSeriesPack(OUTPUT_PER_JOB_ID, OUTPUT_PER_JOB_META),
+    loadSeriesPack(PRODUCTIVITY_HOURS_ID, PRODUCTIVITY_HOURS_META),
+    loadSeriesPack(ASHE_EARNINGS_ID, ASHE_EARNINGS_META),
+    loadIopByDivision(),
+    loadIopWeights(),
+    loadSeriesPack(BRES_EMPLOYEE_JOBS_ID, BRES_META),
+    loadSeriesPack(BRES_BY_DIVISION_REGION_ID, BRES_DIVISION_META),
   ]);
-  return { output, share, employment, productivity };
+  return {
+    output,
+    share,
+    employment,
+    productivity,
+    outputPerJob,
+    productivityHours,
+    asheEarnings,
+    iopByDivision,
+    iopWeights,
+    bresByRegion,
+    bresByDivisionRegion,
+  };
 }
 
 export async function loadLongRun(): Promise<LongRunPack | null> {
-  const root = path.resolve(process.cwd(), "../data/energy");
   try {
-    const rows = csvRows(path.join(root, "electricity-generation-long-run/curated/observations.csv")).map((r) => ({
-      period_start: r.period_start!,
-      value: r.value === "" ? null : Number(r.value),
-      observation_status: r.observation_status!,
-      notes: r.notes!,
-    }));
-    const related: Record<string, Coverage> = {};
-    for (const rel of RELATED) {
-      try {
-        const lines = readFileSync(path.join(root, rel.id, "curated/observations.csv"), "utf8").trim().split(/\r?\n/).slice(1);
-        const years = lines.map((l) => Number(l.split(",")[1]?.slice(0, 4))).filter(Number.isFinite);
-        related[rel.id] = { ...rel, first: Math.min(...years), last: Math.max(...years) };
-      } catch {
-        /* a missing related file just drops that link */
-      }
+    // Prefer Postgres observations; fall back to the curated pack via Storage/API.
+    let rows: { period_start: string; value: number | null; observation_status: string; notes: string }[];
+    try {
+      const obs = await fetchObservations("electricity-generation-long-run", {
+        limit: "10000",
+        include_aggregates: "true",
+      });
+      rows = obs.observations.map((r) => ({
+        period_start: r.period_start,
+        value: r.value,
+        observation_status: r.observation_status,
+        notes: r.notes ?? "",
+      }));
+    } catch {
+      const text = await fetchPackText("energy.long-run-observations");
+      rows = csvRowsFromText(text).map((r) => ({
+        period_start: r.period_start!,
+        value: r.value === "" ? null : Number(r.value),
+        observation_status: r.observation_status!,
+        notes: r.notes!,
+      }));
     }
+    const related: Record<string, Coverage> = {};
+    await Promise.all(
+      RELATED.map(async (rel) => {
+        try {
+          const obs = await fetchObservations(rel.id, { limit: "10000", include_aggregates: "true" });
+          const years = obs.observations
+            .map((r) => Number(r.period_start.slice(0, 4)))
+            .filter(Number.isFinite);
+          if (!years.length) return;
+          related[rel.id] = { ...rel, first: Math.min(...years), last: Math.max(...years) };
+        } catch {
+          /* a missing related series just drops that link */
+        }
+      }),
+    );
     return { mix: longRunFromRows(rows), related };
   } catch {
     return null;
@@ -1483,13 +1777,43 @@ const EMPTY_MANUFACTURING: ManufacturingPack = {
   share: null,
   employment: null,
   productivity: null,
+  outputPerJob: null,
+  productivityHours: null,
+  asheEarnings: null,
+  iopByDivision: null,
+  iopWeights: null,
+  bresByRegion: null,
+  bresByDivisionRegion: null,
 };
 const EMPTY_RENEWABLES: RenewablesPack = {
   loadFactors: null,
   pipeline: null,
   plantLoadFactors: null,
 };
-const EMPTY_NETWORKS: NetworksPack = { interconnectors: null };
+const EMPTY_NETWORKS: NetworksPack = {
+  interconnectors: null,
+  interconnectorCapacity: null,
+  tec: null,
+  ssenAtlas: null,
+  ssenCounts: null,
+};
+
+/** Curated event registers: a missing pack degrades to an empty ledger, never a crash. */
+async function loadPolicyEvents(): Promise<PolicyEventsPack> {
+  try {
+    return await loadPolicyEventsPack();
+  } catch {
+    return EMPTY_POLICY_EVENTS_PACK;
+  }
+}
+
+async function loadShockEvents(): Promise<ShockEventsPack> {
+  try {
+    return await loadShockEventsPack();
+  } catch {
+    return EMPTY_SHOCK_EVENTS_PACK;
+  }
+}
 
 export type EnergySectorData = {
   generation: GenerationPack | null;
@@ -1504,6 +1828,8 @@ export type EnergySectorData = {
   manufacturing: ManufacturingPack;
   renewables: RenewablesPack;
   networks: NetworksPack;
+  policyEvents: PolicyEventsPack;
+  shockEvents: ShockEventsPack;
 };
 
 /**
@@ -1528,6 +1854,8 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     manufacturing,
     renewables,
     networks,
+    policyEvents,
+    shockEvents,
   ] = await Promise.all([
     need("generation") ? loadGeneration() : skip(null),
     need("capacity") ? loadCapacity() : skip(null),
@@ -1541,6 +1869,8 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     need("manufacturing") ? loadManufacturing() : skip(EMPTY_MANUFACTURING),
     need("renewables") ? loadRenewables() : skip(EMPTY_RENEWABLES),
     need("networks") ? loadNetworks() : skip(EMPTY_NETWORKS),
+    need("policyEvents") ? loadPolicyEvents() : skip(EMPTY_POLICY_EVENTS_PACK),
+    need("shockEvents") ? loadShockEvents() : skip(EMPTY_SHOCK_EVENTS_PACK),
   ]);
 
   return {
@@ -1556,5 +1886,7 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     manufacturing,
     renewables,
     networks,
+    policyEvents,
+    shockEvents,
   };
 }

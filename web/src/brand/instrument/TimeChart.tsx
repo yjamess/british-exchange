@@ -1,25 +1,24 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { fmtT, type Pt } from "../data";
 import { easeInOut, setOf, useDrawOn, useTweened } from "./motion";
 import { SeriesLegend } from "./SeriesLegend";
+import { explorerClasses as t } from "../template";
 import s from "./instrument.module.css";
 
 /**
  * v1 time chart — the chart template for every sector (see docs/visual-identity.md › Charts).
  * - series order: Electric, Ochre, Union, Verdigris, Plum
- * - multi-series lines: SeriesLegend under the plot names the lines and shows latest values, so the
- *   plot uses the full stage width. End-of-line leaders are opt-in (`leaders={true}`) for the
- *   Generation mix pattern only. One series: a Latest card in the gutter when leaders are on
- *   (default). Narrow screens always use the legend only.
+ * - Plot fills the stage by default. SeriesLegend under the plot names series and shows latest
+ *   values (one series or many). End-of-line leaders reserve a right gutter — pass `leaders={true}`
+ *   only when that pattern is deliberate (Generation fuel-mix end names). Never default them on:
+ *   an empty 128px strip is what makes charts look shorter than the frame.
  * - clean observed lines with no decorative area; only supplied statistical range bands are drawn
  * - bars solid ink; provisional bars and stack layers use pen hatching or the muted chart tones
  * - dotted = provisional · dashed = gap between observations (not observed)
- * - on a line, the latest point of the first series is an open ink ring. One series: "Latest" with
- *   value and period in the gutter. Several series: each end gets a leader + name (first also shows
- *   the latest figure). Bars do not get the ring: the last column is already that period.
- *   No Signal red in charts: a mark must explain itself; clean line direction A.
+ * - on a line, the latest point of the first series is an open ink ring. Bars do not get the ring:
+ *   the last column is already that period. No Signal red in charts.
  * - pointer + keyboard inspection (←/→, Home/End, Esc) and an exact-value table
  * - motion (default on, `motion={false}` to opt out; see ./motion.ts): lines are printed by a carriage
  *   and columns set one after another on first view; axes travel when the domain changes.
@@ -111,9 +110,8 @@ export type ChartRule = { id: string; t: number; label?: string; active?: boolea
  * Plot margins for a chart of this width, kind and series. Exported so instruments that sit on the
  * same time axis (EventRail) line up with the plot exactly.
  *
- * Multi-series charts do not reserve an end-label strip by default — SeriesLegend is the key and
- * the plot fills the stage. Pass `leaders` true only when end-of-line names are actually drawn
- * (single-series Latest card, or an explicit Generation-mix multi-series).
+ * Charts do not reserve an end-label strip by default — SeriesLegend is the key and the plot
+ * fills the stage. Pass `leaders` true only when end-of-line names are actually drawn.
  */
 export function chartMargins(
   width: number,
@@ -155,7 +153,7 @@ export function TimeChart({
   kind = "line",
   cadence,
   format,
-  axisFormat = format,
+  axisFormat,
   zero = false,
   area = false,
   gaps = "break",
@@ -207,9 +205,9 @@ export function TimeChart({
   /** Extra readout rows for the hovered period (place, YoY, sales, status, …). */
   inspect?: (t: number) => InspectRow[];
   /**
-   * End-of-line labels in the right gutter (wide plots).
-   * Omit for auto: on for one series (Latest card); off for several so SeriesLegend keys the
-   * lines and the plot fills the stage. Pass true on multi-series only for Generation-mix style.
+   * End-of-line labels in the right gutter (wide plots). Default off — plot fills the stage;
+   * SeriesLegend under the plot carries names and latest values. Pass true only when end
+   * labels are deliberate (never to "fix" empty space).
    */
   leaders?: boolean;
 }) {
@@ -237,15 +235,19 @@ export function TimeChart({
     return () => ro.disconnect();
   }, []);
 
+  // Stacks always plot 0–1 shares; label the axis as percent unless the caller overrides.
+  const axisFmt =
+    axisFormat ??
+    (kind === "stack" ? (v: number) => `${Math.round(v * 100)}%` : format);
   const period = (t: number) => periodLabel?.(t) ?? fmtT(t, cadence);
   const narrow = width < 560;
   const multi = series.length > 1;
   const manySeries = kind === "line" && series.length > MAX_END_LEADERS;
-  // Auto: Latest card for one series; multi-series use SeriesLegend so the plot fills the stage.
-  const useLeaders = leaders ?? !multi;
+  // Default off: SeriesLegend keys the lines and the plot fills the stage. Opt in with leaders={true}.
+  const useLeaders = leaders === true;
   const showEndLeaders = useLeaders && kind === "line" && !narrow;
   const showSideLatest = false;
-  const showLegend = multi;
+  const showLegend = kind === "line" || kind === "stack" ? !showEndLeaders && series.length >= 1 : multi;
   const M = chartMargins(
     width,
     kind,
@@ -403,7 +405,7 @@ export function TimeChart({
             <g key={v}>
               <line x1={M.l} x2={M.l + W} y1={y(v)} y2={y(v)} className={v === 0 ? s.zero : s.grid} />
               <text x={M.l - 8} y={y(v) + 3.5} textAnchor="end" className={s.tick}>
-                {axisFormat(v)}
+                {axisFmt(v)}
               </text>
             </g>
           ))}
@@ -667,29 +669,54 @@ export function TimeChart({
         />
       )}
 
-      {showTable && <details className={s.table} onToggle={event => setTableOpen(event.currentTarget.open)}>
-        <summary className="bo-disclosure">Exact values · selected series and period</summary>
-        {tableOpen && <div className={s.tableScroll}><table>
-          <caption>{label}</caption>
-          <thead><tr>
-            <th scope="col">Period</th>
-            {series.map(sr => <th scope="col" key={sr.id}>{sr.label}</th>)}
-            {band && <th scope="col">{band.loLabel}</th>}
-            {band && <th scope="col">{band.hiLabel}</th>}
-          </tr></thead>
-          <tbody>{times.map(t => {
-            const lo = band?.lo.find((p) => p.t === t);
-            const hi = band?.hi.find((p) => p.t === t);
-            return <tr key={t}><th scope="row">{period(t)}</th>{series.map((sr, i) => {
-            const p = lookup[i].get(t);
-            return <td key={sr.id}>{p ? `${format(p.v)}${p.provisional ? " · provisional" : ""}` : "Not available"}</td>;
-          })}
-            {band && <td>{lo ? format(lo.v) : "Not available"}</td>}
-            {band && <td>{hi ? format(hi.v) : "Not available"}</td>}
-          </tr>;
-          })}</tbody>
-        </table></div>}
-      </details>}
+      {showTable && (
+        <details className={s.exact} onToggle={(event) => setTableOpen(event.currentTarget.open)}>
+          <summary className="bo-disclosure">Exact values · selected series and period</summary>
+          {tableOpen && (
+            <div className={t.tableWrap}>
+              <table className={t.table}>
+                <caption>{label}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Period</th>
+                    {series.map((sr) => (
+                      <th scope="col" key={sr.id}>
+                        {/* Caption already names a lone series — don't repeat it in the header. */}
+                        {series.length === 1 ? "Value" : sr.label}
+                      </th>
+                    ))}
+                    {band && <th scope="col">{band.loLabel}</th>}
+                    {band && <th scope="col">{band.hiLabel}</th>}
+                  </tr>
+                </thead>
+                <tbody>
+                  {times.map((tm) => {
+                    const lo = band?.lo.find((p) => p.t === tm);
+                    const hi = band?.hi.find((p) => p.t === tm);
+                    return (
+                      <tr key={tm}>
+                        <th scope="row">{period(tm)}</th>
+                        {series.map((sr, i) => {
+                          const p = lookup[i]!.get(tm);
+                          return (
+                            <td key={sr.id}>
+                              {p
+                                ? `${format(p.v)}${p.provisional ? " · provisional" : ""}`
+                                : "Not available"}
+                            </td>
+                          );
+                        })}
+                        {band && <td>{lo ? format(lo.v) : "Not available"}</td>}
+                        {band && <td>{hi ? format(hi.v) : "Not available"}</td>}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </details>
+      )}
     </figure>
   );
 }
@@ -712,18 +739,36 @@ export function RankBars({
   /** When set, each row is a toggle button (e.g. linked to a region map). */
   onSelect?: (id: string) => void;
 }) {
-  const max = Math.max(...rows.map((r) => r.v), reference?.v ?? 0);
+  const values = [...rows.map((r) => r.v), ...(reference ? [reference.v] : [])];
+  const signed = values.some((v) => v < 0);
+  const span = Math.max(...values.map((v) => Math.abs(v)), 1e-9);
   const ref = useRef<HTMLElement>(null);
   const k = useDrawOn(ref, { enabled: motion, ms: 1100, replayKey: rows.map((r) => `${r.id}:${r.v}`).join("|") });
+  const barStyle = (v: number, j: number): CSSProperties => {
+    const drawn = setOf(k, j, rows.length);
+    if (!signed) {
+      return { left: 0, width: `${(Math.abs(v) / span) * 100 * drawn}%` };
+    }
+    // Zero at mid-track; negatives grow left, positives right.
+    const half = (Math.abs(v) / span) * 50 * drawn;
+    return v < 0
+      ? { left: `${50 - half}%`, width: `${half}%` }
+      : { left: "50%", width: `${half}%` };
+  };
+  const refMarkLeft = reference
+    ? signed
+      ? `${50 + (reference.v / span) * 50}%`
+      : `${(reference.v / span) * 100}%`
+    : null;
   return (
-    <figure ref={ref} className={s.rank} aria-label={label}>
+    <figure ref={ref} className={`${s.rank} ${signed ? s.rankSigned : ""}`} aria-label={label}>
       {rows.map((r, j) => {
         const body = (
           <>
             <span>{r.label}</span>
             <span className={s.rankTrack}>
-              <i style={{ width: `${(r.v / max) * 100 * setOf(k, j, rows.length)}%` }} />
-              {reference && <em style={{ left: `${(reference.v / max) * 100}%` }} aria-hidden="true" />}
+              <i style={barStyle(r.v, j)} />
+              {refMarkLeft != null && <em style={{ left: refMarkLeft }} aria-hidden="true" />}
             </span>
             <b className="bo-fig">{format(r.v)}</b>
           </>

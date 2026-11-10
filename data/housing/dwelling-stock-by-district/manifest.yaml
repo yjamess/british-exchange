@@ -16,7 +16,7 @@ curated_path: curated/observations.csv
 update_cadence: annual
 raw_evidence:
 - path: raw/2026-11-04/LiveTable100.ods
-  retrieved_at: '2026-11-04T19:00:37.353561+00:00'
+  retrieved_at: '2026-11-10T14:35:39.860072+00:00'
   checksum_sha256: 4c6a22b92aa579d725eefe82765c4b340e1c9b154961a69b97f6ec4f28bae16a
   content_type: application/vnd.oasis.opendocument.spreadsheet
   official_release_date: '2026-05-21'
@@ -30,5 +30,5 @@ caveats: Private sector combines owner-occupied and private rented — not split
   from household tenure (Census).
 related_indicator_ids: []
 open_questions: []
-notion_registry_url: ''
+notion_registry_url: https://app.notion.com/p/41465471768581fab776dcaddd19fd01
 schema_version: '1.0'

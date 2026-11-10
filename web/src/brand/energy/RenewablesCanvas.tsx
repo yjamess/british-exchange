@@ -11,7 +11,6 @@ import { useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { EventRail } from "../instrument/EventRail";
-import { ExactRegister } from "../policy";
 import {
   ControlRow,
   EmptyStage,
@@ -25,13 +24,18 @@ import {
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import type { CapacityPack, GenerationPack } from "./packs";
-import { ORDERED as POLICY_ORDERED, markYear } from "./policy-events";
+import {
+  EMPTY_POLICY_EVENTS_PACK,
+  markYear,
+  orderedPolicyEvents,
+  type PolicyEventsPack,
+} from "./policy-events";
 import {
   CAPACITY_ID,
   FIELD_TECHS,
-  GENERATION_ID,
   LOAD_BASES,
   LOAD_FACTORS_ID,
   PIPELINE_ID,
@@ -47,7 +51,6 @@ import {
   fmtTwh,
   generationSeries,
   generationTwhInYear,
-  journeysForTech,
   loadFactorInYear,
   loadFactorSeries,
   parsePipelineRows,
@@ -93,65 +96,6 @@ function asPipelineTech(v: string | null): FieldTechId | "all" {
   return asTech(v);
 }
 
-function FieldCard({
-  year,
-  techLabel,
-  nuclear,
-  capacityMw,
-  generation,
-  loadPct,
-}: {
-  year: number;
-  techLabel: string;
-  nuclear: boolean;
-  capacityMw: number | null;
-  generation: { value: number; quarters: number; provisional: boolean } | null;
-  loadPct: number | null;
-}) {
-  return (
-    <article className={s.ledger} aria-label={`${techLabel} capacity versus output, ${year}`}>
-      <header className={s.ledgerHead}>
-        <p className={s.receiptMeta}>
-          {nuclear ? "Low-carbon · not renewable" : "Renewable electricity"} · United Kingdom
-        </p>
-        <h3>{techLabel}</h3>
-        <p className={s.receiptMeta}>{year} · Capacity ≠ Output</p>
-      </header>
-
-      <div className={s.ledgerGrid}>
-        <div className={s.ledgerCell}>
-          <strong>Installed capacity</strong>
-          <span className={s.receiptFig}>{capacityMw != null ? fmtGw(capacityMw) : "—"}</span>
-          <span>DUKES 5.12 · MW (shown as GW when large)</span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Annual generation</strong>
-          <span className={s.receiptFig}>
-            {generation != null ? fmtTwh(generation.value) : "—"}
-          </span>
-          <span>
-            {generation
-              ? `ET 5.1 · ${generation.quarters} quarter${generation.quarters === 1 ? "" : "s"} sum${
-                  generation.provisional ? " · provisional/incomplete" : ""
-                }`
-              : "ET 5.1 · TWh"}
-          </span>
-        </div>
-        <div className={s.ledgerCell}>
-          <strong>Load factor</strong>
-          <span className={s.receiptFig}>{loadPct != null ? fmtLoadPct(loadPct) : "—"}</span>
-          <span>
-            {nuclear
-              ? "DUKES 5.10 · major power producers · nuclear stations"
-              : "DUKES 6.3 · percent of potential generation"}
-          </span>
-        </div>
-      </div>
-
-    </article>
-  );
-}
-
 function PipelineArchiveTable({
   rows,
 }: {
@@ -161,7 +105,7 @@ function PipelineArchiveTable({
   const sorted = [...rows].sort((a, b) => b.mw - a.mw);
   if (!sorted.length) {
     return (
-      <EmptyStage label="Pipeline unavailable">No non-operational REPD rows loaded.</EmptyStage>
+      <EmptyStage label="Pipeline unavailable">No planned or under-construction projects are available right now.</EmptyStage>
     );
   }
   return (
@@ -202,10 +146,12 @@ export function RenewablesCanvas({
   pack,
   generation,
   capacity,
+  policyEvents = EMPTY_POLICY_EVENTS_PACK,
 }: {
   pack: RenewablesPack;
   generation: GenerationPack | null;
   capacity: CapacityPack | null;
+  policyEvents?: PolicyEventsPack;
 }) {
   const searchParams = useSearchParams();
   const { sync: writeUrl } = useEnergyNavigation("low-carbon");
@@ -243,11 +189,11 @@ export function RenewablesCanvas({
   const loadYears = tech.nuclear
     ? plantLfSeries.points.map((p) => p.t)
     : lfSeries.points.map((p) => p.t);
+  // Menu + default from capacity / load factor only — generation can run ahead on part years.
   const yearPool = [
     ...new Set([
       ...capacityYears,
       ...loadYears,
-      ...genSeries.points.map((p) => p.t),
     ]),
   ].sort((a, b) => a - b);
   const latest =
@@ -371,19 +317,21 @@ export function RenewablesCanvas({
     {
       label: `${y} capacity`,
       value: capacityMw != null ? fmtGw(capacityMw) : "—",
-      note: tech.nuclear ? "Nuclear fleet · DUKES 5.12 sum" : "Installed · DUKES 5.12",
+      note: tech.nuclear ? "Nuclear fleet · sum of reactors" : "Installed capacity",
     },
     {
       label: `${y} generation`,
       value: genY != null ? fmtTwh(genY.value) : "—",
-      note: "Annual sum of quarters · ET 5.1",
+      note: genY?.provisional
+        ? `Sum of ${genY.quarters} quarters · provisional or incomplete`
+        : "Annual sum of quarters",
     },
     {
       label: `${y} load factor`,
       value: loadY != null ? fmtLoadPct(loadY) : "—",
       note: tech.nuclear
-        ? "DUKES 5.10 · nuclear stations"
-        : "DUKES 6.3 · average BoE capacity default",
+        ? "Nuclear stations"
+        : "Average capacity basis",
     },
   ];
 
@@ -414,12 +362,12 @@ export function RenewablesCanvas({
     {
       label: "Generation",
       value: genY != null ? fmtTwh(genY.value) : "—",
-      note: "Annual · ET 5.1",
+      note: "Annual",
     },
     {
       label: "Load factor",
       value: loadY != null ? fmtLoadPct(loadY) : "—",
-      note: tech.nuclear ? "DUKES 5.10" : "DUKES 6.3",
+      note: tech.nuclear ? "Nuclear stations" : "Published load factor",
     },
   ];
 
@@ -438,7 +386,7 @@ export function RenewablesCanvas({
     {
       label: `${y} generation`,
       value: genY != null ? fmtTwh(genY.value) : "—",
-      note: "ET 5.1",
+      note: "Annual",
     },
   ];
 
@@ -460,8 +408,7 @@ export function RenewablesCanvas({
   const dialFormat = dialIsLoad ? (v: number) => fmtLoadPct(v) : (v: number) => fmtTwh(v);
   const dialCadence = "annual" as const;
 
-  const journeyLinks = journeysForTech(tech);
-  const buildoutMarks = POLICY_ORDERED.flatMap((e) => {
+  const buildoutMarks = orderedPolicyEvents(policyEvents.events).flatMap((e) => {
     const yr = markYear(e);
     if (yr == null || yr < earliest || yr > latest) return [];
     const topics = e.topics ?? [];
@@ -470,10 +417,31 @@ export function RenewablesCanvas({
     }
     return [{ id: e.id, t: yr, label: String(yr), title: e.title }];
   });
-  const selectedEvent = eventId ? POLICY_ORDERED.find((e) => e.id === eventId) ?? null : null;
   const showTechControl = view !== "pipeline" && view !== "guide";
   const showPipeTechControl = view === "pipeline";
   const showYear = view === "capacity" || view === "guide" || view === "buildout";
+  const showBasis =
+    (view === "capacity" || view === "guide" || view === "data") && !tech.nuclear && lfReady;
+
+  // Reset = only the settings this tab exposes (controls or plate/event selection) that differ
+  // from the tab's real default. Defaults come from the same `as*(null)` parsers that read the
+  // URL, so "no params" and "reset" can never disagree. Empty patch → no Reset button.
+  const resetPatch: Parameters<typeof sync>[0] = {};
+  const defaultTech = asTech(null);
+  if (view !== "pipeline" && techId !== defaultTech) resetPatch.tech = defaultTech;
+  if (showYear && y !== latest) resetPatch.year = latest;
+  if (view === "guide" && measure !== asGuideMeasure(null)) resetPatch.measure = asGuideMeasure(null);
+  if (showBasis && basis !== asBasis(null)) resetPatch.lf_basis = asBasis(null);
+  if (view === "buildout" && eventId) resetPatch.event = null;
+  if (view === "pipeline") {
+    const defaultLane = asPipelineLane(null);
+    if (lane !== defaultLane) resetPatch.lane = defaultLane;
+    // Stage default is the first stage of the lane being shown.
+    const defaultStage = asPipelineStageId(null, resetPatch.lane ?? lane);
+    if (stageId !== defaultStage || resetPatch.lane) resetPatch.stage = defaultStage;
+    if (pipeTech !== asPipelineTech(null)) resetPatch.pipe_tech = asPipelineTech(null);
+  }
+  const showReset = Object.keys(resetPatch).length > 0;
   const stripFigures =
     view === "pipeline"
       ? pipelineFigures
@@ -537,19 +505,17 @@ export function RenewablesCanvas({
             onChange={(v) => sync({ year: Number(v) })}
           />
         )}
-        {(view === "capacity" || view === "guide" || view === "data") &&
-          !tech.nuclear &&
-          lfReady && (
-            <MenuControl
-              label="Load-factor basis"
-              value={basis}
-              options={[
-                { value: "average_boe_capacity", label: "Average BoE capacity" },
-                { value: "unchanged_configuration", label: "Unchanged configuration" },
-              ]}
-              onChange={(v) => sync({ lf_basis: v as LoadBasis })}
-            />
-          )}
+        {showBasis && (
+          <MenuControl
+            label="Load-factor basis"
+            value={basis}
+            options={[
+              { value: "average_boe_capacity", label: "Average BoE capacity" },
+              { value: "unchanged_configuration", label: "Unchanged configuration" },
+            ]}
+            onChange={(v) => sync({ lf_basis: v as LoadBasis })}
+          />
+        )}
         {view === "pipeline" && (
           <MenuControl
             label="Lane"
@@ -569,33 +535,20 @@ export function RenewablesCanvas({
             onChange={(v) => sync({ stage: v })}
           />
         )}
-        <ResetButton
-          onClick={() =>
-            sync({
-              year: latest,
-              tech: "offshore-wind",
-              lf_basis: "average_boe_capacity",
-              measure: "built",
-              lane: "active",
-              stage: "building",
-              pipe_tech: "all",
-              event: null,
-            })
-          }
-        />
+        {showReset && <ResetButton onClick={() => sync(resetPatch)} />}
       </ControlRow>
 
       <Stage
         title={
           view === "data"
-            ? "Data · Renewables & Nuclear"
+            ? "Data · Renewables and nuclear"
             : view === "pipeline"
-              ? `Project Pipeline · ${stage.label} · ${pinLabel}`
+              ? `Project pipeline · ${stage.label} · ${pinLabel}`
               : view === "guide"
-                ? `Energy Field Guide · ${y}`
+                ? `Energy field guide · ${y}`
                 : view === "buildout"
-                  ? `Buildout Chronology · ${tech.label} · ${earliest}–${latest}`
-                  : `Capacity ≠ Output · ${tech.label} · ${y}`
+                  ? `Buildout chronology · ${tech.label} · ${earliest}–${latest}`
+                  : `Capacity and output · ${tech.label} · ${y}`
         }
         meta={
           view === "data"
@@ -607,8 +560,18 @@ export function RenewablesCanvas({
                 : view === "buildout"
                   ? "Installed capacity and generation over time · UK"
                   : tech.nuclear
-                    ? "Low-carbon · MW · TWh · % · DUKES 5.10 load factor"
+                    ? "Low-carbon · MW · TWh · %"
                     : `MW · TWh · % · ${earliest}–${latest}`
+        }
+        follow={
+          view === "capacity" || view === "data" ? null : (
+            <EnergyStageFollow
+              domain="low-carbon"
+              view={view}
+              selection={{ tech: techId, year: y }}
+              label={`Low-carbon · ${tech.label}`}
+            />
+          )
         }
         foot={
           <FigureRecord
@@ -683,9 +646,11 @@ export function RenewablesCanvas({
             dataHref={
               view === "pipeline"
                 ? `/data?record=${PIPELINE_ID}`
-                : tech.nuclear
-                  ? `/data?record=${PLANT_LOAD_FACTORS_ID}`
-                  : `/data?record=${LOAD_FACTORS_ID}`
+                : view === "capacity"
+                  ? `/data?record=${CAPACITY_ID}`
+                  : tech.nuclear
+                    ? `/data?record=${PLANT_LOAD_FACTORS_ID}`
+                    : `/data?record=${LOAD_FACTORS_ID}`
             }
           />
         }
@@ -693,7 +658,7 @@ export function RenewablesCanvas({
         {view === "data" ? (
           !capReady && !genReady && !lfReady && !plantLfReady && !pipelineReady ? (
             <EmptyStage label="Low-carbon series unavailable">
-              Capacity, generation, load-factor and pipeline packages did not load.
+              Capacity, generation, load factor and pipeline figures are not available right now.
             </EmptyStage>
           ) : (
             <div className={s.stack}>
@@ -736,7 +701,7 @@ export function RenewablesCanvas({
         ) : view === "pipeline" ? (
           !pipelineReady ? (
             <EmptyStage label="Pipeline unavailable">
-              Load the non-operational REPD package to open Project Pipeline.
+              Planned and under-construction project figures are not available right now.
             </EmptyStage>
           ) : (
             <div className={s.stack}>
@@ -779,7 +744,7 @@ export function RenewablesCanvas({
         ) : view === "guide" ? (
           !capReady && !genReady && !lfReady && !plantLfReady ? (
             <EmptyStage label="Low-carbon series unavailable">
-              Load capacity, generation and load-factor curated packages.
+              Capacity, generation and load factor figures are not available right now.
             </EmptyStage>
           ) : (
             <RenewablesFieldGuide
@@ -793,7 +758,7 @@ export function RenewablesCanvas({
         ) : view === "buildout" ? (
           !capReady && !genReady ? (
             <EmptyStage label="Buildout series unavailable">
-              Capacity and generation packages did not load.
+              Capacity and generation figures are not available right now.
             </EmptyStage>
           ) : (
             <div className={s.stack}>
@@ -814,11 +779,6 @@ export function RenewablesCanvas({
                     onSelect={(id) => sync({ event: id === eventId ? null : id })}
                   />
                 )}
-                {selectedEvent ? (
-                  <p className={s.links}>
-                    <a href={`/energy?domain=policy&event=${selectedEvent.id}`}>{selectedEvent.title}</a>
-                  </p>
-                ) : null}
               </section>
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
@@ -858,35 +818,14 @@ export function RenewablesCanvas({
                   />
                 )}
               </section>
-              <section className={s.panel}>
-                <ul className={s.follow} aria-label="Observatory journeys">
-                  {journeyLinks.map((j) => (
-                    <li key={j.id}>
-                      <a href={j.href}>{j.label}</a>
-                      <span>{j.note}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
             </div>
           )
         ) : !capReady && !genReady && !lfReady && !plantLfReady ? (
           <EmptyStage label="Low-carbon series unavailable">
-            Load capacity, generation and load-factor curated packages.
+            Capacity, generation and load factor figures are not available right now.
           </EmptyStage>
         ) : (
           <div className={s.stack}>
-            <section className={s.panel}>
-              <FieldCard
-                year={y}
-                techLabel={tech.label}
-                nuclear={tech.nuclear}
-                capacityMw={capacityMw}
-                generation={genY}
-                loadPct={loadY}
-              />
-            </section>
-
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
                 Historical dial ·{" "}
@@ -906,63 +845,6 @@ export function RenewablesCanvas({
                   rules={[{ id: "year", t: y, label: String(y), active: true }]}
                 />
               )}
-            </section>
-
-            <section className={s.panel}>
-              <ExactRegister summary={`Exact figures · ${y}`}>
-              <table className={s.table}>
-                <thead>
-                  <tr>
-                    <th>Measure</th>
-                    <th>Value</th>
-                    <th>Unit</th>
-                    <th>Source</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Installed capacity</td>
-                    <td>
-                      {capacityMw != null
-                        ? capacityMw.toLocaleString("en-GB", { maximumFractionDigits: 1 })
-                        : "—"}
-                    </td>
-                    <td>MW</td>
-                    <td>
-                      <a href={`/data?record=${CAPACITY_ID}`}>Installed capacity</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Annual generation</td>
-                    <td>
-                      {genY != null
-                        ? genY.value.toLocaleString("en-GB", { maximumFractionDigits: 2 })
-                        : "—"}
-                    </td>
-                    <td>TWh</td>
-                    <td>
-                      <a href={`/data?record=${GENERATION_ID}`}>Generation by source</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Load factor</td>
-                    <td>
-                      {loadY != null
-                        ? loadY.toLocaleString("en-GB", { maximumFractionDigits: 2 })
-                        : "—"}
-                    </td>
-                    <td>%</td>
-                    <td>
-                      {tech.nuclear ? (
-                        <a href={`/data?record=${PLANT_LOAD_FACTORS_ID}`}>Plant load factors</a>
-                      ) : (
-                        <a href={`/data?record=${LOAD_FACTORS_ID}`}>Load factors</a>
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              </ExactRegister>
             </section>
           </div>
         )}

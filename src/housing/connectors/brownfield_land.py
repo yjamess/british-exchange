@@ -13,19 +13,25 @@ England LPAs; dwelling estimates are LPA-published and often missing.
 from __future__ import annotations
 
 import csv
+import io
 import json
+import re
 from collections import Counter, defaultdict
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Sequence
 
 import httpx
+from shapely.geometry import Point
 
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
 from britain_exchange.observation import Observation
 from britain_exchange.paths import HOUSING_DATA
+
+# WKT from the Planning Data collection dump: POINT(lon lat).
+_POINT_RE = re.compile(r"POINT\(\s*([-\d.]+)\s+([-\d.]+)\s*\)", re.IGNORECASE)
 
 PINNED_CSV = "raw/2026-11-04/brownfield-land.csv"
 PINNED_ORGS = "raw/2026-11-04/local-authority.json"
@@ -319,6 +325,129 @@ class BrownfieldLandConnector(Connector):
         csv_ev = next(e for e in evidence if e.path.endswith(".csv"))
         org_ev = next(e for e in evidence if e.path.endswith(".json"))
         return parse_brownfield(self.data_root / csv_ev.path, self.data_root / org_ev.path)
+
+
+# ─── Land Explorer points (publisher path) ─────────────────────────
+# Same MHCLG collection dump as the Ready indicator — not the flaky entity API.
+# Source of truth: Supabase Storage (bx-data-archive). Disk is optional cache.
+# Process keeps parsed points in memory; it does not leave a 30 MiB CSV on the laptop.
+
+_BROWNFIELD_POINTS: list[tuple[Point, dict[str, str]]] | None = None
+_BROWNFIELD_SOURCE: str | None = None  # disk | storage | download
+
+
+def _brownfield_csv_text(*, timeout_s: float = 180.0) -> tuple[str, str]:
+    """Load the collection CSV as text. Prefer disk → Storage pack → publisher HTTP."""
+    path = HOUSING_DATA / "brownfield-land" / PINNED_CSV
+    if path.is_file() and path.stat().st_size > 1_000_000:
+        return path.read_text(encoding="utf-8"), "disk"
+
+    from britain_exchange.packs import get_pack
+
+    try:
+        blob = get_pack("housing.brownfield-land-csv")
+        return blob.body.decode("utf-8"), blob.source
+    except (KeyError, FileNotFoundError):
+        pass
+
+    with httpx.Client(
+        timeout=timeout_s,
+        follow_redirects=True,
+        headers={"User-Agent": "british-exchange-research"},
+    ) as client:
+        response = client.get(PINNED_CSV_URL)
+        response.raise_for_status()
+        return response.text, "download"
+
+
+def ensure_brownfield_csv(*, timeout_s: float = 180.0) -> Path:
+    """Restore the CSV to disk only when a connector rebuild needs a file path.
+
+    Land Explorer should use ``load_brownfield_point_sites`` (memory / Storage).
+    Prefer ``uv run python -m britain_exchange.archive_data pull data/housing/brownfield-land``.
+    """
+    path = HOUSING_DATA / "brownfield-land" / PINNED_CSV
+    if path.is_file() and path.stat().st_size > 1_000_000:
+        return path
+    text, _source = _brownfield_csv_text(timeout_s=timeout_s)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    return path
+
+
+def load_brownfield_point_sites(*, force: bool = False) -> list[tuple[Point, dict[str, str]]]:
+    """Current brownfield register sites with a published point (England dump)."""
+    global _BROWNFIELD_POINTS, _BROWNFIELD_SOURCE
+    if _BROWNFIELD_POINTS is not None and not force:
+        return _BROWNFIELD_POINTS
+
+    text, source = _brownfield_csv_text()
+    _BROWNFIELD_SOURCE = source
+    sites: list[tuple[Point, dict[str, str]]] = []
+    for row in csv.DictReader(io.StringIO(text)):
+        if (row.get("end_date") or "").strip():
+            continue
+        match = _POINT_RE.search(row.get("point") or "")
+        if not match:
+            continue
+        lon, lat = float(match.group(1)), float(match.group(2))
+        payload = _site_payload(row)
+        reference = str(row.get("reference") or "").strip()
+        address = str(payload.get("site-address") or "").strip()
+        raw_name = str(row.get("name") or "").strip()
+        # Many LPA rows put the site code in `name`; prefer the published address for the map.
+        if raw_name and raw_name != reference:
+            display_name = raw_name
+        elif address:
+            display_name = address
+        else:
+            display_name = reference or "Brownfield site"
+        props: dict[str, str] = {
+            "entity": str(row.get("entity") or "").strip(),
+            "reference": reference,
+            "name": display_name,
+            "entry-date": str(row.get("entry_date") or "").strip(),
+            "organisation-entity": str(row.get("organisation_entity") or "").strip(),
+        }
+        for key in (
+            "site-address",
+            "hectares",
+            "minimum-net-dwellings",
+            "maximum-net-dwellings",
+            "planning-permission-status",
+            "ownership-status",
+            "deliverable",
+        ):
+            value = payload.get(key)
+            if value is not None and str(value).strip() != "":
+                props[key] = str(value).strip()
+        plan = payload.get("site-plan-url")
+        if plan:
+            props["documentation-url"] = str(plan).strip()
+        sites.append((Point(lon, lat), props))
+
+    _BROWNFIELD_POINTS = sites
+    return sites
+
+
+def brownfield_features_for_boundary(boundary: Any, *, limit: int = 400) -> list[dict[str, Any]]:
+    """Clip current register points to a district polygon for Land Explorer."""
+    minx, miny, maxx, maxy = boundary.bounds
+    out: list[dict[str, Any]] = []
+    for point, props in load_brownfield_point_sites():
+        if not (minx <= point.x <= maxx and miny <= point.y <= maxy):
+            continue
+        if not boundary.intersects(point):
+            continue
+        out.append(
+            {
+                "p": props,
+                "g": {"type": "Point", "c": [round(point.x, 5), round(point.y, 5)]},
+            }
+        )
+        if len(out) >= limit:
+            break
+    return out
 
 
 def main() -> None:

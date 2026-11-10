@@ -532,21 +532,24 @@ export type JourneyLink = {
   kind: "direct" | "context";
 };
 
-/** Notion Domain 06 journeys — contextual hops with shareable URL state. */
+/**
+ * @deprecated Prefer ENERGY_CONNECTIONS + Stage `follow` / FollowStep.
+ * Kept for reference while Domain 06 migrates; no live call sites.
+ */
 export function journeysForTech(tech: FieldTech): JourneyLink[] {
   if (tech.id === "offshore-wind") {
     return [
       {
         id: "ow-atlas",
         label: "Where the plant stands",
-        href: "/energy?domain=generation&view=atlas&fuel=offshore-wind",
-        note: "Operational renewable sites on the Generation atlas",
+        href: "/energy?domain=generation&view=atlas&family=renewable&technology=Wind%20Offshore",
+        note: "Operational renewable sites on the Generation map",
         kind: "direct",
       },
       {
         id: "ow-mix",
         label: "How the mix looks now",
-        href: "/energy?domain=generation&view=mix",
+        href: "/energy?domain=generation&view=current",
         note: "Contextual — fuel mix, not this project's output alone",
         kind: "context",
       },
@@ -563,7 +566,7 @@ export function journeysForTech(tech: FieldTech): JourneyLink[] {
     return [
       {
         id: "sol-cap",
-        label: "Capacity ≠ Output",
+        label: "Capacity and output",
         href: "/energy?domain=low-carbon&view=capacity&tech=solar",
         note: "Installed MW beside annual TWh and load factor",
         kind: "direct",
@@ -589,7 +592,7 @@ export function journeysForTech(tech: FieldTech): JourneyLink[] {
       {
         id: "nuc-fuel",
         label: "Nuclear in the fuel mix",
-        href: "/energy?domain=generation&view=history&fuel=nuclear",
+        href: "/energy?domain=generation&view=current&group=nuclear",
         note: "Generation history for nuclear fuel",
         kind: "direct",
       },
@@ -612,7 +615,7 @@ export function journeysForTech(tech: FieldTech): JourneyLink[] {
   return [
     {
       id: `${tech.id}-cap`,
-      label: "Capacity ≠ Output",
+      label: "Capacity and output",
       href: `/energy?domain=low-carbon&view=capacity&tech=${tech.id}`,
       note: "Installed MW beside annual TWh and load factor",
       kind: "direct",
@@ -626,7 +629,7 @@ export function journeysForTech(tech: FieldTech): JourneyLink[] {
     },
     {
       id: `${tech.id}-pipe`,
-      label: "Project Pipeline",
+      label: "Project pipeline",
       href: `/energy?domain=low-carbon&view=pipeline&pipe_tech=${tech.id}`,
       note: "Planning capacity still in the register",
       kind: "direct",

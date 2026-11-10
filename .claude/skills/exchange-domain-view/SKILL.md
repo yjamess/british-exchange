@@ -41,7 +41,7 @@ inside the stage, drawn in the house style. Everything around it is the template
      History/Data — observation tables, never catalogue link lists.
    - **Policy / events:** `web/src/brand/policy/` (`DecisionLedger` + `CatalogueDossier` +
      `ExactRegister`) — do not fork slabs.
-   - A Housing custom instrument (`supply/SupplyMachine.tsx`, `quality/EnergyAnatomy.tsx`)
+   - A Housing custom instrument (`supply/SupplyMachine.tsx`, `quality/EnergyView.tsx`)
      — only if the brief needs one and the template cannot draw it.
 4. Check the data's **verified coverage** (years, sectors, end uses actually published)
    before choosing controls. Controls offer only what exists.
@@ -63,7 +63,7 @@ inside the stage, drawn in the house style. Everything around it is the template
 <div className={s.stack}>                       // generation.module.css
   <section className={s.panel}>
     <h3 className={t.stageTitle}>Thing · scope · year · unit</h3>   // explorerClasses
-    <TimeChart … showTable={false} />   // or RankBars / ChangeRows; leave leaders on for lines
+    <TimeChart … showTable={false} />   // or RankBars / ChangeRows; leaders default off (full width)
   </section>
   …
 </div>
@@ -71,8 +71,9 @@ inside the stage, drawn in the house style. Everything around it is the template
 
 Pick the form from the identity doc's table: lines/stack → `TimeChart`; one period across
 categories → `RankBars`; two periods → `ChangeRows`; tables → `s.table` or `DataTable`.
-Multi-series **line** charts get end-of-line name leaders from `TimeChart` (default on) and
-`SeriesLegend` under the plot for latest values. Empty states use `EmptyStage`.
+Line charts use `SeriesLegend` under the plot for names and latest values so the plot fills
+the stage. End-of-line leaders default **off** — pass `leaders={true}` only when deliberate.
+Empty states use `EmptyStage`.
 
 ## 2b. Data tab and policy bodies
 
@@ -103,8 +104,8 @@ from `@/brand` / `web/src/brand/policy/`. Closed = electric slab; open = paper c
   `generation.module.css` (`stack`, `panel`, `links`, `table`) and `explorerClasses`.
 - Do not invent a second end-label system, numbered markers on axes, in-plot annotations,
   custom legends with values, or turning-point lists — unless the identity doc shows that
-  pattern. Leave `TimeChart` leaders on for multi-line charts. Exact values / exact register
-  stay in closed disclosures (TimeChart or brand `ExactRegister`).
+  pattern. Keep `TimeChart` leaders off (default) so plots fill the stage. Exact values /
+  exact register stay in closed disclosures (TimeChart or brand `ExactRegister`).
 - Do not fork Decision Ledger CSS or invent a parallel policy dossier.
 - Do not use chart colours for a custom instrument. Custom instruments are **one ink**
   (Electric) with Housing's patterns (stipple / sparse dots / hatch / cross / engrave) to

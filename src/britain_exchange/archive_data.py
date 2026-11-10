@@ -27,6 +27,7 @@ import json
 import os
 import shutil
 import tempfile
+import time
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -39,6 +40,8 @@ from britain_exchange.db import load_repo_env
 from britain_exchange.paths import DATA_ROOT, REPO_ROOT
 
 BUCKET = "bx-data-archive"
+VERIFY_ATTEMPTS = 5
+VERIFY_BACKOFF_S = 2.0
 INDEX_PATH = DATA_ROOT / "_archive_index.json"
 # Supabase Free plan hard-caps each object at 50 MB.
 # https://supabase.com/docs/guides/storage/uploads/file-limits
@@ -312,9 +315,14 @@ def push_path(target: Path, *, delete_local: bool = True, keep_manifests: bool =
             try:
                 _upload_file(client, base, key, upload_path, storage_key)
                 verify_tmp = verify_root / (Path(rel).name + (".gz" if compression else ""))
-                _download_file(client, base, key, storage_key, verify_tmp)
-                got = sha256_file(verify_tmp)
-                verify_tmp.unlink(missing_ok=True)
+                # Overwrites can read back stale for a few seconds; retry before calling it a mismatch.
+                for attempt in range(VERIFY_ATTEMPTS):
+                    _download_file(client, base, key, storage_key, verify_tmp)
+                    got = sha256_file(verify_tmp)
+                    verify_tmp.unlink(missing_ok=True)
+                    if got == stored_checksum:
+                        break
+                    time.sleep(VERIFY_BACKOFF_S * (attempt + 1))
                 if got != stored_checksum:
                     raise RuntimeError(
                         f"Checksum mismatch for {storage_key}: "
@@ -433,7 +441,8 @@ def push_largest(*, min_mb: float, delete_local: bool) -> int:
             continue
         if _should_keep_local_name(path):
             continue
-        # Keep small energy curated assets the Next.js loaders read from disk.
+        # Small energy curated packs are pushed explicitly via `push --keep-local`
+        # (served to the UI through GET /packs, not Next.js node:fs).
         rel = path.relative_to(DATA_ROOT).as_posix()
         if rel.startswith("energy/") and "/curated/" in rel and path.stat().st_size < 15 * 1024 * 1024:
             continue

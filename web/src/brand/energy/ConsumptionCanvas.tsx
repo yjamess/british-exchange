@@ -26,6 +26,7 @@ import {
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import { ConsumptionAppetite } from "./ConsumptionAppetite";
 import type { AppetiteLens } from "./appetite-model";
@@ -47,6 +48,7 @@ import { ConsumptionUseful } from "./ConsumptionUseful";
 import {
   CONSUMPTION_DATA_SERIES,
   ConsumptionData,
+  consumptionDataFoot,
   type ConsumptionDataSeries,
 } from "./ConsumptionData";
 import {
@@ -188,6 +190,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         crossEnd: string;
         region: string;
         geoMeasure: GeoMeasure;
+        dataSeries: ConsumptionDataSeries;
       }>,
     ) => {
       const next = {
@@ -209,6 +212,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         crossEnd,
         region,
         geoMeasure,
+        dataSeries,
         ...patch,
       };
       setView(next.view);
@@ -229,6 +233,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
       setCrossEnd(next.crossEnd);
       setRegion(next.region);
       setGeoMeasure(next.geoMeasure);
+      setDataSeries(next.dataSeries);
       writeUrl({
         view: next.view,
         measure: next.measure,
@@ -248,6 +253,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         geo_measure: next.geoMeasure,
         place: next.place || null,
         region: next.region || null,
+        // c1 is the default table: leave it out of the URL so Reset (and a first visit) stay quiet.
+        dataset: next.dataSeries === "c1" ? null : next.dataSeries,
         useful: null,
       });
     },
@@ -271,6 +278,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
       crossEnd,
       region,
       geoMeasure,
+      dataSeries,
     ],
   );
 
@@ -278,9 +286,9 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     return (
       <>
         <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
-        <Stage title="Energy Metabolism">
+        <Stage title="Energy metabolism">
           <EmptyStage label="Consumption series unavailable">
-            Run the final-energy-consumption-by-sector connector and refresh the API.
+            Final energy consumption figures are not available right now. Try again after the next data refresh.
           </EmptyStage>
         </Stage>
       </>
@@ -346,6 +354,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     crossEndActive === "all" ? crossStackAll : crossStackAll.filter((sr) => sr.id === crossEndActive);
   const crossSectors =
     crossEndActive === "all" ? [] : crossEndUseSectorRows(crossRows, crossEndActive, y);
+  /** Data tab cites the series it shows, not always Table C1. */
+  const dataFoot = view === "data" ? consumptionDataFoot(dataSeries, pack) : null;
   const popPack = pack.geography?.population ?? null;
   const intensityOn = geoMeasure === "intensity" && !!popPack;
   const geoRanks = geographyRankRows(
@@ -355,6 +365,9 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     popPack,
     intensityOn,
   );
+  // The choropleth only has English-region shapes, so anything said about "the map" (largest
+  // area, legend) must come from the same set. Nations stay in the Data tab ranks.
+  const geoMapRanks = geoRanks.filter((r) => r.id.startsWith("E12"));
   const geoPlaces = pack.geography?.places ?? [];
   const geoAuthorities = pack.geography?.authorities ?? [];
   // Plain compute (not useMemo): this block sits after an early return, and Hooks
@@ -426,7 +439,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     {
       label: `${y} final consumption`,
       value: typeof totalKtoe === "number" ? fmtKtoe(totalKtoe) : "—",
-      note: "All final users · ECUK C1",
+      note: "All final users",
     },
     {
       label: "Largest sector",
@@ -446,9 +459,9 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
       note: typeof totalKtoe === "number" && totalKtoe > 0 ? `${y} · share of all final users` : String(y),
     },
     {
-      label: "Primary (W1)",
+      label: "Primary energy",
       value: y >= W1_FROM && flow.length ? fmtKtoe(flow.find((f) => f.id === "Primary energy")?.v ?? 0) : "—",
-      note: y >= W1_FROM ? "Official statistics in development" : `W1 starts ${W1_FROM}`,
+      note: y >= W1_FROM ? "Official statistics in development" : `Starts ${W1_FROM}`,
     },
   ];
 
@@ -465,7 +478,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             view === "useful"
               ? (() => {
                   const it = totals(flowItems(usefulPack, ambientByYear, useSector, usefulEndUse, y, assume, overrides));
-                  const tag = assume === "scenario" ? "Your scenario" : "Published estimate";
+                  const tag = assume === "scenario" ? "User scenario — not a DESNZ statistic" : "Published estimate";
                   const scopeName = usefulEndUse !== "all" ? `${usefulSectorLabel(useSector)} · ${usefulEndUse}` : usefulSectorLabel(useSector);
                   return [
                     { label: `Useful energy · ${y}`, value: fmtKtoe(it.useful), note: `${scopeName} · ${tag}` },
@@ -485,14 +498,14 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                     note: "All fuels · DESNZ subnational",
                   },
                   {
-                    label: "Largest area",
-                    value: geoRanks[0]?.label ?? "—",
-                    note: geoRanks[0] ? fmtKtoe(geoRanks[0].v) : String(y),
+                    label: "Largest English region",
+                    value: geoMapRanks[0]?.label ?? "—",
+                    note: geoMapRanks[0] ? fmtKtoe(geoMapRanks[0].v) : String(y),
                   },
                   {
                     label: "Coverage",
                     value: "2005–2024",
-                    note: "Not the same as ECUK C1",
+                    note: "Not the same as the national series",
                   },
                 ]
               : figures
@@ -651,10 +664,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             label="Series"
             value={dataSeries}
             options={CONSUMPTION_DATA_SERIES.map((x) => ({ value: x.id, label: x.label }))}
-            onChange={(v) => {
-              setDataSeries(v as ConsumptionDataSeries);
-              writeUrl({ view: "data", dataset: v });
-            }}
+            onChange={(v) => sync({ dataSeries: v as ConsumptionDataSeries })}
           />
         )}
         {view === "data" && dataSeries === "geography" && (
@@ -734,35 +744,63 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             />
           </>
         )}
-        <ResetButton
-          onClick={() => {
-            // Keep the current view tab — Reset clears filters, it does not change route/tab.
-            setPlaceQ("");
-            setDataSeries("c1");
-            sync({
-              measure: "absolute",
-              year: (view === "geography" || (view === "data" && dataSeries === "geography")
-                ? geoYears
-                : years
-              ).at(-1) ?? latest,
-              compare: earliest,
-              indexBase: INDEX_BASE_DEFAULT,
-              lens: "sector",
-              sector: "all-final",
-              endUse: "all",
-              effEndUse: "all",
-              useSector: "all",
-              assume: "published",
-              effOver: "",
-              geoSector: "all",
-              place: "",
-              endScope: "domestic",
-              crossEnd: "all",
-              region: "",
-              geoMeasure: "total",
-            });
-          }}
-        />
+        {(() => {
+          const defaultYear =
+            (view === "geography" || (view === "data" && dataSeries === "geography")
+              ? geoYears
+              : years
+            ).at(-1) ?? latest;
+          const adjusted =
+            measure !== "absolute" ||
+            y !== defaultYear ||
+            compare !== earliest ||
+            indexBase !== INDEX_BASE_DEFAULT ||
+            lens !== "sector" ||
+            sector !== "all-final" ||
+            endUse !== "all" ||
+            effEndUse !== "all" ||
+            useSector !== "all" ||
+            assume !== "published" ||
+            Boolean(effOver) ||
+            geoSector !== "all" ||
+            Boolean(place) ||
+            Boolean(placeQ) ||
+            endScope !== "domestic" ||
+            crossEnd !== "all" ||
+            Boolean(region) ||
+            geoMeasure !== "total" ||
+            dataSeries !== "c1";
+          return (
+            adjusted && (
+              <ResetButton
+                onClick={() => {
+                  // Keep the current view tab — Reset clears filters, it does not change route/tab.
+                  setPlaceQ("");
+                  sync({
+                    dataSeries: "c1",
+                    measure: "absolute",
+                    year: defaultYear,
+                    compare: earliest,
+                    indexBase: INDEX_BASE_DEFAULT,
+                    lens: "sector",
+                    sector: "all-final",
+                    endUse: "all",
+                    effEndUse: "all",
+                    useSector: "all",
+                    assume: "published",
+                    effOver: "",
+                    geoSector: "all",
+                    place: "",
+                    endScope: "domestic",
+                    crossEnd: "all",
+                    region: "",
+                    geoMeasure: "total",
+                  });
+                }}
+              />
+            )
+          );
+        })()}
       </ControlRow>
 
       <Stage
@@ -772,14 +810,14 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             : view === "appetite"
               ? `Long-run demand · ${earliest}–${latest}`
               : view === "useful"
-                ? `Useful Energy Experiment · ${assume === "scenario" ? "your scenario" : "published estimate"} · ${y}`
+                ? `Useful energy experiment · ${assume === "scenario" ? "user scenario — not a DESNZ statistic" : "published estimate"} · ${y}`
                 : view === "end-use"
                   ? endScope === "cross"
                     ? `Energy use · cross-sector · ${crossEndActive === "all" ? "all" : crossEndActive}`
                     : `Energy use · homes · ${endUse === "all" ? "all" : endUse.replace(/\b\w/g, (c) => c.toUpperCase())}`
                   : view === "geography"
-                    ? `Energy Geography · ${geoYears[0] ?? 2005}–${geoYears.at(-1) ?? 2024}`
-                    : `Energy Metabolism · ${earliest}–${latest} · ${measure === "share" ? "share of all final users" : "ktoe"}`
+                    ? `Energy geography · ${geoYears[0] ?? 2005}–${geoYears.at(-1) ?? 2024}`
+                    : `Energy metabolism · ${earliest}–${latest} · ${measure === "share" ? "share of all final users" : "ktoe"}`
         }
         meta={
           view === "end-use"
@@ -787,17 +825,27 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
               ? "UK · by end use across sectors · transport excluded"
               : "UK · how homes use energy"
             : view === "geography"
-              ? "Nations and English regions · DESNZ subnational final consumption"
+              ? "English regions and local authorities · DESNZ subnational final consumption"
               : view === "useful"
                 ? assume === "scenario"
-                  ? "Energy used → useful and lost · your scenario, not official DESNZ figures"
+                  ? "Energy used → useful and lost · user scenario — not a DESNZ statistic"
                   : "Energy used → useful and lost · DESNZ modelled estimates"
-                : "UK · calendar year · ECUK final consumption"
+                : "UK · calendar year · final consumption"
+        }
+        follow={
+          <EnergyStageFollow
+            domain="consumption"
+            view={view}
+            selection={{ year: y }}
+            label={`Consumption · ${view}`}
+          />
         }
         foot={
           <FigureRecord
             source={
-              view === "geography"
+              dataFoot
+                ? dataFoot.source
+                : view === "geography"
                 ? ENERGY_SOURCE.consumptionGeography
                 : view === "end-use"
                   ? ENERGY_SOURCE.consumptionEndUse
@@ -806,20 +854,24 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                     : ENERGY_SOURCE.consumptionFinal
             }
             definition={
-              view === "geography"
+              dataFoot
+                ? dataFoot.definition
+                : view === "geography"
                 ? intensityOn
                   ? `Subnational final energy intensity: DESNZ ktoe ÷ ONS mid-year usually resident population (toe per person), ${geoSector}, ${y}.`
-                  : "Subnational total final energy consumption (ktoe) at nation and English-region level from DESNZ, 2005–2024."
+                  : "Subnational total final energy consumption (ktoe) from DESNZ, 2005–2024. The map draws the nine English regions and local authorities sit beside it; Scotland, Wales and Northern Ireland totals are in Data, not drawn here."
                 : view === "end-use"
                   ? "UK domestic final energy consumption by end use and fuel (ktoe) from DESNZ ECUK Table U3."
                   : view === "useful"
-                    ? "Modelled useful and rejected energy from ECUK W1, with published Assumed Efficiencies for domestic end uses."
+                    ? "Modelled useful and lost energy from ECUK Table W1, with published Assumed Efficiencies for domestic end uses."
                     : view === "appetite"
                       ? "Long-run UK final energy demand by sector, or by fuel within a sector (ECUK Table C1) — absolute, share of the scope total, and index on a stated base year."
                       : "UK final energy consumption by sector and fuel (ktoe) from DESNZ Energy Consumption in the UK (ECUK) Table C1."
             }
             method={
-              view === "geography"
+              dataFoot
+                ? dataFoot.method
+                : view === "geography"
                 ? ([
                     "This is not national ECUK Table C1. Coverage starts in 2005; methods and transport scope differ (road and rail only; unallocated rows exist).",
                     intensityOn
@@ -857,24 +909,27 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                       ].filter(Boolean) as string[])
                     : view === "appetite"
                       ? ([
-                          "Same ECUK C1 values as Energy Metabolism: absolute ktoe, share of the published Total for the chosen scope, or index on an explicit base year.",
+                          "Same ECUK Table C1 values as Energy metabolism: absolute ktoe, share of the published Total for the chosen scope, or index on an explicit base year.",
                           "Break down by sector (Industry, Transport, Domestic, Services & other) or by fuel within a chosen sector / all final users.",
-                          "Then / Now and Change use two stated years (Then year / Now year). A fall beside a rise is shown, not labelled as substitution or cause.",
-                          "C1 is not temperature corrected: unusually cold or warm years move heating demand.",
+                          "Then / Now and Change use two stated years (Then year / Now year). Open markers are the Then year and solid markers the Now year. A fall beside a rise is shown, not labelled as substitution or cause.",
+                          "Table C1 is not temperature corrected: unusually cold or warm years move heating demand.",
                           pack.final.meta.caveats,
                         ].filter(Boolean) as string[])
                       : ([
                           "Fuel sector filters the history chart and the fuel breakdown. All final users shows Industry, Transport, Domestic and Services & other stacked together.",
                           "All final users is the published total — not stacked as a fifth band.",
                           `Primary allocation (Table W1) appears from ${W1_FROM} and is Official Statistics in Development. It is national — Fuel sector does not filter W1.`,
-                          `Modelled useful / rejected energy lives under Useful Energy Experiment (from ${USEFUL_FROM}) — not on this metabolism strip.`,
+                          `Modelled useful and lost energy lives under Useful energy experiment (from ${USEFUL_FROM}) — not on this metabolism strip.`,
+                          `Primary allocation stages follow ECUK Table W1 order: ${FLOW_STAGES.join(" · ")}. Transfers can be signed in the source; the bars use magnitude for reading.`,
                           "fuel=Total is a sector aggregate; component fuels are shown separately and must not be summed with Total.",
                           pack.final.meta.caveats,
                           pack.flow?.meta.caveats,
                         ].filter(Boolean) as string[])
             }
             dataHref={`/data?record=${
-              view === "geography"
+              dataFoot
+                ? dataFoot.recordId
+                : view === "geography"
                 ? SUBNATIONAL_ID
                 : view === "end-use"
                   ? DOMESTIC_END_USE_ID
@@ -916,7 +971,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
           <div className={s.stack}>
             {!pack.geography || geoRanks.length === 0 ? (
               <EmptyStage label="Subnational geography unavailable">
-                Run the subnational-final-consumption connector and refresh.
+                Regional and local energy consumption figures are not available right now.
               </EmptyStage>
             ) : (
               <div
@@ -927,8 +982,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                 <div className={s.atlasMap}>
                   <RegionMap
                     size="stage"
-                    data={geoRanks
-                      .filter((r) => r.id.startsWith("E12"))
+                    data={geoMapRanks
                       .map((r) => ({
                         code: r.id,
                         value: r.v,
@@ -1119,7 +1173,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             {endScope === "cross" ? (
               !pack.crossEndUse || crossRows.length === 0 ? (
                 <EmptyStage label="Cross-sector series unavailable">
-                  Cross-sector end-use data is not loaded yet.
+                  Cross-sector end-use data is not available yet.
                 </EmptyStage>
               ) : (
                 <>
@@ -1163,7 +1217,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
               )
             ) : !pack.endUse || endUseRows.length === 0 ? (
               <EmptyStage label="Homes end-use series unavailable">
-                Domestic end-use data is not loaded yet.
+                Domestic end-use data is not available yet.
               </EmptyStage>
             ) : (
               <>
@@ -1254,7 +1308,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
 
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Primary allocation · W1 · {y >= W1_FROM ? y : `from ${W1_FROM}`}
+                Primary allocation · {y >= W1_FROM ? y : `from ${W1_FROM}`}
               </h3>
               {y >= W1_FROM && flow.length > 0 ? (
                 <>
@@ -1269,20 +1323,19 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                     format={(v) => `${v.toFixed(1)} mtoe`}
                   />
                   <p className={s.links}>
-                    Stages in ECUK order: {FLOW_STAGES.join(" · ")}. Transfers can be signed in the source —
-                    bars use magnitude for reading; see Notes. This strip is national — Fuel sector does not
-                    filter it.
+                    This strip is national — Fuel sector does not filter it. See Notes for how the stages
+                    are read.
                   </p>
                 </>
               ) : (
                 <p className={s.links}>
-                  Table W1 starts in {W1_FROM}. Choose a year from {W1_FROM} onward for the primary allocation
-                  strip. Final consumption (C1) covers {earliest}–{latest}.
+                  Primary allocation starts in {W1_FROM}. Choose a year from {W1_FROM} onward to see it.
+                  Final consumption covers {earliest}–{latest}.
                 </p>
               )}
               {pack.flow && (
                 <p className={s.links}>
-                  <a href={`/data?record=${PRIMARY_FLOW_ID}`}>Catalogue · W1</a>
+                  <a href={`/data?record=${PRIMARY_FLOW_ID}`}>Catalogue record</a>
                 </p>
               )}
             </section>

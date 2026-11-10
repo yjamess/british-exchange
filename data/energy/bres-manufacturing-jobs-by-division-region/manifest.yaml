@@ -1,0 +1,80 @@
+indicator_id: bres-manufacturing-jobs-by-division-region
+title: BRES manufacturing employee jobs by division and region
+sector: energy-industry
+publisher: ONS via Nomis
+source_url: https://www.nomisweb.co.uk/datasets/newbres6pub
+series_id: NM_189_1-SIC2-TYPE480-employees
+geography: Great Britain ITL1 / former GSS regions (E12000001–09, W92000004, S92000003).
+  Northern Ireland is not in Nomis open access.
+frequency: annual
+unit: thousands of employee jobs
+definition: Business Register and Employment Survey (BRES) open-access employee-job
+  counts for manufacturing SIC 2007 divisions 10–33 by GB country/region (Nomis NM_189_1).
+  Workplace-based. Complements Table 4 (all manufacturing) with branch × place.
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.bres_manufacturing_jobs_by_division_region
+curated_path: curated/observations.csv
+update_cadence: annual (Nomis BRES open access)
+raw_evidence:
+- path: raw/2026-11-10/nm189_2019.csv
+  retrieved_at: '2026-11-10T01:44:07.938416+00:00'
+  checksum_sha256: c452fd1a07783eb87b321f696c99cbace15c80f05e6d61f5e91dc508931d56a5
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2019&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+- path: raw/2026-11-10/nm189_2020.csv
+  retrieved_at: '2026-11-10T01:44:08.150468+00:00'
+  checksum_sha256: 33dd878e308527955b42552ad89d148efe251c49a5892d2d59c563f161a795e3
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2020&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+- path: raw/2026-11-10/nm189_2021.csv
+  retrieved_at: '2026-11-10T01:44:08.426890+00:00'
+  checksum_sha256: 71b366e9396f0d8339ea553bac12dcc2ac645591aea02708c72a22b45aa6e0f4
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2021&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+- path: raw/2026-11-10/nm189_2022.csv
+  retrieved_at: '2026-11-10T01:44:08.655263+00:00'
+  checksum_sha256: 692698964676a84cfc4089ce6f148885583565ba34ca8f46a410de9b4770884e
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2022&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+- path: raw/2026-11-10/nm189_2023.csv
+  retrieved_at: '2026-11-10T01:44:08.877240+00:00'
+  checksum_sha256: a7c0b7deb2af07826f6f1070987fb5c20185e438bd080a33eec1c3e63592d5f7
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2023&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+- path: raw/2026-11-10/nm189_2024.csv
+  retrieved_at: '2026-11-10T01:44:09.103400+00:00'
+  checksum_sha256: 5165545aa7cf4c12c42506813f4912d069c409cfef8255622f77c6fc2a963a14
+  content_type: text/csv
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_189_1.data.csv?geography=2013265921,2013265922,2013265923,2013265924,2013265925,2013265926,2013265927,2013265928,2013265929,2013265930,2013265931&date=2024&industry=146800650,146800651,146800652,146800653,146800654,146800655,146800656,146800657,146800658,146800659,146800660,146800661,146800662,146800663,146800664,146800665,146800666,146800667,146800668,146800669,146800670,146800671,146800672,146800673&employment_status=1&measure=1&measures=20100
+transformations: 'Download Nomis NM_189_1 CSV for years 2019, 2020, 2021, 2022, 2023,
+  2024: geography=TYPE480 regions, industry=SIC divisions 10–33, employment_status=Employees,
+  measure=Count. Convert OBS_VALUE headcounts to thousands (÷ 1000). Period = calendar
+  year. observation_status=provisional for the latest year; earlier final. notes carry
+  sic= and classification=division.'
+revision_notes: Nomis revises prior years when a new BRES edition lands. Re-pin raw
+  CSVs on each annual release. Latest year treated as provisional.
+caveats: Employee jobs ≠ Workforce Jobs (JWR7). GB only — no Northern Ireland. Values
+  are rounded (often to the nearest 100 or 1,000). Division sums will not exactly
+  match Table 4 Manufacturing totals (rounding and suppressions). PAYE-only discontinuity
+  applies before 2015 — this pin starts 2019.
+related_indicator_ids:
+- bres-manufacturing-employee-jobs-by-region
+- manufacturing-iop-by-division
+open_questions:
+- Add SIC subsections as summed divisions for Anatomy broad branches.
+- 'Optional: local-authority cut after region spine is Ready.'
+notion_registry_url: ''
+schema_version: '1.0'

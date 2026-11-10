@@ -645,7 +645,30 @@ p.stageTitle,
 .canvas[data-patches]:has(.stageGroup[data-expanded="true"]) {
   clip-path: none;
 }
-.stageFoot { min-width: 0; padding: 0 var(--bo-s1); }
+/* Under the frame: Notes first, then Next reading below a hairline. Both start level with the border. */
+.stageFoot { min-width: 0; padding: 0; }
+.stageFollow {
+  position: relative;
+  min-width: 0;
+  padding: var(--bo-s4) 0 0;
+}
+.stageFollow::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--bo-ink-20);
+  transform-origin: left center;
+}
+/* Below the fold: the rule waits, then draws once from the frame edge. */
+.stageFollow[data-rule="wait"]::before { transform: scaleX(0); }
+.stageFollow[data-rule="draw"]::before {
+  transform: scaleX(1);
+  transition: transform var(--bo-slow) var(--bo-ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stageFollow::before { transform: none !important; transition: none !important; }
+}
 .stageGroup[data-expanded="true"] .stage { min-height: 0; grid-template-rows: auto minmax(0, 1fr); }
 .stageGroup[data-expanded="true"] .stageFoot { max-height: 30vh; overflow: auto; padding: var(--bo-s2) var(--bo-s3); }
 
@@ -800,6 +823,18 @@ p.stageTitle,
   font-variant-numeric: tabular-nums;
   font-size: var(--bo-t-ui);
   color: var(--bo-text);
+}
+/* Caption = mono label (same grammar as housing Exact / All-places tables). Not .tableNote. */
+.table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 0 0 var(--bo-s3);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
 }
 .table th,
 .table td {

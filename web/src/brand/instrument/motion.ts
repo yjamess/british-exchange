@@ -45,10 +45,24 @@ export function useReducedMotion() {
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
+/** How much of `el` overlaps the viewport (0–1). Used so we never blank a below-fold chart. */
+function visibilityRatio(el: Element) {
+  const r = el.getBoundingClientRect();
+  const vh = window.innerHeight || 0;
+  if (r.height <= 0 || vh <= 0) return 0;
+  const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+  return visible / r.height;
+}
+
+/** Start the carriage once any meaningful slice of the plot is on screen. */
+const DRAW_VISIBLE = 0.12;
+
 /**
- * The draw clock, 0 → 1. Server render and no-JS show the finished chart (1); on the client the
- * chart is reset to 0 before paint and drawn when half of it is on screen. `replayKey` redraws
- * (e.g. ranked bars when their values change); leave it unset to draw once per page view.
+ * The draw clock, 0 → 1. Server render and no-JS show the finished chart (1).
+ * On the client, only charts already on screen are blanked before paint; below-fold
+ * charts keep their finished path until they enter view, then print left to right.
+ * (Blanking every chart at mount + requiring 50% visibility left tall explorers with
+ * empty frames that looked broken.) `replayKey` redraws once the chart has been seen.
  */
 export function useDrawOn(ref: RefObject<Element | null>, { enabled = true, ms = DRAW_MS, replayKey }: { enabled?: boolean; ms?: number; replayKey?: string } = {}) {
   const [k, setK] = useState(1);
@@ -57,24 +71,43 @@ export function useDrawOn(ref: RefObject<Element | null>, { enabled = true, ms =
 
   useIsoLayoutEffect(() => {
     reduced.current = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (enabled && !reduced.current) setK(0);
-  }, [enabled]);
+    if (!enabled || reduced.current) return;
+    const el = ref.current;
+    // Only hide marks we are about to draw. Off-screen plots stay at 1 so a stage
+    // never sits empty while the reader is still above the fold.
+    if (el && visibilityRatio(el) >= DRAW_VISIBLE) setK(0);
+  }, [enabled, ref]);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || !enabled) return;
     let stop = () => {};
+
+    const start = () => {
+      if (seen.current) return;
+      seen.current = true;
+      io.disconnect();
+      if (reduced.current) {
+        setK(1);
+        return;
+      }
+      // Below-fold charts are still at 1; the first tween frame lands near 0.
+      stop = tween(ms, (x) => x, setK);
+    };
+
     const io = new IntersectionObserver(
       ([e]) => {
-        if (!e?.isIntersecting || seen.current) return;
-        seen.current = true;
-        io.disconnect();
-        if (reduced.current) return setK(1);
-        stop = tween(ms, (x) => x, setK);
+        if (seen.current || !e) return;
+        const ratio = e.intersectionRatio > 0 ? e.intersectionRatio : visibilityRatio(el);
+        if (ratio < DRAW_VISIBLE) return;
+        start();
       },
-      { threshold: 0.5 },
+      { threshold: [0, DRAW_VISIBLE, 0.25, 0.5, 1] },
     );
     io.observe(el);
+    // IO can be late on the first paint; start immediately when already on screen.
+    if (visibilityRatio(el) >= DRAW_VISIBLE) start();
+
     // Printing (or saving as PDF) shows every chart finished, even ones never scrolled to.
     const print = () => {
       stop();

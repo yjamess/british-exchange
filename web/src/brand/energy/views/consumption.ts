@@ -8,7 +8,8 @@ export const consumptionViews = {
   views: [
     {
       id: "metabolism",
-      label: "Energy Metabolism",
+      label: "Metabolism",
+      instrument: "Energy metabolism",
       params: ["measure", "year", "compare", "base", "sector"],
       evidence: {
         source: ENERGY_SOURCE.consumptionFinal,
@@ -24,7 +25,8 @@ export const consumptionViews = {
     },
     {
       id: "appetite",
-      label: "Long-run demand",
+      label: "Demand",
+      instrument: "Long-run demand",
       params: ["measure", "year", "compare", "lens", "sector", "base"],
       evidence: {
         source: ENERGY_SOURCE.consumptionFinal,
@@ -40,7 +42,8 @@ export const consumptionViews = {
     },
     {
       id: "end-use",
-      label: "Energy use",
+      label: "End use",
+      instrument: "Energy use",
       params: ["year", "end_use", "end_scope", "cross_end", "sector"],
       evidence: {
         source: ENERGY_SOURCE.consumptionEndUse,
@@ -56,7 +59,8 @@ export const consumptionViews = {
     },
     {
       id: "geography",
-      label: "Energy Geography",
+      label: "Geography",
+      instrument: "Energy geography",
       params: ["year", "geo_sector", "place", "region", "geo_measure"],
       evidence: {
         source: ENERGY_SOURCE.consumptionGeography,
@@ -72,7 +76,8 @@ export const consumptionViews = {
     },
     {
       id: "useful",
-      label: "Useful Energy Experiment",
+      label: "Useful",
+      instrument: "Useful energy experiment",
       params: ["year", "assume", "eff", "eff_end_use", "use_sector"],
       evidence: {
         source: ENERGY_SOURCE.consumptionUseful,

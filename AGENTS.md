@@ -52,6 +52,21 @@ sector-name/
 - One source may feed many indicators; connector belongs to the source; registry row describes the indicator — no duplicate pipelines.
 - Do not commit secrets; use env vars for DB credentials.
 
+## Cloud completeness (all sectors)
+
+**Source of truth is Supabase — not the laptop.** Every sector (Energy, Housing, Economy, and future ones) follows the same rule:
+
+| Kind | Lives in |
+|------|----------|
+| Observations / Ready series | Supabase **Postgres** (served by FastAPI) |
+| Heavy curated blobs (atlas JSON, GeoJSON, map packs, stations) | Supabase **Storage** (`bx-data-archive`), exposed via API routes |
+| Local `data/` | Dev cache / connector pin only — never required for production UI |
+
+- New indicators are not **Ready for UI** until they load from cloud without a local file.
+- Production / Railway must not fall back to `store=files` for Ready series.
+- Sector agents still own ingest under `src/<sector>/` and `data/<sector>/`; Orchestrator owns the API + Storage contract so explorers never `readFile` the laptop in deploy.
+- Connections and new sector pages wait on cloud completeness for the instruments they need (see `docs/work-plan.md`).
+
 ## Visual identity (all sector UI)
 
 - Follow [docs/visual-identity.md](docs/visual-identity.md). Tokens live in `web/src/brand/brand.css` under `.bo`.

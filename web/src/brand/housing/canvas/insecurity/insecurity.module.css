@@ -27,6 +27,15 @@
   color: var(--bo-text);
 }
 
+/* Short figure context only — method essays stay in the Stage Notes foot. */
+.metaLine {
+  margin: 0;
+  max-width: 68ch;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  color: var(--bo-text);
+}
+
 .search {
   min-width: 14rem;
   padding: 6px 0;
@@ -462,36 +471,68 @@
   height: auto;
 }
 
-/* ——— Displacement legend ——— */
+/* ——— Displacement map (Prices map chrome: map + readout, legend in the aside) ——— */
 
-.legendBands {
-  position: relative;
+.mapGrid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+  gap: var(--bo-s5);
+  align-items: start;
+  min-height: min(64vh, 36rem);
+}
+
+.mapCol {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--bo-s3);
-  margin: 0;
-  padding-top: var(--bo-s4);
-  border-top: var(--bo-rule);
-  font-size: var(--bo-t-note);
-  color: var(--bo-text);
+  min-height: min(64vh, 36rem);
 }
 
-.legendGrid {
+.mapCol > div:first-child {
+  flex: 1;
+  min-height: min(56vh, 32rem);
+}
+
+.readout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: var(--bo-s2) var(--bo-s4);
+  align-content: start;
+  gap: var(--bo-s3);
+  min-width: 0;
+  padding-top: 2px;
 }
 
-.legendBands > :global(.bo-label) {
+.placeName {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.35;
   color: var(--bo-ink);
 }
 
-.legendBandRow {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.readoutValue {
+  margin: 0;
+  font-size: var(--bo-t-readout);
+  line-height: 0.9;
+  color: var(--bo-ink);
+}
+
+.readoutMeta {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
 }
 
 @media (max-width: 960px) {
+  .mapGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mapCol,
+  .mapCol > div:first-child {
+    min-height: min(48vh, 28rem);
+  }
+
   .plate {
     grid-template-columns: minmax(0, 1fr);
   }

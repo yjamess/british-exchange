@@ -1,0 +1,44 @@
+indicator_id: manufacturing-output-per-job
+title: Manufacturing output per job
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/dj4p/prdy
+series_id: DJ4P
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: Index 2023=100, SA (output per job, manufacturing)
+definition: 'UK labour productivity for SIC 2007 section C Manufacturing: output per
+  filled job, seasonally adjusted index (2023=100). ONS CDID DJ4P in PRDY (Labour
+  productivity time series). Distinct from output per hour (DJK6) and from Workforce
+  Jobs.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_output_per_job
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS labour productivity / PRDY)
+raw_evidence:
+- path: raw/2026-11-10/dj4p_prdy.json
+  retrieved_at: '2026-11-10T02:29:06.896252+00:00'
+  checksum_sha256: transform-only
+  content_type: application/json
+  official_release_date: null
+  http_status: null
+  source_url: ''
+transformations: Download ONS timeseries JSON (DJ4P/PRDY /data). Keep quarters only
+  (annual aggregates omitted). Map year+Q→ISO calendar quarter bounds. Geography fixed
+  to K02000001. Values = index 2023=100 SA; empty → missing. observation_status=provisional
+  (PRDY revises).
+revision_notes: Industry productivity revises with GDP(O)/GVA and labour-input revisions
+  each PRDY release. Re-pin raw JSON on re-ingest; compare checksums.
+caveats: Official ONS manufacturing output-per-job index — do not invent by dividing
+  IoP by Workforce Jobs. Output per job ≠ output per hour (DJK6). Base year moves
+  with Blue Book / PRDY rebasing. Annual rows in raw JSON are not curated. National
+  section C only — not subsector or regional.
+related_indicator_ids:
+- manufacturing-employment
+- manufacturing-output-index
+- manufacturing-output-per-hour
+- manufacturing-productivity-hours
+open_questions: []
+notion_registry_url: https://app.notion.com/41465471768581f48531c8b3c7e86825
+schema_version: '1.0'

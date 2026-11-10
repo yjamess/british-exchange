@@ -203,7 +203,11 @@ export function BillReceipt({ meta, note, lines, total, totalDetail, memos, cap 
               )}
             </>
           ) : (
-            <p className={r.paneIdle}>Hover a line to read what it is</p>
+            <>
+              <p className={r.paneKicker}>Bill for the year</p>
+              {total != null && <p className={r.paneFig}>{fmtGbpPrecise(total)}</p>}
+              <p className={r.paneBody}>{totalDetail}</p>
+            </>
           )}
         </aside>
       </div>

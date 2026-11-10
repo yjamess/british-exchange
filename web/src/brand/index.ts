@@ -3,13 +3,13 @@
  * Identity: docs/visual-identity.md · Tokens: brand.css (under .bo, applied by BrandRoot).
  *
  *   Root & type   BrandRoot, brandFonts
- *   Imagery       Plate + PLATES / DWELLING_PLATES / TENURE_PLATES / ENERGY_TECH_PLATES / REF_ICON_PLATES / ICON_PLATES / SCENE_ICON_PLATES
+ *   Imagery       Plate + PLATES / DWELLING_PLATES / TENURE_PLATES / ENERGY_TECH_PLATES / MANUFACTURING_PLATES / REF_ICON_PLATES / ICON_PLATES / SCENE_ICON_PLATES
  *   Template      SectorPage, Explorer (+ head, figures, controls, stage, source, table, coverage), PlateBand, FieldBand
  *   Menus         PrintSelect (Base UI) — via MenuControl / PeriodControl in the template
  *   Motion        DualScramble, ScrambleGroup, HalftoneMotion, DitherField (+ fields), DensityStrip, groundField
  *   Charts        TimeChart, RankBars, SeriesLegend, EventRail
- *   Policy        DecisionLedger, CatalogueDossier, ExactRegister
- *   Maps          RegionMap, BandScreenDefs, LegendBandDefs
+ *   Policy        DecisionLedger, CatalogueDossier, ExactRegister, PromiseVerdict
+ *   Maps          RegionMap, WorldChoropleth, MapLegend, BandScreenDefs, LegendBandDefs
  *   Data          fmt, fmtT, toT and series helpers
  *
  * Legacy (v0.2) lives in sector/ and charts/ and is not exported here. Lab-only experiments
@@ -25,6 +25,7 @@ export {
   DWELLING_PLATES,
   TENURE_PLATES,
   ENERGY_TECH_PLATES,
+  MANUFACTURING_PLATES,
   REF_ICON_PLATES,
   ICON_PLATES,
   SCENE_ICON_PLATES,
@@ -74,6 +75,8 @@ export {
   DecisionLedger,
   CatalogueDossier,
   ExactRegister,
+  PromiseVerdict,
+  type PromiseVerdictProps,
   type LedgerEvent,
   type LedgerSource,
   type LedgerContextLink,
@@ -84,15 +87,18 @@ export {
   REGION_SHAPES,
   WorldChoropleth,
   WORLD_COUNTRY_SHAPES,
+  MapLegend,
   BandScreenDefs,
   LegendBandDefs,
   band,
+  equalBreaks,
   BAND_CELL,
   BAND_RADII,
   type RegionDatum,
   type RegionShape,
   type WorldCountryDatum,
   type WorldCountryShape,
+  type MapLegendProps,
 } from "./map";
 
 export {

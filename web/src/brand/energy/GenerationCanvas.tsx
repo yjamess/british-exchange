@@ -8,7 +8,7 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
 import {
   ChangeRows,
@@ -40,12 +40,23 @@ import {
   stationTechnology,
 } from "./station-model";
 import {
+  CAPACITY_BUCKETS,
+  bucketTotals,
+  capacityBucket,
   fmtGw,
   historyDecadeFlows,
   largestClosures,
   regionCapacityRows,
   type AtlasReading,
 } from "./atlas-model";
+import {
+  EnergyStageFollow,
+  FollowStep,
+  buildArrivalContext,
+  energyConnectionById,
+  followFuelConnection,
+  resolveEnergyConnectionHref,
+} from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import { FUELS, followFuel, fuelById, type FuelId } from "./fuels";
 import {
@@ -77,6 +88,7 @@ import {
   LONG_RUN_SOURCE,
   fmtPct,
   fmtTWh,
+  longFuel,
   value as lrValue,
   type Layout,
   type LongFuelId,
@@ -106,16 +118,32 @@ function clampYear(n: number, years: number[], fallback: number): number {
   return years.reduce((best, y) => (Math.abs(y - n) < Math.abs(best - n) ? y : best), years[0]!);
 }
 
-function readState(params: URLSearchParams, years: number[]): GenState {
+/**
+ * What each control holds when the URL names nothing. `readState` falls back to these,
+ * and Reset compares against them, so "opens with" and "reset to" cannot drift apart.
+ */
+function stateDefaults(years: number[]): Omit<GenState, "view"> {
   const latest = years.at(-1) ?? 2024;
   const earliest = years[0] ?? 1998;
+  return {
+    measure: "absolute",
+    year: latest,
+    compare: Math.max(earliest, latest - 10),
+    fuel: "coal",
+    from: earliest,
+    to: latest,
+  };
+}
+
+function readState(params: URLSearchParams, years: number[]): GenState {
+  const d = stateDefaults(years);
   const view = VIEWS.some((v) => v.id === params.get("view")) ? params.get("view")! : "current";
-  const measure: Measure = params.get("measure") === "share" ? "share" : "absolute";
-  const year = clampYear(Number(params.get("year") || latest), years, latest);
-  const compare = clampYear(Number(params.get("compare") || Math.max(earliest, latest - 10)), years, earliest);
-  const fuel = (fuelById(params.get("fuel") || "coal")?.id ?? "coal") as FuelId;
-  const from = clampYear(Number(params.get("from") || earliest), years, earliest);
-  const to = clampYear(Number(params.get("to") || latest), years, latest);
+  const measure: Measure = params.get("measure") === "share" ? "share" : d.measure;
+  const year = clampYear(Number(params.get("year") || d.year), years, d.year);
+  const compare = clampYear(Number(params.get("compare") || d.compare), years, d.from);
+  const fuel = (fuelById(params.get("fuel") || d.fuel)?.id ?? d.fuel) as FuelId;
+  const from = clampYear(Number(params.get("from") || d.from), years, d.from);
+  const to = clampYear(Number(params.get("to") || d.to), years, d.to);
   return { view, measure, year, compare, fuel, from: Math.min(from, to), to: Math.max(from, to) };
 }
 
@@ -143,6 +171,7 @@ export function GenerationCanvas({
   /** REPD renewables + DUKES 5.11 fossil/nuclear stations. */
   atlas?: AtlasPack | null;
 }) {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { sync: writeUrl } = useEnergyNavigation("generation");
   const mix = pack?.mix ?? [];
@@ -187,6 +216,40 @@ export function GenerationCanvas({
     if (y != null || m != null) sync({ ...(y != null ? { year: y } : {}), ...(m != null ? { measure: m } : {}) });
     if (Object.keys(rest).length) syncLong(rest);
   };
+  // Reset: URL keys on this tab that differ from the tab's real default. Only what the tab
+  // exposes counts, so an untouched tab shows no Reset and a changed one clears exactly its own keys.
+  const defaults = stateDefaults(allYears);
+  const resetKeys: string[] = [];
+  if (view === "current" || view === "compare" || view === "capacity") {
+    const dirty = (key: string, isDirty: boolean) => {
+      if (isDirty) resetKeys.push(key);
+    };
+    if (view !== "capacity") dirty("measure", measure !== defaults.measure);
+    if (useLong) {
+      dirty("year", lrYear !== clampYear(defaults.year, lrYears, lrLatest));
+      if (view === "compare") dirty("compare", lrFrom !== clampYear(defaults.compare, lrYears, lrEarliest));
+      if (view === "current") {
+        dirty("group", Boolean(long.group));
+        dirty("layout", long.layout !== "axis");
+        dirty("reading", Boolean(long.reading));
+        dirty("ask", Boolean(long.ask));
+      }
+    } else {
+      const defaultYear =
+        view === "capacity" && capacity
+          ? clampYear(defaults.year, capacity.years, capacity.years.at(-1) ?? defaults.year)
+          : defaults.year;
+      dirty("year", year !== defaultYear);
+      if (view === "compare") dirty("compare", compare !== defaults.compare);
+      if (view === "current") {
+        dirty("fuel", fuel !== defaults.fuel);
+        dirty("from", from !== defaults.from);
+        dirty("to", to !== defaults.to);
+      }
+    }
+  }
+  const resetControls = () => writeUrl(Object.fromEntries(resetKeys.map((key) => [key, null])));
+
   const lrFigures: ExplorerFigure[] = (() => {
     if (!lrRow) return [];
     if (view === "compare" && lrFromRow) {
@@ -237,9 +300,10 @@ export function GenerationCanvas({
       source={ENERGY_SOURCE.generationLongRun}
       definition={[
         `Estimated UK electricity generation by fuel, calendar years ${lrEarliest}–${lrLatest}, in TWh. Eight DESNZ fuel groups; coke and breeze is drawn with other fuels.`,
-        "Band thickness at each year is the published value on one scale; straight segments join observed years and assert nothing between them.",
+        "Each fuel is a line on one shared scale; straight segments join observed years and assert nothing between them.",
       ]}
       method={[
+        `On the all-fuels chart, rings mark the first year a fuel became the largest source, and the dashed vertical rule marks the switch from DESNZ estimates (before ${LONG_RUN_SOURCE.firstReported}) to reported figures. Move across the chart to change the year (drag on touch screens; arrow keys when focused).`,
         `${LONG_RUN_SOURCE.seriesStart}–${LONG_RUN_SOURCE.firstReported - 1} are DESNZ estimates: published supply upscaled to generation and apportioned by fuel used. Before 1987 coverage is major power producers, transport undertakings and industrial hydro and nuclear only; 1987–1989 carry a high degree of estimation.`,
         `From ${LONG_RUN_SOURCE.unallocatedFrom} the published total exceeds the sum of DESNZ's fuel columns by 5–7 TWh. That gap is drawn as its own dashed band, not allocated to any fuel.`,
         `Wind, wave, solar and hydro are one published group; bioenergy is inside other fuels. The quarterly Energy Trends series in Data is table 5.1 (from ${LONG_RUN_SOURCE.et51Start}), a different publication: the two are never added together.`,
@@ -256,7 +320,7 @@ export function GenerationCanvas({
       }
       definition={
         atlasReading === "regions"
-          ? "Installed capacity (GW) summed by nation or English region for the mapped renewable and fossil/nuclear points in the current filter. Regions are labels on the register, not a spatial join to boundaries."
+          ? "Installed capacity (GW) summed by nation or English region within each bucket separately: renewables, storage, and fossil and nuclear, for the mapped points in the current filter. Regions are labels on the register, not a spatial join to boundaries."
           : atlasReading === "openings"
             ? "Commissioned and closed (or planned-closed) nameplate capacity from DESNZ’s experimental List of Electricity Generators, shown by decade. Blank closure dates mean unknown — not still operating."
             : "Installed electrical capacity (MW) for operational renewables and storage, and for fossil and nuclear major power producers. Square area on the map is proportional to that capacity."
@@ -275,9 +339,10 @@ export function GenerationCanvas({
               "Renewables and storage come from the Renewable Energy Planning Database. Fossil and nuclear major power producers come from DUKES table 5.11.",
               "Coordinates are converted from Ordnance Survey grid references to latitude and longitude. Northern Ireland sites are listed in the register but not plotted (different grid).",
               atlasReading === "regions"
-                ? "Region ranks use the publisher’s region or country fields on each point. Offshore renewable capacity is its own row when present."
+                ? "Region ranks use the publisher’s region or country fields on each point. Offshore renewable capacity is its own row when present. Each ranking and its total covers one bucket only (renewables, storage, or fossil and nuclear) and is mapped register capacity — not a complete UK fleet."
                 : "Renewable projects below 150 kW (1 MW before 2021) are out of scope. Storage is shown separately from primary generation.",
-              "National generation figures beside a selected station are Energy Trends annuals for that technology — not that site’s output.",
+              "National generation figures beside a selected station are Energy Trends annuals for that technology — not that site’s output. The register measures capacity, not site-level generation.",
+              "Storage shifts electricity between times; megawatts alone are not stored energy.",
               atlas.outlineAttribution
                 ? atlas.outlineAttribution.replace(/\s+/g, " ").trim()
                 : "Geographic outline from ONS and Ordnance Survey open data where available.",
@@ -296,6 +361,7 @@ export function GenerationCanvas({
       method={[
         "Each half-hour is average megawatts; the Exchange multiplies by half an hour and sums to calendar months (TWh on the chart).",
         "This is Great Britain operational power — not the UK Energy Trends annuals. Do not add the two series together.",
+        "Four generation sources and net imports are shown separately. Imports are not electricity generated in Great Britain; these five lines are not the full generation total.",
         "Fuel groups on the chart collapse the operator’s labels for reading; the catalogue keeps the full taxonomy.",
         yearMix.meta.caveats,
       ].filter(Boolean)}
@@ -341,7 +407,7 @@ export function GenerationCanvas({
         <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
         <Stage title="Electricity generation" foot={notesFoot}>
           <EmptyStage label={STAGE_EMPTY.unavailable.label}>
-            {STAGE_EMPTY.unavailable.hint} Indicator id: electricity-generation-by-source.
+            {STAGE_EMPTY.unavailable.hint}
           </EmptyStage>
         </Stage>
       </>
@@ -401,12 +467,6 @@ export function GenerationCanvas({
                   onChange={(v) => syncLong({ group: v === "all" ? null : (v as LongFuelId), reading: null })}
                 />
               )}
-              <ResetButton
-                onClick={() => {
-                  sync({ measure: "absolute", year: lrLatest, compare: LONG_RUN_SOURCE.compareAnchor });
-                  syncLong({ group: null, layout: "axis", reading: null, ask: null });
-                }}
-              />
             </>
           ) : (
             <>
@@ -475,20 +535,9 @@ export function GenerationCanvas({
               {follow.label}
             </a>
           )}
-          <ResetButton
-            onClick={() =>
-              sync({
-                measure: "absolute",
-                year: latest,
-                compare: Math.max(earliest, latest - 10),
-                fuel: "coal",
-                from: earliest,
-                to: latest,
-              })
-            }
-          />
             </>
           )}
+          {resetKeys.length > 0 && <ResetButton onClick={resetControls} />}
         </ControlRow>
       )}
 
@@ -563,18 +612,27 @@ export function GenerationCanvas({
               />
             </label>
           )}
-          <ResetButton
-            onClick={() =>
-              writeUrl({
-                atlas: null,
-                family: null,
-                technology: null,
-                q: null,
-                station: null,
-                region: null,
-              })
-            }
-          />
+          {(
+            atlasReading !== "stations" ||
+            mapFamily !== "all" ||
+            Boolean(searchParams.get("technology")) ||
+            Boolean(searchParams.get("q")) ||
+            Boolean(searchParams.get("station")) ||
+            Boolean(atlasRegion)
+          ) && (
+            <ResetButton
+              onClick={() =>
+                writeUrl({
+                  atlas: null,
+                  family: null,
+                  technology: null,
+                  q: null,
+                  station: null,
+                  region: null,
+                })
+              }
+            />
+          )}
         </ControlRow>
       )}
       <Stage
@@ -594,6 +652,41 @@ export function GenerationCanvas({
               : stageTitle(view, year, compare, fuel, measure)
         }
         size={view === "atlas" ? "wide" : "normal"}
+        follow={(() => {
+          if (view === "current" && useLong && long.group) {
+            const lf = longFuel(long.group);
+            if (lf && ["coal", "gas", "oil", "nuclear", "renewables"].includes(lf.id)) {
+              const hit = followFuelConnection(
+                lf.id,
+                { year: lrYear },
+                searchParams,
+                buildArrivalContext({
+                  label: `Generation · ${lf.label}`,
+                  pathname,
+                  searchParams,
+                }),
+              );
+              if (hit) {
+                return (
+                  <FollowStep
+                    connection={hit.connection}
+                    href={hit.href}
+                    destination={hit.connection.destinationLabel}
+                    year={lrYear}
+                  />
+                );
+              }
+            }
+          }
+          return (
+            <EnergyStageFollow
+              domain="generation"
+              view={view}
+              selection={{ year: lrYear, fuel: fuel || undefined, measure }}
+              label={`Generation · ${view}`}
+            />
+          );
+        })()}
         foot={notesFoot}
       >
         {view === "current" && useLong && longRun && (
@@ -635,6 +728,8 @@ export function GenerationCanvas({
             onSelect={(station) => writeUrl({ station: parseStationKey(station) ? station : null })}
             onRegion={(region) => writeUrl({ region, atlas: null, station: null })}
             mix={mix}
+            pathname={pathname}
+            searchParams={searchParams}
           />
         )}
       </Stage>
@@ -700,6 +795,8 @@ function AtlasStage({
   onSelect,
   onRegion,
   mix,
+  pathname,
+  searchParams,
 }: {
   atlas: AtlasPack | null;
   reading: AtlasReading;
@@ -711,6 +808,8 @@ function AtlasStage({
   onSelect: (id: string | null) => void;
   onRegion: (region: string | null) => void;
   mix: YearFuel[];
+  pathname: string;
+  searchParams: URLSearchParams;
 }) {
   if (!atlas) return <EmptyStage label="Station data unavailable">The station register could not be loaded.</EmptyStage>;
   const all: StationPoint[] = [...atlas.renewablePoints, ...(atlas.stations?.points ?? [])];
@@ -718,10 +817,8 @@ function AtlasStage({
   // Portable selection (identity · tech · dates · geography honesty) — not Atlas-only state.
   const selection = resolveStationSelection(all, selectedId, mix);
   const shortlist = [...points].sort((a, b) => b.mw - a.mw).slice(0, 8);
-  const capacity = (rows: StationPoint[]) =>
-    (rows.reduce((sum, p) => sum + p.mw, 0) / 1000).toLocaleString("en-GB", { maximumFractionDigits: 2 });
-  const repd = points.filter((p) => p.family === "renewable");
-  const dukes = points.filter((p) => p.family !== "renewable");
+  // Renewables, storage and fossil/nuclear are three separate buckets — never one fleet total.
+  const buckets = CAPACITY_BUCKETS.map((b) => ({ ...b, ...bucketTotals(points, b.id) })).filter((b) => b.sites > 0);
   const peers = selection
     ? all.filter(
         (p) =>
@@ -736,25 +833,37 @@ function AtlasStage({
   const largestTech = [...groups.entries()].sort((a, b) => b[1] - a[1])[0];
 
   if (reading === "regions") {
-    const rows = regionCapacityRows(filterStations(all, family, technology, "", ""));
-    const totalGw = rows.reduce((s, r) => s + r.v, 0);
+    // One ranking per bucket: renewables + storage (REPD) and fossil + nuclear (DUKES)
+    // are different registers, and storage MW is not extra generation, so no combined total.
+    const regionPoints = filterStations(all, family, technology, "", "");
+    const sections = CAPACITY_BUCKETS.map((b) => {
+      const rows = regionCapacityRows(regionPoints.filter((p) => capacityBucket(p) === b.id));
+      return { ...b, rows, totalGw: rows.reduce((sum, r) => sum + r.v, 0) };
+    }).filter((b) => b.rows.length > 0);
+    if (sections.length === 0) {
+      return <EmptyStage label="No stations match">Clear the technology filter to see regional capacity.</EmptyStage>;
+    }
     return (
-      <div className={s.atlasReading}>
-        <RankBars
-          label="Installed capacity by region"
-          format={fmtGw}
-          reference={totalGw > 0 ? { label: "Selection total", v: totalGw } : undefined}
-          rows={rows.map((r) => ({
-            id: r.id,
-            label: `${r.label} · ${r.sites.toLocaleString("en-GB")} sites`,
-            v: r.v,
-            active: region === r.id,
-          }))}
-          onSelect={(id) => onRegion(region === id ? null : id)}
-        />
-        <p className={s.links}>
-          Select a region to open its stations on the map. Totals are mapped register capacity only — not a complete UK fleet.
-        </p>
+      <div className={s.stack}>
+        {sections.map((b) => (
+          <section className={s.panel} key={b.id}>
+            <h3 className={t.stageTitle}>
+              {b.label} · {b.register} · GW
+            </h3>
+            <RankBars
+              label={`${b.label} installed capacity by region`}
+              format={fmtGw}
+              reference={{ label: `${b.label} total`, v: b.totalGw }}
+              rows={b.rows.map((r) => ({
+                id: r.id,
+                label: `${r.label} · ${r.sites.toLocaleString("en-GB")} sites`,
+                v: r.v,
+                active: region === r.id,
+              }))}
+              onSelect={(id) => onRegion(region === id ? null : id)}
+            />
+          </section>
+        ))}
       </div>
     );
   }
@@ -763,7 +872,7 @@ function AtlasStage({
     if (!atlas.history?.records.length) {
       return (
         <EmptyStage label="Historical register unavailable">
-          The DESNZ List of Electricity Generators companion sheet is not loaded beside the long-run workbook.
+          The openings and closures register is not available right now.
         </EmptyStage>
       );
     }
@@ -825,7 +934,6 @@ function AtlasStage({
               );
             })}
           </ul>
-          <p className={s.links}>Nameplate MW. Planned closures stay in the closed series. Notes carry the DESNZ experimental caveat.</p>
         </aside>
       </div>
     );
@@ -892,7 +1000,7 @@ function AtlasStage({
               )}
               <div>
                 <dt className="bo-label">Register</dt>
-                <dd>{selection.ref.register === "repd" ? "REPD" : "DUKES 5.11"}</dd>
+                <dd>{selection.ref.register === "repd" ? "Planning register" : "Power producers register"}</dd>
               </div>
             </dl>
             {peerMw > 0 && (
@@ -916,18 +1024,35 @@ function AtlasStage({
                       : ""}
                   </span>
                 </p>
-                <p className={s.links}>
-                  UK Energy Trends total for the technology — not this station’s output.{" "}
-                  <a href={selection.nationalGeneration.href}>Inspect the series</a>
-                </p>
+                {(() => {
+                  const conn = energyConnectionById("gen.station→gen.data");
+                  if (!conn) return null;
+                  const href =
+                    resolveEnergyConnectionHref(
+                      conn,
+                      {
+                        fuel: selection.nationalGeneration.fuel,
+                        year: selection.nationalGeneration.year,
+                      },
+                      searchParams,
+                      buildArrivalContext({
+                        label: `Station · ${selection.name}`,
+                        pathname,
+                        searchParams,
+                      }),
+                    ) ?? selection.nationalGeneration.href;
+                  return (
+                    <FollowStep
+                      connection={conn}
+                      href={href}
+                      destination={conn.destinationLabel}
+                      year={selection.nationalGeneration.year}
+                      kicker="Contextual series"
+                    />
+                  );
+                })()}
               </div>
-            ) : (
-              <p className={s.links}>
-                {selection.group === "storage"
-                  ? "Storage shifts electricity between times; MW alone is not stored energy."
-                  : "This register measures capacity, not site-level generation."}
-              </p>
-            )}
+            ) : null}
           </>
         ) : (
           <>
@@ -936,19 +1061,21 @@ function AtlasStage({
               <span className="bo-fig">{points.length.toLocaleString("en-GB")}</span>
             </h3>
             <dl className={s.stationTotals}>
-              <div>
-                <dt className="bo-label">REPD · renewables & storage</dt>
-                <dd>
-                  <span className="bo-fig">{capacity(repd)}</span> GW
-                </dd>
-              </div>
-              <div>
-                <dt className="bo-label">DUKES · fossil & nuclear</dt>
-                <dd>
-                  <span className="bo-fig">{capacity(dukes)}</span> GW
-                </dd>
-              </div>
+              {buckets.map((b) => (
+                <div key={b.id}>
+                  <dt className="bo-label">
+                    {b.register} · {b.label.toLowerCase()}
+                  </dt>
+                  <dd>
+                    <span className="bo-fig">
+                      {b.gw.toLocaleString("en-GB", { maximumFractionDigits: 2 })}
+                    </span>{" "}
+                    GW · {b.sites.toLocaleString("en-GB")} sites
+                  </dd>
+                </div>
+              ))}
             </dl>
+            <p className={s.links}>Registers and storage are listed separately; they are not added into one fleet total.</p>
             {largestTech && (
               <p className={s.links}>
                 Largest technology in this selection: {largestTech[0]} · {(largestTech[1] / 1000).toFixed(2)} GW.
@@ -976,7 +1103,7 @@ function YearStage({ yearMix }: { yearMix: YearPack | null }) {
   if (!yearMix || yearMix.observations.length === 0) {
     return (
       <EmptyStage label="Year series unavailable">
-        NESO GB generation mix is not loaded yet. Pin the half-hourly CSV and refresh the API.
+        Monthly Great Britain generation is not available yet. Check back after the next data refresh.
       </EmptyStage>
     );
   }
@@ -998,7 +1125,6 @@ function YearStage({ yearMix }: { yearMix: YearPack | null }) {
           periodLabel={(t) => fmtT(t, "monthly")}
         />
       </section>
-      <p className={s.links}>Four generation sources and net imports, shown separately. Imports are not electricity generated in Great Britain; these five lines are not the full generation total.</p>
     </div>
   );
 }
@@ -1015,7 +1141,7 @@ function CapacityStage({
   if (!capacity || capacity.observations.length === 0) {
     return (
       <EmptyStage label="Capacity series unavailable">
-        Installed capacity (DUKES 5.12.C) is not loaded yet. Run the energy capacity connector and refresh the API.
+        Installed capacity figures are not available right now.
       </EmptyStage>
     );
   }
@@ -1026,8 +1152,9 @@ function CapacityStage({
         .sort((a, b) => b.v - a.v)
     : [];
 
+  // Stacked full-width panels — side-by-side halves made each RankBars look short of the stage.
   return (
-    <div className={s.paired}>
+    <div className={s.stack}>
       <section className={s.panel}>
         <h3 className={t.stageTitle}>Installed capacity · {year} · GW (nameplate)</h3>
         <RankBars
@@ -1049,7 +1176,7 @@ function CapacityStage({
           />
         ) : (
           <EmptyStage label="No generation year">
-            ET 5.1 has no calendar-year total for {year} yet (capacity years can run ahead of the quarterly pin).
+            There is no calendar-year generation total for {year} yet (capacity years can run ahead of the quarterly generation data).
           </EmptyStage>
         )}
       </section>
@@ -1108,7 +1235,7 @@ function DataStage({ observations, fuel }: { observations: Observation[]; fuel: 
     <div className={s.stack}>
       <section className={s.panel}>
         <h3 className={t.stageTitle}>
-          {def?.label ?? fuel} · quarterly ET 5.1 · All generating companies
+          {def?.label ?? fuel} · quarterly · All generating companies
         </h3>
         <div className={t.tableWrap}>
           <table className={t.table}>
@@ -1144,11 +1271,11 @@ function DataStage({ observations, fuel }: { observations: Observation[]; fuel: 
 
 function stageTitle(view: string, year: number, compare: number, fuel: FuelId, measure: Measure): string {
   const fuelLabel = fuelById(fuel)?.label ?? fuel;
-  if (view === "current") return `The Changing Current · ${year} · ${measure === "share" ? "share" : "TWh"}`;
+  if (view === "current") return `The changing current · ${year} · ${measure === "share" ? "share" : "TWh"}`;
   if (view === "compare") return `Compare · ${compare} → ${year}`;
   if (view === "data") return `Generation archive · ${fuelLabel}`;
-  if (view === "capacity") return "Capacity ≠ Electricity";
+  if (view === "capacity") return "Capacity and electricity";
   if (view === "atlas") return "UK power stations · installed capacity";
-  if (view === "year") return "A Year in Power";
+  if (view === "year") return "A year in power";
   return "Electricity generation";
 }

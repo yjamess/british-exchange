@@ -1,3 +1,4 @@
+import { stationNationalGenerationHref } from "../connections/energy";
 import type { AtlasPoint } from './packs';
 import type { YearFuel } from './generation-model';
 import type { FuelId } from './fuels';
@@ -230,7 +231,9 @@ export function resolveStationSelection(
           twh: ctx.twh,
           share: ctx.share,
           provisional: ctx.provisional,
-          href: `/energy?domain=generation&view=data&dataset=quarterly&fuel=${ctx.fuel}&year=${ctx.year}`,
+          href:
+            stationNationalGenerationHref(ctx.fuel, ctx.year) ??
+            `/energy?domain=generation&view=data&dataset=quarterly&fuel=${ctx.fuel}&year=${ctx.year}`,
         }
       : null,
   };

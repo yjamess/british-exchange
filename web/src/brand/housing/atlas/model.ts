@@ -43,6 +43,9 @@ export function breaks(measure: string, mode: Mode): number[] {
   if (measure === "ta-per-thousand") return [0.5, 1, 2, 5, 10, 20];
   // TA9 out-of-area placements as % of the authority's TA stock (derived)
   if (measure === "ta-out-of-area-share") return [5, 10, 20, 35, 50, 75];
+  // HM Land Registry CCOD / OCOD titles per local authority
+  if (measure === "titles-uk-company") return [5000, 10000, 15000, 20000, 30000, 50000];
+  if (measure === "titles-overseas-company") return [50, 100, 250, 500, 1000, 2500];
   return [100000, 200000, 300000, 400000, 600000, 1000000];
 }
 /** Shared choropleth bands — canonical copy lives in `@/brand/map`. */
@@ -54,7 +57,7 @@ export function formatValue(value: number | null | undefined, measure: string, m
   if (measure === "pte-median") return `${value.toFixed(1)}×`;
   if (measure === "ta-per-thousand") return `${value.toFixed(1)} per 1,000`;
   if (measure === "ta-out-of-area-share") return `${value.toFixed(0)}%`;
-  if (measure === "sales-volume") {
+  if (measure === "sales-volume" || measure.startsWith("titles-")) {
     if (compact && Math.abs(value) >= 1000) {
       return `${(value / 1000).toFixed(1).replace(/\.0$/, "")}k`;
     }

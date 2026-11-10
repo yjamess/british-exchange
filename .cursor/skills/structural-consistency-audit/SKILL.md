@@ -181,7 +181,7 @@ of explanation — only the same disclosure logic.
 
 - Body: `stack` → `panel` → `stageTitle` → instrument (`TimeChart` /
   `RankBars` / `ChangeRows` / one custom instrument).
-- Multi-series: `SeriesLegend` under the plot; `leaders={false}` on framed
+- Line charts: `SeriesLegend` under the plot; leaders default off so the plot fills the stage. Flag a reserved right gutter / `leaders={true}` on framed
   stages.
 - Empty: `EmptyStage`. Tables: shared table styles, not a parallel design.
 - Custom instrument: allowed; still one ink + Housing mark language; own CSS

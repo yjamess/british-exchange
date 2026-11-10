@@ -84,7 +84,7 @@ export function TileMap({
                 width={size}
                 height={size}
                 fill={b < 0 ? "var(--bo-paper-sink)" : tint(b)}
-                stroke={sel ? "var(--bo-signal)" : "var(--bo-ink)"}
+                stroke="var(--bo-ink)"
                 strokeWidth={sel ? 2.5 : 0.75}
               />
               <text className={c.tileText} x={8} y={17} style={{ fill: dark ? "var(--bo-paper)" : "var(--bo-ink)", fontWeight: 500, letterSpacing: "0.12em" }}>

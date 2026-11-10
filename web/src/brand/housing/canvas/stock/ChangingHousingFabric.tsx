@@ -3,11 +3,12 @@
 /**
  * Domain 04 — Changing Housing Fabric (flagship).
  * Specimen cards for owner-occupied, private rented and social rented
- * dwelling stock in England — same layout language as dwelling types.
+ * dwelling stock in England. Year control lives in HousingExplorer.
  * Shares are computed from MHCLG Live Table 104 counts (dwellings, not households).
  */
 
-import { useId, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { EmptyStage } from "../../..";
 import { fmt } from "../../../data";
 import { Plate, TENURE_PLATES } from "../../../Plate";
 import type { HousingV1 } from "../../load";
@@ -15,6 +16,7 @@ import s from "./stock.module.css";
 
 type Props = {
   tenure: HousingV1["tenure"];
+  year: number | null;
 };
 
 type Slice = {
@@ -25,20 +27,56 @@ type Slice = {
   plate: (typeof TENURE_PLATES)[keyof typeof TENURE_PLATES];
 };
 
-export function ChangingHousingFabric({ tenure }: Props) {
-  const uid = useId().replace(/:/g, "");
+export function fabricYearOptions(tenure: HousingV1["tenure"]): { value: string; label: string }[] {
+  return [...tenure.years].reverse().map((y) => ({ value: String(y), label: String(y) }));
+}
+
+export function fabricFoot(
+  tenure: HousingV1["tenure"],
+  year: number | null,
+): {
+  definition: string;
+  method: string[];
+  source: string;
+  dataHref: string;
+} {
   const years = tenure.years;
-  const [yearIdx, setYearIdx] = useState(() => Math.max(0, years.length - 1));
+  const idx =
+    year != null && years.includes(year) ? years.indexOf(year) : Math.max(0, years.length - 1);
+  const y = years[idx] ?? null;
+  const owner = tenure.owner[idx] ?? 0;
+  const privateRented = tenure.privateRented[idx] ?? 0;
+  const social = tenure.social[idx] ?? 0;
+  const parts = owner + privateRented + social;
+  const total = tenure.total[idx] ?? null;
+  return {
+    definition:
+      "England’s dwellings by tenure — owner-occupied, private rented, and social rented. Shares are of these three groups.",
+    method: [
+      y != null ? `As at 31 March ${y}.` : "",
+      "Unit = dwellings, not households or people.",
+      total != null && Math.abs(total - parts) > 1
+        ? `Official all-dwellings total ${fmt.count(total)}; three-group sum ${fmt.count(parts)} (rounding / residual).`
+        : "The official all-dwellings total sits beside the three-group sum when they differ by rounding.",
+    ].filter(Boolean),
+    source: y != null ? `MHCLG · Live Table 104 · England · 31 March ${y}` : "MHCLG · Live Table 104 · England",
+    dataHref: "/data#dwelling-stock-by-tenure",
+  };
+}
+
+export function ChangingHousingFabric({ tenure, year }: Props) {
+  const years = tenure.years;
   const [focus, setFocus] = useState<Slice["id"] | null>(null);
 
-  const safeIdx = years.length === 0 ? 0 : Math.min(yearIdx, years.length - 1);
-  const year = years[safeIdx] ?? null;
+  const idx =
+    year != null && years.includes(year) ? years.indexOf(year) : Math.max(0, years.length - 1);
+  const y = years[idx] ?? null;
 
   const slices: Slice[] = useMemo(() => {
-    if (year == null || years.length === 0) return [];
-    const owner = tenure.owner[safeIdx] ?? 0;
-    const privateRented = tenure.privateRented[safeIdx] ?? 0;
-    const social = tenure.social[safeIdx] ?? 0;
+    if (y == null || years.length === 0) return [];
+    const owner = tenure.owner[idx] ?? 0;
+    const privateRented = tenure.privateRented[idx] ?? 0;
+    const social = tenure.social[idx] ?? 0;
     const sum = owner + privateRented + social;
     if (!(sum > 0)) return [];
     return [
@@ -52,54 +90,25 @@ export function ChangingHousingFabric({ tenure }: Props) {
       },
       { id: "social", label: "Social rented", count: social, share: social / sum, plate: TENURE_PLATES.social },
     ];
-  }, [tenure, safeIdx, year, years.length]);
+  }, [tenure, idx, y, years.length]);
 
-  const totalOfficial = year != null ? tenure.total[safeIdx] : null;
-  const totalParts = slices.reduce((a, x) => a + x.count, 0);
-  const focused = focus ? slices.find((x) => x.id === focus) : null;
   const maxShare = Math.max(...slices.map((x) => x.share), 0);
 
   if (years.length === 0) {
     return (
-      <p className={s.lede}>
-        Dwelling stock by tenure is not loaded yet. The Exchange does not show estimates.
-      </p>
+      <EmptyStage label="In preparation">
+        Dwelling stock by tenure is not loaded yet. No estimated figures.
+      </EmptyStage>
     );
   }
 
   return (
     <div className={s.root}>
-      <p className={s.lede}>
-        England’s dwellings by tenure — owner-occupied, private rented, and social rented. Shares are
-        of these three groups; the official all-dwellings total sits below when it differs by rounding.
-      </p>
-
-      <div className={s.yearRow}>
-        <label className={s.yearField} htmlFor={`${uid}-year`}>
-          <span className="bo-label">As at 31 March</span>
-          <input
-            id={`${uid}-year`}
-            type="range"
-            min={0}
-            max={years.length - 1}
-            step={1}
-            value={safeIdx}
-            onChange={(e) => setYearIdx(Number(e.target.value))}
-            aria-valuetext={year != null ? String(year) : undefined}
-          />
-          <output className={`bo-fig ${s.yearOut}`}>{year}</output>
-        </label>
-        <div className={s.yearEnds} aria-hidden="true">
-          <span>{years[0]}</span>
-          <span>{years[years.length - 1]}</span>
-        </div>
-      </div>
-
       <ul
         className={`${s.specimens} ${s.specimensTenure}`}
         aria-label={
-          year != null
-            ? `Dwelling tenure composition, England, 31 March ${year}`
+          y != null
+            ? `Dwelling tenure composition, England, 31 March ${y}`
             : "Dwelling tenure composition"
         }
       >
@@ -125,37 +134,6 @@ export function ChangingHousingFabric({ tenure }: Props) {
           </li>
         ))}
       </ul>
-      <dl className={s.metrics}>
-        <div>
-          <dt>Selected tenure</dt>
-          <dd className="bo-fig">{focused ? focused.label : "All three groups"}</dd>
-          <dd className={s.note}>
-            {focused
-              ? `${fmt.count(focused.count)} dwellings · ${fmt.pct(focused.share * 100, 1)} of the three-group total`
-              : "Select a specimen for the count behind the share"}
-          </dd>
-        </div>
-        <div>
-          <dt>Three-group total</dt>
-          <dd className="bo-fig">{fmt.countCompact(totalParts)}</dd>
-          <dd className={s.note}>Owner + private rented + social (derived sum of parts)</dd>
-        </div>
-        <div>
-          <dt>All dwellings · official</dt>
-          <dd className="bo-fig">{totalOfficial ? fmt.countCompact(totalOfficial) : "—"}</dd>
-          <dd className={s.note}>
-            Live Table 104 all-dwellings
-            {totalOfficial && Math.abs(totalOfficial - totalParts) > 1
-              ? ` · parts differ by ${fmt.count(Math.abs(totalOfficial - totalParts))} (rounding / residual)`
-              : ""}
-          </dd>
-        </div>
-        <div>
-          <dt>Statistical unit</dt>
-          <dd className="bo-fig">Dwellings</dd>
-          <dd className={s.note}>Not households or people — do not read as occupancy</dd>
-        </div>
-      </dl>
     </div>
   );
 }

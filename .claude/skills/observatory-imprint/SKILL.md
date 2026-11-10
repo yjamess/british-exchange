@@ -49,6 +49,8 @@ uv run .claude/skills/observatory-imprint/scripts/dwelling-types.py $OUT --size 
 uv run .claude/skills/observatory-imprint/scripts/tenure-types.py $OUT --size 1000x1000   # t-owner, t-private, t-social
 
 # Energy Field Guide tech specimens (Domain 06): illustrative forms — plate area is never MW
+# Writes e-<id>.png (still = frame 0) and e-<id>-atlas-4x5-500.jpg (seamless loop for HalftoneMotion).
+# Wind rotors re-render per frame (~25 min total); --no-atlas for stills only.
 uv run .claude/skills/observatory-imprint/scripts/energy-tech-types.py $OUT --size 1000x1000   # e-offshore … e-nuclear
 ```
 

@@ -73,12 +73,21 @@ export const ENERGY_SOURCE = {
 
   networksBorder: "DESNZ · Energy Trends · table 5.6 · interconnector flows",
   networksNight: "NESO · Great Britain generation mix",
+  networksQueue: "NESO · Transmission Entry Capacity (TEC) Register",
+  networksCapacity: "NESO · Interconnector Register · firm TEC MW",
+  networksGrid: "SSEN Distribution · substations · overhead lines",
 
   manufacturingIop: "ONS · Index of Production · manufacturing",
-  manufacturingLandscape: "ONS · Index of Production · jobs · productivity",
+  manufacturingIopBranches: "ONS · Index of Production · SIC subsections and divisions",
+  manufacturingLandscape: "ONS · Index of Production · workforce jobs · share of GVA",
+  manufacturingBres: "ONS · BRES Table 4 · manufacturing employee jobs by region",
+  manufacturingBresDivision:
+    "ONS · Nomis BRES · manufacturing employee jobs by division and region",
 
   jobsProductivity: "ONS · Labour productivity · manufacturing",
   jobsLandscape: "ONS · Workforce jobs · Index of Production · productivity",
+  jobsAtlas: "ONS · BRES · manufacturing employee jobs by region",
+  jobsPay: "ONS · ASHE Table 4 · manufacturing median earnings",
 
   policy: "UK legislation · DESNZ · GOV.UK",
 } as const;

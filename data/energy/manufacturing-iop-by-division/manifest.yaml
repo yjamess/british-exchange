@@ -18,12 +18,12 @@ curated_path: curated/observations.csv
 update_cadence: monthly (ONS Index of Production / DIOP dataset)
 raw_evidence:
 - path: raw/2026-11-07/diop.csv
-  retrieved_at: '2026-11-07T15:34:42.394705+00:00'
-  checksum_sha256: 9ccd31271f98f97340a62f6ac207c8fbf2ef83f5c0a2c11d054e612b7a76e7a0
-  content_type: text/csv;charset=utf-8
-  official_release_date: '2026-10-15'
-  http_status: 200
-  source_url: https://www.ons.gov.uk/file?uri=/economy/economicoutputandproductivity/output/datasets/indexofproduction/current/diop.csv
+  retrieved_at: '2026-11-10T02:29:06.904783+00:00'
+  checksum_sha256: transform-only
+  content_type: text/csv
+  official_release_date: null
+  http_status: null
+  source_url: ''
 transformations: Download DIOP current CSV. Select explicit CDID catalogue of Section
   C subsection + division CVMSA series (exclude K22A). Keep monthly period rows only
   (YYYY MON). Map to ISO month bounds; geography K02000001. notes carry series=, classification=,

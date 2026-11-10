@@ -220,26 +220,6 @@
   background: var(--bo-paper);
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--bo-t-note);
-  color: var(--bo-ink);
-}
-
-.table th,
-.table td {
-  text-align: left;
-  padding: 0.35rem 0.5rem 0.35rem 0;
-  border-bottom: 1px solid var(--bo-rule, var(--bo-union));
-  vertical-align: top;
-}
-
-.table th {
-  font-weight: 500;
-  color: var(--bo-union);
-}
-
 /* Domain 03 — Dissected Bill receipt (Study C) */
 .receipt {
   display: grid;
@@ -433,7 +413,13 @@
 .atlasLayoutMapOnly {
   grid-template-columns: minmax(0, 1fr);
 }
-.atlasMap { min-width: 0; width: 100%; }
+.atlasMap {
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bo-s4);
+}
 .geoPanel {
   display: grid;
   gap: var(--bo-s3);
@@ -668,12 +654,3 @@
   }
 }
 
-/* North Sea Time Machine — field table (keyboard / table alternative to the map) */
-.tableScroll {
-  max-height: min(32rem, 60vh);
-  overflow: auto;
-}
-.rowCurrent > th,
-.rowCurrent > td {
-  border-bottom: 2px solid var(--bo-ink);
-}

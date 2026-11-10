@@ -18,22 +18,25 @@ import {
   FigureRecord,
   FigureStrip,
   Stage,
+  explorerClasses as t,
   type ExplorerFigure,
   type LedgerEvent,
 } from "@/brand";
 import { ENERGY_SOURCE } from "./citations";
+import { energyViewHref } from "./views";
 import {
+  EMPTY_POLICY_EVENTS_PACK,
   MARK_DATE_LABEL,
   NATION_LABEL,
-  ORDERED,
-  POLICY_NOTE,
-  POLICY_RETRIEVED,
   TYPE_LABEL,
   eventById,
   formatIso,
+  formatIsoShort,
   markDate,
   markYear,
+  orderedPolicyEvents,
   statusLabel,
+  type PolicyEventsPack,
 } from "./policy-events";
 import type { PolicyEvent } from "../housing/canvas/policy/types";
 import g from "./generation.module.css";
@@ -48,10 +51,11 @@ function commencementOf(e: PolicyEvent): string {
   if (e.commencements.length > 0) {
     return e.commencements
       .map((c) => {
-        const when = c.date ? formatIso(c.date) : "Date not pinned";
-        return `${when} · ${c.citation}`;
+        const when = c.date ? formatIso(c.date) : "Date not given";
+        const instrument = c.instrument ? ` (${c.instrument})` : "";
+        return `${when}${instrument}`;
       })
-      .join("; ");
+      .join(" · ");
   }
   if (e.type === "programme" || e.type === "institution") {
     return "No separate commencement date for this record type.";
@@ -77,7 +81,7 @@ function toLedgerEvent(e: PolicyEvent): LedgerEvent {
     context: e.linked_indicators.map((link) => ({
       id: link.id,
       title: link.title,
-      href: `/energy?domain=${link.domain}&view=${link.view}`,
+      href: energyViewHref(link.domain, link.view),
       note: link.note,
     })),
   };
@@ -95,13 +99,15 @@ const tableLinkStyle: CSSProperties = {
   textUnderlineOffset: "0.15em",
 };
 
-export function PolicyCanvas() {
+export function PolicyCanvas({ policyEvents = EMPTY_POLICY_EVENTS_PACK }: { policyEvents?: PolicyEventsPack }) {
   const searchParams = useSearchParams();
   const { sync: writeUrl } = useEnergyNavigation("policy");
 
+  const ordered = useMemo(() => orderedPolicyEvents(policyEvents.events), [policyEvents.events]);
+
   const [openId, setOpenId] = useState<string | null>(() => {
     const fromUrl = searchParams.get("event");
-    return fromUrl && eventById(fromUrl) ? fromUrl : null;
+    return fromUrl && eventById(policyEvents.events, fromUrl) ? fromUrl : null;
   });
 
   const sync = useCallback(
@@ -112,12 +118,12 @@ export function PolicyCanvas() {
     [writeUrl],
   );
 
-  const ledgerEvents = useMemo(() => ORDERED.map(toLedgerEvent), []);
-  const open = eventById(openId);
+  const ledgerEvents = useMemo(() => ordered.map(toLedgerEvent), [ordered]);
+  const open = eventById(policyEvents.events, openId);
   const figures: ExplorerFigure[] = [
     {
-      label: "Decisions seeded",
-      value: String(ORDERED.length),
+      label: "Decisions listed",
+      value: String(ordered.length),
       note: "Acts + programmes · checked dates",
     },
     {
@@ -126,9 +132,9 @@ export function PolicyCanvas() {
       note: open ? open.title : "Select a row",
     },
     {
-      label: "Register",
-      value: POLICY_RETRIEVED,
-      note: "Retrieved · not causal",
+      label: "Retrieved",
+      value: formatIsoShort(policyEvents.retrieved_at),
+      note: "From the register · not causal",
     },
   ];
 
@@ -138,36 +144,32 @@ export function PolicyCanvas() {
       <FigureStrip figures={figures} />
 
       <Stage
-        title="The Decision Ledger"
-        meta="Open a decision · electric slab · catalogue card"
+        title="The decision ledger"
+        meta="Open a decision to read its catalogue card"
         foot={
           <FigureRecord
             source={ENERGY_SOURCE.policy}
             definition={[
-              "Archival Decision Ledger: one chronological list of checked industrial and energy decisions.",
-              "Closed rows are electric; open a row for the catalogue card — story beside the register.",
+              "A chronological list of checked industrial and energy decisions.",
+              "Closed rows are solid electric. Open a row for the catalogue card: the story on the left, the register on the right.",
             ]}
             method={[
-              POLICY_NOTE,
+              policyEvents.note,
               "Assent, commencement and programme publication dates stay separate fields. Linked indicators are context only.",
             ]}
             dataHref="/data#energy-industry"
           />
         }
       >
-        {ORDERED.length === 0 ? (
-          <EmptyStage label="No policy events seeded">
-            The Decision Ledger has no checked records yet.
+        {ordered.length === 0 ? (
+          <EmptyStage label="No decisions listed yet">
+            The decision ledger has no checked records yet.
           </EmptyStage>
         ) : (
           <div className={g.stack}>
-            <p className="bo-prose" style={{ marginBottom: "1.5rem" }}>
-              Six checked decisions for Gate 2. Closed rows are solid electric. Open one for the
-              catalogue card — story on the left, register on the right.
-            </p>
             <DecisionLedger events={ledgerEvents} openId={openId} onSelect={sync} idPrefix="energy-policy" />
             <ExactRegister>
-              <table className={g.table}>
+              <table className={t.table} aria-label="Industrial policy decisions">
                 <thead>
                   <tr>
                     <th scope="col">Year</th>
@@ -178,7 +180,7 @@ export function PolicyCanvas() {
                   </tr>
                 </thead>
                 <tbody>
-                  {ORDERED.map((e) => (
+                  {ordered.map((e) => (
                     <tr key={e.id}>
                       <td>{markYear(e) ?? "—"}</td>
                       <th scope="row">

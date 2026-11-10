@@ -103,15 +103,9 @@ export function PricePaidSearch({
 
   return (
     <section className={s.pricePaid} aria-labelledby={`${uid}-title`}>
-      <div className={s.pricePaidHead}>
-        <h3 id={`${uid}-title`} className={s.sectionTitle}>
-          Recorded sales
-        </h3>
-        <p className={s.pricePaidLead}>
-          One sale lodged with HM Land Registry. A recorded price for that property, not an estimate
-          and not the monthly UK index.
-        </p>
-      </div>
+      <h3 id={`${uid}-title`} className={t.stageTitle}>
+        Recorded sales
+      </h3>
       {down ? (
         <div className={s.pricePaidUnavailable} role="status">
           <p className="bo-label">Unavailable</p>

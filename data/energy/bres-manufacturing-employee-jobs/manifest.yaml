@@ -69,7 +69,8 @@ raw_evidence:
 transformations: Download BRES Table 4 XLSX for years 2019, 2020, 2021, 2022, 2023,
   2024. Per regional sheet, locate Manufacturing row; take Total employees / All (not
   Total employment). Map sheet titles to GSS codes; trim trailing spaces. Period =
-  calendar year bounds. observation_status=provisional (survey revises).
+  calendar year bounds. observation_status=provisional only for the latest
+  provisional edition; revised editions are final.
 revision_notes: Each reference year has provisional then revised editions. This pin
   uses revised for 2019–2023 and provisional for 2024. Re-pin when 2024 revised ships.
   Older 2015–2018 XLSX use strict OOXML that openpyxl cannot load — out of this pin.

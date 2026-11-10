@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { EnergySector } from "@/brand/energy/EnergySector";
+import { legacyEnergyRedirect } from "@/brand/energy/legacy-views";
 import { loadEnergy } from "@/brand/energy/load";
 import { resolveEnergyDomain } from "@/brand/energy/domain-sources";
 import { SECTOR_PAGES } from "@/brand/sector-pages";
@@ -30,8 +31,12 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
     titles = {};
   }
   if (sector === "energy") {
+    const query = await searchParams;
+    // Retired duplicate tabs (Jobs Atlas, Networks Capacity) go to the tab that kept the UI.
+    const moved = legacyEnergyRedirect(query);
+    if (moved) redirect(moved);
     // Same pattern as Housing: hydrate only the selected domain's declared packs.
-    const domain = resolveEnergyDomain((await searchParams).domain);
+    const domain = resolveEnergyDomain(query.domain);
     const data = await loadEnergy(domain);
     return (
       <EnergySector
@@ -49,6 +54,8 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
         manufacturing={data.manufacturing}
         renewables={data.renewables}
         networks={data.networks}
+        policyEvents={data.policyEvents}
+        shockEvents={data.shockEvents}
       />
     );
   }

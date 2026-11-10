@@ -1,21 +1,27 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { fetchIndicator, fetchObservations, type Observation } from "@/lib/api";
+import { fetchIndicator, fetchObservations, fetchPackJson, type Observation } from "@/lib/api";
 import { toT } from "../../../data";
-import type { ArchiveRegistry, PlateRegistry, PledgeRegistry, PolicyPayload, SeriesSource, TrackConfig, TrackPayload, TrackRegistry } from "./types";
+import { normaliseEvents } from "./events";
+import type {
+  ArchiveRegistry,
+  EventRegistry,
+  PlateRegistry,
+  PledgeRegistry,
+  PolicyPayload,
+  SeriesSource,
+  TrackConfig,
+  TrackPayload,
+  TrackRegistry,
+} from "./types";
 
 /**
- * Server loader for Domain 10 (/api/housing/policy). Reads the registry files in
- * data/housing/policy-events (tracks, pledges, archive) and fetches every plotted point from the
- * Exchange API. Nothing is computed beyond selecting the published rows a file names.
- * A file that has not been written yet comes back as null; the view says so.
+ * Server loader for Domain 10 (/api/housing/policy). Registry files come from the
+ * Exchange API packs surface (Supabase Storage / local disk via FastAPI). Plotted
+ * points come from Ready observations. A missing pack comes back as null; the view says so.
  */
 
-const DIR = path.join(process.cwd(), "..", "data", "housing", "policy-events");
-
-async function readJson<T>(name: string): Promise<T | null> {
+async function readJson<T>(packId: string): Promise<T | null> {
   try {
-    return JSON.parse(await readFile(path.join(DIR, name), "utf8")) as T;
+    return await fetchPackJson<T>(packId);
   } catch {
     return null;
   }
@@ -73,18 +79,25 @@ async function track(cfg: TrackConfig): Promise<TrackPayload> {
   return {
     ...cfg,
     available: true,
-    lines: cfg.lines.map((l) => ({ id: l.id, label: l.label, points: points(data.rows.filter((o) => matches(o, l.match))) })),
+    lines: cfg.lines.map((l) => ({
+      id: l.id,
+      label: l.label,
+      points: points(data.rows.filter((o) => matches(o, l.match))),
+    })),
     source: data.source,
   };
 }
 
 const TTL_MS = 10 * 60 * 1000;
+const BUILD_TIMEOUT_MS = 45 * 1000;
 let memo: { at: number; payload: Promise<PolicyPayload> } | null = null;
 
 export function loadPolicy(): Promise<PolicyPayload> {
   if (memo && Date.now() - memo.at < TTL_MS) return memo.payload;
   cache.clear();
-  const payload = build().catch((e) => {
+  // A stalled upstream fetch must not pin every request to one stuck promise for the TTL.
+  const deadline = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("policy build timed out")), BUILD_TIMEOUT_MS));
+  const payload = Promise.race([build(), deadline]).catch((e) => {
     memo = null;
     throw e;
   });
@@ -93,11 +106,12 @@ export function loadPolicy(): Promise<PolicyPayload> {
 }
 
 async function build(): Promise<PolicyPayload> {
-  const [tracksFile, pledges, archive, plates] = await Promise.all([
-    readJson<TrackRegistry>("tracks.json"),
-    readJson<PledgeRegistry>("pledges.json"),
-    readJson<ArchiveRegistry>("archive.json"),
-    readJson<PlateRegistry>("plates.json"),
+  const [registry, tracksFile, pledges, archive, plates] = await Promise.all([
+    readJson<EventRegistry>("housing.policy-events"),
+    readJson<TrackRegistry>("housing.policy-tracks"),
+    readJson<PledgeRegistry>("housing.policy-pledges"),
+    readJson<ArchiveRegistry>("housing.policy-archive"),
+    readJson<PlateRegistry>("housing.policy-plates"),
   ]);
   const tracks = await Promise.all((tracksFile?.tracks ?? []).map(track));
   const delivery: PolicyPayload["delivery"] = {};
@@ -106,9 +120,25 @@ async function build(): Promise<PolicyPayload> {
       if (!p.match) return;
       const data = await indicator(p.match.indicator_id);
       if (!data) return;
-      const m: Match = { geography_code: p.match.geography_code, series: p.match.series, ...(p.match.dimensions ?? {}) };
+      const m: Match = {
+        geography_code: p.match.geography_code,
+        series: p.match.series,
+        ...(p.match.dimensions ?? {}),
+      };
       delivery[p.id] = { points: points(data.rows.filter((o) => matches(o, m))), source: data.source };
     }),
   );
-  return { trackNote: tracksFile?.note ?? null, tracks, pledges, archive, plates, delivery };
+  return {
+    events: normaliseEvents(registry?.events ?? []),
+    eras: registry?.eras ?? [],
+    relationships: registry?.relationships ?? [],
+    retrieved_at: registry?.retrieved_at ?? "",
+    note: registry?.note ?? "",
+    trackNote: tracksFile?.note ?? null,
+    tracks,
+    pledges,
+    archive,
+    plates,
+    delivery,
+  };
 }

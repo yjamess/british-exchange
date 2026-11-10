@@ -17,7 +17,9 @@ https://docs.python.org/3/library/typing.html).
 from __future__ import annotations
 
 import csv
+import json
 import re
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -26,7 +28,11 @@ from typing import Sequence
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation, ObservationStatus
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import ENERGY_DATA
 
 UK_GEOGRAPHY_CODE = "K02000001"
@@ -199,15 +205,16 @@ def _parse_month_period(label: str) -> tuple[str, str] | None:
 
 
 def _parse_numeric(raw: object) -> tuple[float | None, ObservationStatus]:
+    """Valued cells are final; transform marks the latest ~12 months provisional."""
     if raw is None:
         return None, "missing"
     if isinstance(raw, (int, float)):
-        return float(raw), "provisional"
+        return float(raw), "final"
     text = str(raw).strip()
     if not text or text in {"..", "…", "-", "n/a", "N/A"}:
         return None, "missing"
     try:
-        return float(text.replace(",", "")), "provisional"
+        return float(text.replace(",", "")), "final"
     except ValueError as exc:
         raise ValueError(f"Non-numeric DIOP value: {raw!r}") from exc
 
@@ -400,7 +407,12 @@ class ManufacturingIopByDivisionConnector(Connector):
         )
         if not observations:
             raise ValueError("No monthly Section C observations parsed from DIOP")
-        return observations
+        # IoP revises roughly the latest year of months; mark per CDID.
+        return mark_latest_months_provisional(
+            observations,
+            months=12,
+            group_key=lambda obs: _series_sort_key(obs.notes),
+        )
 
 
 def _series_sort_key(notes: str) -> str:
@@ -408,11 +420,230 @@ def _series_sort_key(notes: str) -> str:
     return match.group(1) if match else notes
 
 
+def write_annual_means_pack(
+    observations: Sequence[Observation],
+    dest: Path,
+) -> Path:
+    """Year-mean index per series for Explorer Production Anatomy (lean pack).
+
+    Monthly DIOP is ~34k rows; the UI only needs one point per calendar year
+    per SIC break for ChangeRows and branch dials.
+    """
+    # Per series × year: collect final monthly values only. A year enters the pack
+    # only when all 12 months are present and final (no part-year, no provisional tip).
+    buckets: dict[str, dict[int, list[float]]] = defaultdict(lambda: defaultdict(list))
+    notes_by_series: dict[str, str] = {}
+    classification_by_series: dict[str, str] = {}
+    source_version = ""
+    unit = UNIT
+    for obs in observations:
+        match = re.search(r"series=([A-Z0-9]+)", obs.notes or "")
+        if match is None or obs.value is None:
+            continue
+        if obs.observation_status != "final":
+            continue
+        series = match.group(1)
+        year = int(obs.period_start[:4])
+        buckets[series][year].append(float(obs.value))
+        if series not in notes_by_series:
+            notes_by_series[series] = obs.notes or ""
+            class_match = re.search(r"classification=([^;]+)", obs.notes or "")
+            classification_by_series[series] = (
+                class_match.group(1).strip() if class_match else "division"
+            )
+        if not source_version:
+            source_version = obs.source_version
+        if obs.unit:
+            unit = obs.unit
+
+    rows: list[dict[str, object]] = []
+    for series in sorted(buckets):
+        classification = classification_by_series[series]
+        notes = notes_by_series[series]
+        for year in sorted(buckets[series]):
+            vals = buckets[series][year]
+            if len(vals) < 12:
+                continue
+            mean = sum(vals) / len(vals)
+            rows.append(
+                {
+                    "indicator_id": "manufacturing-iop-by-division",
+                    "period_start": f"{year}-01-01",
+                    "period_end": f"{year}-12-31",
+                    "geography_code": UK_GEOGRAPHY_CODE,
+                    "geography_label": UK_GEOGRAPHY_LABEL,
+                    "value": round(mean, 4),
+                    "unit": unit,
+                    "observation_status": "final",
+                    "source_version": source_version,
+                    "notes": notes,
+                    "dimensions": {"series": series, "category": classification},
+                }
+            )
+
+    payload = {
+        "indicator_id": "manufacturing-iop-by-division",
+        "kind": "annual_year_mean",
+        "unit": unit,
+        "source_version": source_version,
+        "series_count": len(buckets),
+        "observation_count": len(rows),
+        "note": (
+            "Year-mean of monthly CVMSA index per SIC break — only complete "
+            "calendar years with twelve final months. Part-year and provisional "
+            "months are omitted. Not additive across divisions; not GVA shares."
+        ),
+        "observations": rows,
+    }
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+    return dest
+
+
+WEIGHTS_INDICATOR_ID = "manufacturing-iop-weights"
+WEIGHTS_UNIT = "parts per thousand of the Index of Production (GVA weight)"
+SECTION_C_WEIGHT_CDID = "KM44"
+
+# Index CDID → ONS annual weight CDID for the same SIC break (DIOP "…: Weight").
+WEIGHT_CDID_BY_INDEX: dict[str, str] = {
+    "K22B": "KM47", "K22P": "KM48", "K22T": "KM49", "K22X": "KM4B", "K22Z": "KM4C",
+    "K239": "KM4D", "K23B": "KM4E", "K23G": "KM4F", "K23N": "KM4G", "K23P": "KM4I",
+    "K23R": "KM4J", "K23T": "KM4K", "K23Z": "KM4L",
+    "K22C": "KM27", "DM4H": "DM3Z", "K22Q": "KM2L", "K22R": "KM2M", "K22S": "KM2N",
+    "K22U": "KM2O", "K22V": "KM2P", "K22W": "KM2Q", "K22Y": "KM2R", "K232": "KM2S",
+    "K23A": "KM2Z", "K23C": "KM32", "K23D": "KM33", "K23H": "KM36", "K23K": "KM39",
+    "K23O": "KM3C", "K23Q": "KM3D", "K23S": "KM3E", "K23U": "KM3F", "K23V": "KM3G",
+    "K242": "KM3K", "K243": "KM3L", "K244": "KM3M",
+}
+
+
+def _year_label(label: str) -> int | None:
+    text = label.strip()
+    return int(text) if len(text) == 4 and text.isdigit() else None
+
+
+def weights_from_raw(raw_path: Path) -> tuple[list[dict[str, object]], str]:
+    """Annual ONS IoP weights for Section C and each curated SIC break.
+
+    Weights are published, additive parts per thousand of all production (IoP = 1000):
+    subsections CA–CM sum to Section C (KM44) within rounding, as do divisions.
+    Rows are keyed by the **index** CDID (``dimensions.series``) so the Explorer can
+    join a branch's weight to its volume index.
+    """
+    titles, cdids, release, data_rows = _load_diop_table(raw_path)
+    col = {(c or "").strip().upper(): i for i, c in enumerate(cdids) if i}
+    wanted = {**WEIGHT_CDID_BY_INDEX, "C": SECTION_C_WEIGHT_CDID}
+    missing = sorted(w for w in wanted.values() if w not in col)
+    if missing:
+        raise ValueError(f"DIOP CSV missing expected weight CDIDs: {missing}")
+    for w in wanted.values():
+        if not titles[col[w]].strip().endswith("Weight"):
+            raise ValueError(f"{w} is not a Weight series: {titles[col[w]]!r}")
+    version = f"{DATASET_ID} {release or 'unknown-release'}"
+
+    rows: list[dict[str, object]] = []
+    for row in data_rows:
+        year = _year_label(row[0] if row else "")
+        if year is None:
+            continue
+        for index_cdid, weight_cdid in wanted.items():
+            raw_val = row[col[weight_cdid]] if col[weight_cdid] < len(row) else ""
+            value, _ = _parse_numeric(raw_val)
+            if value is None:
+                continue
+            if index_cdid == "C":
+                sic, level, label = "C", "section", "Manufacturing"
+            else:
+                meta = SERIES_BY_CDID[index_cdid]
+                sic, level, label = meta.sic_code, meta.level, meta.short_label
+            rows.append(
+                {
+                    "indicator_id": WEIGHTS_INDICATOR_ID,
+                    "period_start": f"{year}-01-01",
+                    "period_end": f"{year}-12-31",
+                    "geography_code": UK_GEOGRAPHY_CODE,
+                    "geography_label": UK_GEOGRAPHY_LABEL,
+                    "value": value,
+                    "unit": WEIGHTS_UNIT,
+                    "observation_status": "final",
+                    "source_version": version,
+                    "notes": (
+                        f"series={index_cdid}; weight_series={weight_cdid}; "
+                        f"classification={level}; sic={sic}; label={label}; "
+                        f"dataset={DATASET_ID}; ons_title={titles[col[weight_cdid]].strip()}"
+                    ),
+                    "dimensions": {"series": index_cdid, "category": level},
+                }
+            )
+    if not rows:
+        raise ValueError("No annual weight rows parsed from DIOP")
+    _check_weights_additive(rows)
+    return rows, version
+
+
+def _check_weights_additive(rows: Sequence[dict[str, object]]) -> None:
+    """Fail loudly if subsections or divisions stop summing to Section C."""
+    by_year: dict[int, dict[str, float]] = defaultdict(lambda: defaultdict(float))
+    for r in rows:
+        year = int(str(r["period_start"])[:4])
+        level = str(r["dimensions"]["category"])  # type: ignore[index]
+        key = "division" if level == "combined_division" else level
+        by_year[year][key] += float(r["value"])  # type: ignore[arg-type]
+    for year, sums in by_year.items():
+        total = sums.get("section")
+        if total is None:
+            continue
+        for level in ("subsection", "division"):
+            if level in sums and abs(sums[level] - total) > 1.0:
+                raise ValueError(
+                    f"{year}: {level} weights sum {sums[level]:.1f} ≠ Section C {total:.1f}"
+                )
+
+
+def write_weights_pack(raw_path: Path, dest: Path) -> Path:
+    rows, version = weights_from_raw(raw_path)
+    payload = {
+        "indicator_id": WEIGHTS_INDICATOR_ID,
+        "kind": "annual_weights",
+        "unit": WEIGHTS_UNIT,
+        "source_version": version,
+        "source_url": SOURCE_CSV_URL,
+        "series_count": len({r["dimensions"]["series"] for r in rows}),  # type: ignore[index]
+        "observation_count": len(rows),
+        "note": (
+            "ONS annual GVA weights from the Index of Production dataset (DIOP), parts per "
+            "thousand of all production. Additive: subsections CA–CM and divisions 10–33 "
+            "each sum to Section C. Share of manufacturing = branch ÷ Section C."
+        ),
+        "observations": rows,
+    }
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+    return dest
+
+
+def main_weights() -> None:
+    """Rebuild the weights pack from the pinned DIOP raw (no network)."""
+    connector = ManufacturingIopByDivisionConnector()
+    evidence = connector.evidence_from_pinned_raw()
+    raw_path = connector.data_root / evidence.path
+    dest = write_weights_pack(raw_path, connector.data_root / "curated" / "weights.json")
+    payload = json.loads(dest.read_text(encoding="utf-8"))
+    print(f"indicator_id: {WEIGHTS_INDICATOR_ID}")
+    print(f"raw: {evidence.path} sha256={evidence.checksum_sha256}")
+    print(f"rows: {payload['observation_count']} series: {payload['series_count']}")
+    print(f"weights_pack: {dest}")
+
+
 def main() -> None:
     connector = ManufacturingIopByDivisionConnector()
     evidence = connector.fetch_latest(retrieved_on=_pin_day())
     observations = connector.transform([evidence])
     manifest_path, curated_path = connector.write_hand_off([evidence], observations)
+    annual_path = write_annual_means_pack(
+        observations,
+        connector.data_root / "curated" / "annual_means.json",
+    )
     by_series: dict[str, int] = {}
     for obs in observations:
         m = re.search(r"series=([A-Z0-9]+)", obs.notes or "")
@@ -434,7 +665,15 @@ def main() -> None:
             )
     print(f"manifest: {manifest_path}")
     print(f"curated: {curated_path}")
+    print(f"annual_pack: {annual_path}")
+    weights_path = write_weights_pack(
+        connector.data_root / evidence.path,
+        connector.data_root / "curated" / "weights.json",
+    )
+    print(f"weights_pack: {weights_path}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    main_weights() if "--weights-only" in sys.argv else main()

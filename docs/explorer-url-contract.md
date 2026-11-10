@@ -1,6 +1,6 @@
 # Explorer URL and browser-history contract
 
-Makes Housing and Energy navigation reliable enough for future cross-domain connections. This is **not** the connection engine.
+Makes Housing and Energy navigation reliable enough for cross-domain connections. Typed edges live in the [Connections contract](connections-contract.md); this file is the URL substrate (`push` / `replace` / `retain`).
 
 ## Expected behaviour
 
@@ -27,7 +27,7 @@ Makes Housing and Energy navigation reliable enough for future cross-domain conn
 - **Within a domain, view change:** keep only keys declared on the **destination view** (not the union of all views). So `measure` on Generation › History does not linger on Generation › Map.
 - **Across domains:** keep only keys listed in **both** domains’ `portableParams` and allowed on the destination. Energy currently ports **`year` only**.
 - **Do not** mark polysemous keys portable: `measure`, `region`, `event`, `fuel`, `basis`, …
-- **Connections (later):** pass `retain: […]` into `switchExplorerDomain` / `goDomain` for a typed allowlist.
+- **Connections:** each declared edge supplies `retain: […]` into `switchExplorerDomain` / `goDomain` / `resolveConnectionHref` (see `web/src/brand/connections/`).
 
 ## Adoption
 

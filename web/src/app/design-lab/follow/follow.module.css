@@ -1,0 +1,348 @@
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--bo-s7) var(--bo-s5) var(--bo-s9);
+  color: var(--bo-text);
+}
+
+.page nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--bo-s4);
+  font-size: var(--bo-t-note);
+}
+
+.page a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+.header {
+  padding: var(--bo-s7) 0 var(--bo-s5);
+  max-width: 62ch;
+}
+
+.header h1,
+.caption h2,
+.brief h2 {
+  margin: var(--bo-s3) 0 var(--bo-s3);
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+
+.header h1 {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.header p,
+.brief p,
+.caption p,
+.note {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.brief {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s5) 0;
+}
+
+.brief h2,
+.caption h2 {
+  font-size: var(--bo-t-ed-m);
+  line-height: 1.15;
+}
+
+.brief ul {
+  margin: var(--bo-s4) 0 0;
+  padding: 0 0 0 1.1rem;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.specimen {
+  border-top: var(--bo-rule);
+  padding: var(--bo-s6) 0;
+}
+
+.caption {
+  max-width: 62ch;
+  margin-bottom: var(--bo-s5);
+}
+
+/* Fake stage */
+.stage {
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--bo-s2) var(--bo-s3);
+  padding: var(--bo-s3) var(--bo-s4);
+  border-bottom: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.arrival {
+  padding: var(--bo-s3) var(--bo-s4) 0;
+}
+
+.plot {
+  padding: var(--bo-s5) var(--bo-s4);
+  color: var(--bo-ink);
+}
+
+.plot svg {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin-top: var(--bo-s3);
+}
+
+.value {
+  margin: 0;
+  font-family: var(--bo-f-fig);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.body {
+  padding: var(--bo-s4);
+  border-top: var(--bo-hair);
+  display: grid;
+  gap: var(--bo-s4);
+}
+
+.note {
+  color: var(--bo-union);
+  max-width: none;
+}
+
+/* ——— 0. Baseline strip (shipped — too list-like) ——— */
+.baseline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--bo-s2);
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.baseline li {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: var(--bo-s2);
+  border-bottom: 1px solid var(--bo-ink-20);
+}
+
+.baseline li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.baseline a {
+  font-family: var(--bo-f-head);
+  font-size: 1.1rem;
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* ——— Shared follow chrome ——— */
+.followBlock {
+  display: grid;
+  gap: var(--bo-s2);
+  padding-top: var(--bo-s3);
+  border-top: var(--bo-rule);
+}
+
+.followKicker {
+  margin: 0;
+}
+
+.followTitle {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.followTitleMuted {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+  color: var(--bo-union);
+}
+
+.followHonesty {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-union);
+  max-width: 48ch;
+}
+
+.followMeta {
+  margin: 0;
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+
+/* Primary + one quiet aside */
+.aside {
+  margin: var(--bo-s2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--bo-s2);
+}
+
+.aside li {
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+}
+
+.aside a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* ——— Next-step rail ——— */
+.rail {
+  display: grid;
+  gap: var(--bo-s3);
+  padding: var(--bo-s4);
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+}
+
+.railRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--bo-s3);
+  align-items: start;
+}
+
+.railArrow {
+  font-family: var(--bo-f-fig);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--bo-ink);
+  line-height: 1;
+  padding-top: 0.15rem;
+}
+
+.railCopy {
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+
+.railDest {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-union);
+}
+
+/* ——— Arrival chip ——— */
+.fromChip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+  padding: 0.35rem 0.65rem;
+  border: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  color: var(--bo-union);
+  background: var(--bo-paper);
+}
+
+.fromChip strong {
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  color: var(--bo-ink);
+}
+
+.fromChip a {
+  color: var(--bo-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* Station */
+.stationPanel {
+  display: grid;
+  gap: var(--bo-s3);
+  padding: var(--bo-s4);
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+}
+
+.stationName {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-size: 1.5rem;
+  color: var(--bo-ink);
+}
+
+.stationMeta {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s3);
+  font-size: var(--bo-t-note);
+}
+
+.stationMeta dt {
+  margin: 0 0 0.15rem;
+}
+
+.stationMeta dd {
+  margin: 0;
+  color: var(--bo-union);
+}
+
+.stationContext {
+  padding-top: var(--bo-s3);
+  border-top: var(--bo-hair);
+  display: grid;
+  gap: var(--bo-s2);
+}
+
+.stationFig {
+  margin: 0;
+  font-family: var(--bo-f-fig);
+  font-size: 1.75rem;
+  font-weight: 300;
+}
+
+@media (max-width: 560px) {
+  .railRow {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .railRow > :last-child {
+    grid-column: 2;
+  }
+}

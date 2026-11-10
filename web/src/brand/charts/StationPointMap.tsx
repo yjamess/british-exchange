@@ -3,9 +3,10 @@
 /**
  * UK power-station atlas — square capacity marks on a fixed GB extent.
  * Housing map grammar: drag to pan, +/−/Home tools, Find selected, keyboard arrows.
- * Brand: square marks (never circles). A mark is a printed tint: a hairline square in the family's
- * chart ink, filled with a dot screen of that ink (tints are dots, never opacity), so overlapping
- * stations stay legible. Marks too small to hold a screen print solid. Storage is an open square.
+ * Brand: square marks (never circles). One ink. A mark is a printed tint: a hairline square filled with
+ * a screen of that ink (tints are dots and lines, never opacity), so overlapping stations stay
+ * legible. Renewables are a dot screen, fossil a hatch, nuclear a cross-hatch, storage an open
+ * square. Marks too small to hold a screen print solid.
  * Selection is ink: a frame with registration ticks and a coordinate mark, drawn above every
  * station. Focus is a Signal ring. Hover is an ink hairline.
  */
@@ -26,11 +27,13 @@ import s from "./station-map.module.css";
 
 export type StationPoint = AtlasPoint;
 
+/** One ink for every family; families are told apart by print (stipple, hatch, cross, open), never by colour. */
+const INK = "var(--bo-ink)";
 const FILLS: Record<StationGroup, string> = {
-  renewable: "var(--bo-chart-4)",
-  storage: "var(--bo-chart-5)",
-  fossil: "var(--bo-chart-2)",
-  nuclear: "var(--bo-chart-1)",
+  renewable: INK,
+  storage: INK,
+  fossil: INK,
+  nuclear: INK,
 };
 
 const FAMILY_LABEL: Record<StationGroup, string> = {
@@ -261,7 +264,16 @@ export function StationPointMap({
                 patternUnits="userSpaceOnUse"
                 patternTransform={`scale(${unit}) rotate(45)`}
               >
-                <circle cx={SCREEN.pitch / 2} cy={SCREEN.pitch / 2} r={SCREEN.r} fill={FILLS[g]} />
+                {g === "renewable" ? (
+                  <circle cx={SCREEN.pitch / 2} cy={SCREEN.pitch / 2} r={SCREEN.r} fill={FILLS[g]} />
+                ) : (
+                  <>
+                    <line x1={SCREEN.pitch / 2} y1={0} x2={SCREEN.pitch / 2} y2={SCREEN.pitch} stroke={FILLS[g]} strokeWidth={0.9} />
+                    {g === "nuclear" ? (
+                      <line x1={0} y1={SCREEN.pitch / 2} x2={SCREEN.pitch} y2={SCREEN.pitch / 2} stroke={FILLS[g]} strokeWidth={0.9} />
+                    ) : null}
+                  </>
+                )}
               </pattern>
             ))}
           </defs>

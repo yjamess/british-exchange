@@ -22,7 +22,7 @@ from typing import Sequence
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation
+from britain_exchange.observation import Observation, mark_latest_months_provisional
 from britain_exchange.paths import ENERGY_DATA
 
 from energy.connectors.ons_timeseries import (
@@ -190,7 +190,7 @@ class ManufacturingOutputPerHourConnector(Connector):
                 )
             )
         observations.sort(key=lambda obs: obs.period_start)
-        return observations
+        return mark_latest_months_provisional(observations, months=4)
 
 
 def main() -> None:

@@ -14,11 +14,19 @@ uv sync
 
 Requires Python 3.13+ ([uv](https://docs.astral.sh/uv/)).
 
-## Cloud archive (laptop storage)
+## Cloud completeness (Supabase)
 
-Bulky `data/**/raw` and large curated blobs live in Supabase Storage (`bx-data-archive`). The laptop keeps manifests, thin energy curated files the UI still reads from disk, and `data/_archive_index.json`.
+**All live data lives on Supabase.** Local `data/` is a cache for connectors and QA — not what production UI depends on.
+
+| Kind | Where |
+|------|--------|
+| Ready observations | Supabase **Postgres** via FastAPI (`DATABASE_URL`) |
+| Heavy curated blobs (atlas, GeoJSON, stations, map packs) | Supabase **Storage** (`bx-data-archive`) |
+| Manifests / thin pins / `_archive_index.json` | Laptop only as needed for ingest |
 
 **Live Housing › Renting does not need the PIPR CSV on disk.** Observations are served from Supabase Postgres via FastAPI (`/housing/rent/...`). Pull the curated file only to re-run the connector or reload Postgres, then delete it again.
+
+Energy and Housing explorers load curated packs via FastAPI `GET /packs/{id}` (and `GET /packs/rel/...` for planning plates) — disk or Supabase Storage. See Cloud Completeness in [docs/work-plan.md](docs/work-plan.md).
 
 ```bash
 # After setting SUPABASE_URL + SUPABASE_ANON_KEY (or SERVICE_ROLE) in .env
@@ -33,9 +41,9 @@ Free-plan objects are capped at 50 MB; the tool gzip-compresses larger files bef
 
 ## Run the first-proof stack
 
-### Optional: PostgreSQL observation spine (Layer B)
+### PostgreSQL observation spine (required for cloud)
 
-Prefer cloud Supabase Postgres (same project as the archive). Paste the Database URI into `.env` as `DATABASE_URL` (Project Settings → Database), then:
+Use cloud Supabase Postgres (same project as the archive). Paste the Database URI into `.env` as `DATABASE_URL` (Project Settings → Database), then:
 
 ```bash
 uv run python -m britain_exchange.load_ready   # migrate + load Ready CSVs

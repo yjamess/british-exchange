@@ -1,0 +1,74 @@
+indicator_id: right-to-buy-sales-and-replacements
+title: Right to Buy sales and replacements
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.gov.uk/government/statistical-data-sets/live-tables-on-social-housing-sales
+series_id: LT 691b; Right to Buy sales open data; Right to Buy replacements open data
+geography: England (E92000001) and English regions (RGN25CD) — not UK
+frequency: annual
+unit: dwellings
+definition: 'Right to Buy sales of local authority homes in England, and the replacement
+  homes funded from Right to Buy receipts. series=all-right-to-buy-sales is every
+  Right to Buy sale of council stock since 1980-81 (LT 691b). series=eligible-sales
+  counts sales eligible for receipts pooling since 2006-07, split by sale type in
+  category. series=replacements is new-build starts plus acquisitions funded from
+  receipts (the publisher''s replacement measure); the replacement-* series give starts,
+  acquisitions, unsplit starts-or-acquisitions and new-build completions. category
+  on replacement series names the provider: local-authorities, homes-england-gla or
+  all.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.right_to_buy
+curated_path: curated/observations.csv
+update_cadence: annual (August Right to Buy sales and replacements release; LT 691b
+  with the February sales and demolitions release)
+raw_evidence:
+- path: raw/2026-11-10/LT_691.ods
+  retrieved_at: '2026-11-10T09:51:34.589513+00:00'
+  checksum_sha256: 6e090af3e9c5c1edd8375b363c55b08f04e1839ccd06e9bc27950c5e95e3fa63
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-06'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a708a741f66ec7b77ed4662/LT_691.ods
+- path: raw/2026-11-10/LT_693.ods
+  retrieved_at: '2026-11-10T09:51:34.590875+00:00'
+  checksum_sha256: 03cebff77cdf62d23f08d8fff3f1ae4f95e3bb9604590a82cf77fa2cbd0013b5
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-08-06'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a703c4d8319ab05f7caa303/LT_693.ods
+- path: raw/2026-11-10/Right_to_Buy_sales_open_data.csv
+  retrieved_at: '2026-11-10T09:51:34.591542+00:00'
+  checksum_sha256: 90bf3928b4775a4517261fb01645a75dff57f62b99ef0b707b42c99436c38f41
+  content_type: text/csv
+  official_release_date: '2026-08-06'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a703ce18319ab05f7caa304/Right_to_Buy_sales_open_data.csv
+- path: raw/2026-11-10/Right_to_Buy_replacements_open_data.csv
+  retrieved_at: '2026-11-10T09:51:34.592320+00:00'
+  checksum_sha256: 88fff7f5325bff83a89843bb5bd5ec7609fdb36901b0befde1e8f9e1492d8067
+  content_type: text/csv
+  official_release_date: '2026-08-06'
+  http_status: null
+  source_url: https://assets.publishing.service.gov.uk/media/6a703d1f8319ab05f7caa305/Right_to_Buy_replacements_open_data.csv
+transformations: LT_691b_R parsed as published (regions + England). Sales and replacements
+  open data summed from local authority rows to RGN25CD region and England. Replacements
+  = rows with Replacement_Type_1 'Starts and Acquisitions'. LT_693.ods is pinned for
+  QA only.
+revision_notes: Pinned 2025-26 release files (published 6 August 2026), retrieved
+  2026-11-10.
+caveats: England only. Eligible sales exclude sales outside a Housing Revenue Account
+  and include some shared ownership and other discounted sales; they are not all Right
+  to Buy sales. Shared ownership sales count as part-dwellings, so values can have
+  decimals. Open data reconciles some differences and may not match LT 691a exactly.
+  LT 691b ends at 2024-25. Homes England has not separately recorded receipt-funded
+  starts since 2023-24, so replacements from 2023-24 may be undercounted. Replacements
+  are funded over up to five years (three before April 2021) and do not match sales
+  in the same year. Unsplit starts-or-acquisitions are reported before 2017-18.
+related_indicator_ids:
+- right-to-buy-one-for-one
+- dwelling-stock-by-tenure
+- affordable-housing-supply
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41465471768581458c24d5f9ee5ebfe0
+schema_version: '1.0'

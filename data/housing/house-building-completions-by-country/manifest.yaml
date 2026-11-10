@@ -1,0 +1,43 @@
+indicator_id: house-building-completions-by-country
+title: House building by country (calendar years)
+sector: housing-land
+publisher: ONS (from MHCLG, Welsh Government, Scottish Government, NI Department for
+  Communities)
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/ukhousebuildingpermanentdwellingsstartedandcompleted
+series_id: 'Indicators of house building, UK: by country, Tables 3a-3e (historical
+  calendar year series)'
+geography: United Kingdom, Great Britain (derived), England, Wales, Scotland, Northern
+  Ireland
+frequency: annual
+unit: dwellings
+definition: Permanent dwellings started and completed each calendar year, by sector,
+  for the UK and each country. Temporary dwellings (prefabs) are not included. Great
+  Britain is England + Wales + Scotland.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.house_building_by_country
+curated_path: curated/observations.csv
+update_cadence: quarterly ONS release (calendar-year table updated with each)
+raw_evidence:
+- path: raw/2026-11-10/indicatorsofukhousebuilding.xlsx
+  retrieved_at: '2026-11-10T10:57:56.416429+00:00'
+  checksum_sha256: 6529e7b782309cbdf76ca39017174e12ad2a9a205d1d4bd89d073682986e14b8
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-23'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/housing/datasets/ukhousebuildingpermanentdwellingsstartedandcompleted/current/indicatorsofukhousebuilding.xlsx
+transformations: Parse Tables 3a-3e; one row per country, year, measure and sector.
+  Great Britain is derived by summing England, Wales and Scotland and checked against
+  UK minus Northern Ireland (within 20 dwellings for rounding).
+revision_notes: Pinned indicatorsofukhousebuilding.xlsx (ONS release of 23 October
+  2026), retrieved 2026-11-10.
+caveats: Starts are not available for early years in some countries ([x1]). Figures
+  before the 1990s are rounded to the nearest 10 by the publisher. Great Britain is
+  a derived total, not an ONS table. Sector definitions change over time; 'housing
+  associations' is small or not separately shown in early years.
+related_indicator_ids:
+- housebuilding-completions-long-run
+- housing-completions
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41465471768581cb882dca3f9d2adb88
+schema_version: '1.0'

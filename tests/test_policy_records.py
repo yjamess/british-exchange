@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from britain_exchange.catalog import iter_indicator_packages
+from britain_exchange.manifest import load_manifest
 from britain_exchange.policy_record import event_ids_from_file, load_archive, load_pledges
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,7 +26,12 @@ def event_ids() -> set[str]:
 
 @pytest.fixture(scope="module")
 def indicator_ids() -> set[str]:
-    return {p.manifest.indicator_id for p in iter_indicator_packages()}
+    # Archived indicators keep only manifest.yaml on disk (data lives in Supabase), so read manifests,
+    # not packages with a local curated CSV.
+    ids = {p.manifest.indicator_id for p in iter_indicator_packages()}
+    for path in (ROOT / "data").glob("*/*/manifest.yaml"):
+        ids.add(load_manifest(path).indicator_id)
+    return ids
 
 
 def test_pledges_load_with_existing_event_ids(event_ids: set[str], indicator_ids: set[str]) -> None:
@@ -108,11 +114,20 @@ def test_scorable_requires_matching_geography_unit_and_period(tmp_path: Path) ->
     with pytest.raises(ValueError, match="needs a match"):
         load_pledges(_write(tmp_path, "nomatch.json", doc))
 
+    pledge["target"]["period_end"] = "2021-03-31"
+    pledge["match"] = dict(good, dimensions={"category": "ahp-2021-26"})
+    registry = load_pledges(_write(tmp_path, "dims.json", doc))
+    assert registry.pledges[0].match.dimensions == (("category", "ahp-2021-26"),)
+
+    pledge["match"] = dict(good, dimensions={"tenure": "social-rent"})
+    with pytest.raises(ValueError, match="unknown keys"):
+        load_pledges(_write(tmp_path, "dimkey.json", doc))
+
 
 def test_unscored_needs_reason_and_short_quotation(tmp_path: Path) -> None:
     doc = _first_pledge_doc()
     pledge = doc["pledges"][0]
-    pledge["not_scored_reason"] = None
+    pledge.update(scorable=False, match=None, not_scored_reason=None)  # the first pledge may be scored
     with pytest.raises(ValueError, match="not_scored_reason"):
         load_pledges(_write(tmp_path, "reason.json", doc))
 

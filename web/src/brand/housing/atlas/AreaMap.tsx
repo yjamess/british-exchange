@@ -10,7 +10,7 @@ const HOME = { x: 0, y: 0, z: 1 };
 
 /**
  * Choropleth of local authorities. Fills = 45° electric screen by band.
- * Boundaries = hairline chrome; Signal outline = selection; Union dash = compare.
+ * Boundaries = hairline chrome; ink outline = selection; Union dash = compare.
  */
 
 const AreaPaths = memo(function AreaPaths({
@@ -259,7 +259,7 @@ export function AreaMap({
               <path
                 d={selectShape.path}
                 fill="none"
-                stroke="var(--bo-signal)"
+                stroke="var(--bo-ink)"
                 strokeWidth="2"
                 vectorEffect="non-scaling-stroke"
               />

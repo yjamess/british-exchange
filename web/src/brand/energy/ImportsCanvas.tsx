@@ -2,9 +2,9 @@
 
 /**
  * Energy Domain 05 — Energy Imports & Security.
- * Flagship Study D: The Lifelines Map = country choropleth (Oil/Gas) + measured ranks
+ * Flagship Study D: The lifelines map = country choropleth (Oil/Gas) + measured ranks
  * (no invented routes). LNG stays RankBars until terminal coordinates are pinned.
- * Supporting: Resilience Test · Shock & Response · Britain's Connectors · Gross trade.
+ * Supporting: Resilience Test · Shock and response · Britain's connectors · Gross trade.
  * Net ≠ gross. GWh ≠ ktoe ≠ thousand tonnes. Never one fabricated security score.
  * Dependency Dial retired. Gross trade is the home for ktoe imports/exports.
  */
@@ -28,6 +28,9 @@ import {
   type ExplorerFigure,
   type ExplorerView,
 } from "../template";
+import {
+  EnergyStageFollow,
+} from "../connections";
 import { ENERGY_SOURCE } from "./citations";
 import { ImportsData } from "./ImportsData";
 import { IMPORTS_VIEWS } from "./views";
@@ -80,14 +83,14 @@ import {
 } from "./imports-model";
 import { isoForPartnerLabel } from "./partner-geo";
 import {
-  SHOCK_EVENTS,
+  EMPTY_SHOCK_EVENTS_PACK,
   SHOCK_KIND_LABEL,
-  SHOCK_RETRIEVED,
   defaultShockId,
   formatMarkDate,
   markYear as shockMarkYear,
   shockById,
   type ShockEvent,
+  type ShockEventsPack,
 } from "./imports-shock-events";
 import s from "./generation.module.css";
 
@@ -160,9 +163,17 @@ function initialViewFromParams(v: string | null): string {
   return VIEWS.some((x) => x.id === v) ? v! : "lifelines";
 }
 
-export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
+export function ImportsCanvas({
+  pack,
+  shockEvents = EMPTY_SHOCK_EVENTS_PACK,
+}: {
+  pack: ImportsPack;
+  shockEvents?: ShockEventsPack;
+}) {
   const searchParams = useSearchParams();
   const { sync: writeUrl } = useEnergyNavigation("imports");
+  const events = shockEvents.events;
+  const shockRetrieved = shockEvents.retrieved_at;
   const depRows = pack.dependency?.observations ?? [];
   const tradeRows = pack.trade?.observations ?? [];
   const icRows = pack.interconnectors?.observations ?? [];
@@ -197,7 +208,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
   const [listMode, setListMode] = useState<LifelineListMode>(() => asListMode(searchParams.get("list")));
   const [eventId, setEventId] = useState(() => {
     const fromUrl = searchParams.get("event");
-    return shockById(fromUrl) ? fromUrl! : defaultShockId();
+    return shockById(events, fromUrl) ? fromUrl! : defaultShockId(events);
   });
 
   const tradeSeries = tradeGrossSeries(tradeRows).map((sr) => ({
@@ -260,11 +271,11 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
         patch.event !== undefined
           ? patch.event === null || patch.event === ""
             ? ""
-            : (shockById(patch.event)?.id ?? "")
+            : (shockById(events, patch.event)?.id ?? "")
           : patch.view === "shock" && !eventId
-            ? defaultShockId()
+            ? defaultShockId(events)
             : eventId;
-      const shockEv = shockById(nextEvent);
+      const shockEv = shockById(events, nextEvent);
       const nextYear =
         patch.year !== undefined
           ? patch.year
@@ -301,7 +312,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
         ic_flow: null,
       });
     },
-    [view, year, basis, icFlow, fuel, flow, mode, partner, listMode, eventId, writeUrl],
+    [view, year, basis, icFlow, fuel, flow, mode, partner, listMode, eventId, events, writeUrl],
   );
 
   const fossilYears = yearsOf(fossilRows.filter((r) => (r.notes ?? "").includes("basis=annual")));
@@ -426,7 +437,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
     lowCarbonSeries,
   ].filter((series) => series.points.length > 0);
 
-  const shockEvent = shockById(eventId);
+  const shockEvent = shockById(events, eventId);
   const shockSeries = useMemo(() => {
     if (!shockEvent) return [] as { id: string; label: string; points: { t: number; v: number; provisional?: boolean }[] }[];
     const chart = shockEvent.chart;
@@ -499,14 +510,14 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
             {
               label: "Sources",
               value: String(shockEvent.sources.length),
-              note: `Checked ${SHOCK_RETRIEVED}`,
+              note: `Checked ${shockRetrieved}`,
             },
           ]
         : [
             {
               label: "Events",
-              value: String(SHOCK_EVENTS.length),
-              note: `Checked ${SHOCK_RETRIEVED}`,
+              value: String(events.length),
+              note: `Checked ${shockRetrieved}`,
             },
             {
               label: "Event",
@@ -632,53 +643,6 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
     label: String(yy),
   }));
 
-  const followLinks =
-    view === "lifelines"
-      ? [
-          {
-            href: `/energy?domain=fossils&view=gap&year=${y}`,
-            label: "North Sea production gap",
-            note: `Same year · ${y}`,
-          },
-          {
-            href: `/energy?domain=generation&year=${y}`,
-            label: "Electricity generation",
-            note: `Same year · ${y}`,
-          },
-          {
-            href: `/energy?domain=consumption&year=${y}`,
-            label: "Energy consumption",
-            note: `Same year · ${y}`,
-          },
-        ]
-      : view === "resilience"
-        ? [
-            {
-              href: `/energy?domain=imports&view=trade&year=${y}`,
-              label: "Imports and exports",
-              note: `All-fuel totals · ${y}`,
-            },
-            {
-              href: `/energy?domain=fossils&view=gap&year=${y}`,
-              label: "North Sea production gap",
-              note: `Same year · ${y}`,
-            },
-          ]
-        : view === "trade"
-          ? [
-              {
-                href: `/energy?domain=imports&view=resilience&year=${y}`,
-                label: "The Resilience Test",
-                note: `Import dependency · ${y}`,
-              },
-              {
-                href: `/energy?domain=imports&view=lifelines&fuel=oil&year=${y}`,
-                label: "Oil by country",
-                note: `Lifelines · ${y}`,
-              },
-            ]
-          : [];
-
   const footSource =
     view === "lifelines"
       ? fuel === "oil"
@@ -753,12 +717,12 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           ? [
               "Event dates and wording come from the sources listed with each event. The line on the chart marks the year of the event.",
               "Each chart keeps its own unit as published.",
-              `Events chosen by British Exchange; sources checked ${SHOCK_RETRIEVED}.`,
+              `Events chosen by British Exchange; sources checked ${shockRetrieved}.`,
             ]
           : view === "trade"
             ? [
                 "Quarterly figures as published. Yearly figures add up the quarters in that year; a year with fewer than four quarters is marked.",
-                "These are totals in each direction, not the difference between them. Imports by country are on The Lifelines Map.",
+                "These are totals in each direction, not the difference between them. Imports by country are on The lifelines map.",
               ]
             : view === "connectors"
               ? [
@@ -768,7 +732,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                 ]
               : [
                   "Tables for import dependency, fossil fuel and low carbon shares, imports and exports, gas storage, and cable capacity.",
-                  "Figures by country and by cable are on The Lifelines Map and Britain's Connectors.",
+                  "Figures by country and by cable are on The lifelines map and Britain's connectors.",
                 ];
 
   const dataHref =
@@ -906,21 +870,33 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
               onChange={(v) => sync({ ic_flow: v as InterconnectorFlow })}
             />
           )}
-          <ResetButton
-            onClick={() =>
-              sync({
-                year: latest,
-                basis: "annual",
-                ic_flow: "Net imports",
-                fuel: "oil",
-                flow: "Imports",
-                mode: "Combined",
-                partner: "",
-                list: "top",
-                event: null,
-              })
-            }
-          />
+          {(
+            y !== latest ||
+            basis !== "annual" ||
+            icFlow !== "Net imports" ||
+            fuel !== "oil" ||
+            flow !== "Imports" ||
+            mode !== "Combined" ||
+            Boolean(partner) ||
+            listMode !== "top" ||
+            (view === "shock" && eventId !== defaultShockId(events))
+          ) && (
+            <ResetButton
+              onClick={() =>
+                sync({
+                  year: latest,
+                  basis: "annual",
+                  ic_flow: "Net imports",
+                  fuel: "oil",
+                  flow: "Imports",
+                  mode: "Combined",
+                  partner: "",
+                  list: "top",
+                  event: null,
+                })
+              }
+            />
+          )}
         </ControlRow>
       )}
 
@@ -929,15 +905,15 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           view === "data"
             ? "Data · Energy imports and security"
             : view === "lifelines"
-              ? `The Lifelines Map · ${fuelLabel} · ${flow} · ${y}`
+              ? `The lifelines map · ${fuelLabel} · ${flow} · ${y}`
               : view === "resilience"
                 ? basis === "quarterly"
-                  ? "The Resilience Test · by quarter"
-                  : `The Resilience Test · ${y}`
+                  ? "The resilience test · by quarter"
+                  : `The resilience test · ${y}`
                 : view === "shock"
                   ? shockEvent
                     ? `${shockEvent.title} · ${formatMarkDate(shockEvent.mark_date)}`
-                    : "Shock & Response"
+                    : "Shock and response"
                   : view === "trade"
                     ? `UK energy imports and exports · ${y}`
                     : `Electricity cables · ${icFlow.toLowerCase()} · ${y}`
@@ -959,6 +935,14 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                     ? "United Kingdom · electricity flows and cable capacity"
                     : "Archive tables"
         }
+        follow={
+          <EnergyStageFollow
+            domain="imports"
+            view={view}
+            selection={{ year: y }}
+            label={`Imports · ${view}`}
+          />
+        }
         foot={
           <FigureRecord
             source={footSource}
@@ -974,7 +958,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           <div className={s.stack}>
             {!resilienceReady ? (
               <EmptyStage label="Resilience ratios unavailable">
-                The import dependency and energy share figures have not loaded.
+                The import dependency and energy share figures are not available right now.
               </EmptyStage>
             ) : (
               <>
@@ -1014,7 +998,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                   </h3>
                   {!gasStorageReady || storageLines.length === 0 ? (
                     <EmptyStage label="Gas storage series unavailable">
-                      Gas storage figures have not loaded.
+                      Gas storage figures are not available right now.
                     </EmptyStage>
                   ) : (
                     <TimeChart
@@ -1035,20 +1019,20 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           </div>
         ) : view === "shock" ? (
           <div className={s.stack}>
-            {SHOCK_EVENTS.length === 0 ? (
+            {events.length === 0 ? (
               <EmptyStage label="No events yet">
                 No dated events have been checked yet.
               </EmptyStage>
             ) : (
               <section className={s.panel}>
                 <DecisionLedger
-                  events={SHOCK_EVENTS.map(shockToLedgerEvent)}
+                  events={events.map(shockToLedgerEvent)}
                   openId={shockEvent?.id ?? null}
                   onSelect={(id) => sync({ event: id })}
                   empty="No shock events match."
                   idPrefix="imports-shock"
                   renderOpen={(ledgerEvent) => {
-                    const open = shockById(ledgerEvent.id);
+                    const open = shockById(events, ledgerEvent.id);
                     if (!open) return null;
                     const openYear = shockMarkYear(open);
                     const openReady = open.id === shockEvent?.id && shockReady;
@@ -1059,7 +1043,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                         </p>
                         {!openReady ? (
                           <EmptyStage label="Chart unavailable">
-                            The figures for this event have not loaded.
+                            The figures for this event are not available right now.
                           </EmptyStage>
                         ) : (
                           <TimeChart
@@ -1089,7 +1073,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           <div className={s.stack}>
             {!lifelinesReady ? (
               <EmptyStage label="Lifelines series unavailable">
-                Import figures by country have not loaded.
+                Import figures by country are not available right now.
               </EmptyStage>
             ) : netOnly ? (
               <section className={s.panel}>
@@ -1251,7 +1235,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
           <div className={s.stack}>
             {!icReady ? (
               <EmptyStage label="Interconnector flows unavailable">
-                Electricity cable figures have not loaded.
+                Electricity cable figures are not available right now.
               </EmptyStage>
             ) : (
               <>
@@ -1291,12 +1275,15 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                         rows={icTable.map((row) => ({
                           id: row.corridor,
                           label: row.corridor,
-                          v: Math.abs(row.value),
+                          v: icFlow === "Net imports" ? row.value : Math.abs(row.value),
                           active: false,
                         }))}
                         reference={
                           icUkNet
-                            ? { label: `UK total · ${y}`, v: Math.abs(icUkNet.value) }
+                            ? {
+                                label: `UK total · ${y}`,
+                                v: icFlow === "Net imports" ? icUkNet.value : Math.abs(icUkNet.value),
+                              }
                             : undefined
                         }
                         format={(v) => fmtGWh(v)}
@@ -1312,7 +1299,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
                   </h3>
                   {!icCapReady || icCapRanks.length === 0 ? (
                     <EmptyStage label="Interconnector capacity unavailable">
-                      Cable capacity figures have not loaded.
+                      Cable capacity figures are not available right now.
                     </EmptyStage>
                   ) : (
                     <>
@@ -1340,7 +1327,7 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
               </h3>
               {!tradeReady || tradeSeries.every((series) => series.points.length === 0) ? (
                 <EmptyStage label="Trade series unavailable">
-                  Import and export figures have not loaded.
+                  Import and export figures are not available right now.
                 </EmptyStage>
               ) : (
                 <TimeChart
@@ -1354,17 +1341,6 @@ export function ImportsCanvas({ pack }: { pack: ImportsPack }) {
               )}
             </section>
           </div>
-        ) : null}
-
-        {followLinks.length > 0 ? (
-          <ul className={s.follow} style={{ marginTop: "var(--bo-s5)" }}>
-            {followLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
-                <span>{link.note}</span>
-              </li>
-            ))}
-          </ul>
         ) : null}
       </Stage>
     </>

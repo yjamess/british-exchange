@@ -57,7 +57,7 @@ export function ConsumptionUseful({
   if (!pack || !pack.rows.length || !pack.by_sector_year?.length) {
     return (
       <EmptyStage label="Useful and lost energy unavailable">
-        Run src/energy/connectors/useful_energy_flow.py on the pinned Whole energy flow tables.
+        The useful and lost energy estimates are not available right now. Try again after the next data refresh.
       </EmptyStage>
     );
   }
@@ -117,13 +117,13 @@ export function ConsumptionUseful({
     <div className={s.stack}>
       <section className={s.panel}>
         <h3 className={t.stageTitle}>
-          {scenario ? "Your scenario · " : ""}
+          {scenario ? "User scenario — not a DESNZ statistic · " : ""}
           Energy used · useful and lost · {scope} · {year} · ktoe
         </h3>
         <SplitFlow
           key={`${sector}-${endUse}-${year}-${scenario}`}
           items={items}
-          label={`${scenario ? "Your scenario. " : ""}Energy used, useful and lost, ${scope}, ${year}`}
+          label={`${scenario ? "User scenario — not a DESNZ statistic. " : ""}Energy used, useful and lost, ${scope}, ${year}`}
           scaleMax={scaleMax}
           scenario={scenario}
         />
@@ -144,12 +144,12 @@ export function ConsumptionUseful({
       {scenario && year === latest && items.some((i) => i.published) && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Your scenario against the published estimate · share lost · {scope}
+            Share lost · published estimate and user scenario — not a DESNZ statistic · {scope}
           </h3>
           <ChangeRows
-            label={`Share of energy lost, published estimate and your scenario, ${scope}`}
+            label={`Share of energy lost, published estimate and user scenario, ${scope}`}
             fromLabel="Published estimate"
-            toLabel="Your scenario"
+            toLabel="User scenario — not a DESNZ statistic"
             rows={items
               .filter((i) => i.published)
               .map((i) => ({
@@ -242,7 +242,7 @@ export function ConsumptionUseful({
             key={`sens-${sector}-${endUse}-${scenario}`}
             label={`Fall in share of energy lost if one efficiency is 10% better, ${scope}`}
             rows={sens.map((r) => ({ id: r.id, label: r.label, v: Math.abs(r.delta) }))}
-            format={(v) => `${v.toFixed(1)} pts`}
+            format={(v) => `${v.toFixed(1)} percentage points`}
           />
         </section>
       )}
@@ -250,7 +250,7 @@ export function ConsumptionUseful({
       {rows.length > 0 && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            {scenario ? "Your assumptions" : "Assumptions"} · {scope} · {latest}
+            {scenario ? "User assumptions" : "Assumptions"} · {scope} · {latest}
           </h3>
           <div className={t.tableWrap}>
             <table className={t.table}>
@@ -260,7 +260,7 @@ export function ConsumptionUseful({
                   {endUse === "all" && <th scope="col">End use</th>}
                   <th scope="col">Fuel / technology</th>
                   <th scope="col">Energy used</th>
-                  <th scope="col">{scenario ? "Your efficiency" : "Efficiency"}</th>
+                  <th scope="col">{scenario ? "User efficiency" : "Efficiency"}</th>
                   <th scope="col">Useful</th>
                   <th scope="col">Lost</th>
                   <th scope="col">How it is set</th>

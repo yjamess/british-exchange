@@ -116,6 +116,37 @@ test("allowedParams keeps domain navigation keys scoped per domain", () => {
   assert.equal(policy.has("fuel"), false);
 });
 
+test("duplicate tabs stay retired and their old URLs redirect to the surviving tab", async () => {
+  const ids = (domain) => views.viewsFor(domain).map((v) => v.id);
+  assert.equal(ids("industrial-work").includes("atlas"), false, "Jobs Atlas duplicates Manufacturing Places");
+  assert.ok(ids("manufacturing").includes("places"));
+  assert.equal(ids("networks").includes("capacity"), false, "Networks Capacity duplicates Imports Connectors");
+  assert.ok(ids("imports").includes("connectors"));
+
+  const src = await readFile(path.join(root, "../legacy-views.ts"), "utf8");
+  const { outputText } = ts.transpileModule(src, {
+    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+  });
+  const legacy = await import(`data:text/javascript;base64,${Buffer.from(outputText).toString("base64")}`);
+
+  assert.equal(
+    legacy.legacyEnergyRedirect({ domain: "industrial-work", view: "atlas", year: "2023", industry: "sic-20", level: "division", measure: "x" }),
+    "/energy?domain=manufacturing&view=places&year=2023&level=division&industry=sic-20",
+  );
+  assert.equal(
+    legacy.legacyEnergyRedirect({ domain: "networks", view: "capacity", year: "2022" }),
+    "/energy?domain=imports&view=connectors&year=2022",
+  );
+  assert.equal(legacy.legacyEnergyRedirect({ domain: "networks", view: "border" }), null);
+  assert.equal(legacy.legacyEnergyRedirect({}), null);
+
+  // Every redirect target must be a real tab, or the redirect would just land on a default view.
+  for (const rule of legacy.ENERGY_LEGACY_VIEWS) {
+    assert.ok(ids(rule.to.domain).includes(rule.to.view), `${rule.to.domain}/${rule.to.view} must exist`);
+    assert.equal(ids(rule.from.domain).includes(rule.from.view), false, `${rule.from.domain}/${rule.from.view} must be retired`);
+  }
+});
+
 test("canvases import view lists from modules (no parallel VIEWS literals)", async () => {
   const canvasDir = path.join(root, "..");
   const canvases = [

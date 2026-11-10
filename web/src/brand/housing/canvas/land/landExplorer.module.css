@@ -46,6 +46,8 @@
 .body[data-loading="true"] .map { filter: grayscale(1); }
 .mapCol { margin: 0; display: grid; gap: var(--bo-s2); min-width: 0; }
 .map { width: 100%; height: auto; display: block; max-height: 72vh; }
+.svg { width: 100%; height: auto; display: block; color: var(--bo-ink); }
+.boundary { color: var(--bo-ink); }
 .land { fill: var(--bo-paper); stroke: none; }
 .edge { fill: none; stroke: var(--bo-ink); stroke-width: 1.6; pointer-events: none; }
 .shape { cursor: pointer; }

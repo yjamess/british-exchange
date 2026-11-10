@@ -1,5 +1,5 @@
 ---
-description: Explorer stage foot, Notes, multi-chart titles — copy Housing; never duplicate patent detail in the plot
+description: Explorer stage foot, Notes, multi-chart titles — Energy is the standard; never duplicate patent detail in the plot
 globs:
   - web/src/brand/**/*.{tsx,ts,css}
   - web/src/app/**/*.{tsx,css}
@@ -7,27 +7,34 @@ globs:
 alwaysApply: false
 ---
 
-# Explorer stage (Housing is the reference)
+# Explorer stage (Energy is the standard)
 
-Read `docs/visual-identity.md` › Explorer. Housing & Land (`web/src/brand/housing/canvas/`) is the behaviour to copy.
+Read `docs/visual-identity.md` › Explorer. **Energy & Industry** is the locked behaviour to copy — especially Consumption (`ConsumptionCanvas.tsx`, `ConsumptionAppetite.tsx`) and Generation (`GenerationCanvas.tsx`). Housing domains that still put controls or method essays inside the Stage body are **drift**; bring them into line with Energy, do not copy the drift.
+
+## Frame order (locked)
+
+`ExplorerHead` (view tabs) → `FigureStrip` → `ControlRow` of `MenuControl`s (+ `ResetButton`) → `<Stage title meta foot={…}>` → body.
+
+- Filters and period/place menus live in the **outer** `ControlRow`, never inside the Stage body.
+- Patent detail lives in **one** stage foot only (below).
 
 ## One Notes foot — never two
 
 - Patent detail (definition, method, derived totals, caveats, provisional meaning) lives in **one** stage foot: `FigureRecord` **or** `SourceLine` (which builds a `FigureRecord`).
 - Put that foot on `<Stage foot={…}>`. Do **not** also render `SourceLine` / `FigureRecord` below the stage.
 - Do **not** paste definition/method essays into the plot body or callout boxes inside the stage.
-- Do **not** render the explorer `<Coverage>` facts strip (`SPAN` / `OBSERVATIONS` / …) on sector domain stages. Housing does not. Span, unit and geography sit in the stage bar meta and Notes when needed.
+- Do **not** render the explorer `<Coverage>` facts strip (`SPAN` / `OBSERVATIONS` / …) on sector domain stages. Energy does not. Span, unit and geography sit in the stage bar meta and Notes when needed.
 
-## Multi-chart titles (Housing pipeline pattern)
+## Multi-chart titles (Consumption / Housing pipeline pattern)
 
 - Separate charts with `<section>` + `<h3 className={explorerClasses.stageTitle}>…</h3>` (sentence case).
 - Do **not** use `.bo-label` “FIG. 1 · …” caps for chart titles — that is index/label type, not section titles.
-- Reference: `model.tsx` supply `view === "pipeline"` (decisions chart, then starts/completions).
+- Reference: Energy Consumption Metabolism panels; Housing supply `view === "pipeline"` only as a secondary multi-chart example.
 
 ## Briefs do not override the shell
 
-- A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite and Housing pipeline do: `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows`, one short `s.links` note.
-- At most one custom instrument per tab, one ink with Housing patterns (see `housing/canvas/supply/SupplyMachine.tsx`). Never chart colours, gutter end labels, axis markers, value legends or "exact values" drawers in a custom view.
+- A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite do: outer `ControlRow`, then Stage body as `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows`.
+- At most one custom instrument per tab, one ink (stipple / sparse dots / hatch / cross / engrave). Never chart colours, gutter end labels, axis markers, value legends or "exact values" drawers in a custom view.
 - Claude Code: use the `exchange-domain-view` skill (`.claude/skills/exchange-domain-view/SKILL.md`) for any domain-tab change.
 
 ## Width
@@ -35,13 +42,13 @@ Read `docs/visual-identity.md` › Explorer. Housing & Land (`web/src/brand/hous
 - Every panel and instrument figure is `width: 100%; min-width: 0` inside the stage body.
 - RankBars and TimeChart have different **internal** gutters by design (name column vs axis margin). Outer frames share the stage edge; do not invent a second chart frame or inset.
 - Multi-series **line** charts use `SeriesLegend` under the plot for names and latest values so the **plot fills the stage**. Do not put series names in-plot on stacks.
-- End-of-line leaders: default **on** for one series (Latest card); default **off** for several series. Pass `leaders={true}` on multi-series only for the Generation mix pattern (Changing Current / MixLines is its own SVG).
-- **Do not patch empty right strips view-by-view.** If a multi-series `TimeChart` looks short of the stage edge, it is almost always still drawing end leaders — leave the default (off) or fix `chartMargins`, do not add local CSS width hacks.
+- End-of-line leaders: default **off**. The plot fills the stage; `SeriesLegend` under the plot carries names and latest values. Pass `leaders={true}` only when end labels are deliberate. MixLines keeps fuel names in its own legend above the chart — no 150px gutter.
+- **Do not patch empty right strips view-by-view.** If a `TimeChart` looks short of the stage edge, it is almost always still drawing end leaders or a reserved gutter — set `leaders` false (the default) or fix `chartMargins`, do not add local CSS width hacks.
 
 ## Data tab — observation tables, not catalogue dumps
 
-- A Data view shows **observation / series tables** when Ready series exist. Reference: Housing Land (`land/LandData.tsx`), Energy Generation History/Data, Housing Prices Data.
-- Body uses `explorerClasses.tableGroup` + `stageTitle` + `tableWrap` / `table` (optional series `MenuControl` above). One table per dataset or frequency; say so in a short lede when frequencies differ.
+- A Data view shows **observation / series tables** when Ready series exist. Reference: Energy Consumption / Generation Data, Housing Land (`land/LandData.tsx`), Housing Prices Data.
+- Body uses `explorerClasses.tableGroup` + `stageTitle` + `tableWrap` / `table` (optional series `MenuControl` in the **outer** ControlRow). One table per dataset or frequency.
 - **Forbidden as a Data body:** “Ready catalogue records” link lists. Catalogue links belong in the Notes foot / row links / Data →, not as the whole stage.
 - No observations yet → `<EmptyStage>` (“In preparation”), never a catalogue dump or a `data/...json` path on screen.
 
@@ -54,4 +61,4 @@ Read `docs/visual-identity.md` › Explorer. Housing & Land (`web/src/brand/hous
 
 - Must use brand `DecisionLedger` + `CatalogueDossier` from `web/src/brand/policy/` (electric closed slab → paper open → Interior 3 catalogue card).
 - Do **not** fork slab CSS, invent a parallel dossier, or restyle the register. Map sector event records into the shared view-model; keep connectors/data in the sector tree.
-- References for new work: **charts** = Housing pipeline / Consumption; **Data** = Land / Generation; **policy** = brand Decision Ledger.
+- References for new work: **charts** = Consumption / Generation; **Data** = Consumption Data / Land / Generation; **policy** = brand Decision Ledger.

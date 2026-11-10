@@ -26,7 +26,11 @@ from typing import Sequence
 from britain_exchange.checksum import sha256_file
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import ENERGY_DATA
 
 from energy.connectors.ons_timeseries import (
@@ -94,8 +98,9 @@ class ManufacturingShareOfGvaConnector(Connector):
                 "Download ONS timeseries JSON (L4NT/WGDP /data). Keep years "
                 "array. Parse weight (parts per thousand); curated value = "
                 "weight/10 as % of GVA. Period = calendar year. Geography "
-                "K02000001. observation_status=provisional (Blue Book revises). "
-                "Raw weight retained in notes as weight_ppt=."
+                "K02000001. Latest calendar year is provisional (Blue Book "
+                "revises); earlier years are final. Raw weight retained in "
+                "notes as weight_ppt=."
             ),
             revision_notes=(
                 "Industry weights revise with Blue Book. Recent years may be "
@@ -163,8 +168,11 @@ class ManufacturingShareOfGvaConnector(Connector):
         version = source_version(description, SERIES_ID, DATASET_ID)
         observations: list[Observation] = []
         for start, end, raw_value, dataset in iter_period_rows(payload, "years"):
-            weight, status = parse_numeric(raw_value)
+            weight, parsed_status = parse_numeric(raw_value)
             share = None if weight is None else weight / 10.0
+            status: ObservationStatus = (
+                "missing" if share is None or parsed_status == "missing" else "final"
+            )
             observations.append(
                 Observation(
                     indicator_id=self.indicator_id,
@@ -184,7 +192,8 @@ class ManufacturingShareOfGvaConnector(Connector):
                 )
             )
         observations.sort(key=lambda obs: obs.period_start)
-        return observations
+        # Annual series: latest year only is provisional (function counts periods).
+        return mark_latest_months_provisional(observations, months=1)
 
 
 def main() -> None:

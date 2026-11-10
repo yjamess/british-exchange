@@ -7,9 +7,11 @@
  */
 
 import { useId } from "react";
+import { fmtT } from "../data";
 import { EmptyStage, explorerClasses as t } from "../template";
 
 export type SeriesPoint = { t: number; v: number };
+type TableCadence = "monthly" | "quarterly" | "annual";
 
 type AnnualTableProps = {
   title: string;
@@ -18,6 +20,8 @@ type AnnualTableProps = {
   points: SeriesPoint[];
   format?: (v: number) => string;
   emptyLabel?: string;
+  /** How to print fractional brand time (default annual calendar year). */
+  cadence?: TableCadence;
 };
 
 function defaultFig(v: number): string {
@@ -27,13 +31,14 @@ function defaultFig(v: number): string {
   });
 }
 
-/** One annual (or dated) series as a two-column archive table. */
+/** One series as a two-column archive table. */
 export function AnnualSeriesTable({
   title,
   unit,
   points,
   format = defaultFig,
   emptyLabel = "Series unavailable",
+  cadence = "annual",
 }: AnnualTableProps) {
   const titleId = useId();
   const rows = [...points].sort((a, b) => b.t - a.t);
@@ -56,7 +61,7 @@ export function AnnualSeriesTable({
           <tbody>
             {rows.map((p) => (
               <tr key={p.t}>
-                <th scope="row">{Number.isInteger(p.t) ? String(p.t) : p.t.toFixed(2)}</th>
+                <th scope="row">{fmtT(p.t, cadence)}</th>
                 <td>{format(p.v)}</td>
               </tr>
             ))}

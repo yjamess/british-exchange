@@ -17,12 +17,12 @@ curated_path: curated/observations.csv
 update_cadence: quarterly (ONS labour productivity / PRDY)
 raw_evidence:
 - path: raw/2026-11-07/djk6_prdy.json
-  retrieved_at: '2026-11-07T09:35:14.972765+00:00'
-  checksum_sha256: cbe5a021d243f44e5b56f00fe583ee5d8af5687886ca687ed06fa7e61fe82d53
-  content_type: application/json;charset=utf-8
-  official_release_date: '2026-08-17'
-  http_status: 200
-  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/djk6/prdy/data
+  retrieved_at: '2026-11-10T02:29:06.892015+00:00'
+  checksum_sha256: transform-only
+  content_type: application/json
+  official_release_date: null
+  http_status: null
+  source_url: ''
 transformations: Download ONS timeseries JSON (DJK6/PRDY /data). Keep quarters only
   (annual aggregates omitted). Map year+Q→ISO calendar quarter bounds. Geography fixed
   to K02000001. Values = index 2023=100 SA; empty → missing. observation_status=provisional

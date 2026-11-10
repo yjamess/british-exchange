@@ -1,7 +1,8 @@
 # Kickoff — Domain 04 Oil, Gas & Fossil Fuels
 
-**Updated:** 2026-11-07  
-**Owner:** Energy (Fossils lane) + Orchestrator (UI)
+**Updated:** 2026-11-09  
+**Owner:** Energy (Fossils lane) + Orchestrator (UI)  
+**Mode:** **complete** (Gate 4 passed 2026-11-09) — [gate4-audit-fossils.md](gate4-audit-fossils.md)
 
 ## Locked question
 
@@ -33,6 +34,6 @@ Where did Britain's fossil fuels come from, what was extracted, and how did dome
 
 Never plot Mt · bcm · Mtoe · % on one unmarked axis. Gas GWh→bcm conversion is Fossils-only display; Imports gas trade stays GWh.
 
-## Still deferred
+## Backlog (not Gate 4)
 
-BGS coalfields · NSTA NDR wells · DUKES F.1 NGL · Gate 4 audit · long-form editorial
+BGS coalfields · NSTA NDR wells · DUKES F.1 NGL · long-form editorial

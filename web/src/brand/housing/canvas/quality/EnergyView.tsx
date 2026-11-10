@@ -8,14 +8,15 @@
  * of a selected, non-exhaustive population).
  */
 
-import { useEffect, useMemo, useState } from "react";
-import { ControlRow, DualScramble, DUAL_DIGITS, MenuControl, RankBars, TimeChart } from "../../..";
+import { useMemo } from "react";
+import { ControlRow, DualScramble, DUAL_DIGITS, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart } from "../../..";
 import { HomeCutaway3D } from "./cutaway/HomeCutaway3D";
 import { ENGLAND, archetypesOf, areasOf, slice, type Cell } from "./cutaway/evidence";
-import { FEATURES, TENURES } from "./cutaway/features";
-import { useQualityEvidence } from "./cutaway/useEvidence";
+import { BASIS, FEATURES, TENURES } from "./cutaway/features";
+import type { Evidence } from "./cutaway/useEvidence";
 import { BasisTag, UnavailableControl } from "./parts";
-import type { InsideFoot } from "./InsideHomes";
+import type { EnergyCat, EnergyState, QualityFoot } from "./state";
+import { ENERGY_CAT_OPTIONS } from "./state";
 import e from "../plate.module.css";
 
 type Cat = "bands" | "heating" | "insulation" | "improvement";
@@ -61,33 +62,162 @@ const TABLES: Record<Cat, string> = {
 
 const SAMPLE = "unweighted base, not a confidence interval.";
 
-export function EnergyView({ onFoot }: { onFoot?: (foot: InsideFoot) => void }) {
-  const { evidence, failed } = useQualityEvidence();
-  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
-  const [cat, setCat] = useState<Cat>("bands");
-  const [archetype, setArchetype] = useState("");
-  const [area, setArea] = useState(ENGLAND);
-  const [tenure, setTenure] = useState("all-tenures");
-  const [year, setYear] = useState<number | null>(null);
-  const [focusFeature, setFocusFeature] = useState<string | null>(null);
-
+export function energyViewFoot(state: EnergyState, evidence: Evidence | null): QualityFoot {
+  const cells = evidence?.cells ?? [];
   const IND = "ehs-energy-efficiency-bands";
-  const archetypes = useMemo(() => archetypesOf(cells, IND, "band-a-b-c"), [cells]);
-  const areas = useMemo(() => areasOf(cells, IND, "band-a-b-c"), [cells]);
-  const arch = cat === "bands" && archetypes.some((a) => a.value === archetype) ? archetype : "";
-  const ar = cat === "bands" && !arch && areas.some((a) => a.value === area) ? area : ENGLAND;
-  const sel = { archetype: arch, area: ar };
-
-  const at = (ind: string, series: string, yy: number | null, tt: string): Cell | undefined =>
-    slice(cells, ind, series, sel).find((c) => c.year === yy && c.tenure === tt);
-
-  const indFor: Record<Cat, string> = {
+  const indFor: Record<EnergyCat, string> = {
     bands: IND,
     heating: "ehs-heating",
     insulation: "ehs-insulation",
     improvement: "ehs-energy-improvement",
   };
-  const seriesFor: Record<Cat, string> = {
+  const seriesFor: Record<EnergyCat, string> = {
+    bands: "band-a-b-c",
+    heating: "condensing-boiler",
+    insulation: "loft-200mm-plus",
+    improvement: "improvable-to-band-c",
+  };
+  const archetypes = archetypesOf(cells, IND, "band-a-b-c");
+  const areas = areasOf(cells, IND, "band-a-b-c");
+  const arch = state.cat === "bands" && archetypes.some((a) => a.value === state.archetype) ? state.archetype : "";
+  const ar = state.cat === "bands" && !arch && areas.some((a) => a.value === state.area) ? state.area : ENGLAND;
+  const base = slice(cells, indFor[state.cat], seriesFor[state.cat], { archetype: arch, area: ar });
+  const years = [...new Set(base.map((c) => c.year))].sort((a, b) => a - b);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const tenures = TENURES.filter((t) => base.some((c) => c.year === y && c.tenure === t.id));
+  const t = tenures.some((x) => x.id === state.tenure) ? state.tenure : (tenures[0]?.id ?? "all-tenures");
+  const scope = arch ? archetypes.find((a) => a.value === arch)?.label : ar === ENGLAND ? "England" : areas.find((a) => a.value === ar)?.label;
+  const tenureLabel = TENURES.find((x) => x.id === t)?.label ?? "All tenures";
+  const publisher = evidence?.sources[indFor[state.cat]]?.publisher ?? "MHCLG · English Housing Survey";
+  return {
+    definition:
+      "Ratings here are English Housing Survey models of a representative sample — not the EPC certificate register.",
+    method: [
+      years.length > 0 ? `Coverage. ${scope ?? "England"} · ${years[0]}–${years[years.length - 1]} · ${tenureLabel}.` : "",
+      state.cat === "bands" ? "Method break at 2012 (SAP 2009 to SAP 2012)." : "",
+      state.cat === "improvement"
+        ? "The reach-band-C shares and the mean cost are modelled. They depend on the survey's assumptions."
+        : "",
+      BASIS["survey-estimate"].note,
+    ].filter(Boolean),
+    source: `${publisher} · ${TABLES[state.cat]}`,
+    dataHref: `/data#${indFor[state.cat]}`,
+  };
+}
+
+type EnergyShared = {
+  state: EnergyState;
+  onChange: (next: Partial<EnergyState>) => void;
+  evidence: Evidence | null;
+  failed: boolean;
+};
+
+export function EnergyViewControls({ state, onChange, evidence, failed }: EnergyShared) {
+  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
+  const IND = "ehs-energy-efficiency-bands";
+  const archetypes = useMemo(() => archetypesOf(cells, IND, "band-a-b-c"), [cells]);
+  const areas = useMemo(() => areasOf(cells, IND, "band-a-b-c"), [cells]);
+  const cat = state.cat;
+  const arch = cat === "bands" && archetypes.some((a) => a.value === state.archetype) ? state.archetype : "";
+  const ar = cat === "bands" && !arch && areas.some((a) => a.value === state.area) ? state.area : ENGLAND;
+  const indFor: Record<EnergyCat, string> = {
+    bands: IND,
+    heating: "ehs-heating",
+    insulation: "ehs-insulation",
+    improvement: "ehs-energy-improvement",
+  };
+  const seriesFor: Record<EnergyCat, string> = {
+    bands: "band-a-b-c",
+    heating: "condensing-boiler",
+    insulation: "loft-200mm-plus",
+    improvement: "improvable-to-band-c",
+  };
+  const base = slice(cells, indFor[cat], seriesFor[cat], { archetype: arch, area: ar });
+  const years = [...new Set(base.map((c) => c.year))].sort((a, b) => a - b);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
+  const tenures = TENURES.filter((t) => base.some((c) => c.year === y && c.tenure === t.id));
+  const t = tenures.some((x) => x.id === state.tenure) ? state.tenure : (tenures[0]?.id ?? "all-tenures");
+  const dirty =
+    cat !== "bands" || state.archetype !== "" || state.area !== ENGLAND || state.tenure !== "all-tenures" || state.year != null;
+
+  return (
+    <ControlRow label="Energy controls">
+      <MenuControl
+        label="Category"
+        value={cat}
+        options={ENERGY_CAT_OPTIONS}
+        onChange={(v) => onChange({ cat: v, focus: null })}
+      />
+      {cat === "bands" &&
+        (archetypes.length > 0 ? (
+          <MenuControl
+            label="Dwelling archetype"
+            value={arch}
+            options={[{ value: "", label: "All dwellings" }, ...archetypes.map((a) => ({ value: a.value, label: a.label }))]}
+            onChange={(v) => onChange({ archetype: v, ...(v ? { area: ENGLAND } : {}) })}
+          />
+        ) : (
+          <UnavailableControl label="Dwelling archetype" reason={evidence ? "Not published for this measure" : "Loading…"} />
+        ))}
+      {cat === "bands" && areas.length > 0 && (
+        <MenuControl
+          label="Area"
+          value={ar}
+          options={[{ value: ENGLAND, label: "England" }, ...areas.map((a) => ({ value: a.value, label: a.label }))]}
+          onChange={(v) => onChange({ area: v, ...(v !== ENGLAND ? { archetype: "" } : {}) })}
+        />
+      )}
+      {tenures.length > 0 ? (
+        <MenuControl
+          label="Tenure"
+          value={t}
+          options={tenures.map((x) => ({ value: x.id, label: x.label }))}
+          onChange={(v) => onChange({ tenure: v })}
+        />
+      ) : (
+        <UnavailableControl label="Tenure" reason={evidence ? "Not published for this category" : "Loading…"} />
+      )}
+      {years.length > 0 && y != null ? (
+        <MenuControl
+          label="Period"
+          value={String(y)}
+          options={[...years].reverse().map((v) => ({ value: String(v), label: String(v) }))}
+          onChange={(v) => onChange({ year: Number(v) })}
+        />
+      ) : (
+        <UnavailableControl label="Period" reason={failed ? "Evidence unavailable." : "Loading…"} />
+      )}
+      {dirty && (
+        <ResetButton
+          onClick={() =>
+            onChange({ cat: "bands", archetype: "", area: ENGLAND, tenure: "all-tenures", year: null, focus: null })
+          }
+        />
+      )}
+    </ControlRow>
+  );
+}
+
+export function EnergyView({ state, onChange, evidence, failed }: EnergyShared) {
+  const cells = useMemo(() => evidence?.cells ?? [], [evidence]);
+  const cat = state.cat;
+  const IND = "ehs-energy-efficiency-bands";
+  const archetypes = useMemo(() => archetypesOf(cells, IND, "band-a-b-c"), [cells]);
+  const areas = useMemo(() => areasOf(cells, IND, "band-a-b-c"), [cells]);
+  const arch = cat === "bands" && archetypes.some((a) => a.value === state.archetype) ? state.archetype : "";
+  const ar = cat === "bands" && !arch && areas.some((a) => a.value === state.area) ? state.area : ENGLAND;
+  const sel = { archetype: arch, area: ar };
+
+  const at = (ind: string, series: string, yy: number | null, tt: string): Cell | undefined =>
+    slice(cells, ind, series, sel).find((c) => c.year === yy && c.tenure === tt);
+
+  const indFor: Record<EnergyCat, string> = {
+    bands: IND,
+    heating: "ehs-heating",
+    insulation: "ehs-insulation",
+    improvement: "ehs-energy-improvement",
+  };
+  const seriesFor: Record<EnergyCat, string> = {
     bands: "band-a-b-c",
     heating: "condensing-boiler",
     insulation: "loft-200mm-plus",
@@ -95,9 +225,9 @@ export function EnergyView({ onFoot }: { onFoot?: (foot: InsideFoot) => void }) 
   };
   const base = slice(cells, indFor[cat], seriesFor[cat], sel);
   const years = [...new Set(base.map((c) => c.year))].sort((a, b) => a - b);
-  const y = year != null && years.includes(year) ? year : (years[years.length - 1] ?? null);
+  const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
   const tenures = TENURES.filter((t) => base.some((c) => c.year === y && c.tenure === t.id));
-  const t = tenures.some((x) => x.id === tenure) ? tenure : (tenures[0]?.id ?? "all-tenures");
+  const t = tenures.some((x) => x.id === state.tenure) ? state.tenure : (tenures[0]?.id ?? "all-tenures");
 
   const annValues = useMemo(() => {
     const out: Record<string, string> = {};
@@ -127,89 +257,18 @@ export function EnergyView({ onFoot }: { onFoot?: (foot: InsideFoot) => void }) 
 
   const abc = at(IND, "band-a-b-c", y, t);
   const cost = at("ehs-energy-improvement", "mean-cost-to-band-c", y, t);
-  const scope = arch ? archetypes.find((a) => a.value === arch)?.label : ar === ENGLAND ? "England" : areas.find((a) => a.value === ar)?.label;
-  const focus = focusFeature ?? CATS.find((c) => c.id === cat)!.focus;
+  const focus = state.focus ?? CATS.find((c) => c.id === cat)!.focus;
   const tenureLabel = TENURES.find((x) => x.id === t)?.label ?? "All tenures";
-  const publisher = evidence?.sources[indFor[cat]]?.publisher ?? "MHCLG · English Housing Survey";
-  const sourceLine = `${publisher} · ${TABLES[cat]}`;
-  const coverage = years.length > 0 ? `${scope ?? "England"} · ${years[0]}–${years[years.length - 1]} · ${tenureLabel}` : "";
-  const caveats = [
-    cat === "bands" ? "Method break at 2012 (SAP 2009 to SAP 2012)." : "",
-    cat === "improvement" ? "The reach-band-C shares and the mean cost are modelled. They depend on the survey's assumptions." : "",
-  ].filter(Boolean);
-  const caveatText = caveats.join(" ");
 
-  useEffect(() => {
-    onFoot?.({ source: sourceLine, coverage, caveats: caveatText ? [caveatText] : [] });
-  }, [onFoot, sourceLine, coverage, caveatText]);
+  if (failed) {
+    return <EmptyStage label="In preparation">The survey tables could not be loaded. No estimated figures.</EmptyStage>;
+  }
 
   return (
     <div className={e.root}>
-      <p className={e.lede}>
-        The Energy Anatomy: how England&apos;s homes are rated, heated and insulated, and how far they could improve. Ratings here are English Housing
-        Survey models of a representative sample — not the EPC certificate register.
-      </p>
-
-      <ControlRow label="Energy controls">
-        <MenuControl
-          label="Category"
-          value={cat}
-          options={CATS.map((c) => ({ value: c.id, label: c.label }))}
-          onChange={(v) => {
-            setCat(v);
-            setFocusFeature(null);
-          }}
-        />
-        {cat === "bands" &&
-          (archetypes.length > 0 ? (
-            <MenuControl
-              label="Dwelling archetype"
-              value={arch}
-              options={[{ value: "", label: "All dwellings" }, ...archetypes.map((a) => ({ value: a.value, label: a.label }))]}
-              onChange={(v) => {
-                setArchetype(v);
-                if (v) setArea(ENGLAND);
-              }}
-            />
-          ) : (
-            <UnavailableControl label="Dwelling archetype" reason={evidence ? "Not published for this measure" : "Loading…"} />
-          ))}
-        {cat === "bands" && areas.length > 0 && (
-          <MenuControl
-            label="Area"
-            value={ar}
-            options={[{ value: ENGLAND, label: "England" }, ...areas.map((a) => ({ value: a.value, label: a.label }))]}
-            onChange={(v) => {
-              setArea(v);
-              if (v !== ENGLAND) setArchetype("");
-            }}
-          />
-        )}
-        {tenures.length > 0 ? (
-          <MenuControl
-            label="Tenure"
-            value={t}
-            options={tenures.map((x) => ({ value: x.id, label: x.label }))}
-            onChange={setTenure}
-          />
-        ) : (
-          <UnavailableControl label="Tenure" reason={evidence ? "Not published for this category" : "Loading…"} />
-        )}
-        {years.length > 0 && y != null ? (
-          <MenuControl
-            label="Period"
-            value={String(y)}
-            options={[...years].reverse().map((v) => ({ value: String(v), label: String(v) }))}
-            onChange={(v) => setYear(Number(v))}
-          />
-        ) : (
-          <UnavailableControl label="Period" reason={failed ? "Evidence unavailable." : "Loading…"} />
-        )}
-      </ControlRow>
-
       <div className={e.plate}>
         <div className={`${e.plateMain} ${e.plateFlush}`}>
-          <HomeCutaway3D features={ENERGY} values={annValues} active={focus} onSelect={setFocusFeature} />
+          <HomeCutaway3D features={ENERGY} values={annValues} active={focus} onSelect={(id) => onChange({ focus: id })} />
         </div>
 
         <aside className={e.panel} data-plain="" aria-live="polite">

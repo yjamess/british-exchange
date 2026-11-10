@@ -440,7 +440,9 @@ def _rest_replace_observations(
     deleted = client.delete(
         f"{base}/rest/v1/observation",
         headers=_rest_headers(key),
-        params={"release_id": f"eq.{release_id}"},
+        # indicator_id leads observation_indicator_period_idx; release_id alone is unindexed
+        # and times out as a full scan on the hosted table.
+        params={"indicator_id": f"eq.{manifest.indicator_id}", "release_id": f"eq.{release_id}"},
         timeout=120,
     )
     if deleted.status_code >= 400:

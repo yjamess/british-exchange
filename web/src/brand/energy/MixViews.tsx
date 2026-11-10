@@ -98,7 +98,8 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
   const fuels = FUELS.filter((f) => mix.some((r) => r.v[f.id] > 0));
   const W = width;
   const H = Math.round(narrow ? Math.max(320, W * 0.9) : Math.min(560, Math.max(380, W * 0.5)));
-  const m = { l: narrow ? 36 : 48, r: narrow ? 10 : 150, t: 24, b: 40 };
+  // Hairline right edge — fuel names and year values live in the legend above, not a 150px gutter.
+  const m = { l: narrow ? 36 : 48, r: narrow ? 10 : 16, t: 24, b: 40 };
   const pw = W - m.l - m.r;
   const ph = H - m.t - m.b;
   // Scale to the tallest single fuel — including the annual total flattened every series into the lower half.
@@ -123,19 +124,6 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mix]);
-
-  // End labels in the right gutter, stacked so they never collide. Narrow screens use the legend.
-  const last = mix.at(-1)!;
-  const ends = fuels
-    .map((f) => ({ id: f.id as string, text: f.short, color: stroke(f), v: value(last, f.id, measure) }))
-    .map((e) => ({ ...e, ty: y(e.v) }))
-    .sort((a, b) => a.ty - b.ty);
-  for (let i = 1; i < ends.length; i++) ends[i]!.ty = Math.max(ends[i]!.ty, ends[i - 1]!.ty + 14);
-  const floor = m.t + ph + 4;
-  if (ends.length && ends.at(-1)!.ty > floor) {
-    ends.at(-1)!.ty = floor;
-    for (let i = ends.length - 2; i >= 0; i--) ends[i]!.ty = Math.min(ends[i]!.ty, ends[i + 1]!.ty - 14);
-  }
 
   const decades = mix.map((r) => r.year).filter((yr) => yr % (narrow ? 20 : 10) === 0);
 
@@ -175,13 +163,6 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
             </text>
           ))}
           <line x1={eraX} x2={eraX} y1={m.t} y2={m.t + ph + 6} className={s.era} />
-          <text x={eraX - 6} y={m.t + ph + 14} textAnchor="end" className={`${s.tick} ${s.halo}`}>
-            ← Estimated
-          </text>
-          <text x={eraX + 6} y={m.t + ph + 14} textAnchor="start" className={`${s.tick} ${s.halo}`}>
-            Reported →
-          </text>
-
           {fuels.map((f) => (
             <path
               key={f.id}
@@ -194,18 +175,12 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
             />
           ))}
 
-          {handovers.map((h, i) => {
+          {handovers.map((h) => {
             const hy = y(value(h.row, h.to.id, measure));
-            const ly = m.t + 12 + (i % 3) * 16;
             const hx = x(h.year);
-            const anchor = hx > m.l + pw - 90 ? "end" : hx < m.l + 90 ? "start" : "middle";
             return (
               <g key={h.year}>
-                <line x1={hx} x2={hx} y1={hy - 5} y2={ly + 4} className={s.leader} />
                 <circle cx={hx} cy={hy} r={5} className={s.ring} stroke="var(--bo-ink)" />
-                <text x={hx} y={ly} textAnchor={anchor} className={`${s.tick} ${s.halo}`}>
-                  {h.to.short} passes {h.from.short.toLowerCase()} · {h.year}
-                </text>
               </g>
             );
           })}
@@ -221,15 +196,6 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
             </text>
           </g>
 
-          {!narrow &&
-            ends.map((e) => (
-              <g key={e.id} className={s.endLabel}>
-                <polyline points={`${m.l + pw + 4},${y(e.v)} ${m.l + pw + 12},${e.ty} ${m.l + pw + 16},${e.ty}`} stroke={e.color} />
-                <text x={m.l + pw + 20} y={e.ty} dominantBaseline="middle">
-                  {e.text}
-                </text>
-              </g>
-            ))}
         </svg>
       </Instrument>
     </div>
