@@ -16,7 +16,7 @@ Both Energy and Economy curated CSVs must use `britain_exchange.observation.CURA
 | `unit` | declared in manifest |
 | `observation_status` | `final` \| `provisional` \| `estimated` \| `suppressed` \| `missing` |
 | `source_version` | publisher release / file id |
-| `notes` | free text; Energy fuels use `fuel=<Label>` |
+| `notes` | free text; Energy fuels use `fuel=<Label>`; Postgres also dictionaries notes via `observation_note` + `identity_hash` (see `docs/audit-observation-storage-uniqueness.md`) |
 
 ## Energy aggregation (mandatory)
 

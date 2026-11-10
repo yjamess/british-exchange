@@ -455,6 +455,7 @@ Follow [Power Networks](https://app.notion.com/p/410654717685813e95fde77447f38ad
 - Owner: Orchestrator (licence) → Energy (ingest if cleared)
 - Status: blocked / held
 - Notes: Public NGET route-map terms forbid commercial use. Connections 360 is not a drop-in open national topology. Resume only after written licence clearance from operator email.
+- Notion: [Cross-sector backlog BX-BACK-004](https://app.notion.com/p/41465471768581a5bef6d539d77dad53) — national / transmission network maps (2026-11-10)
 
 ### Review — Energy Domain 07 (Study C + Queue + Capacity + SSEN pilot)
 - **Shipped:** Border · Queue · Capacity · Invisible Grid SSEN pilot · After Dark lite · Data · Gate 4
@@ -1285,3 +1286,101 @@ Audit → Waves A–D (shared fixes, domain bugs, duplicates, wording). Charts n
 - **Shipped:** EA01–EA04
 - **Blocked:** none
 - **Next:** browser spot-check Reserves/Afford/Jobs/Metabolism stacks; optional Validation formal QA note under `data/qa/`
+
+---
+
+## Energy finalise Mode B audit — 2026-11-10
+
+**Owner working board (chronological):** [gate4-energy-domain-checklist-2026-11-10.md](gate4-energy-domain-checklist-2026-11-10.md) — §0 once, then domains 01→10.  
+Evidence: [finalise audit](gate4-audit-energy-finalise-2026-11-10.md) · [availability / Codex](gate4-energy-availability-2026-11-10.md) · [source QA](../data/qa/qa_energy_finalise_sources_2026-11-10.md).
+
+**Verdict:** Sector **not** Gate-4-final. Cloud loads + most shell P1s landed; remaining = browser/Railway verify per domain + held/deferred tracks.
+
+### EF01 — Cloud honesty (P0)
+- Owner: Energy → Validation → Orchestrator
+- Status: **done (cloud load)** — six observation series in Postgres (releases 174–179); weights Storage + Notion registry (no Postgres duplicate). Local pin delete waits on Railway proof in domain checklist Session A
+- Notes: See availability doc “Resumed after storage cutover”
+
+### EF02 — Shell P1 (Reset / source / Follow / year pool / prep empty)
+- Owner: Orchestrator
+- Status: **done (code)** — view-scoped Reset; `formatSource` feet; Jobs year intersection; prep EmptyStage; Follow for Policy / Jobs Pay / LC Capacity. Networks Queue/Grid Follow **held** with N07
+- Notes: Browser visual re-check still open on domain checklist
+
+### EF03 — Polish P2 + phone
+- Owner: Orchestrator (+ imagery for plates)
+- Status: **partial** — Policy Reset + sampled labels + demand/bill missing≠zero done; EF09 phone/Data/key/hydration code fixes landed; Fossils map triage + sector 390px re-measure + plates **open** on checklist §0 / 04 / 06
+
+### EF04 — Local closure + cloud resume (2026-11-10)
+- Owner: Orchestrator
+- Status: **superseded by domain checklist** — local + cloud evidence recorded in availability doc; owner walks 01→10 for visual close
+- Output: availability matrix; shell fixes; Follow; cloud loads; QA pack
+
+### Held / owner (unchanged — not on shell critical path)
+- Networks N07 — operator email; no further Networks UI until cleared layers
+- Manufacturing Anatomy redesign; Product Ledger; regional GVA atlas
+- Networks N07 / BX-BACK-004 (national maps); Jobs Industrial Lives (owner register); optional Imports 4.4b/4.5b + LNG pins; Consumption user-scenario; Energy Promise UI wire (draft `pledges.json` only)
+
+- **Next:** Session **B** (domains 01→05 desktop click-through). Session A cloud spot-check **done** locally 2026-11-10 (see below). Do not claim Energy Gate 4 final until the checklist board is ticked.
+
+### EF06 — Session A cloud verify + DB pool (2026-11-10)
+- Owner: Orchestrator
+- Status: **done (local cloud)** — Afford · Wholesale · Reserves · Resilience · Anatomy weights all populated from Supabase; Resilience EmptyStage root cause was Supabase `EMAXCONNSESSION` (session pool_size 15) under Energy SSR parallel fetches
+- Output: `psycopg[binary,pool]` + shared `ConnectionPool` in `britain_exchange.db` (default max 8, `BX_DB_POOL_MAX`); FastAPI lifespan closes pool; `loadSeriesPack` one silent retry + log; Resilience stage draws if any ratio pack loads
+- Evidence: postgres `store=` for the seven Session A series; weights Storage SHA matches local pin; browser figures recorded on [domain checklist](gate4-energy-domain-checklist-2026-11-10.md)
+- Remaining: deploy pool to Railway and re-spot-check production; then Sessions B–C desktop/390px; pin delete after Railway proof
+
+### EF07 — Menus 01–05 sweep (parallel to Session B · 2026-11-10)
+- Owner: Orchestrator (read-only)
+- Status: **done (note)** — [gate4-energy-menus-01-05-2026-11-10.md](gate4-energy-menus-01-05-2026-11-10.md)
+- Output: Afford / Resilience / Imports view year pools **pass**; **P1** Fossils › Reserves year menu = union of 2P + oil_production → empty recoverable figures for 1970–72; S27 residuals P2 only
+- Next: Energy agent or Session B polish — intersect Reserves years on oil_2p ∩ gas_2p (or equivalent) before Gate 4 final
+
+### EF08 — Source feet S1 / formatSource (2026-11-10)
+- Owner: Orchestrator
+- Status: **done** — structure + Housing-voice rewrite
+- Output:
+  - Structure: every Energy Notes foot via `energySource` → `formatSource`; 47/47 views have geography + period; slash / mid-`·` geographies cleaned
+  - Voice (Housing match): rewrote `citations.ts` so publisher · series reads like `MHCLG · Live Table 213` — expanded bare ET/DUKES/QEP/BRES/ASHE/TEC; table numbers stay inside the series name; multi-publisher lists publishers first (`DESNZ · ONS · …`). Cleaned period evidence of acronym-only labels and mid-string `·`
+- Audit: [finalise](gate4-audit-energy-finalise-2026-11-10.md) S1/S10 Pass, E-FIN-07 done; checklist §0 Notes feet verified
+- Next: none for source feet; Session B continues desktop click-through
+
+### EF09 — UI bug batch (phone / Data / keys / hydration · 2026-11-10)
+- Owner: Orchestrator
+- Status: **done (code)** — browser re-measure still open on checklist §0 phone pass
+- Output:
+  - Jobs › Pay 390px: RankBars name column `minmax(0, …)` + wrap (shared `instrument.module.css`) — no more `max-content` page blow-out
+  - Networks › Data: interconnector table uses `interconnectorAnnualSeries` (one row per year) under “annual sum of quarters”
+  - Networks › Invisible Grid: uniquify SSEN substation/line ids in `loadNetworks` (operator pin reused `UNKNOWN` ids → 47 duplicate React keys)
+  - Manufacturing › Data 390px: `.wrap` branch cells + fixed table layout under 560px so names wrap inside the stage
+  - Renewables › Buildout: earliest capacity year from capacity series (not load-factor-only 2008)
+  - Manufacturing › Anatomy: share/volume year pools capped to last complete IoP/output year (no default part-year 2026)
+  - Fossils › North Sea: stable field count + `localeCompare(..., "en-GB")` sort; drop locale grouping on constant GWh copy
+  - TimeChart default `gaps="dashed"` (Housing grammar) — empty stretches between observations draw as dashed, not blank (fixes Fossils coal mid-series hole among others)
+- Next: Session C phone 390px sweep to confirm; Railway still on EF06
+
+---
+
+## Observation storage / uniqueness — Phase 1 · 2026-11-10
+
+Audit: [audit-observation-storage-uniqueness.md](audit-observation-storage-uniqueness.md). QA: [../data/qa/qa_observation_identity_hash_2026-11-10.md](../data/qa/qa_observation_identity_hash_2026-11-10.md).
+
+### OS01 — Note dictionary + identity_hash (Phase 1)
+- Owner: Orchestrator
+- Status: **done (production)**
+- Output: `004` applied via batched RW transactions after Pro upgrade; `schema_migration` recorded; collision groups = 0
+
+### OS02 — Phase 2 drop legacy unique / notes column
+- Owner: Orchestrator
+- Status: **done (production)**
+- Output: `005` applied; `VACUUM FULL observation` (+ note table); loader/store already on join path
+- Production measure after cutover: observation indexes **499 MB → ~196 MB pre-vacuum**, then full rewrite; see QA note
+- Incident lesson: never one-shot fat DDL on Free Plan disk; Pro + batched `BEGIN; SET TRANSACTION READ WRITE; …` required while platform read-only lingered
+
+
+### EF05 — Resume after storage cutover (2026-11-10)
+- Owner: Orchestrator + Validation
+- Status: cloud observation gaps closed; remaining visual/suppression checks open
+- Output: six missing indicators loaded (1,450 rows, releases 174–179); all six FastAPI metadata/observations HTTP 200, store=postgres, notes preserved; weights verified from Storage with disk fallback disabled (1,110 rows; no duplicate Postgres copy). Source checks and registry catch-up recorded in `data/qa/qa_energy_finalise_sources_2026-11-10.md`.
+- Follow: Policy Ledger → Generation History; Jobs Pay → Labour Landscape; Low-carbon Capacity → Generation History. Cloud-backed destinations verified. Networks hold unchanged.
+- Validation: 38 web tests and TypeScript; six raw checksum/key checks; all earnings months and MPP numeric source cells; exact weights reproduction/additive checks and independent Section C samples.
+- Remaining: browser access host unavailable, so desktop/390px inspection pending; Fossils suppression/glyph triage; full stale-menu sweep and deployed Railway verification; held owner content unchanged. Energy not Gate-4-final.

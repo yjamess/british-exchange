@@ -28,8 +28,10 @@ import {
 import { EnergyStageFollow } from "../connections";
 import { fmtT } from "../data";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
+import { viewReset } from "./reset";
 import { BillReceipt, type BillLine, type Print } from "./BillReceipt";
-import { USAGE_OPTIONS, annualPay, capBreakdown, fmtKwh, fmtPence, payShareSeries, ratesFor, regionsForYear } from "./bill-model";
+import { USAGE_OPTIONS, annualPay, capShares, fmtKwh, fmtPence, payShareSeries, ratesFor, regionsForYear } from "./bill-model";
 import {
   BILL_FUELS,
   BILL_FUEL_LABEL,
@@ -47,7 +49,6 @@ import {
   MPP_MEASURES,
   MPP_MEASURE_LABEL,
   NOMINAL_EARNINGS_ID,
-  OFGEM_CAP_ID,
   OFGEM_CAP_REGIONAL_ID,
   OFGEM_MEASURES,
   OFGEM_MEASURE_LABEL,
@@ -335,7 +336,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
   const vsYear = vs && vs !== y && rateYears.includes(vs) ? vs : null;
   const rates = ratesFor(layerRows, y, payment, billKwh, billRegion);
   const ratesVs = vsYear != null ? ratesFor(layerRows, vsYear, payment, billKwh, billRegion) : null;
-  const capParts = capBreakdown(pack.capComponents ?? null, y, billFuel, payment);
+  const capSplit = capShares(pack.capComponents ?? null, y, billFuel, payment);
   const ratesHref = `/data?record=${layersRecordId}`;
   const receiptLines = (L: typeof rates): ReceiptLine[] =>
     !layerRows.length
@@ -371,17 +372,6 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
   const realTotal =
     billTotal != null && cpihBase && cpihAtY ? billTotal * (cpihBase.value / cpihAtY) : null;
   const realTypical = yearBillReal;
-  const referenceLine: ReceiptLine | null =
-    yearBillCash != null
-      ? {
-          key: "typical",
-          label: "Published typical bill",
-          detail: `UK · ${fmtKwh(assumedKwh)} · ${payment}`,
-          about: `DESNZ’s own UK typical bill at a fixed use of ${fmtKwh(assumedKwh)} a year. Shown for reference beside the illustrative bill built from regional unit and standing charges.`,
-          value: Number(yearBillCash),
-          href: `/data?record=${billRecordId}`,
-        }
-      : null;
   const realLine: ReceiptLine | null =
     cpihBase && (realTotal != null || realTypical != null)
       ? {
@@ -393,6 +383,19 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
           href: `/data?record=${CPIH_INDEX_ID}`,
         }
       : null;
+  /** The reader's bill split by Ofgem's cost groups: standing charge by the cap's fixed shares,
+   *  energy used by its per-kWh shares. Sums exactly to the bill. Our calculation. */
+  const dissected =
+    capSplit && rates.unitPrice != null && rates.fixedCost != null && billTotal != null
+      ? capSplit.groups
+          .map((g) => ({
+            id: g.id,
+            label: g.label,
+            value: g.fixedShare * rates.fixedCost! + g.perKwhShare * rates.unitPrice! * billKwh,
+          }))
+          .filter((g) => Math.abs(g.value) >= 0.5)
+      : null;
+  const largestPart = dissected ? [...dissected].sort((a, b) => b.value - a.value)[0] ?? null : null;
   const historyRules = [
     { id: "year", t: y, label: String(y), active: true },
     ...(vsYear != null ? [{ id: "vs", t: vsYear, label: String(vsYear), active: true }] : []),
@@ -488,7 +491,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
         : view === "wholesale"
           ? [
               {
-                label: "Latest",
+                label: wholesaleSeries.points.at(-1) ? `Latest · ${fmtT(wholesaleSeries.points.at(-1)!.t, "quarterly")}` : "Latest",
                 value:
                   wholesaleSeries.points.at(-1) != null
                     ? fmtPenceKwh(wholesaleSeries.points.at(-1)!.v)
@@ -502,28 +505,33 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                   : "—",
                 note: "Quarterly · cash",
               },
-              {
-                label: "What this is",
-                value: "Input fuel",
-                note: "Not day-ahead power · not a household bill",
-              },
+              (() => {
+                const last = wholesaleSeries.points.at(-1);
+                const prev = last ? wholesaleSeries.points.find((p) => Math.abs(p.t - (last.t - 1)) < 0.01) : undefined;
+                const pct = last && prev && prev.v ? ((last.v - prev.v) / prev.v) * 100 : null;
+                return {
+                  label: "A year earlier",
+                  value: prev ? fmtPenceKwh(prev.v) : "—",
+                  note: pct != null ? `${pct >= 0 ? "+" : "−"}${Math.abs(pct).toFixed(0)}% since then` : "Not published",
+                };
+              })(),
             ]
       : view === "shock"
         ? [
             {
               label: "Index base",
               value: shock.baseYear != null ? String(shock.baseYear) : "—",
-              note: "Cash prices, each line starts at 1× this year — not £ or p/kWh",
+              note: "Each line starts at 1× in this year · cash prices",
             },
             {
               label: `${y} electricity bill`,
               value: elecYearBill != null ? fmtGbpBill(elecYearBill) : "—",
-              note: "Cash · UK · grounding only · not the chart axis",
+              note: "United Kingdom · cash",
             },
             {
               label: `${y} industry mean`,
               value: industrialAvg != null ? fmtPenceKwh(industrialAvg) : "—",
-              note: "Mean of the year’s published quarters · cash · GB · the chart below ends on the latest quarter",
+              note: "Average of the year’s quarters · Great Britain · cash",
             },
           ]
         : view === "regions"
@@ -582,14 +590,14 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 note: billTotal != null ? `${fmtKwh(billKwh)} · ${billRegion}` : `Published typical bill · ${fmtKwh(assumedKwh)}`,
               },
               {
-                label: "Unit rate",
-                value: rates.unitPrice != null ? `${fmtPence(rates.unitPrice * 100)}/kWh` : "—",
-                note: `${payment} · ${billRegion}`,
+                label: "Largest part",
+                value: largestPart && billTotal ? fmtGbpBill(largestPart.value) : "—",
+                note: largestPart && billTotal ? `${largestPart.label} · ${Math.round((largestPart.value / billTotal) * 100)}% of the bill` : "No cost split for this choice",
               },
               {
-                label: "Standing charge",
-                value: rates.fixedCost != null ? fmtGbpBill(rates.fixedCost) : "—",
-                note: rates.fixedCost != null ? `A year · about ${fmtPence((rates.fixedCost / 365) * 100)} a day` : "Not published",
+                label: realLine ? realLine.label : "In today's prices",
+                value: realLine?.value != null ? fmtGbpBill(realLine.value) : "—",
+                note: "Bill for the year, adjusted for inflation",
               },
             ];
 
@@ -680,6 +688,8 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 "Not a household bill, not the Ofgem price cap, and not a spot wholesale market price.",
               ]
             : [
+                "Your bill is the DESNZ average unit rate for your region and way of paying, times the energy you chose, plus the standing charge. It is an average across suppliers, not any one tariff.",
+                "What pays for it is our calculation, not a published split. Ofgem's price cap sets out what each cost group adds to the standing charge and to each kWh, for Great Britain. We split your standing charge and your energy cost in those shares, averaged over the cap periods in the year, so the parts add up to your bill. Northern Ireland has no Ofgem cap, so its bills are split with the Great Britain shares.",
                 `Real cost on the receipt restates cash pounds in ${cpihBase?.year ?? "latest"} prices using the ONS CPIH index (annual average). Calculated from DESNZ and ONS figures — not a DESNZ published bill.`,
                 "Typical use has changed: DESNZ's typical bills now assume 3,400 kWh of electricity and 11,200 kWh of gas a year (earlier releases used 3,600 kWh for electricity and are not mixed in here). Ofgem's price cap uses its own, lower typical use, so the two are not the same figure.",
                 "Region names changed: electricity prices are published for city areas to 2012 and for regions from 2013; gas switches in 2018. Each year offers only the regions published for it, and a comparison shows a gap where a region is not published in both years.",
@@ -705,6 +715,15 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
             : layersReady
               ? `/data?record=${layersRecordId}`
               : `/data?record=${billRecordId}`;
+
+  const resetState = { year: y, payment, tariff, band, billFuel, capMeasure, capPeriod, region, regionSource, mppMeasure, vs, kwh };
+  const resetDefaults: typeof resetState = { year: yearOptions.length ? Number(yearOptions.at(-1)!.value) : latest, payment: "Overall", tariff: "All", band: "Average", billFuel: "electricity", capMeasure: "elec_single", capPeriod: "", region: "", regionSource: "desnz", mppMeasure: "gas_mpp_p_kwh", vs: 0, kwh: 0 };
+  const resetKeys: (keyof typeof resetState)[] = view === "wholesale" ? ["mppMeasure"]
+    : view === "regions" ? ["year", "billFuel", "payment", "region", "regionSource", "capMeasure", "capPeriod"]
+      : view === "afford" ? ["year", "billFuel", "payment", "tariff"]
+        : view === "shock" ? ["year", "payment", "tariff", "band"]
+          : ["year", "billFuel", "payment", "region", "vs", "kwh"];
+  const resetPatch = viewReset(resetState, resetDefaults, resetKeys);
 
   const stageTitle =
     view === "shock"
@@ -809,7 +828,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               label="Region source"
               value={regionSource}
               options={[
-                { value: "desnz", label: "DESNZ reconstruct" },
+                { value: "desnz", label: "DESNZ rates" },
                 { value: "ofgem", label: "Ofgem cap" },
               ]}
               onChange={(v) => sync({ regionSource: v as RegionSource })}
@@ -861,26 +880,23 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 onChange={(v) => sync({ year: Number(v) })}
               />
             )}
-          {view === "bill" && rateYears.length > 0 && (
-            <MenuControl
-              label="Compare with"
-              value={vsYear != null ? String(vsYear) : "none"}
-              options={[
-                { value: "none", label: "No comparison" },
-                ...[...rateYears]
-                  .reverse()
-                  .filter((yy) => yy !== y)
-                  .map((yy) => ({ value: String(yy), label: String(yy) })),
-              ]}
-              onChange={(v) => sync({ vs: v === "none" ? 0 : Number(v) })}
-            />
-          )}
           {view === "bill" && billRegions.length > 0 && (
             <MenuControl
               label="Region"
               value={billRegion}
               options={billRegions.map((r) => ({ value: r, label: r }))}
               onChange={(v) => sync({ region: v === DEFAULT_BILL_REGION ? "" : v })}
+            />
+          )}
+          {view === "bill" && layerRows.length > 0 && (
+            <MenuControl
+              label="Use a year"
+              value={String(billKwh)}
+              options={usageOptions.map((k) => ({
+                value: String(k),
+                label: `${fmtKwh(k)}${k === assumedKwh ? " · typical" : ""}`,
+              }))}
+              onChange={(v) => sync({ kwh: Number(v) === assumedKwh ? 0 : Number(v) })}
             />
           )}
           {(view === "bill" ||
@@ -914,50 +930,21 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               onChange={(v) => sync({ band: v as IndustrialBand })}
             />
           )}
-          {view === "bill" && layerRows.length > 0 && (
+          {view === "bill" && rateYears.length > 0 && (
             <MenuControl
-              label="Use a year"
-              value={String(billKwh)}
-              options={usageOptions.map((k) => ({
-                value: String(k),
-                label: `${fmtKwh(k)}${k === assumedKwh ? " · typical" : ""}`,
-              }))}
-              onChange={(v) => sync({ kwh: Number(v) === assumedKwh ? 0 : Number(v) })}
+              label="Compare with"
+              value={vsYear != null ? String(vsYear) : "none"}
+              options={[
+                { value: "none", label: "No comparison" },
+                ...[...rateYears]
+                  .reverse()
+                  .filter((yy) => yy !== y)
+                  .map((yy) => ({ value: String(yy), label: String(yy) })),
+              ]}
+              onChange={(v) => sync({ vs: v === "none" ? 0 : Number(v) })}
             />
           )}
-          {(
-            y !== latest ||
-            payment !== "Overall" ||
-            tariff !== "All" ||
-            band !== "Average" ||
-            billFuel !== "electricity" ||
-            capMeasure !== "elec_single" ||
-            Boolean(region) ||
-            regionSource !== "desnz" ||
-            Boolean(capPeriod) ||
-            mppMeasure !== "gas_mpp_p_kwh" ||
-            vs !== 0 ||
-            billKwh !== assumedKwh
-          ) && (
-            <ResetButton
-              onClick={() =>
-                sync({
-                  year: latest,
-                  payment: "Overall",
-                  tariff: "All",
-                  band: "Average",
-                  billFuel: "electricity",
-                  capMeasure: "elec_single",
-                  capPeriod: "",
-                  region: "",
-                  regionSource: "desnz",
-                  mppMeasure: "gas_mpp_p_kwh",
-                  vs: 0,
-                  kwh: 0,
-                })
-              }
-            />
-          )}
+          {Object.keys(resetPatch).length > 0 && <ResetButton onClick={() => sync(resetPatch)} />}
         </ControlRow>
 
       <Stage
@@ -973,7 +960,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
         }
         foot={
           <FigureRecord
-            source={footSource}
+            source={energySource("prices", view, footSource)}
             definition={footDefinition}
             method={footMethod}
             dataHref={dataHref}
@@ -1021,7 +1008,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 </EmptyStage>
               ) : (
                 <TimeChart
-                  label={`Industrial electricity price · ${band} · cash · excl. CCL`}
+                  label={`Industrial electricity price · ${band} · cash · before Climate Change Levy`}
                   series={[industrialSeries]}
                   cadence="quarterly"
                   kind="line"
@@ -1053,7 +1040,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
           <div className={s.stack}>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Reconstructed bill by region · {billFuelLabel} · {payment} · {regionY} ·{" "}
+                Bill by region, from DESNZ rates · {billFuelLabel} · {payment} · {regionY} ·{" "}
                 {assumedKwh.toLocaleString("en-GB")} kWh
               </h3>
               {!layersReady || regionRanks.rows.length === 0 ? (
@@ -1202,34 +1189,20 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                     ? `Published typical bill · ${fmtKwh(assumedKwh)} · cash`
                     : `${fmtKwh(billKwh)} · cash`
                 }
-                memos={[realLine, billFuel === "economy7" ? null : referenceLine]
+                memos={[realLine]
                   .filter((l): l is ReceiptLine => l != null)
-                  .map((l) => ({
-                    id: l.key,
-                    label: l.label,
-                    detail: l.detail,
-                    about: l.about,
-                    value: l.value,
-                    href: l.href,
-                  }))}
-                reference={
-                  billFuel !== "economy7" && referenceLine?.value != null
-                    ? { label: "Published typical bill", value: referenceLine.value }
-                    : null
-                }
-                cap={
-                  billFuel !== "economy7" && capParts
+                  .map((l) => ({ id: l.key, label: l.label, detail: l.detail, value: l.value }))}
+                split={
+                  dissected && billTotal != null
                     ? {
-                        period: capParts.period,
-                        total: capParts.total,
-                        href: `/data?record=${OFGEM_CAP_ID}`,
-                        lines: [...capParts.lines, { id: "vat", label: "VAT", value: capParts.vat }].map(
+                        title: "What pays for it",
+                        detail: `Split by the cost shares in Ofgem's price cap, ${y} · our calculation`,
+                        total: billTotal,
+                        lines: dissected.map(
                           (l): BillLine => ({
                             id: `cap-${l.id}`,
                             label: l.label,
-                            about: `Part of Ofgem’s default tariff cap for Great Britain in ${capParts.period}. This layer is a published cost building-block of the cap — not a DESNZ household bill line.`,
                             value: l.value,
-                            href: `/data?record=${OFGEM_CAP_ID}`,
                             print: (CAP_PRINTS[l.id] ?? "open") as Print,
                           }),
                         ),
@@ -1244,7 +1217,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                 <h3 className={t.stageTitle}>
                   {vsYear} and {y} · {billRegion} · {payment} · {fmtKwh(billKwh)} a year
                 </h3>
-                {ratesVs.reconstructed != null && billTotal != null ? (
+                {ratesVs.reconstructed != null && billTotal != null && ratesVs.unitPrice != null && rates.unitPrice != null && ratesVs.fixedCost != null && rates.fixedCost != null ? (
                   <ChangeRows
                     key={`vs-${vsYear}-${y}-${billRegion}-${payment}-${billKwh}`}
                     label={`Illustrative bill, ${vsYear} and ${y}`}
@@ -1254,14 +1227,14 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
                       {
                         id: "energy",
                         label: "Energy used",
-                        from: (ratesVs.unitPrice ?? 0) * billKwh,
-                        to: (rates.unitPrice ?? 0) * billKwh,
+                        from: ratesVs.unitPrice * billKwh,
+                        to: rates.unitPrice * billKwh,
                       },
                       {
                         id: "standing",
                         label: "Standing charge",
-                        from: ratesVs.fixedCost ?? 0,
-                        to: rates.fixedCost ?? 0,
+                        from: ratesVs.fixedCost,
+                        to: rates.fixedCost,
                       },
                     ]}
                     reference={{ label: "Bill for the year", from: ratesVs.reconstructed, to: billTotal }}
@@ -1282,7 +1255,7 @@ export function PricesCanvas({ pack }: { pack: PricesPack }) {
               <TimeChart
                 key={`typical-${billFuel}-${payment}`}
                 label={`Published typical ${billFuelLabel} bill`}
-                series={[billSeries]}
+                series={[{ ...billSeries, label: "Typical bill" }]}
                 cadence="annual"
                 kind="line"
                 marks

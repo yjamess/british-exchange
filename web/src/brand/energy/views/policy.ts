@@ -1,7 +1,7 @@
 import { ENERGY_SOURCE } from "../citations";
 import type { DomainViews } from "./types";
 
-/** Policy has no view tabs — one decision ledger stage. */
+/** Policy: the decision ledger, and the Promise Ledger (pledges set beside published series). */
 export const policyViews = {
   domain: "policy",
   status: "ready",
@@ -23,7 +23,25 @@ export const policyViews = {
           "Linked indicators are context only — never treated as effects of the decision.",
         ],
         geography: "United Kingdom (and named nations on each event)",
-        period: "Event assent / commencement dates on each card",
+        period: "Royal Assent or start date on each card",
+        dataHref: "/data#energy-industry",
+      },
+    },
+    {
+      id: "promise",
+      label: "Promises",
+      instrument: "Promise vs delivery",
+      params: ["pledge"],
+      evidence: {
+        source: ENERGY_SOURCE.policyPledges,
+        definition: "Energy pledges quoted from government and party documents, each set beside a published series only when both count the same thing.",
+        method: [
+          "A pledge is scored only when the pledge and the series share a unit and a period, and the place matches or is bounded.",
+          "Every other pledge is listed with the reason it is not scored.",
+          "A pledge and a result moving together is not evidence that the policy caused the result.",
+        ],
+        geography: "United Kingdom, or Great Britain where the pledge says so",
+        period: "Date each pledge was made; delivery from the latest release",
         dataHref: "/data#energy-industry",
       },
     },

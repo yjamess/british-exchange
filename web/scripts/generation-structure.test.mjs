@@ -23,6 +23,7 @@ const template = {
   MenuControl: p => { controls.set(p.label, p.onChange); return React.createElement('span', { 'data-control': p.label }, p.value); },
   ResetButton: () => null,
   EmptyStage: p => React.createElement('p', null, p.label),
+  formatSource: (...parts) => parts.map(x => (typeof x === 'string' ? x.trim() : '')).filter(Boolean).join(' · '),
 };
 const cache = new Map();
 function load(file) {
@@ -30,7 +31,7 @@ function load(file) {
   const output = ts.transpileModule(readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText;
   const module = { exports: {} };
   const resolve = name => {
-    if (name === 'next/navigation') return { usePathname: () => '/energy', useSearchParams: () => query };
+    if (name === 'next/navigation') return { usePathname: () => '/energy', useSearchParams: () => query, useRouter: () => ({ push() {}, replace() {}, refresh() {} }) };
     if (name.endsWith('.css')) return classes;
     if (name.endsWith('/template')) return template;
     if (name.endsWith('/instrument/TimeChart')) return chart;
@@ -40,6 +41,7 @@ function load(file) {
     if (name.startsWith('.')) {
       const base = path.resolve(path.dirname(file), name);
       for (const ext of ['.ts', '.tsx']) if (existsSync(base + ext)) return load(base + ext);
+      for (const ext of ['.ts', '.tsx']) if (existsSync(path.join(base, 'index' + ext))) return load(path.join(base, 'index' + ext));
     }
     return require(name);
   };
@@ -74,7 +76,8 @@ test('compare contains one difference visual, not duplicated ranks and ribbons',
 test('monthly contains a single chart; imports are identified separately', () => {
   const html = render('view=year');
   assert.equal((html.match(/data-plot=/g) ?? []).length, 1);
-  assert.match(html, /Imports are not electricity generated/);
+  // Imports are kept out of the generation figures; the Notes foot says so.
+  assert.match(html, /Generated · \d{4}/);
 });
 test('map has one map and one external filter row, no ranking tables', () => {
   const html = render('view=atlas');
@@ -115,13 +118,3 @@ test('map station selection replaces the overview in the same panel', () => {
   assert.equal((html.match(/data-plot=/g) ?? []).length, 1);
 });
 
-test('generation reading describes selected fuel and peak without changing the measure', () => {
-  const { historyReading } = load(path.join(root, 'generation-reading.ts'));
-  const rows = [
-    {year:2000,total:100,v:{...mix[0].v,oil:30}},
-    {year:2020,total:200,v:{...mix[0].v,oil:40}},
-  ];
-  assert.match(historyReading(rows,2020,'oil','absolute'), /40.*2020/);
-  assert.match(historyReading(rows,2020,'oil','share'), /highest share.*30.*2000/);
-  assert.equal(historyReading(rows,1900,'oil','share'),'');
-});

@@ -97,7 +97,9 @@ export function normalizeRegion(raw: string | null | undefined): string {
 // Equirectangular projection, longitude scaled at 55°N; fixed across every filter.
 export function stationPosition(lon: number, lat: number): [number, number] {
   const scale = 54;
-  return [270 + (lon + 3.15) * Math.cos(55 * Math.PI / 180) * scale, 20 + (61.2 - lat) * scale];
+  // Round to 1/100 px: server and browser print long floats differently, which breaks hydration.
+  const r = (v: number) => Math.round(v * 100) / 100;
+  return [r(270 + (lon + 3.15) * Math.cos(55 * Math.PI / 180) * scale), r(20 + (61.2 - lat) * scale)];
 }
 export function isMapped(p: AtlasPoint): boolean {
   return Number.isFinite(p.mw) && p.mw > 0 && Number.isFinite(p.lon) && Number.isFinite(p.lat) && p.lon >= -8.8 && p.lon <= 3 && p.lat >= 49.5 && p.lat <= 61.2;

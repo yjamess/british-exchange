@@ -75,6 +75,10 @@ Free-text `notes` alone is not a structural key. Put breakdowns in parseable `ke
 API filters: `fuel`, `water_company`, `demographic`, `geography_code`, `series`, `category`.  
 Postgres load preserves prior `data_release` rows; only the matching release’s observations are replaced; `is_current` selects the default series.
 
+### Observation identity (Postgres)
+
+Loaders also store notes in `observation_note` and set `observation.identity_hash` (SHA-256 of release + period + geography + promoted dims + note text, joined with `U+001F`). See `docs/audit-observation-storage-uniqueness.md`. Curated CSV shape is unchanged.
+
 ## Connector API
 
 Subclass `britain_exchange.Connector`:

@@ -122,6 +122,18 @@ export function atlasTechRows(
 }
 
 /** RankBars rows for one year of installed capacity (GW). */
+/** DUKES technology names in plain words (the source name stays in the row id and in Data). */
+const CAPACITY_LABEL: Record<string, string> = {
+  "CCGT gas": "Gas · combined cycle",
+  "OCGT and conventional thermal gas": "Gas · other power stations",
+  "Nuclear - AGR": "Nuclear · gas-cooled reactors",
+  "Nuclear - Magnox": "Nuclear · Magnox reactors",
+  "Nuclear - PWR": "Nuclear · pressurised water reactor",
+  "Hydro (natural flow)": "Hydro",
+  "Wind (offshore)": "Offshore wind",
+  "Wind (onshore)": "Onshore wind",
+};
+
 export function capacityRowsForYear(
   observations: Observation[],
   year: number,
@@ -131,7 +143,8 @@ export function capacityRowsForYear(
     .map((r) => {
       const raw = (r.notes ?? "").replace(/^fuel=/, "").trim();
       // DUKES footnotes like "[note 4]" are source metadata, not chart labels.
-      const label = raw.replace(/\s*\[note\s+\d+\]/gi, "").trim() || raw;
+      const clean = raw.replace(/\s*\[note\s+\d+\]/gi, "").trim() || raw;
+      const label = CAPACITY_LABEL[clean] ?? clean;
       return { id: raw, label, v: (r.value as number) / 1000 };
     })
     .filter((r) => r.v > 0)
@@ -205,4 +218,22 @@ export function yearMonthlyLines(
       return { t: monthT(ym), v: mwh / 1e6 };
     }),
   }));
+}
+
+/** Year totals for the monthly GB view (TWh): generation excludes imports; busiest month by generation. */
+export function yearTotals(observations: Observation[]) {
+  const { months, byMonthFuel } = monthFuelMap(observations);
+  const byFuel = new Map<string, number>();
+  const byMonth = new Map<string, number>();
+  for (const [key, mwh] of byMonthFuel) {
+    const [ym, fuel] = key.split("|") as [string, string];
+    if (fuel === "Imports") continue;
+    const group = fuel.startsWith("Wind") ? "Wind" : fuel;
+    byFuel.set(group, (byFuel.get(group) ?? 0) + mwh / 1e6);
+    byMonth.set(ym, (byMonth.get(ym) ?? 0) + mwh / 1e6);
+  }
+  const total = [...byFuel.values()].reduce((a, v) => a + v, 0);
+  const largest = [...byFuel.entries()].sort((a, b) => b[1] - a[1])[0] ?? null;
+  const busiest = [...byMonth.entries()].sort((a, b) => b[1] - a[1])[0] ?? null;
+  return { months: months.length, total, largest, busiest };
 }

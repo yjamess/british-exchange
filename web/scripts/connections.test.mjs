@@ -214,10 +214,10 @@ test("Consumption metabolism Follow opens Generation history", () => {
   assert.match(href, /view=current/);
 });
 
-test("Networks night Follow opens Border anatomy", () => {
-  const primary = conn.primaryEnergyConnection({ domain: "networks", view: "night" }, { year: 2023 });
+test("Networks queue Follow opens Imports connectors", () => {
+  const primary = conn.primaryEnergyConnection({ domain: "networks", view: "queue" }, {});
   assert.ok(primary);
-  assert.equal(primary.id, "networks.night→networks.border");
+  assert.equal(primary.id, "networks.queue→imports.connectors");
 });
 
 test("Manufacturing anatomy Follow opens Jobs productivity", () => {
@@ -321,5 +321,23 @@ test("Housing Ready domains and views each have a primary Follow", () => {
       assert.equal(primary.readiness, "ready", `${primary.id} not ready`);
       assert.ok(primary.destinationLabel?.trim(), `${primary.id} missing destinationLabel`);
     }
+  }
+});
+
+test("low-carbon Capacity never follows back to itself for any technology", () => {
+  for (const tech of ["solar", "onshore-wind", "offshore-wind", "hydro", "bioenergy", "nuclear"]) {
+    const primary = conn.primaryEnergyConnection({ domain: "low-carbon", view: "capacity" }, { tech, year: 2024 });
+    assert.equal(primary?.to.domain, "generation");
+    assert.equal(primary?.to.view, "current");
+  }
+});
+
+test("Policy Ledger and Jobs Pay have contextual primaries without inferred year joins", () => {
+  for (const origin of [{ domain: "policy", view: "ledger" }, { domain: "industrial-work", view: "pay" }]) {
+    const primary = conn.primaryEnergyConnection(origin);
+    assert.equal(primary?.kind, "contextual");
+    assert.equal(primary?.readiness, "ready");
+    assert.deepEqual(primary?.to.retain, []);
+    assert.ok(primary?.honesty);
   }
 });

@@ -1,0 +1,369 @@
+{
+  "registry_id": "energy-pledges",
+  "retrieved_at": "2026-11-10",
+  "status": "draft — owner review before any UI wiring or registry rows",
+  "note": "Promise vs Delivery register for Energy Domain 10, same shape as housing-pledges. A promise is set beside a result only when the pledge and the series share unit and period, and geography matches or is bounded (stated in measure_definition). Every other pledge is listed with the reason it is not scored, and its match is null. Delivered values are never stored here; the UI computes them from the API using match. context_indicator_ids are context to show nearby, not a score. Statements are short verbatim quotations from official or manifesto text, checked on retrieved_at. Overlap between a pledge and a series is not evidence that the policy caused the result. Schema extension: match.direction ('at_or_above' default, 'at_or_below' for phase-outs) — the Housing per-period scorer only counts v >= target and must honour direction before coal can be scored.",
+  "pledges": [
+    {
+      "id": "government-2021-end-coal-power-october-2024",
+      "title": "No coal power in Great Britain from 1 October 2024 (2021)",
+      "made_by": "Department for Business, Energy & Industrial Strategy (press release)",
+      "made_date": "2021-06-30",
+      "made_date_precision": null,
+      "made_date_note": "Publication date of the GOV.UK press release. It brought forward the 1 October 2025 deadline confirmed in 2017, which followed Amber Rudd's 18 November 2015 proposal to consult on closing coal by 2025.",
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"From 1 October 2024 Great Britain will no longer use coal to generate electricity, a year earlier than planned\"",
+      "sources": [
+        {
+          "label": "BEIS, End to coal power brought forward to October 2024 (press release, 30 June 2021)",
+          "url": "https://www.gov.uk/government/news/end-to-coal-power-brought-forward-to-october-2024",
+          "role": "official"
+        },
+        {
+          "label": "DECC, Amber Rudd's speech on a new direction for UK energy policy (18 November 2015): \"proposals to close coal by 2025 - and restrict its use from 2023\"",
+          "url": "https://www.gov.uk/government/speeches/amber-rudds-speech-on-a-new-direction-for-uk-energy-policy",
+          "role": "official"
+        },
+        {
+          "label": "DESNZ, Energy Trends table 5.1: fuel used in generation and electricity generated (September 2026)",
+          "url": "https://www.gov.uk/government/statistics/electricity-section-5-energy-trends",
+          "role": "primary"
+        }
+      ],
+      "target": {
+        "value": 0,
+        "unit": "TWh-per-quarter",
+        "geography_code": "K03000001",
+        "period_start": "2024-10-01",
+        "period_end": null,
+        "period_note": "Every calendar quarter from the deadline onward. The press release says the policy only applies to coal used to generate electricity."
+      },
+      "match": {
+        "indicator_id": "electricity-generation-by-source",
+        "series": "generation",
+        "geography_code": "K02000001",
+        "unit": "TWh",
+        "aggregation": "per-period",
+        "direction": "at_or_below",
+        "dimensions": { "fuel": "Coal" }
+      },
+      "scorable": true,
+      "measure_definition": "Electricity generated from coal in a calendar quarter, all generating companies, Energy Trends table 5.1. The series is United Kingdom, the pledge Great Britain. Generation cannot be negative, so a UK value of zero means Great Britain is also zero; a UK value above zero is an upper bound for Great Britain, not a GB figure.",
+      "not_scored_reason": null,
+      "status_note": "Q4 2024 shows 0.0028 TWh of coal generation (UK, final); every quarter from Q1 2025 is zero. Ratcliffe-on-Soar, the last plant, closed on 30 September 2024. The Q4 2024 residual is UK-wide and is not attributed to a site here.",
+      "context_indicator_ids": ["electricity-generation-by-source", "electricity-generation-long-run", "uk-power-stations-dukes"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "conservative-2019-40gw-offshore-wind-by-2030",
+      "title": "40GW of offshore wind by 2030 (2019)",
+      "made_by": "Conservative and Unionist Party (2019 general election manifesto)",
+      "made_date": "2019-12-12",
+      "made_date_precision": null,
+      "made_date_note": "Polling day of the 2019 general election. The manifesto's own publication date is not pinned (the PDF carries no date). The same 40GW target was restated in the Ten Point Plan (November 2020) with 1GW of floating wind.",
+      "nations": ["England", "Wales", "Scotland", "Northern Ireland"],
+      "statement": "\"Our world-leading offshore wind industry will reach 40GW by 2030, and we will enable new floating wind farms.\"",
+      "sources": [
+        {
+          "label": "Conservative and Unionist Party, Get Brexit Done: Unleash Britain's Potential (2019 manifesto), PDF p. 57",
+          "url": "https://assets-global.website-files.com/5da42e2cae7ebd3f8bde353c/5dda924905da587992a064ba_Conservative%202019%20Manifesto.pdf",
+          "role": "manifesto"
+        },
+        {
+          "label": "HM Government, The Ten Point Plan for a Green Industrial Revolution (November 2020): \"by 2030, we aim to produce 40GW of offshore wind, including 1GW of innovative floating offshore wind\"",
+          "url": "https://www.gov.uk/government/publications/the-ten-point-plan-for-a-green-industrial-revolution/title",
+          "role": "official"
+        },
+        {
+          "label": "DESNZ, DUKES table 5.12: plant installed capacity by technology (2026)",
+          "url": "https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes",
+          "role": "primary"
+        }
+      ],
+      "target": {
+        "value": 40000,
+        "unit": "MW",
+        "geography_code": "K02000001",
+        "period_start": "2019-12-31",
+        "period_end": "2030-12-31",
+        "period_note": "Installed capacity at the end of 2030. Years before 2030 are progress, not a verdict."
+      },
+      "match": {
+        "indicator_id": "electricity-capacity-by-technology",
+        "series": "capacity",
+        "geography_code": "K02000001",
+        "unit": "MW",
+        "aggregation": "latest",
+        "direction": "at_or_above",
+        "dimensions": { "fuel": "Wind (offshore)" }
+      },
+      "scorable": true,
+      "measure_definition": "Installed (nameplate) offshore wind capacity at the end of each calendar year, United Kingdom, DUKES 5.12. The manifesto does not define capacity; nameplate is the measure DESNZ reports against.",
+      "not_scored_reason": null,
+      "status_note": "Not yet due. 16,650 MW at end-2025 against 40,000 MW by end-2030. Superseded as policy by the 50GW ambition of April 2022.",
+      "context_indicator_ids": ["electricity-capacity-by-technology", "renewable-energy-planning-pipeline", "renewable-electricity-load-factors"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "bess-2022-50gw-offshore-wind-by-2030",
+      "title": "Up to 50GW of offshore wind by 2030 (2022)",
+      "made_by": "HM Government, British energy security strategy",
+      "made_date": "2022-04-07",
+      "made_date_precision": null,
+      "made_date_note": "The GOV.UK page shows 'Updated 7 April 2022', the publication day.",
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"Our ambition is to deliver up to 50GW by 2030, including up to 5GW of innovative floating wind.\"",
+      "sources": [
+        {
+          "label": "HM Government, British energy security strategy (7 April 2022)",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        },
+        {
+          "label": "DESNZ, DUKES table 5.12: plant installed capacity by technology (2026)",
+          "url": "https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes",
+          "role": "primary"
+        }
+      ],
+      "target": {
+        "value": 50000,
+        "unit": "MW",
+        "geography_code": "K03000001",
+        "period_start": "2022-04-07",
+        "period_end": "2030-12-31",
+        "period_note": "'Up to' is a ceiling on the ambition, not a floor; scored against the 50GW figure as the stated ambition. Years before 2030 are progress."
+      },
+      "match": {
+        "indicator_id": "electricity-capacity-by-technology",
+        "series": "capacity",
+        "geography_code": "K02000001",
+        "unit": "MW",
+        "aggregation": "latest",
+        "direction": "at_or_above",
+        "dimensions": { "fuel": "Wind (offshore)" }
+      },
+      "scorable": true,
+      "measure_definition": "Installed offshore wind capacity at the end of each calendar year, DUKES 5.12, United Kingdom. The strategy applies to Great Britain. The Renewable Energy Planning Database (Q2 2026) lists no Northern Ireland offshore wind project at any status, so the UK figure equals Great Britain for this technology. Re-check on each REPD release.",
+      "not_scored_reason": null,
+      "status_note": "Not yet due. 16,650 MW at end-2025. The Clean Power 2030 Action Plan (December 2024) later gave a 43–50 GW range for 2030.",
+      "context_indicator_ids": ["electricity-capacity-by-technology", "renewable-energy-planning-pipeline", "transmission-entry-capacity-register"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "bess-2022-70gw-solar-by-2035",
+      "title": "Up to 70GW of solar by 2035 (2022)",
+      "made_by": "HM Government, British energy security strategy",
+      "made_date": "2022-04-07",
+      "made_date_precision": null,
+      "made_date_note": null,
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"Up to 70GW of solar by 2035\"",
+      "sources": [
+        {
+          "label": "HM Government, British energy security strategy (7 April 2022), key measures table; also \"We expect a five-fold increase in deployment by 2035.\"",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        },
+        {
+          "label": "DESNZ, DUKES table 5.12: plant installed capacity by technology (2026)",
+          "url": "https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes",
+          "role": "primary"
+        }
+      ],
+      "target": {
+        "value": 70000,
+        "unit": "MW",
+        "geography_code": "K03000001",
+        "period_start": "2022-04-07",
+        "period_end": "2035-12-31",
+        "period_note": "Installed capacity at the end of 2035."
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Installed solar PV capacity in Great Britain.",
+      "not_scored_reason": "No Great Britain solar capacity series. DUKES 5.12 is United Kingdom, and Northern Ireland solar is not zero: the Renewable Energy Planning Database (Q2 2026) lists at least 209 MW operational there from sites of 150 kW and over, with smaller rooftop systems uncounted. The UK figure therefore overstates Great Britain by an unknown amount.",
+      "status_note": "Not yet due. UK installed solar is shown as context only. The Clean Power 2030 Action Plan gives 45–47 GW for 2030.",
+      "context_indicator_ids": ["electricity-capacity-by-technology", "renewable-energy-planning-pipeline"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "labour-2024-double-onshore-triple-solar-quadruple-offshore",
+      "title": "Double onshore wind, triple solar, quadruple offshore wind by 2030 (2024)",
+      "made_by": "Labour Party (2024 general election manifesto)",
+      "made_date": "2024-06-13",
+      "made_date_precision": null,
+      "made_date_note": "From the manifesto page's published-date metadata; the page body prints no date.",
+      "nations": ["England", "Wales", "Scotland", "Northern Ireland"],
+      "statement": "\"Labour will work with the private sector to double onshore wind, triple solar power, and quadruple offshore wind by 2030.\"",
+      "sources": [
+        {
+          "label": "Labour Party, Make Britain a clean energy superpower (2024 manifesto chapter)",
+          "url": "https://labour.org.uk/change/make-britain-a-clean-energy-superpower/",
+          "role": "manifesto"
+        }
+      ],
+      "target": {
+        "value": null,
+        "unit": "multiple-of-baseline",
+        "geography_code": null,
+        "period_start": "2024-07-05",
+        "period_end": "2030-12-31",
+        "period_note": "Multiples (2x, 3x, 4x) with no stated baseline year, unit or GW figure."
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Not defined by the pledge.",
+      "not_scored_reason": "The manifesto gives multiples without a baseline year or a capacity figure. Choosing a baseline would be the Exchange setting the target. The Clean Power 2030 Action Plan's GW ranges are a later, separate document and are listed on their own.",
+      "status_note": "Capacity by technology is shown as context only.",
+      "context_indicator_ids": ["electricity-capacity-by-technology"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "clean-power-2030-95pct-gb-generation",
+      "title": "Clean power by 2030: at least 95% of GB generation (2024)",
+      "made_by": "Department for Energy Security and Net Zero, Clean Power 2030 Action Plan",
+      "made_date": "2024-12-13",
+      "made_date_precision": null,
+      "made_date_note": "Publication date on the GOV.UK landing page; the plan was updated on 15 April 2025.",
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"clean sources produce at least as much power as Great Britain consumes in total over the whole year, and at least 95% of Great Britain’s generation\"",
+      "sources": [
+        {
+          "label": "DESNZ, Clean Power 2030 Action Plan: A new era of clean electricity – main report (13 December 2024, updated 15 April 2025)",
+          "url": "https://www.gov.uk/government/publications/clean-power-2030-action-plan/clean-power-2030-action-plan-a-new-era-of-clean-electricity-main-report",
+          "role": "official"
+        },
+        {
+          "label": "HM Government, British energy security strategy (April 2022): \"By 2030, 95% of British electricity could be low-carbon\"",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        }
+      ],
+      "target": {
+        "value": 0.95,
+        "unit": "share-of-generation",
+        "geography_code": "K03000001",
+        "period_start": "2030-01-01",
+        "period_end": "2030-12-31",
+        "period_note": "'In a typical weather year' — a modelled weather basis, not the observed calendar year."
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Share of Great Britain electricity generation from clean sources over a year, on a typical-weather basis.",
+      "not_scored_reason": "No Ready series counts the same thing. Energy Trends 5.1 is UK, not GB; the NESO GB mix is loaded for 2024 only; the target is a share of generation on a typical-weather basis, which observed years do not report; and the scorer compares one series to a target, not a computed share.",
+      "status_note": "Not yet due. Low-carbon share of total energy (a different measure) is context only.",
+      "context_indicator_ids": ["gb-generation-mix-half-hourly", "electricity-generation-by-source", "low-carbon-energy-share"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "bess-2022-24gw-nuclear-by-2050",
+      "title": "Up to 24GW of nuclear by 2050 (2022)",
+      "made_by": "HM Government, British energy security strategy",
+      "made_date": "2022-04-07",
+      "made_date_precision": null,
+      "made_date_note": null,
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"increasing our plans for deployment of civil nuclear to up to 24GW by 2050\"",
+      "sources": [
+        {
+          "label": "HM Government, British energy security strategy (7 April 2022)",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        }
+      ],
+      "target": {
+        "value": 24000,
+        "unit": "MW",
+        "geography_code": "K03000001",
+        "period_start": "2022-04-07",
+        "period_end": "2050-12-31",
+        "period_note": "Capacity in 2050."
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Installed civil nuclear capacity.",
+      "not_scored_reason": "DUKES 5.12 splits nuclear into AGR, Magnox and PWR rows; the scorer reads one dimension value, not a sum. Could be scored once match supports summing dimension values. Not due until 2050.",
+      "status_note": "Capacity by reactor type is context only.",
+      "context_indicator_ids": ["electricity-capacity-by-technology", "plant-load-factors"],
+      "linked_event_ids": [],
+      "funding": []
+    },
+    {
+      "id": "bess-2022-10gw-low-carbon-hydrogen-by-2030",
+      "title": "Up to 10GW of low-carbon hydrogen production by 2030 (2022)",
+      "made_by": "HM Government, British energy security strategy",
+      "made_date": "2022-04-07",
+      "made_date_precision": null,
+      "made_date_note": "Doubled the 5GW ambition in the Ten Point Plan (November 2020).",
+      "nations": ["England", "Wales", "Scotland", "Northern Ireland"],
+      "statement": "\"We will double our UK ambition for hydrogen production to up to 10GW by 2030, with at least half of this from electrolytic hydrogen.\"",
+      "sources": [
+        {
+          "label": "HM Government, British energy security strategy (7 April 2022)",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        },
+        {
+          "label": "HM Government, The Ten Point Plan for a Green Industrial Revolution (November 2020): \"the UK is aiming for 5GW of low carbon hydrogen production capacity by 2030\"",
+          "url": "https://www.gov.uk/government/publications/the-ten-point-plan-for-a-green-industrial-revolution/title",
+          "role": "official"
+        }
+      ],
+      "target": {
+        "value": 10000,
+        "unit": "MW-production-capacity",
+        "geography_code": "K02000001",
+        "period_start": "2022-04-07",
+        "period_end": "2030-12-31",
+        "period_note": null
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Low-carbon hydrogen production capacity.",
+      "not_scored_reason": "No hydrogen production capacity series in the registry.",
+      "status_note": null,
+      "context_indicator_ids": [],
+      "linked_event_ids": ["energy-act-2023"],
+      "funding": []
+    },
+    {
+      "id": "bess-2022-600000-heat-pumps-a-year-by-2028",
+      "title": "600,000 heat pump installations a year by 2028 (2022)",
+      "made_by": "HM Government, British energy security strategy",
+      "made_date": "2022-04-07",
+      "made_date_precision": null,
+      "made_date_note": "The British energy security strategy is the page where this wording was verified; the Ten Point Plan's version was not checked.",
+      "nations": ["England", "Wales", "Scotland"],
+      "statement": "\"introducing a package of measures to increase deployment of heat pumps to 600,000 installations per year by 2028\"",
+      "sources": [
+        {
+          "label": "HM Government, British energy security strategy (7 April 2022)",
+          "url": "https://www.gov.uk/government/publications/british-energy-security-strategy/british-energy-security-strategy",
+          "role": "official"
+        }
+      ],
+      "target": {
+        "value": 600000,
+        "unit": "installations-per-year",
+        "geography_code": "K03000001",
+        "period_start": "2028-01-01",
+        "period_end": "2028-12-31",
+        "period_note": null
+      },
+      "match": null,
+      "scorable": false,
+      "measure_definition": "Heat pumps installed in a year.",
+      "not_scored_reason": "No installations series in the registry. Housing's ehs-heating is a share of the English dwelling stock, not installations a year.",
+      "status_note": null,
+      "context_indicator_ids": ["ehs-heating"],
+      "linked_event_ids": [],
+      "funding": []
+    }
+  ]
+}

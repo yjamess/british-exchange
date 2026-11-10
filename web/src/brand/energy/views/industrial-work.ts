@@ -50,13 +50,13 @@ export const industrialWorkViews = {
       evidence: {
         source: ENERGY_SOURCE.jobsPay,
         definition:
-          "ASHE median earnings for manufacturing section C and two-digit branches — cash pounds.",
+          "Median earnings for all manufacturing and each of its branches, in cash pounds, from the Annual Survey of Hours and Earnings.",
         method: [
           "Median is ONS's preferred average. Full-time and all-employee sheets stay separate.",
           "One ASHE edition in this release (2025 revised) — annual % change is the published year-on-year figure.",
         ],
         geography: "United Kingdom",
-        period: "April 2025 pay period (ASHE)",
+        period: "April 2025 pay period",
         dataHref: "/data?record=ashe-manufacturing-earnings",
       },
     },
@@ -69,8 +69,8 @@ export const industrialWorkViews = {
         definition:
           "Observation tables for manufacturing employment, output, productivity, pay and regional jobs.",
         method: ["One table per dataset."],
-        geography: "United Kingdom · regions where published",
-        period: "As published",
+        geography: "United Kingdom and regions where published",
+        period: "Quarterly jobs and productivity; annual pay",
         dataHref: "/data?record=manufacturing-employment",
       },
     },

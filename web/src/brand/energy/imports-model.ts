@@ -380,6 +380,33 @@ export function interconnectorSeries(
   };
 }
 
+/** Calendar-year sums of valued quarters — one point per year for Data tables. */
+export function interconnectorAnnualSeries(
+  rows: Observation[],
+  corridor: InterconnectorCorridor = "UK-total",
+  flow: InterconnectorFlow = "Net imports",
+): { id: string; label: string; points: Pt[] } {
+  const quarterly = interconnectorSeries(rows, corridor, flow).points;
+  const byYear = new Map<number, { v: number; provisional: boolean }>();
+  for (const p of quarterly) {
+    const y = Math.floor(p.t + 1e-6);
+    const prev = byYear.get(y);
+    byYear.set(y, {
+      v: (prev?.v ?? 0) + p.v,
+      provisional: Boolean(prev?.provisional || p.provisional),
+    });
+  }
+  const years = [...byYear.keys()].sort((a, b) => a - b);
+  return {
+    id: `ic-annual-${corridor}-${flow}`,
+    label: `${corridor} · ${flow} · annual`,
+    points: years.map((t) => {
+      const cell = byYear.get(t)!;
+      return { t, v: cell.v, provisional: cell.provisional };
+    }),
+  };
+}
+
 /** Sum of valued quarters in a calendar year for one corridor × flow. */
 export function interconnectorYearSum(
   rows: Observation[],

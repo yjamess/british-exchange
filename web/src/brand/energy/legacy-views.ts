@@ -7,6 +7,8 @@
  *
  *   industrial-work › atlas    → manufacturing › places   (same BRES regional jobs)
  *   networks › capacity        → imports › connectors     (same NESO cable-capacity series)
+ *   networks › border          → imports › connectors     (same quarterly cable flows)
+ *   networks › night           → generation › year        (same monthly GB imports line)
  *
  * Plain function, no React — the sector route calls it on the server so a stale
  * bookmark redirects before any pack is loaded.
@@ -31,6 +33,16 @@ export const ENERGY_LEGACY_VIEWS: readonly LegacyRule[] = [
     from: { domain: "networks", view: "capacity" },
     to: { domain: "imports", view: "connectors" },
     keep: ["year"],
+  },
+  {
+    from: { domain: "networks", view: "border" },
+    to: { domain: "imports", view: "connectors" },
+    keep: ["year", "flow"],
+  },
+  {
+    from: { domain: "networks", view: "night" },
+    to: { domain: "generation", view: "year" },
+    keep: [],
   },
 ];
 

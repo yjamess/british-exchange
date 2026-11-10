@@ -54,18 +54,22 @@ export function CatalogueDossier({
           <dt>{event.markLabel}</dt>
           <dd>{event.markValue}</dd>
         </div>
-        <div>
-          <dt>Status</dt>
-          <dd>{event.status}</dd>
-        </div>
+        {event.status && (
+          <div>
+            <dt>Status</dt>
+            <dd>{event.status}</dd>
+          </div>
+        )}
         <div>
           <dt>Applies</dt>
           <dd>{event.applies}</dd>
         </div>
-        <div>
-          <dt>Commencement</dt>
-          <dd>{event.commencement}</dd>
-        </div>
+        {event.commencement && (
+          <div>
+            <dt>Commencement</dt>
+            <dd>{event.commencement}</dd>
+          </div>
+        )}
         <div>
           <dt>Sources</dt>
           <dd>

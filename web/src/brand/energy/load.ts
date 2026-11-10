@@ -6,6 +6,7 @@
  */
 
 import { stationPosition } from "./station-model";
+import { EMPTY_POLICY_PLEDGES_PACK, loadPolicyPledgesPack, type PolicyPledgesPack } from "./policy-pledges";
 import {
   fetchIndicator,
   fetchObservations,
@@ -708,7 +709,10 @@ async function loadSeriesPack(
   fallbackMeta: IndicatorMeta,
   sector: CuratedSector = "energy",
 ): Promise<SeriesPack | null> {
-  try {
+  // Cloud completeness: no laptop CSV fallback — Ready series must come from the API.
+  // One silent retry: Imports loads ~10 packs in parallel and a single aborted fetch
+  // was wiping Resilience (fossilDependency null while siblings 200).
+  const attempt = async (): Promise<SeriesPack> => {
     const [meta, obs] = await Promise.all([
       fetchIndicator(id),
       fetchObservations(id, { limit: "10000" }),
@@ -720,10 +724,17 @@ async function loadSeriesPack(
       sourceVersion,
       retrievedNote: `Loaded from the Exchange API (Supabase Postgres; ${sector}/${id}).`,
     };
-  } catch {
-    // Cloud completeness: no laptop CSV fallback — Ready series must come from the API.
-    void fallbackMeta;
-    return null;
+  };
+  try {
+    return await attempt();
+  } catch (first) {
+    try {
+      return await attempt();
+    } catch (err) {
+      console.error(`loadSeriesPack(${id}) failed after retry`, err ?? first);
+      void fallbackMeta;
+      return null;
+    }
   }
 }
 
@@ -1338,7 +1349,7 @@ const SSEN_ATLAS_META: IndicatorMeta = {
 
 export async function loadNetworks(): Promise<NetworksPack> {
   // Link Ready packages already used elsewhere — do not fork curated data.
-  const [interconnectors, interconnectorCapacity, tec, ssenCounts, ssenAtlas, outlinePack] =
+  const [interconnectors, interconnectorCapacity, tec, ssenCounts, ssenAtlasRaw, outlinePack] =
     await Promise.all([
       loadSeriesPack(NETWORKS_IC_ID, INTERCONNECTOR_META),
       loadSeriesPack(INTERCONNECTOR_CAPACITY_ID, INTERCONNECTOR_CAPACITY_META),
@@ -1347,6 +1358,21 @@ export async function loadNetworks(): Promise<NetworksPack> {
       fetchPackJson<SsenAtlasPack>("energy.ssen-dno-atlas").catch(() => null),
       loadGbOutline(),
     ]);
+  // Operator pin reuses the same id for many UNKNOWN / blank-number sites (hundreds
+  // of Switching Station:UNKNOWN). React keys and selection need one id per mark.
+  const ssenAtlas = ssenAtlasRaw
+    ? {
+        ...ssenAtlasRaw,
+        substations: ssenAtlasRaw.substations.map((p, i) => ({
+          ...p,
+          id: `${p.id}@${p.lon.toFixed(5)},${p.lat.toFixed(5)}#${i}`,
+        })),
+        lines: ssenAtlasRaw.lines.map((line, i) => ({
+          ...line,
+          id: `${line.id}#${i}`,
+        })),
+      }
+    : null;
   return {
     interconnectors,
     interconnectorCapacity,
@@ -1807,6 +1833,14 @@ async function loadPolicyEvents(): Promise<PolicyEventsPack> {
   }
 }
 
+async function loadPolicyPledges(): Promise<PolicyPledgesPack> {
+  try {
+    return await loadPolicyPledgesPack();
+  } catch {
+    return EMPTY_POLICY_PLEDGES_PACK;
+  }
+}
+
 async function loadShockEvents(): Promise<ShockEventsPack> {
   try {
     return await loadShockEventsPack();
@@ -1829,6 +1863,7 @@ export type EnergySectorData = {
   renewables: RenewablesPack;
   networks: NetworksPack;
   policyEvents: PolicyEventsPack;
+  policyPledges: PolicyPledgesPack;
   shockEvents: ShockEventsPack;
 };
 
@@ -1855,6 +1890,7 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     renewables,
     networks,
     policyEvents,
+    policyPledges,
     shockEvents,
   ] = await Promise.all([
     need("generation") ? loadGeneration() : skip(null),
@@ -1870,6 +1906,7 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     need("renewables") ? loadRenewables() : skip(EMPTY_RENEWABLES),
     need("networks") ? loadNetworks() : skip(EMPTY_NETWORKS),
     need("policyEvents") ? loadPolicyEvents() : skip(EMPTY_POLICY_EVENTS_PACK),
+    need("policyPledges") ? loadPolicyPledges() : skip(EMPTY_POLICY_PLEDGES_PACK),
     need("shockEvents") ? loadShockEvents() : skip(EMPTY_SHOCK_EVENTS_PACK),
   ]);
 
@@ -1887,6 +1924,7 @@ export async function loadEnergy(scope: EnergyScope = "generation"): Promise<Ene
     renewables,
     networks,
     policyEvents,
+    policyPledges,
     shockEvents,
   };
 }

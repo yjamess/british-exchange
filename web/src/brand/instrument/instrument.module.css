@@ -88,8 +88,15 @@
 
 /* Ranked bars */
 .rank { margin: 0; display: grid; gap: 2px; }
-/* Name + value columns hug their content so the bar track takes the rest of the stage width. */
-.rankRow { display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; gap: var(--bo-s4); align-items: center; padding: 6px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-ui); color: var(--bo-text); }
+/* Name wraps; bar takes leftover width; value stays tabular on the right.
+   Do not use max-content for the name — long labels (Jobs › Pay branches) force
+   the page wider than a 390px phone. */
+.rankRow { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) max-content; gap: var(--bo-s4); align-items: center; padding: 6px 0; border-bottom: var(--bo-hair); font-size: var(--bo-t-ui); color: var(--bo-text); }
+.rankRow > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
 .rankButton {
   appearance: none;
   width: 100%;
@@ -122,8 +129,8 @@
 .rank figcaption { margin-top: var(--bo-s3); }
 
 @media (max-width: 560px) {
-  .rankRow { grid-template-columns: max-content minmax(0, 1fr) max-content; gap: var(--bo-s3); font-size: var(--bo-t-note); }
-  .rankRow b { font-size: var(--bo-t-fig-s); }
+  .rankRow { grid-template-columns: minmax(0, 1fr) minmax(3rem, 1fr) max-content; gap: var(--bo-s3); font-size: var(--bo-t-note); align-items: start; }
+  .rankRow b { font-size: var(--bo-t-fig-s); padding-top: 1px; }
 }
 .empty { display: grid; place-content: center; justify-items: start; gap: var(--bo-s2); border: 1px dashed var(--bo-ink-40); padding: var(--bo-s5); }
 .empty p { margin: 0; max-width: 42ch; font-size: var(--bo-t-ui); line-height: 1.45; color: var(--bo-text); }

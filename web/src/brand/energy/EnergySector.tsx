@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { EMPTY_POLICY_PLEDGES_PACK, type PolicyPledgesPack } from "./policy-pledges";
 import { BrandRoot } from "../BrandRoot";
 import type { SectorConfig } from "../sector-pages";
 import { EnergyView } from "./EnergyCanvas";
@@ -98,6 +99,7 @@ export function EnergySector({
     ssenCounts: null,
   },
   policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  policyPledges = EMPTY_POLICY_PLEDGES_PACK,
   shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
@@ -115,6 +117,7 @@ export function EnergySector({
   renewables?: RenewablesPack;
   networks?: NetworksPack;
   policyEvents?: PolicyEventsPack;
+  policyPledges?: PolicyPledgesPack;
   shockEvents?: ShockEventsPack;
 }) {
   return (
@@ -136,6 +139,7 @@ export function EnergySector({
           renewables={renewables}
           networks={networks}
           policyEvents={policyEvents}
+          policyPledges={policyPledges}
           shockEvents={shockEvents}
         />
       </Suspense>

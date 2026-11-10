@@ -5,6 +5,7 @@
  * Ready domains: generation…manufacturing, industrial-work, policy.
  */
 
+import { EMPTY_POLICY_PLEDGES_PACK, type PolicyPledgesPack } from "./policy-pledges";
 import { useSearchParams } from "next/navigation";
 import { ArrivalFrom, readArrival } from "../connections";
 import { primaryPackLoaded, type EnergyDomainId } from "./domain-sources";
@@ -127,6 +128,7 @@ export function EnergyView({
     ssenCounts: null,
   },
   policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  policyPledges = EMPTY_POLICY_PLEDGES_PACK,
   shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
@@ -144,6 +146,7 @@ export function EnergyView({
   renewables?: RenewablesPack;
   networks?: NetworksPack;
   policyEvents?: PolicyEventsPack;
+  policyPledges?: PolicyPledgesPack;
   shockEvents?: ShockEventsPack;
 }) {
   const hero = useSearchParams().get("domain") ? "band" : "full";
@@ -165,6 +168,7 @@ export function EnergyView({
         renewables={renewables}
         networks={networks}
         policyEvents={policyEvents}
+        policyPledges={policyPledges}
         shockEvents={shockEvents}
       />
     </SectorPage>
@@ -248,6 +252,7 @@ function EnergyCanvas({
     ssenCounts: null,
   },
   policyEvents = EMPTY_POLICY_EVENTS_PACK,
+  policyPledges = EMPTY_POLICY_PLEDGES_PACK,
   shockEvents = EMPTY_SHOCK_EVENTS_PACK,
 }: {
   config: SectorConfig;
@@ -265,6 +270,7 @@ function EnergyCanvas({
   renewables?: RenewablesPack;
   networks?: NetworksPack;
   policyEvents?: PolicyEventsPack;
+  policyPledges?: PolicyPledgesPack;
   shockEvents?: ShockEventsPack;
 }) {
   const params = useSearchParams();
@@ -338,16 +344,7 @@ function EnergyCanvas({
             }
           >
             <EmptyStage label={STAGE_EMPTY.preparation.label}>{STAGE_EMPTY.preparation.hint}</EmptyStage>
-            {domain.series.length > 0 && (
-              <ul className={c.series}>
-                {domain.series.map((id) => (
-                  <li key={id}>
-                    <a href={`/data?record=${id}`}>{titles[id] ?? id}</a>
-                    <span className="bo-label">{id}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+
           </Stage>
         </>
       ) : active === "generation" ? (
@@ -374,13 +371,13 @@ function EnergyCanvas({
           policyEvents={policyEvents}
         />
       ) : active === "networks" ? (
-        <NetworksCanvas pack={networks} yearMix={yearMix} />
+        <NetworksCanvas pack={networks} />
       ) : active === "manufacturing" ? (
         <ManufacturingCanvas pack={manufacturing} />
       ) : active === "industrial-work" ? (
         <JobsCanvas pack={jobsPackFromManufacturing(manufacturing)} />
       ) : active === "policy" ? (
-        <PolicyCanvas policyEvents={policyEvents} />
+        <PolicyCanvas policyEvents={policyEvents} policyPledges={policyPledges} />
       ) : (
         <>
           <ExplorerHead />

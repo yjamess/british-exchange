@@ -20,7 +20,6 @@ import {
   type LongYear,
   type Measure,
 } from "./long-run";
-import { historyReading } from "./generation-reading";
 import { MixLines } from "./MixViews";
 import s from "./changing.module.css";
 
@@ -51,7 +50,6 @@ export function ChangingCurrent({
 
   return (
     <div className={s.root}>
-      <p className={s.note}>{historyReading(mix, state.year, state.group, state.measure)}</p>
       {fuel ? (
         <>
           <TimeChart
@@ -74,9 +72,6 @@ export function ChangingCurrent({
             periodLabel={(t) => String(Math.round(t))}
             rules={[{ id: "selected-year", t: state.year, label: String(state.year), active: true }]}
           />
-          <p className={s.note}>
-            {fuel.includes} Choose All fuels above to return to the whole mix.
-          </p>
         </>
       ) : (
         <MixLines

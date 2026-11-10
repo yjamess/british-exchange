@@ -2,6 +2,11 @@
 
 Set DATABASE_URL, e.g.:
   postgresql://britain:britain@127.0.0.1:5432/britain_exchange
+
+API traffic shares one ``ConnectionPool`` so Energy SSR (dozens of parallel
+indicator + observation fetches) cannot open more session-mode clients than
+Supabase allows (``EMAXCONNSESSION`` / pool_size ≈ 15).
+Docs: https://www.psycopg.org/psycopg3/docs/advanced/pool.html
 """
 
 from __future__ import annotations
@@ -14,9 +19,14 @@ from pathlib import Path
 
 import psycopg
 from psycopg.rows import dict_row
+from psycopg_pool import ConnectionPool
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MIGRATIONS_DIR = REPO_ROOT / "database" / "migrations"
+
+# Stay under typical Supabase session-mode pool_size (15). One FastAPI process.
+_POOL_MAX_SIZE = int(os.environ.get("BX_DB_POOL_MAX", "8"))
+_pool: ConnectionPool | None = None
 
 
 def load_repo_env() -> None:
@@ -84,9 +94,41 @@ def require_database_url() -> str:
     return url
 
 
+def get_pool() -> ConnectionPool:
+    """Return the process-wide pool, creating it on first use.
+
+    Lazy open keeps one-shot CLI scripts cheap until they actually talk to
+    Postgres. Prefer ``close_pool()`` on API shutdown so sessions are released.
+    """
+    global _pool
+    if _pool is None:
+        _pool = ConnectionPool(
+            conninfo=require_database_url(),
+            min_size=1,
+            max_size=max(1, _POOL_MAX_SIZE),
+            kwargs={"row_factory": dict_row},
+            open=True,
+            name="britain_exchange",
+        )
+    return _pool
+
+
+def close_pool() -> None:
+    """Close the shared pool if it was opened (idempotent)."""
+    global _pool
+    if _pool is not None:
+        _pool.close()
+        _pool = None
+
+
 @contextmanager
 def connect() -> Iterator[psycopg.Connection]:
-    with psycopg.connect(require_database_url(), row_factory=dict_row) as conn:
+    """Borrow one pooled connection for the duration of the ``with`` block.
+
+    Prefer this over bare ``psycopg.connect`` in request handlers: each open
+    session-mode client counts against Supabase's pooler limit.
+    """
+    with get_pool().connection() as conn:
         yield conn
 
 

@@ -183,7 +183,8 @@ export function gasAnnualSeries(rows: Observation[]): {
     if (r.observation_status === "provisional") cur.provisional = true;
     byYear.set(y, cur);
   }
-  const years = [...byYear.keys()].sort((a, b) => a - b);
+  // Whole calendar years only: a part-year sum is not comparable with a full year.
+  const years = [...byYear.keys()].filter((y) => byYear.get(y)!.months >= 12).sort((a, b) => a - b);
   const monthsByYear: Record<number, number> = {};
   const points: Pt[] = years.map((y) => {
     const cur = byYear.get(y)!;
@@ -191,7 +192,7 @@ export function gasAnnualSeries(rows: Observation[]): {
     return {
       t: y,
       v: gwhToBcm(cur.sum),
-      provisional: cur.provisional || cur.months < 12,
+      provisional: cur.provisional,
     };
   });
   return {
@@ -241,7 +242,7 @@ export function primaryFossilStack(rows: Observation[]): { id: string; label: st
       if (r.observation_status === "provisional") cur.provisional = true;
       byYear.set(y, cur);
     }
-    const years = [...byYear.keys()].sort((a, b) => a - b);
+    const years = [...byYear.keys()].filter((y) => byYear.get(y)!.months >= 12).sort((a, b) => a - b);
     return {
       id: `primary-${fuel}`,
       label: FOSSIL_PRIMARY_LABEL[fuel],
@@ -250,7 +251,7 @@ export function primaryFossilStack(rows: Observation[]): { id: string; label: st
         return {
           t: y,
           v: cur.sum,
-          provisional: cur.provisional || cur.months < 12,
+          provisional: cur.provisional,
         };
       }),
     };
@@ -309,7 +310,7 @@ export function tradeAnnualMtoe(
     if (r.observation_status === "provisional") cur.provisional = true;
     byYear.set(y, cur);
   }
-  const years = [...byYear.keys()].sort((a, b) => a - b);
+  const years = [...byYear.keys()].filter((y) => byYear.get(y)!.quarters >= 4).sort((a, b) => a - b);
   return {
     id: `trade-${flow.toLowerCase()}-mtoe`,
     label: flow === "Imports" ? "Energy imports" : "Energy exports",
@@ -318,7 +319,7 @@ export function tradeAnnualMtoe(
       return {
         t: y,
         v: cur.sum / 1000, // ktoe → Mtoe
-        provisional: cur.provisional || cur.quarters < 4,
+        provisional: cur.provisional,
       };
     }),
   };
@@ -571,6 +572,19 @@ export function fieldYearState(
 export function fieldFuelValue(row: FieldAnnual | undefined, fuel: Exclude<AtlasFuel, "all">): number {
   if (!row || (fuel === "gas" && isSuppressedGas(row))) return 0;
   return fuel === "oil" ? row.oilTonnes : row.gasToPipelineKsm3;
+}
+
+/**
+ * Tonnes of crude oil with the same energy as one thousand standard m³ of produced gas.
+ * DESNZ, DUKES Table A.1 (published 30 July 2026), 2025 gross calorific values:
+ * natural gas produced 40.326 MJ/m³; crude oil 45.654 GJ/t. 1,000 × 40.326 ÷ 45,654 ≈ 0.883.
+ * One fixed year: used to rank fields with all fuels, not to restate national totals.
+ */
+export const GAS_KSM3_TO_OIL_TONNES = (1000 * 40.326) / 45654;
+
+/** Oil plus gas converted to oil by energy content, in tonnes. Suppressed gas counts as 0. */
+export function fieldOilEquivalentTonnes(row: FieldAnnual | undefined): number {
+  return fieldFuelValue(row, "oil") + fieldFuelValue(row, "gas") * GAS_KSM3_TO_OIL_TONNES;
 }
 
 /** Largest single field-year for a fuel (offshore) — the fixed glyph scale for every year. */

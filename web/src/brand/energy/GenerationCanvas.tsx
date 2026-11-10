@@ -58,6 +58,7 @@ import {
   resolveEnergyConnectionHref,
 } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
 import { FUELS, followFuel, fuelById, type FuelId } from "./fuels";
 import {
   annualLabel,
@@ -72,6 +73,7 @@ import {
 } from "./generation-model";
 import {
   capacityRowsForYear,
+  yearTotals,
   yearMonthlyLines,
   type AtlasPack,
   type CapacityPack,
@@ -269,9 +271,9 @@ export function GenerationCanvas({
     const top = LONG_FUELS.filter((f) => f.selectable).reduce((a, b) => (lrRow.v[b.id] > lrRow.v[a.id] ? b : a));
     const lowCarbon = lrValue(lrRow, "nuclear", "share") + lrValue(lrRow, "renewables", "share");
     return [
-      { label: "Total generation", value: fmtTWh(lrRow.total), note: `${lrYear} · UK · ${lrRow.estimated ? "DESNZ estimate" : "reported"}` },
-      { label: "Largest source", value: fmtPct(lrValue(lrRow, top.id, "share")), note: `${top.label}, ${lrYear}` },
-      { label: "Nuclear, wind, solar, hydro", value: fmtPct(lowCarbon), note: "Share of generation; bioenergy is counted in other fuels" },
+      { label: `Total generation · ${lrYear}`, value: fmtTWh(lrRow.total), note: `United Kingdom · ${lrRow.estimated ? "DESNZ estimate" : "reported"}` },
+      { label: "Largest share", value: fmtPct(lrValue(lrRow, top.id, "share")), note: `${top.label}, ${lrYear}` },
+      { label: "Low-carbon share", value: fmtPct(lowCarbon), note: "Nuclear, wind, solar and hydro" },
     ];
   })();
 
@@ -294,30 +296,60 @@ export function GenerationCanvas({
     ];
   }, [row, year]);
 
+  const capacityFigures: ExplorerFigure[] = (() => {
+    if (view !== "capacity" || !capacity) return [];
+    const rows = capacityRowsForYear(capacity.observations, year);
+    if (rows.length === 0) return [];
+    const total = rows.reduce((a, r) => a + r.v, 0);
+    const gen = yearRow(mix, year);
+    return [
+      { label: `Installed capacity · ${year}`, value: `${total.toFixed(1)} GW`, note: "All technologies · nameplate" },
+      { label: "Largest technology", value: `${rows[0]!.v.toFixed(1)} GW`, note: rows[0]!.label },
+      {
+        label: `Generation · ${year}`,
+        value: gen ? `${fmtTwh(gen.total)} TWh` : "—",
+        note: gen ? (gen.partial ? "Part year so far" : "United Kingdom") : "Not yet published for this year",
+      },
+    ];
+  })();
+
+  const yearFigures: ExplorerFigure[] = (() => {
+    if (view !== "year" || !yearMix || yearMix.observations.length === 0) return [];
+    const y = yearTotals(yearMix.observations);
+    const monthName = (ym: string) =>
+      new Date(`${ym}-01T00:00:00Z`).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
+    return [
+      { label: `Generated · ${yearMix.year}`, value: `${fmtTwh(y.total)} TWh`, note: y.months < 12 ? `Great Britain · ${y.months} months` : "Great Britain · imports not included" },
+      { label: "Largest source", value: y.largest ? `${fmtTwh(y.largest[1])} TWh` : "—", note: y.largest?.[0] ?? "" },
+      { label: "Busiest month", value: y.busiest ? `${fmtTwh(y.busiest[1])} TWh` : "—", note: y.busiest ? monthName(y.busiest[0]) : "" },
+    ];
+  })();
+
   // Source line matches Housing: publisher · series (release and file ids live in Data).
   const notesFoot = useLong ? (
     <FigureRecord
-      source={ENERGY_SOURCE.generationLongRun}
+      source={energySource("generation", view, ENERGY_SOURCE.generationLongRun)}
       definition={[
         `Estimated UK electricity generation by fuel, calendar years ${lrEarliest}–${lrLatest}, in TWh. Eight DESNZ fuel groups; coke and breeze is drawn with other fuels.`,
         "Each fuel is a line on one shared scale; straight segments join observed years and assert nothing between them.",
       ]}
       method={[
-        `On the all-fuels chart, rings mark the first year a fuel became the largest source, and the dashed vertical rule marks the switch from DESNZ estimates (before ${LONG_RUN_SOURCE.firstReported}) to reported figures. Move across the chart to change the year (drag on touch screens; arrow keys when focused).`,
+        ...(view === "current" && long.group
+          ? [`${LONG_FUELS.find((f) => f.id === long.group)?.label ?? ""}: ${(LONG_FUELS.find((f) => f.id === long.group)?.includes ?? "").replace(/\s*\(DESNZ note \d+\)/g, "").replace(/ The total matches Energy Trends ET 5\.1;/, "")}`]
+          : []),
+        `The dotted vertical line marks the switch from DESNZ estimates (before ${LONG_RUN_SOURCE.firstReported}) to reported figures. Move across the chart to change the year (drag on touch screens; arrow keys when focused).`,
         `${LONG_RUN_SOURCE.seriesStart}–${LONG_RUN_SOURCE.firstReported - 1} are DESNZ estimates: published supply upscaled to generation and apportioned by fuel used. Before 1987 coverage is major power producers, transport undertakings and industrial hydro and nuclear only; 1987–1989 carry a high degree of estimation.`,
         `From ${LONG_RUN_SOURCE.unallocatedFrom} the published total exceeds the sum of DESNZ's fuel columns by 5–7 TWh. That gap is drawn as its own dashed band, not allocated to any fuel.`,
-        `Wind, wave, solar and hydro are one published group; bioenergy is inside other fuels. The quarterly Energy Trends series in Data is table 5.1 (from ${LONG_RUN_SOURCE.et51Start}), a different publication: the two are never added together.`,
+        `Wind, wave, solar and hydro are published as one group; bioenergy is counted in other fuels. The quarterly series in Data (from ${LONG_RUN_SOURCE.et51Start}) is a different DESNZ publication: the two are never added together.`,
         "Historical estimates and modern quarterly observations are separate publications; use the Data view to inspect each series.",
       ]}
       dataHref="/data?record=electricity-generation-long-run"
     />
   ) : view === "atlas" && atlas ? (
     <FigureRecord
-      source={
-        atlasReading === "openings"
+      source={energySource("generation", view, atlasReading === "openings"
           ? ENERGY_SOURCE.generationOpenings
-          : ENERGY_SOURCE.generationAtlas
-      }
+          : ENERGY_SOURCE.generationAtlas)}
       definition={
         atlasReading === "regions"
           ? "Installed capacity (GW) summed by nation or English region within each bucket separately: renewables, storage, and fossil and nuclear, for the mapped points in the current filter. Regions are labels on the register, not a spatial join to boundaries."
@@ -356,7 +388,7 @@ export function GenerationCanvas({
     />
   ) : view === "year" && yearMix ? (
     <FigureRecord
-      source={ENERGY_SOURCE.generationYearMix}
+      source={energySource("generation", view, ENERGY_SOURCE.generationYearMix)}
       definition="Great Britain electricity generation by fuel, monthly totals derived from half-hourly average megawatts. Northern Ireland is not included."
       method={[
         "Each half-hour is average megawatts; the Exchange multiplies by half an hour and sums to calendar months (TWh on the chart).",
@@ -369,7 +401,7 @@ export function GenerationCanvas({
     />
   ) : view === "capacity" && capacity ? (
       <FigureRecord
-        source={ENERGY_SOURCE.generationCapacity}
+        source={energySource("generation", view, ENERGY_SOURCE.generationCapacity)}
         definition="UK plant installed (nameplate) generating capacity in megawatts. Transmission and distribution connections are summed for each generator type."
         method={[
           "This is installed capacity (GW on the chart), not de-rated capacity and not generation (TWh).",
@@ -383,7 +415,7 @@ export function GenerationCanvas({
       />
     ) : pack ? (
       <FigureRecord
-        source={ENERGY_SOURCE.generationEt51}
+        source={energySource("generation", view, ENERGY_SOURCE.generationEt51)}
         definition="UK electricity generated by fuel (TWh), all generating companies."
         method={[
           "Calendar-year totals are summed by the Exchange from the four calendar quarters of component fuels. Aggregate rows are excluded so they are never double-counted.",
@@ -418,6 +450,8 @@ export function GenerationCanvas({
     <>
       <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
       {(view === "current" || view === "compare") && <FigureStrip figures={useLong ? lrFigures : figures} />}
+      {view === "capacity" && capacityFigures.length > 0 && <FigureStrip figures={capacityFigures} />}
+      {view === "year" && yearFigures.length > 0 && <FigureStrip figures={yearFigures} />}
 
       {(view === "current" || view === "compare" || view === "capacity") && (
         <ControlRow label="Generation controls">
@@ -427,7 +461,7 @@ export function GenerationCanvas({
                 label="Measure"
                 value={measure}
                 options={[
-                  { value: "absolute", label: "Electricity generated (TWh)" },
+                  { value: "absolute", label: "Electricity generated" },
                   { value: "share", label: "Share of generation (%)" },
                 ]}
                 onChange={(v) => sync({ measure: v })}
@@ -475,7 +509,7 @@ export function GenerationCanvas({
               label="Measure"
               value={measure}
               options={[
-                { value: "absolute", label: "Electricity generated (TWh)" },
+                { value: "absolute", label: "Electricity generated" },
                 { value: "share", label: "Share of generation (%)" },
               ]}
               onChange={(v) => sync({ measure: v })}
@@ -1074,13 +1108,15 @@ function AtlasStage({
                   </dd>
                 </div>
               ))}
+              {largestTech && (
+                <div>
+                  <dt className="bo-label">Largest technology · {largestTech[0].charAt(0) + largestTech[0].slice(1).toLowerCase()}</dt>
+                  <dd>
+                    <span className="bo-fig">{(largestTech[1] / 1000).toLocaleString("en-GB", { maximumFractionDigits: 2 })}</span> GW
+                  </dd>
+                </div>
+              )}
             </dl>
-            <p className={s.links}>Registers and storage are listed separately; they are not added into one fleet total.</p>
-            {largestTech && (
-              <p className={s.links}>
-                Largest technology in this selection: {largestTech[0]} · {(largestTech[1] / 1000).toFixed(2)} GW.
-              </p>
-            )}
             <p className="bo-label">{search || region ? "Matching stations" : "Largest matching stations"}</p>
             <ul className={s.stationList}>
               {shortlist.map((p) => (
@@ -1112,7 +1148,7 @@ function YearStage({ yearMix }: { yearMix: YearPack | null }) {
     <div className={s.stack}>
       <section className={s.panel}>
         <h3 className={t.stageTitle}>
-          Through {yearMix.year} · monthly TWh · GB system
+          Monthly generation by fuel · Great Britain · {yearMix.year} · TWh
         </h3>
         <TimeChart
           showTable={false}
@@ -1160,7 +1196,7 @@ function CapacityStage({
         <RankBars
           label={`UK installed generating capacity by technology, ${year}`}
           rows={capRows}
-          format={(v) => `${v.toFixed(1)} GW`}
+          format={(v) => `${v.toFixed(v < 1 ? 2 : 1)} GW`}
         />
       </section>
       <section className={s.panel}>
@@ -1274,7 +1310,7 @@ function stageTitle(view: string, year: number, compare: number, fuel: FuelId, m
   if (view === "current") return `The changing current · ${year} · ${measure === "share" ? "share" : "TWh"}`;
   if (view === "compare") return `Compare · ${compare} → ${year}`;
   if (view === "data") return `Generation archive · ${fuelLabel}`;
-  if (view === "capacity") return "Capacity and electricity";
+  if (view === "capacity") return `Capacity and generation · ${year}`;
   if (view === "atlas") return "UK power stations · installed capacity";
   if (view === "year") return "A year in power";
   return "Electricity generation";

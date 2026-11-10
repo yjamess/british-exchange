@@ -26,6 +26,7 @@ import {
 } from "../template";
 import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
 import { FossilsData, FOSSILS_DATA_SERIES, type FossilsDataSeries } from "./FossilsData";
 import {
   ATLAS_FUELS,
@@ -35,6 +36,7 @@ import {
   asAtlasScale,
   fieldFuelMax,
   fieldFuelValue,
+  fieldOilEquivalentTonnes,
   fieldMatchesFuel,
   fieldStartYear,
   fieldTimelines,
@@ -148,13 +150,21 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
     ...new Set(primaryStack.flatMap((s) => s.points.map((p) => p.t))),
   ].sort((a, b) => a - b);
   const oil2pYears = reservesMeasureSeries(reserveRows, "oil_2p_mt").points.map((p) => p.t);
-  const reserveYears = [
-    ...new Set([
-      ...oil2pYears,
-      ...reservesMeasureSeries(reserveRows, "gas_2p_bcm").points.map((p) => p.t),
-      ...reservesMeasureSeries(reserveRows, "oil_production_mt").points.map((p) => p.t),
-    ]),
-  ].sort((a, b) => a - b);
+  // Offer only years every drawn Reserves line covers (S18/S19): a union let 1970–72 in from
+  // oil extracted alone, with no 2P point to show. A series that failed to load is skipped
+  // rather than emptying the menu.
+  const reserveYearSets = [
+    oil2pYears,
+    reservesMeasureSeries(reserveRows, "gas_2p_bcm").points.map((p) => p.t),
+    reservesMeasureSeries(reserveRows, "oil_production_mt").points.map((p) => p.t),
+  ].filter((ys) => ys.length > 0);
+  const reserveYears =
+    reserveYearSets.length === 0
+      ? []
+      : reserveYearSets
+          .slice(1)
+          .reduce((acc, ys) => acc.filter((yy) => ys.includes(yy)), [...new Set(reserveYearSets[0]!)])
+          .sort((a, b) => a - b);
 
   const timelines = useMemo(() => fieldTimelines(pack.fieldProduction), [pack.fieldProduction]);
   const archive = useMemo(() => productionArchiveSpan(pack.fieldProduction), [pack.fieldProduction]);
@@ -171,10 +181,8 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
 
   const [view, setView] = useState(() => resolveView(searchParams.get("view")));
   const menuYears =
-    view === "reserves" || view === "gap"
-      ? reserveYears.length
-        ? reserveYears
-        : crudeYears
+    view === "reserves"
+      ? reserveYears
       : crudeYears.length
         ? crudeYears
         : gasYears.length
@@ -186,13 +194,23 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
   const [year, setYear] = useState(() =>
     clampYear(Number(searchParams.get("year") || latest), menuYears.length ? menuYears : [latest], latest),
   );
-  const [atlasYear, setAtlasYear] = useState(() =>
-    clampYear(
-      Number(searchParams.get("atlas_year") || searchParams.get("year") || atlasYears.at(-1) || 2025),
-      atlasYears,
-      atlasYears.at(-1) ?? 2025,
-    ),
-  );
+  /** Default to the last year with a full twelve months of field reports; later years stay selectable. */
+  const atlasDefault = useMemo(() => {
+    // A year is complete when most fields report twelve months (a field can carry two records,
+    // so a single row's months can exceed 12; the typical value is the honest test).
+    const counts = new Map<number, Map<number, number>>();
+    for (const r of pack.fieldProduction) {
+      const m = counts.get(r.year) ?? new Map<number, number>();
+      m.set(r.months, (m.get(r.months) ?? 0) + 1);
+      counts.set(r.year, m);
+    }
+    const full = [...counts.entries()]
+      .filter(([, m]) => [...m.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] === 12)
+      .map(([y]) => y);
+    return full.length ? Math.max(...full) : (atlasYears.at(-1) ?? 2025);
+  }, [pack.fieldProduction, atlasYears]);
+  /** 0 = no year chosen: follow atlasDefault, which is only known once field production has loaded. */
+  const [atlasYear, setAtlasYear] = useState(() => Number(searchParams.get("atlas_year") || searchParams.get("year") || 0));
   const [scale, setScale] = useState<AtlasScale>(() =>
     searchParams.get("view") === "closures" ? "field" : asAtlasScale(searchParams.get("scale")),
   );
@@ -246,7 +264,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
       writeUrl({
         view: next.view,
         year: next.year,
-        atlas_year: next.view === "northsea" ? next.atlas_year : null,
+        atlas_year: next.view === "northsea" && next.atlas_year ? next.atlas_year : null,
         status: next.view === "northsea" ? next.status : null,
         scale: next.view === "northsea" ? next.scale : null,
         fuel: next.view === "northsea" ? next.fuel : null,
@@ -259,7 +277,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
   );
 
   const y = clampYear(year, menuYears.length ? menuYears : [latest], latest);
-  const ay = clampYear(atlasYear, atlasYears, atlasYears.at(-1) ?? 2025);
+  const ay = atlasYear ? clampYear(atlasYear, atlasYears, atlasDefault) : atlasDefault;
   const crudeY = crudeValueInYear(crudeRows, y);
   const gasY = gasAnnualValue(gasRows, y);
   const coalY = coalValueInYear(coalRows, y);
@@ -294,9 +312,11 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
     }
     const rank = (f: FieldPoint) => {
       const r = rowIn(f, ay);
-      return fuel === "all" ? (r?.oilTonnes ?? 0) / 1000 + (r?.gasToPipelineKsm3 ?? 0) / 1000 : fieldFuelValue(r, fuel);
+      // All fuels: oil plus gas converted to oil by energy content (suppressed gas = 0).
+      return fuel === "all" ? fieldOilEquivalentTonnes(r) : fieldFuelValue(r, fuel);
     };
-    return list.toSorted((a, b) => rank(b) - rank(a) || a.name.localeCompare(b.name));
+    // Pin locale so Node SSR and the browser sort ties the same way (hydration).
+    return list.toSorted((a, b) => rank(b) - rank(a) || a.name.localeCompare(b.name, "en-GB"));
   }, [pack.fields, timelines, stateOf, rowIn, fuel, status, ay, query]);
   const reportingFields = visibleFields.filter((f) => stateOf(f) === "reported");
   const listFields = reportingFields.length && status !== "ceased" ? reportingFields : visibleFields;
@@ -545,7 +565,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                   },
                 ];
 
-  const yearOptions = (menuYears.length ? menuYears : [latest]).map((yy) => ({
+  const yearOptions = menuYears.map((yy) => ({
     value: String(yy),
     label: String(yy),
   }));
@@ -554,7 +574,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
   // Reset covers only what the current tab exposes, compared with that tab's real default
   // (the value the page opens with when the URL has no params). Settings from other tabs stay
   // untouched and never make Reset appear. `null` = nothing to reset on this tab.
-  const defaultAtlasYear = atlasYears.at(-1) ?? 2025;
+  const defaultAtlasYear = atlasDefault;
   const resetAction: (() => void) | null = (() => {
     if (view === "data") {
       if (dataSeries === "crude") return null;
@@ -667,7 +687,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                     "UK totals must not be fabricated from incomplete field maps.",
                   ]
                 : [
-                    `Crude oil and coal are million tonnes as published. Gas is shown in bcm, converted from published gigawatt hours at about ${GAS_GWH_PER_BCM.toLocaleString("en-GB")} GWh per bcm (roughly 11 kWh per cubic metre).`,
+                    `Crude oil and coal are million tonnes as published. Gas is shown in bcm, converted from published gigawatt hours at about ${GAS_GWH_PER_BCM} GWh per bcm (roughly 11 kWh per cubic metre).`,
                     "The oil-equivalent chart (coal, crude oil and NGLs, gas) uses a different energy unit — do not read it as tonnes of crude. Through 1962 crude includes shale oil. Years without production are omitted, not zeroed.",
                   ];
 
@@ -688,7 +708,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
             }}
           />
         )}
-        {(view === "extraction" || view === "gap" || view === "reserves") && crudeReady && (
+        {(view === "extraction" || view === "gap" || view === "reserves") && yearOptions.length > 1 && (
           <MenuControl
             label="Year"
             value={String(y)}
@@ -783,7 +803,7 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
         }
         foot={
           <FigureRecord
-            source={footSource}
+            source={energySource("fossil", view, footSource)}
             definition={footDefinition}
             method={footMethod}
             dataHref={
@@ -923,28 +943,32 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                                 ? "Matching fields"
                                 : status === "ceased"
                                   ? "Ceased fields"
-                                  : `Largest in ${ay}`}
+                                  : fuel === "all"
+                                    ? `Largest in ${ay} · oil and gas, in oil equivalent`
+                                    : `Largest in ${ay}`}
                             </p>
                             <h3 className={s.stationName}>
-                              <span className="bo-fig">{listFields.length.toLocaleString("en-GB")}</span>
+                              <span className="bo-fig">{listFields.length}</span>
                             </h3>
                             <ul className={s.stationList}>
                               {listFields.slice(0, 12).map((f) => {
                                 const r = rowIn(f, ay);
                                 const start = fieldStartYear(f, timelines.get(f.name));
-                                const preferGas =
-                                  fuel === "gas" ||
-                                  (fuel === "all" && (f.fieldType === "GAS" || f.fieldType === "COND") && (r?.oilTonnes ?? 0) === 0);
+                                const preferGas = fuel === "gas";
                                 const value =
                                   status === "ceased"
                                     ? start
                                       ? String(start)
                                       : "—"
+                                    : fuel === "all"
+                                      ? r
+                                        ? fmtKt(fieldOilEquivalentTonnes(r) / 1000)
+                                        : "—"
                                     : preferGas
                                       ? r
                                         ? gasCell(r)
                                         : "—"
-                                      : fmtKt((r?.oilTonnes ?? 0) / 1000);
+                                      : r ? fmtKt(r.oilTonnes / 1000) : "—";
                                 return (
                                   <li key={f.id}>
                                     <button type="button" onClick={() => sync({ field: f.id })}>

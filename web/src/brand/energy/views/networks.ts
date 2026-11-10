@@ -4,25 +4,8 @@ import type { DomainViews } from "./types";
 export const networksViews = {
   domain: "networks",
   status: "ready",
-  defaultView: "border",
+  defaultView: "queue",
   views: [
-    {
-      id: "border",
-      label: "Border",
-      instrument: "Border anatomy",
-      params: ["year", "flow"],
-      evidence: {
-        source: ENERGY_SOURCE.networksBorder,
-        definition: "Electricity interconnector flows across Britain’s borders.",
-        method: [
-          "Flows are metered energy, not spare capacity or a distribution map.",
-          "GB interconnectors — not a UK DNO topology.",
-        ],
-        geography: "United Kingdom corridors (ET 5.6)",
-        period: "Quarterly ET 5.6 flows",
-        dataHref: "/data?record=electricity-interconnector-flows",
-      },
-    },
     {
       id: "queue",
       label: "Queue",
@@ -33,11 +16,11 @@ export const networksViews = {
         definition:
           "NESO Transmission Entry Capacity register — contracted MW lines by gate, status and technology.",
         method: [
-          "Contractual Effective From dates, not speculative ETAs.",
+          "Contracted connection dates, not forecasts.",
           "Great Britain only. Not a DNO topology or spare-capacity map.",
         ],
         geography: "Great Britain",
-        period: "Dated register pin",
+        period: "Latest connections register",
         dataHref: "/data?record=transmission-entry-capacity-register",
       },
     },
@@ -54,27 +37,9 @@ export const networksViews = {
           "Pilot geography only — not a national DNO map.",
           "Overhead lines only. Not spare capacity by node.",
         ],
-        geography: "SEPD + SHEPD licence areas",
-        period: "Operator pin",
+        geography: "Southern England and the north of Scotland (SSEN)",
+        period: "Latest operator release",
         dataHref: "/data?record=ssen-distribution-network-atlas",
-      },
-    },
-    {
-      id: "night",
-      // View id stays `night` so existing links keep working; the label says what it shows.
-      label: "Monthly imports",
-      instrument: "GB imports · monthly totals",
-      params: ["year"],
-      evidence: {
-        source: ENERGY_SOURCE.networksNight,
-        definition:
-          "Monthly totals of electricity imported into Great Britain (the Imports fuel line of the NESO generation mix), summed from half-hourly operational data. Not a night-time or after-dark reading.",
-        method: [
-          "GB operational mix, not UK Energy Trends annuals. Do not invent substation spare capacity from this view.",
-        ],
-        geography: "Great Britain",
-        period: "Monthly from half-hourly NESO mix",
-        dataHref: "/data?record=gb-generation-mix-half-hourly",
       },
     },
     {
@@ -86,8 +51,8 @@ export const networksViews = {
         definition:
           "Observation tables for border flows, TEC queue, cable capacity, SSEN pilot counts and GB Imports fuel.",
         method: ["One table per dataset."],
-        geography: "United Kingdom / Great Britain / SSEN as labelled",
-        period: "As published",
+        geography: "United Kingdom, Great Britain or SSEN as labelled",
+        period: "Quarterly, monthly and latest registers",
         dataHref: "/data?record=electricity-interconnector-flows",
       },
     },

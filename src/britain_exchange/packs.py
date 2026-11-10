@@ -38,9 +38,10 @@ PACK_REGISTRY: dict[str, str] = {
     # Manufacturing IoP by SIC break — year means for Production Anatomy (not full monthly CSV).
     "energy.manufacturing-iop-annual": "energy/manufacturing-iop-by-division/curated/annual_means.json",
     # ONS IoP annual GVA weights (additive parts per thousand) — Production Anatomy composition.
-    "energy.manufacturing-iop-weights": "energy/manufacturing-iop-by-division/curated/weights.json",
+    "energy.manufacturing-iop-weights": "energy/manufacturing-iop-weights/curated/weights.json",
     # Editorial event registers (JSON packs — not observation series).
     "energy.industrial-policy-events": "energy/industrial-policy/events.json",
+    "energy.industrial-policy-pledges": "energy/industrial-policy/pledges.json",
     "energy.imports-shock-events": "energy/energy-imports-security/shock-events.json",
     "people.population": "people/subnational-population-estimate/curated/population.json",
     "regions.gb-boundaries": "regions/housing-boundaries/curated/boundaries.geojson",

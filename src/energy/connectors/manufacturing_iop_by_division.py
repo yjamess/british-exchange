@@ -19,6 +19,7 @@ from __future__ import annotations
 import csv
 import json
 import re
+import shutil
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
@@ -622,17 +623,126 @@ def write_weights_pack(raw_path: Path, dest: Path) -> Path:
     return dest
 
 
+class ManufacturingIopWeightsConnector(Connector):
+    """ONS IoP annual GVA weights for Section C and its SIC breaks (same DIOP source file).
+
+    One source, two indicators: this connector re-reads the DIOP pin used by
+    ``manufacturing-iop-by-division`` (copied into its own package so its raw evidence
+    is self-contained) and keeps only the annual ``…: Weight`` series.
+    """
+
+    def __init__(self, data_root: Path | None = None) -> None:
+        root = data_root or (ENERGY_DATA / WEIGHTS_INDICATOR_ID)
+        super().__init__(root, timeout_s=120.0)
+
+    @property
+    def indicator_id(self) -> str:
+        return WEIGHTS_INDICATOR_ID
+
+    def build_manifest(self, evidence: Sequence[RawEvidence]) -> Manifest:
+        return Manifest(
+            indicator_id=self.indicator_id,
+            title="Manufacturing IoP weights by SIC division / subsection",
+            sector="energy-industry",
+            publisher="ONS",
+            source_url=SOURCE_LANDING_URL,
+            series_id="DIOP-Section-C-Weights",
+            geography="United Kingdom (K02000001)",
+            frequency="annual",
+            unit=WEIGHTS_UNIT,
+            definition=(
+                "ONS annual GVA weights used to combine the Index of Production, in parts "
+                "per thousand of all production (IoP = 1000), for SIC 2007 Section C "
+                "manufacturing (KM44), subsections CA–CM and divisions 10–33 (ONS combined "
+                "11+12). Additive: subsections and divisions each sum to Section C."
+            ),
+            licence="Open Government Licence v3.0",
+            agent_owner="energy",
+            connector_module="energy.connectors.manufacturing_iop_by_division",
+            curated_path="curated/observations.csv",
+            update_cadence="annual weights, republished with each monthly DIOP release",
+            raw_evidence=list(evidence),
+            related_indicator_ids=["manufacturing-iop-by-division", "manufacturing-output-index"],
+            transformations=(
+                "Read the pinned DIOP CSV. Select the explicit weight CDID for Section C and "
+                "each curated SIC break (WEIGHT_CDID_BY_INDEX). Keep annual rows (YYYY). "
+                "notes carry series= (the matching index CDID), weight_series=, "
+                "classification=, sic=, label=. Fail if subsections or divisions stop "
+                "summing to Section C within 1 part per thousand."
+            ),
+            revision_notes=(
+                "Weights change at annual chain-linking / Blue Book. Re-pin with the DIOP "
+                "release used for manufacturing-iop-by-division."
+            ),
+            caveats=(
+                "Weights are shares of production value added, not volume. Share of "
+                "manufacturing = branch weight ÷ Section C weight in the same year. ONS "
+                "flagged in Oct 2025 that a release's GVA weights had not been updated to "
+                "Blue Book 2025; re-check weights on each re-pin."
+            ),
+            open_questions=["Confirm which year's GVA ONS uses to set each year's weights."],
+        )
+
+    def evidence_from_division_pin(self) -> RawEvidence:
+        """Copy the division package's pinned DIOP CSV into this package; return its evidence."""
+        rel = f"raw/{_pin_day().isoformat()}/diop.csv"
+        src = ENERGY_DATA / "manufacturing-iop-by-division" / rel
+        dst = self.data_root / rel
+        if not src.is_file() and not dst.is_file():
+            raise FileNotFoundError(
+                f"DIOP pin missing: {src}. Pull it first: "
+                "uv run python -m britain_exchange.archive_data pull "
+                f"data/energy/manufacturing-iop-by-division/{rel}"
+            )
+        if src.is_file() and (not dst.is_file() or sha256_file(dst) != sha256_file(src)):
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+        _, _, release, _ = _load_diop_table(dst)
+        return RawEvidence(
+            path=rel,
+            retrieved_at=datetime.now(timezone.utc).isoformat(),
+            checksum_sha256=sha256_file(dst),
+            content_type="text/csv",
+            official_release_date=release,
+            http_status=None,
+            source_url=SOURCE_CSV_URL,
+        )
+
+    def fetch_latest(self, *, retrieved_on: date | None = None) -> RawEvidence:
+        return self.evidence_from_division_pin()
+
+    def transform(self, evidence: Sequence[RawEvidence]) -> list[Observation]:
+        rows, _ = weights_from_raw(self.data_root / evidence[0].path)
+        return [
+            Observation(
+                indicator_id=str(r["indicator_id"]),
+                period_start=str(r["period_start"]),
+                period_end=str(r["period_end"]),
+                geography_code=str(r["geography_code"]),
+                geography_label=str(r["geography_label"]),
+                value=float(r["value"]),  # type: ignore[arg-type]
+                unit=str(r["unit"]),
+                observation_status="final",
+                source_version=str(r["source_version"]),
+                notes=str(r["notes"]),
+            )
+            for r in rows
+        ]
+
+
 def main_weights() -> None:
-    """Rebuild the weights pack from the pinned DIOP raw (no network)."""
-    connector = ManufacturingIopByDivisionConnector()
-    evidence = connector.evidence_from_pinned_raw()
-    raw_path = connector.data_root / evidence.path
-    dest = write_weights_pack(raw_path, connector.data_root / "curated" / "weights.json")
-    payload = json.loads(dest.read_text(encoding="utf-8"))
+    """Write the manufacturing-iop-weights package (manifest + curated CSV + pack) from the DIOP pin."""
+    connector = ManufacturingIopWeightsConnector()
+    evidence = connector.evidence_from_division_pin()
+    observations = connector.transform([evidence])
+    manifest_path, curated_path = connector.write_hand_off([evidence], observations)
+    pack = write_weights_pack(connector.data_root / evidence.path, connector.data_root / "curated" / "weights.json")
     print(f"indicator_id: {WEIGHTS_INDICATOR_ID}")
     print(f"raw: {evidence.path} sha256={evidence.checksum_sha256}")
-    print(f"rows: {payload['observation_count']} series: {payload['series_count']}")
-    print(f"weights_pack: {dest}")
+    print(f"observations: {len(observations)}")
+    print(f"manifest: {manifest_path}")
+    print(f"curated: {curated_path}")
+    print(f"weights_pack: {pack}")
 
 
 def main() -> None:
@@ -666,11 +776,7 @@ def main() -> None:
     print(f"manifest: {manifest_path}")
     print(f"curated: {curated_path}")
     print(f"annual_pack: {annual_path}")
-    weights_path = write_weights_pack(
-        connector.data_root / evidence.path,
-        connector.data_root / "curated" / "weights.json",
-    )
-    print(f"weights_pack: {weights_path}")
+    main_weights()
 
 
 if __name__ == "__main__":

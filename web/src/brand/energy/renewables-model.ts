@@ -249,13 +249,14 @@ export function generationSeries(
     if (r.observation_status === "provisional") cur.provisional = true;
     byYear.set(y, cur);
   }
-  const years = [...byYear.keys()].sort((a, b) => a - b);
+  // Whole calendar years only: a part-year sum is not comparable with a full year.
+  const years = [...byYear.keys()].filter((y) => byYear.get(y)!.months >= 4).sort((a, b) => a - b);
   return {
     id: `gen-${tech.id}`,
     label: `${tech.label} · generation`,
     points: years.map((t) => {
       const cur = byYear.get(t)!;
-      return { t, v: cur.sum, provisional: cur.provisional || cur.months < 4 };
+      return { t, v: cur.sum, provisional: cur.provisional };
     }),
   };
 }
@@ -425,12 +426,12 @@ export function parsePipelineRows(rows: Observation[]): PipelineRow[] {
 
 export function pipelinePinLabel(rows: Observation[]): string {
   const start = rows[0]?.period_start;
-  if (!start) return "REPD snapshot";
+  if (!start) return "Planning database";
   const y = Number(start.slice(0, 4));
   const m = Number(start.slice(5, 7));
-  if (!Number.isFinite(y) || !Number.isFinite(m)) return "REPD snapshot";
+  if (!Number.isFinite(y) || !Number.isFinite(m)) return "Planning database";
   const q = Math.floor((m - 1) / 3) + 1;
-  return `REPD · Q${q} ${y}`;
+  return `Planning database · Q${q} ${y}`;
 }
 
 export function stagesForLane(lane: PipelineLane): PipelineStage[] {
@@ -463,6 +464,30 @@ export function pipelineStageRanks(
     .filter((r) => r.v > 0);
 }
 
+/** Planning-register technology names in plain sentence case. */
+const REPD_TECH_LABEL: Record<string, string> = {
+  "Advanced Conversion Technologies": "Advanced conversion of waste",
+  "Air Source Heat Pumps": "Air source heat pumps",
+  "Anaerobic Digestion": "Anaerobic digestion",
+  "Biomass (co-firing)": "Biomass, burned with other fuels",
+  "Biomass (dedicated)": "Biomass",
+  "Compressed Air Energy Storage": "Compressed air storage",
+  "EfW Incineration": "Energy from waste",
+  "Fuel Cell (Hydrogen)": "Hydrogen fuel cells",
+  "Hot Dry Rocks (HDR)": "Hot dry rock geothermal",
+  "Landfill Gas": "Landfill gas",
+  "Large Hydro": "Large hydro",
+  "Liquid Air Energy Storage": "Liquid air storage",
+  "Pumped Storage Hydroelectricity": "Pumped storage hydro",
+  "Shoreline Wave": "Shoreline wave",
+  "Small Hydro": "Small hydro",
+  "Solar Photovoltaics": "Solar",
+  "Tidal Lagoon": "Tidal lagoon",
+  "Tidal Stream": "Tidal stream",
+  "Wind Offshore": "Offshore wind",
+  "Wind Onshore": "Onshore wind",
+};
+
 export function pipelineTechRanks(
   rows: PipelineRow[],
   stage: PipelineStage,
@@ -476,7 +501,7 @@ export function pipelineTechRanks(
     byTech.set(r.technology, (byTech.get(r.technology) ?? 0) + r.mw);
   }
   return [...byTech.entries()]
-    .map(([label, v]) => ({ id: label, label, v }))
+    .map(([label, v]) => ({ id: label, label: REPD_TECH_LABEL[label] ?? label, v }))
     .filter((r) => r.v > 0)
     .sort((a, b) => b.v - a.v)
     .slice(0, limit);

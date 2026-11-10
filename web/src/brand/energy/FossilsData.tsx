@@ -73,8 +73,6 @@ export function FossilsData({ pack, series }: { pack: FossilsPack; series: Fossi
       {series === "reserves" && <ReservesTable pack={pack} />}
       <p className={s.links}>
         <a href={`/api/data/${record}`}>Download full CSV</a>
-        {" · "}
-        <a href={`/data?record=${record}`}>Catalogue record</a>
       </p>
     </div>
   );

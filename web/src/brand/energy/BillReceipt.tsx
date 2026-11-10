@@ -3,18 +3,15 @@
 /**
  * The Dissected Bill — typographic receipt (the tab's one custom instrument).
  *
- * Left: the receipt. Each line is a published price × your use, set in mono with a dot leader to
- * its figure, the formula beneath, and a ruled total.
- * Right: a hover/focus detail pane that explains the active line (catalogue link lives there —
- * line names do not navigate away). Measured £ strips stay parked until there are periods worth
- * comparing side by side.
+ * Left: your bill. Each line is a published price × your use, set in mono with a dot leader to its
+ * figure, the formula beneath, and a ruled total. Right: the same total split into what pays for it
+ * (cost groups from Ofgem's price cap), so both columns end on one figure. Stacks on narrow stages.
  *
  * One ink, Housing's prints on the line swatches (solid · stipple · sparse · hatch · cross ·
- * engrave · open). Hover or focus a line and it takes the selection mark (solid ink).
+ * engrave · open). Definitions and method live in the stage Notes foot, not in the receipt.
  */
 
-import { useState } from "react";
-import { fmtGbpBill, fmtGbpPrecise } from "./prices-model";
+import { fmtGbpBill } from "./prices-model";
 import r from "./billReceipt.module.css";
 
 export type Print = "solid" | "stipple" | "sparse" | "hatch" | "cross" | "engrave" | "open";
@@ -24,7 +21,7 @@ export type BillLine = {
   label: string;
   /** Short formula under the receipt line. */
   detail?: string;
-  /** Plain-language what/how for the side pane (falls back to detail). */
+  /** Kept for call sites; explanations live in the Notes foot. */
   about?: string;
   value: number | null;
   href?: string;
@@ -42,118 +39,61 @@ export type BillMemo = {
 type Props = {
   /** Quiet receipt masthead (payment · use). Do not repeat the stage bar’s fuel · place · year. */
   meta?: string;
-  /** Optional plain-language note (e.g. Economy 7) — hover opens the detail pane. */
-  note?: { id: string; label: string; about: string; href?: string } | null;
+  /** Optional plain-language note (e.g. Economy 7). */
+  note?: { id: string; label: string; about?: string; href?: string } | null;
   lines: BillLine[];
   total: number | null;
   totalDetail: string;
   memos: BillMemo[];
-  /** Kept for call-site compatibility; measured strips are parked for now. */
-  reference?: { label: string; value: number } | null;
-  cap: { period: string; lines: BillLine[]; total: number; href: string } | null;
+  /** The same total split into cost groups. Null when no split exists for this choice. */
+  split: { title: string; detail: string; total: number; lines: BillLine[] } | null;
 };
 
-type DetailItem = {
-  id: string;
-  label: string;
-  detail?: string;
-  about?: string;
-  value: number | null;
-  href?: string;
-  print?: Print;
-};
-
-export function BillReceipt({ meta, note, lines, total, totalDetail, memos, cap }: Props) {
-  const [active, setActive] = useState<string | null>(null);
-
-  const capLines = cap?.lines ?? [];
-  const catalogue: DetailItem[] = [
-    ...(note
-      ? [{ id: note.id, label: note.label, about: note.about, value: null, href: note.href } satisfies DetailItem]
-      : []),
-    ...lines,
-    ...memos,
-    ...capLines,
-    ...(cap
-      ? [
-          {
-            id: "cap-heading",
-            label: "What the Ofgem price cap pays for",
-            about:
-              "Ofgem’s default tariff cap for Great Britain, split into the published cost layers for its typical use. This is a separate benchmark from the DESNZ bill above — not the same figure.",
-            value: cap.total,
-            href: cap.href,
-          } satisfies DetailItem,
-        ]
-      : []),
-  ];
-  const activeItem = active ? (catalogue.find((item) => item.id === active) ?? null) : null;
-
-  const hover = (id: string | null) => () => setActive(id);
-  const line = (l: BillLine) => (
-    <li
-      key={l.id}
-      className={r.line}
-      data-on={active === l.id || undefined}
-      tabIndex={0}
-      onPointerEnter={hover(l.id)}
-      onPointerLeave={hover(null)}
-      onFocus={hover(l.id)}
-      onBlur={hover(null)}
-    >
+function Line({ l }: { l: BillLine }) {
+  return (
+    <li className={r.line}>
       <span className={r.swatch} data-print={l.print} aria-hidden="true" />
       <span className={r.name}>{l.label}</span>
       <span className={r.leader} aria-hidden="true" />
-      <b className={r.fig}>{l.value != null ? fmtGbpPrecise(l.value) : "—"}</b>
+      <b className={r.fig}>{l.value != null ? fmtGbpBill(l.value) : "—"}</b>
       {l.detail && <span className={r.detail}>{l.detail}</span>}
     </li>
   );
+}
 
+function Total({ label, value, detail }: { label: string; value: number | null; detail?: string }) {
+  return (
+    <div className={r.total}>
+      <span className={r.name}>{label}</span>
+      <span className={r.leader} aria-hidden="true" />
+      <b className={r.totalFig}>{value != null ? fmtGbpBill(value) : "—"}</b>
+      {detail && <span className={r.detail}>{detail}</span>}
+    </div>
+  );
+}
+
+export function BillReceipt({ meta, note, lines, total, totalDetail, memos, split }: Props) {
   return (
     <div className={r.root}>
       <div className={r.grid}>
-        <div className={r.receipt} aria-label={meta ? `Bill · ${meta}` : "Bill"}>
-          {meta ? (
-            <header className={r.head}>
-              <p className={r.kicker}>{meta}</p>
-            </header>
-          ) : null}
+        <div className={r.receipt} aria-label={meta ? `Your bill · ${meta}` : "Your bill"}>
+          <header className={r.head}>
+            <p className={r.kicker}>Your bill{meta ? ` · ${meta}` : ""}</p>
+          </header>
 
-          {note ? (
-            <p
-              className={r.note}
-              data-on={active === note.id || undefined}
-              tabIndex={0}
-              onPointerEnter={hover(note.id)}
-              onPointerLeave={hover(null)}
-              onFocus={hover(note.id)}
-              onBlur={hover(null)}
-            >
-              {note.label}
-            </p>
-          ) : null}
+          {note ? <p className={r.note}>{note.label}</p> : null}
 
-          <ul className={r.lines}>{lines.map(line)}</ul>
-          <div className={r.total}>
-            <span className={r.name}>Bill for the year</span>
-            <span className={r.leader} aria-hidden="true" />
-            <b className={r.totalFig}>{total != null ? fmtGbpBill(total) : "—"}</b>
-            <span className={r.detail}>{totalDetail}</span>
-          </div>
+          <ul className={r.lines}>
+            {lines.map((l) => (
+              <Line key={l.id} l={l} />
+            ))}
+          </ul>
+          <Total label="Bill for the year" value={total} detail={totalDetail} />
 
           {memos.length > 0 && (
             <ul className={r.memos}>
               {memos.map((m) => (
-                <li
-                  key={m.id}
-                  className={r.memo}
-                  data-on={active === m.id || undefined}
-                  tabIndex={0}
-                  onPointerEnter={hover(m.id)}
-                  onPointerLeave={hover(null)}
-                  onFocus={hover(m.id)}
-                  onBlur={hover(null)}
-                >
+                <li key={m.id} className={r.memo}>
                   <span className={r.name}>{m.label}</span>
                   <span className={r.leader} aria-hidden="true" />
                   <b className={r.fig}>{m.value != null ? fmtGbpBill(m.value) : "—"}</b>
@@ -162,54 +102,22 @@ export function BillReceipt({ meta, note, lines, total, totalDetail, memos, cap 
               ))}
             </ul>
           )}
-
-          {cap && (
-            <>
-              <header
-                className={r.subhead}
-                data-on={active === "cap-heading" || undefined}
-                tabIndex={0}
-                onPointerEnter={hover("cap-heading")}
-                onPointerLeave={hover(null)}
-                onFocus={hover("cap-heading")}
-                onBlur={hover(null)}
-              >
-                <p className={r.kicker}>What the Ofgem price cap pays for</p>
-                <p className={r.kicker}>Great Britain · {cap.period} · its typical use</p>
-              </header>
-              <ul className={r.lines}>{capLines.map(line)}</ul>
-              <div className={r.total}>
-                <span className={r.name}>Price cap for the year</span>
-                <span className={r.leader} aria-hidden="true" />
-                <b className={r.totalFig}>{fmtGbpBill(cap.total)}</b>
-              </div>
-            </>
-          )}
         </div>
 
-        <aside className={r.pane} aria-live="polite">
-          {activeItem ? (
-            <>
-              <p className={r.paneKicker}>Selected line</p>
-              <p className={r.paneTitle}>{activeItem.label}</p>
-              {activeItem.value != null && <p className={r.paneFig}>{fmtGbpPrecise(activeItem.value)}</p>}
-              <p className={r.paneBody}>
-                {activeItem.about ?? activeItem.detail ?? "No further detail for this line."}
-              </p>
-              {activeItem.href && (
-                <p className={r.paneAction}>
-                  <a href={activeItem.href}>Open catalogue record</a>
-                </p>
-              )}
-            </>
-          ) : (
-            <>
-              <p className={r.paneKicker}>Bill for the year</p>
-              {total != null && <p className={r.paneFig}>{fmtGbpPrecise(total)}</p>}
-              <p className={r.paneBody}>{totalDetail}</p>
-            </>
-          )}
-        </aside>
+        {split && (
+          <div className={r.receipt} aria-label={split.title}>
+            <header className={r.head}>
+              <p className={r.kicker}>{split.title}</p>
+              <p className={r.kicker}>{split.detail}</p>
+            </header>
+            <ul className={r.lines}>
+              {split.lines.map((l) => (
+                <Line key={l.id} l={l} />
+              ))}
+            </ul>
+            <Total label="Bill for the year" value={split.total} />
+          </div>
+        )}
       </div>
     </div>
   );

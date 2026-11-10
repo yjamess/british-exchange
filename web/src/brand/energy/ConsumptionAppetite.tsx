@@ -2,18 +2,17 @@
 
 /**
  * Long-run UK final energy demand (ECUK Table C1, 1970–).
- * Same explorer structure as Energy Metabolism: stageTitle panels + TimeChart / ChangeRows / RankBars.
+ * Same explorer structure as Energy Metabolism: stageTitle panels + TimeChart / ChangeRows.
  * Multi-series lines use TimeChart end leaders (Generation mix pattern).
  */
 
 import { useMemo } from "react";
-import { ChangeRows, RankBars, TimeChart } from "../instrument/TimeChart";
-import { explorerClasses as t } from "../template";
+import { ChangeRows, TimeChart } from "../instrument/TimeChart";
+import { EmptyStage, explorerClasses as t } from "../template";
 import type { Observation } from "@/lib/api";
 import type { SectorId } from "./consumption-model";
 import {
   appetiteData,
-  fmtKtoe,
   fmtMeasure,
   measured,
   type AppetiteLens,
@@ -35,13 +34,14 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
   const data = useMemo(() => appetiteData(rows, lens, scope), [rows, lens, scope]);
 
   if (!data.years.length) {
-    return <p className={s.links}>Long-run energy demand figures are not available right now.</p>;
+    return <EmptyStage label="Not available">Long-run energy demand figures are not available right now.</EmptyStage>;
   }
 
   const first = data.years[0]!;
   const last = data.years.at(-1)!;
   const baseIndex = Math.max(0, data.years.indexOf(indexBase));
-  const fmt = fmtMeasure(measure);
+  const fmtMtoe = (v: number) => `${(v / 1000).toFixed(1)} Mtoe`;
+  const fmt = measure === "absolute" ? fmtMtoe : fmtMeasure(measure);
   const iA = data.years.indexOf(yearA);
   const iB = data.years.indexOf(yearB);
 
@@ -57,17 +57,18 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
     iA >= 0 && iB >= 0
       ? data.series
           .map((sr) => {
-            const from = sr.values[iA] ?? 0;
-            const to = sr.values[iB] ?? 0;
+            const from = sr.values[iA] ?? NaN;
+            const to = sr.values[iB] ?? NaN;
             return { id: sr.id, label: sr.label, from, to, delta: to - from };
           })
+          .filter((r) => Number.isFinite(r.from) && Number.isFinite(r.to))
           .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
       : [];
 
-  const totA = iA >= 0 ? (data.total[iA] ?? 0) : 0;
-  const totB = iB >= 0 ? (data.total[iB] ?? 0) : 0;
+  const totA = iA >= 0 ? (data.total[iA] ?? NaN) : NaN;
+  const totB = iB >= 0 ? (data.total[iB] ?? NaN) : NaN;
   const unit =
-    measure === "absolute" ? "ktoe" : measure === "share" ? `share of ${data.scopeLabel.toLowerCase()}` : `index ${indexBase} = 100`;
+    measure === "absolute" ? "Mtoe" : measure === "share" ? `share of ${data.scopeLabel.toLowerCase()}` : `index ${indexBase} = 100`;
   const what = lens === "sector" ? "sector" : `fuel · ${data.scopeLabel}`;
 
   return (
@@ -81,7 +82,7 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
           label={`UK final energy demand by ${lens}`}
           series={chartSeries}
           cadence="annual"
-          kind={measure === "index" ? "line" : "stack"}
+          kind={measure === "share" ? "stack" : "line"}
           zero={measure !== "index"}
           showTable={false}
           format={fmt}
@@ -91,38 +92,19 @@ export function ConsumptionAppetite({ rows, lens, scope, measure, indexBase, yea
       {thenNowRows.length > 0 && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Then / Now · {yearA} → {yearB} · ktoe
+            Then and now · {yearA} → {yearB} · Mtoe
           </h3>
           <ChangeRows
             label={`Final energy demand ${yearA} to ${yearB}`}
             fromLabel={String(yearA)}
             toLabel={String(yearB)}
             rows={thenNowRows.map((r) => ({ id: r.id, label: r.label, from: r.from, to: r.to }))}
-            format={fmtKtoe}
+            reference={Number.isFinite(totA) && Number.isFinite(totB) ? { label: data.scopeLabel, from: totA, to: totB } : undefined}
+            format={fmtMtoe}
           />
-          <p className={s.links}>
-            {data.scopeLabel}: {fmtKtoe(totA)} in {yearA} → {fmtKtoe(totB)} in {yearB}
-            {totA > 0
-              ? ` (${totB - totA >= 0 ? "+" : "−"}${fmtKtoe(Math.abs(totB - totA))}, ${(((totB - totA) / totA) * 100).toFixed(1)}%)`
-              : ""}
-            .
-          </p>
         </section>
       )}
 
-      {thenNowRows.length > 0 && (
-        <section className={s.panel}>
-          <h3 className={t.stageTitle}>
-            Change · {yearA} → {yearB} · ktoe
-          </h3>
-          <RankBars
-            key={`delta-${lens}-${scope}-${yearA}-${yearB}`}
-            label={`Change in final energy demand, ${yearA} to ${yearB}`}
-            rows={thenNowRows.map((r) => ({ id: r.id, label: r.label, v: r.delta / 1000 }))}
-            format={(v) => `${v >= 0 ? "+" : ""}${v.toFixed(1)} mtoe`}
-          />
-        </section>
-      )}
     </div>
   );
 }

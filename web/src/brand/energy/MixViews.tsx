@@ -3,13 +3,13 @@
 /**
  * All-fuels view for the 1920–2025 generation mix: every fuel as its own line on one shared
  * scale (the peak of any single fuel — not the annual total, which would squash every series),
- * with the first year each fuel became the largest source marked.
+ * with the switch from DESNZ estimates to reported figures marked.
  *
  * Draws only published annual observations, joined by straight segments. Moving the pointer
  * (or dragging on touch) over the chart sets the year; arrow keys work when focused.
  */
 
-import { useMemo, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
+import { type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { useWidth } from "../useWidth";
 import { LONG_FUELS, LONG_RUN_SOURCE, fmtPct, fmtTWh, value, type LongFuel, type LongFuelId, type LongYear, type Measure } from "./long-run";
 import s from "./changing.module.css";
@@ -25,9 +25,12 @@ type Props = {
 const ORDER: LongFuelId[] = ["coal", "oil", "gas", "nuclear", "renewables", "other", "storage", "unallocated"];
 const FUELS = ORDER.map((id) => LONG_FUELS.find((f) => f.id === id)!);
 
-/** Line ink: the fuel's chart token; other fuels take plum so they never read as nuclear (electric). */
-const stroke = (f: LongFuel) => (f.fill.kind === "solid" ? f.fill.color : f.id === "other" ? "var(--bo-chart-5)" : "var(--bo-ink)");
-const dash = (f: LongFuel) => (f.fill.kind === "dots" ? "1 3" : f.fill.kind === "outline" ? "3 3" : undefined);
+/** Line ink: the fuel's chart token; other fuels take plum so they never read as nuclear (electric),
+ *  storage takes green. Only "not allocated" is dashed slate: a reconciliation, not an observed fuel.
+ *  (Dotted means provisional in the line language, so no fuel is dotted.) */
+const stroke = (f: LongFuel) =>
+  f.fill.kind === "solid" ? f.fill.color : f.id === "other" ? "var(--bo-chart-5)" : f.id === "storage" ? "var(--bo-green)" : "var(--bo-chart-reference)";
+const dash = (f: LongFuel) => (f.fill.kind === "outline" ? "3 3" : undefined);
 const fmtV = (m: Measure) => (m === "share" ? fmtPct : fmtTWh);
 
 /** Nice top of the y-axis and grid step from a data peak (share always reads to 100%). */
@@ -111,20 +114,6 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
   const row = mix.find((r) => r.year === year)!;
   const eraX = x(LONG_RUN_SOURCE.firstReported - 0.5);
 
-  // First year each fuel becomes the largest source (back-and-forth swaps are not re-marked).
-  const handovers = useMemo(() => {
-    const lead = mix.map((r) => fuels.reduce((a, f) => (r.v[f.id] > r.v[a.id] ? f : a), fuels[0]!));
-    const seen = new Set<LongFuelId>([lead[0]!.id]);
-    const out: { year: number; from: LongFuel; to: LongFuel; row: LongYear }[] = [];
-    for (let i = 1; i < mix.length; i++) {
-      if (seen.has(lead[i]!.id)) continue;
-      seen.add(lead[i]!.id);
-      out.push({ year: mix[i]!.year, from: lead[i - 1]!, to: lead[i]!, row: mix[i]! });
-    }
-    return out;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mix]);
-
   const decades = mix.map((r) => r.year).filter((yr) => yr % (narrow ? 20 : 10) === 0);
 
   return (
@@ -132,13 +121,14 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
       <ul className={s.legend} aria-label={`Generation by fuel, ${year}`}>
         {fuels.map((f) => (
           <li key={f.id}>
-            <span className={s.lineSwatch} style={{ borderTopColor: stroke(f), borderTopStyle: f.fill.kind === "dots" ? "dotted" : f.fill.kind === "outline" ? "dashed" : "solid" }} />
+            <span className={s.lineSwatch} style={{ borderTopColor: stroke(f), borderTopStyle: f.fill.kind === "outline" ? "dashed" : "solid" }} />
             <span className={s.legendName}>{f.short}</span>
             <span className={s.legendValue}>{fmtV(measure)(value(row, f.id, measure))}</span>
           </li>
         ))}
         {measure === "absolute" && (
           <li>
+            <span aria-hidden="true" />
             <span className={s.legendName}>All generation</span>
             <span className={s.legendValue}>{fmtTWh(row.total)}</span>
           </li>
@@ -163,27 +153,23 @@ export function MixLines({ mix, measure, year, onYear }: Props) {
             </text>
           ))}
           <line x1={eraX} x2={eraX} y1={m.t} y2={m.t + ph + 6} className={s.era} />
+          <text x={eraX - 6} y={m.t + 10} textAnchor="end" className={s.tick}>
+            Estimated
+          </text>
+          <text x={eraX + 6} y={m.t + 10} className={s.tick}>
+            Reported
+          </text>
           {fuels.map((f) => (
             <path
               key={f.id}
               d={path((r) => value(r, f.id, measure))}
               fill="none"
               stroke={stroke(f)}
-              strokeWidth={f.fill.kind === "solid" ? 2.25 : 1.5}
+              strokeWidth={f.fill.kind === "outline" ? 1.5 : 2.25}
               strokeDasharray={dash(f)}
               strokeLinejoin="round"
             />
           ))}
-
-          {handovers.map((h) => {
-            const hy = y(value(h.row, h.to.id, measure));
-            const hx = x(h.year);
-            return (
-              <g key={h.year}>
-                <circle cx={hx} cy={hy} r={5} className={s.ring} stroke="var(--bo-ink)" />
-              </g>
-            );
-          })}
 
           <line x1={x(year)} x2={x(year)} y1={m.t - 6} y2={m.t + ph} className={s.carriage} />
           {fuels.map((f) => (

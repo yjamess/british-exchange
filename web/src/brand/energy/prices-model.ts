@@ -54,7 +54,7 @@ export const REGION_SOURCES = ["desnz", "ofgem"] as const;
 export type RegionSource = (typeof REGION_SOURCES)[number];
 
 export const REGION_SOURCE_LABEL: Record<RegionSource, string> = {
-  desnz: "DESNZ reconstruct",
+  desnz: "DESNZ rates",
   ofgem: "Ofgem price cap",
 };
 
@@ -207,7 +207,7 @@ export function industrialPriceSeries(
   const filtered = industrialBandRows(rows, band);
   return {
     id: `ind-${band}`,
-    label: `${band} · quarterly (excl. CCL)`,
+    label: `${band} · quarterly · before Climate Change Levy`,
     points: filtered
       .filter((r) => r.value != null && Number.isFinite(Number(r.value)))
       .map((r) => ({

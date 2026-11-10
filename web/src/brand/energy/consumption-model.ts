@@ -248,7 +248,7 @@ export function usefulRowsFor(
 }
 
 export function fmtKtoe(v: number): string {
-  if (Math.abs(v) >= 1000) return `${(v / 1000).toFixed(1)} mtoe`;
+  if (Math.abs(v) >= 1000) return `${(v / 1000).toFixed(1)} Mtoe`;
   return `${v.toLocaleString("en-GB", { maximumFractionDigits: 0 })} ktoe`;
 }
 

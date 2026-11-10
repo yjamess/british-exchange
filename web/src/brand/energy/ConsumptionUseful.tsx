@@ -29,9 +29,25 @@ import {
   type UsefulPack,
   type UsefulScope,
 } from "./useful-model";
-import { fmtKtoe } from "./consumption-model";
 import s from "./generation.module.css";
 import f from "./splitFlow.module.css";
+
+/** One unit per panel: the time chart reads in Mtoe, tables and bars in ktoe. */
+const fmtMtoe = (v: number) => `${(v / 1000).toFixed(1)} Mtoe`;
+const fmtK = (v: number) => v.toLocaleString("en-GB", { maximumFractionDigits: 0 });
+
+/** Sentence case for published labels ("Water Heating" → "Water heating"); keeps acronyms (HGVs). */
+function sentence(label: string): string {
+  return label
+    .split(" · ")
+    .map((part) =>
+      part
+        .split(" ")
+        .map((w, i) => (i === 0 || /^[A-Z0-9]{2,}s?$/.test(w) ? w : w.toLowerCase()))
+        .join(" "),
+    )
+    .join(" · ");
+}
 
 export function ConsumptionUseful({
   pack,
@@ -104,15 +120,6 @@ export function ConsumptionUseful({
     })),
   );
 
-  const shareLostRows = items
-    .map((i) => ({
-      id: i.id,
-      label: i.label,
-      v: rejectedShare(i),
-    }))
-    .filter((r) => r.v > 0)
-    .sort((a, b) => b.v - a.v);
-
   return (
     <div className={s.stack}>
       <section className={s.panel}>
@@ -128,18 +135,6 @@ export function ConsumptionUseful({
           scenario={scenario}
         />
       </section>
-
-      {shareLostRows.length > 1 && (
-        <section className={s.panel}>
-          <h3 className={t.stageTitle}>Share lost · {scope} · {year}</h3>
-          <RankBars
-            key={`share-lost-${sector}-${endUse}-${year}-${scenario}`}
-            label={`Share of energy lost, ${scope}, ${year}`}
-            rows={shareLostRows}
-            format={fmtPct}
-          />
-        </section>
-      )}
 
       {scenario && year === latest && items.some((i) => i.published) && (
         <section className={s.panel}>
@@ -166,7 +161,7 @@ export function ConsumptionUseful({
       {!scenario && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Useful and lost over time · {sectorLabel(sector)} · {w2[0]?.year}–{latest} · ktoe
+            Useful and lost over time · {sectorLabel(sector)} · {w2[0]?.year}–{latest} · Mtoe
           </h3>
           <TimeChart
             key={`useful-time-${sector}`}
@@ -176,7 +171,7 @@ export function ConsumptionUseful({
             zero
             marks
             showTable={false}
-            format={fmtKtoe}
+            format={fmtMtoe}
             rules={[{ id: "year", t: year, label: String(year), active: true }]}
           />
         </section>
@@ -208,7 +203,7 @@ export function ConsumptionUseful({
       {elsewhere.length > 1 && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            {endUse} across sectors · share lost · {latest}
+            {sentence(endUse)} across sectors · share lost · {latest}
           </h3>
           <RankBars
             label={`Share of energy lost in ${endUse}, by sector, ${latest}`}
@@ -236,12 +231,12 @@ export function ConsumptionUseful({
       {sens.length > 0 && (
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            If one efficiency improves by a tenth · fall in share lost · {scope}
+            Which assumptions matter most · fall in share lost if one efficiency were 10% better · {scope} · our calculation, not a DESNZ figure
           </h3>
           <RankBars
             key={`sens-${sector}-${endUse}-${scenario}`}
             label={`Fall in share of energy lost if one efficiency is 10% better, ${scope}`}
-            rows={sens.map((r) => ({ id: r.id, label: r.label, v: Math.abs(r.delta) }))}
+            rows={sens.map((r) => ({ id: r.id, label: sentence(r.label), v: Math.abs(r.delta) }))}
             format={(v) => `${v.toFixed(1)} percentage points`}
           />
         </section>
@@ -249,77 +244,81 @@ export function ConsumptionUseful({
 
       {rows.length > 0 && (
         <section className={s.panel}>
-          <h3 className={t.stageTitle}>
-            {scenario ? "User assumptions" : "Assumptions"} · {scope} · {latest}
-          </h3>
-          <div className={t.tableWrap}>
-            <table className={t.table}>
-              <thead>
-                <tr>
-                  {sector === "all" && <th scope="col">Sector</th>}
-                  {endUse === "all" && <th scope="col">End use</th>}
-                  <th scope="col">Fuel / technology</th>
-                  <th scope="col">Energy used</th>
-                  <th scope="col">{scenario ? "User efficiency" : "Efficiency"}</th>
-                  <th scope="col">Useful</th>
-                  <th scope="col">Lost</th>
-                  <th scope="col">How it is set</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(({ id, row }) => {
-                  const e = scenario ? (overrides[id] ?? row.efficiency) : row.efficiency;
-                  const sp = split(row.consumption_ktoe ?? 0, e);
-                  const [lo, hi] = bounds(row);
-                  return (
-                    <tr key={id}>
-                      {sector === "all" && <td>{sectorLabel(row.sector as UsefulScope)}</td>}
-                      {endUse === "all" && <td>{row.end_use}</td>}
-                      <td>
-                        {row.heading && row.heading !== row.end_use
-                          ? `${row.heading} · ${row.fuel_or_tech}`
-                          : row.fuel && row.fuel !== row.fuel_or_tech
-                            ? `${row.fuel} · ${row.fuel_or_tech}`
-                            : row.fuel_or_tech}
-                      </td>
-                      <td className={f.num}>{fmtKtoe(row.consumption_ktoe ?? 0)}</td>
-                      <td className={f.num}>
-                        {scenario ? (
-                          <input
-                            type="number"
-                            className={f.coef}
-                            data-changed={overrides[id] != null || undefined}
-                            aria-label={`Efficiency for ${row.end_use}, ${row.fuel_or_tech}, published ${fmtCoef(row.efficiency)}`}
-                            min={lo}
-                            max={hi}
-                            step={0.01}
-                            value={Number(e.toFixed(3))}
-                            onChange={(ev) => {
-                              const v = Number(ev.target.value);
-                              if (!Number.isFinite(v)) return;
-                              const c = Math.min(hi, Math.max(lo, v));
-                              onOverride(id, Math.abs(c - row.efficiency) < 1e-9 ? null : c);
-                            }}
-                          />
-                        ) : (
-                          fmtCoef(row.efficiency)
+          <details open={scenario || undefined} style={{ minWidth: 0, maxWidth: "100%" }}>
+            <summary className="bo-disclosure">
+              {scenario ? "Your efficiencies" : "Efficiency assumptions as a table"} · {scope} · {latest} · ktoe
+            </summary>
+            <div className={t.tableWrap}>
+              <table className={t.table}>
+                <thead>
+                  <tr>
+                    {(sector === "all" || endUse === "all") && (
+                      <th scope="col" className={t.wrap}>
+                        Use
+                      </th>
+                    )}
+                    <th scope="col" className={t.wrap}>
+                      Fuel / technology
+                    </th>
+                    <th scope="col">Energy used</th>
+                    <th scope="col">{scenario ? "Your efficiency" : "Efficiency"}</th>
+                    <th scope="col">Useful</th>
+                    <th scope="col">Lost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map(({ id, row }) => {
+                    const e = scenario ? (overrides[id] ?? row.efficiency) : row.efficiency;
+                    const sp = split(row.consumption_ktoe ?? 0, e);
+                    const [lo, hi] = bounds(row);
+                    return (
+                      <tr key={id}>
+                        {(sector === "all" || endUse === "all") && (
+                          <td className={t.wrap}>
+                            {[sector === "all" ? sectorLabel(row.sector as UsefulScope) : null, endUse === "all" ? sentence(row.end_use) : null]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </td>
                         )}
-                      </td>
-                      <td className={f.num}>{fmtKtoe(sp.useful)}</td>
-                      <td className={f.num}>{fmtKtoe(sp.rejected)}</td>
-                      <td>
-                        {row.efficiency > 1
-                          ? "Heat pump: also draws heat from its surroundings"
-                          : row.efficiency === 1
-                            ? "Counted as all useful"
-                            : "Estimated"}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                        <td className={t.wrap}>
+                          {row.heading && row.heading !== row.end_use
+                            ? `${row.heading} · ${row.fuel_or_tech}`
+                            : row.fuel && row.fuel !== row.fuel_or_tech
+                              ? `${row.fuel} · ${row.fuel_or_tech}`
+                              : row.fuel_or_tech}
+                        </td>
+                        <td className={f.num}>{fmtK(row.consumption_ktoe ?? 0)}</td>
+                        <td className={f.num}>
+                          {scenario ? (
+                            <input
+                              type="number"
+                              className={f.coef}
+                              data-changed={overrides[id] != null || undefined}
+                              aria-label={`Efficiency for ${row.end_use}, ${row.fuel_or_tech}, published ${fmtCoef(row.efficiency)}`}
+                              min={lo}
+                              max={hi}
+                              step={0.01}
+                              value={Number(e.toFixed(3))}
+                              onChange={(ev) => {
+                                const v = Number(ev.target.value);
+                                if (!Number.isFinite(v)) return;
+                                const c = Math.min(hi, Math.max(lo, v));
+                                onOverride(id, Math.abs(c - row.efficiency) < 1e-9 ? null : c);
+                              }}
+                            />
+                          ) : (
+                            fmtCoef(row.efficiency)
+                          )}
+                        </td>
+                        <td className={f.num}>{fmtK(sp.useful)}</td>
+                        <td className={f.num}>{fmtK(sp.rejected)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </details>
           {scenario && Object.keys(overrides).length > 0 && (
             <p className={s.links}>
               <TextButton onClick={onRestore}>Restore published values</TextButton>

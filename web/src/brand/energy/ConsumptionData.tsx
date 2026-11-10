@@ -62,9 +62,9 @@ export function consumptionDataFoot(
     case "u3":
       return {
         source: ENERGY_SOURCE.consumptionEndUse,
-        definition: "UK domestic final energy consumption by end use (ktoe) from DESNZ ECUK Table U3, fuel=Total.",
+        definition: "UK domestic final energy consumption by end use, all fuels (ktoe), from DESNZ Energy Consumption in the UK.",
         method: caveats(
-          "fuel=Total is an aggregate; component fuels are not summed with it. Some early years leave end uses unpublished.",
+          "The all-fuels total is published separately; the fuel rows are not added to it. Some early years leave end uses unpublished.",
           pack.endUse?.meta.caveats,
         ),
         recordId: DOMESTIC_END_USE_ID,
@@ -98,7 +98,7 @@ export function consumptionDataFoot(
         source: ENERGY_SOURCE.consumptionFinal,
         definition: "UK final energy consumption by sector (ktoe) from DESNZ Energy Consumption in the UK (ECUK) Table C1.",
         method: caveats(
-          "fuel=Total is a sector aggregate; component fuels are shown separately and must not be summed with Total.",
+          "The all-fuels total for each sector is published separately; the fuel rows are not added to it.",
           pack.final?.meta.caveats,
         ),
         recordId: FINAL_CONSUMPTION_ID,
@@ -171,7 +171,7 @@ function C1Table({ pack }: { pack: ConsumptionPack }) {
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Final consumption by sector · fuel=Total · ktoe
+        Final consumption by sector · all fuels · ktoe
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
@@ -278,7 +278,7 @@ function EndUseTable({ pack }: { pack: ConsumptionPack }) {
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Domestic end use · fuel=Total · ktoe
+        Domestic end use · all fuels · ktoe
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>

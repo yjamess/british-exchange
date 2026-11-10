@@ -37,6 +37,7 @@ export type EnergyPackKey =
   | "renewables"
   | "networks"
   | "policyEvents"
+  | "policyPledges"
   | "shockEvents";
 
 /**
@@ -55,7 +56,7 @@ export const DOMAIN_PACKS = {
   manufacturing: ["manufacturing"],
   "industrial-work": ["manufacturing"],
   /** Decision Ledger is curated events (API / Storage pack), not observation series. */
-  policy: ["policyEvents"],
+  policy: ["policyEvents", "policyPledges"],
 } as const satisfies Record<EnergyDomainId, readonly EnergyPackKey[]>;
 
 export type EnergyScope = EnergyDomainId | "all";
@@ -84,6 +85,7 @@ export function packsFor(scope: EnergyScope): readonly EnergyPackKey[] {
       "renewables",
       "networks",
       "policyEvents",
+      "policyPledges",
       "shockEvents",
     ];
   }

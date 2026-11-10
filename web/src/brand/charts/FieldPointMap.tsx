@@ -122,6 +122,7 @@ export function FieldPointMap({
   sizeLabel?: string;
   describe?: (p: FieldPoint) => string;
 }) {
+  // Stable across SSR/client — do not derive pattern ids from layout or locale.
   const uid = useId().replace(/:/g, "");
   const svg = useRef<SVGSVGElement>(null);
   const [view, setView] = useState(HOME);

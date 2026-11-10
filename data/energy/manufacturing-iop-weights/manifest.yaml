@@ -1,0 +1,44 @@
+indicator_id: manufacturing-iop-weights
+title: Manufacturing IoP weights by SIC division / subsection
+sector: energy-industry
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction/current
+series_id: DIOP-Section-C-Weights
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: parts per thousand of the Index of Production (GVA weight)
+definition: 'ONS annual GVA weights used to combine the Index of Production, in parts
+  per thousand of all production (IoP = 1000), for SIC 2007 Section C manufacturing
+  (KM44), subsections CA–CM and divisions 10–33 (ONS combined 11+12). Additive: subsections
+  and divisions each sum to Section C.'
+licence: Open Government Licence v3.0
+agent_owner: energy
+connector_module: energy.connectors.manufacturing_iop_by_division
+curated_path: curated/observations.csv
+update_cadence: annual weights, republished with each monthly DIOP release
+raw_evidence:
+- path: raw/2026-11-07/diop.csv
+  retrieved_at: '2026-11-10T21:13:18.888283+00:00'
+  checksum_sha256: 9ccd31271f98f97340a62f6ac207c8fbf2ef83f5c0a2c11d054e612b7a76e7a0
+  content_type: text/csv
+  official_release_date: '2026-10-15'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/economy/economicoutputandproductivity/output/datasets/indexofproduction/current/diop.csv
+transformations: Read the pinned DIOP CSV. Select the explicit weight CDID for Section
+  C and each curated SIC break (WEIGHT_CDID_BY_INDEX). Keep annual rows (YYYY). notes
+  carry series= (the matching index CDID), weight_series=, classification=, sic=,
+  label=. Fail if subsections or divisions stop summing to Section C within 1 part
+  per thousand.
+revision_notes: Weights change at annual chain-linking / Blue Book. Re-pin with the
+  DIOP release used for manufacturing-iop-by-division.
+caveats: Weights are shares of production value added, not volume. Share of manufacturing
+  = branch weight ÷ Section C weight in the same year. ONS flagged in Oct 2025 that
+  a release's GVA weights had not been updated to Blue Book 2025; re-check weights
+  on each re-pin.
+related_indicator_ids:
+- manufacturing-iop-by-division
+- manufacturing-output-index
+open_questions:
+- Confirm which year's GVA ONS uses to set each year's weights.
+notion_registry_url: ''
+schema_version: '1.0'

@@ -32,6 +32,8 @@ import {
   EnergyStageFollow,
 } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
+import { viewReset } from "./reset";
 import { ImportsData } from "./ImportsData";
 import { IMPORTS_VIEWS } from "./views";
 import {
@@ -94,6 +96,12 @@ import {
 } from "./imports-shock-events";
 import s from "./generation.module.css";
 
+/** One unit per cable panel: TWh, two decimals (a small corridor reads 0.44 TWh, not 441 GWh). */
+const fmtTWhFixed = (gwh: number) => `${gwh < 0 ? "−" : ""}${(Math.abs(gwh) / 1000).toFixed(2)} TWh`;
+/** ISO date → "5 November 2026". */
+const fmtDay = (iso: string | null | undefined) =>
+  iso ? new Date(`${iso.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "";
+
 function shockToLedgerEvent(event: ShockEvent): LedgerEvent {
   const primary = event.sources.find((src) => src.role === "primary") ?? event.sources[0];
   return {
@@ -102,13 +110,13 @@ function shockToLedgerEvent(event: ShockEvent): LedgerEvent {
     title: event.title,
     typeLabel: SHOCK_KIND_LABEL[event.kind],
     summary: event.summary,
-    extent: `${event.jurisdiction}. ${event.alternate_reading}`,
+    extent: `${event.jurisdiction}. ${event.alternate_reading.replace(/\b(?:Quarterly\s+)?ET\s*\d+(?:\.\d+)?\s*/g, "Quarterly ").replace(/Quarterly Quarterly /g, "Quarterly ")}`,
     citation: primary?.label ?? event.title,
     markLabel: event.mark_label,
     markValue: formatMarkDate(event.mark_date),
-    status: "The chart shows what happened around the date; it does not show the event caused it.",
+    status: "",
     applies: event.jurisdiction,
-    commencement: "Date of the event, not a law coming into force.",
+    commencement: "",
     sources: event.sources.map((src) => ({ label: src.label, href: src.url })),
     context: event.follow.map((f, i) => ({
       id: `${event.id}-follow-${i}`,
@@ -319,23 +327,20 @@ export function ImportsCanvas({
   const lowCarbonYears = yearsOf(
     lowCarbonRows.filter((r) => (r.notes ?? "").includes("basis=annual")),
   );
+  // Prefer years common to every loaded ratio series; if a pack failed to load, do not
+  // empty the menu by requiring the missing series (Session A: intermittent fossil null).
+  const resilienceYearSets = [depYears, fossilYears, lowCarbonYears].filter((ys) => ys.length > 0);
   const resilienceYears =
-    fossilYears.length && lowCarbonYears.length && depYears.length
-      ? depYears.filter((yy) => fossilYears.includes(yy) && lowCarbonYears.includes(yy))
-      : depYears;
-
+    resilienceYearSets.length === 0
+      ? []
+      : resilienceYearSets
+          .slice(1)
+          .reduce((acc, ys) => acc.filter((yy) => ys.includes(yy)), resilienceYearSets[0]!);
   const yearPool =
-    view === "lifelines" && lineYears.length
-      ? lineYears
-      : view === "resilience" && resilienceYears.length
-        ? resilienceYears
-        : view === "connectors" && icYears.length
-          ? icYears
-          : view === "trade" && tradeYears.length
-            ? tradeYears
-            : depYears.length
-              ? depYears
-              : [latest];
+    view === "lifelines" ? lineYears
+      : view === "resilience" ? resilienceYears
+        : view === "connectors" ? icYears
+          : view === "trade" ? tradeYears : [];
   const y = clampYear(year, yearPool, latest);
 
   const oilRank = useMemo(() => oilPartnerRanks(oilRows, y), [oilRows, y]);
@@ -415,7 +420,8 @@ export function ImportsCanvas({
   const fossilReady = Boolean(pack.fossilDependency?.observations.length);
   const lowCarbonReady = Boolean(pack.lowCarbonShare?.observations.length);
   const gasStorageReady = Boolean(pack.gasStorage?.observations.length);
-  const resilienceReady = depReady && fossilReady && lowCarbonReady;
+  /** Any of the three ET 1.3 ratios is enough to draw; EmptyStage only when none loaded. */
+  const resilienceReady = depReady || fossilReady || lowCarbonReady;
   const stockSeries = gasStorageSeries(gasStorageRows, "stock", "gas-stock", "Stock");
   const capacitySeries = gasStorageSeries(
     gasStorageRows,
@@ -510,14 +516,14 @@ export function ImportsCanvas({
             {
               label: "Sources",
               value: String(shockEvent.sources.length),
-              note: `Checked ${shockRetrieved}`,
+              note: `Checked ${fmtDay(shockRetrieved)}`,
             },
           ]
         : [
             {
               label: "Events",
               value: String(events.length),
-              note: `Checked ${shockRetrieved}`,
+              note: `Checked ${fmtDay(shockRetrieved)}`,
             },
             {
               label: "Event",
@@ -595,23 +601,23 @@ export function ImportsCanvas({
         ? [
             {
               label: `${y} imports`,
-              value: importsY != null ? fmtKtoe(importsY.value) : "—",
+              value: importsY != null ? `${(importsY.value / 1000).toFixed(1)} Mtoe` : "—",
               note: importsY
                 ? importsY.quarters < 4
                   ? `${importsY.quarters} of 4 quarters so far`
                   : "Energy coming into the UK"
-                : "ktoe",
+                : "Million tonnes of oil equivalent",
             },
             {
               label: `${y} exports`,
-              value: exportsY != null ? fmtKtoe(Math.abs(exportsY.value)) : "—",
+              value: exportsY != null ? `${(Math.abs(exportsY.value) / 1000).toFixed(1)} Mtoe` : "—",
               note: "Energy leaving the UK",
             },
             {
               label: `${y} balance`,
               value:
                 importsY != null && exportsY != null
-                  ? fmtKtoe(importsY.value - Math.abs(exportsY.value))
+                  ? `${((importsY.value - Math.abs(exportsY.value)) / 1000).toFixed(1)} Mtoe`
                   : "—",
               note: "Imports minus exports · same year",
             },
@@ -628,7 +634,7 @@ export function ImportsCanvas({
               label: "Cable capacity",
               value: icCapReady && icCapRanks.length ? fmtMw(icCapTotal) : "—",
               note: icCapPin
-                ? `Import capacity · as of ${icCapPin}`
+                ? `Import capacity · as of ${fmtDay(icCapPin)}`
                 : "Import capacity",
             },
             {
@@ -771,6 +777,16 @@ export function ImportsCanvas({
             ? "Gas · by ship"
             : "Gas · pipeline and ship";
 
+  const resetState = { year: y, basis, ic_flow: icFlow, fuel, flow, mode, partner, list: listMode, event: eventId };
+  // Default year = what a URL without `year` opens on (latest clamped into this view's pool),
+  // so Reset stays hidden at defaults on Connectors / Trade where the pools end later.
+  const resetDefaults: typeof resetState = { year: clampYear(latest, yearPool, latest), basis: "annual", ic_flow: "Net imports", fuel: "oil", flow: "Imports", mode: "Combined", partner: "", list: "top", event: defaultShockId(events) };
+  const resetKeys: (keyof typeof resetState)[] = view === "shock" ? ["event"]
+    : view === "resilience" ? ["year", "basis"]
+      : view === "connectors" ? ["year", "ic_flow"]
+        : view === "trade" ? ["year"] : ["year", "fuel", "flow", "mode", "partner", "list"];
+  const resetPatch = viewReset(resetState, resetDefaults, resetKeys);
+
   return (
     <>
       <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
@@ -784,14 +800,7 @@ export function ImportsCanvas({
         <ControlRow>
           {view !== "shock" &&
             !(view === "resilience" && basis === "quarterly") &&
-            (depReady ||
-              tradeReady ||
-              icReady ||
-              oilReady ||
-              gasReady ||
-              lngReady ||
-              fossilReady ||
-              lowCarbonReady) && (
+            yearOptions.length > 1 && (
               <MenuControl
                 label="Year"
                 value={String(y)}
@@ -807,7 +816,7 @@ export function ImportsCanvas({
                 options={[
                   { value: "oil", label: "Oil" },
                   { value: "gas", label: "Gas" },
-                  { value: "lng", label: "LNG terminals" },
+                  { value: "lng", label: "Liquefied natural gas terminals" },
                 ]}
                 onChange={(v) => sync({ fuel: v as LifelineFuel })}
               />
@@ -829,7 +838,7 @@ export function ImportsCanvas({
                   value={mode}
                   options={[
                     { value: "Pipeline", label: "Pipeline" },
-                    { value: "LNG", label: "By ship (LNG)" },
+                    { value: "LNG", label: "By ship" },
                     { value: "Combined", label: "Pipeline and ship" },
                   ]}
                   onChange={(v) => sync({ mode: v as GasMode })}
@@ -870,33 +879,7 @@ export function ImportsCanvas({
               onChange={(v) => sync({ ic_flow: v as InterconnectorFlow })}
             />
           )}
-          {(
-            y !== latest ||
-            basis !== "annual" ||
-            icFlow !== "Net imports" ||
-            fuel !== "oil" ||
-            flow !== "Imports" ||
-            mode !== "Combined" ||
-            Boolean(partner) ||
-            listMode !== "top" ||
-            (view === "shock" && eventId !== defaultShockId(events))
-          ) && (
-            <ResetButton
-              onClick={() =>
-                sync({
-                  year: latest,
-                  basis: "annual",
-                  ic_flow: "Net imports",
-                  fuel: "oil",
-                  flow: "Imports",
-                  mode: "Combined",
-                  partner: "",
-                  list: "top",
-                  event: null,
-                })
-              }
-            />
-          )}
+          {Object.keys(resetPatch).length > 0 && <ResetButton onClick={() => sync(resetPatch)} />}
         </ControlRow>
       )}
 
@@ -945,7 +928,7 @@ export function ImportsCanvas({
         }
         foot={
           <FigureRecord
-            source={footSource}
+            source={energySource("imports", view, footSource)}
             definition={footDefinition}
             method={footMethod}
             dataHref={dataHref}
@@ -1241,7 +1224,7 @@ export function ImportsCanvas({
               <>
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
-                    UK · electricity {icFlow.toLowerCase()} · GWh · {icYears[0] ?? "—"}–{icYears.at(-1) ?? "—"}
+                    UK · electricity {icFlow.toLowerCase()} · each quarter · TWh · {icYears[0] ?? "—"}–{icYears.at(-1) ?? "—"}
                   </h3>
                   {icUkSeries.points.length === 0 ? (
                     <EmptyStage label="No UK figures for this flow">
@@ -1250,10 +1233,10 @@ export function ImportsCanvas({
                   ) : (
                     <TimeChart
                       label={`UK · electricity ${icFlow.toLowerCase()}`}
-                      series={[icUkSeries]}
+                      series={[{ ...icUkSeries, label: `UK total · ${icFlow.toLowerCase()}` }]}
                       cadence="quarterly"
                       kind="line"
-                      format={(v) => fmtGWh(v)}
+                      format={fmtTWhFixed}
                       rules={[{ id: "year", t: y, label: String(y), active: true }]}
                     />
                   )}
@@ -1261,7 +1244,7 @@ export function ImportsCanvas({
 
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
-                    By country · {icFlow.toLowerCase()} · {y} · GWh
+                    By country · {icFlow.toLowerCase()} · {y} · TWh
                   </h3>
                   {icTable.length === 0 ? (
                     <EmptyStage label="No corridor totals for this year">
@@ -1286,7 +1269,7 @@ export function ImportsCanvas({
                               }
                             : undefined
                         }
-                        format={(v) => fmtGWh(v)}
+                        format={fmtTWhFixed}
                       />
                     </>
                   )}
@@ -1295,7 +1278,7 @@ export function ImportsCanvas({
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
                     Cable capacity into Britain · MW
-                    {icCapPin ? ` · as of ${icCapPin}` : ""}
+                    {icCapPin ? ` · as of ${fmtDay(icCapPin)}` : ""}
                   </h3>
                   {!icCapReady || icCapRanks.length === 0 ? (
                     <EmptyStage label="Interconnector capacity unavailable">
@@ -1323,7 +1306,7 @@ export function ImportsCanvas({
           <div className={s.stack}>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                UK energy imports and exports · ktoe · {tradeYears[0] ?? "—"}–{tradeYears.at(-1) ?? "—"}
+                UK energy imports and exports · each quarter · ktoe · {tradeYears[0] ?? "—"}–{tradeYears.at(-1) ?? "—"}
               </h3>
               {!tradeReady || tradeSeries.every((series) => series.points.length === 0) ? (
                 <EmptyStage label="Trade series unavailable">

@@ -147,7 +147,7 @@ export function ImportsData({ pack }: { pack: ImportsPack }) {
         <div className={t.tableGroup}>
           <p className={t.stageTitle}>
             Built interconnector capacity · MW
-            {icCapPin ? ` · as at ${icCapPin}` : ""}
+            {icCapPin ? ` · as at ${new Date(`${icCapPin.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}` : ""}
           </p>
           <div className={t.tableWrap}>
             <table className={t.table}>

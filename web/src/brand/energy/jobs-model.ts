@@ -147,13 +147,16 @@ export function asheSectionChange(rows: AshePayRow[]): number | null {
   return rows.find((r) => r.classification === "section")?.annualPctChange ?? null;
 }
 
+/** "repair and installation…" → "Repair and installation…". */
+const sentenceLabel = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+
 /** Division ranks by median pay (section C excluded from the bars). */
 export function asheDivisionRanks(rows: AshePayRow[]): { id: string; label: string; v: number }[] {
   return rows
     .filter((r) => r.classification === "division")
     .map((r) => ({
       id: r.sic,
-      label: `${r.sic} · ${r.label.replace(/^Manufacture of /i, "").replace(/^MANUFACTURING$/i, "Manufacturing")}`,
+      label: sentenceLabel(r.label.replace(/^Manufacture of /i, "").replace(/^MANUFACTURING$/i, "Manufacturing")),
       v: r.median,
     }))
     .sort((a, b) => b.v - a.v);
@@ -171,7 +174,7 @@ export function asheDivisionChangeRanks(
     .filter((r) => r.classification === "division" && r.annualPctChange != null)
     .map((r) => ({
       id: r.sic,
-      label: `${r.sic} · ${r.label.replace(/^Manufacture of /i, "")}`,
+      label: sentenceLabel(r.label.replace(/^Manufacture of /i, "")),
       v: r.annualPctChange!,
     }))
     .sort((a, b) => b.v - a.v);

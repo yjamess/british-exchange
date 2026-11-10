@@ -91,27 +91,29 @@ export function appetiteData(rows: Observation[], lens: AppetiteLens, scope: Sec
   const all = cells(rows);
   const years = [...new Set(all.map((c) => c.year))].sort((a, b) => a - b);
   const at = new Map(years.map((y, i) => [y, i]));
-  const zero = () => years.map(() => 0);
+  const missing = () => years.map(() => NaN);
 
   const scopeId: SectorId = lens === "sector" ? "all-final" : scope;
-  const total = zero();
+  const total = missing();
   for (const c of all) if (c.sector === scopeId && c.fuel === "Total") total[at.get(c.year)!] = c.v;
 
   if (lens === "sector") {
     const series = APPETITE_SECTORS.map((s) => {
-      const values = zero();
+      const values = missing();
       for (const c of all) if (c.sector === s.id && c.fuel === "Total") values[at.get(c.year)!] = c.v;
       return { id: s.id, label: s.label, color: s.color, print: "screen" as Print, values };
     });
     return { years, series, total, scopeLabel: SCOPE_LABEL["all-final"] };
   }
 
-  const series = FUEL_GROUPS.map((g) => ({ id: g.id, label: g.label, color: g.color, print: g.print, sources: [] as string[], values: zero() }));
+  const series = FUEL_GROUPS.map((g) => ({ id: g.id, label: g.label, color: g.color, print: g.print, sources: [] as string[], values: missing() }));
   for (const c of all) {
     if (c.sector !== scopeId || c.fuel === "Total") continue;
     const i = FUEL_GROUPS.findIndex((g) => g.match(c.fuel));
     if (i < 0) continue;
-    series[i]!.values[at.get(c.year)!]! += c.v;
+    const yearIndex = at.get(c.year)!;
+    const previous = series[i]!.values[yearIndex]!;
+    series[i]!.values[yearIndex] = Number.isFinite(previous) ? previous + c.v : c.v;
     if (!series[i]!.sources.includes(c.fuel)) series[i]!.sources.push(c.fuel);
   }
   return {
@@ -124,10 +126,10 @@ export function appetiteData(rows: Observation[], lens: AppetiteLens, scope: Sec
 
 /** Value of one series in one year under a measure. */
 export function measured(d: AppetiteData, s: AppetiteSeries, i: number, measure: AppetiteMeasure, baseIndex: number): number {
-  const v = s.values[i] ?? 0;
-  if (measure === "share") return d.total[i] ? (v / d.total[i]!) * 100 : 0;
+  const v = s.values[i] ?? NaN;
+  if (measure === "share") return d.total[i] ? (v / d.total[i]!) * 100 : NaN;
   if (measure === "index") {
-    const b = s.values[baseIndex] ?? 0;
+    const b = s.values[baseIndex] ?? NaN;
     return b > 0 ? (v / b) * 100 : NaN; // a carrier absent in the base year has no index
   }
   return v;

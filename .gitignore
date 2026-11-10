@@ -38,3 +38,4 @@ data/infrastructure/**/curated/**
 data/regions/**/curated/**
 !data/**/raw/.gitkeep
 !data/**/curated/.gitkeep
+.vercel

@@ -30,7 +30,7 @@
 }
 
 /*
- * World equirectangular frame (Natural Earth 110m → 960×480).
+ * World equirectangular paths are Natural Earth 110m in a 960×480 viewBox.
  * Full stage width — partners span continents; a 26–40rem cap made it unreadably small.
  */
 .mapSurfaceWorld {
@@ -57,9 +57,15 @@
 }
 
 .mapSurfaceWorld .worldSvg {
-  aspect-ratio: 960 / 480;
+  /* Path projection stays 2:1; CSS frame is taller so the stage does not read as a strip. */
+  aspect-ratio: 3 / 2;
   border: var(--bo-hair);
   background: var(--bo-paper);
+}
+
+/* Non-stage embeds can stay closer to the raw projection. */
+.mapSurfaceWorld:not(.mapSurfaceStage) .worldSvg {
+  aspect-ratio: 960 / 480;
 }
 
 /* Sit on the map frame, below the two-line caption. */

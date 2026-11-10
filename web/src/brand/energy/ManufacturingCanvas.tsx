@@ -25,6 +25,7 @@ import {
 } from "../template";
 import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
 import {
   ANATOMY_MEASURES,
   BRES_BY_DIVISION_REGION_ID,
@@ -122,8 +123,8 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
   const prodLine = productivitySeries(productivityRows);
 
   const outputYears = completeMonthlyYears(outputRows);
-  const shareYears = yearsOf(shareRows).filter((y) => shareValueInYear(shareRows, y) != null);
-  const nationalLatest = outputYears.at(-1) ?? shareYears.at(-1) ?? 2025;
+  const gvaShareYears = yearsOf(shareRows).filter((y) => shareValueInYear(shareRows, y) != null);
+  const nationalLatest = outputYears.at(-1) ?? gvaShareYears.at(-1) ?? 2025;
 
   const [view, setView] = useState(() =>
     VIEWS.some((v) => v.id === searchParams.get("view"))
@@ -160,14 +161,23 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
   const bresYears = useMemo(() => bresYearsOf(placesRows), [placesRows]);
   const placesBranchMode = Boolean(selectedBranch && activeView === "places");
 
+  // Share weights can run ahead of a complete IoP year (e.g. 2026 while months
+  // only reach August). Cap the share menu at the last complete monthly year.
+  const lastCompleteIop = outputYears.at(-1) ?? iopYears.at(-1);
+  const shareYears =
+    lastCompleteIop != null
+      ? weightYears.filter((yy) => yy <= lastCompleteIop)
+      : weightYears;
   const pool =
     activeView === "places"
       ? bresYears
       : shareMode
-        ? weightYears
+        ? shareYears.length
+          ? shareYears
+          : weightYears
         : activeView === "output-jobs"
           ? outputYears
-          : iopYears;
+          : iopYears.filter((yy) => !outputYears.length || outputYears.includes(yy));
   const yearPool = pool.length ? pool : [nationalLatest];
   const latest = yearPool.at(-1) ?? nationalLatest;
   const defaultFrom = shareMode
@@ -248,7 +258,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
     const was = new Map(fromCells.map((c) => [c.id, c.share]));
     return toCells
       .filter((c) => was.has(c.id))
-      .map((c) => ({ id: c.id, label: `${c.sic} · ${c.label}`, from: was.get(c.id)!, to: c.share }))
+      .map((c) => ({ id: c.id, label: c.label, from: was.get(c.id)!, to: c.share }))
       .sort((a, b) => b.to - a.to);
   }, [toCells, fromCells]);
   const largest = toCells.reduce<(typeof toCells)[number] | null>(
@@ -286,7 +296,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
             label: `${y} employee jobs`,
             value: bresSum != null ? fmtBresThousands(bresSum) : "—",
             note: placesBranchMode
-              ? `${selectedBranch!.sic} · sum of published GB regions`
+              ? `${shortName(selectedBranch!.label)} · sum of published GB regions`
               : "Thousands · sum of published regions",
           },
           {
@@ -302,7 +312,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
             label: "Compared",
             value: `${fromY}→${y}`,
             note: placesBranchMode
-              ? `${selectedBranch!.sic} · employee jobs in both years`
+              ? `${shortName(selectedBranch!.label)} · employee jobs in both years`
               : "Employee jobs in both years",
           },
         ]
@@ -332,7 +342,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                   const v = shareOf(selectedBranch.id, y);
                   return v != null ? fmtShareOfMfg(v) : "—";
                 })(),
-                note: `${selectedBranch.sic} · of manufacturing`,
+                note: `of manufacturing`,
               },
               {
                 label: `Share · ${fromY}`,
@@ -340,7 +350,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                   const v = shareOf(selectedBranch.id, fromY);
                   return v != null ? fmtShareOfMfg(v) : "—";
                 })(),
-                note: `${selectedBranch.sic} · of manufacturing`,
+                note: `of manufacturing`,
               },
               {
                 label: `Volume · ${fromY}→${y}`,
@@ -353,7 +363,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                 {
                   label: `Largest · ${y}`,
                   value: largest ? fmtShareOfMfg(largest.share) : "—",
-                  note: largest ? `${largest.sic} · ${shortName(largest.label)}` : "",
+                  note: largest ? shortName(largest.label) : "",
                 },
                 {
                   label: `Biggest gain · ${fromY}→${y}`,
@@ -371,7 +381,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                   {
                     label: `${y} volume index`,
                     value: branchYear != null ? fmtIndex(branchYear) : "—",
-                    note: `${selectedBranch.sic} · average of months`,
+                    note: `${shortName(selectedBranch.label)} · average of months`,
                   },
                   {
                     label: `Volume · ${fromY}→${y}`,
@@ -406,7 +416,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
   const fromOptions = yearOptions.filter((o) => Number(o.value) <= y);
   const industryOptions = [
     { value: "all", label: "All manufacturing" },
-    ...branches.map((b) => ({ value: b.id, label: `${b.sic} · ${b.label}` })),
+    ...branches.map((b) => ({ value: b.id, label: b.label })),
   ];
 
   const dirty =
@@ -417,11 +427,11 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
     (activeView === "anatomy" && measure !== "share");
 
   const anatomyTitle = selectedBranch
-    ? `The production anatomy · ${selectedBranch.sic} · ${selectedBranch.label} · ${fromY}→${y}`
+    ? `The production anatomy · ${selectedBranch.label} · ${fromY}→${y}`
     : `The production anatomy · ${measureLabel(shareMode ? "share" : "volume").toLowerCase()} · ${fromY}→${y}`;
 
   const placesTitle = selectedBranch
-    ? `Where ${selectedBranch.sic} jobs are · regions · ${fromY}→${y}`
+    ? `Where ${shortName(selectedBranch.label).toLowerCase()} jobs are · regions · ${fromY}→${y}`
     : `Where manufacturing jobs are · regions · ${fromY}→${y}`;
 
   return (
@@ -545,8 +555,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
         }
         foot={
           <FigureRecord
-            source={
-              activeView === "output-jobs"
+            source={energySource("manufacturing", view, activeView === "output-jobs"
                 ? ENERGY_SOURCE.manufacturingLandscape
                 : activeView === "places"
                   ? placesBranchMode
@@ -554,8 +563,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                     : ENERGY_SOURCE.manufacturingBres
                   : activeView === "anatomy"
                     ? ENERGY_SOURCE.manufacturingIopBranches
-                    : ENERGY_SOURCE.manufacturingIop
-            }
+                    : ENERGY_SOURCE.manufacturingIop)}
             definition={
               activeView === "output-jobs"
                 ? [
@@ -565,7 +573,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                 : activeView === "places"
                   ? placesBranchMode
                     ? [
-                        `Employee jobs in ${selectedBranch!.sic} (${selectedBranch!.label}) by GB region from Nomis open-access BRES.`,
+                        `Employee jobs in ${selectedBranch!.label.toLowerCase()} by Great Britain region, from the ONS Business Register and Employment Survey.`,
                         "Counts workplaces for that branch, not plants on a map. Broad branches sum their detailed divisions.",
                       ]
                     : [
@@ -667,7 +675,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                           return (
                             <tr key={`sub-${b.id}`}>
                               <th scope="row">{b.sic}</th>
-                              <td>{b.label}</td>
+                              <td className={t.wrap}>{b.label}</td>
                               <td>Broad</td>
                               <td>{v != null ? fmtIndex(v) : "—"}</td>
                               <td>{ch != null ? fmtPctChange(ch) : "—"}</td>
@@ -680,7 +688,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                           return (
                             <tr key={`div-${b.id}`}>
                               <th scope="row">{b.sic}</th>
-                              <td>{b.label}</td>
+                              <td className={t.wrap}>{b.label}</td>
                               <td>Detailed</td>
                               <td>{v != null ? fmtIndex(v) : "—"}</td>
                               <td>{ch != null ? fmtPctChange(ch) : "—"}</td>
@@ -725,7 +733,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                               return (
                                 <tr key={`w-${lvl}-${b.id}`}>
                                   <th scope="row">{b.sic}</th>
-                                  <td>{b.label}</td>
+                                  <td className={t.wrap}>{b.label}</td>
                                   <td>{lvl}</td>
                                   <td>{w != null ? fmtIndex(w) : "—"}</td>
                                   <td>{a != null ? fmtShareOfMfg(a) : "—"}</td>
@@ -781,45 +789,6 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                   </div>
                 </div>
               ) : null}
-              {bresDivisionReady ? (
-                <div className={t.tableGroup}>
-                  <p className={t.stageTitle}>
-                    Employee jobs by division and region · sample year{" "}
-                    {bresYearsOf(bresDivisionRows).includes(y)
-                      ? y
-                      : (bresYearsOf(bresDivisionRows).at(-1) ?? y)}{" "}
-                    · chemicals
-                  </p>
-                  <div className={t.tableWrap}>
-                    <table className={t.table}>
-                      <thead>
-                        <tr>
-                          <th scope="col">Region</th>
-                          <th scope="col">Chemicals employee jobs (thousands)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {bresRankForYear(
-                          bresDivisionRowsForBranch(bresDivisionRows, {
-                            id: "sic-20",
-                            sic: "20",
-                            label: "Chemicals",
-                            classification: "division",
-                          }),
-                          bresYearsOf(bresDivisionRows).includes(y)
-                            ? y
-                            : (bresYearsOf(bresDivisionRows).at(-1) ?? y),
-                        ).map((r) => (
-                          <tr key={`d20-${r.id}`}>
-                            <th scope="row">{r.label}</th>
-                            <td>{fmtBresThousands(r.v)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              ) : null}
               <AnnualSeriesTable
                 title="Manufacturing volume index · all manufacturing"
                 unit="index"
@@ -867,9 +836,9 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                 <h3 className={t.stageTitle}>
                   Employee jobs · thousands · {y}
                   {placesBranchMode
-                    ? ` · ${selectedBranch!.sic}`
+                    ? ` · ${shortName(selectedBranch!.label)}`
                     : y >= 2024
-                      ? " · NI not published"
+                      ? " · Northern Ireland not published"
                       : ""}
                 </h3>
                 {bresRanks.length === 0 ? (
@@ -880,7 +849,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                   <RankBars
                     label={
                       placesBranchMode
-                        ? `${selectedBranch!.sic} employee jobs · ${y}`
+                        ? `${shortName(selectedBranch!.label)} employee jobs · ${y}`
                         : `Manufacturing employee jobs · ${y}`
                     }
                     rows={bresRanks}
@@ -891,7 +860,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
                   Change · {fromY}→{y} · employee jobs
-                  {placesBranchMode ? ` · ${selectedBranch!.sic}` : ""}
+                  {placesBranchMode ? ` · ${shortName(selectedBranch!.label)}` : ""}
                 </h3>
                 {bresChanges.length === 0 ? (
                   <EmptyStage label="No overlapping region years">
@@ -955,8 +924,8 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
             </section>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Share of the economy · % of gross value added · {shareYears[0] ?? "—"}–
-                {shareYears.at(-1) ?? "—"}
+                Share of the economy · % of gross value added · {gvaShareYears[0] ?? "—"}–
+                {gvaShareYears.at(-1) ?? "—"}
               </h3>
               {shareLine.points.length === 0 ? (
                 <EmptyStage label="Economy share unavailable">
@@ -1015,7 +984,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                                 <span className={s.specimenPlate} aria-hidden="true" />
                               )}
                               <span className={`bo-label ${s.specimenName}`}>
-                                {c.sic} · {c.label}
+                                {c.label}
                               </span>
                               <span className={`bo-fig ${s.specimenShare}`}>{fmtShareOfMfg(c.share)}</span>
                               <span className={s.specimenBar} aria-hidden="true">
@@ -1038,7 +1007,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                     .sort((a, b) => b.share - a.share)
                     .map((c) => ({
                       id: c.id,
-                      label: `${c.sic} · ${c.label}`,
+                      label: c.label,
                       v: c.share,
                       active: selectedBranch?.id === c.id,
                     }))}
@@ -1051,7 +1020,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
               <>
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
-                    Share of manufacturing · {selectedBranch.sic} · {weightYears[0]}–{weightYears.at(-1)}
+                    Share of manufacturing · {shortName(selectedBranch.label)} · {weightYears[0]}–{weightYears.at(-1)}
                   </h3>
                   {!branchShareLine || branchShareLine.points.length === 0 ? (
                     <EmptyStage label="No weights for this branch">Try another industry.</EmptyStage>
@@ -1072,7 +1041,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
                 </section>
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
-                    Volume index · {selectedBranch.sic} · {iopFirst}–{iopLast}
+                    Volume index · {shortName(selectedBranch.label)} · {iopFirst}–{iopLast}
                   </h3>
                   {!branchSeries || branchSeries.points.length === 0 ? (
                     <EmptyStage label="No volume figures for this branch">Try another industry.</EmptyStage>
@@ -1115,7 +1084,7 @@ export function ManufacturingCanvas({ pack }: { pack: ManufacturingPack }) {
             {selectedBranch ? (
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
-                  Volume index · {selectedBranch.sic} · {iopFirst}–{iopLast}
+                  Volume index · {shortName(selectedBranch.label)} · {iopFirst}–{iopLast}
                 </h3>
                 {!branchSeries || branchSeries.points.length === 0 ? (
                   <EmptyStage label="No volume figures for this branch">Try another industry.</EmptyStage>

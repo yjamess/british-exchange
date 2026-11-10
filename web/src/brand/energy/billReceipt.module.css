@@ -1,6 +1,5 @@
-/* The Dissected Bill — receipt + hover detail. One ink on paper (Housing Supply Machine prints).
-   Full stage width, no second frame. Textures are dots and pen strokes, never opacity.
-   Measured £ strips are parked until there are periods worth comparing. */
+/* The Dissected Bill — your bill beside what pays for it. One ink on paper (Housing Supply Machine
+   prints). Full stage width, no second frame. Textures are dots and pen strokes, never opacity. */
 
 .root {
   container-type: inline-size;
@@ -15,15 +14,12 @@
   min-width: 0;
 }
 
-/* Wide stages: receipt beside its detail pane; the pane stays in view while the receipt is read. */
+/* Wide stages: your bill and what pays for it side by side, both ending on the same total. */
 @container (min-width: 46rem) {
   .grid {
-    grid-template-columns: minmax(17rem, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--bo-s6, 3rem);
     align-items: start;
-  }
-  .pane {
-    position: sticky;
-    top: var(--bo-s5);
   }
 }
 
@@ -256,65 +252,4 @@
 }
 .swatch[data-print="engrave"] {
   background-image: repeating-linear-gradient(0deg, var(--bo-ink) 0 1px, transparent 1px 3px);
-}
-
-/* ——— Hover detail ——— */
-
-.pane {
-  display: grid;
-  gap: 0.35rem;
-  min-width: 0;
-  padding: var(--bo-s2) 0 0;
-  color: var(--bo-text);
-}
-
-.paneKicker {
-  margin: 0;
-  font: 500 var(--bo-t-micro) / 1.4 var(--bo-f-data);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--bo-ink);
-}
-
-.paneTitle {
-  margin: 0;
-  font: 400 1.35rem / 1.2 var(--bo-f-head);
-  letter-spacing: -0.01em;
-  color: var(--bo-ink);
-}
-
-.paneFig {
-  margin: 0.15rem 0 0;
-  font: 300 1.75rem / 1 var(--bo-f-fig);
-  font-variant-numeric: tabular-nums;
-  color: var(--bo-ink);
-}
-
-.paneBody {
-  margin: 0.35rem 0 0;
-  font-size: var(--bo-t-note);
-  line-height: 1.45;
-  color: var(--bo-union);
-  max-width: 36rem;
-}
-
-.paneAction {
-  margin: 0.55rem 0 0;
-  font: 500 var(--bo-t-micro) / 1.4 var(--bo-f-data);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.paneAction a {
-  color: var(--bo-ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.paneIdle {
-  margin: 0;
-  font-size: var(--bo-t-note);
-  line-height: 1.45;
-  color: var(--bo-union);
 }

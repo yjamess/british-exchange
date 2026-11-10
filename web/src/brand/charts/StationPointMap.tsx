@@ -174,7 +174,7 @@ export function StationPointMap({
     ? `${hovered.name} · ${hovered.mw.toLocaleString("en-GB")} MW${stationPlace(hovered) ? ` · ${stationPlace(hovered)}` : ""}`
     : selected
       ? `${selected.name} · selected`
-      : "Drag to pan · zoom to inspect dense areas · select a square";
+      : "";
 
   return (
     <div className={s.wrap}>

@@ -25,7 +25,11 @@ import httpx
 
 from britain_exchange.catalog import IndicatorPackage, iter_indicator_packages
 from britain_exchange.db import apply_migrations, connect, load_repo_env
-from britain_exchange.dimensions import dimensions_from_notes, dimensions_to_db_fields
+from britain_exchange.dimensions import (
+    dimensions_from_notes,
+    dimensions_to_db_fields,
+    observation_identity_hash,
+)
 from britain_exchange.manifest import Manifest
 
 
@@ -154,20 +158,43 @@ _OBS_INSERT_SQL = """
     INSERT INTO observation (
         indicator_id, release_id, period_start, period_end,
         geography_code, geography_label, value, unit,
-        observation_status, source_version, notes,
+        observation_status, source_version,
         dim_fuel, dim_water_company, dim_water_company_name,
-        dim_demographic, dim_series, dim_category
+        dim_demographic, dim_series, dim_category,
+        note_id, identity_hash
     ) VALUES (
         %(indicator_id)s, %(release_id)s, %(period_start)s, %(period_end)s,
         %(geography_code)s, %(geography_label)s, %(value)s, %(unit)s,
-        %(observation_status)s, %(source_version)s, %(notes)s,
+        %(observation_status)s, %(source_version)s,
         %(dim_fuel)s, %(dim_water_company)s, %(dim_water_company_name)s,
-        %(dim_demographic)s, %(dim_series)s, %(dim_category)s
+        %(dim_demographic)s, %(dim_series)s, %(dim_category)s,
+        %(note_id)s, %(identity_hash)s
     )
 """
 
 # Remote Postgres (Supabase) is far faster with batched inserts than one round-trip per row.
 _OBS_BATCH_SIZE = 2_000
+
+
+def _ensure_note_ids(conn, notes: set[str]) -> dict[str, int]:
+    """Upsert note texts into observation_note; return note_text → note_id."""
+    if not notes:
+        return {}
+    rows = [{"note_text": text} for text in notes]
+    with conn.cursor() as cur:
+        cur.executemany(
+            """
+            INSERT INTO observation_note (note_text)
+            VALUES (%(note_text)s)
+            ON CONFLICT (note_text) DO NOTHING
+            """,
+            rows,
+        )
+        cur.execute(
+            "SELECT note_id, note_text FROM observation_note WHERE note_text = ANY(%s)",
+            (list(notes),),
+        )
+        return {row["note_text"]: int(row["note_id"]) for row in cur.fetchall()}
 
 
 def replace_release_observations(
@@ -186,6 +213,21 @@ def replace_release_observations(
         nonlocal batch
         if not batch:
             return
+        note_map = _ensure_note_ids(conn, {row["notes"] for row in batch})
+        for row in batch:
+            row["note_id"] = note_map[row["notes"]]
+            row["identity_hash"] = observation_identity_hash(
+                release_id=release_id,
+                period_start=row["period_start"],
+                period_end=row["period_end"],
+                geography_code=row["geography_code"],
+                dim_fuel=row["dim_fuel"],
+                dim_water_company=row["dim_water_company"],
+                dim_demographic=row["dim_demographic"],
+                dim_series=row["dim_series"],
+                dim_category=row["dim_category"],
+                notes=row["notes"],
+            )
         # psycopg3: executemany lives on the cursor, not Connection.
         with conn.cursor() as cur:
             cur.executemany(_OBS_INSERT_SQL, batch)
@@ -224,11 +266,13 @@ def replace_release_observations(
     if manifest.indicator_id == "water-supply-interruptions":
         bad = conn.execute(
             """
-            SELECT COUNT(*) AS n FROM observation
-            WHERE release_id = %s
+            SELECT COUNT(*) AS n
+            FROM observation o
+            LEFT JOIN observation_note n ON n.note_id = o.note_id
+            WHERE o.release_id = %s
               AND (
-                lower(dim_water_company) IN ('industry', 'total', 'all', 'aggregate')
-                OR lower(notes) LIKE '%%industry aggregate%%'
+                lower(o.dim_water_company) IN ('industry', 'total', 'all', 'aggregate')
+                OR lower(COALESCE(n.note_text, '')) LIKE '%%industry aggregate%%'
               )
             """,
             (release_id,),
@@ -433,6 +477,48 @@ def _rest_upsert_release(client: httpx.Client, base: str, key: str, package: Ind
     return release_id
 
 
+def _rest_ensure_note_ids(
+    client: httpx.Client, base: str, key: str, notes: set[str]
+) -> dict[str, int]:
+    """Upsert note texts through PostgREST; return note_text → note_id."""
+    if not notes:
+        return {}
+    payload = [{"note_text": text} for text in notes]
+    upserted = client.post(
+        f"{base}/rest/v1/observation_note",
+        headers={
+            **_rest_headers(key),
+            "Prefer": "resolution=merge-duplicates,return=representation",
+        },
+        params={"on_conflict": "note_text"},
+        json=payload,
+        timeout=120,
+    )
+    if upserted.status_code >= 400:
+        raise RuntimeError(
+            f"observation_note upsert failed: {upserted.status_code} {upserted.text[:400]}"
+        )
+    mapping = {row["note_text"]: int(row["note_id"]) for row in upserted.json()}
+    missing = notes - mapping.keys()
+    for text in missing:
+        # eq. filter avoids fragile in.() quoting when notes contain commas/semicolons.
+        fetched = client.get(
+            f"{base}/rest/v1/observation_note",
+            headers=_rest_headers(key),
+            params={"select": "note_id,note_text", "note_text": f"eq.{text}", "limit": "1"},
+            timeout=60,
+        )
+        if fetched.status_code >= 400:
+            raise RuntimeError(
+                f"observation_note lookup failed: {fetched.status_code} {fetched.text[:400]}"
+            )
+        rows = fetched.json()
+        if not rows:
+            raise RuntimeError(f"observation_note id missing for note {text!r}")
+        mapping[rows[0]["note_text"]] = int(rows[0]["note_id"])
+    return mapping
+
+
 def _rest_replace_observations(
     client: httpx.Client, base: str, key: str, package: IndicatorPackage, release_id: int
 ) -> int:
@@ -456,13 +542,41 @@ def _rest_replace_observations(
         nonlocal batch, count
         if not batch:
             return
+        note_map = _rest_ensure_note_ids(client, base, key, {row["notes"] for row in batch})
+        payload = []
+        for row in batch:
+            note_id = note_map[row["notes"]]
+            identity = observation_identity_hash(
+                release_id=release_id,
+                period_start=row["period_start"],
+                period_end=row["period_end"],
+                geography_code=row["geography_code"],
+                dim_fuel=row["dim_fuel"],
+                dim_water_company=row["dim_water_company"],
+                dim_demographic=row["dim_demographic"],
+                dim_series=row["dim_series"],
+                dim_category=row["dim_category"],
+                notes=row["notes"],
+            )
+            rest_row = {
+                key: value
+                for key, value in row.items()
+                if key != "notes"
+            }
+            payload.append(
+                {
+                    **rest_row,
+                    "note_id": note_id,
+                    "identity_hash": "\\x" + identity.hex(),
+                }
+            )
         response = client.post(
             f"{base}/rest/v1/observation",
             headers={
                 **_rest_headers(key),
                 "Prefer": "return=minimal",
             },
-            json=batch,
+            json=payload,
             timeout=120,
         )
         if response.status_code >= 400:

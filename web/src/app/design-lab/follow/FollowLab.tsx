@@ -242,7 +242,7 @@ const SPECIMENS = [
             <p className={s.fromChip}>
               From <strong>Generation · gas</strong>
               <span>· {YEAR}</span>
-              <a href="/energy?domain=generation&view=current&fuel=gas&year=2024">Return</a>
+              <Link href="/energy?domain=generation&view=current&fuel=gas&year=2024">Return</Link>
             </p>
           }
         >

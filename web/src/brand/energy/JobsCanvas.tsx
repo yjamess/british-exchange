@@ -28,6 +28,7 @@ import {
 } from "../template";
 import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
 import {
   ASHE_EARNINGS_ID,
   EMPLOYMENT_ID,
@@ -98,8 +99,8 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
   const jobYears = completeQuarterlyYears(employmentRows);
   const outputYears = completeMonthlyYears(outputRows);
   const bresYearsAll = useMemo(() => bresYearsOf(bresRows), [bresRows]);
-  const yearUnion = [...new Set([...jobYears, ...outputYears])].sort((a, b) => a - b);
-  const latestNational = yearUnion.at(-1) ?? 2025;
+  const landscapeYears = jobYears.filter((yy) => outputYears.includes(yy));
+  const latestNational = landscapeYears.at(-1) ?? 2025;
 
   const [view, setView] = useState(() => {
     const v = searchParams.get("view");
@@ -160,8 +161,9 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
 
   const activeView = view === "jobs-output" ? "landscape" : view;
 
-  const activeYears = yearUnion.length ? yearUnion : [latestNational];
-  const latest = latestNational;
+  const productivityYears = completeQuarterlyYears(measure === "job" ? perJobRows : productivityRows);
+  const activeYears = activeView === "productivity" ? productivityYears : landscapeYears;
+  const latest = activeYears.at(-1) ?? latestNational;
   const y = clampYear(year, activeYears, latest);
 
   const yearJobs = employmentYearMean(employmentRows, y);
@@ -194,7 +196,7 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
           {
             label: payMeasure === "hourly_ex_ot" ? "Manufacturing median hourly" : "Manufacturing median weekly",
             value: paySection != null ? fmtGbp(paySection, payMeasure) : "—",
-            note: `${paySheet} · section C · cash pounds · 2025`,
+            note: `${paySheet === "Full-Time" ? "Full-time" : "All employees"} · all manufacturing · cash · 2025`,
           },
           {
             label: "Year-on-year",
@@ -217,12 +219,12 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
           {
             label: `${y} hours index`,
             value: yearHours != null ? fmtIndex(yearHours) : "—",
-            note: "Official productivity hours · not Workforce Jobs",
+            note: "Hours worked · 2023 = 100",
           },
           {
             label: `${y} workforce jobs`,
             value: yearJobs != null ? fmtJobsThousands(yearJobs) : "—",
-            note: "Context only · separate series",
+            note: "Thousands · average of quarters",
           },
         ]
       : [
@@ -239,7 +241,7 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
           {
             label: `${y} output / hour`,
             value: yearProd != null ? fmtIndex(yearProd) : "—",
-            note: "Separate productivity series",
+            note: "2023 = 100 · average of quarters",
           },
         ];
 
@@ -290,7 +292,7 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
               />
             </>
           )}
-          {activeView !== "pay" ? (
+          {activeView !== "pay" && yearOptions.length > 1 ? (
             <MenuControl
               label="Year"
               value={String(y)}
@@ -346,13 +348,11 @@ export function JobsCanvas({ pack }: { pack: JobsPack }) {
         }
         foot={
           <FigureRecord
-            source={
-              activeView === "productivity"
+            source={energySource("industrial-work", activeView, activeView === "productivity"
                 ? ENERGY_SOURCE.jobsProductivity
                 : activeView === "pay"
                   ? ENERGY_SOURCE.jobsPay
-                  : ENERGY_SOURCE.jobsLandscape
-            }
+                  : ENERGY_SOURCE.jobsLandscape)}
             definition={
               activeView === "productivity"
                 ? [

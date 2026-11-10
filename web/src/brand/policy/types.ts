@@ -27,8 +27,10 @@ export type LedgerEvent = {
   markLabel: string;
   /** Formatted mark date. */
   markValue: string;
+  /** Empty string hides the row (e.g. an incident has no legal status). */
   status: string;
   applies: string;
+  /** Empty string hides the row (only laws and instruments commence). */
   commencement: string;
   sources: LedgerSource[];
   context: LedgerContextLink[];

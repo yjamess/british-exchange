@@ -115,28 +115,6 @@ export const CAP_FUEL: Record<BillFuel, CapComponentRow["fuel"]> = {
   economy7: "elec_multi",
 };
 
-/** The cap's breakdown for the last period starting in `year`, grouped; VAT as its own line. */
-export function capBreakdown(pack: CapComponentsPack | null, year: number, fuel: BillFuel, payment: PaymentId) {
-  if (!pack) return null;
-  const rows = pack.rows.filter(
-    (r) => r.level === "typical" && r.fuel === CAP_FUEL[fuel] && r.payment === CAP_PAYMENT[payment] && r.period_start?.startsWith(String(year)),
-  );
-  const periods = [...new Set(rows.map((r) => r.period_start!))].sort();
-  const start = periods.at(-1);
-  if (!start) return null;
-  const at = rows.filter((r) => r.period_start === start);
-  const get = (code: string) => at.find((r) => r.component === code)?.gbp ?? null;
-  const exVat = get("Total_GB average");
-  const incVat = get("Total inc VAT");
-  if (exVat == null || incVat == null) return null;
-  const lines = GROUPS.map((g) => ({
-    id: g.id,
-    label: g.label,
-    value: g.codes.reduce((a, c) => a + (get(c) ?? 0), 0),
-  })).filter((l) => Math.abs(l.value) >= 0.005);
-  return { period: at[0]!.period, lines, vat: incVat - exVat, total: incVat };
-}
-
 /* ——— Bills as a share of pay ——— */
 
 /** Mean of the year's monthly average weekly pay (cash) × 52; null unless all 12 months are published. */
@@ -162,3 +140,53 @@ export function ofgemTypicalKwh(notes: string | null | undefined): number | null
 
 export const fmtPence = (p: number) => `${p.toFixed(2)}p`;
 export const fmtKwh = (k: number) => `${k.toLocaleString("en-GB")} kWh`;
+
+/**
+ * How Ofgem's cap splits its fixed part and its per-kWh part between cost groups, averaged over
+ * the cap periods that start in `year`. Each group's fixed share comes from the nil-consumption
+ * level; its per-kWh share from typical minus nil. Shares do not depend on Ofgem's typical use,
+ * so they can split any bill built from a standing charge and a unit rate. VAT is its own group.
+ */
+export function capShares(pack: CapComponentsPack | null, year: number, fuel: BillFuel, payment: PaymentId) {
+  if (!pack) return null;
+  const rows = pack.rows.filter(
+    (r) => r.fuel === CAP_FUEL[fuel] && r.payment === CAP_PAYMENT[payment] && r.period_start?.startsWith(String(year)),
+  );
+  const periods = [...new Set(rows.map((r) => r.period_start!))].sort();
+  if (periods.length === 0) return null;
+  const val = (period: string, level: CapComponentRow["level"], code: string) =>
+    rows.find((r) => r.period_start === period && r.level === level && r.component === code)?.gbp ?? null;
+  const groupsAt = (period: string, level: CapComponentRow["level"]) => {
+    const exVat = val(period, level, "Total_GB average");
+    const incVat = val(period, level, "Total inc VAT");
+    if (exVat == null || incVat == null) return null;
+    const out: Record<string, number> = {};
+    for (const g of GROUPS) out[g.id] = g.codes.reduce((a, c) => a + (val(period, level, c) ?? 0), 0);
+    out.vat = incVat - exVat;
+    return out;
+  };
+  const ids = [...GROUPS.map((g) => g.id), "vat"];
+  const fixed: Record<string, number> = Object.fromEntries(ids.map((id) => [id, 0]));
+  const perKwh: Record<string, number> = Object.fromEntries(ids.map((id) => [id, 0]));
+  let used = 0;
+  for (const p of periods) {
+    const nil = groupsAt(p, "nil");
+    const typ = groupsAt(p, "typical");
+    if (!nil || !typ) continue;
+    used += 1;
+    for (const id of ids) {
+      fixed[id]! += nil[id]!;
+      perKwh[id]! += typ[id]! - nil[id]!;
+    }
+  }
+  if (used === 0) return null;
+  const sum = (o: Record<string, number>) => ids.reduce((a, id) => a + o[id]!, 0);
+  const fixedTotal = sum(fixed);
+  const perKwhTotal = sum(perKwh);
+  if (fixedTotal <= 0 || perKwhTotal <= 0) return null;
+  const labels: Record<string, string> = { ...Object.fromEntries(GROUPS.map((g) => [g.id, g.label])), vat: "VAT" };
+  return {
+    periods: used,
+    groups: ids.map((id) => ({ id, label: labels[id]!, fixedShare: fixed[id]! / fixedTotal, perKwhShare: perKwh[id]! / perKwhTotal })),
+  };
+}

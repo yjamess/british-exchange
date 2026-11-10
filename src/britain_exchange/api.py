@@ -18,6 +18,8 @@ import csv
 import io
 import json
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from dataclasses import asdict
 from typing import Any
 
@@ -38,6 +40,7 @@ from britain_exchange.chart_contract import (
 )
 from britain_exchange.dimensions import merge_row_dimensions
 from britain_exchange.packs import PACK_REGISTRY, PackBlob, get_pack, get_pack_rel, list_packs
+from britain_exchange.db import close_pool
 from britain_exchange.runtime import postgres_required_but_missing, require_postgres
 from britain_exchange.store import (
     get_indicator_db,
@@ -48,9 +51,19 @@ from britain_exchange.store import (
 
 logger = logging.getLogger(__name__)
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    # Pool opens lazily on first query; close on shutdown so session-mode
+    # clients are returned to Supabase (see britain_exchange.db).
+    yield
+    close_pool()
+
+
 app = FastAPI(
     title="Britain Exchange API",
     version="0.3.0",
+    lifespan=lifespan,
     description=(
         "Serve verified indicator observations with typed dimensions and "
         "current-release selection. Uses PostgreSQL when DATABASE_URL is set; "

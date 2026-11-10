@@ -8,7 +8,12 @@ See docs/connector-contract.md.
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import asdict, dataclass
+from datetime import date
+
+# Must match database/migrations/004_observation_note_identity.sql (U+001F).
+_IDENTITY_SEP = "\x1f"
 
 
 @dataclass(slots=True, frozen=True)
@@ -171,3 +176,45 @@ def dimensions_to_db_fields(dims: ObservationDimensions) -> dict[str, str]:
         "dim_series": payload["series"],
         "dim_category": payload["category"],
     }
+
+
+def _iso_date(value: date | str) -> str:
+    if isinstance(value, date):
+        return value.isoformat()
+    text = str(value).strip()
+    return text[:10]
+
+
+def observation_identity_hash(
+    *,
+    release_id: int,
+    period_start: date | str,
+    period_end: date | str,
+    geography_code: str,
+    dim_fuel: str = "",
+    dim_water_company: str = "",
+    dim_demographic: str = "",
+    dim_series: str = "",
+    dim_category: str = "",
+    notes: str = "",
+) -> bytes:
+    """SHA-256 identity key for one observation within a release.
+
+    Empty dimension strings are included (same as Postgres ``NOT NULL DEFAULT ''``).
+    Uses ``note_text`` so the hash stays stable if ``observation_note`` is rebuilt.
+    Official docs: https://docs.python.org/3/library/hashlib.html
+    """
+    parts = (
+        str(int(release_id)),
+        _iso_date(period_start),
+        _iso_date(period_end),
+        geography_code or "",
+        dim_fuel or "",
+        dim_water_company or "",
+        dim_demographic or "",
+        dim_series or "",
+        dim_category or "",
+        notes or "",
+    )
+    payload = _IDENTITY_SEP.join(parts).encode("utf-8")
+    return hashlib.sha256(payload).digest()

@@ -55,6 +55,7 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
         renewables={data.renewables}
         networks={data.networks}
         policyEvents={data.policyEvents}
+        policyPledges={data.policyPledges}
         shockEvents={data.shockEvents}
       />
     );

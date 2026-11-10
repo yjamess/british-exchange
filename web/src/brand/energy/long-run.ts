@@ -89,7 +89,7 @@ export const LONG_FUELS: LongFuel[] = [
   {
     id: "renewables",
     label: "Wind, solar and hydro",
-    short: "Wind, solar & hydro",
+    short: "Wind, solar and hydro",
     sourceLabels: ["Wind, wave, solar and hydro"],
     fill: { kind: "solid", color: "var(--bo-chart-4)", text: "var(--bo-paper)" },
     includes:

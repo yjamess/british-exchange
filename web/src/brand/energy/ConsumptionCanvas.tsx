@@ -28,6 +28,8 @@ import {
 } from "../template";
 import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
+import { viewReset } from "./reset";
 import { ConsumptionAppetite } from "./ConsumptionAppetite";
 import type { AppetiteLens } from "./appetite-model";
 import {
@@ -326,10 +328,10 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
   const yearA = clampYear(compare, years, earliest);
   const yearB = y;
   const baseY = clampYear(indexBase, years, INDEX_BASE_DEFAULT);
-  const stackAll = sectorStack(finalRows, measure === "index" ? "index" : measure, baseY);
+  const stackAll = sectorStack(finalRows, measure === "index" ? "absolute" : measure, baseY);
   /** Fuel sector filters the metabolism chart + fuel breakdown; All final users keeps the full stack. */
   const stack = sector === "all-final" ? stackAll : stackAll.filter((s) => s.id === sector);
-  const fuelSector: SectorId = sector === "all-final" ? "domestic" : sector;
+  const fuelSector: SectorId = sector;
   const fuels = fuelRowsFor(finalRows, fuelSector, y);
   const sectorLabel = SECTORS.find((x) => x.id === sector)?.label ?? sector;
   const flow = flowRowsFor(flowRows, y);
@@ -433,8 +435,22 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     const n = r.notes ?? "";
     return r.period_start.startsWith(String(y)) && n.includes("sector=all-final") && n.includes("fuel=Total");
   });
-  const totalKtoe = allTotal?.value ?? 0;
+  const totalKtoe = allTotal?.value;
 
+  /** One unit per chart: Mtoe, two decimals for small end uses (lighting is a fraction of 1 Mtoe). */
+  const fmtMtoeAxis = (v: number) => `${(v / 1000).toFixed(Math.abs(v) < 1000 && v !== 0 ? 2 : 1)} Mtoe`;
+  const topSector = SECTORS.filter((x) => x.stack)
+    .map((x) => {
+      const row = finalRows.find(
+        (r) =>
+          r.period_start.startsWith(String(y)) &&
+          (r.notes ?? "").includes(`sector=${x.id}`) &&
+          (r.notes ?? "").includes("fuel=Total"),
+      );
+      return { label: x.label, v: (row?.value as number) ?? 0 };
+    })
+    .sort((p, q) => q.v - p.v)[0];
+  const topShare = topSector && typeof totalKtoe === "number" && totalKtoe > 0 ? (topSector.v / totalKtoe) * 100 : null;
   const figures: ExplorerFigure[] = [
     {
       label: `${y} final consumption`,
@@ -443,20 +459,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
     },
     {
       label: "Largest sector",
-      value: (() => {
-        const parts = SECTORS.filter((s) => s.stack).map((s) => {
-          const row = finalRows.find(
-            (r) =>
-              r.period_start.startsWith(String(y)) &&
-              (r.notes ?? "").includes(`sector=${s.id}`) &&
-              (r.notes ?? "").includes("fuel=Total"),
-          );
-          return { label: s.label, v: (row?.value as number) ?? 0 };
-        });
-        const top = parts.sort((a, b) => b.v - a.v)[0];
-        return top ? top.label : "—";
-      })(),
-      note: typeof totalKtoe === "number" && totalKtoe > 0 ? `${y} · share of all final users` : String(y),
+      value: topSector?.label ?? "—",
+      note: topShare != null ? `${topShare.toFixed(0)}% of final consumption · ${y}` : String(y),
     },
     {
       label: "Primary energy",
@@ -503,9 +507,9 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                     note: geoMapRanks[0] ? fmtKtoe(geoMapRanks[0].v) : String(y),
                   },
                   {
-                    label: "Coverage",
-                    value: "2005–2024",
-                    note: "Not the same as the national series",
+                    label: "Smallest English region",
+                    value: geoMapRanks.at(-1)?.label ?? "—",
+                    note: geoMapRanks.at(-1) ? fmtKtoe(geoMapRanks.at(-1)!.v) : String(y),
                   },
                 ]
               : figures
@@ -520,12 +524,12 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             options={
               view === "appetite"
                 ? [
-                    { value: "absolute", label: "Absolute (ktoe)" },
+                    { value: "absolute", label: "Energy consumed" },
                     { value: "share", label: "Share of total" },
                     { value: "index", label: `Index (${baseY} = 100)` },
                   ]
                 : [
-                    { value: "absolute", label: "Absolute (ktoe)" },
+                    { value: "absolute", label: "Energy consumed" },
                     { value: "share", label: "Share of all final" },
                   ]
             }
@@ -607,7 +611,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                   { value: "all", label: "All" },
                   ...DOMESTIC_END_USES.map((id) => ({
                     value: id,
-                    label: id.replace(/\b\w/g, (c) => c.toUpperCase()),
+                    label: id.charAt(0).toUpperCase() + id.slice(1),
                   })),
                 ]}
                 onChange={(v) => sync({ endUse: v as "all" | DomesticEndUseId })}
@@ -669,7 +673,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         )}
         {view === "data" && dataSeries === "geography" && (
           <MenuControl
-            label="All fuels sector"
+            label="Sector"
             value={geoSector}
             options={[
               { value: "all", label: "Total" },
@@ -683,7 +687,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         {view === "geography" && (
           <>
             <MenuControl
-              label="All fuels sector"
+              label="Sector"
               value={geoSector}
               options={[
                 { value: "all", label: "Total" },
@@ -697,10 +701,10 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
               label="Measure"
               value={geoMeasure}
               options={[
-                { value: "total", label: "Total (ktoe)" },
+                { value: "total", label: "Total consumption" },
                 {
                   value: "intensity",
-                  label: popPack ? "Per resident (toe/person)" : "Per resident (needs population)",
+                  label: popPack ? "Per resident" : "Per resident (needs population)",
                 },
               ]}
               onChange={(v) => sync({ geoMeasure: v as GeoMeasure })}
@@ -750,55 +754,20 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
               ? geoYears
               : years
             ).at(-1) ?? latest;
-          const adjusted =
-            measure !== "absolute" ||
-            y !== defaultYear ||
-            compare !== earliest ||
-            indexBase !== INDEX_BASE_DEFAULT ||
-            lens !== "sector" ||
-            sector !== "all-final" ||
-            endUse !== "all" ||
-            effEndUse !== "all" ||
-            useSector !== "all" ||
-            assume !== "published" ||
-            Boolean(effOver) ||
-            geoSector !== "all" ||
-            Boolean(place) ||
-            Boolean(placeQ) ||
-            endScope !== "domestic" ||
-            crossEnd !== "all" ||
-            Boolean(region) ||
-            geoMeasure !== "total" ||
-            dataSeries !== "c1";
-          return (
-            adjusted && (
-              <ResetButton
-                onClick={() => {
-                  // Keep the current view tab — Reset clears filters, it does not change route/tab.
-                  setPlaceQ("");
-                  sync({
-                    dataSeries: "c1",
-                    measure: "absolute",
-                    year: defaultYear,
-                    compare: earliest,
-                    indexBase: INDEX_BASE_DEFAULT,
-                    lens: "sector",
-                    sector: "all-final",
-                    endUse: "all",
-                    effEndUse: "all",
-                    useSector: "all",
-                    assume: "published",
-                    effOver: "",
-                    geoSector: "all",
-                    place: "",
-                    endScope: "domestic",
-                    crossEnd: "all",
-                    region: "",
-                    geoMeasure: "total",
-                  });
-                }}
-              />
-            )
+          const current = { measure, year: y, compare, indexBase, lens, sector, endUse, effEndUse, useSector, assume, effOver, geoSector, place, endScope, crossEnd, region, geoMeasure, dataSeries };
+          const defaults: typeof current = { measure: "absolute", year: defaultYear, compare: earliest, indexBase: INDEX_BASE_DEFAULT, lens: "sector", sector: "all-final", endUse: "all", effEndUse: "all", useSector: "all", assume: "published", effOver: "", geoSector: "all", place: "", endScope: "domestic", crossEnd: "all", region: "", geoMeasure: "total", dataSeries: "c1" };
+          const keys: (keyof typeof current)[] = view === "geography" ? ["year", "geoSector", "place", "region", "geoMeasure"]
+            : view === "useful" ? ["year", "assume", "effOver", "effEndUse", "useSector"]
+              : view === "end-use" ? ["year", "endUse", "endScope", "crossEnd", "sector"]
+                : view === "data" ? ["year", "dataSeries", "geoSector", "place"]
+                  : view === "appetite" ? ["year", "measure", "compare", "indexBase", "lens", "sector"]
+                    : ["year", "measure", "compare", "indexBase", "sector"];
+          const patch = viewReset(current, defaults, keys);
+          return (Object.keys(patch).length > 0 || (view === "geography" && Boolean(placeQ))) && (
+            <ResetButton onClick={() => {
+              if (view === "geography") setPlaceQ("");
+              sync(patch);
+            }} />
           );
         })()}
       </ControlRow>
@@ -813,11 +782,11 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                 ? `Useful energy experiment · ${assume === "scenario" ? "user scenario — not a DESNZ statistic" : "published estimate"} · ${y}`
                 : view === "end-use"
                   ? endScope === "cross"
-                    ? `Energy use · cross-sector · ${crossEndActive === "all" ? "all" : crossEndActive}`
-                    : `Energy use · homes · ${endUse === "all" ? "all" : endUse.replace(/\b\w/g, (c) => c.toUpperCase())}`
+                    ? `Energy use across sectors · ${crossEndActive === "all" ? "all end uses" : crossEndActive}`
+                    : `Energy use in homes · ${endUse === "all" ? "all end uses" : endUse}`
                   : view === "geography"
                     ? `Energy geography · ${geoYears[0] ?? 2005}–${geoYears.at(-1) ?? 2024}`
-                    : `Energy metabolism · ${earliest}–${latest} · ${measure === "share" ? "share of all final users" : "ktoe"}`
+                    : `Energy metabolism · ${earliest}–${latest} · ${measure === "share" ? "share of all final users" : "Mtoe"}`
         }
         meta={
           view === "end-use"
@@ -842,8 +811,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
         }
         foot={
           <FigureRecord
-            source={
-              dataFoot
+            source={energySource("consumption", view, dataFoot
                 ? dataFoot.source
                 : view === "geography"
                 ? ENERGY_SOURCE.consumptionGeography
@@ -851,8 +819,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                   ? ENERGY_SOURCE.consumptionEndUse
                   : view === "useful"
                     ? ENERGY_SOURCE.consumptionUseful
-                    : ENERGY_SOURCE.consumptionFinal
-            }
+                    : ENERGY_SOURCE.consumptionFinal)}
             definition={
               dataFoot
                 ? dataFoot.definition
@@ -902,7 +869,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                         `Figures by sector run from ${usefulYearsOf(usefulPack)[0] ?? USEFUL_FROM} to ${usefulLatest}. Figures by end use, and the efficiencies themselves, are published for ${usefulLatest} only.`,
                         "Heat pumps also draw heat from the air, ground or water around them, so their useful output can be larger than the electricity they use. That extra heat is counted as useful energy but not as energy used.",
                         "Change assumptions lets you edit the efficiencies and recalculates with the same method DESNZ uses, which reproduces every published figure exactly. Your results are your own scenario, not official statistics.",
-                        "Which assumptions matter most shows how much the share lost would fall if one efficiency were 10% better, with everything else unchanged.",
+                        "Which assumptions matter most is our calculation, not a DESNZ figure: how much the share lost would fall if one efficiency were 10% better, with everything else unchanged.",
                         "Sectors and technologies are not ranked against each other. Heating, vehicles and lighting turn energy into very different things, so one efficiency score would mislead.",
                         "Share lost under earlier and current assumptions is DESNZ's comparison with the efficiencies it used in 2017. Differences reflect updated assumptions, not necessarily real-world improvements.",
                         "Official Statistics in Development.",
@@ -921,7 +888,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                           `Primary allocation (Table W1) appears from ${W1_FROM} and is Official Statistics in Development. It is national — Fuel sector does not filter W1.`,
                           `Modelled useful and lost energy lives under Useful energy experiment (from ${USEFUL_FROM}) — not on this metabolism strip.`,
                           `Primary allocation stages follow ECUK Table W1 order: ${FLOW_STAGES.join(" · ")}. Transfers can be signed in the source; the bars use magnitude for reading.`,
-                          "fuel=Total is a sector aggregate; component fuels are shown separately and must not be summed with Total.",
+                          "The all-fuels total for each sector is published separately; the fuel rows are not added to it.",
                           pack.final.meta.caveats,
                           pack.flow?.meta.caveats,
                         ].filter(Boolean) as string[])
@@ -997,12 +964,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                       intensityOn ? ", per resident" : ""
                     }`}
                     legendFormat={(v) => (intensityOn ? fmtToePerResident(v) : fmtKtoe(v))}
-                    legendUnit={intensityOn ? "toe/person" : "ktoe (total)"}
+                    legendUnit={intensityOn ? "Tonnes of oil equivalent per person" : "Total consumption"}
                   />
-                  <p className={s.links}>
-                    Click a region, or search a council. UK total {y}:{" "}
-                    {typeof ukAll === "number" ? fmtKtoe(ukAll) : "—"}.
-                  </p>
                 </div>
 
                 {(selectedPlace || region || placeQ.trim()) && (
@@ -1045,7 +1008,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                                   })
                                 : "—"}
                           </span>
-                          <span className="bo-label">{intensityOn ? "toe/person" : "mtoe"}</span>
+                          <span className="bo-label">{intensityOn ? "toe/person" : "Mtoe"}</span>
                         </p>
                         <dl className={s.geoPanelMeta}>
                           {(
@@ -1111,7 +1074,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                                   });
                             })()}
                           </span>
-                          <span className="bo-label">{intensityOn ? "toe/person" : "mtoe"}</span>
+                          <span className="bo-label">{intensityOn ? "toe/person" : "Mtoe"}</span>
                         </p>
                         <p className="bo-label">Authorities in this area</p>
                         {laRanks.length === 0 ? (
@@ -1180,8 +1143,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                   <section className={s.panel}>
                     <h3 className={t.stageTitle}>
                       {crossEndActive === "all"
-                        ? "Cross-sector end uses · over time · ktoe"
-                        : `${crossEndActive} · over time · ktoe`}
+                        ? "Cross-sector end uses · over time · Mtoe"
+                        : `${crossEndActive} · over time · Mtoe`}
                     </h3>
                     <TimeChart
                       key={`cross-end-${crossEndActive}`}
@@ -1192,10 +1155,10 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                       }
                       series={crossStack}
                       cadence="annual"
-                      kind={crossEndActive === "all" ? "stack" : "line"}
+                      kind="line"
                       zero
                       showTable={false}
-                      format={(v) => fmtKtoe(v)}
+                      format={fmtMtoeAxis}
                     />
                   </section>
                   {crossEndActive !== "all" && (
@@ -1206,7 +1169,7 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                           key={`cross-sectors-${crossEndActive}-${y}`}
                           label={`${crossEndActive} by sector, ${y}`}
                           rows={crossSectors.map((r) => ({ id: r.id, label: r.label, v: r.v / 1000 }))}
-                          format={(v) => `${v.toFixed(2)} mtoe`}
+                          format={(v) => `${v.toFixed(2)} Mtoe`}
                         />
                       ) : (
                         <p className={s.links}>No positive sector rows for this end use in {y}.</p>
@@ -1224,8 +1187,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                 <section className={s.panel}>
                   <h3 className={t.stageTitle}>
                     {endUse === "all"
-                      ? "Homes · all end uses · over time · ktoe"
-                      : `${endUse.replace(/\b\w/g, (c) => c.toUpperCase())} in homes · over time · ktoe`}
+                      ? "Homes · all end uses · over time · Mtoe"
+                      : `${(endUse.charAt(0).toUpperCase() + endUse.slice(1))} in homes · over time · Mtoe`}
                   </h3>
                   <TimeChart
                     key={`end-use-${endUse}`}
@@ -1236,23 +1199,23 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                     }
                     series={endStack}
                     cadence="annual"
-                    kind={endUse === "all" ? "stack" : "line"}
+                    kind="line"
                     zero
                     showTable={false}
-                    format={(v) => fmtKtoe(v)}
+                    format={fmtMtoeAxis}
                   />
                 </section>
                 {endUse !== "all" && (
                   <section className={s.panel}>
                     <h3 className={t.stageTitle}>
-                      Fuels · {endUse.replace(/\b\w/g, (c) => c.toUpperCase())} · {y}
+                      Fuels · {(endUse.charAt(0).toUpperCase() + endUse.slice(1))} · {y}
                     </h3>
                     {endFuels.length > 0 ? (
                       <RankBars
                         key={`end-fuels-${endUse}-${y}`}
                         label={`Domestic ${endUse} by fuel, ${y}`}
                         rows={endFuels.map((f) => ({ id: f.id, label: f.label, v: f.v / 1000 }))}
-                        format={(v) => `${v.toFixed(2)} mtoe`}
+                        format={(v) => `${v.toFixed(2)} Mtoe`}
                       />
                     ) : (
                       <p className={s.links}>
@@ -1270,8 +1233,8 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
                 {sector === "all-final"
-                  ? `Final consumption by sector · ${measure === "share" ? "share of all final users" : "ktoe"}`
-                  : `${sectorLabel} · ${measure === "share" ? "share of all final users" : "ktoe"}`}
+                  ? `Final consumption by sector · ${measure === "share" ? "share of all final users" : "Mtoe"}`
+                  : `${sectorLabel} · ${measure === "share" ? "share of all final users" : "Mtoe"}`}
               </h3>
               <TimeChart
                 key={`metabolism-${sector}-${measure}`}
@@ -1282,24 +1245,23 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                 }
                 series={stack}
                 cadence="annual"
-                kind={sector === "all-final" ? "stack" : "line"}
+                kind={sector === "all-final" && measure === "share" ? "stack" : "line"}
                 zero
                 showTable={false}
-                format={(v) => (measure === "share" ? `${(v * 100).toFixed(0)}%` : fmtKtoe(v))}
+                format={(v) => (measure === "share" ? `${(v * 100).toFixed(0)}%` : `${(v / 1000).toFixed(1)} Mtoe`)}
               />
             </section>
 
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Fuels · {SECTORS.find((x) => x.id === fuelSector)?.label} · {y} · ktoe
-                {sector === "all-final" ? " (domestic shown — pick a fuel sector above)" : ""}
+                Fuels · {SECTORS.find((x) => x.id === fuelSector)?.label} · {y} · Mtoe
               </h3>
               {fuels.length > 0 ? (
                 <RankBars
                   key={`fuels-${fuelSector}-${y}`}
                   label={`Final consumption by fuel, ${fuelSector}, ${y}`}
                   rows={fuels.map((f) => ({ id: f.id, label: f.label, v: f.v / 1000 }))}
-                  format={(v) => `${v.toFixed(2)} mtoe`}
+                  format={(v) => `${v.toFixed(2)} Mtoe`}
                 />
               ) : (
                 <p className={t.stageTitle}>No positive fuel rows for this sector and year.</p>
@@ -1320,23 +1282,11 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
                       label: f.label,
                       v: Math.abs(f.v) / 1000,
                     }))}
-                    format={(v) => `${v.toFixed(1)} mtoe`}
+                    format={(v) => `${v.toFixed(1)} Mtoe`}
                   />
-                  <p className={s.links}>
-                    This strip is national — Fuel sector does not filter it. See Notes for how the stages
-                    are read.
-                  </p>
                 </>
               ) : (
-                <p className={s.links}>
-                  Primary allocation starts in {W1_FROM}. Choose a year from {W1_FROM} onward to see it.
-                  Final consumption covers {earliest}–{latest}.
-                </p>
-              )}
-              {pack.flow && (
-                <p className={s.links}>
-                  <a href={`/data?record=${PRIMARY_FLOW_ID}`}>Catalogue record</a>
-                </p>
+                <EmptyStage label={`Published from ${W1_FROM}`}>Choose {W1_FROM} or later.</EmptyStage>
               )}
             </section>
           </div>

@@ -1,0 +1,62 @@
+{
+  "uk-oil-gas-reserves": {
+    "http": 200,
+    "store": "postgres",
+    "count": 387,
+    "notes_preserved": true
+  },
+  "fossil-fuel-dependency": {
+    "http": 200,
+    "store": "postgres",
+    "count": 142,
+    "notes_preserved": true
+  },
+  "low-carbon-energy-share": {
+    "http": 200,
+    "store": "postgres",
+    "count": 142,
+    "notes_preserved": true
+  },
+  "natural-gas-storage": {
+    "http": 200,
+    "store": "postgres",
+    "count": 54,
+    "notes_preserved": true
+  },
+  "nominal-earnings": {
+    "http": 200,
+    "store": "postgres",
+    "count": 320,
+    "notes_preserved": true
+  },
+  "major-power-producer-fuel-prices": {
+    "http": 200,
+    "store": "postgres",
+    "count": 405,
+    "notes_preserved": true
+  },
+  "electricity-generation-by-source": {
+    "http": 200,
+    "store": "postgres",
+    "count": 1710,
+    "notes_preserved": true
+  },
+  "manufacturing-employment": {
+    "http": 200,
+    "store": "postgres",
+    "count": 193,
+    "notes_preserved": true
+  },
+  "manufacturing-output-index": {
+    "http": 200,
+    "store": "postgres",
+    "count": 944,
+    "notes_preserved": true
+  },
+  "manufacturing-iop-weights": {
+    "source": "storage",
+    "bytes": 633248,
+    "sha256": "aec8c61453d33a14bf9590b1bc86e7c132d43fd5557a316c05ac7b1a8fcdb2c6",
+    "observations": 1110
+  }
+}

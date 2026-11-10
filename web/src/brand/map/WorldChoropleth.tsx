@@ -353,6 +353,7 @@ export function WorldChoropleth({
         ref={svg}
         className={`${s.mapSvg} ${s.worldSvg}`}
         viewBox={`0 0 ${VB_W} ${VB_H}`}
+        preserveAspectRatio="xMidYMid meet"
         role="group"
         aria-label={label}
         tabIndex={0}

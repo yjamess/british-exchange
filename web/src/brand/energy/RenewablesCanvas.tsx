@@ -26,6 +26,7 @@ import {
 } from "../template";
 import { EnergyStageFollow } from "../connections";
 import { ENERGY_SOURCE } from "./citations";
+import { energySource } from "./source";
 import type { CapacityPack, GenerationPack } from "./packs";
 import {
   EMPTY_POLICY_EVENTS_PACK,
@@ -111,7 +112,7 @@ function PipelineArchiveTable({
   return (
     <div className={t.tableGroup}>
       <p className={t.stageTitle} id={titleId}>
-        Planning pipeline · status × technology · MW
+        Planning pipeline · by stage and technology · MW
       </p>
       <div className={t.tableWrap}>
         <table className={t.table} aria-labelledby={titleId}>
@@ -201,7 +202,10 @@ export function RenewablesCanvas({
     [...loadYears].sort((a, b) => a - b).at(-1) ??
     yearPool.at(-1) ??
     2025;
-  const earliest = yearPool[0] ?? 2008;
+  // Buildout “first capacity” must be a year that has capacity for this tech.
+  // Load-factor years can start earlier (e.g. 2008) while offshore capacity starts later.
+  const earliest =
+    [...capacityYears].sort((a, b) => a - b)[0] ?? yearPool[0] ?? 2008;
 
   const [year, setYear] = useState(() =>
     clampYear(Number(searchParams.get("year") || latest), yearPool.length ? yearPool : [latest], latest),
@@ -344,12 +348,12 @@ export function RenewablesCanvas({
     {
       label: stage.label,
       value: stageTotal > 0 ? fmtGw(stageTotal) : "—",
-      note: "Selected stage · MW",
+      note: "Selected stage",
     },
     {
       label: "Building",
       value: buildingTotal > 0 ? fmtGw(buildingTotal) : "—",
-      note: "Under construction · active lane",
+      note: "Under construction",
     },
   ];
 
@@ -491,7 +495,7 @@ export function RenewablesCanvas({
             value={measure}
             options={[
               { value: "built", label: "Built · MW" },
-              { value: "generating", label: "Generating · TWh" },
+              { value: "generating", label: "Electricity generated" },
               { value: "running", label: "Running · %" },
             ]}
             onChange={(v) => sync({ measure: v as GuideMeasure })}
@@ -510,8 +514,8 @@ export function RenewablesCanvas({
             label="Load-factor basis"
             value={basis}
             options={[
-              { value: "average_boe_capacity", label: "Average BoE capacity" },
-              { value: "unchanged_configuration", label: "Unchanged configuration" },
+              { value: "average_boe_capacity", label: "Average capacity over the year" },
+              { value: "unchanged_configuration", label: "Plants unchanged all year" },
             ]}
             onChange={(v) => sync({ lf_basis: v as LoadBasis })}
           />
@@ -564,7 +568,7 @@ export function RenewablesCanvas({
                     : `MW · TWh · % · ${earliest}–${latest}`
         }
         follow={
-          view === "capacity" || view === "data" ? null : (
+          view === "data" ? null : (
             <EnergyStageFollow
               domain="low-carbon"
               view={view}
@@ -575,20 +579,18 @@ export function RenewablesCanvas({
         }
         foot={
           <FigureRecord
-            source={
-              view === "pipeline"
+            source={energySource("low-carbon", view, view === "pipeline"
                 ? ENERGY_SOURCE.renewablesPipeline
                 : tech.nuclear
                   ? ENERGY_SOURCE.renewablesFieldNuclear
-                  : ENERGY_SOURCE.renewablesField
-            }
+                  : ENERGY_SOURCE.renewablesField)}
             definition={
               view === "data"
                 ? [
                     `Archive tables for ${tech.label}: installed capacity, annual generation${
                       tech.nuclear ? ", and plant load factor" : ", and load factor"
                     }.`,
-                    "Pipeline archive lists non-operational REPD capacity by status and technology.",
+                    "Pipeline archive lists capacity not yet operating in the planning database by status and technology.",
                   ]
                 : view === "pipeline"
                   ? [
@@ -607,39 +609,39 @@ export function RenewablesCanvas({
                         ]
                       : [
                           "Field card for one technology: installed capacity (MW), annual generation (TWh), and load factor (%).",
-                          "Nuclear is low-carbon electricity, not a renewable energy source. Its load factor comes from DUKES 5.10, not from the renewable table.",
+                          "Nuclear is low-carbon electricity, not a renewable energy source. Its load factor comes from the Digest of UK Energy Statistics, not from the renewable table.",
                         ]
             }
             method={
               view === "data"
                 ? [
-                    "Capacity from DUKES 5.12. Generation is the calendar-year sum of Energy Trends 5.1 quarters.",
+                    "Capacity from the Digest of UK Energy Statistics. Generation is the calendar-year sum of Energy Trends quarters.",
                     tech.nuclear
-                      ? "Nuclear load factor from DUKES 5.10 major power producers (nuclear stations)."
-                      : "Renewable load factors from DUKES 6.3; two published bases.",
-                    "Pipeline sums Installed Capacity (MWelec) for non-operational Development Status values in the REPD extract.",
+                      ? "Nuclear load factor from the Digest of UK Energy Statistics major power producers (nuclear stations)."
+                      : "Renewable load factors from the Digest of UK Energy Statistics; two published bases.",
+                    "Pipeline sums electrical capacity for non-operational planning stages in the planning database.",
                   ]
                 : view === "pipeline"
                   ? [
-                      "Sums Installed Capacity (MWelec) from the same REPD quarterly extract as the operational atlas, excluding Operational.",
+                      "Sums electrical capacity from the same quarterly planning database as the operational atlas, excluding Operational.",
                       "Stages group publisher status labels; MW is planning capacity, not generation and not built capacity on the field card.",
-                      "REPD covers projects at or above its published size threshold. Nuclear is not in REPD.",
+                      "The planning database covers projects at or above its published size threshold. Nuclear is not in it.",
                     ]
                   : view === "guide"
                     ? [
-                        "Capacity from DUKES 5.12; generation from Energy Trends 5.1; renewable load factors from DUKES 6.3; nuclear load factor from DUKES 5.10.",
-                        "Active planning MW sums the non-operational REPD active lane for mapped technologies. Specimens share one camera; drawing size is never MW.",
+                        "Capacity from the Digest of UK Energy Statistics; generation from Energy Trends; renewable load factors from the Digest of UK Energy Statistics; nuclear load factor from the Digest of UK Energy Statistics.",
+                        "Active planning MW sums projects not yet operating in the planning database for mapped technologies. Specimens share one camera; drawing size is never MW.",
                       ]
                     : view === "buildout"
                       ? [
-                          "Annual capacity from DUKES 5.12 (nuclear = sum of reactor-type rows). Annual generation is the calendar-year sum of Energy Trends 5.1 quarters.",
+                          "Annual capacity from the Digest of UK Energy Statistics (nuclear = sum of reactor-type rows). Annual generation is the calendar-year sum of Energy Trends quarters.",
                           "EventRail marks use Royal Assent or programme start years from Ready industrial-policy events that mention electricity, renewables or climate.",
                         ]
                       : [
-                          "Capacity from DUKES table 5.12 (nuclear = sum of reactor-type rows). Generation = calendar-year sum of Energy Trends table 5.1 quarters.",
+                          "Capacity from the Digest of UK Energy Statistics (nuclear is the sum of its reactor types). Generation is the calendar-year sum of Energy Trends quarters; a year appears once all four quarters are published.",
                           tech.nuclear
-                            ? "Nuclear load factor from DUKES table 5.10.B (nuclear stations, major power producers). Not from DUKES 6.3 or REPD."
-                            : "Load factors from DUKES table 6.3 only; two published bases — do not invent a third. Parent aggregates are not selectable here.",
+                            ? "Nuclear load factor from the Digest of UK Energy Statistics (nuclear stations, major power producers). Not from the Digest of UK Energy Statistics or the planning database."
+                            : "Load factors from the Digest of UK Energy Statistics, on its two published bases.",
                           "Proposed capacity is not installed capacity, and neither is generation. Place maps stay on Electricity Generation.",
                         ]
             }
@@ -725,7 +727,7 @@ export function RenewablesCanvas({
 
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
-                  Technologies · {stage.label} · MW
+                  Technologies · {stage.label}
                 </h3>
                 {techRanks.length === 0 ? (
                   <EmptyStage label="No technologies in this stage">
@@ -782,7 +784,7 @@ export function RenewablesCanvas({
               </section>
               <section className={s.panel}>
                 <h3 className={t.stageTitle}>
-                  Installed capacity · MW · {earliest}–{latest}
+                  Installed capacity · GW · {earliest}–{latest}
                 </h3>
                 {capSeries.points.length === 0 ? (
                   <EmptyStage label="No capacity points">
@@ -828,7 +830,7 @@ export function RenewablesCanvas({
           <div className={s.stack}>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Historical dial ·{" "}
+                Over time ·{" "}
                 {dialIsLoad ? `load factor · %` : `generation · TWh`} · {earliest}–{latest}
               </h3>
               {dialSeries.points.length === 0 ? (

@@ -16,7 +16,7 @@ import s from "./instrument.module.css";
  *   an empty 128px strip is what makes charts look shorter than the frame.
  * - clean observed lines with no decorative area; only supplied statistical range bands are drawn
  * - bars solid ink; provisional bars and stack layers use pen hatching or the muted chart tones
- * - dotted = provisional · dashed = gap between observations (not observed)
+ * - dotted = provisional · dashed = gap between observations (not observed; default)
  * - on a line, the latest point of the first series is an open ink ring. Bars do not get the ring:
  *   the last column is already that period. No Signal red in charts.
  * - pointer + keyboard inspection (←/→, Home/End, Esc) and an exact-value table
@@ -156,7 +156,7 @@ export function TimeChart({
   axisFormat,
   zero = false,
   area = false,
-  gaps = "break",
+  gaps = "dashed",
   marks = false,
   height = 340,
   label,
@@ -195,7 +195,11 @@ export function TimeChart({
   zero?: boolean;
   /** Deprecated: clean line direction A has no decorative area. */
   area?: boolean; // Deprecated: retained for source compatibility; no decorative fill.
-  /** "break" leaves gaps empty; "dashed" bridges them with a dashed (not observed) line. */
+  /**
+   * How to draw stretches longer than one cadence step between observations.
+   * Default `"dashed"` matches Housing and visual-identity (dashed = not observed).
+   * Pass `"break"` only when an empty stretch is deliberate.
+   */
   gaps?: "break" | "dashed";
   /** Small open rings at observations (sparse series only; ignored above 60 points). */
   marks?: boolean;

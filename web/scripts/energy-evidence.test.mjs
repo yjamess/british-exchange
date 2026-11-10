@@ -137,7 +137,12 @@ test("duplicate tabs stay retired and their old URLs redirect to the surviving t
     legacy.legacyEnergyRedirect({ domain: "networks", view: "capacity", year: "2022" }),
     "/energy?domain=imports&view=connectors&year=2022",
   );
-  assert.equal(legacy.legacyEnergyRedirect({ domain: "networks", view: "border" }), null);
+  assert.equal(
+    legacy.legacyEnergyRedirect({ domain: "networks", view: "border", year: "2024", flow: "Imports" }),
+    "/energy?domain=imports&view=connectors&year=2024&flow=Imports",
+  );
+  assert.equal(legacy.legacyEnergyRedirect({ domain: "networks", view: "night" }), "/energy?domain=generation&view=year");
+  assert.equal(legacy.legacyEnergyRedirect({ domain: "networks", view: "queue" }), null);
   assert.equal(legacy.legacyEnergyRedirect({}), null);
 
   // Every redirect target must be a real tab, or the redirect would just land on a default view.

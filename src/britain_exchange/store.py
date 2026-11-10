@@ -145,10 +145,12 @@ def list_observations_db(
                    o.period_start::text AS period_start,
                    o.period_end::text AS period_end,
                    o.geography_code, o.geography_label, o.value, o.unit,
-                   o.observation_status, o.source_version, o.notes,
+                   o.observation_status, o.source_version,
+                   COALESCE(n.note_text, '') AS notes,
                    o.dim_fuel, o.dim_water_company, o.dim_water_company_name,
                    o.dim_demographic, o.dim_series, o.dim_category
             FROM observation o
+            LEFT JOIN observation_note n ON n.note_id = o.note_id
             WHERE {" AND ".join(where)}
             ORDER BY o.period_start, o.dim_fuel, o.dim_water_company,
                      o.dim_demographic, o.dim_category, o.geography_code

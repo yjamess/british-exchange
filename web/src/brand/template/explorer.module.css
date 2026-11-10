@@ -844,6 +844,34 @@ p.stageTitle,
   vertical-align: bottom;
   white-space: nowrap;
 }
+/* Opt-in only: long name cells (e.g. Manufacturing branch). Do not wrap every
+   th[scope=row] — that broke Generation Data (years split as 202/5) and made
+   header columns diverge from the body. */
+.table th.wrap,
+.table td.wrap {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  min-width: 0;
+  max-width: 18rem;
+}
+/* Fixed layout only when a wrap column is present; otherwise leave auto so
+   multi-fuel archives (Generation Data) keep header and body columns aligned. */
+@media (max-width: 560px) {
+  .table:has(.wrap) {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .table:has(.wrap) th[scope="row"]:has(+ td.wrap) {
+    width: 3.25rem;
+    white-space: nowrap;
+  }
+  .table td.wrap,
+  .table th.wrap {
+    max-width: none;
+    width: 40%;
+  }
+}
 .table thead th {
   position: sticky;
   top: 0;
