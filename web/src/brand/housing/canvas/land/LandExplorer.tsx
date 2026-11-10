@@ -149,12 +149,12 @@ export function explorerFoot(): {
       "One English council at a time. Layers are clipped to the district — current designations only.",
     method: [
       "Flood zones 2 and 3 come live from the Environment Agency Flood Map for Planning (ignores defences). Dense districts may truncate at 400 polygons.",
-      "Historical geometries, appeals, local-plan allocations and individual applications are not in this view.",
-      "Land use is 2022. Brownfield marks are the England register, clipped — registration is not a deliverable home.",
-      "The Green Belt series on Historical change is hectares over time, not a rewound boundary map.",
+      "Local-plan allocations and individual planning applications stay labelled gaps — no England polygon or case feed is ready.",
+      "Inspectorate appeals sit on Planning decisions as Casework Database aggregates, not as map points.",
+      "Landmark Green Belt years sit on Historical change. Land use is 2022. Brownfield marks are the England register, clipped — registration is not a deliverable home.",
     ],
     source:
-      "ONS · MHCLG · Environment Agency · Historic England · Natural England · Planning Data collection dumps · councils",
+      "ONS · MHCLG · Environment Agency · Historic England · Natural England · Planning Data · England councils",
   };
 }
 
@@ -444,8 +444,10 @@ export function LandExplorer({
                     })}
                     {g.id === "development" && (
                       <p className={s.gap}>
-                        Local-plan allocations are not published in Planning Data for these places.
-                        Planning appeals are not loaded — a refusal or grant on the map is not an appeal outcome.
+                        Local-plan allocations are not published as an England polygon layer. Brownfield
+                        register sites are the national development-sites marks here. A refusal or grant
+                        drawn on the map is not an appeal outcome — Inspectorate appeals sit on Planning
+                        decisions.
                       </p>
                     )}
                   </fieldset>

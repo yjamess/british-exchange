@@ -47,29 +47,30 @@ test("annual change and the index are not published by bedroom", () => {
   assert.equal(selection.isPublished("average-rent", "bedrooms-2"), true);
 });
 
-test("the table leads with the series being inspected and still includes the others", () => {
+test("the table follows Property: all homes, one type, or bedroom sizes", () => {
   const columns = [
     { id: "all|average-rent", category: "all", measure: "average-rent", label: "All homes", points: [] },
     { id: "all|index", category: "all", measure: "index", label: "Index", points: [] },
     { id: "bedrooms-1|average-rent", category: "bedrooms-1", measure: "average-rent", label: "1 bedroom", points: [] },
+    { id: "type-flat-maisonette|average-rent", category: "type-flat-maisonette", measure: "average-rent", label: "Flat maisonette", points: [] },
   ];
-  const indexFirst = selection.tableColumns(columns, "index", "all");
-  assert.equal(indexFirst[0].measure, "index");
-  assert.equal(indexFirst.length, 3);
+  const allHomes = selection.tableColumns(columns, "index", "all");
+  assert.equal(allHomes[0].measure, "index");
+  assert.deepEqual(allHomes.map((col) => col.category), ["all", "all"]);
+  const flat = selection.tableColumns(columns, "average-rent", "type-flat-maisonette");
+  assert.deepEqual(flat.map((col) => col.id), ["type-flat-maisonette|average-rent"]);
   const beds = selection.tableColumns(columns, "bedrooms", "all");
-  assert.equal(beds[0].category, "bedrooms-1");
-  assert.ok(beds.some((col) => col.measure === "index"));
+  assert.deepEqual(beds.map((col) => col.category), ["bedrooms-1"]);
 });
 
-test("a bedroom chosen beside the index still leads the table", () => {
+test("a bedroom property on Data keeps only that bedroom; index chart still refuses the cross-break", () => {
   const columns = [
     { id: "all|index", category: "all", measure: "index", label: "Index", points: [] },
     { id: "bedrooms-2|average-rent", category: "bedrooms-2", measure: "average-rent", label: "2 bedrooms", points: [] },
     { id: "all|average-rent", category: "all", measure: "average-rent", label: "All homes", points: [] },
   ];
-  const led = selection.tableColumns(columns, "index", "bedrooms-2");
-  assert.equal(led[0].id, "bedrooms-2|average-rent");
-  assert.ok(led.some((col) => col.measure === "index"));
+  const table = selection.tableColumns(columns, "average-rent", "bedrooms-2");
+  assert.deepEqual(table.map((col) => col.id), ["bedrooms-2|average-rent"]);
   const chart = selection.chartColumns(columns, "index", "index", "bedrooms-2");
   assert.equal(chart.columns.length, 0);
   assert.match(chart.emptyReason, /all homes/);

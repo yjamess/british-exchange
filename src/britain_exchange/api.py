@@ -494,6 +494,10 @@ def get_observations(
         default=None,
         description="Filter by category dimension (e.g. industrial price band).",
     ),
+    period_start: str | None = Query(
+        default=None,
+        description="Exact period_start (ISO date), e.g. 2026-07-01 for one quarter.",
+    ),
     release_id: int | None = Query(
         default=None,
         description="Select a specific data_release; default is the current release.",
@@ -527,6 +531,7 @@ def get_observations(
             geography_code=geography_code,
             series=series,
             category=category,
+            period_start=period_start,
         )
         # DB path already filtered; still enrich aggregation_role / chart fields.
         enriched, excluded_aggregates, facets = _enrich_observation_rows(
@@ -673,11 +678,13 @@ def housing_price_paid_meta() -> dict[str, Any]:
             "available": False,
             **identity,
         }
+    # An empty table is not a search: the page shows its unavailable state instead.
+    count = count_price_paid()
     return {
         "year": SOURCE_YEAR,
-        "count": count_price_paid(),
+        "count": count,
         "attribution": ATTRIBUTION,
-        "available": True,
+        "available": count > 0,
         **identity,
     }
 

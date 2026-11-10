@@ -1,0 +1,35 @@
+indicator_id: green-belt-history
+title: England Green Belt landmark-year boundaries
+sector: housing-land
+publisher: MHCLG
+source_url: https://www.data.gov.uk/dataset/ccb505e0-67a8-4ace-b294-19a3cbff4861/english-local-authority-green-belt-dataset10
+series_id: English local authority Green Belt dataset (landmark years)
+geography: England (E92000001)
+frequency: annual (landmark years only)
+unit: geometry (dissolved MultiPolygon)
+definition: >-
+  Dissolved England outline of land designated as Green Belt for selected
+  statistical years, simplified for Historical Change. Not for area measurement.
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.green_belt_history
+curated_path: curated/index.json
+update_cadence: annual
+raw_evidence: []
+transformations: >-
+  Query ArcGIS FeatureServer mirrors of MHCLG annual Green Belt boundaries;
+  dissolve to England; simplify for screen; write year plates + index.
+revision_notes: >-
+  2026-11-10 landmark set 2019-20…2024-25. GeoServer SHAPE-ZIP unavailable (504);
+  ArcGIS mirrors used. Rebuilt same day at ≈0.5 km (first build at 5–8 km was
+  unreadable); added 2010-11; dropped duplicate 2022; England outline (ONS) added.
+caveats: >-
+  Landmark years only — no invented intermediate years. Designation ≠ build ban.
+  Screen simplification — use green-belt-area for hectares. Land Explorer uses
+  current designation only.
+related_indicator_ids:
+- green-belt-area
+open_questions:
+- Restore 1997 / mid-2010s years when MHCLG GeoServer SHAPE-ZIP recovers
+notion_registry_url: ""
+schema_version: "1.0"

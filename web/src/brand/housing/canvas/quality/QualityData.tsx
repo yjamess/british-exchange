@@ -32,6 +32,26 @@ const BK_LABEL: Record<string, string> = {
   "sub-national-area": "Survey area",
 };
 
+/** Plain menu names. Publisher titles (with "EHS", "HHSRS", "EPC") stay in the source line. */
+const PLAIN_TITLE: Record<string, string> = {
+  "ehs-accessibility-adaptations": "Accessibility features and adaptations",
+  "ehs-category-1-hazards": "Serious hazards (Category 1)",
+  "ehs-damp-mould-reported": "Damp or mould reported by residents",
+  "ehs-damp-surveyor": "Damp found by surveyors",
+  "ehs-decent-homes": "Decent homes",
+  "ehs-disrepair": "Disrepair and electrical safety",
+  "ehs-energy-efficiency-bands": "Energy efficiency bands",
+  "ehs-energy-improvement": "Potential improvement to band C",
+  "ehs-heating": "Heating systems",
+  "ehs-insulation": "Insulation",
+  "ehs-overcrowding": "Overcrowding",
+  "ehs-repairs-satisfaction": "Satisfaction with landlord repairs",
+  "ehs-thermal-comfort": "Keeping warm and overheating",
+  "ehs-under-occupation": "Under-occupation",
+  "epc-domestic-lodgements": "Energy certificates lodged",
+  "epc-domestic-lodgements-by-local-authority": "Energy certificates by council",
+};
+
 export function qualityDataFoot(state: QualityDataState, evidence: Evidence | null): QualityFoot {
   const src = state.indicator ? evidence?.sources[state.indicator] : undefined;
   const accessed = new Date().toISOString().slice(0, 10);
@@ -42,7 +62,7 @@ export function qualityDataFoot(state: QualityDataState, evidence: Evidence | nu
     definition:
       "One indicator at a time, as published: observation type, coverage and original measurements, including suppressed and not-collected cells.",
     method: [
-      "English Housing Survey estimates stay separate from the domestic EPC certificate register, which is not loaded here.",
+      "English Housing Survey estimates stay separate from the domestic EPC certificate register (administrative records of certificates lodged).",
       "The file is on the data page.",
     ],
     source: citation,
@@ -81,7 +101,7 @@ export function QualityDataControls({ state, onChange, evidence, failed }: DataS
       <MenuControl
         label="Indicator"
         value={ind}
-        options={ids.map((x) => ({ value: x, label: evidence.sources[x]!.title }))}
+        options={ids.map((x) => ({ value: x, label: PLAIN_TITLE[x] ?? evidence.sources[x]!.title }))}
         onChange={(next) => onChange({ indicator: next, series: null })}
       />
       {series.length > 1 && seriesId ? (
@@ -145,7 +165,7 @@ export function QualityData({ state, onChange, evidence, failed }: DataShared) {
   return (
     <div className={gen.stack}>
       <section className={gen.panel}>
-        <h3 className={t.stageTitle}>{src?.title ?? ind} · England · all tenures</h3>
+        <h3 className={t.stageTitle}>{PLAIN_TITLE[ind] ?? src?.title ?? ind} · England · all tenures</h3>
         <div className={t.tableWrap}>
           <table className={t.table}>
             <thead>

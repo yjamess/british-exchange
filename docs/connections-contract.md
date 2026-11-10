@@ -58,7 +58,7 @@ One `Connection` object everywhere (`web/src/brand/connections/`):
 | Visual lab | `/design-lab/follow` |
 | Tests | `npm run test:connections` |
 
-Housing domain Follows are live. Cross-sector edges that need **validated geography joins** (People, Government, LA codes as join keys) still wait. One Housing → Energy hop is registered (Quality › Energy → Dissected Bill) with explicit honesty that ratings ≠ bills.
+Housing domain Follows are live with **full Ready domain/view coverage** (one primary per origin). Cross-sector edges that need **validated geography joins** (People, Government, LA codes as join keys) still wait. One Housing → Energy hop is registered (Quality › Energy → Dissected Bill) with explicit honesty that ratings ≠ bills.
 
 ## Honesty examples (do not weaken)
 

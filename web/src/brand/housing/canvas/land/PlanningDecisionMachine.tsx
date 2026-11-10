@@ -76,7 +76,9 @@ export function planningFoot(
     method: [
       ...STAGES.map((stage) => stage.definition),
       "The share granted is decisions granted divided by decisions in the same quarter — not a share of applications received.",
-      "This is not a case file, a local plan, or an appeal. Do not read the gap between received and granted as stalled homes.",
+      "This is not a case file or a local plan. Case-level applications stay a labelled gap until Planning Data publishes them.",
+      "Inspectorate appeals are a separate instrument on this view (Casework Database aggregates), not P120.",
+      "Do not read the gap between received and granted as stalled homes.",
     ],
     source:
       period != null

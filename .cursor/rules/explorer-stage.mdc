@@ -24,6 +24,7 @@ Read `docs/visual-identity.md` › Explorer. **Energy & Industry** is the locked
 - Put that foot on `<Stage foot={…}>`. Do **not** also render `SourceLine` / `FigureRecord` below the stage.
 - Do **not** paste definition/method essays into the plot body or callout boxes inside the stage.
 - Do **not** render the explorer `<Coverage>` facts strip (`SPAN` / `OBSERVATIONS` / …) on sector domain stages. Energy does not. Span, unit and geography sit in the stage bar meta and Notes when needed.
+- **Source line** (every sector): `Publisher · series · [Boundaries: …] · geography · [period]` via `formatSource`. Never smash publisher into the series name. Full citations only on Data provenance desks.
 
 ## Multi-chart titles (Consumption / Housing pipeline pattern)
 

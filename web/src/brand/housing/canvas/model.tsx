@@ -205,6 +205,7 @@ export const VIEWS: Partial<Record<DomainId, View[]>> = {
     { id: "temporary", label: "Temporary housing" },
     { id: "displacement", label: "Displacement" },
     { id: "need", label: "Housing need" },
+    { id: "cost", label: "Cost" },
     { id: "table", label: "Data" },
   ],
   ownership: [
@@ -229,9 +230,13 @@ export type Controls = {
   segment: "new" | "ftb" | "finance";
   /** Quality Data view: the indicator the source line and key figure follow. */
   qualityIndicator?: string;
+  /** Supply › Geography financial year (FY start year); the figures follow the stage. */
+  supplyGeoYear?: string;
 };
 
-export const MAX_HISTORY_PLACES = 6;
+/** Five series at most on one chart (visual identity › Charts). */
+export const MAX_HISTORY_PLACES = 5;
+export const ENGLAND_CODE = "E92000001";
 
 /**
  * One series for a time chart. The id is how TimeChart chooses the ink
@@ -244,6 +249,7 @@ function line(points: Pt[], label: string, id = label): ChartSeries[] {
 
 function placeSeries(code: string, d: HousingV1): { id: string; label: string; points: Pt[] } | null {
   if (code === "uk") return { id: "uk", label: "United Kingdom", points: d.price };
+  if (code === ENGLAND_CODE) return { id: ENGLAND_CODE, label: "England", points: d.englandPrice };
   const region = d.regions.find((r) => r.code === code);
   return region ? { id: region.code, label: region.name, points: region.points } : null;
 }
@@ -319,7 +325,7 @@ function pricesHistoryReading(d: HousingV1, measure: Controls["measure"]): strin
       MIX,
     ];
   }
-  return [`${NOMINAL} Real price (CPI), in the measure control, restates the UK average in the latest CPI month.`, MIX];
+  return [`${NOMINAL} After inflation, in the measure control, restates the UK average in prices of the latest month (CPI).`, MIX];
 }
 
 function segmentReading(d: HousingV1, segment: Controls["segment"]): string[] {
@@ -981,7 +987,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         ],
         derived: [
           "Live Table 118 covers England and its regions. It is not a UK series. Components start in 2006–07. New build here is not the same count as quarterly housebuilding completions.",
-          "Net additions equal new build, plus conversions, change of use and other gains, minus demolitions, plus the census adjustment. A blank census counts as zero. Unreconciled is the published net minus that sum, minus the note 6 residual. (P) means the publisher still marks the year provisional. Demolitions are the published positive count.",
+          "Net additions equal new build, plus conversions, change of use and other gains, minus demolitions, plus the census adjustment. A blank census counts as zero. Unreconciled is the published net minus that sum, minus the note 6 residual. A provisional year has not yet been finalised by the publisher. Demolitions are the published positive count.",
           "Financial-year net additions, quarterly dwellings by builder, affordable products, and planning applications are separate series.",
         ],
       };
@@ -1003,21 +1009,21 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           derived: [
             "Green Belt is the designated area at 31 March, from the official annual series. It is not a historic map of the boundary.",
             "Land use is one year, Table P400a. These shares are not quarterly observations.",
-            "Received, decided and granted in the same quarter are separate totals, not one set of applications. This is not a case file, a local plan, or an appeal.",
-            "The brownfield dwelling sum uses only sites that publish a maximum. A blank cell is missing. It is not entered as zero. A published zero stays in the sum and in the published-maximum count. Registration is not a deliverable home.",
+            "Received, decided and granted in the same quarter are separate totals, not one set of applications. Case-level applications stay a labelled gap. Inspectorate appeals are a separate instrument, not these P120 rows.",
+            "The brownfield dwelling sum uses only sites that publish a maximum. A blank cell is missing. It is not entered as zero. A published zero stays in the sum and in the published-maximum count. Registration is not a deliverable home. Local-plan allocations are not in these tables.",
           ],
         };
       }
       if (view === "history") {
         return {
-          title: "The changing British landscape",
+          title: "England's Green Belt: how much, and where",
           series: line(d.greenBelt, "Green Belt (ha)"),
           cadence: "annual",
           format: fmt.count,
           plot: () => null,
           sourceIds: ["green-belt-area"].filter((id) => d.sources[id]),
           derived:
-            "England Green Belt hectares at 31 March. The line is the designated area, not a playback of the boundary.",
+            "England Green Belt hectares at 31 March, and the published boundary on selected dates.",
         };
       }
       if (view === "sites") {
@@ -1029,7 +1035,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           plot: () => null,
           sourceIds: ["brownfield-land"].filter((id) => d.sources[id]),
           derived:
-            "Registration ≠ deliverable site; dwelling estimates are LPA-published and incomplete",
+            "Registration ≠ deliverable site; dwelling estimates are LPA-published and incomplete. Local-plan allocations are not a national Planning Data layer — brownfield is the England development-sites instrument.",
         };
       }
       if (view === "decisions" || view === "planning") {
@@ -1074,8 +1080,8 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         format: (v) => `${fmt.count(v)} ha`,
         plot: () => null,
         sourceIds: ["land-use-stock", "brownfield-land", "green-belt-area"].filter((id) => d.sources[id]),
-        derived:
-          "Search opens one English council from publisher open data (ONS, MHCLG, EA flood, Natural England, Historic England) plus Planning Data dumps for brownfield, Article 4 and TPO. Historical geometries, appeals, local-plan allocations and individual applications are not in this view. Land use is 2022. Brownfield marks are the England register, clipped.",
+          derived:
+          "Search opens one English council from publisher open data (ONS, MHCLG, EA flood, Natural England, Historic England) plus Planning Data dumps for brownfield, Article 4 and TPO. Landmark Green Belt years sit on Historical change. Inspectorate appeals sit on Planning decisions. Local-plan allocations and individual applications stay labelled gaps. Land use is 2022. Brownfield marks are the England register, clipped.",
       };
     }
     case "quality": {
@@ -1092,7 +1098,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           plot: () => null,
           sourceIds: [],
           derived:
-            "EHS sample estimates are not manufactured into small-area maps. EPC certificate geography follows after coverage gates.",
+            "EHS sample estimates stay on the survey scale. Local-authority rates use the domestic EPC certificate register (Geography › Local authorities).",
         };
       }
       if (view === "energy") {
@@ -1115,7 +1121,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           plot: () => null,
           sourceIds: [],
           derived:
-            "EHS survey estimates. The domestic EPC certificate register is a different source and is not loaded.",
+            "EHS survey estimates. The domestic EPC certificate register is a different source — open Geography › Local authorities.",
         };
       }
       if (view === "condition") {
@@ -1141,8 +1147,8 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           plot: () => null,
           sourceIds: selected ? [id] : [],
           derived: selected
-            ? "The source line is the indicator selected above, and the table is one series within it. English Housing Survey estimates stay separate from the domestic EPC certificate register, which is not loaded. A blank cell is suppressed or not collected, not zero. The unweighted base is a sample count, not a confidence interval."
-            : "Choose an indicator. Survey estimates stay separate from the EPC certificate register, which is not on this page.",
+            ? "The source line is the indicator selected above, and the table is one series within it. English Housing Survey estimates stay separate from the domestic EPC certificate register. A blank cell is suppressed or not collected, not zero. The unweighted base is a sample count, not a confidence interval."
+            : "Choose an indicator. Survey estimates stay separate from the EPC certificate register.",
         };
       }
       // Inside the Home
@@ -1185,7 +1191,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
             "temporary-accommodation-children",
           ]),
           derived:
-            "Length of stay so far for households in temporary accommodation on one date (a stock), not completed stays",
+            "Length of stay so far is a stock on one date. Net change between quarter ends is entries minus exits; separate entry and exit counts are not published in the open live tables",
         };
       }
       if (view === "displacement") {
@@ -1216,6 +1222,18 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           derived: "Registers (stock) and lettings (flow) are never divided to give a waiting time",
         };
       }
+      if (view === "cost") {
+        return {
+          title: "The cost of insecurity",
+          series: line(i.spendNet, "Homelessness net expenditure"),
+          cadence: "annual",
+          format: (v) => fmt.gbpCompact(v * 1000),
+          plot: () => null,
+          sourceIds: has(["temporary-accommodation-spend", "temporary-accommodation-households"]),
+          derived:
+            "RO4 England money flow in £ thousand. Do not divide by the temporary-accommodation household stock",
+        };
+      }
       if (view === "table") {
         return {
           title: "Housing insecurity data",
@@ -1225,7 +1243,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
           plot: () => null,
           sourceIds: has(INSECURITY_RECORDS.map((row) => row.id)),
           derived: [
-            "Every loaded series. Entries and exits are not loaded. The RO4 spending total is not the Cost of Insecurity.",
+            "Every loaded series. Net temporary-accommodation stock change is derived from consecutive quarter-end stocks; separate entry and exit counts are not published openly.",
             "The research figures use different periods and units, so they are never added together.",
           ],
         };
@@ -1649,18 +1667,34 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         ].filter(Boolean) as Figure[];
       }
       if (view === "geography") {
-        const top = d.supplyGeography.regions[0];
+        const g = (c?.supplyGeoYear ? d.supplyGeography.byYear[c.supplyGeoYear] : undefined) ?? d.supplyGeography;
+        const top = g.regions[0];
+        const topRate = [...g.regions]
+          .filter((r) => r.ratePerThousand != null)
+          .sort((a, b) => (b.ratePerThousand ?? 0) - (a.ratePerThousand ?? 0))[0];
         return [
-          d.supplyGeography.england != null && {
+          g.england != null && {
             label: "England net additions",
-            value: fmt.count(d.supplyGeography.england),
-            note: [d.supplyGeography.yearLabel, d.supplyGeography.provisional ? "provisional" : ""].filter(Boolean).join(" · "),
+            value: fmt.count(g.england),
+            note: [g.yearLabel, g.provisional ? "provisional" : ""].filter(Boolean).join(" · "),
           },
-          top && { label: `Highest region · ${top.label}`, value: fmt.count(top.v), note: d.supplyGeography.yearLabel ?? "" },
-          d.supplyGeography.authorities[0] && {
-            label: `Highest district · ${d.supplyGeography.authorities[0].label}`,
-            value: fmt.count(d.supplyGeography.authorities[0].v),
-            note: d.supplyGeography.yearLabel ?? "",
+          g.englandRate != null && {
+            label: "England · per 1,000 dwellings",
+            value: g.englandRate.toFixed(1),
+            note: g.stockYear != null
+              ? `stock open 31 March ${g.stockYear}`
+              : (g.yearLabel ?? ""),
+          },
+          top && { label: `Highest region · ${top.label}`, value: fmt.count(top.v), note: g.yearLabel ?? "" },
+          topRate?.ratePerThousand != null && {
+            label: `Highest rate · ${topRate.label}`,
+            value: topRate.ratePerThousand.toFixed(1),
+            note: "per 1,000 dwellings",
+          },
+          g.authorities[0] && {
+            label: `Highest district · ${g.authorities[0].label}`,
+            value: fmt.count(g.authorities[0].v),
+            note: g.yearLabel ?? "",
           },
         ].filter(Boolean) as Figure[];
       }
@@ -1697,11 +1731,26 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           .map((x) => ({ label: x.label, value: fmt.pct(x.points[0]!.v), note: fmtT(x.points[0]!.t, "annual") }));
       }
       if (view === "history") {
+        const gb0 = d.greenBelt[0];
+        const prev = d.greenBelt.at(-2);
+        const since = gb && gb0 && gb0 !== gb ? gb.v - gb0.v : null;
+        const lastYear = gb && prev ? gb.v - prev.v : null;
+        const signed = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${fmt.countCompact(Math.abs(v))} ha`;
         return [
           gb && {
             label: "Green Belt · England",
             value: `${fmt.countCompact(gb.v)} ha`,
-            note: `31 March ${fmtT(gb.t, "annual")} · area series, not historic polygons`,
+            note: `31 March ${fmtT(gb.t, "annual")}`,
+          },
+          lastYear != null && prev && {
+            label: "Change in a year",
+            value: signed(lastYear),
+            note: `Since 31 March ${fmtT(prev.t, "annual")}`,
+          },
+          since != null && gb0 && {
+            label: "Change since first record",
+            value: signed(since),
+            note: `Since 31 March ${fmtT(gb0.t, "annual")}`,
           },
         ].filter(Boolean) as Figure[];
       }
@@ -1863,6 +1912,27 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           },
         ].filter(Boolean) as Figure[];
       }
+      if (view === "cost") {
+        const net = i.spendNet.at(-1);
+        const gross = i.spendGross.at(-1);
+        return [
+          net && {
+            label: "Net homelessness spend",
+            value: fmt.gbpCompact(net.v * 1000),
+            note: `${fmtFY(net.t)} · England`,
+          },
+          gross && {
+            label: "Gross homelessness spend",
+            value: fmt.gbpCompact(gross.v * 1000),
+            note: `${fmtFY(gross.t)} · England`,
+          },
+          h.taHouseholds != null && {
+            label: "In temporary homes",
+            value: fmt.count(h.taHouseholds),
+            note: taDate,
+          },
+        ].filter(Boolean) as Figure[];
+      }
       const owed = i.assessmentsOwed.at(-1);
       return [
         h.taHouseholds != null && {
@@ -1916,6 +1986,16 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
             value: fmt.gbp(median),
             note: "All households · Apr 2020–Mar 2022",
           },
+          (() => {
+            const last = [...d.ownership.estates.rows].reverse().find((r) => r.residential != null);
+            return (
+              last && {
+                label: "Residential property in estates",
+                value: `£${(last.residential! / 1000).toLocaleString("en-GB", { maximumFractionDigits: 1 })}bn`,
+                note: `UK · deaths in ${last.year}${last.coverage === "full" ? " · full returns only" : ""}`,
+              }
+            );
+          })(),
         ].filter(Boolean) as Figure[];
       }
       const stock = bn(h.balancesOutstanding);

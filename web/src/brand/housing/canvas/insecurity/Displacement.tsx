@@ -98,7 +98,7 @@ export function displacementFoot(insecurity: Ins, mode: DisplacementMode): {
       "Placement counts have no published destinations — no connection lines are drawn.",
       "Unshaded places: not published, suppressed, or outside England.",
     ],
-    source: `MHCLG local temporary accommodation tables · England · stock on ${date}`,
+    source: `MHCLG · local temporary accommodation tables · England · stock on ${date}`,
   };
 }
 

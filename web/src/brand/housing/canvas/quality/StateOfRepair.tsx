@@ -154,6 +154,13 @@ const keyOf = (rw: Row) => `${rw.ind}|${rw.series}`;
 const nameOf = (rw: Row) => rw.short ?? rw.label;
 const pct = (v: number) => `${v.toFixed(1)}%`;
 
+/** Years the selected measure is published for in this comparison (falls back to all surveyed measures). */
+function yearsFor(relevant: Cell[], measureKey: string): number[] {
+  const row = SURVEYED.find((rw) => keyOf(rw) === measureKey) ?? SURVEYED[0]!;
+  const own = relevant.filter((c) => c.ind === row.ind && c.series === row.series && c.v != null);
+  return [...new Set((own.length > 0 ? own : relevant).map((c) => c.year))].sort((a, b) => a - b);
+}
+
 export function stateOfRepairFoot(state: ConditionState, evidence: Evidence | null): QualityFoot {
   const cells = evidence?.cells ?? [];
   const row = SURVEYED.find((rw) => keyOf(rw) === state.measure) ?? SURVEYED[0]!;
@@ -161,7 +168,7 @@ export function stateOfRepairFoot(state: ConditionState, evidence: Evidence | nu
   const inKind = (c: Cell) =>
     kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
   const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
-  const years = [...new Set(relevant.map((c) => c.year))].sort((a, b) => a - b);
+  const years = yearsFor(relevant, state.measure);
   const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
   const kindLabel = KINDS.find((k) => k.value === kind)!.label;
   const caveats = caveatsOf(pick(cells, row, kind, state.col ?? "all-tenures", state.tenure, y));
@@ -172,7 +179,7 @@ export function stateOfRepairFoot(state: ConditionState, evidence: Evidence | nu
       "Surveyor inspections and residents' reports are different observations and sit apart.",
       ...caveats,
     ].filter(Boolean),
-    source: `${evidence?.sources[row.ind]?.publisher ?? "MHCLG · English Housing Survey"} · ${row.table}`,
+    source: `${evidence?.sources[row.ind]?.publisher ?? "MHCLG · English Housing Survey"} · ${row.table} · England`,
     dataHref: `/data#${row.ind}`,
   };
 }
@@ -190,7 +197,7 @@ export function StateOfRepairControls({ state, onChange, evidence, failed }: Con
   const inKind = (c: Cell) =>
     kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
   const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
-  const years = [...new Set(relevant.map((c) => c.year))].sort((a, b) => a - b);
+  const years = yearsFor(relevant, state.measure);
   const y = state.year != null && years.includes(state.year) ? state.year : (years[years.length - 1] ?? null);
   const tenures = kind === "tenure" ? [] : TENURES.filter((x) => x.core && relevant.some((c) => c.year === y && c.tenure === x.id));
   const t = kind === "tenure" ? "all-tenures" : tenures.some((x) => x.id === state.tenure) ? state.tenure : (tenures[0]?.id ?? "all-tenures");
@@ -255,7 +262,7 @@ export function StateOfRepair({ state, onChange, evidence, failed }: ConditionSh
   const inKind = (c: Cell) =>
     kind === "tenure" ? c.bk === "none" && c.area === ENGLAND : kind === "region" ? c.bk === "region" : c.bk === kind && c.area === ENGLAND;
   const relevant = cells.filter((c) => SURVEYED.some((rw) => rw.ind === c.ind && rw.series === c.series) && inKind(c));
-  const years = [...new Set(relevant.map((c) => c.year))].sort((a, b) => a - b);
+  const years = yearsFor(relevant, measure);
   const y = year != null && years.includes(year) ? year : (years[years.length - 1] ?? null);
 
   // Groups: tenures, or the published categories of the breakdown (single dwelling types only — aggregates overlap).

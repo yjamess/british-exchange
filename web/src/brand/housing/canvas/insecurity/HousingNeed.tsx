@@ -101,8 +101,8 @@ export function needFoot(insecurity: Ins, year: number | null): {
     ].filter(Boolean),
     source:
       y != null
-        ? `MHCLG housing registers · social housing lettings · England · 31 Mar ${y}`
-        : "MHCLG housing registers · social housing lettings · England",
+        ? `MHCLG · housing registers · social housing lettings · England · 31 March ${y}`
+        : "MHCLG · housing registers · social housing lettings · England",
   };
 }
 

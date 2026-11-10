@@ -4,7 +4,9 @@ Brief: [Ownership & Property Economics](https://app.notion.com/p/40e654717685819
 
 **Question (locked):** Who owns Britain's property, how is that ownership structured, and how does housing generate, concentrate and transfer wealth?
 
-**Views:** Ownership · Mortgages · Wealth · Data. Property Rights is not a tab. Freehold, lease, charge and the register are read on Who owns.
+**Views:** Who owns · Mortgages · Wealth · Data. Property Rights is not a tab.
+
+**Status (10 Nov 2026): complete.** Phase 4 (company and title lookup, relationship network) was dropped by the owner. Who owns shows aggregate counts only.
 
 **Scope:** the legal, institutional and financial layer behind homes. The resident, registered owner, lender and ultimate economic beneficiary can be different people or entities. Housing stock and tenure counts occupancy; this domain covers legal and financial ownership structures. It is not a second tenure dashboard.
 
@@ -12,22 +14,22 @@ Brief: [Ownership & Property Economics](https://app.notion.com/p/40e654717685819
 
 | | Experience | View | Status |
 | --- | --- | --- | --- |
-| A | **Who Owns Britain?** Flagship. A verified network of corporate proprietors, registered titles, charges and control records. Filter by category, inspect each edge, follow it to the source, see coverage limits | Ownership | Relationship types, edge register and readiness checklist only. No named record until phase 3 |
-| B | **The Anatomy of Property Ownership.** Freehold, lease, charge and the register, read on the relationship sheet | Ownership | The separate Property Rights tab was removed. The drawing is not a destination. |
-| C | **The Mortgage Machine.** New lending, the outstanding debt, conditions and rates. Stocks and flows stay apart. Affordability's repayment scenarios are illustrative, not observed lending | Mortgages | Separate time charts. Instrument composition is phase 2 |
-| D | **The Distribution of Property Wealth.** Distributions and inequality, not the average. Survey uncertainty and valuation definitions stay on the chart | Wealth | WAS Table 3.19 age bands and percentile lines. Confidence intervals not loaded |
-| E | **The Transfer of Property Wealth.** Inheritance, gifts and transmission, from aggregate evidence only | Wealth (later) | Not drawn. No property-by-property chain |
+| A | **Who Owns Britain?** Titles held by UK and overseas companies, by local authority, owner type, tenure and country of registration | Who owns | Live from HM Land Registry CCOD/OCOD (`corporate-owned-titles`, monthly). Counts only. The illustrative network and any named-company view were dropped |
+| B | **The Anatomy of Property Ownership.** Freehold, lease, charge and the register | — | Removed with the network. Definitions live in Notes |
+| C | **The Mortgage Machine.** New lending, the outstanding debt, conditions and rates. Stocks and flows stay apart. Affordability's repayment scenarios are illustrative, not observed lending | Mortgages | Live. Stock ≠ flow sheet, history charts, purpose shares over time (lines, they overlap) and loan-to-value composition (stack, sums to 100) |
+| D | **The Distribution of Property Wealth.** Distributions and inequality, not the average. Survey uncertainty and valuation definitions stay on the chart | Wealth | Live. Table 3.19 age bands; percentiles drawn separately for July–June waves and April–March rounds (they overlap 2014–16). Confidence intervals are not published in the ONS workbook |
+| E | **The Transfer of Property Wealth.** Inheritance, gifts and transmission, from aggregate evidence only | Wealth | Live from HMRC Inheritance Tax Table 12.3 (`estates-residential-property`): residential property in estates by tax year of death, two lines either side of the 1 Jan 2022 reporting change. Aggregate only |
 
 **Non-negotiable:** every line between two entities is a verified, typed relationship backed by a source record. Legal titleholding, beneficial ownership, corporate control, charges and assumed economic benefit are labelled separately, and assumed benefit is never drawn.
 
 ## Phases (no dates)
 
 1. Anatomy of Property Ownership — the distinctions are on Who owns. The separate tab and the sectional drawing were removed.
-2. Official mortgage series and the Mortgage Machine composition (stocks, flows, history).
-3. Assess CCOD and OCOD: coverage, licence, update frequency, title-to-entity matching. The CCOD and OCOD dataset pages returned 403 to automated fetches on 5 Nov 2026, so the licence and update frequency are **unverified** and must be checked in a browser.
-4. Company and title search, verified link inspector, geographic context, incompleteness markers.
-5. Property-wealth distribution extensions, then generational transfer evidence once validated.
-6. Test traceability, relationship types, privacy, accessibility, reduced motion, mobile and shareable state.
+2. Done. Mortgage Machine composition (stocks, flows, history, purpose and LTV over time).
+3. Done. CCOD and OCOD fetched monthly through the Use land and property data API (`HMLR_API_KEY`), counted, QA passed. Raw zips are not retained (CCOD is 1.59 GB); checksums are in the manifest.
+4. **Dropped** (owner decision, 10 Nov 2026). No named companies, titles or Companies House joins.
+5. Done. Wealth waves/rounds split; HMRC estates series added. Confidence intervals are not published in the ONS property-wealth workbook.
+6. Done. `tests/test_corporate_ownership.py` (trailer completeness, no names/addresses/titles in output, unknown district stops the run, month history, labels). Reduced-motion screenshots. Phone-width overflow is a Housing-shell issue shared with every domain, not Ownership-specific.
 
 ## Network model (phase 3+)
 
@@ -56,10 +58,10 @@ Relational PostgreSQL with indexed edge tables. A graph database is not needed j
 | Bank of England LPMVTVX, LPMB4B3, LPMVTVJ, LPMVTVC | Monthly approvals and secured lending flows | Ingested `mortgage-approvals` |
 | Economy IUMBV34 | Quoted 2-year fixed rate, 75% LTV | Reused. Not copied |
 | FCA / PRA MLAR summary | Outstanding balances, advances, commitments, purpose, LTV, arrears | Ingested `residential-mortgage-book` |
-| HM Land Registry CCOD / OCOD | Corporate registered titles | Not loaded. Assess licence and matching before any network |
-| Companies House PSC / Register of Overseas Entities | Company control; registrable beneficial owners of overseas entities. Not title | Not loaded. Join on company or entity number, never on name |
+| HM Land Registry CCOD / OCOD | Corporate registered titles | Ingested `corporate-owned-titles` (aggregate counts, monthly) |
+| Companies House PSC / Register of Overseas Entities | Company control; registrable beneficial owners of overseas entities. Not title | Dropped with phase 4 |
 | ONS Wealth and Assets Survey | Net property wealth distribution | Ingested `household-net-property-wealth`. Tables 3.8, 3.9 and 3.19. Accreditation suspended from April 2020–March 2022; the caveat stays on the chart |
-| HMRC inheritance and transfers | Aggregate tax and transmission | Not loaded. Must not become a property-by-property chain |
+| HMRC inheritance and transfers | Aggregate tax and transmission | Ingested `estates-residential-property` (Table 12.3, 2012-13 to 2023-24). Aggregate only |
 | UK Finance buy-to-let | Landlord mortgage activity beyond MLAR's advance share | Not loaded. MLAR already records the buy-to-let share of gross advances |
 
 ## Headlines to keep separate
@@ -68,8 +70,19 @@ Relational PostgreSQL with indexed edge tables. A graph database is not needed j
 - FCA Q2 2026 gross advances: £77.4 billion (flow).
 - Bank of England September 2026 net house-purchase approvals: 53,443, published as 53,400 (flow).
 
-## Next
+## QA (data/qa/)
 
-1. Pin a real CCOD or OCOD download before any named company or title is drawn. Do not use the fictional example rows.
-2. Load `household-net-property-wealth` into Postgres without re-running migrations, then spot-check the median (£106,000 all households; £226,000 owners) and the April 2020–March 2022 age bands.
-3. Inheritance stays aggregate. No property-by-property chain.
+`corporate-owned-titles`, `mortgage-approvals`, `residential-mortgage-book` and `household-net-property-wealth` passed on 10 Nov 2026. Fixed from QA: the buy-to-let share is buy-to-let house purchase only (inside house purchase, labelled "Of which buy to let"); WAS waves and rounds are never joined. `estates-residential-property` passed (11/11, HMRC 1 Jan 2022 reporting change confirmed from HMRC commentary).
+
+## Refresh
+
+**Monthly CCOD/OCOD runbook** (no in-repo cron): see [`data/housing/corporate-owned-titles/README.md`](../data/housing/corporate-owned-titles/README.md).
+
+```bash
+uv run python -m britain_exchange.archive_data pull data/housing/corporate-owned-titles
+uv run python -m housing.connectors.corporate_ownership
+uv run python -m britain_exchange.load_ready --only corporate-owned-titles
+uv run python -m britain_exchange.archive_data push data/housing/corporate-owned-titles
+```
+
+HMRC Table 12.3 each July.

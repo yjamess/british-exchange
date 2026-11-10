@@ -91,5 +91,5 @@ open_questions:
   address/UPRN matching, expiry after 10 years).
 - EB1 / NB1 local-authority sheets and tables D2–D4 (environmental impact rating,
   floor area / energy use, transaction type × tenure) are published but not ingested.
-notion_registry_url: ''
+notion_registry_url: https://app.notion.com/p/4146547176858178a7cafadaabbce75d
 schema_version: '1.0'

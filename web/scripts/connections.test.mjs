@@ -270,7 +270,56 @@ test("Housing quality energy Follow is cross-sector to Energy bills", () => {
   assert.match(href, /view=bill/);
 });
 
-test("Housing quality condition has no energy Follow (view-scoped)", () => {
+test("Housing quality condition Follows stock composition (not Energy bills)", () => {
   const primary = conn.primaryHousingConnection({ domain: "quality", view: "condition" });
-  assert.equal(primary, null);
+  assert.ok(primary);
+  assert.equal(primary.id, "housing.quality→stock");
+});
+
+test("Housing policy Follow opens supply machine", () => {
+  const primary = conn.primaryHousingConnection({ domain: "policy", view: "time" });
+  assert.ok(primary);
+  assert.equal(primary.id, "housing.policy→supply");
+});
+
+test("Housing ownership who-owns Follows stock tenure; mortgages stay affordability", () => {
+  const who = conn.primaryHousingConnection({ domain: "ownership", view: "ownership" });
+  assert.ok(who);
+  assert.equal(who.id, "housing.ownership→stock.tenure");
+  const mortgages = conn.primaryHousingConnection({ domain: "ownership", view: "mortgages" });
+  assert.ok(mortgages);
+  assert.equal(mortgages.id, "housing.ownership.mortgages→affordability");
+});
+
+test("Housing insecurity cost Follows affordability; pathways stay renting lettings", () => {
+  const cost = conn.primaryHousingConnection({ domain: "insecurity", view: "cost" });
+  assert.ok(cost);
+  assert.equal(cost.id, "housing.insecurity.cost→affordability");
+  const pathways = conn.primaryHousingConnection({ domain: "insecurity", view: "pathways" });
+  assert.ok(pathways);
+  assert.equal(pathways.id, "housing.insecurity→renting.tenancies");
+});
+
+/** Every Ready Housing domain view must resolve a primary Follow (Energy coverage bar). */
+test("Housing Ready domains and views each have a primary Follow", () => {
+  const views = {
+    prices: ["history", "map", "types", "segments", "transactions", "table"],
+    renting: ["monthly", "map", "change", "index", "bedrooms", "tenancies", "table"],
+    affordability: ["experiment", "map", "ratio", "rent", "ages", "households", "table"],
+    stock: ["composition", "tenure", "types", "geography", "vacancy", "table"],
+    supply: ["machine", "pipeline", "geography", "who-builds", "table"],
+    land: ["explorer", "sites", "decisions", "history", "table"],
+    quality: ["inside", "condition", "energy", "geography", "table"],
+    insecurity: ["pathways", "temporary", "displacement", "need", "cost", "table"],
+    ownership: ["ownership", "mortgages", "wealth", "table"],
+    policy: ["time", "promise", "archive", "table"],
+  };
+  for (const [domain, viewIds] of Object.entries(views)) {
+    for (const view of viewIds) {
+      const primary = conn.primaryHousingConnection({ domain, view });
+      assert.ok(primary, `missing primary Follow for housing/${domain}/${view}`);
+      assert.equal(primary.readiness, "ready", `${primary.id} not ready`);
+      assert.ok(primary.destinationLabel?.trim(), `${primary.id} missing destinationLabel`);
+    }
+  }
 });

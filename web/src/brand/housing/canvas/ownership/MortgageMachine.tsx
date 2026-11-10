@@ -93,7 +93,7 @@ export function mortgageFoot(ownership: Own): {
     method: [
       "Drawn at the same scale (1 dot = £1 billion, rounded) so sizes can be compared — never added together.",
       "Arrears are part of the stock, not a second loan book.",
-      "House purchase, remortgage and buy-to-let are shares of the advance flow; they overlap, so they are drawn as lines, not a stack. First-time buyers are part of house purchase.",
+      "House purchase and remortgage are shares of the advance flow. First-time buyers and buy to let are both part of house purchase, so these are drawn as lines, never a stack, and never added to house purchase.",
       "Loan-to-value bands do sum to 100 percent of each quarter's advances, so they are stacked.",
       "Approvals are counts of loans agreed, not pounds. The quoted rate is an advertised rate, not the rate on the outstanding stock.",
     ],

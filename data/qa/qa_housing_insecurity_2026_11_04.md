@@ -33,10 +33,12 @@
 
 - Scotland SPARQL endpoint returned HTML; devolved figures transcribed from bulletins.
 - Notion registry rows created in the same pass as this addendum (see work plan).
+- Gross TA entries/exits: labelled gap (not in open live tables). See `qa_housing_insecurity_cost_2026_11_10.md`.
 
 ## Addendum — spend and framework
 
 - `temporary-accommodation-spend`: published England row only (not a re-sum of authorities). Annual flow, £ thousand, non-IAS19. Do not divide by the TA household stock.
+- **2026-11-10:** multi-year England series from Revenue Outturn time series v4 (FY ending 2021–2026); Cost of Insecurity view shipped. See `qa_housing_insecurity_cost_2026_11_10.md`.
 - `rough-sleeping-framework`: Table 1 (people over the month) and Table 3 (single-night management information), England, regions and local authorities. Status provisional. Not the autumn snapshot (4,793).
 
 ## Files

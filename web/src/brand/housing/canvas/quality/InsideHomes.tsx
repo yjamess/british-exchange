@@ -72,7 +72,7 @@ export function insideHomesFoot(
       ...caveats,
       "The cutaway is illustrative. It does not describe any particular property.",
     ].filter(Boolean),
-    source: `${src?.publisher ?? "MHCLG · English Housing Survey"} · ${feature.table}`,
+    source: `${src?.publisher ?? "MHCLG · English Housing Survey"} · ${feature.table} · England`,
     dataHref: `/data#${feature.ind}`,
   };
 }

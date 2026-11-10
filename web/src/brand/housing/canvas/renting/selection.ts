@@ -14,7 +14,8 @@ import { fmt, fmtT, toT, type Pt } from "../../../data";
 /** United Kingdom code in the private-rent file. An empty place list means this. */
 export const RENT_UK = "K02000001";
 /** Same cap as house-price history, so a comparison stays readable. */
-export const MAX_RENT_PLACES = 6;
+/** Five series at most on one chart (visual identity › Charts). */
+export const MAX_RENT_PLACES = 5;
 
 export type RentMeasure = "average-rent" | "annual-change" | "index";
 /** Which private-rent series the reader is inspecting. Bedrooms means the £ breakdown. */
@@ -311,30 +312,21 @@ export function tableForPlaces(
 }
 
 /**
- * Table columns. The series the reader was inspecting comes first.
- * The other published series for this place stay in the table, so the index
- * and the bedroom rents are not dropped when the view changes.
+ * Table columns follow the Property control (and focus), same as the chart.
+ * "All homes" → only the all-homes measures. A bedroom or type → that category only.
  */
 export function tableColumns(columns: RentColumn[], focus: RentFocus, category: string): RentColumn[] {
   const home = category || "all";
-  const selected = new Set<string>();
-  if (focus === "bedrooms") {
-    for (const col of columns) {
-      if (col.measure === "average-rent" && (home === "all" ? col.category.startsWith("bedrooms-") : col.category === home)) {
-        selected.add(col.id);
-      }
-    }
-  } else if (isPublished(focus, home)) {
-    const col = byId(columns, home, focus);
-    if (col) selected.add(col.id);
-  } else {
-    // The index and annual change are not published by bedroom or type.
-    // Keep the rent in pounds for the home the reader chose at the front.
-    const col = byId(columns, home, "average-rent");
-    if (col) selected.add(col.id);
+  if (home !== "all") {
+    return columns.filter((col) => col.category === home);
   }
-  const rank = (col: RentColumn) => (selected.has(col.id) ? 0 : 1);
-  return [...columns].sort((a, b) => rank(a) - rank(b) || a.label.localeCompare(b.label));
+  if (focus === "bedrooms") {
+    return columns.filter((col) => col.measure === "average-rent" && col.category.startsWith("bedrooms-"));
+  }
+  const allHomes = columns.filter((col) => col.category === "all");
+  return [...allHomes].sort(
+    (a, b) => (a.measure === focus ? 0 : 1) - (b.measure === focus ? 0 : 1) || a.label.localeCompare(b.label),
+  );
 }
 
 export function formatRent(measure: RentMeasure, value: number): string {

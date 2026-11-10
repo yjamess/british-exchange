@@ -1,4 +1,4 @@
-"""MHCLG Help to Buy: Equity Loan — legal completions and loan values, England (monthly).
+"""MHCLG Help to Buy: Equity Loan — legal completions and loan values, England.
 
 Approach:
 1. Pin Help_to_Buy_Tables.ods from the final release (data to 31 May 2023,
@@ -8,6 +8,8 @@ Approach:
 3. Emit series=completions|equity-loan-value|property-value with
    category=scheme-2013-2021|scheme-2021-2023|all. "all" sums the two schemes in
    months where either reports (they overlapped in April-May 2021).
+4. Parse Release Table 2 (quarterly first-time buyers, England): same three
+   measures with category=first-time-buyer and frequency notes=quarterly.
 
 Caveat: England only. One completion is one purchase supported by an equity loan.
 Legacy FirstBuy completions after 1 April 2013 are excluded by the publisher.
@@ -36,6 +38,8 @@ OFFICIAL_RELEASE_DATE = "2023-11-16"
 SOURCE_VERSION = "Help to Buy (equity loan scheme): data to 31 May 2023 (final release, 16 November 2023)"
 ENGLAND = ("E92000001", "England")
 SHEET = "Table_2_-_Monthly"
+FTB_SHEET = "Release_Table_2"
+QUARTER_START_MONTH = {"Q1": 1, "Q2": 4, "Q3": 7, "Q4": 10}
 
 MONTHS = {
     name: i
@@ -51,6 +55,11 @@ MEASURES: tuple[tuple[int, str, str], ...] = (
     (0, "completions", "legal completions"),
     (1, "equity-loan-value", "GBP million"),
     (2, "property-value", "GBP million"),
+)
+FTB_MEASURES: tuple[tuple[int, str, str], ...] = (
+    (2, "completions", "legal completions"),
+    (3, "equity-loan-value", "GBP million"),
+    (4, "property-value", "GBP million"),
 )
 
 
@@ -133,6 +142,81 @@ def parse_table2(path: Path) -> list[Observation]:
     return out
 
 
+def parse_release_table2_ftb(path: Path) -> list[Observation]:
+    """England quarterly first-time-buyer completions and values (Release Table 2)."""
+    rows = read_ods_sheet(path, FTB_SHEET)
+    year: int | None = None
+    quarterly: list[tuple[int, int, dict[str, float]]] = []
+    annual: dict[int, dict[str, float]] = {}
+    cumulative: dict[str, float] | None = None
+    for row in rows:
+        if len(row) < 5:
+            continue
+        label = _clean(row[1])
+        if not label:
+            continue
+        # Year totals: "2013", "2021 (R)"
+        year_m = label[:4] if label[:4].isdigit() else ""
+        if year_m and (len(label) == 4 or label[4:5] in {" ", "("}):
+            year = int(year_m)
+            vals = {m: v for col, m, _ in FTB_MEASURES if (v := _num(row[col] if col < len(row) else "")) is not None}
+            if vals:
+                annual[year] = vals
+            continue
+        q_m = label[:2]
+        if q_m in QUARTER_START_MONTH and year is not None:
+            vals = {m: v for col, m, _ in FTB_MEASURES if (v := _num(row[col] if col < len(row) else "")) is not None}
+            if vals:
+                quarterly.append((year, QUARTER_START_MONTH[q_m], vals))
+            continue
+        if label.startswith("Total"):
+            cumulative = {
+                m: v for col, m, _ in FTB_MEASURES if (v := _num(row[col] if col < len(row) else "")) is not None
+            }
+            break
+
+    if not quarterly:
+        raise ValueError("Release Table 2 parsed no quarterly first-time-buyer rows")
+
+    # Quarters must sum to each published year total (completions).
+    for y, totals in annual.items():
+        got = sum(v["completions"] for yy, _, v in quarterly if yy == y and "completions" in v)
+        want = totals.get("completions")
+        if want is not None and abs(got - want) > 0.5:
+            raise ValueError(f"FTB {y} completions: quarters sum {got} != published {want}")
+    if cumulative and "completions" in cumulative:
+        got = sum(v["completions"] for _, _, v in quarterly if "completions" in v)
+        if abs(got - cumulative["completions"]) > 0.5:
+            raise ValueError(
+                f"FTB cumulative completions {got} != published {cumulative['completions']}"
+            )
+
+    units = {m: u for _, m, u in FTB_MEASURES}
+    out: list[Observation] = []
+    for y, start_month, vals in quarterly:
+        end_month = start_month + 2
+        for measure, value in vals.items():
+            out.append(
+                Observation(
+                    indicator_id=INDICATOR_ID,
+                    period_start=date(y, start_month, 1).isoformat(),
+                    period_end=date(y, end_month, monthrange(y, end_month)[1]).isoformat(),
+                    geography_code=ENGLAND[0],
+                    geography_label=ENGLAND[1],
+                    value=round(value, 2),
+                    unit=units[measure],
+                    observation_status="final",
+                    source_version=SOURCE_VERSION,
+                    notes=(
+                        "series={m}; category=first-time-buyer; source=MHCLG Help to Buy "
+                        "Release Table 2; quarterly; geography=England only".format(m=measure)
+                    ),
+                )
+            )
+    out.sort(key=lambda o: (o.period_start, o.notes))
+    return out
+
+
 def _check_totals(values, annual, cumulative) -> None:
     """Month rows must add up to the published year and cumulative rows (completions)."""
     for (year, measure, scheme), total in annual.items():
@@ -173,7 +257,8 @@ class HelpToBuyEquityLoanConnector(Connector):
     def transform(self, evidence: Sequence[RawEvidence]) -> list[Observation]:
         if not evidence:
             raise ValueError("transform() requires RawEvidence")
-        return parse_table2(self.data_root / evidence[0].path)
+        path = self.data_root / evidence[0].path
+        return parse_table2(path) + parse_release_table2_ftb(path)
 
     def build_manifest(self, evidence: Sequence[RawEvidence]) -> Manifest:
         return Manifest(
@@ -182,16 +267,21 @@ class HelpToBuyEquityLoanConnector(Connector):
             sector="housing-land",
             publisher="MHCLG",
             source_url=SOURCE_LANDING,
-            series_id="Help to Buy: Equity Loan Table 2 (monthly completions and values, England)",
+            series_id=(
+                "Help to Buy: Equity Loan Table 2 (monthly) and Release Table 2 "
+                "(quarterly first-time buyers), England"
+            ),
             geography="England (E92000001) — not UK",
-            frequency="monthly",
+            frequency="monthly (all schemes); quarterly (first-time buyers)",
             unit="legal completions (equity-loan-value and property-value: GBP million)",
             definition=(
-                "Purchases of new-build homes in England completed with a Help to Buy equity loan, by "
-                "month, April 2013 to May 2023. series=completions counts legal completions (one per "
-                "purchase); equity-loan-value is the government loan at completion and property-value "
-                "the total purchase price, both in £ million. category gives the 2013-2021 scheme, the "
-                "2021-2023 scheme (first-time buyers only, regional price caps) or all."
+                "Purchases of new-build homes in England completed with a Help to Buy equity loan. "
+                "Monthly rows (Table 2) cover April 2013 to May 2023 by scheme. Quarterly rows "
+                "(Release Table 2) are first-time-buyer completions and values for England. "
+                "series=completions counts legal completions (one per purchase); equity-loan-value "
+                "is the government loan at completion and property-value the total purchase price, "
+                "both in £ million. category gives the 2013-2021 scheme, the 2021-2023 scheme, all, "
+                "or first-time-buyer."
             ),
             licence="Open Government Licence v3.0",
             agent_owner="housing",
@@ -201,17 +291,24 @@ class HelpToBuyEquityLoanConnector(Connector):
             raw_evidence=list(evidence),
             transformations=(
                 "Parse Table_2_-_Monthly. Month rows are checked against each published year row and "
-                "the cumulative total for completions. category=all sums the two schemes by month."
+                "the cumulative total for completions. category=all sums the two schemes by month. "
+                "Parse Release_Table_2 for England first-time-buyer quarterly rows; quarters are "
+                "checked against each published year total and the cumulative total."
             ),
             caveats=(
                 "England only. Legacy FirstBuy completions after 1 April 2013 are excluded. The two "
                 "schemes overlapped in April and May 2021. Completions count purchases, not new homes "
-                "built, and are not additional supply. Values are revised figures from the final release."
+                "built, and are not additional supply. Values are revised figures from the final release. "
+                "category=first-time-buyer is quarterly only and must not be added to the monthly scheme "
+                "rows (those already include first-time buyers)."
             ),
-            revision_notes="Pinned Help_to_Buy_Tables.ods from the final release (16 November 2023), retrieved 2026-11-10.",
+            revision_notes=(
+                "Pinned Help_to_Buy_Tables.ods from the final release (16 November 2023), retrieved "
+                "2026-11-10. Release Table 2 (FTB quarterly) added 2026-11-10."
+            ),
             related_indicator_ids=["housing-completions", "net-additional-dwellings"],
             open_questions=[
-                "First-time buyer completions are published quarterly (Release Table 2) and are not yet ingested.",
+                "Local-authority FTB quarters (Table 1a) are not ingested — England Release Table 2 only.",
             ],
         )
 

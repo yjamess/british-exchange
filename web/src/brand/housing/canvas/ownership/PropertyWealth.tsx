@@ -27,6 +27,10 @@ function pounds(v: number): string {
   return fmt.gbp(v);
 }
 
+function fromMillions(v: number): string {
+  return `£${(v / 1000).toLocaleString("en-GB", { maximumFractionDigits: 1 })}bn`;
+}
+
 function billions(v: number): string {
   return `£${Math.round(v).toLocaleString("en-GB")}bn`;
 }
@@ -52,10 +56,14 @@ export function wealthFoot(ownership: Own, ageId: string): {
       "Children are included because the survey classifies everyone by the household.",
       age ? `Age band shown: ${age.label}.` : "",
       "Accreditation of the April 2020 to March 2022 round was suspended on 13 June 2025. Percentages can miss 100 because of rounding.",
+      "ONS ran July to June survey waves until 2016 and April to March rounds from 2014. The two overlap in 2014 to 2016, so they are drawn separately and never joined.",
       "The lower percentile line sits on £0 for every round: households without property are in the distribution. A dashed join is a gap between two-year windows, not an observed month.",
+      "Property passing on death is HMRC's total value of UK homes and other residential buildings in estates reported for Inheritance Tax, before mortgages are deducted, by tax year of death. It is a national total, not the inheritance of any one home.",
+      "From 1 January 2022, estates below the tax threshold stopped reporting their assets to HMRC. Years up to 2020-21 include those estates and years from 2022-23 do not, so the two are separate lines and the fall between them is not a fall in property passing on death. 2021-22 mixes both and is only in the Data tab.",
       "The aggregate is a stock of self-valued equity in £ billion. It is not the FCA loan book, and it is not a record of gifts, inheritance or a property changing hands.",
     ].filter(Boolean),
-    source: "ONS · Wealth and Assets Survey · Table 3.19 · Table 3.9 · Great Britain",
+    source:
+      "ONS · Wealth and Assets Survey · Tables 3.19 and 3.9 · Great Britain · HMRC · Inheritance Tax Table 12.3 · UK",
     dataHref: "/data#household-net-property-wealth",
   };
 }
@@ -65,11 +73,16 @@ export function PropertyWealth({ ownership, ageId }: { ownership: Own; ageId: st
   const age =
     rows.find((row) => row.id === ageId) ?? rows.find((row) => row.id === "age-all-persons") ?? rows[0];
 
-  const percentileSeries: { id: string; label: string; points: Pt[] }[] = [
-    { id: "p25", label: "25th percentile", points: ownership.p25AllHouseholds },
-    { id: "p50", label: "Median", points: ownership.medianAllHouseholds },
-    { id: "p75", label: "75th percentile", points: ownership.p75AllHouseholds },
+  // ONS ran July–June waves to 2016, then April–March rounds from 2014. The two overlap
+  // in 2014–16, so each basis is its own line; joining them would draw a false step.
+  const wave = (p: Pt) => Math.abs((p.t % 1) - 0.5) < 0.01;
+  const basis = (pick: (p: Pt) => boolean) => [
+    { id: "p25", label: "25th percentile", points: ownership.p25AllHouseholds.filter(pick) },
+    { id: "p50", label: "Median", points: ownership.medianAllHouseholds.filter(pick) },
+    { id: "p75", label: "75th percentile", points: ownership.p75AllHouseholds.filter(pick) },
   ];
+  const waveSeries = basis(wave);
+  const roundSeries = basis((p) => !wave(p));
 
   if (rows.length === 0 || !age) {
     return (
@@ -96,16 +109,30 @@ export function PropertyWealth({ ownership, ageId }: { ownership: Own; ageId: st
         />
       </section>
 
-      {ownership.medianAllHouseholds.length > 0 && (
+      {roundSeries[1]!.points.length > 0 && (
         <section className={gen.panel}>
-          <h3 className={t.stageTitle}>All households · across survey rounds</h3>
+          <h3 className={t.stageTitle}>All households · April to March survey rounds, from 2014</h3>
           <TimeChart
             cadence="annual"
             gaps="dashed"
             format={pounds}
             zero
-            label="Net property wealth percentiles, all households"
-            series={percentileSeries}
+            label="Net property wealth percentiles, all households, April to March survey rounds"
+            series={roundSeries}
+          />
+        </section>
+      )}
+
+      {waveSeries[1]!.points.length > 0 && (
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>All households · July to June survey waves, 2006 to 2016</h3>
+          <TimeChart
+            cadence="annual"
+            gaps="dashed"
+            format={pounds}
+            zero
+            label="Net property wealth percentiles, all households, July to June survey waves"
+            series={waveSeries}
           />
         </section>
       )}
@@ -118,7 +145,27 @@ export function PropertyWealth({ ownership, ageId }: { ownership: Own; ageId: st
             gaps="dashed"
             format={billions}
             label="Aggregate household net property wealth"
-            series={[{ id: "aggregate", label: "Aggregate net", points: ownership.aggregateNet }]}
+            series={[
+              { id: "rounds", label: "April to March rounds", points: ownership.aggregateNet.filter((p) => !wave(p)) },
+              { id: "waves", label: "July to June waves", points: ownership.aggregateNet.filter(wave) },
+            ]}
+          />
+        </section>
+      )}
+
+      {(ownership.estates.residentialBefore.length > 0 || ownership.estates.residentialFull.length > 0) && (
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>Residential property passing on death · UK · by tax year of death</h3>
+          <TimeChart
+            cadence="annual"
+            gaps="dashed"
+            format={fromMillions}
+            zero
+            label="Value of UK residential property in estates reported to HMRC, by tax year of death"
+            series={[
+              { id: "before", label: "All estates that reported assets, to 2020-21", points: ownership.estates.residentialBefore },
+              { id: "full", label: "Estates on full returns only, from 2022-23", points: ownership.estates.residentialFull },
+            ]}
           />
         </section>
       )}

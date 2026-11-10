@@ -39,12 +39,22 @@ export type ConditionState = {
   col: string | null;
 };
 
+export type GeographyScale = "survey" | "epc";
+
 export type GeographyState = {
+  /** survey = EHS regions / survey areas; epc = certificate register by local authority. */
+  scale: GeographyScale;
   feature: string;
   tenure: string;
   year: number | null;
+  /** EPC quarter start (ISO date), when scale is epc. */
+  period: string | null;
   picked: string | null;
 };
+
+export function parseGeographyScale(raw: string | null): GeographyScale {
+  return raw === "epc" ? "epc" : "survey";
+}
 
 export type QualityDataState = {
   indicator: string;

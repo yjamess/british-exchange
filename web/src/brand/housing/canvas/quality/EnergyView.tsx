@@ -91,7 +91,7 @@ export function energyViewFoot(state: EnergyState, evidence: Evidence | null): Q
   const publisher = evidence?.sources[indFor[state.cat]]?.publisher ?? "MHCLG · English Housing Survey";
   return {
     definition:
-      "Ratings here are English Housing Survey models of a representative sample — not the EPC certificate register.",
+      "Ratings here are English Housing Survey models of a representative sample — not the EPC certificate register (Geography › Local authorities).",
     method: [
       years.length > 0 ? `Coverage. ${scope ?? "England"} · ${years[0]}–${years[years.length - 1]} · ${tenureLabel}.` : "",
       state.cat === "bands" ? "Method break at 2012 (SAP 2009 to SAP 2012)." : "",
@@ -100,7 +100,7 @@ export function energyViewFoot(state: EnergyState, evidence: Evidence | null): Q
         : "",
       BASIS["survey-estimate"].note,
     ].filter(Boolean),
-    source: `${publisher} · ${TABLES[state.cat]}`,
+    source: `${publisher} · ${TABLES[state.cat]} · England`,
     dataHref: `/data#${indFor[state.cat]}`,
   };
 }
@@ -167,7 +167,9 @@ export function EnergyViewControls({ state, onChange, evidence, failed }: Energy
           onChange={(v) => onChange({ area: v, ...(v !== ENGLAND ? { archetype: "" } : {}) })}
         />
       )}
-      {tenures.length > 0 ? (
+      {tenures.length === 1 ? (
+        <UnavailableControl label="Tenure" reason={`${tenures[0]!.label} only`} />
+      ) : tenures.length > 0 ? (
         <MenuControl
           label="Tenure"
           value={t}
@@ -177,7 +179,9 @@ export function EnergyViewControls({ state, onChange, evidence, failed }: Energy
       ) : (
         <UnavailableControl label="Tenure" reason={evidence ? "Not published for this category" : "Loading…"} />
       )}
-      {years.length > 0 && y != null ? (
+      {years.length === 1 && y != null ? (
+        <UnavailableControl label="Period" reason={`${y} only`} />
+      ) : years.length > 0 && y != null ? (
         <MenuControl
           label="Period"
           value={String(y)}

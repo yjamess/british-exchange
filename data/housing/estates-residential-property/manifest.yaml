@@ -1,0 +1,137 @@
+indicator_id: estates-residential-property
+title: UK residential property in estates passing on death
+sector: housing-land
+publisher: HM Revenue & Customs
+source_url: https://www.gov.uk/government/statistics/inheritance-tax-liabilities-statistics
+series_id: 'Inheritance Tax liabilities statistics Table 12.3a (from July 2023; Table
+  12.4a in Inheritance Tax statistics to July 2022): assets in estates by range of
+  net estate, Total column'
+geography: United Kingdom (K02000001)
+frequency: annual
+unit: gbp-millions (value series) or estates (count series)
+definition: 'For estates of people who died in each UK tax year (6 April to 5 April)
+  and were notified to HMRC on Inheritance Tax returns: residential-value is the total
+  value of UK residential buildings held in those estates, before reliefs and exemptions
+  and before deducting mortgages; residential-estates is the number of those estates
+  holding any UK residential buildings. gross-capital-* and net-capital-* are total
+  gross assets and net estate (assets less liabilities) for the same estates, so a
+  residential share can be derived. These are estates notified for probate that filed
+  a return (taxpaying and non-taxpaying), not taxpaying estates only.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.inheritance_property
+curated_path: curated/observations.csv
+update_cadence: Annually each July with the HMRC Inheritance Tax liabilities statistics
+raw_evidence:
+- path: raw/2026-11-10/2026-07_table_12_3.ods
+  retrieved_at: '2026-11-10T14:46:13.347311+00:00'
+  checksum_sha256: fcc6a09d9dd07f4675ab8afeaa33d288e47c99993e5586ddb66db3e733555069
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-07-30'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a60bb8534dfb74772f96d28/table_12_3_final.ods
+- path: raw/2026-11-10/2025-07_table_12_3.ods
+  retrieved_at: '2026-11-10T14:46:13.255480+00:00'
+  checksum_sha256: c9a42f63403d5357eceaa67c07af7e961eab890b0edc8f0c2aa34fc59d626613
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2025-07-31'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20250910id_/https://assets.publishing.service.gov.uk/media/6888efb2e1a850d72c40919a/table_12_3.ods
+- path: raw/2026-11-10/2024-07_table_12_3.ods
+  retrieved_at: '2026-11-10T14:46:12.542280+00:00'
+  checksum_sha256: bca8f4c78e8ffdd91ab7e64662661f6211f0404a9a4aa46840a71c661aec1cd9
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2024-07-31'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20240910id_/https://assets.publishing.service.gov.uk/media/669fe13b0808eaf43b50d5ba/table_12_3_publication.ods
+- path: raw/2026-11-10/2023-07_table_12_3.ods
+  retrieved_at: '2026-11-10T14:46:11.836982+00:00'
+  checksum_sha256: 1d646c79373ce227750f807eea316a6a2e1193adc747ae161aa63cbb1dea1ce7
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2023-07-26'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20231001id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1172681/Table_12_3.ods
+- path: raw/2026-11-10/2022-07_table_12_4.ods
+  retrieved_at: '2026-11-10T14:46:11.083532+00:00'
+  checksum_sha256: 21d15b6b2b4d8b12a340401e09ac2dbd0fd65fe40fb2158ce2a81efdbd9c067c
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2022-07-28'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20220910id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1092701/Table_12_4.ods
+- path: raw/2026-11-10/2021-07_table_12_4.ods
+  retrieved_at: '2026-11-10T14:46:10.208762+00:00'
+  checksum_sha256: f723cc1dcfe3f159eaa581f7e349672f6b5b9e3f2f1f6a07ea30b413c98c9372
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2021-07-29'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20210910id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1004278/Table_12_4.ods
+- path: raw/2026-11-10/2020-07_table_12_4.xlsx
+  retrieved_at: '2026-11-10T14:46:09.466305+00:00'
+  checksum_sha256: cbfaf2f1c0ceaf4673b09fe7c2f05f8a89aba2c2070c6a136c7ac51ec3c14a48
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2020-07-30'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20200904id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/903207/Table_12_4.xlsx
+- path: raw/2026-11-10/2019-09_table_12_4.xlsx
+  retrieved_at: '2026-11-10T14:46:08.715351+00:00'
+  checksum_sha256: f1160d7ce2d65a90130164e7631a8fa4dbf6bce96e08960c5856bba311b947df
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2019-09-19'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20191022id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/832094/Table_12_4.xlsx
+- path: raw/2026-11-10/2018-07_table_12_4.xlsx
+  retrieved_at: '2026-11-10T14:46:08.023304+00:00'
+  checksum_sha256: d20616ff07f98f2378782361ec8066f4869ec37b2cc4dcb4942e20ca567a29e5
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2018-07-31'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20180912064548id_/https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/730131/Table_12_4.xlsx
+- path: raw/2026-11-10/2017-07_table_12_4.xls
+  retrieved_at: '2026-11-10T14:46:07.973127+00:00'
+  checksum_sha256: 61f6bf0af731b3b199d1b8629edc9f4843d85e4e217e5e60d8884d885e352c58
+  content_type: application/vnd.ms-excel
+  official_release_date: '2017-07-28'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20170908id_/https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/632843/Table_12-4.xls
+- path: raw/2026-11-10/2016-07_table_12_4.xls
+  retrieved_at: '2026-11-10T14:46:07.504441+00:00'
+  checksum_sha256: 2b6961882f164491f02b41dcc2d363753e890742e6a06fa4a997c84aac699db5
+  content_type: application/vnd.ms-excel
+  official_release_date: '2016-07-29'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20161126id_/https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/541410/Table_12-4.xls
+- path: raw/2026-11-10/2015-07_table_12_4.xls
+  retrieved_at: '2026-11-10T14:46:06.624076+00:00'
+  checksum_sha256: 3a7da585af5a90ba824a76ae92d6541161bf57e114a7f1529cc32a266bb50ad6
+  content_type: application/vnd.ms-excel
+  official_release_date: '2015-07-30'
+  http_status: 200
+  source_url: https://webarchive.nationalarchives.gov.uk/ukgwa/20151009id_/https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/449202/Table12-4.xls
+transformations: One pinned workbook per annual edition (12 editions). From sheet
+  12.4a / 12.3a read the 'Total' column for UK residential buildings, total gross
+  capital value and total net capital value (number and £ million). The death-year
+  in each title is checked against the edition. Earlier editions come from UK Government
+  Web Archive captures because their GOV.UK asset URLs now redirect to the current
+  file. No values are derived or summed.
+revision_notes: Ownership phase 5 ingest 2026-11-10. Each tax year comes from its
+  own first-published edition; HMRC does not republish earlier years.
+caveats: 'Aggregate only: national totals for all estates in a year, not the inheritance
+  of individual homes and not a property chain. Year basis is the tax year of death,
+  not the year the property passed or was sold. Coverage changes (category dimension):
+  to 2020-21 the population includes excepted, non-taxpaying estates that filed reduced
+  returns (about 270,000 to 310,000 estates); from 1 January 2022 excepted estates
+  no longer report assets, so 2022-23 onward covers only estates filing a full IHT400
+  account (about 69,000); 2021-22 is a part-year mix. Do not read the drop after 2021-22
+  as a fall in property passing on death. These are not taxpaying estates only: most
+  estates in the table pay no tax. Estates passing without a grant of representation
+  or return are not covered. Values are probate valuations before reliefs and exemptions;
+  residential value is gross of mortgages. Counts in older editions are sample-weighted,
+  and later editions round to three significant figures. Figures may be under-estimates
+  where returns were not yet recorded when HMRC extracted the data.'
+related_indicator_ids:
+- household-net-property-wealth
+open_questions:
+- Table 12.3b (by tax due) could give a taxpaying-only subset, but band cells are
+  rounded and suppressed; not summed here.
+notion_registry_url: https://app.notion.com/p/414654717685816ea3f9c05e1261dee6
+schema_version: '1.0'

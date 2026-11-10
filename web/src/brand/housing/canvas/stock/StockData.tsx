@@ -36,7 +36,8 @@ export function stockDataFoot(): {
       "Second homes are the Council Taxbase series, not the vacant count.",
       "Geography steps through each 31 March; the district list on that tab stays on the latest Table 100 year.",
     ],
-    source: "MHCLG · Live Tables 104, 109, 100, 615 · ONS Census 2021 TS044 · Council Taxbase Table 4",
+    source:
+      "MHCLG · Live Tables 104, 109, 100, 615 · Council Taxbase Table 4 · ONS · Census 2021 TS044 · England",
     dataHref: "/data#dwelling-stock-by-tenure",
   };
 }

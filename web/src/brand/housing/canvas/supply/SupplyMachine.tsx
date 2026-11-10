@@ -49,8 +49,8 @@ type Props = {
 };
 
 export const MACHINE_PANEL_OPTIONS: { value: MachinePanel; label: string }[] = [
-  { value: "section", label: "Section" },
-  { value: "ledger", label: "Ledger" },
+  { value: "section", label: "Diagram" },
+  { value: "ledger", label: "Table" },
 ];
 
 const yearOfRow = (r: SupplyLedgerYear) => Math.floor(r.t + 1e-6);
@@ -66,7 +66,7 @@ export function supplyYearOptions(
   const rows = machine.byPlace[place] ?? [];
   return [...rows].reverse().map((r) => ({
     value: String(yearOfRow(r)),
-    label: r.status === "provisional" ? `${r.fy} (P)` : r.fy,
+    label: r.status === "provisional" ? `${r.fy} provisional` : r.fy,
   }));
 }
 
@@ -711,13 +711,13 @@ export function SupplyMachine({ machine, state, onChange }: Props) {
                 <th scope="col">Term</th>
                 <th scope="col" className={s.num}>
                   {rowB.fy}
-                  {rowB.status === "provisional" ? " (P)" : ""}
+                  {rowB.status === "provisional" ? " provisional" : ""}
                 </th>
                 {rowA && (
                   <>
                     <th scope="col" className={s.num}>
                       {rowA.fy}
-                      {rowA.status === "provisional" ? " (P)" : ""}
+                      {rowA.status === "provisional" ? " provisional" : ""}
                     </th>
                     <th scope="col" className={s.num}>
                       Change

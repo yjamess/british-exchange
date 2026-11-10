@@ -86,7 +86,7 @@ export function experimentFoot(args: {
       args.rateSourceNote ?? "",
       args.benchmarkName ? `Price mark uses ${args.benchmarkName}.` : "",
     ].filter(Boolean),
-    source: "ONS · AFF1 · UK HPI · Bank of England quoted household interest rates",
+    source: "ONS · AFF1 · UK HPI · Bank of England · quoted household interest rates",
     dataHref: "/data#house-price-to-earnings-ratio",
   };
 }

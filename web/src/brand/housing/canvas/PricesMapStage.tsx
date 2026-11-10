@@ -169,11 +169,21 @@ export function PricesMapStage({
         : "average";
   const periodText = (p: string) => (isAfford ? p.slice(0, 4) : periodLabel(p));
 
+  // The timeline ends at the last month this measure was published for. Some measures
+  // (new build, existing homes, sales volume) lag the average, so trailing months are empty.
+  const lastWithData = useMemo(() => {
+    for (let i = atlas.months.length - 1; i >= 0; i -= 1) {
+      if (atlas.areas.some((a) => valueAt(a, i, readMode) != null)) return i;
+    }
+    return atlas.months.length - 1;
+  }, [atlas.months, atlas.areas, readMode]);
   const periodIndexes = useMemo(() => {
-    const all = atlas.months.map((month, index) => ({ month, index, year: Number(month.slice(0, 4)) }));
+    const all = atlas.months
+      .map((month, index) => ({ month, index, year: Number(month.slice(0, 4)) }))
+      .filter((item) => item.index <= lastWithData);
     const inside = yearFrom == null ? all : all.filter((item) => item.year >= yearFrom && item.year <= (yearTo ?? yearFrom));
     return inside.length > 0 ? inside : all;
-  }, [atlas.months, yearFrom, yearTo]);
+  }, [atlas.months, yearFrom, yearTo, lastWithData]);
   const urlMonth = useMemo(() => {
     const key = date.slice(0, 7);
     const found = periodIndexes.find((item) => item.month.slice(0, 7) === key);
@@ -605,7 +615,7 @@ export function PricesMapStage({
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((a) => ({
                     value: a.code,
-                    label: a.level !== "local" ? `${a.name} · ${a.level}` : a.name,
+                    label: a.name,
                   })),
               ]}
               onChange={(v) => onCompare(v === "__none__" ? null : v)}

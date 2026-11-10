@@ -106,7 +106,7 @@ export function pricesDataFoot(data: HousingV1): {
         ? `Recorded-sales search is not in this table. It is HM Land Registry Price Paid${data.pricePaid.year != null ? ` · calendar year ${data.pricePaid.year}` : ""}.`
         : "Recorded-sales search is not in this table. Search is not available on this copy.",
     ],
-    source: "HM Land Registry · UK House Price Index · ONS CPI",
+    source: "HM Land Registry · UK House Price Index · ONS · CPI · UK",
     dataHref: "/data#uk-average-house-price",
   };
 }
@@ -134,7 +134,7 @@ export function pricesTransactionsFoot(data: HousingV1): {
         ? `Price Paid search covers England and Wales${data.pricePaid.year != null ? ` · calendar year ${data.pricePaid.year}` : ""}.`
         : "Recorded-sales search is not available on this copy.",
     ],
-    source: "HM Land Registry · Price Paid · UK House Price Index sales volume",
+    source: "HM Land Registry · Price Paid · UK House Price Index sales volume · UK",
     dataHref: "/data#uk-average-house-price",
   };
 }

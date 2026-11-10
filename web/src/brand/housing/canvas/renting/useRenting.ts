@@ -77,7 +77,11 @@ export function useRenting(
   lettingsView: "history" | "rent" | "needs" | "data" = "history",
 ) {
   const focus = focusForView(view, rentParam);
-  const category = categoryParam || "all";
+  // A home type only stands if this view can draw it: annual change and the index are
+  // published for all homes only, and By size draws bedroom sizes, not property types.
+  const homeFits = (id: string) =>
+    focus === "bedrooms" ? id === "all" || id.startsWith("bedrooms-") : isPublished(measureForFocus(focus), id);
+  const category = categoryParam && homeFits(categoryParam) ? categoryParam : "all";
   const [places, setPlaces] = useState<RentPlaceOption[]>([]);
   const [packs, setPacks] = useState<Record<string, AreaPack>>({});
   const [failed, setFailed] = useState<Record<string, string>>({});
@@ -111,7 +115,13 @@ export function useRenting(
     return () => controller.abort();
   }, [enabled]);
 
-  const areas = useMemo(() => parseRentAreas(areaParam), [areaParam]);
+  // Map shades one place's measure, and By size draws one place's bedroom lines,
+  // so those views keep the first place only. Other views add a line per place.
+  const singlePlaceView = view === "map" || view === "bedrooms";
+  const areas = useMemo(() => {
+    const all = parseRentAreas(areaParam);
+    return singlePlaceView ? all.slice(0, 1) : all;
+  }, [areaParam, singlePlaceView]);
   const remoteKey = areas.filter((code) => code !== UK).join(",");
 
   useEffect(() => {
@@ -270,8 +280,9 @@ export function useRenting(
     for (const col of ukColumns) if (col.category !== "all") ids.add(col.category);
     const bedrooms = [...ids].filter((id) => id.startsWith("bedrooms-")).sort();
     const types = [...ids].filter((id) => id.startsWith("type-")).sort();
-    return ["all", ...bedrooms, ...types];
-  }, [ukColumns]);
+    return ["all", ...bedrooms, ...types].filter(homeFits);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- homeFits depends on focus only
+  }, [ukColumns, focus]);
 
   return {
     focus,

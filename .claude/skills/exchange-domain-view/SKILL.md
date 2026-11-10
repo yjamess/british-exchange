@@ -56,6 +56,11 @@ inside the stage, drawn in the house style. Everything around it is the template
   inside the plot. No in-plot toggles, legends-as-selectors or layout switches.
 - **One Notes foot**: definition + method bullets in `FigureRecord`. Never a second notes
   block, never method essays in the body.
+- **Source line** (every sector): `formatSource("Publisher", "series", "geography", "period")`
+  → `Publisher · series · geography · period`. Optional `Boundaries: ONS …` before geography.
+  Do not write `MHCLG Live Table 104` — always `MHCLG · Live Table 104`. Drop empty parts.
+  Data provenance desks may use a full citation; chart feet never do. Canonical text:
+  `docs/visual-identity.md` › Explorer › Source line grammar.
 
 ## 2. The body is a stack of titled panels
 

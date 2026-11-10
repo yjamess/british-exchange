@@ -27,7 +27,7 @@ export const LETTINGS_BREAKDOWN_OPTIONS: {
 }[] = [
   { value: "history", label: "Annual lettings" },
   { value: "rent", label: "Rent type" },
-  { value: "needs", label: "Housing needs type" },
+  { value: "needs", label: "Who it's for" },
 ];
 
 export type LettingsDisplay = "history" | "rent" | "needs" | "data";
@@ -52,7 +52,7 @@ export function lettingsFoot(display: LettingsDisplay): {
       "Financial years run April to March.",
       "The exact values for every year sit in the closed table under the chart.",
     ],
-    source: "MHCLG · Social housing lettings in England · CORE",
+    source: "MHCLG · Social housing lettings · CORE · England",
     dataHref: "/data#social-housing-lettings",
   };
 }
@@ -69,7 +69,7 @@ export function rentDataFoot(placeName: string): {
       "The table follows the places, property type and period set in the controls.",
       "Official Price Index of Private Rents — not an advertised asking rent.",
     ],
-    source: "ONS · Price Index of Private Rents",
+    source: "ONS · Price Index of Private Rents · UK",
     dataHref: "/data#private-rental-prices",
   };
 }
@@ -291,15 +291,13 @@ function LettingsView({
   // Older links used lettings=data. That table now sits under the figure, open.
   const breakdown = display === "data" ? "history" : display;
 
+  // Stage bar already carries the view title — no second stageTitle in a one-panel body.
   let figure: ReactNode;
-  let title: string;
   if (rows.length === 0 || !latest) {
-    title = "New social housing lettings · England";
     figure = (
       <EmptyStage label="In preparation">Social housing lettings are not loaded. No estimated figures.</EmptyStage>
     );
   } else if (breakdown === "rent") {
-    title = "New social lettings by rent type · England";
     figure = (
       <TimeChart
         series={lettingsSeries(rows)}
@@ -312,7 +310,6 @@ function LettingsView({
       />
     );
   } else if (breakdown === "needs") {
-    title = `New lettings by housing needs type · England · ${financialYear(latest.t)}`;
     figure = (
       <NeedsSplit
         general={latest.generalNeeds}
@@ -321,7 +318,6 @@ function LettingsView({
       />
     );
   } else {
-    title = "New social housing lettings · England";
     figure = (
       <TimeChart
         series={[{ id: "lettings", label: "New lettings", points: rows.map((row) => ({ t: row.t, v: row.total })) }]}
@@ -338,10 +334,7 @@ function LettingsView({
 
   return (
     <div className={gen.stack}>
-      <section className={gen.panel}>
-        <h3 className={t.stageTitle}>{title}</h3>
-        {figure}
-      </section>
+      <section className={gen.panel}>{figure}</section>
       {rows.length > 0 ? <LettingsYears rows={rows} financialYear={financialYear} open={display === "data"} /> : null}
     </div>
   );

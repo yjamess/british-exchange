@@ -27,10 +27,12 @@ export function landDataFoot(): {
     method: [
       "Green Belt is the designated area at 31 March, from the official annual series — not a historic map of the boundary.",
       "Land use is one year (Table P400a). These shares are not quarterly observations.",
-      "Received, decided and granted in the same quarter are separate totals, not one set of applications.",
-      "The brownfield dwelling sum uses only sites that publish a maximum. A blank cell is missing, not zero. Registration is not a deliverable home.",
+      "Received, decided and granted in the same quarter are separate totals, not one set of applications. Case-level applications stay a labelled gap.",
+      "Inspectorate appeals (Planning decisions › Instrument) come from the Casework Database pack, not these P120 rows.",
+      "The brownfield dwelling sum uses only sites that publish a maximum. A blank cell is missing, not zero. Registration is not a deliverable home. Local-plan allocations are not in these tables.",
     ],
-    source: "MHCLG · Green Belt · land use · P120 · Planning Data brownfield",
+    source:
+      "MHCLG · Green Belt · land use · P120 · Planning Data brownfield · Planning Inspectorate Casework · England",
   };
 }
 

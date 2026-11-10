@@ -418,9 +418,8 @@ def query_place_publishers(code: str) -> dict[str, Any]:
     if not (len(code) == 9 and code[:3] in {"E06", "E07", "E08", "E09"}):
         raise ValueError(f"{code} is not an English local authority district code")
 
-    names = {row["code"]: row["name"] for row in authorities()}
-    if code not in names:
-        raise ValueError(f"{code} is not in the 2022 English local authority list")
+    # Existence is checked against the ONS Dec 2024 boundary in _fetch_district, so councils
+    # created in 2023 (absent from Land Use Stock 2022) are accepted.
 
     land_use = land_use_rows()
     with _client() as client:

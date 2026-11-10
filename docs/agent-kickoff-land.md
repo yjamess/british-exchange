@@ -30,22 +30,25 @@ Default opens **The land beneath Britain** (Anatomy / Land Explorer).
 
 | View | Needs |
 |------|--------|
-| Land Explorer | Spatial layers (Planning Data) + existing area/share series as national context |
-| Development Sites | ~~Brownfield register inventory~~ Done (allocations / parcels later) |
-| Planning Decisions | P120 received / decided / granted + Decision Machine |
-| Historical Change | Dated geometries when available (later) |
-| Data | Table + provenance |
+| Land Explorer | ~~Publisher FeatureServers + EA flood + Storage dumps~~ Done |
+| Development Sites | ~~Brownfield register inventory~~ Done (allocations = labelled gap) |
+| Planning Decisions | ~~P120 Decision Machine + Inspectorate appeals~~ Done |
+| Historical Change | ~~Hectares + landmark GB years~~ Done (earlier SHP years deferred) |
+| Data | ~~Table + provenance~~ Done |
 
-## Phase 1 sequence (this wave)
+## Phase sequence — closed 2026-11-10
 
 1. ~~Expand P120 → received / decided / granted (same ODS).~~ Done — 171 obs; QA pass.
-2. ~~Restructure land canvas views; ship Planning Decision Machine.~~ Done (Sites / Historical Change placeholder).
+2. ~~Restructure land canvas views; ship Planning Decision Machine.~~ Done.
 3. ~~Registry rows: brownfield + Planning Data coverage.~~ Done.
-4. Land Explorer spatial — any of the 309 English districts, queried from Planning Data when opened and cached under `curated/live/`. The four full plates were deleted. Manchester, St Albans, York and Derbyshire Dales remain as starting places and use the same query. Allocations and appeals stay labelled gaps.
+4. ~~Land Explorer spatial — publisher path + Storage dumps.~~ Done (T13).
 5. ~~Validation QA on expanded planning + brownfield.~~ Pass.
+6. ~~Historical Green Belt landmark years.~~ Done (T14).
+7. ~~PINS Casework appeals instrument.~~ Done (T15).
+8. ~~Labelled-gap closeout (allocations + case applications).~~ Done (T16).
 
-## Caveats from brief
+## Caveats from brief (still true)
 
-- Registration/allocation ≠ deliverable site.
-- Current designations ≠ historic years.
-- Case-level applications/ownership need licence + quality gates before publish.
+- Registration/allocation ≠ deliverable site. Local-plan allocations stay a labelled gap (no England polygon feed).
+- Current designations ≠ historic years (landmark plates only on Historical change).
+- Case-level applications stay a labelled gap — keep P120; do not scrape LPA portals.

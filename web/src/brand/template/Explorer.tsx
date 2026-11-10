@@ -483,18 +483,37 @@ export function SearchControl({
   onChange,
   placeholder,
   note,
+  suggestions,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
   note?: ReactNode;
+  /** Optional datalist choices (e.g. local authorities). Keep the list short — filter before passing. */
+  suggestions?: { value: string; label: string }[];
 }) {
+  const listId = suggestions?.length ? `${label.replace(/\s+/g, "-").toLowerCase()}-suggestions` : undefined;
   return (
     <Control label={label} wide>
       {(id) => (
         <div className={s.search}>
-          <input type="search" aria-labelledby={id} value={value} placeholder={placeholder} autoComplete="off" onChange={(e) => onChange(e.target.value)} />
+          <input
+            type="search"
+            aria-labelledby={id}
+            value={value}
+            placeholder={placeholder}
+            autoComplete="off"
+            list={listId}
+            onChange={(e) => onChange(e.target.value)}
+          />
+          {listId && suggestions && (
+            <datalist id={listId}>
+              {suggestions.map((opt) => (
+                <option key={opt.value} value={opt.label} />
+              ))}
+            </datalist>
+          )}
           {note && <p className={s.searchNote}>{note}</p>}
         </div>
       )}
@@ -754,10 +773,27 @@ export function shortPublisher(publisher: string): string {
 }
 
 /**
+ * Notes source row grammar (every sector).
+ *
+ *   Publisher · series · [Boundaries: …] · geography · [period / as at / release]
+ *
+ * Pass only the parts that apply; empty parts are dropped. Do not smash publisher
+ * and series into one token (`MHCLG · Live Table 104`, not `MHCLG Live Table 104`).
+ * Multi-publisher Data tabs list each publisher once, then the series they feed.
+ * Full academic citations belong on Data provenance desks only — not chart feet.
+ */
+export function formatSource(...parts: Array<string | null | undefined | false>): string {
+  return parts
+    .map((part) => (typeof part === "string" ? part.trim() : ""))
+    .filter(Boolean)
+    .join(" · ");
+}
+
+/**
  * The one foot under a stage.
  *
  * Notes holds the definition, then the method, and stays closed.
- * The source stays on the row: the series, then who publishes it.
+ * The source stays on the row: publisher · series · geography · period (`formatSource`).
  * Data always goes to the catalogue. Release, indicator id and the file live there.
  */
 export function FigureRecord({

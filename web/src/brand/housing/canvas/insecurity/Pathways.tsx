@@ -345,9 +345,8 @@ const KIND_TAG: Record<Kind, string> = {
 };
 
 function stageLabel(n: NodeDef): string {
-  if (n.kind === "context") return `Not a stage · ${n.label}`;
-  if (n.kind === "stock") return `Stock · ${n.label}`;
-  if (n.kind === "process") return `Process · ${n.label}`;
+  if (n.kind === "context") return `${n.label} · measured separately`;
+  if (n.kind === "stock") return `${n.label} · households on one day`;
   return n.label;
 }
 
@@ -379,7 +378,8 @@ function valueOf(n: NodeDef, d: Ins, key: number, place: Place | null = null): {
 
 /** Options for the outer Stage menu. */
 export function pathwayStageOptions(): { value: string; label: string }[] {
-  return NODES.map((n) => ({ value: n.id, label: stageLabel(n) }));
+  // "Approach for help" has no published count; offer only stages with figures.
+  return NODES.filter((n) => n.kind !== "process").map((n) => ({ value: n.id, label: stageLabel(n) }));
 }
 
 /** Quarter keys from assessments series. */

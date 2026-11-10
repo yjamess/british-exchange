@@ -56,7 +56,7 @@ export function householdsFoot(
         ? "Read across a heat-map row: a household at that income percentile, and how many years of its disposable income each price percentile costs."
         : "",
     ].filter(Boolean),
-    source: "ONS · Housing purchase affordability · England and nations / English regions",
+    source: "ONS · Housing purchase affordability · England · nations · English regions",
     dataHref: "/data#housing-purchase-affordability",
   };
 }

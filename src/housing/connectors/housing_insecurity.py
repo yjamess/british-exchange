@@ -276,19 +276,23 @@ def parse_ta1_england(path: Path) -> list[Observation]:
         (6, "temporary-accommodation-by-type", "bb-shared-annexes"),
         (11, "temporary-accommodation-by-type", "nightly-paid-privately-managed"),
     ]
-    # Discover remaining type columns by header keywords.
+    # Discover remaining type columns by header keywords. Only the "Total" column of each
+    # type: every type is followed by "With children" columns that must not be picked up.
+    # Header wording checked on the 202603 file ("Households in private sector accommodation",
+    # "Households in LA or HA stock", "Households in any other type of TA, ..."); the six
+    # types sum to "Households in TA Total" at every stock date.
     for idx, name in enumerate(header):
         low = name.lower()
-        if idx < 6:
+        if idx < 6 or not re.search(r"total(\[note \d+\])?$", low):
             continue
         series = None
         if "hostels" in low:
             series = "hostels"
-        elif "private sector accommodation leased" in low or "leased by" in low:
+        elif "private sector accommodation" in low or "leased by" in low:
             series = "private-sector-leased"
-        elif "local authority or housing association" in low or "la/ha stock" in low:
+        elif "la or ha stock" in low or "local authority or housing association" in low or "la/ha stock" in low:
             series = "la-ha-stock"
-        elif "other" in low and "temporary" in low:
+        elif "any other type of ta" in low or ("other" in low and "temporary" in low):
             series = "other-temporary"
         if series:
             col_map.append((idx, "temporary-accommodation-by-type", series))

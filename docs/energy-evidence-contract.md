@@ -15,7 +15,7 @@ Shared Explorer chrome (`FigureRecord` / `SourceLine`, stage meta, view tabs) do
 
 ## Required evidence fields (every Ready view)
 
-- `source` — publisher · series (Notes source row)
+- `source` — Notes source row: `Publisher · series · [Boundaries: …] · geography · [period / as at / release]` via `formatSource` (see `docs/visual-identity.md` › Explorer). Never smash publisher into the series name.
 - `definition` — what the number is
 - `method` — how counted / what not to infer
 - `geography` — nation or coverage

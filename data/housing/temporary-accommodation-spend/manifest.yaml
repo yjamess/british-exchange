@@ -2,35 +2,38 @@ indicator_id: temporary-accommodation-spend
 title: Temporary accommodation and homelessness expenditure (RO4)
 sector: housing-land
 publisher: MHCLG
-source_url: https://www.gov.uk/government/statistics/local-authority-revenue-expenditure-and-financing-england-2024-to-2025-individual-local-authority-data-outturn
+source_url: https://www.gov.uk/government/statistics/local-authority-revenue-expenditure-and-financing-england-revenue-outturn-multi-year-data-set
 series_id: RO4 housing services — homelessness lines
 geography: England (E92000001)
 frequency: annual financial year (flow)
 unit: £ thousand
 definition: Local authority General Fund net and gross current expenditure on homelessness
-  and temporary accommodation, England total as published on the RO4 outturn workbook.
+  and temporary accommodation, England total as published on the Revenue Outturn multi-year
+  dataset.
 licence: Open Government Licence v3.0
 agent_owner: housing
 connector_module: housing.connectors.temporary_accommodation_spend
 curated_path: curated/observations.csv
 update_cadence: annual
 raw_evidence:
-- path: raw/2026-11-04/RO4_LA_Data_2024-25.ods
-  retrieved_at: '2026-11-04T23:05:24.007149+00:00'
-  checksum_sha256: 4ef4436709a0a0dba7aca12aa04b6c6bc4a0a804b8976e71803edf2a23e91c28
-  content_type: application/vnd.oasis.opendocument.spreadsheet
+- path: raw/2026-11-10/Revenue_Outturn_time_series_data_v4.csv
+  retrieved_at: '2026-11-10T14:58:16.341794+00:00'
+  checksum_sha256: 7cd3a815b3bcb2717be0ce241f22ff01b7b3f8ba85595233248d462e33198657
+  content_type: text/csv
   official_release_date: '2026-06-11'
   http_status: null
-  source_url: https://assets.publishing.service.gov.uk/media/6a291b65e371d9d2c0052b83/RO4_LA_Data_2024-25_data_by_LA.ods
-transformations: Read the published England row. Do not re-sum local authorities.
-  Series are TA type and total homelessness, gross (C3) and net (C7).
-revision_notes: Domain 08 ingest 2026-11-04. One financial year (2024-25).
+  source_url: https://assets.publishing.service.gov.uk/media/6ab26ffffe72ed1e2b02ee74/Revenue_Outturn_time_series_data_v4.csv
+transformations: Read the published England row for each financial year with non-empty
+  homelessness totals. Do not re-sum local authorities. Series are TA type and total
+  homelessness, gross and net.
+revision_notes: Domain 08 Cost of Insecurity 2026-11-10. Multi-year England series
+  from Revenue Outturn time series v4 (FY ending 2021–2026).
 caveats: Annual money flow, not a stock of households. £ thousand, non-IAS19. Do not
   add to household counts. Reporting categories inside temporary accommodation changed
   between years — compare the total homelessness line, not a single TA type, across
-  years.
+  years. Do not divide spend by the temporary-accommodation household stock.
 related_indicator_ids:
 - temporary-accommodation-households
 open_questions: []
-notion_registry_url: "https://app.notion.com/p/40e6547176858114b855d16ddb6e41fb"
+notion_registry_url: https://app.notion.com/p/40e6547176858114b855d16ddb6e41fb
 schema_version: '1.0'

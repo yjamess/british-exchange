@@ -2,292 +2,211 @@
 name: structural-consistency-audit
 description: >-
   Read-only structural and visual QC for British Exchange sector explorers.
-  Use before expanding to a new sector, or when finishing a sector/domain after
-  styling work (e.g. Energy Prices Gate 4). Compares shell, Explorer grammar,
-  typography, controls, Notes, legends and source UI against the locked identity.
-  Does not audit datasets or redesign unique instruments.
+  Use before a new sector, when finishing a domain/Gate 4, or when the owner asks to “scan” / “double-check” /
+  “usual checks” / “repetitive checks”. Runs mechanical sweeps (source lines,
+  Notes, controls, map keys, EmptyStage, Follow, labelled gaps, stocks≠flows,
+  atlas chrome, domain-sources, cloud Ready), then the menu × served-data sweep
+  (every option opens on data, multi-select only for lines, nothing loaded left
+  unoffered, plain labels, phone width measured at 390px), then a short shell matrix.
+  Does not audit datasets against publishers or redesign instruments.
 ---
 
 # structural-consistency-audit
 
-Quality-control pass for The British Exchange. **Not** a redesign, data audit,
-accessibility certification, or refactor.
+Read-only QC. Not a redesign, data audit, a11y cert, or refactor.
 
-**North star:** Consistent grammar, flexible expression. Domain-specific
-graphics stay distinct; the surrounding interface must feel like one carefully
-authored publication.
+**North star:** Consistent grammar, flexible expression — one publication shell;
+domain graphics may differ.
 
-## Modes (pick one from the user request)
+## Modes
 
 | Mode | When | Scope | Verdict question |
 |------|------|-------|------------------|
 | **A — Housing baseline** | Before starting a *new* sector | All Housing domains + modes | Is Housing cohesive enough to template the next sector? |
 | **B — Finishing sector / domain** | After styling or Gate 3–4 UI on a live sector (e.g. Energy › Prices) | Named sector; domain-by-domain; **cross-check against Housing + nearest approved Energy canvas** | Is this sector/domain structurally ready to mark complete / Gate 4? |
 | **C — Cross-sector drift** | After many parallel canvas edits | Housing + Energy (and any other live sectors) side-by-side on the same slots | Have live sectors drifted from the locked Explorer grammar? |
+| **S — Sweep only** | Owner says “scan sources”, “double-check all pages”, or “the usual checks” | Mechanical sweeps below on the named sector (default Housing) + sample one Energy canvas | List every hit; no deep matrix unless asked |
 
-If the user says “when this sector is finished” or names Energy / Prices / a
-domain, default to **Mode B**. Do not run a Housing-only audit when they asked
-to close Energy.
+Default to **B** when a finishing domain is named; **S** for scan-only / polish / “usual checks” asks.
+Do not run Housing-only when asked to close Energy.
 
-## Explicit boundaries
+## Boundaries
 
-- **Read-only by default.** Inspect code, rendered views, screenshots. Do not
-  edit, move copy, change components, implement fixes, update data, or commit
-  unless the user explicitly authorises work *after* the audit report.
-- **Do not** audit data accuracy, provenance, calculations, ingestion, APIs, or
-  registry completeness (reviewed separately).
-- **Do** inspect placement and visual treatment of attribution, definitions,
-  date/geography qualifiers, legends, and controls — not the factual content.
-- **Do not** standardise bespoke diagrams, maps, cutaways, receipts, or
-  narrative instruments — only their scaffolding and surrounding chrome.
-- **Do not** propose dashboards, generic component-library defaults, or forcing
-  every view into identical chart layouts.
-- Prefer proven shared patterns over new abstractions invented for the audit.
-- **No speculative findings.** Unobserved routes/states → **Not inspected**.
+- Read-only until the user authorises fixes after the report.
+- Placement, chrome and **controls against served data** (S18–S27: does every menu option
+  open on what the API/packs actually hold?). Not data truth against the publisher,
+  provenance, or ingest QA numbers — those stay with Validation (`data/qa/`).
+- Do not standardise bespoke instruments (maps, cutaways, receipts); only their scaffolding.
+- No speculative findings → **Not inspected**.
+- Gate 2 (instruments live) ≠ Gate 4 (this audit’s full shell bar). Do not conflate them in the verdict.
 
-## Locked sources of truth (re-read every audit — styling moves)
+## Canonical sources (re-read each run)
 
-After the v1 identity and Explorer shell lock, these are canonical. Do not
-infer grammar from an older canvas that still carries retired patterns.
+1. `docs/visual-identity.md`
+2. `.cursor/rules/explorer-stage.mdc`
+3. `.claude/skills/exchange-domain-view/SKILL.md`
+4. `web/src/brand/brand.css` + `BrandRoot`
+5. `web/src/brand/template/` (`Explorer`, `FigureRecord`, `formatSource`, `EmptyStage`, …)
+6. `web/src/brand/instrument/TimeChart.tsx`
+7. `web/src/brand/sector-pages.ts`
+8. Housing Follow registry: `web/src/brand/connections/housing.ts` (+ tests)
+9. Housing domain load boundary: `web/src/brand/housing/domain-sources.ts`
+10. References: Housing `canvas/model.tsx` → Energy `ConsumptionCanvas` / `ConsumptionAppetite` → `GenerationCanvas` → domain under audit. Lab (`/design-lab/*`) is contrast only.
+11. Housing polish backlog / gap notes: `docs/work-plan.md` (Housing Gate 2 polish table) + any `docs/domain*-gap-hunt-*.md`
 
-1. `docs/visual-identity.md` — Colour, type, Explorer, Charts, Rules.
-2. `.cursor/rules/explorer-stage.mdc` — One Notes foot; multi-chart titles;
-   briefs do not override the shell.
-3. `.claude/skills/exchange-domain-view/SKILL.md` (and `.cursor` mirror if
-   present) — Frame order, body stack, do-not list (no body method essays,
-   no jargon, `leaders={false}`, etc.).
-4. Tokens / wrap: `web/src/brand/brand.css` (`.bo`), `BrandRoot`.
-5. Shell: `web/src/brand/template/` (`SectorPage`, `Explorer`, `ExplorerHead`,
-   `FigureStrip`, `ControlRow`, `MenuControl`, `Stage`, `FigureRecord` /
-   `SourceLine`, `EmptyStage`).
-6. Instruments: `web/src/brand/instrument/TimeChart.tsx` (`TimeChart`,
-   `RankBars`, `ChangeRows`, `SeriesLegend`).
-7. Sector config: `web/src/brand/sector-pages.ts`.
-8. **Reference canvases (in this order for Mode B/C):**
-   - Housing pipeline / multi-chart: `web/src/brand/housing/canvas/model.tsx`
-   - Energy tab shape (owner-approved): `web/src/brand/energy/ConsumptionCanvas.tsx`,
-     `ConsumptionAppetite.tsx`
-   - Generation explorer: `web/src/brand/energy/GenerationCanvas.tsx`
-   - Domain under audit (e.g. Prices): `web/src/brand/energy/PricesCanvas.tsx`
-9. Lab only (not production grammar): `/design-lab/*` — cite only to contrast;
-   never treat Lab as the sector baseline.
+## Mechanical sweeps (every mode; Mode S = this only)
 
-Retired / flag as drift if still present on a live sector stage:
+Path roots: A/S → `web/src/brand/housing/`; B → `web/src/brand/<sector>/` (+ Housing sample); C → housing + energy (+ others). Replace `<sector>` accordingly. Helper: `formatSource` in `template/Explorer.tsx`.
 
-- Sector pigment palettes or parallel tokens under `web/src/styles/tokens.css`
-  for new pages
-- Second Notes / `SourceLine` below the stage
-- Explorer `<Coverage>` facts strip on domain stages
-- `.bo-label` “FIG. 1 · …” chart titles
-- In-plot series selectors, layout toggles, or “exact values” drawers
-- Method / caveat essays in the stage body (`s.links` explaining the chart)
-- Table/note numbers or jargon on public UI (W2, COP, “Exchange calculation”)
-- `TimeChart` end leaders on framed stages (`leaders` not set false)
-- Multi-series key anywhere except `SeriesLegend` under the plot
+Record Pass / Fail / N/A / Not inspected. Promote Fails into the matrix — do not fix in-audit.
 
-## Inputs and baseline discovery
+### Shell & chrome (Energy frame)
 
-1. Locate the web app (`web/`), sector routes (`app/[sector]`), brand kit, and
-   the locked docs above — search the repo; do not assume stale paths.
-2. Build the inventory for the chosen mode:
-   - **A:** every Housing domain and each view/mode.
-   - **B:** every domain in the finishing sector (from `sector-pages.ts`); for
-     the domain just finished, every URL `view=` / control combination that is
-     shipped; sample at least one earlier approved domain in the same sector
-     (Energy: Consumption or Generation) plus one Housing pipeline view.
-   - **C:** Housing (2–3 domains) + Energy (Generation, Consumption, Prices at
-     minimum) on the same matrix rows.
-3. Inspect in the browser where available. Include long/short copy, loading,
-   empty, error, rail compact/expanded, desktop and a narrow viewport.
-4. Record shared vs forked implementations. Provisional canonical = the locked
-   docs + the most consistent live canvas that already obeys them. If Housing
-   and an Energy canvas disagree, **prefer the locked docs**; if docs and all
-   live canvases disagree, mark an unresolved decision — do not silently pick
-   the first page.
-5. Inventory before conclusions. Do not extrapolate from two screenshots.
+These are the checks the owner kept asking for after each Housing domain polish. Fail = drift from Consumption / Generation.
 
-### Live Energy inventory hint (Mode B/C)
+| ID | Fail when | Scan |
+|----|-----------|------|
+| **S1** Source | Smashed publisher (`MHCLG Live…`); trailing `·`; slash geography; missing geography; academic citation on a chart foot | `rg -n --glob '*.{tsx,ts}' 'source:\s*[`"\x27]\|source:\s*$' …` then spot-check; also `rg 'source:.*[`"\x27](MHCLG\|ONS\|DESNZ\|HMRC\|FCA\|HM Land Registry\|Bank of England\|Planning Inspectorate) [A-Za-z]'` and `rg 'source:.*( / \|collection dumps\|\?\? "")'` |
+| **S2** Notes | Second Notes; Coverage strip; body method/jargon; **stage-body lede** restating definition/method | `rg 'FigureRecord\|SourceLine\|<Stage\|Coverage'` · `rg '(Exchange calculation\|hatched means\|coefficient\|Note [0-9]\|W[0-9]\b)'` · body `className=.*(lede\|intro\|blurb)` outside Notes |
+| **S3** Controls | Place/measure/period/search/breakdown only inside Stage (camera +/−/⌂ on map OK); in-stage measure tabs | `rg 'ControlRow\|MenuControl\|SearchControl\|PeriodControl'` · suspect in-body `role="tablist"\|setMeasure\|onChange.*measure` inside canvas view files (not Explorer) |
+| **S4** Empty | Catalogue dump / `data/….json` on screen; peers use `EmptyStage`, this view does not | `rg 'EmptyStage\|Ready catalogue\|data/[a-z0-9_./-]+\.json'` |
+| **S5** Charts | `leaders={true}` gutter on framed stage; `FIG. n` titles; Data body as link list not titled panels | `rg 'stageTitle\|SeriesLegend\|leaders=\{true\}\|FIG\.\s*[0-9]\|Ready catalogue'` |
+| **S6** Map keys | Key swatch `url(#…)` without local `<defs><pattern>` in that SVG | `rg 'url\(#\|<pattern\|Map key\|swatch'` — open each hit |
+| **S7** Map zoom | Named-place national map lacks zoom/search while Land / Field / GB history have them | `rg 'SearchControl\|zoom\|setCam\|focusPlace\|Find a '` vs map views |
+| **S8** Signal / ink | Signal on prose; opacity washes; new `tokens.css` sector palette | `rg 'bo-signal\|opacity:\s*0\.\|tokens\.css'` |
+| **S9** URL / Reset | Filter not in URL while peers sync; Reset misses a control | `rg 'setQuery\|searchParams\|ResetButton'` |
+| **S10** Docs lock | Identity / explorer-stage / domain-view / `formatSource` disagree | Read those four; no code scan |
+| **S11** Energy frame pack | View still needs the Housing 2026-11-10 polish pack: outer `ControlRow` · body ledes gone · one `FigureRecord` foot · `EmptyStage` · Data/Transactions as titled panels · FigureStrip ≤ 3 | Per domain × view against `docs/work-plan.md` “Energy frame” review bullets; spot-check Explorer + view file |
 
-Energy domains in `sector-pages.ts` (short labels): Generation · Use
-(Consumption) · Prices · Oil & gas · Imports · Low carbon · Networks · Output
-(Manufacturing) · Jobs · Policy. Prices explorer views (as shipped) may
-include bill / afford / shock / economies / regions / wholesale / data — verify
-against `PricesCanvas` / URL state; mark missing views Not inspected.
+Grammar reminder (S1): `Publisher · series · [Boundaries: …] · geography · [period]`.
 
-## Audit dimensions
+### Product honesty & wiring (Housing Gate 2 / polish)
 
-### A. Page shell and navigation
+Repeated product checks — not dataset QA, but “is the Explorer honest and wired”.
 
-- Global header, logo, breadcrumbs, sector identity, hero plate / ink strip
-  (SectorPage: sector name is the one loud line).
-- Index rail: Ready / In preparation groups, plate tiles, current = negative
-  plate + ink edge bar, compact vs expanded width, toggle, scroll.
-- Content gutter, max-width (`.bo-grid` / template), rail-to-stage relationship,
-  breakpoints.
-- Same actions in the same place (back, collapse/expand index).
-- Domain URL state (`domain`, `view`, controls) preserves identity; do not
-  inspect fetch correctness.
+| ID | Fail when | Scan |
+|----|-----------|------|
+| **S12** Follow | Ready domain/view has no primary Follow edge while peers do | `web/src/brand/connections/housing.ts` (or sector connections) vs live views in `sector-pages` / `model.tsx`; run connections tests if present |
+| **S13** Labelled gaps | Gap is closed in work-plan / gap-hunt docs but UI Notes/stage never says so; or UI implies data that the gap says is unavailable | Diff `docs/domain*-gap-hunt-*.md` + polish table ↔ `rg -n 'labelled gap\|not published\|not in these\|stay.*gap' web/src/brand/<sector>` |
+| **S14** Stocks ≠ flows | Stage/Notes/figures add a stock to a flow, or draw them as one series without labels | Spot-check Mortgage / Supply / Insecurity / Ownership feet for “stock” / “flow” / “net additions” / “approvals”; fail if copy invites summing unlike quantities |
+| **S15** Atlas chrome | District/LA choropleth peers (Displacement, Who owns, Quality Geography, Supply Geography) but this map lacks AreaMap + readout + `MapLegend` + `area` URL + authority `SearchControl` without a documented reason | `rg 'AreaMap\|MapLegend\|onArea\|Find an authority' web/src/brand/<sector>` · compare map views |
+| **S16** Domain sources | Explorer `load` for a domain uses a series id not listed in `DOMAIN_SOURCES[domain]` (or sector equivalent) | `domain-sources.ts` vs `load.ts` / `loadFiltered(` / `sourceAllowed` |
+| **S17** Cloud Ready | Ready series or pack still required from laptop `data/` for production UI; `store=files` fallback on Ready path | `rg 'store=files\|readFile\|data/housing/\|data/energy/' web/src` (API client + loaders); Ready must come from API / Storage packs |
 
-### B. Typographic and visual tokens
+### Menus × served data (added 2026-11-10 after the Housing menu review)
 
-- **Libre Caslon Display** headlines (sentence case); **Geist** body/UI;
-  **Geist Mono** labels/data; **Archivo** condensed figures. (Not “Giest”.)
-- H1–H3 / `.bo-hero` / question / `explorerClasses.stageTitle` scale, wrap,
-  weight 400 on stage titles, letter-spacing, responsive sizes.
-- Colour **roles** from `brand.css`: Electric ink, Paper, Union text, Signal
-  (live/focus only — never chart text), chart series tones only in plots.
-- Spacing on 8px rhythm; square corners; vertical rhythm of Explorer slots.
-- Rail plate crops and size consistency.
-- Prefer computed styles / token usage over screenshot-only colour guesses.
+Code review alone missed every one of these: a menu can be wired, styled and in the URL
+and still open on an empty chart. **Build a menu table first**, one row per control:
+domain › view · label · URL key · default · options source (hard-coded / derived) ·
+what it drives (lines · stack · RankBars · ChangeRows · map · table · layout switch ·
+one-place instrument). Then check each row against the **served** data — local API
+`/indicators/<id>/observations?limit=10000` (`dimensions`, `period_start`,
+`available_dimensions`), `/packs/<id>`, or Postgres current release — never the
+laptop CSV. Split large sectors across parallel read-only agents by domain; verify
+their top findings yourself before reporting (one agent called intended `place`
+persistence a bug — read the code comment first).
 
-### C. Information architecture and copy hierarchy
+| ID | Fail when | How to catch it (Housing example that failed) |
+|----|-----------|----------------------------------------------|
+| **S18** Empty options | Any option, or the default, opens on an empty / all-zero / "not published" stage | For each option × view, count rows the stage would draw at its default period. Defaults must be the **last period with data for that measure**, not the newest period in the file (Prices map new build/sales volume opened on Aug 2026 with 0 of 374 areas; data ended Jun) |
+| **S19** Pooled periods | Year/quarter menu built from the union of several series, or from a sibling series | Options must come from the **selected** measure × breakdown (Condition pooled 11 measures; EPC "A–C share" took its quarters from lodgements). Footer slice must use the same list |
+| **S20** Missing as zero | Absent value defaulted to `0` (`?? 0`, `a: 0` init) then drawn or divided | `rg '\?\? 0\b\|: 0, b: 0' web/src/brand/<sector>` near chart maths — missing must be unshaded / "not published" (EPC drew 0% for every council in 7 of 8 quarters) |
+| **S21** Options vs view | One option list reused across views that cannot all draw it; a pick silently ignored while the title shows it | Filter options by what the view publishes (`isPublished`-style check), coerce the URL value, hide the menu when one option remains (Renting Property on Annual change/Index; By size ignored "Detached") |
+| **S22** One-option menus | Menu with a single option, or `onChange={() => undefined}` | Render a fixed label (`UnavailableControl` with "… only") instead (Quality Energy tenure/period; Pathways quarter with a place) |
+| **S23** Multi-select rule | Multi where choices are not lines on a time chart; >5 series; adding a series changes the form; cap enforced in the menu but not in URL parse | Multi only for TimeChart lines/stack layers; maps, one-period RankBars, layout switches, one-place instruments stay single. `rg 'MAX_[A-Z_]*PLACES\s*=\|MultiMenuControl'` — cap = 5 in menu **and** parser. Count lines per chart: >5 → group with a partition check (parts sum to total every period) + Notes "Exchange grouping" (Affordable products drew 7 lines; Renting Map/By size took several places) |
+| **S24** Loaded but not offered | Served geographies / series / dimensions no menu reaches | Diff `available_dimensions` and geography codes vs menu options. Watch aggregate filters (`AGG = new Set([... "E92000001"])` dropped England), loader fields nothing renders (`taByType`), Data tabs listing a subset, packs with regions the chart ignores, locked latest-year views with full history served |
+| **S25** Stale reference lists | Search/place list from an old boundary set; an endpoint guard rejects current codes | Compare against current ONS LAD (Land Explorer used 2022 councils: 17 abolished, 4 unitaries unreachable; `query_place` raised "not in the 2022 list"). Also check the list is in Storage, not only on disk |
+| **S26** Honest availability | A feature flag/`available` reports true while the table or pack is empty | Hit the meta endpoint and the table count (Price Paid: `available: true`, 0 rows in Supabase) |
+| **S27** Plain labels | Codes or acronyms in option labels, menu labels or figure notes | `rg '\(P\)\|\(CPI\)\|EPC\b\|EHS\b\|HHSRS\|P120\|Instrument"\|Section"\|Ledger"\|· \$\{.*level'` on controls; source titles are fine in the source line, not in menus |
 
-Locked Explorer editorial order:
+Also check, per row: **figures follow the controls** (FigureStrip and Notes read the same
+selected year/place as the stage — Supply Geography showed 2024–25 figures over a 2015–16
+stage) and **URL keys** shared between views/domains are either documented persistence
+or cleared on change (Quality views leaked `qy`/`qf` and showed a false Reset).
 
-**Crumb → Caslon question → view tabs (`ExplorerHead`) → FigureStrip (when
-the view has figures) → ControlRow → Stage (title + meta + body) → one Notes
-foot.**
+**Phone width (Responsive, every mode):** measure, don't eyeball. Desktop headless
+`--window-size` will not go below ~500px and crops, so screenshots lie. Use DevTools
+Protocol device emulation (`Emulation.setDeviceMetricsOverride`, width 390, `mobile: true`),
+wait for render, and compare `document.documentElement.scrollWidth` with the viewport;
+list the outermost elements whose right edge exceeds it. Housing failed at 890px because the
+narrow shell used `grid-template-columns: 1fr` (min-content of the plate strip) — fixed with
+`minmax(0, 1fr)` + `min-width: 0` on the rail.
 
-- Standardise **roles**, not sentence lengths.
-- No repeated explanation (body paragraph restating stage title / Notes).
-- Voice: British English; plain; editorial; no padding or unsupported
-  superlatives; sentence case for stage titles.
-- Public UI: plain words; method and caveats in Notes only.
+**Hand-off to Validation (not this audit):** a breakdown that should partition a total
+but is missing parts in the time series (TA by type had 3 of 6 types because the
+connector's header keywords did not match the file) is a connector bug — file it, with
+the "parts sum to total per period" check as the test.
 
-### D. Definitions and methodology — placement only
+## Visual matrix (Modes A/B/C only — after sweeps)
 
-Locked placement rule:
+Do not re-litigate S1–S27 here. Check what sweeps miss:
 
-- Stage **meta**: short unit / geography / span context.
-- **FigureStrip**: three headline measures with short notes.
-- **One** `FigureRecord` / `SourceLine` on `<Stage foot>` for definition +
-  method + data link.
-- No second disclosure under the stage; no patent callouts in the plot.
+- **Shell** — SectorPage loud line; rail Ready / prep; compact rail; breakpoints.
+- **Type / tokens** — Caslon / Geist / Geist Mono / Archivo; Electric / Paper / Union; Signal live-only; 8px rhythm; square corners.
+- **Order** — Crumb → question → tabs → figures → ControlRow → Stage → one Notes foot → follow.
+- **Voice** — British English; sentence-case titles; roles shared even if copy length differs.
+- **Responsive** — rail, tabs, focus ring, reduced motion; narrow wrap; no overflow (measured at 390px via emulation — see S18–S27 note).
 
-Flag if the same concept is a top paragraph in one domain, a toggle in
-another, and absent in a third without reason. Do not require equal *volume*
-of explanation — only the same disclosure logic.
+Canonical vs forks: prefer locked docs when Housing and Energy disagree.
 
-### E. Controls, menus and view modes
+Energy domains (B/C hint): Generation · Use · Prices · Oil & gas · Imports · Low carbon · Networks · Output · Jobs · Policy — verify views against the canvas, not memory.
 
-- View tabs: joined square rectangles; selected/hover = solid ink + paper type
-  (no underline tabs, no rounded cards).
-- Filters: `MenuControl` / `PrintSelect` in `ControlRow`; Reset in the same row.
-- View switch ∈ main view nav; filter ∈ controls for that visualisation.
-- No series/scope selectors inside the plot.
-- Absence of an irrelevant control is not an inconsistency.
+## Procedure & output
 
-### F. Visualisation scaffolding — not the marks
+1. Announce mode + inventory.
+2. Run **S1–S17** (S12–S17 N/A only when the sector truly has no Follow registry / no gaps / no maps / no domain-sources file — say so), then build the menu table and run **S18–S27** against served data.
+3. Modes A/B/C: domain × view matrix (shell slots only) + browser sample.
+4. Classify: system inconsistency · intentional variation · possible improvement · not inspected.
+5. Priority: **P0** blocks Gate/expansion · **P1** before finish/next sector (incl. sweep fails) · **P2** polish.
+6. Report and stop.
 
-- Body: `stack` → `panel` → `stageTitle` → instrument (`TimeChart` /
-  `RankBars` / `ChangeRows` / one custom instrument).
-- Line charts: `SeriesLegend` under the plot; leaders default off so the plot fills the stage. Flag a reserved right gutter / `leaders={true}` on framed
-  stages.
-- Empty: `EmptyStage`. Tables: shared table styles, not a parallel design.
-- Custom instrument: allowed; still one ink + Housing mark language; own CSS
-  module only when needed; must not invent a palette or tab shape.
-- Compare overflow/clipping at more than one viewport.
+**Report**
 
-### G. Sources and metadata — UI consistency only
+1. Verdict (mode question; Mode S: “Sweep clean” / “N fails”).
+2. Coverage + Not inspected.
+3. Sweep table (S1–S27) + the menu table (one row per control).
+4. What’s consistent.
+5. Inconsistency matrix (ID · where · issue · canonical · P0–P2 · file).
+6. Intentional variations to keep (incl. labelled gaps kept as gaps).
+7. Minimal fix plan — **do not implement**.
+8. Gate ticks below.
 
-- Publisher / series line via Notes `source`; definition + method bullets;
-  catalogue `dataHref` where used.
-- Qualifiers (nation, period, “cash” vs “real”) near the figure they govern
-  (meta, strip note, or Notes) — check clarity of placement, not factual truth.
+## Gate ticks
 
-### H. Interaction and responsive states
+**A** — Sweeps clean (or triaged) · shell/type coherent across Housing · unique graphics free · desktop+mobile · S10 docs agree · findings documented.
 
-- Rail collapse, tab carriage, focus Signal ring, reduced-motion stills where
-  observable.
-- Long questions/labels must not collide with chrome.
-- Loading / empty / disabled / error: consistent EmptyStage / template
-  treatment.
-- Narrow viewport: control wrap, stack, no horizontal overflow.
+**B** — Sweeps on finishing tree · Explorer slots match Consumption/Housing · custom instrument one ink if any · URL+Reset · EmptyStage · Follow where Ready · no P0/P1 vs references · exceptions listed.
 
-## Procedure
+**C** — Sweeps on each tree · shared shell · no pigment/tab fork · drift triaged to one canonical each.
 
-1. **Announce mode + inventory** before findings.
-2. **Comparison matrix** — for each domain × view: header; question; tabs;
-   figures; controls; stage scaffold; legend; Notes; empty/responsive. File
-   refs + screen locations.
-3. **Classify each difference**
-   - System inconsistency
-   - Intentional domain variation (keep)
-   - Possible improvement (not a defect)
-   - Not inspected
-4. **Prioritise**
-   - **P0** — Blocks expansion or Gate 4 close: broken shell, inaccessible
-     Notes, severe hierarchy/responsive failure.
-   - **P1** — Fix before calling the sector/domain finished or starting the
-     next sector: repeated heading/spacing/control/Notes/source drift from the
-     locked grammar.
-   - **P2** — Polish without material reader impact.
-5. **Interface Consistency Contract** — short; derive tokens from
-   `brand.css` / identity doc; mark unresolved decisions. No invented hexes.
-6. **Report and stop.** Wait for explicit approval before any edits.
+**S** — S1–S27 done · menu table attached · each Fail has file + canonical · no edits.
 
-## Required output format
+### Housing Gate 2 / Energy-frame close (Mode S or A after polish)
 
-1. **Verdict** — Ready / Ready with fixes / Not ready + one-sentence rationale  
-   (worded for the chosen mode’s verdict question).
-2. **Mode & coverage** — Mode A/B/C; domains; views; viewports; states;
-   gaps (Not inspected).
-3. **What is consistent** — patterns to retain, with evidence.
-4. **Inconsistency matrix** — ID · location(s) · issue · canonical pattern
-   (doc or file) · priority · file reference.
-5. **Intentional variations to preserve** — bespoke instruments (e.g. Dissected
-   Bill receipt, Metabolism, Housing cutaway) and why their form stays.
-6. **Interface Consistency Contract** — shell slots, type roles, controls,
-   Notes, legends, sources, responsive rules (as observed + locked docs).
-7. **Minimal fix plan** — dependency order; scope by components/files; **do
-   not implement**.
-8. **Gate checklist** — pass / fail / not inspected (below).
+Use when the owner says Gate 2 is done and wants the repetitive polish pack checked once:
 
-## Gate checklists
+- [ ] S11 Energy frame pack pass on every live domain × view (or Fail listed)
+- [ ] S12 every Ready view has a primary Follow (or intentional exception)
+- [ ] S13 every documented labelled gap appears in UI honesty copy
+- [ ] S14 stocks and flows stay apart in figures and Notes
+- [ ] S15 map views share atlas chrome (or documented thinner map)
+- [ ] S16 `DOMAIN_SOURCES` covers what `load` pulls per domain
+- [ ] S17 Ready instruments load from cloud without laptop files
+- [ ] S18–S22 every menu option and default opens on data for that measure; no pooled periods, no missing-as-zero, no one-option menus
+- [ ] S23 multi-select only for lines/layers, ≤5 in menu and URL, form unchanged when adding
+- [ ] S24–S26 nothing loaded is unreachable; reference lists current; availability flags honest
+- [ ] S27 plain labels in menus and figure notes
+- [ ] Phone width measured at 390px: `scrollWidth` = viewport on every domain
+- [ ] Verdict states Gate 2 ≠ Gate 4
 
-### Mode A — Housing as template for a new sector
-
-- [ ] Shell, rail states, global nav, hierarchy match across reviewed Housing domains
-- [ ] Type, spacing, colour roles, responsive text use one grammar
-- [ ] Question / orientation / section titles occupy predictable roles
-- [ ] Equivalent controls and disclosures match
-- [ ] Chart scaffolding, legends, source UI follow common placement when applicable
-- [ ] Unique graphics remain free in form without breaking shared chrome
-- [ ] Desktop and mobile coherent
-- [ ] Findings and exceptions documented; material issues have an approved plan
-
-### Mode B — Finishing a sector or domain (e.g. Energy Prices)
-
-- [ ] Domain uses `SectorPage` / `Explorer` slots in locked order (no parallel layout)
-- [ ] View tabs + ControlRow + Stage foot match Consumption / Housing reference
-- [ ] One Notes foot only; no Coverage strip; no body method essays
-- [ ] `stageTitle` panels; shared instruments; `SeriesLegend` / `leaders={false}` where required
-- [ ] Custom instrument (if any) is one ink and does not fork chrome
-- [ ] URL state covers view + filters; Reset returns defaults
-- [ ] Empty / missing-data states use `EmptyStage`
-- [ ] Cross-check: no P0/P1 drift vs Housing pipeline + Consumption (or named reference)
-- [ ] Deliberate exceptions listed (e.g. receipt instrument on Prices › bill)
-
-### Mode C — Cross-sector drift
-
-- [ ] Housing and Energy share shell and Explorer grammar on compared slots
-- [ ] No sector-specific palette or tab shape has reappeared
-- [ ] Notes / controls / figure strip roles align
-- [ ] Drift items triaged P0–P2 with a single canonical target each
-
-## Invocation examples
+## Examples
 
 ```text
-/structural-consistency-audit Mode A: Audit every Housing domain and its modes.
-Do not modify files. Inconsistency matrix + minimum fixes before the next sector.
-
-/structural-consistency-audit Mode B: Energy › Prices is finishing after the
-styling lock. Audit all Prices views against docs/visual-identity.md,
-explorer-stage, and ConsumptionCanvas. Cross-check Generation. Read-only.
-
-/structural-consistency-audit Mode C: Drift check Housing vs Energy (Generation,
-Consumption, Prices) on Explorer slots only. Ignore data QA.
-
-/structural-consistency-audit Re-audit Mode B Prices after the approved P1 fixes
-only. Confirm previous findings; do not expand scope.
+Mode A: Housing baseline before next sector. Read-only.
+Mode B: Energy › Prices finishing — vs identity + Consumption. Read-only.
+Mode C: Housing vs Energy drift on Explorer slots.
+Mode S: Housing usual checks — Energy frame, sources, Notes, Follow, labelled gaps, atlas, cloud.
+Mode S: Housing Gate 2 polish pack — S11–S17 only if S1–S10 already green.
+Mode S: Energy menus — build the menu table, S18–S27 against the local API, phone width.
+Re-audit Mode B Prices — previous P1s only.
 ```

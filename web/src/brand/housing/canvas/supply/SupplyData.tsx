@@ -170,7 +170,7 @@ export function SupplyData({ data }: { data: HousingV1 }) {
                   <tr key={row.fy}>
                     <th scope="row">
                       {row.fy}
-                      {row.status === "provisional" ? " (P)" : ""}
+                      {row.status === "provisional" ? " provisional" : ""}
                     </th>
                     <td>{count(row.newBuild)}</td>
                     <td>{count(row.conversions)}</td>

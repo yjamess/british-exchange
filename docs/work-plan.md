@@ -739,12 +739,28 @@ Follow [Industrial Policy](https://app.notion.com/p/41065471768581dca8fbf13058c8
 
 ---
 
-## Housing & Land · Gate 2 · Domain 03 Affordability · 2026-11-04
+## Housing & Land · Gate 2 · Domains 01–10 · 2026-11-04
 
-Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581feaca9f75117f149c0) and [Affordability domain brief](https://app.notion.com/p/40e654717685817cb98bdec53c60b676).
+Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581feaca9f75117f149c0).
+
+**Status (2026-11-10):** **Gate 2 done** for Housing Domains 01–10 — instruments live and open Validation items closed. That is **not** Energy’s Gate 4 structural-audit bar; Housing has **not** run a full Gate 4 sweep per domain.
+
+**Registry catch-up (2026-11-10):** Validation **PASS** on **23** series that were live but missing/stale in Notion — report `data/qa/qa_housing_registry_catchup_23_2026-11-10.md`. Created 14 Ready rows; flipped 9 Sourcing/Ingesting/Validation rows to Ready (EHS core + brownfield + net-additions-by-authority). Still open outside the 23: `local-plan-status` council-page sample; `planning-appeals` formal registry row.
+
+**Polish / backlog (not Gate blockers) — updated 2026-11-10:**
+
+| Domain | Item | Status |
+|--------|------|--------|
+| 05 Supply | Map atlas / per-1,000 dwellings rates | **Done** — LA AreaMap + `gm=rate` (stock open ÷ Tables 100/109) |
+| 06 Land | Labelled gaps (allocations, case apps) | **Verified** — honesty copy live ([domain06-gap-hunt-2026-11-10.md](domain06-gap-hunt-2026-11-10.md)) |
+| 09 Ownership | Monthly CCOD/OCOD refresh cadence | **Done** — runbook in [`data/housing/corporate-owned-titles/README.md`](../data/housing/corporate-owned-titles/README.md) (no in-repo cron) |
+| 10 Policy | Help to Buy FTB quarterly | **Done** — Release Table 2 in `help-to-buy-equity-loan` (41 quarters; cumulative 328,346) |
+| 10 Policy | 1919 / 1947 commencement | **Done** — 1919 by 1793 default; 1947 by s.120(2) + SI 1948/213 |
+| 10 Policy | London AHP 2016-23 by year | **Closed as labelled gap** — GLA programme names do not map to MHCLG totals; cumulative London stays on the annual report; do not invent a year path |
 
 1. **Done — Domain 01 (prices):** History · Types · Segments · Transactions · Map · Data.
    - **Review 2026-11-10 (Energy frame):** Data / Transactions as titled panels; ledes moved to Notes feet; empties use `EmptyStage`. History / Types / Segments / Map already used outer place/measure/period controls.
+   - **Deferred (Free-tier):** Recorded-sales search (`price-paid-2025`, ~900k rows) not loaded into Postgres. HPI sales-volume chart stays. Tracked as BX-BACK-001 on [Notion — Cross-sector backlog](https://app.notion.com/p/41465471768581a5bef6d539d77dad53).
 2. **Done — Domain 02 (Renting):** Monthly · Map · Change · Index · By size · Table ([brief](https://app.notion.com/p/40e65471768580d6ab18c12c0424c865)).
 3. **Done — Domain 03 (Affordability):** [Notion brief](https://app.notion.com/p/40e654717685817cb98bdec53c60b676).
    - **Live:** Budget (BoE IUMBV34 default rate) · Map · Ages · Rent burden · Households · Ratio · Table.
@@ -755,23 +771,23 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
    - **Live:** Composition (CSV of the three-group denominator, 31 March, and categories) · Dwelling types · Geography (31 March year slider, Table 109) · Vacancy · Second homes · Tenure · Data.
    - **Series:** `dwelling-stock-by-tenure`, `vacant-dwellings` (615), `second-homes` (Council Taxbase Table 4, England, 2021–2025), `dwelling-stock-by-region` (109), `dwelling-stock-by-district` (100), `dwelling-type` (Census TS044 households).
    - **Caveats:** dwellings ≠ households; Table 100 private sector not OO/PR and the district list stays on the latest year; vacancy rate is October Table 615 ÷ 31 March Table 104, same calendar year, Exchange-derived; second homes are not in that rate. Table 4 prints a year (stored as 1 October). The second-homes premium starts in 2025.
-   - **QA:** `data/qa/qa_housing_stock_2026_11_04.md` — PASS for the series in that report. `second-homes` is ingested (2025 England total 267,894 matches the revised release) and still needs a Validation pass.
+   - **QA:** `data/qa/qa_housing_stock_2026_11_04.md` — PASS. `second-homes` Validation PASS 2026-11-10 (`data/qa/qa_report_second-homes_2026-11-10.md`) — England 2025 total 267,894; identity none+discount+premium.
 5. **Done — Domain 05 (Construction & Supply):** [Notion brief](https://app.notion.com/p/40e65471768581ffb44ef707f8ccf483). Kickoff: [agent-kickoff-supply.md](agent-kickoff-supply.md).
    - **Live:** Supply (Machine) · Pipeline · Geography · Who builds · Data.
    - **Series:** `net-additional-dwellings`, `net-additions-by-authority`, `housing-starts`, `housing-completions` (tenure), `affordable-housing-supply`, `planning-decisions-granted`.
    - **QA:** `data/qa/qa_housing_supply_net_additions_2026_11_04.md`, `data/qa/qa_housing_supply_affordable_2026_11_04.md`.
-   - **Polish later:** map atlas, rate per 1,000 dwellings, Table 123, delivery vs targets, devolved nations.
-6. **Done — Domain 06 Land Explorer (map instrument):** [Notion brief](https://app.notion.com/p/40e65471768581f6bdacec2e38c31367). Kickoff: [agent-kickoff-land.md](agent-kickoff-land.md).
+   - **Polish 2026-11-10:** Geography LA AreaMap + per-1,000 dwellings (`gm=rate`, stock open from Tables 100/109). Still later: Table 123, delivery vs targets, devolved nations.
+6. **Done — Domain 06 Planning & Land:** [Notion brief](https://app.notion.com/p/40e65471768581f6bdacec2e38c31367). Kickoff: [agent-kickoff-land.md](agent-kickoff-land.md).
    - **Views (Notion):** Land Explorer · Development Sites · Planning Decisions · Historical Change · Data.
-   - **Live:** Land Explorer opens on York’s map. Search replaces the council. Publisher FeatureServers + EA flood + Storage CSV dumps (brownfield / Article 4 / TPO). Historical change is the Green Belt hectare series (dated geometries in progress as T14). Data tables stay split by dataset.
-   - **Anatomy:** place brownfield marks are the England register, clipped, with the national site total beside them.
-   - **Labelled gaps:** Historical geometries (T14), local-plan allocations, appeals, and case-level applications. Planning decisions are England quarterly totals (P120).
-7. **In progress — Domain 07 (Housing Quality):** [Notion brief](https://app.notion.com/p/40e654717685816cb965c1336cb686e5). Kickoff: [agent-kickoff-quality.md](agent-kickoff-quality.md).
+   - **Live:** Land Explorer — publisher FeatureServers + EA flood + Storage CSV dumps (brownfield / Article 4 / TPO). Development Sites — brownfield inventory. Planning Decisions — P120 Decision Machine + Inspectorate appeals (`pm=appeals`). Historical change — Green Belt hectares + landmark-year England boundary map (`gby`). Data tables split by dataset.
+   - **Labelled gaps (closed as gaps):** Local-plan allocations (no England polygon feed); case-level applications (Planning Data unavailable). Brownfield ≠ allocation; P120 ≠ case files. Gap hunt: [domain06-gap-hunt-2026-11-10.md](domain06-gap-hunt-2026-11-10.md).
+7. **Done — Domain 07 (Housing Quality):** [Notion brief](https://app.notion.com/p/40e654717685816cb965c1336cb686e5). Kickoff: [agent-kickoff-quality.md](agent-kickoff-quality.md).
    - **Live:** Inside Britain's Homes · Energy Anatomy · State of Repair · Geography (English regions and the three survey areas) · Data, one series at a time.
    - **Labels:** the 15% figure is the non-decent share. EPC bands do not carry an overlap caveat. The Data source line follows the selected indicator.
-   - **Still open:** Validation QA. Local-authority geography and the EPC certificate register are not loaded. Sample counts are not confidence intervals; the survey tables here do not publish intervals.
+   - **QA:** EHS inside + wave2 Validation PASS (re-run 2026-11-10: `qa_housing_ehs_inside_home_2026_11_04.md` failures=0; `qa_housing_quality_wave2_2026_11_04.md` fails=0). Sample counts are not confidence intervals.
+   - **2026-11-10:** EPC register loaded to Postgres (`epc-domestic-lodgements` 26 244; `epc-domestic-lodgements-by-local-authority` 216 918). Geography scale chip unlocks Local authorities · EPC certificates (lodgements + A–C share).
 8. **Done — Domain 08 (Housing Insecurity):** [Notion brief](https://app.notion.com/p/40e65471768581a2a277cc76f104f990). Kickoff: [agent-kickoff-insecurity.md](agent-kickoff-insecurity.md). Catalogue ingested, including RO4 spend and the rough sleeping data framework. Registry rows are Ready.
-   - **Views (locked):** Pathways · Temporary Housing · Displacement · Housing Need · Data.
+   - **Views (locked):** Pathways · Temporary Housing · Displacement · Housing Need · Cost · Data.
    - **Full source set (do not skip):** H-CLIC / TA · rough sleeping · MoJ possessions · Table 600 · CORE · Census concealed · TA spend · devolved returns.
    - **Verify headlines:** 135,580 TA hh · 177,530 children (31 Mar 2026) · 83,850 assessed Q1 2026 · 4,793 rough sleeping autumn 2025.
    - **Rule:** stocks ≠ flows; homelessness ≠ rough sleeping; no wait-time from 600÷lettings.
@@ -779,14 +795,19 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
    - **Views (locked):** Who owns · Mortgages · Wealth · Data. (Property Rights folded into Who owns.)
    - **Live:** Who owns — CCOD/OCOD corporate titles map + RankBars (`corporate-owned-titles`, QA PASS 2026-11-10) · Mortgage machine · Wealth distribution (`household-net-property-wealth`) · Data.
    - **Review 2026-11-10 (Energy frame):** Wealth age filter on outer `ControlRow` (URL: `wa`). One `FigureRecord` Notes foot. Empties use `EmptyStage`.
-   - **Not drawn:** named companies or title-level rows (licence open question). Inheritance is not a chain.
-   - **Open:** Validation spot-check of WAS wealth tables; monthly CCOD/OCOD refresh cadence.
-10. **In progress — Domain 10 (Housing Policy & History):** [Notion brief](https://app.notion.com/p/40f6547176858196aeacd8c3155fee87). Kickoff: [agent-kickoff-policy.md](agent-kickoff-policy.md).
+   - **Also live (2026-11-10):** Mortgages purpose (lines) and loan-to-value (stack) history; Wealth waves and rounds drawn apart; HMRC `estates-residential-property` (Table 12.3) on Wealth with the 1 Jan 2022 reporting break. QA PASS for `mortgage-approvals`, `residential-mortgage-book`, `household-net-property-wealth`; buy-to-let relabelled "Of which buy to let".
+   - **Dropped (owner, 2026-11-10):** phase 4 company/title lookup and Companies House joins. Counts only. Inheritance is not a chain.
+   - **Polish 2026-11-10:** monthly CCOD/OCOD refresh runbook (`data/housing/corporate-owned-titles/README.md`). WAS wealth (`household-net-property-wealth`) already QA PASS 2026-11-10.
+10. **Done — Domain 10 (Housing Policy & History) Gate 2 anchors:** [Notion brief](https://app.notion.com/p/40f6547176858196aeacd8c3155fee87). Kickoff: [agent-kickoff-policy.md](agent-kickoff-policy.md).
    - **Question:** How did Britain build the housing system it has today, and which decisions shaped the way we live?
    - **Live:** Timeline · Promise vs delivery · Archive · Data. Register from Storage pack `housing.policy-events` (no webpack `events.json` import).
+   - **1980 Chapter I:** commencement pinned 3 October 1980 (enacted s.153(1); eight weeks from Royal Assent). Context → `right-to-buy-sales-and-replacements`.
+   - **1919 / 1947:** commencement pinned 2026-11-10 (1793 default; s.120(2) + SI 1948/213).
    - **Promise sources (2026-11-10):** `right-to-buy-sales-and-replacements`, `right-to-buy-one-for-one`, `help-to-buy-equity-loan`, `affordable-homes-programme-delivery`, `parliament-housing-milestones`, `house-building-completions-by-country`. **8 of 9 pledges scored.** QA: `data/qa/qa_housing_promises_rtb_htb_2026_11_10.md`.
-   - **Registry (2026-11-10):** Notion Ready rows created for the six promise indicators + `corporate-owned-titles`, `dwelling-stock-by-district`, `ehs-housing-costs-by-age`; `rough-sleeping-framework` last-checked refreshed.
-   - **Open:** Help to Buy first-time-buyer quarterly table; London AHP 2016-23 by year (GLA mapping).
+   - **Registry (2026-11-10):** Notion Ready rows for the six promise indicators + `corporate-owned-titles`, `estates-residential-property`, `dwelling-stock-by-district`, `ehs-housing-costs-by-age`; `rough-sleeping-framework` last-checked refreshed.
+   - **Polish 2026-11-10:** Help to Buy FTB quarterly (Release Table 2) ingested into `help-to-buy-equity-loan`.
+   - **Labelled gap (closed):** London AHP 2016-23 by year — GLA names ≠ MHCLG programme; cumulative London only.
+   - **Still open:** Renters’ Rights social-housing appointment when made.
 
 **Domain 03 question (locked):** Who can actually afford to live in Britain?  
 **Domain 04 question (locked):** What homes does Britain actually have, who occupies them, and how has that changed?  
@@ -801,7 +822,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 **Domain 10 question (locked):** How did Britain build the housing system it has today, and which decisions shaped the way we live?
 
-**Status:** Domains 01–08 Gate 2 instruments live; Domain 04 `second-homes` Validation still open; Domain 07 EPC register still open; Domain 09 Ownership done (Who owns on CCOD/OCOD; wealth Validation open); Domain 10 Policy live (register from Storage; 8/9 pledges scored); cloud must-fix 2026-11-10 closed (district stock, EHS ages pack, rough sleeping, Policy pack).
+**Status:** Domains 01–06 and 08 Gate 2 instruments live (Domain 06 closed 2026-11-10 with allocations + case applications as labelled gaps); Domain 04 `second-homes` Validation **PASS** 2026-11-10; Domain 07 EHS + EPC Validation **PASS** (re-confirmed 2026-11-10); Domain 09 Ownership complete (all series QA); Domain 10 Policy live (register from Storage; 8/9 pledges scored); cloud must-fix 2026-11-10 closed.
 **Updated:** 2026-11-10
 
 ### T01 — Affordability scenario engine + official ratio stage
@@ -828,7 +849,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 ## Sector pages (UI)
 
 - Owner: Orchestrator (Next.js)
-- Status: Energy Domain 01 Generation **complete**. Next Energy: Domain 02 Consumption. Housing Gate 2 Domain 10 / 06 / 09 still open in parallel only if needed.
+- Status: Energy Domain 01 Generation **complete**. Next Energy: Domain 02 Consumption. Housing Domains 03–06 and 08–09 Gate 2 done; Domain 07 / 10 still open where noted.
 - **Domain 02 Renting review (2026-11-05):** chart, map, table and download share place, property, period and measure. The table follows the series being inspected (index and bedroom rents included) and can download the full series. The index baseline is read from the series unit. A date range inherited from another domain no longer blanks the chart. Social rent is one tab, with the total, the rent type and the housing-needs split of the same lettings. Social rents in pounds are not estimated. The private-rent note distinguishes the official stock measure from an advertised asking rent.
 - **Review 2026-11-10 (Energy frame):** Social rent breakdown lifted to outer `ControlRow` (URL: `lettings`). Empties use `EmptyStage`. Data / Social rent as titled panels. One `FigureRecord` Notes foot on Social rent and Data. Private-rent chart views keep shared place/property/period controls.
 - Branding: [visual-identity.md](visual-identity.md)
@@ -837,10 +858,10 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 ### T05 — Net additional dwellings + components (Supply Machine)
 - Owner: Housing
-- Status: done (curated + loaded; Validation counter-sign pending)
+- Status: done (curated + loaded; Validation Ready 2026-11-10 for Table 122 LA series)
 - Inputs: Live Table 118 ODS (pin 2026-11-04)
-- Output: `data/housing/net-additional-dwellings/` (1,181 obs); spot QA `data/qa/qa_housing_supply_net_additions_2026_11_04.md`
-- Notes: England 2024–25 unrounded: net 208,600 · new-build 190,602 (provisional); component identity PASS
+- Output: `data/housing/net-additional-dwellings/` (1,181 obs); spot QA `data/qa/qa_housing_supply_net_additions_2026_11_04.md`; LA series `net-additions-by-authority` Ready via `qa_housing_registry_catchup_23_2026-11-10.md`
+- Notes: England 2024–25 unrounded: net 208,600 · new-build 190,602 (provisional); component identity PASS; Table 122 England = Σ LAD = 208,600
 
 ### T06 — Starts + tenure on Table 213; Geography 122; affordable supply
 - Owner: Housing
@@ -865,7 +886,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 ### Review — Housing Domain 04 Stock & Tenure
 - **Shipped:** Composition · Dwelling types (TS044 households) · Geography (year slider through Table 109; district ranks stay on the latest Table 100; England total is a sentence, not a bar) · Vacancy (October ÷ 31 March labelled) · Second homes (Council Taxbase Table 4, England, 2021–2025) · Tenure · Data
-- **Blocked:** Validation has not yet checked `second-homes`
+- **Blocked:** none for Gate 2 — `second-homes` Validation PASS 2026-11-10
 - **Next:** was Domain 05 Supply
 - **Review 2026-11-10 (Energy frame):** Composition / Types / Geography controls lifted to outer `ControlRow`s (URL: `sy`, `sp`, `sgm`). Body ledes and in-stage year/measure chrome removed. One `FigureRecord` Notes foot per view. Empties use `EmptyStage`. Vacancy/Tenure/Data as titled panels. Vacancy strip capped at three.
 
@@ -875,6 +896,13 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 - **Next:** Domain 06 Planning & Land (map / per-1k rates are Domain 05 polish only)
 - **Review 2026-11-05:** The net-additional-dwellings record opens from the catalogue query. Pipeline keeps applications and dwellings on separate charts and says so. Geography ranks local authority districts only. Who builds opens on the builder; affordable products are a separate measure, labelled as a financial year. Data lists every supply series, the Live Table 118 term definitions, the CSV, and the England reconciliation ledger, with (P) on a provisional year. The Supply Machine uses a View menu (section or ledger) and a financial-year menu.
 - **Review 2026-11-10 (Energy frame S1–S5):** Machine / Who builds / Geography controls lifted to outer `ControlRow`s (URL: `panel`, `wb`, `gm`). Body ledes and in-stage measure tabs removed. One `FigureRecord` Notes foot per view. Who builds strip is three mode-aware figures. Empties use `EmptyStage`. Data is panel stack without opening lede.
+
+### T08b — Validation Domain 04 second-homes
+- Owner: Validation
+- Status: done (2026-11-10)
+- Inputs: pinned `Tables_1_-_5_2025.ods` Table 4; curated `second-homes`
+- Output: `data/qa/qa_report_second-homes_2026-11-10.md` — PASS; Notion Ready
+- Notes: Independent ODS re-read (not connector parser). 2025 total 267,894; identity none+discount+premium.
 
 ### T09 — Domain 06 Phase 1 (P120 expand + Decision Machine)
 - Owner: Housing + Orchestrator
@@ -892,9 +920,10 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 - Registry: [Brownfield land register](https://app.notion.com/p/40e65471768581ad87d4d6ea4e676890); [Planning Data coverage](https://app.notion.com/p/40e6547176858188b67de94e9865e76f) (Scoping)
 
 ### Review — Housing Domain 06 Planning & Land
-- **Shipped:** Land Explorer opens any English council from publisher FeatureServers (ONS LAD, MHCLG Green Belt, NE, HE) + EA Flood Map FZ2/FZ3 + Storage CSV dumps (brownfield, Article 4, TPO). Layer availability and reference dates sit before any comparison. Data is grouped: annual Green Belt, 2022 land use, quarterly P120, brownfield snapshot. Explorer frame Energy-standard (2026-11-10).
-- **Blocked:** Local-plan allocations (no England polygon feed). Case-level planning applications (Planning Data stub at 0). Appeals pending PINS casework hunt (T15 candidate).
-- **Next:** T14 Historical Green Belt geometries on Historical Change; then gap hunt for appeals / allocations / applications.
+- **Shipped:** Land Explorer (publisher FeatureServers + EA flood + Storage dumps) · Development Sites (brownfield) · Planning Decisions (P120 + Inspectorate appeals) · Historical Change (hectares + landmark GB years) · Data. Explorer frame Energy-standard (2026-11-10).
+- **Labelled gaps (accepted):** Local-plan allocations — no England polygon feed (re-probe 503). Case-level applications — Planning Data stub / 403 dump; keep P120. Do not scrape LPA portals. London GLA allocations only if commissioned as a labelled pilot.
+- **Next:** none for Domain 06 Gate 2. Earlier GB SHP years deferred until MHCLG GeoServer recovers.
+- **Closed:** 2026-11-10 (T13–T15 + gap closeout).
 
 ### T13 — Domain 06 Land Explorer (Orchestrator)
 - Owner: Orchestrator
@@ -905,31 +934,63 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 ### T14 — Domain 06 Historical Green Belt geometries (Orchestrator)
 - Owner: Orchestrator / Housing
-- Status: in_progress
-- Inputs: MHCLG English local authority Green Belt annual WGS84 shapefiles (data.gov.uk); existing `green-belt-area` hectare series
-- Output: Landmark-year England simplified plates in Storage; Historical Change year control + map beside hectare chart
-- Notes: Land Explorer keeps the current designation only. No invented intermediate years.
+- Status: done (2026-11-10)
+- Inputs: MHCLG English local authority Green Belt annual boundaries (ArcGIS FeatureServer mirrors; GeoServer SHAPE-ZIP was 504); existing `green-belt-area` hectare series
+- Output: Landmark plates `2010-11`, `2019-20`…`2024-25` in Storage (`housing.green-belt-history-*`); Historical Change `gby` "Map date" control + England map (outline, named cities, key) under the hectare chart. Rebuilt 2026-11-10 at ≈0.5 km after the 5–8 km first build was unreadable; duplicate `2022` dropped.
+- Notes: Land Explorer keeps the current designation only. No invented intermediate years. Earlier years deferred until official zip recovers.
+- Gap hunt: [domain06-gap-hunt-2026-11-10.md](domain06-gap-hunt-2026-11-10.md) — appeals = T15 candidate; allocations + case applications stay labelled gaps.
+
+### T15 — Domain 06 PINS appeals casework (Orchestrator)
+- Owner: Orchestrator / Housing
+- Status: done (2026-11-10)
+- Inputs: [Planning Inspectorate Casework Database](https://www.gov.uk/government/publications/planning-inspectorate-appeals-database) XLSX (OGL); field quality notes
+- Output: `housing.planning-appeals` summary pack; Planning decisions › Measure = Appeals (TimeChart + RankBars). Not geocoded.
+- Notes: 91,038 decided cases kept (2021–2026). Allow rate = Allowed ÷ (Allowed + Dismissed). Raw XLSX → Storage; curated JSON is the UI pack.
+
+### T16 — Domain 06 labelled-gap closeout (Orchestrator)
+- Owner: Orchestrator
+- Status: done (2026-11-10)
+- Inputs: Re-probe Planning Data local-plan / planning-application (503 / 403); [domain06-gap-hunt-2026-11-10.md](domain06-gap-hunt-2026-11-10.md)
+- Output: Honesty copy on Land Explorer · Development Sites · Planning Decisions · Data; Domain 06 marked Done
+- Notes: Allocations and case applications stay labelled gaps. No scrape; no London pilot unless commissioned.
+
+### T17 — Domain 06 Local plan status (Orchestrator)
+- Owner: Orchestrator / Housing
+- Status: done — instrument live; Validation sample of 10 council plan pages still open (not in the 23-series catch-up)
+- Inputs: Planning Data `local-plan.csv` + `organisation.csv` bulk files (OGL); found in the [gap hunt](domain06-gap-hunt-2026-11-10.md)
+- Output: `local-plan-status` (536 obs, Postgres release 172); `housing.local-plan-status` summary pack; Planning decisions › Measure = Local plans (`pm=plans`): plan age bands, adoption year of today's plans, preparation stage, every-council table
+- Headlines (as at 2026-11-10): 293 of 310 LPAs have an adopted plan in the data; 212 adopted 5+ years ago; 137 preparing a new plan
+- Notes: Plan status, not allocations. Joint plans credited to each member; their housing figure is not attributed to one council. Adoption date falls back to `start-date` for 202 plans. 17 LPAs with no plan in the data (mostly new unitaries; North Herts is a data gap). Spot-checked adoption dates: Arun, Bury (PfE), Birmingham, Cornwall, Oxford, Leeds, Peak District. Validation: sample 10 councils' own plan pages.
+- Not done: Green Belt appeals panel on Historical change (waits for the map zoom work in that file).
 
 ### T11 — Domain 07 Housing Quality (cutaway + EHS)
 - Owner: Housing + Orchestrator
-- Status: in_progress
+- Status: done (instruments live; EHS Validation PASS — re-run 2026-11-10)
 - Inputs: [Housing Quality brief](https://app.notion.com/p/40e654717685816cb965c1336cb686e5); EHS live tables DA3201 / DA4101 / DA5101 / DA7101 / DA6101 / DA6201 + Ch2 annex
-- Output: kickoff; `ehs_quality_indicators` + `ehs_energy_anatomy`; Inside Britain's Homes; **Energy Anatomy**
-- Notes: Survey estimates stay separate from the EPC register. The non-decent share is labelled as non-decent. Data shows one series, and its source line matches that indicator.
+- Output: kickoff; Inside Britain's Homes; Energy; State of Repair; Geography; Data
+- Notes: Survey estimates stay separate from the EPC register. The non-decent share is labelled as non-decent.
 
 ### T12 — Domain 07 Energy Anatomy
 - Owner: Housing + Orchestrator
-- Status: done (instrument live; Validation QA pending)
+- Status: done (instrument live; Validation PASS in wave2 / inside-home reports)
 - Inputs: DA6101 · DA6201 · DA7101 · Ch2 AT2.9/2.13/2.14
 - Output: `ehs-heating` · `ehs-insulation` · `ehs-energy-improvement`; `canvas/quality/EnergyView.tsx`
 - Headlines 2024: A–C 56.2% · central heating 92.8% · wall insulation 54.3% · loft ≥200mm 41.7% · improvable to C 42% · mean cost £7,480
-- Caveat: EHS survey ≠ EPC register (still Scoping)
+- Caveat: EHS survey ≠ EPC register (EPC on Geography scale)
+
+### T12b — Domain 07 EPC certificate register
+- Owner: Housing + Orchestrator
+- Status: done (2026-11-10)
+- Inputs: EPB live tables D1 / EB1 / NB1 (pinned 2026-10-29); curated in Storage
+- Output: Postgres releases 166 / 167; Geography `qscale=epc` (lodgements + A–C share); Data lists both indicators; `period_start` observation filter
+- QA: `data/qa/qa_housing_quality_wave2_2026_11_04.md` — EPC section PASS (already filed)
 
 ### Review — Housing Domain 07 Housing Quality
-- **Shipped:** Inside Britain's Homes · Energy Anatomy · State of Repair · Geography at the survey's own scale · Data with one series and a matching source line
-- **Blocked:** Local-authority rates need a source other than the EHS sample. The EPC certificate register is still not loaded. Validation has not signed the quality series off.
+- **Shipped:** Inside Britain's Homes · Energy · State of Repair · Geography (survey regions + EPC local authorities) · Data
+- **QA:** EHS + EPC Validation signed off (`qa_housing_ehs_inside_home_2026_11_04.md`, `qa_housing_quality_wave2_2026_11_04.md` — re-run 2026-11-10 fails=0).
 - **Kept:** Survey versus administrative labels, suppressed and missing cells, source links, and the full export. Sample counts are shown as a base, not as a confidence interval.
-- **Review 2026-11-10 (Energy frame):** Filters lifted to outer `ControlRow`s (URL: `qf`/`qarch`/`qar`/`qt`/`qy`/`qcat`/`qm`/`qk`/`qi`/`qs`). Body ledes removed. One `FigureRecord` Notes foot per view. Empties use `EmptyStage`. Data is panel stack. Figure strip capped at three.
+- **Review 2026-11-10 (Energy frame):** Filters lifted to outer `ControlRow`s (URL: `qf`/`qarch`/`qar`/`qt`/`qy`/`qcat`/`qm`/`qk`/`qi`/`qs`/`qscale`/`qp`). Body ledes removed. One `FigureRecord` Notes foot per view. Empties use `EmptyStage`. Data is panel stack. Figure strip capped at three.
+- **Review 2026-11-10 (EPC):** Register loaded from Storage → Postgres; Geography LA map live.
 
 ### T13 — Domain 08 Housing Insecurity (full catalogue)
 - Owner: Housing + Orchestrator
@@ -979,22 +1040,24 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 ### T20 — Domain 10 anchor Acts and Time Machine
 - Owner: Orchestrator (shared event shape) + Housing (the housing file and the canvas)
-- Status: in_progress
+- Status: done (2026-11-10 — Chapter I + 1919/1947 commencement pinned)
 - Inputs: [Housing Policy & History](https://app.notion.com/p/40f6547176858196aeacd8c3155fee87)
 - Output: `britain_exchange.policy_event`; `data/housing/policy-events/events.json`; Time Machine on `/housing?domain=policy`
-- Notes: 1919, 1947 and 1980 assent dates are pinned. 1980 Part I commencement is not. Renters’ Rights Act 2025 Chapter 1 (except s.25(3)) is appointed for 1 May 2026 for private assured tenancies only (SI 2026/421).
+- Notes: 1919 assent **and** commencement **31 July 1919** (1793 default; s.52 short title only). 1947 assent 6 August 1947; passing-day list under s.120(2); appointed day **1 July 1948** (SI 1948/213). Housing Act 1980 Chapter I (right to buy) **3 October 1980** by enacted s.153(1). Context link: `right-to-buy-sales-and-replacements`. Renters’ Rights Act 2025 Chapter 1 (except s.25(3)) appointed 1 May 2026 for private assured tenancies only (SI 2026/421).
 
 ### Review — Housing Domain 10 Policy & History
-- **Shipped:** Four-Act register and the five views. The Time Machine opens first.
-- **Blocked:** Right to Buy commencement order; commencement of the 1919 and 1947 Acts; sales under the right to buy; promise-versus-delivery scoring
-- **Next:** Pin the order that brought Housing Act 1980 Chapter I into force, then link only series whose definition matches that event
+- **Shipped:** Register and views (Timeline · Promise · Archive · Data). 1980 Chapter I, 1919 and 1947 commencements pinned. Help to Buy FTB quarterly in `help-to-buy-equity-loan`. Promise scoring 8/9.
+- **Labelled gap (closed):** London AHP 2016-23 by year.
+- **Open:** Renters’ Rights social-housing appointment when made.
+- **Next:** social-housing commencement when the SI is made.
 
 ### Review — Housing Domain 08 Insecurity
-- **Shipped:** Pathways stack · Temporary Life · Displacement · Waiting for a Home · Data glossary · RO4 homelessness spend · rough sleeping data framework
-- **Blocked / deferred:** Scotland SPARQL (devolved TA stays a bulletin transcription). Temporary-accommodation entries and exits are not loaded. No origin–destination file, so Displacement stays duty location. The Cost of Insecurity is not built; the RO4 total is spending only.
+- **Shipped:** Pathways stack · Temporary Life · Displacement · Waiting for a Home · Cost of Insecurity · Data glossary · RO4 homelessness spend (multi-year) · rough sleeping data framework
+- **Blocked / deferred:** Scotland SPARQL (devolved TA stays a bulletin transcription). Gross temporary-accommodation entries and exits are not published in open MHCLG live tables (labelled gap); Temporary Life shows net quarter-end stock change instead. No origin–destination file, so Displacement stays duty location.
 - **Next:** Notion registry rows marked Ready; resume Domain 07 State of Repair when you want
 - **2026-11-05:** Catalogue links use `/data?record=`. Displacement says England. Lettings axis prints financial years. The five-years-or-more band is labelled open-ended in the drawing and the table. The brief no longer names a Health sector. Pathways is one stage at a time (View, Stage, Place, Quarter), with an All stages table. The flow diagram and the stacked plates are gone.
 - **Review 2026-11-10 (Energy frame):** Already on frame — outer `ControlRow`s, `EmptyStage`, one `FigureRecord` Notes foot per view. No further shell drift found.
+- **2026-11-10 (Cost + TA net):** Cost view shipped from Revenue Outturn multi-year England RO4 (120 obs). Temporary Life adds net stock change; QA addendum `data/qa/qa_housing_insecurity_cost_2026_11_10.md`.
 
 ## Registry / Postgres
 
@@ -1090,6 +1153,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 - Gate: mark registry edges `ready` only when destination instruments are cloud-served (Cloud Completeness). Cross-sector edges deferred until geography identifiers exist.
 - Notes: No graph UI; no auto-discovery; strip capped so other sectors cannot grow a related-links dump.
 - **Housing (same day):** `housing.ts` registry + `FollowStep` / `ArrivalFrom` in `HousingExplorer`; primary hops Prices↔Afford, Renting→Afford, Stock→Supply, Supply↔Land, Insecurity→Renting, Ownership mortgages→Afford; cross-sector Quality›Energy→Energy bills (ratings ≠ bills).
+- **Housing Follow coverage (2026-11-10):** Full Ready domain/view coverage — Policy→Supply; Quality (non-Energy)→Stock; Ownership (non-Mortgages)→Stock tenure; Insecurity›Cost→Affordability rent burden. Cross-sector People/Government/Regions still deferred (geography joins).
 
 ### Energy generation usability — 7 November 2026
 
@@ -1168,7 +1232,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 - **Shipped:** CC01–CC05 (Energy + Housing explorers off laptop for Ready series and Policy register)
 - **Blocked:** none for these four surfaces; Railway still needs `DATABASE_URL` + `SUPABASE_*`
-- **Next:** optional Validation sample QA vs official releases for district stock + rough sleeping; verify deploy Affordability Ages / Stock / Insecurity Data / Policy Timeline
+- **Next:** verify deploy Affordability Ages / Stock / Insecurity Data / Policy Timeline. Registry catch-up for 23 live series closed 2026-11-10 (`qa_housing_registry_catchup_23_2026-11-10.md`).
 
 ### Energy generation structure — 7 November 2026 (supersedes label tidy-up)
 

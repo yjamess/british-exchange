@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-10T14:39:57.998669+00:00",
+  "updated_at": "2026-11-10T16:04:40.521748+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -382,7 +382,7 @@
       "checksum_sha256": "9e75d59fecbcba5d0ecbaffb1a4453424475b37f0b4ad14e5d3577602dc96a68",
       "storage_key": "housing/epc-domestic-lodgements-by-local-authority/curated/observations.csv.gz",
       "uploaded_at": "2026-11-07T16:15:34.841141+00:00",
-      "local_deleted": true,
+      "local_deleted": false,
       "compression": "gzip",
       "stored_size": 1454440,
       "stored_checksum_sha256": "20ea85b4abeb26074a2773b6ad55a045b88b034ecfc082a4e27bedaf4b35ed0b"
@@ -393,29 +393,260 @@
       "checksum_sha256": "8c53017de690dcb7d80aee9a8de3569e1a11d95c04c235a4cc149e45fd970ac4",
       "storage_key": "housing/epc-domestic-lodgements/curated/observations.csv",
       "uploaded_at": "2026-11-07T16:21:52.375046+00:00",
-      "local_deleted": true,
+      "local_deleted": false,
       "compression": null,
       "stored_size": 12079787,
       "stored_checksum_sha256": "8c53017de690dcb7d80aee9a8de3569e1a11d95c04c235a4cc149e45fd970ac4"
     },
     {
-      "path": "data/housing/help-to-buy-equity-loan/curated/observations.csv",
-      "size": 215263,
-      "checksum_sha256": "fbc6036695e59e9729d0f38ac649c91a7e20047429720fe7801c699063591cf5",
-      "storage_key": "housing/help-to-buy-equity-loan/curated/observations.csv",
-      "uploaded_at": "2026-11-10T10:32:25.595508+00:00",
+      "path": "data/housing/estates-residential-property/curated/observations.csv",
+      "size": 27388,
+      "checksum_sha256": "847762c5d7b7ac16ba96a0a9c40b1bc1d1b890fb48551f98deadef34fbd7c52c",
+      "storage_key": "housing/estates-residential-property/curated/observations.csv",
+      "uploaded_at": "2026-11-10T14:46:46.927371+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 27388,
+      "stored_checksum_sha256": "847762c5d7b7ac16ba96a0a9c40b1bc1d1b890fb48551f98deadef34fbd7c52c"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2015-07_table_12_4.xls",
+      "size": 92160,
+      "checksum_sha256": "3a7da585af5a90ba824a76ae92d6541161bf57e114a7f1529cc32a266bb50ad6",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2015-07_table_12_4.xls",
+      "uploaded_at": "2026-11-10T14:46:47.452375+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 92160,
+      "stored_checksum_sha256": "3a7da585af5a90ba824a76ae92d6541161bf57e114a7f1529cc32a266bb50ad6"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2016-07_table_12_4.xls",
+      "size": 93184,
+      "checksum_sha256": "2b6961882f164491f02b41dcc2d363753e890742e6a06fa4a997c84aac699db5",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2016-07_table_12_4.xls",
+      "uploaded_at": "2026-11-10T14:46:47.898428+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 93184,
+      "stored_checksum_sha256": "2b6961882f164491f02b41dcc2d363753e890742e6a06fa4a997c84aac699db5"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2017-07_table_12_4.xls",
+      "size": 77312,
+      "checksum_sha256": "61f6bf0af731b3b199d1b8629edc9f4843d85e4e217e5e60d8884d885e352c58",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2017-07_table_12_4.xls",
+      "uploaded_at": "2026-11-10T14:46:48.303982+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 77312,
+      "stored_checksum_sha256": "61f6bf0af731b3b199d1b8629edc9f4843d85e4e217e5e60d8884d885e352c58"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2018-07_table_12_4.xlsx",
+      "size": 41243,
+      "checksum_sha256": "d20616ff07f98f2378782361ec8066f4869ec37b2cc4dcb4942e20ca567a29e5",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2018-07_table_12_4.xlsx",
+      "uploaded_at": "2026-11-10T14:46:48.698757+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 41243,
+      "stored_checksum_sha256": "d20616ff07f98f2378782361ec8066f4869ec37b2cc4dcb4942e20ca567a29e5"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2019-09_table_12_4.xlsx",
+      "size": 42748,
+      "checksum_sha256": "f1160d7ce2d65a90130164e7631a8fa4dbf6bce96e08960c5856bba311b947df",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2019-09_table_12_4.xlsx",
+      "uploaded_at": "2026-11-10T14:46:49.171805+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 42748,
+      "stored_checksum_sha256": "f1160d7ce2d65a90130164e7631a8fa4dbf6bce96e08960c5856bba311b947df"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2020-07_table_12_4.xlsx",
+      "size": 38903,
+      "checksum_sha256": "cbfaf2f1c0ceaf4673b09fe7c2f05f8a89aba2c2070c6a136c7ac51ec3c14a48",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2020-07_table_12_4.xlsx",
+      "uploaded_at": "2026-11-10T14:46:49.541346+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 38903,
+      "stored_checksum_sha256": "cbfaf2f1c0ceaf4673b09fe7c2f05f8a89aba2c2070c6a136c7ac51ec3c14a48"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2021-07_table_12_4.ods",
+      "size": 28743,
+      "checksum_sha256": "f723cc1dcfe3f159eaa581f7e349672f6b5b9e3f2f1f6a07ea30b413c98c9372",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2021-07_table_12_4.ods",
+      "uploaded_at": "2026-11-10T14:46:49.861256+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 28743,
+      "stored_checksum_sha256": "f723cc1dcfe3f159eaa581f7e349672f6b5b9e3f2f1f6a07ea30b413c98c9372"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2022-07_table_12_4.ods",
+      "size": 13223,
+      "checksum_sha256": "21d15b6b2b4d8b12a340401e09ac2dbd0fd65fe40fb2158ce2a81efdbd9c067c",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2022-07_table_12_4.ods",
+      "uploaded_at": "2026-11-10T14:46:50.123232+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 13223,
+      "stored_checksum_sha256": "21d15b6b2b4d8b12a340401e09ac2dbd0fd65fe40fb2158ce2a81efdbd9c067c"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2023-07_table_12_3.ods",
+      "size": 13318,
+      "checksum_sha256": "1d646c79373ce227750f807eea316a6a2e1193adc747ae161aa63cbb1dea1ce7",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2023-07_table_12_3.ods",
+      "uploaded_at": "2026-11-10T14:46:50.452667+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 13318,
+      "stored_checksum_sha256": "1d646c79373ce227750f807eea316a6a2e1193adc747ae161aa63cbb1dea1ce7"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2024-07_table_12_3.ods",
+      "size": 12397,
+      "checksum_sha256": "bca8f4c78e8ffdd91ab7e64662661f6211f0404a9a4aa46840a71c661aec1cd9",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2024-07_table_12_3.ods",
+      "uploaded_at": "2026-11-10T14:46:50.790565+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 12397,
+      "stored_checksum_sha256": "bca8f4c78e8ffdd91ab7e64662661f6211f0404a9a4aa46840a71c661aec1cd9"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2025-07_table_12_3.ods",
+      "size": 12961,
+      "checksum_sha256": "c9a42f63403d5357eceaa67c07af7e961eab890b0edc8f0c2aa34fc59d626613",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2025-07_table_12_3.ods",
+      "uploaded_at": "2026-11-10T14:46:51.063551+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 12961,
+      "stored_checksum_sha256": "c9a42f63403d5357eceaa67c07af7e961eab890b0edc8f0c2aa34fc59d626613"
+    },
+    {
+      "path": "data/housing/estates-residential-property/raw/2026-11-10/2026-07_table_12_3.ods",
+      "size": 12909,
+      "checksum_sha256": "fcc6a09d9dd07f4675ab8afeaa33d288e47c99993e5586ddb66db3e733555069",
+      "storage_key": "housing/estates-residential-property/raw/2026-11-10/2026-07_table_12_3.ods",
+      "uploaded_at": "2026-11-10T14:46:51.344502+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 12909,
+      "stored_checksum_sha256": "fcc6a09d9dd07f4675ab8afeaa33d288e47c99993e5586ddb66db3e733555069"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2010-11.json",
+      "size": 102499,
+      "checksum_sha256": "219adc05855ba0d57478982ed6f3a9c02a83627b2599b542c39cf47521858557",
+      "storage_key": "housing/green-belt-history/curated/2010-11.json",
+      "uploaded_at": "2026-11-10T15:07:54.150119+00:00",
       "local_deleted": true,
       "compression": null,
-      "stored_size": 215263,
-      "stored_checksum_sha256": "fbc6036695e59e9729d0f38ac649c91a7e20047429720fe7801c699063591cf5"
+      "stored_size": 102499,
+      "stored_checksum_sha256": "219adc05855ba0d57478982ed6f3a9c02a83627b2599b542c39cf47521858557"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2019-20.json",
+      "size": 109329,
+      "checksum_sha256": "56a972adbafcca8ecbb52aa0671fbfa510352f6f4e8ae62308f9c5886663c96f",
+      "storage_key": "housing/green-belt-history/curated/2019-20.json",
+      "uploaded_at": "2026-11-10T15:07:56.698688+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 109329,
+      "stored_checksum_sha256": "56a972adbafcca8ecbb52aa0671fbfa510352f6f4e8ae62308f9c5886663c96f"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2020-21.json",
+      "size": 108761,
+      "checksum_sha256": "72f7682edbda0587bb7736625fa5293b5c3ba5550f6d5c0a725200cd58e6da36",
+      "storage_key": "housing/green-belt-history/curated/2020-21.json",
+      "uploaded_at": "2026-11-10T15:07:59.433144+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 108761,
+      "stored_checksum_sha256": "72f7682edbda0587bb7736625fa5293b5c3ba5550f6d5c0a725200cd58e6da36"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2021-22.json",
+      "size": 109723,
+      "checksum_sha256": "9e869ece03c5dcb183c56b10504f834336f0eef1cf047fedfa64dc064cfdebd6",
+      "storage_key": "housing/green-belt-history/curated/2021-22.json",
+      "uploaded_at": "2026-11-10T15:08:01.969351+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 109723,
+      "stored_checksum_sha256": "9e869ece03c5dcb183c56b10504f834336f0eef1cf047fedfa64dc064cfdebd6"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2022.json",
+      "size": 144817,
+      "checksum_sha256": "5457b6f3c6e96d565dd80d3c2f6074ffdadc7e8caf9ebe63ed8f9afc949be34f",
+      "storage_key": "housing/green-belt-history/curated/2022.json",
+      "uploaded_at": "2026-11-10T14:42:58.532577+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 144817,
+      "stored_checksum_sha256": "5457b6f3c6e96d565dd80d3c2f6074ffdadc7e8caf9ebe63ed8f9afc949be34f"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2023-24.json",
+      "size": 108653,
+      "checksum_sha256": "2fb30d0399d11bef0be165415b6293510c374032e39951a4f1a833326348307f",
+      "storage_key": "housing/green-belt-history/curated/2023-24.json",
+      "uploaded_at": "2026-11-10T15:08:08.698368+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 108653,
+      "stored_checksum_sha256": "2fb30d0399d11bef0be165415b6293510c374032e39951a4f1a833326348307f"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/2024-25.json",
+      "size": 109450,
+      "checksum_sha256": "4470b5099b7a5ffba1f6b6945ca0964e5a226b3f03d103498651f510d6e2278c",
+      "storage_key": "housing/green-belt-history/curated/2024-25.json",
+      "uploaded_at": "2026-11-10T15:08:11.092384+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 109450,
+      "stored_checksum_sha256": "4470b5099b7a5ffba1f6b6945ca0964e5a226b3f03d103498651f510d6e2278c"
+    },
+    {
+      "path": "data/housing/green-belt-history/curated/index.json",
+      "size": 1724,
+      "checksum_sha256": "1652f9601416411592ad08c76f8132b7be2b80db9685b88853fc874fce67700e",
+      "storage_key": "housing/green-belt-history/curated/index.json",
+      "uploaded_at": "2026-11-10T15:08:13.756961+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 1724,
+      "stored_checksum_sha256": "1652f9601416411592ad08c76f8132b7be2b80db9685b88853fc874fce67700e"
+    },
+    {
+      "path": "data/housing/help-to-buy-equity-loan/curated/observations.csv",
+      "size": 253182,
+      "checksum_sha256": "9303093cdce6479969917f1b578a7ceea5eaec319f05b1a806154597bf67faf9",
+      "storage_key": "housing/help-to-buy-equity-loan/curated/observations.csv",
+      "uploaded_at": "2026-11-10T15:22:41.124508+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 253182,
+      "stored_checksum_sha256": "9303093cdce6479969917f1b578a7ceea5eaec319f05b1a806154597bf67faf9"
     },
     {
       "path": "data/housing/help-to-buy-equity-loan/raw/2026-11-10/Help_to_Buy_Tables.ods",
       "size": 836563,
       "checksum_sha256": "1e979a1ff8ff66eef5d5d8d622c63d689d05139f9a2567f3af6dca6eeb567576",
       "storage_key": "housing/help-to-buy-equity-loan/raw/2026-11-10/Help_to_Buy_Tables.ods",
-      "uploaded_at": "2026-11-10T10:32:26.134760+00:00",
-      "local_deleted": true,
+      "uploaded_at": "2026-11-10T15:22:42.287437+00:00",
+      "local_deleted": false,
       "compression": null,
       "stored_size": 836563,
       "stored_checksum_sha256": "1e979a1ff8ff66eef5d5d8d622c63d689d05139f9a2567f3af6dca6eeb567576"
@@ -452,6 +683,28 @@
       "compression": null,
       "stored_size": 77188,
       "stored_checksum_sha256": "1c7524700bd37bd40478de43b3ece0ecdd40b317d54356e49d95bb089b534ddc"
+    },
+    {
+      "path": "data/housing/household-net-property-wealth/curated/observations.csv",
+      "size": 38283,
+      "checksum_sha256": "c365dcd4ac63da0ee09e8e766f6ee169ac60c7aa87a1f804757f60373715fb4c",
+      "storage_key": "housing/household-net-property-wealth/curated/observations.csv",
+      "uploaded_at": "2026-11-10T14:46:57.857570+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 38283,
+      "stored_checksum_sha256": "c365dcd4ac63da0ee09e8e766f6ee169ac60c7aa87a1f804757f60373715fb4c"
+    },
+    {
+      "path": "data/housing/household-net-property-wealth/raw/2026-11-05/propertywealthtables.xlsx",
+      "size": 179421,
+      "checksum_sha256": "a8b1ba7b715113d11c37fab1dab582f383dd05fe854efea433e9f3b0c5d3d7f5",
+      "storage_key": "housing/household-net-property-wealth/raw/2026-11-05/propertywealthtables.xlsx",
+      "uploaded_at": "2026-11-10T14:46:58.097713+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 179421,
+      "stored_checksum_sha256": "a8b1ba7b715113d11c37fab1dab582f383dd05fe854efea433e9f3b0c5d3d7f5"
     },
     {
       "path": "data/housing/housing-atlas/curated/atlas-average.json",
@@ -564,6 +817,72 @@
       "stored_checksum_sha256": "64e24f7e7a468c6d3f151785e1ce26a0f535e1069d2c2ff863a08573ff1a8c7e"
     },
     {
+      "path": "data/housing/local-plan-status/curated/observations.csv",
+      "size": 164438,
+      "checksum_sha256": "3fb39a0e15ed9bf2d8a87e788682458b1245a828b46397dfc10a235994937481",
+      "storage_key": "housing/local-plan-status/curated/observations.csv",
+      "uploaded_at": "2026-11-10T15:25:58.515340+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 164438,
+      "stored_checksum_sha256": "3fb39a0e15ed9bf2d8a87e788682458b1245a828b46397dfc10a235994937481"
+    },
+    {
+      "path": "data/housing/local-plan-status/curated/summary.json",
+      "size": 116321,
+      "checksum_sha256": "703b37650d34b4117498c41dcca8c5e85a5a565e69e13793ea01d46904c825ab",
+      "storage_key": "housing/local-plan-status/curated/summary.json",
+      "uploaded_at": "2026-11-10T15:25:58.859416+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 116321,
+      "stored_checksum_sha256": "703b37650d34b4117498c41dcca8c5e85a5a565e69e13793ea01d46904c825ab"
+    },
+    {
+      "path": "data/housing/local-plan-status/raw/2026-11-10/local-plan.csv",
+      "size": 370926,
+      "checksum_sha256": "f5ddace9c54805c84759b5b8c4f4f722470fc55cab03817147feadf784ba03f2",
+      "storage_key": "housing/local-plan-status/raw/2026-11-10/local-plan.csv",
+      "uploaded_at": "2026-11-10T15:25:59.877043+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 370926,
+      "stored_checksum_sha256": "f5ddace9c54805c84759b5b8c4f4f722470fc55cab03817147feadf784ba03f2"
+    },
+    {
+      "path": "data/housing/local-plan-status/raw/2026-11-10/organisation.csv",
+      "size": 159956,
+      "checksum_sha256": "e08b36feb25518f4b41c151a002078f6ac8bcb2ec0fea51db7a9ba0b822f4090",
+      "storage_key": "housing/local-plan-status/raw/2026-11-10/organisation.csv",
+      "uploaded_at": "2026-11-10T15:26:00.578889+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 159956,
+      "stored_checksum_sha256": "e08b36feb25518f4b41c151a002078f6ac8bcb2ec0fea51db7a9ba0b822f4090"
+    },
+    {
+      "path": "data/housing/mortgage-approvals/curated/observations.csv",
+      "size": 396884,
+      "checksum_sha256": "f398f264ec7bc3cb0392a5766a161a429ef447dd521e293101c00acec0112cfd",
+      "storage_key": "housing/mortgage-approvals/curated/observations.csv",
+      "uploaded_at": "2026-11-10T14:44:57.403395+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 396884,
+      "stored_checksum_sha256": "f398f264ec7bc3cb0392a5766a161a429ef447dd521e293101c00acec0112cfd"
+    },
+    {
+      "path": "data/housing/mortgage-approvals/raw/2026-11-05/boe_mortgage_flows.csv",
+      "size": 14224,
+      "checksum_sha256": "ec1046c10d2597ac82ecfd72510fefbe4df203d30731006ea633c58acafebbb5",
+      "storage_key": "housing/mortgage-approvals/raw/2026-11-05/boe_mortgage_flows.csv",
+      "uploaded_at": "2026-11-10T14:44:57.852238+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 14224,
+      "stored_checksum_sha256": "ec1046c10d2597ac82ecfd72510fefbe4df203d30731006ea633c58acafebbb5"
+    },
+    {
       "path": "data/housing/parliament-housing-milestones/curated/observations.csv",
       "size": 16637,
       "checksum_sha256": "b6fddd2b29a19f07d8bbc5f3baa4bd2da9f5c55eed2b6de2c162783de19fdc9f",
@@ -597,15 +916,37 @@
       "stored_checksum_sha256": "6a075e73ae560786eb2303ce94ece14eaeb5b5ad6248dd89b1ae887368b30842"
     },
     {
-      "path": "data/housing/planning-layers/curated/authorities.json",
-      "size": 18032,
-      "checksum_sha256": "4ab1e7a8889f316e489870826c4863e147ecc848495bdef4a7fee83e37b0f848",
-      "storage_key": "housing/planning-layers/curated/authorities.json",
-      "uploaded_at": "2026-11-09T20:11:38.206953+00:00",
+      "path": "data/housing/planning-appeals/curated/summary.json",
+      "size": 9217,
+      "checksum_sha256": "827bfe5576c511238675223249732ac74583b67622fa5778b853ab3058398a0b",
+      "storage_key": "housing/planning-appeals/curated/summary.json",
+      "uploaded_at": "2026-11-10T14:52:08.896462+00:00",
       "local_deleted": false,
       "compression": null,
-      "stored_size": 18032,
-      "stored_checksum_sha256": "4ab1e7a8889f316e489870826c4863e147ecc848495bdef4a7fee83e37b0f848"
+      "stored_size": 9217,
+      "stored_checksum_sha256": "827bfe5576c511238675223249732ac74583b67622fa5778b853ab3058398a0b"
+    },
+    {
+      "path": "data/housing/planning-appeals/raw/2026-11-10/Casework_Database_2610.xlsx",
+      "size": 22207115,
+      "checksum_sha256": "dff80bd0f17cbc640dc205009a9411269c8e58462b6df71af903c592af3c20fa",
+      "storage_key": "housing/planning-appeals/raw/2026-11-10/Casework_Database_2610.xlsx",
+      "uploaded_at": "2026-11-10T14:52:28.003006+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 22207115,
+      "stored_checksum_sha256": "dff80bd0f17cbc640dc205009a9411269c8e58462b6df71af903c592af3c20fa"
+    },
+    {
+      "path": "data/housing/planning-layers/curated/authorities.json",
+      "size": 17310,
+      "checksum_sha256": "233a32dbfbe5690bc3404e05b7ed85510711663f143ab4d941ee2aa9221366e1",
+      "storage_key": "housing/planning-layers/curated/authorities.json",
+      "uploaded_at": "2026-11-10T15:32:55.270112+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 17310,
+      "stored_checksum_sha256": "233a32dbfbe5690bc3404e05b7ed85510711663f143ab4d941ee2aa9221366e1"
     },
     {
       "path": "data/housing/planning-layers/curated/index.json",
@@ -623,7 +964,7 @@
       "size": 25075,
       "checksum_sha256": "24274a0c7dba931d438ec9a255312051f8b40fa1e5929780946420ded1d56556",
       "storage_key": "housing/policy-events/archive.json",
-      "uploaded_at": "2026-11-10T14:37:14.223938+00:00",
+      "uploaded_at": "2026-11-10T15:22:43.289852+00:00",
       "local_deleted": false,
       "compression": null,
       "stored_size": 25075,
@@ -631,21 +972,21 @@
     },
     {
       "path": "data/housing/policy-events/events.json",
-      "size": 127449,
-      "checksum_sha256": "1d5ef70c1a01412829c0c66af6c68b6d157d6747b1bf29c8c8866c486f37f64e",
+      "size": 132218,
+      "checksum_sha256": "471a2597acb537489bd7034a9e100aeaa3a417290a568d4f477890b2a09930ef",
       "storage_key": "housing/policy-events/events.json",
-      "uploaded_at": "2026-11-10T14:37:14.585007+00:00",
+      "uploaded_at": "2026-11-10T15:22:46.291798+00:00",
       "local_deleted": false,
       "compression": null,
-      "stored_size": 127449,
-      "stored_checksum_sha256": "1d5ef70c1a01412829c0c66af6c68b6d157d6747b1bf29c8c8866c486f37f64e"
+      "stored_size": 132218,
+      "stored_checksum_sha256": "471a2597acb537489bd7034a9e100aeaa3a417290a568d4f477890b2a09930ef"
     },
     {
       "path": "data/housing/policy-events/plates.json",
       "size": 8995,
       "checksum_sha256": "0dd87dc2ed9b3dac11ede99642199bc374a18e4867820cdd9b4e6ab7f52b3d3e",
       "storage_key": "housing/policy-events/plates.json",
-      "uploaded_at": "2026-11-10T14:37:14.931239+00:00",
+      "uploaded_at": "2026-11-10T15:22:46.555351+00:00",
       "local_deleted": false,
       "compression": null,
       "stored_size": 8995,
@@ -656,7 +997,7 @@
       "size": 27847,
       "checksum_sha256": "3df41cd80a57c734e3bfea120a8c720e680aba1087c983e76395d06a4170351b",
       "storage_key": "housing/policy-events/pledges.json",
-      "uploaded_at": "2026-11-10T14:37:15.196097+00:00",
+      "uploaded_at": "2026-11-10T15:22:46.904019+00:00",
       "local_deleted": false,
       "compression": null,
       "stored_size": 27847,
@@ -667,7 +1008,7 @@
       "size": 4489,
       "checksum_sha256": "6e7852f57df7aeeed6d11fd072293734fb670424794971c17dd42ff7e32638cb",
       "storage_key": "housing/policy-events/tracks.json",
-      "uploaded_at": "2026-11-10T14:37:15.467202+00:00",
+      "uploaded_at": "2026-11-10T15:22:47.142824+00:00",
       "local_deleted": false,
       "compression": null,
       "stored_size": 4489,
@@ -738,6 +1079,28 @@
       "compression": null,
       "stored_size": 18807933,
       "stored_checksum_sha256": "0d79a0b23041b200748edc84526aff286379f59e2367aeeb57ebb8813517a73c"
+    },
+    {
+      "path": "data/housing/residential-mortgage-book/curated/observations.csv",
+      "size": 329231,
+      "checksum_sha256": "5760dba46e9591ffa40a3857633649dd44b967324cbf80007532d94ca9f5c352",
+      "storage_key": "housing/residential-mortgage-book/curated/observations.csv",
+      "uploaded_at": "2026-11-10T14:46:40.018554+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 329231,
+      "stored_checksum_sha256": "5760dba46e9591ffa40a3857633649dd44b967324cbf80007532d94ca9f5c352"
+    },
+    {
+      "path": "data/housing/residential-mortgage-book/raw/2026-11-05/mlar-statistics-summary-long-run.xlsx",
+      "size": 297745,
+      "checksum_sha256": "eafa2b4386ae1562d3c603746aae60436131206a517084223632e4d8bceeb4db",
+      "storage_key": "housing/residential-mortgage-book/raw/2026-11-05/mlar-statistics-summary-long-run.xlsx",
+      "uploaded_at": "2026-11-10T14:46:40.416216+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 297745,
+      "stored_checksum_sha256": "eafa2b4386ae1562d3c603746aae60436131206a517084223632e4d8bceeb4db"
     },
     {
       "path": "data/housing/right-to-buy-one-for-one/curated/observations.csv",
@@ -826,6 +1189,28 @@
       "compression": null,
       "stored_size": 10835171,
       "stored_checksum_sha256": "4840b31b75257e75a3b2deaa47302a610b5b39cb058a5bd50b31423c971d3444"
+    },
+    {
+      "path": "data/housing/temporary-accommodation-by-type/curated/observations.csv",
+      "size": 140632,
+      "checksum_sha256": "31b93af22ec5fface4b8f9058e9c57e6f37644791642384062f4f030a086d9d5",
+      "storage_key": "housing/temporary-accommodation-by-type/curated/observations.csv",
+      "uploaded_at": "2026-11-10T16:04:40.021750+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 140632,
+      "stored_checksum_sha256": "31b93af22ec5fface4b8f9058e9c57e6f37644791642384062f4f030a086d9d5"
+    },
+    {
+      "path": "data/housing/temporary-accommodation-by-type/raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods",
+      "size": 281848,
+      "checksum_sha256": "27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df",
+      "storage_key": "housing/temporary-accommodation-by-type/raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods",
+      "uploaded_at": "2026-11-10T16:04:40.520401+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 281848,
+      "stored_checksum_sha256": "27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df"
     },
     {
       "path": "data/housing/tree-preservation-zone/raw/2026-11-10/tree-preservation-zone.csv",

@@ -1,6 +1,6 @@
 # British Exchange — Agent Team
 
-Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558). **UI identity:** [docs/visual-identity.md](docs/visual-identity.md) — v1 "One ink, drawn by instruments"; live kit `web/src/brand/` (not a per-sector redesign).
+Source of truth: [Notion — British Exchange](https://app.notion.com/p/406654717685802987ffce671c6844e8). Local brief: [docs/brief.md](docs/brief.md). Registry: [Dataset & Indicator Registry](https://app.notion.com/p/8780d864ff89472cac966464c4db7558). Cross-sector deferred items: [Notion — Cross-sector backlog](https://app.notion.com/p/41465471768581a5bef6d539d77dad53) (review before each new sector). **UI identity:** [docs/visual-identity.md](docs/visual-identity.md) — v1 "One ink, drawn by instruments"; live kit `web/src/brand/` (not a per-sector redesign).
 
 | Agent | Responsibility | Output | Owns paths |
 |-------|----------------|--------|------------|

@@ -52,6 +52,7 @@ export function sitesFoot(sites: HousingV1["brownfield"]): {
       "Free-text permission statuses outside the data standard are grouped as “Other / unclear wording”.",
       "Authority ranks use Planning Data local-authority entities — not ONS GSS codes yet.",
       "Coverage is incomplete across England.",
+      "Local-plan allocations are not published as an England polygon feed. This view is the brownfield register, not plan allocations.",
     ].filter(Boolean),
     source:
       asAt != null

@@ -7,6 +7,7 @@
  */
 
 import { apiBase, fetchIndicator, fetchObservations, fetchPackJson, type IndicatorMeta, type Observation } from "@/lib/api";
+import type { LocalPlanStatus } from "./canvas/land/LocalPlans";
 import { toT, type Pt } from "../data";
 import { sourceAllowed, type HousingScope } from "./domain-sources";
 import { categoryLabel } from "./canvas/renting/selection";
@@ -151,6 +152,40 @@ export type SupplyLedgerYear = {
   notes: string[];
 };
 
+/** Supply › Geography for one financial year. */
+export type SupplyGeo = {
+  yearLabel: string | null;
+  /** Latest financial year is still marked provisional by the publisher. */
+  provisional: boolean;
+  england: number | null;
+  /** Net additions per 1,000 dwellings at stock open (England). */
+  englandRate: number | null;
+  /** 31 March year used as the stock-open denominator. */
+  stockYear: number | null;
+  regions: {
+    id: string;
+    label: string;
+    v: number;
+    shareOfEngland: number;
+    /** Net additions ÷ stock open × 1,000. Null when stock is missing. */
+    ratePerThousand: number | null;
+  }[];
+  /** Top districts by count (rank panel). */
+  authorities: {
+    id: string;
+    label: string;
+    v: number;
+    ratePerThousand: number | null;
+  }[];
+  /** Every district with a published net addition for the FY (AreaMap). */
+  mapPlaces: {
+    code: string;
+    name: string;
+    v: number;
+    ratePerThousand: number | null;
+  }[];
+};
+
 export type HousingV1 = {
   sources: Record<string, Source>;
   price: Pt[];
@@ -165,6 +200,8 @@ export type HousingV1 = {
   priceReal: Pt[];
   sales: Pt[];
   regions: { code: string; name: string; points: Pt[] }[];
+  /** England average price (house-prices-by-region E92000001), monthly from 1995. Kept out of `regions` (hero ridges). */
+  englandPrice: Pt[];
   ukRegional: Pt[];
   /** UK average monthly private rent (£) — PIPR average-rent. */
   rentAverage: Pt[];
@@ -248,6 +285,36 @@ export type HousingV1 = {
   planningGranted: Pt[];
   /** Domain 06 — P120 received / decided / granted (England, quarterly). */
   planningFlow: { received: Pt[]; decided: Pt[]; granted: Pt[] };
+  /** Domain 06 — Planning Data local plan status per LPA (T17; not allocations). */
+  localPlans: LocalPlanStatus | null;
+  /** Domain 06 — PINS Casework Database aggregates (decided appeals; not a map). */
+  planningAppeals: {
+    casesDecided: number;
+    yearFrom: number;
+    yearTo: number;
+    latestFullYear: number;
+    englandByYear: {
+      year: number;
+      decided: number;
+      allowed: number;
+      dismissed: number;
+      other: number;
+      excluded: number;
+      allowRatePct: number | null;
+    }[];
+    authorities: {
+      code: string;
+      name: string;
+      year: number;
+      decided: number;
+      allowed: number;
+      dismissed: number;
+      allowRatePct: number | null;
+    }[];
+    types: { type: string; decided: number }[];
+    source: { landing: string; licence: string; release: string };
+    notes: string[];
+  } | null;
   /** Domain 06 — brownfield register inventory (Planning Data snapshot). */
   brownfield: {
     asAt: number | null;
@@ -290,15 +357,13 @@ export type HousingV1 = {
     byPlace: Record<string, SupplyLedgerYear[]>;
     release: string;
   };
-  /** Domain 05 — latest FY regional + top LA net additions. */
-  supplyGeography: {
-    yearLabel: string | null;
-    /** Latest financial year is still marked provisional by the publisher. */
-    provisional: boolean;
-    england: number | null;
-    regions: { id: string; label: string; v: number; shareOfEngland: number }[];
-    authorities: { id: string; label: string; v: number }[];
+  /** Domain 05 — latest FY regional + LA net additions (count, share, per-1k stock). */
+  supplyGeography: SupplyGeo & {
+    /** Financial years with district figures, newest first (value = FY start year). */
+    years: { value: string; label: string }[];
+    byYear: Record<string, SupplyGeo>;
   };
+
   /** Domain 05 — Table 213 tenure starts / completions + Table 1000 affordable. */
   whoBuilds: {
     completions: Line[];
@@ -403,14 +468,20 @@ export type HousingV1 = {
     taByType: Line[];
     /** Duration bands at 31 Mar 2026 (all types summed). */
     taDurationBands: { id: string; label: string; v: number }[];
+    /** England TA duration: households under 6 months (stock, quarter end) — Data tab time series. */
+    taDurationUnder6: Pt[];
     /** TA2 household composition at latest stock date. */
     taHouseholdComposition: { id: string; label: string; v: number }[];
     /** Latest LA TA rates (households per thousand). */
     taRates: { id: string; label: string; v: number }[];
     /** Out-of-area placements (latest snapshot). */
     taOutOfArea: { id: string; label: string; v: number }[];
+    /** England out-of-area households (stock, quarter end). */
+    taOutOfAreaEngland: Pt[];
     roughSleeping: Pt[];
     roughSleepingRegions: { id: string; label: string; v: number }[];
+    /** Rough sleeping data framework — people seen in a month (management information). */
+    roughSleepingFramework: Pt[];
     waitingList: Pt[];
     lettings: Pt[];
     possessionMortgageClaims: Pt[];
@@ -421,8 +492,17 @@ export type HousingV1 = {
     possessionLandlordRepossessions: Pt[];
     /** H-CLIC A3 — households owed a duty with one or more support needs (flow, quarter). */
     supportNeedsSeries: Pt[];
+    /** H-CLIC MD3 — main duty decisions with vulnerable household priority need (flow, quarter). */
+    priorityNeedVulnerable: Pt[];
+    /** Census concealed families (England). */
+    concealedFamilies: Pt[];
     /** Devolved TA stocks (jurisdiction-specific). */
     devolvedTa: { id: string; label: string; v: number; period: string }[];
+    /** RO4 homelessness expenditure, England (£ thousand, financial year starting t). */
+    spendNet: Pt[];
+    spendGross: Pt[];
+    /** Latest-year composition rows (net, £ thousand) for Cost of Insecurity. */
+    spendByLine: { id: string; label: string; points: Pt[] }[];
     headlines: {
       taHouseholds: number | null;
       taChildren: number | null;
@@ -434,8 +514,10 @@ export type HousingV1 = {
       supportNeeds: number | null;
       mortgageClaims: number | null;
       landlordClaims: number | null;
-      /** RO4 2024-25 England net current expenditure, £ thousand. */
+      /** RO4 England net current expenditure, £ thousand (latest FY). */
       homelessnessSpendNet: number | null;
+      /** RO4 England gross current expenditure, £ thousand (latest FY). */
+      homelessnessSpendGross: number | null;
       /** Framework Table 1 — people seen over June 2026 (management information). */
       roughSleepingMonth: number | null;
       /** TA9 England — households placed outside their authority (latest stock). */
@@ -468,6 +550,15 @@ export type HousingV1 = {
     aggregateNet: Pt[];
     /** Table 3.19, April 2020–March 2022. Share of people in each band. */
     ageDistribution: { id: string; label: string; bands: { id: string; label: string; v: number }[] }[];
+    /**
+     * HMRC Inheritance Tax Table 12.3 — UK residential property in estates, £ million, by tax year
+     * of death. Coverage changed on 1 Jan 2022, so each basis is its own series; 2021-22 mixes both.
+     */
+    estates: {
+      rows: { year: string; coverage: "before" | "transition" | "full"; residential: number | null; holding: number | null; gross: number | null }[];
+      residentialBefore: Pt[];
+      residentialFull: Pt[];
+    };
     /** HM Land Registry CCOD + OCOD — titles held by companies, latest monthly release. */
     titles: {
       period: string;
@@ -604,6 +695,33 @@ const noteLabel = (r: Observation) =>
     .map((w, i) => (i > 0 && SMALL_WORDS.has(w) ? w.toLowerCase() : w))
     .join(" ");
 
+const ESTATE_COVERAGE: Record<string, "before" | "transition" | "full"> = {
+  "returns-incl-excepted-estates": "before",
+  "transition-excepted-to-dec-2021": "transition",
+  "full-iht-accounts-only": "full",
+};
+
+/** HMRC estates: one row per tax year of death, plus residential value split by coverage basis. */
+function estatesOf(all: Observation[]): HousingV1["ownership"]["estates"] {
+  const years = [...new Set(all.map((r) => r.period_start))].sort();
+  const pick = (start: string, series: string) =>
+    all.find((r) => r.period_start === start && r.dimensions?.series === series)?.value ?? null;
+  const rows = years.map((start) => {
+    const any = all.find((r) => r.period_start === start)!;
+    const y = Number(start.slice(0, 4));
+    return {
+      year: `${y}-${String((y + 1) % 100).padStart(2, "0")}`,
+      coverage: ESTATE_COVERAGE[any.dimensions?.category ?? ""] ?? "transition",
+      residential: pick(start, "residential-value"),
+      holding: pick(start, "residential-estates"),
+      gross: pick(start, "gross-capital-value"),
+    };
+  });
+  const value = all.filter((r) => r.dimensions?.series === "residential-value");
+  const on = (c: string) => toPts(value.filter((r) => ESTATE_COVERAGE[r.dimensions?.category ?? ""] === c));
+  return { rows, residentialBefore: on("before"), residentialFull: on("full") };
+}
+
 /** CCOD (uk-company) + OCOD (overseas-company) counts for the latest monthly release. */
 function corporateTitlesOf(all: Observation[]): HousingV1["ownership"]["titles"] {
   const period = all.reduce((m, r) => (r.period_start > m ? r.period_start : m), "");
@@ -699,6 +817,23 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
   };
   const load = scopedLoad;
   const loadFiltered = scopedLoad;
+  const localPlansPack = await (async () => {
+    try {
+      return await fetchPackJson<LocalPlanStatus>("housing.local-plan-status");
+    } catch {
+      complete = false;
+      return null;
+    }
+  })();
+  const appealsPack = await (async () => {
+    try {
+      return await fetchPackJson<NonNullable<HousingV1["planningAppeals"]>>("housing.planning-appeals");
+    } catch {
+      complete = false;
+      return null;
+    }
+  })();
+
   const loaded = await Promise.all([
     load("uk-average-house-price"),
     load("house-prices-by-region"),
@@ -783,6 +918,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     load("residential-mortgage-book"),
     load("household-net-property-wealth"),
     load("corporate-owned-titles"),
+    load("estates-residential-property"),
   ]);
   const [
     price,
@@ -850,6 +986,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     mortgageBook,
     propertyWealth,
     corporateTitles,
+    estatesProperty,
   ] = loaded;
 
   const sources: Record<string, Source> = {};
@@ -867,6 +1004,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     mortgageBook,
     propertyWealth,
     corporateTitles,
+    estatesProperty,
     completions,
     stock,
     greenBelt,
@@ -962,8 +1100,10 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
   const AGG = new Set(["K02000001", "E92000001"]);
   const regionMap = new Map<string, { name: string; rows: Observation[] }>();
   const ukRows: Observation[] = [];
+  const englandRows: Observation[] = [];
   for (const r of regional?.rows ?? []) {
     if (r.geography_code === "K02000001") ukRows.push(r);
+    if (r.geography_code === "E92000001") englandRows.push(r);
     if (AGG.has(r.geography_code)) continue;
     if (!regionMap.has(r.geography_code)) regionMap.set(r.geography_code, { name: r.geography_label.replace(" Region", ""), rows: [] });
     regionMap.get(r.geography_code)!.rows.push(r);
@@ -1185,21 +1325,35 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
 
   const dimCategory = (r: Observation) =>
     r.dimensions?.category || /category=([^;]+)/.exec(r.notes ?? "")?.[1] || "";
-  const AFFORDABLE_LINES: [string, string][] = [
-    ["social-rent", "Social rent"],
-    ["london-affordable-rent", "London affordable rent"],
-    ["affordable-rent", "Affordable rent"],
-    ["intermediate-rent", "Intermediate rent"],
-    ["shared-ownership", "Shared ownership"],
-    ["affordable-home-ownership", "Affordable home ownership"],
-    ["first-homes", "First Homes"],
+  // Five lines at most. The three home-ownership products are one line: shared ownership is only
+  // published separately from 2014, so on its own it would start a false break. The tenures
+  // partition the all-affordable total in every year (checked), so the sum is exact.
+  const AFFORDABLE_LINES: [string, string, string[]][] = [
+    ["social-rent", "Social rent", ["social-rent"]],
+    ["affordable-rent", "Affordable rent", ["affordable-rent"]],
+    ["london-affordable-rent", "London affordable rent", ["london-affordable-rent"]],
+    ["intermediate-rent", "Intermediate rent", ["intermediate-rent"]],
+    [
+      "home-ownership",
+      "Home ownership schemes",
+      ["shared-ownership", "affordable-home-ownership", "first-homes"],
+    ],
   ];
   const affordableRows = (affordableSupply?.rows ?? []).filter((r) => dimCategory(r) === "completions");
-  const whoBuildsAffordable: Line[] = AFFORDABLE_LINES.map(([id, label]) => ({
-    id,
-    label,
-    points: toPts(affordableRows.filter((r) => dimSeries(r) === id)),
-  }));
+  const whoBuildsAffordable: Line[] = AFFORDABLE_LINES.map(([id, label, parts]) => {
+    const byT = new Map<number, Pt>();
+    for (const p of toPts(affordableRows.filter((r) => parts.includes(dimSeries(r))))) byT.set(p.t, p);
+    // toPts keeps one point per period, so sum the parts per period explicitly.
+    const sums = new Map<number, number>();
+    for (const part of parts) {
+      for (const p of toPts(affordableRows.filter((r) => dimSeries(r) === part))) sums.set(p.t, (sums.get(p.t) ?? 0) + p.v);
+    }
+    return {
+      id,
+      label,
+      points: [...sums.entries()].sort((a, b) => a[0] - b[0]).map(([t, v]) => ({ ...byT.get(t)!, t, v })),
+    };
+  });
   const affordableTotal = toPts(affordableRows.filter((r) => dimSeries(r) === "all-affordable"));
 
   // Domain 05 — England net additions components (aligned financial years).
@@ -1298,51 +1452,105 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     const start = Math.floor(t + 1e-6);
     return `${start}–${String((start + 1) % 100).padStart(2, "0")}`;
   };
-  const netRegionLatest = (netAdditions?.rows ?? [])
-    .filter(
+  // Supply › Geography for one financial year (t = FY start). Every year with district figures is offered.
+  const geographyFor = (netT: number | undefined) => {
+    // Stock open = 31 March of the FY start year (same join as the Supply Machine ledger).
+    const stockOpenYear = netT != null ? Math.floor(netT + 1e-6) : null;
+    const stockOpenAt = new Map<string, number>();
+    if (stockOpenYear != null) {
+      for (const r of stockRegion?.rows ?? []) {
+        if (r.value === null || dimDemo(r) !== "all-dwellings") continue;
+        if (Number(r.period_start.slice(0, 4)) === stockOpenYear) {
+          stockOpenAt.set(r.geography_code, r.value as number);
+        }
+      }
+      for (const r of stockDistrict?.rows ?? []) {
+        if (r.value === null || dimDemo(r) !== "all-dwellings") continue;
+        if (Number(r.period_start.slice(0, 4)) === stockOpenYear) {
+          stockOpenAt.set(r.geography_code, r.value as number);
+        }
+      }
+    }
+    const rateOf = (code: string, net: number): number | null => {
+      const stock = stockOpenAt.get(code);
+      return stock != null && stock > 0 ? (net / stock) * 1000 : null;
+    };
+
+    const englandNet = netT != null ? (supplyNet.net[supplyYears.indexOf(netT)] ?? null) : null;
+    const netRegionLatest = (netAdditions?.rows ?? [])
+      .filter(
+        (r) =>
+          dimSeries(r) === "net-additions" &&
+          r.geography_code.startsWith("E12") &&
+          r.value !== null &&
+          netT != null &&
+          Math.abs(toT(r.period_start) - netT) < 1e-6,
+      )
+      .map((r) => {
+        const v = r.value as number;
+        return {
+          id: r.geography_code,
+          label: r.geography_label,
+          v,
+          shareOfEngland: englandNet ? v / englandNet : 0,
+          ratePerThousand: rateOf(r.geography_code, v),
+        };
+      })
+      .sort((a, b) => b.v - a.v);
+
+    // Districts only. E11 metropolitan counties (Greater Manchester, West Midlands) are
+    // sums of the E08 districts inside them, so they must not share a rank.
+    const isDistrict = (code: string) => /^E0[6789]/.test(code);
+    const laRows = (netAdditionsLA?.rows ?? []).filter(
       (r) =>
-        dimSeries(r) === "net-additions" &&
-        r.geography_code.startsWith("E12") &&
+        isDistrict(r.geography_code) &&
         r.value !== null &&
-        latestNetT != null &&
-        Math.abs(toT(r.period_start) - latestNetT) < 1e-6,
-    )
-    .map((r) => ({
-      id: r.geography_code,
-      label: r.geography_label,
-      v: r.value as number,
-      shareOfEngland: supplyNet.net[supplyNet.net.length - 1]
-        ? (r.value as number) / supplyNet.net[supplyNet.net.length - 1]!
-        : 0,
-    }))
-    .sort((a, b) => b.v - a.v);
+        netT != null &&
+        Math.abs(toT(r.period_start) - netT) < 1e-6,
+    );
+    const laLatest = laRows
+      .map((r) => {
+        const v = r.value as number;
+        return {
+          id: r.geography_code,
+          label: r.geography_label.replace(/ UA$/, ""),
+          v,
+          ratePerThousand: rateOf(r.geography_code, v),
+        };
+      })
+      .sort((a, b) => b.v - a.v);
+    const supplyYearProvisional = [...(netAdditions?.rows ?? []), ...(netAdditionsLA?.rows ?? [])].some(
+      (r) =>
+        r.observation_status === "provisional" &&
+        netT != null &&
+        Math.abs(toT(r.period_start) - netT) < 1e-6,
+    );
 
-  // Districts only. E11 metropolitan counties (Greater Manchester, West Midlands) are
-  // sums of the E08 districts inside them, so they must not share a rank.
-  const isDistrict = (code: string) => /^E0[6789]/.test(code);
-  const laRows = (netAdditionsLA?.rows ?? []).filter(
-    (r) =>
-      isDistrict(r.geography_code) &&
-      r.value !== null &&
-      latestNetT != null &&
-      Math.abs(toT(r.period_start) - latestNetT) < 1e-6,
+    return {
+      yearLabel: fyFromT(netT),
+      provisional: supplyYearProvisional,
+      england: englandNet,
+      englandRate: englandNet != null ? rateOf("E92000001", englandNet) : null,
+      stockYear: stockOpenYear,
+      regions: netRegionLatest,
+      authorities: laLatest.slice(0, 40),
+      mapPlaces: laLatest.map((a) => ({
+        code: a.id,
+        name: a.label,
+        v: a.v,
+        ratePerThousand: a.ratePerThousand,
+      })),
+    };
+  };
+  const geographyYears = supplyYears.filter((t) =>
+    (netAdditionsLA?.rows ?? []).some(
+      (r) => /^E0[6789]/.test(r.geography_code) && r.value !== null && Math.abs(toT(r.period_start) - t) < 1e-6,
+    ),
   );
-  const laLatest = laRows
-    .map((r) => ({ id: r.geography_code, label: r.geography_label, v: r.value as number }))
-    .sort((a, b) => b.v - a.v);
-  const supplyYearProvisional = [...(netAdditions?.rows ?? []), ...(netAdditionsLA?.rows ?? [])].some(
-    (r) =>
-      r.observation_status === "provisional" &&
-      latestNetT != null &&
-      Math.abs(toT(r.period_start) - latestNetT) < 1e-6,
-  );
-
   const supplyGeography = {
-    yearLabel: fyFromT(latestNetT),
-    provisional: supplyYearProvisional,
-    england: supplyNet.net.length ? supplyNet.net[supplyNet.net.length - 1]! : null,
-    regions: netRegionLatest,
-    authorities: laLatest.slice(0, 40),
+    ...geographyFor(latestNetT),
+    years: [...geographyYears].reverse().map((t) => ({ value: String(Math.floor(t + 1e-6)), label: fyFromT(t)! })),
+    byYear: Object.fromEntries(geographyYears.map((t) => [String(Math.floor(t + 1e-6)), geographyFor(t)])),
   };
   const pricePts = toPts(price?.rows ?? []);
   const cpiPts = toPts(cpiIndex?.rows ?? []);
@@ -1485,6 +1693,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
     priceReal: realPrices(pricePts, cpiPts),
     sales: toPts(seriesRows(hpiRows, "sales-volume")),
     regions,
+    englandPrice: toPts(englandRows).filter((p) => p.t >= 1995),
     ukRegional: toPts(ukRows).filter((p) => p.t >= 1995),
     rentAverage,
     rentChange,
@@ -1554,6 +1763,8 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         (planning?.rows ?? []).filter((r) => dimSeries(r) === "decisions-granted" || !dimSeries(r)),
       ),
     },
+    planningAppeals: appealsPack,
+    localPlans: localPlansPack,
     brownfield: (() => {
       const rows = brownfield?.rows ?? [];
       const eng = (series: string) =>
@@ -1744,19 +1955,25 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
       const seriesPts = (pack: { rows: Observation[] } | null | undefined, series: string) =>
         toPts((pack?.rows ?? []).filter((r) => dimSeries(r) === series));
       const last = (p: Pt[]) => (p.length ? p[p.length - 1]!.v : null);
-      const TYPE_LABEL: Record<string, string> = {
-        "bb-shared-annexes": "B&B / shared annexes",
-        "nightly-paid-privately-managed": "Nightly paid / privately managed",
-        hostels: "Hostels",
-        "private-sector-leased": "Private sector leased",
-        "la-ha-stock": "LA / HA stock",
-        "other-temporary": "Other temporary",
-      };
-      const taByTypeLines: Line[] = Object.entries(TYPE_LABEL).map(([id, label]) => ({
-        id,
-        label,
-        points: seriesPts(taByType, id),
-      }));
+      // Five stack layers (the chart's limit). The six TA1 types partition the total at every
+      // quarter end (to rounding), so hostels and "any other type" share one layer.
+      const TYPE_GROUPS: [string, string, string[]][] = [
+        ["nightly-paid-privately-managed", "Nightly paid, self-contained", ["nightly-paid-privately-managed"]],
+        ["la-ha-stock", "Council and housing association homes", ["la-ha-stock"]],
+        ["private-sector-leased", "Private sector accommodation", ["private-sector-leased"]],
+        ["bb-shared-annexes", "Bed and breakfast", ["bb-shared-annexes"]],
+        ["hostels-other", "Hostels and other", ["hostels", "other-temporary"]],
+      ];
+      const taByTypeLines: Line[] = TYPE_GROUPS.map(([id, label, parts]) => {
+        const sums = new Map<number, Pt>();
+        for (const part of parts) {
+          for (const p of seriesPts(taByType, part)) {
+            const prev = sums.get(p.t);
+            sums.set(p.t, prev ? { ...prev, v: prev.v + p.v } : p);
+          }
+        }
+        return { id, label, points: [...sums.values()].sort((a, b) => a.t - b.t) };
+      });
       const BAND_LABEL: Record<string, string> = {
         "all-types-under-6-months": "Under 6 months",
         "all-types-6-months-to-1-year": "6 months to 1 year",
@@ -1770,6 +1987,13 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         );
         return row ? [{ id, label, v: row.value as number }] : [];
       });
+      const taDurationUnder6 = seriesPts(taDuration, "all-types-under-6-months");
+      const taOutOfAreaEngland = toPts(
+        (taOutOfArea?.rows ?? []).filter((r) => r.geography_code === "E92000001" && r.value !== null),
+      );
+      const roughSleepingFramework = toPts(roughMonth?.rows ?? []);
+      const concealedFamilies = seriesPts(concealed, "concealed-families-total");
+      const priorityNeedVulnerable = seriesPts(priorityNeed, "vulnerable-households-total");
       const taRatesRows = (taRates?.rows ?? [])
         .filter((r) => {
           if (r.value === null) return false;
@@ -2033,11 +2257,14 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         lettingsBreakdown,
         taByType: taByTypeLines,
         taDurationBands,
+        taDurationUnder6,
         taHouseholdComposition,
         taRates: taRatesRows,
         taOutOfArea: taOutRows,
+        taOutOfAreaEngland,
         roughSleeping,
         roughSleepingRegions: roughRegionLatest,
+        roughSleepingFramework,
         waitingList,
         lettings: lettingsPts,
         possessionMortgageClaims,
@@ -2046,7 +2273,24 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         possessionLandlordWarrants,
         possessionLandlordRepossessions,
         supportNeedsSeries,
+        priorityNeedVulnerable,
+        concealedFamilies,
         devolvedTa: devolvedLatest,
+        spendNet: seriesPts(taSpend, "homelessness-total-net"),
+        spendGross: seriesPts(taSpend, "homelessness-total-gross"),
+        spendByLine: (
+          [
+            ["nightly-paid-net", "Nightly paid"],
+            ["private-leased-net", "Private leased"],
+            ["hostels-net", "Hostels"],
+            ["bed-and-breakfast-net", "Bed and breakfast"],
+            ["la-or-ha-stock-net", "Council or housing association"],
+            ["other-temporary-net", "Other temporary"],
+            ["ta-administration-net", "Temporary accommodation admin"],
+            ["homelessness-reduction-act-net", "Homelessness Reduction Act"],
+            ["non-homelessness-reduction-act-net", "Other homelessness activity"],
+          ] as const
+        ).map(([id, label]) => ({ id, label, points: seriesPts(taSpend, id) })),
         headlines: {
           taHouseholds: last(taHouseholds),
           taChildren: last(taChildren),
@@ -2058,9 +2302,8 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
           supportNeeds: supportOnePlus,
           mortgageClaims: last(possessionMortgageClaims),
           landlordClaims: last(possessionLandlordClaims),
-          homelessnessSpendNet: last(
-            seriesPts(taSpend, "homelessness-total-net"),
-          ),
+          homelessnessSpendNet: last(seriesPts(taSpend, "homelessness-total-net")),
+          homelessnessSpendGross: last(seriesPts(taSpend, "homelessness-total-gross")),
           roughSleepingMonth: last(toPts(roughMonth?.rows ?? [])),
           outOfAreaEngland: last(toPts((taOutOfArea?.rows ?? []).filter((r) => r.geography_code === "E92000001"))),
         },
@@ -2085,6 +2328,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         row.dimensions?.category || /band=([^;]+)/.exec(row.notes ?? "")?.[1] || "";
       const wealthRows = propertyWealth?.rows ?? [];
       const ages: { id: string; label: string }[] = [
+        { id: "age-all-persons", label: "All people" },
         { id: "age-under-16", label: "Under 16" },
         { id: "age-16-24", label: "16–24" },
         { id: "age-25-34", label: "25–34" },
@@ -2092,7 +2336,6 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         { id: "age-45-54", label: "45–54" },
         { id: "age-55-64", label: "55–64" },
         { id: "age-65-plus", label: "65 and over" },
-        { id: "age-all-persons", label: "All people" },
       ];
       const bands: { id: string; label: string }[] = [
         { id: "do-not-own", label: "Do not own" },
@@ -2116,7 +2359,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
         advanceShares: [
           ...share("house-purchase-share-of-advances", "House purchase"),
           ...share("first-time-buyer-share-of-advances", "Of which first-time buyers"),
-          ...share("buy-to-let-share-of-advances", "Buy to let"),
+          ...share("buy-to-let-share-of-advances", "Of which buy to let"),
           ...share("remortgage-share-of-advances", "Remortgage"),
         ],
         ltvShares: [
@@ -2135,7 +2378,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
           { id: "house-purchase", label: "House purchase", points: seriesPts(mortgageBook, "house-purchase-share-of-advances") },
           { id: "first-time-buyer", label: "Of which first-time buyers", points: seriesPts(mortgageBook, "first-time-buyer-share-of-advances") },
           { id: "remortgage", label: "Remortgage", points: seriesPts(mortgageBook, "remortgage-share-of-advances") },
-          { id: "buy-to-let", label: "Buy to let", points: seriesPts(mortgageBook, "buy-to-let-share-of-advances") },
+          { id: "buy-to-let", label: "Of which buy to let", points: seriesPts(mortgageBook, "buy-to-let-share-of-advances") },
         ],
         p25AllHouseholds: seriesPts(propertyWealth, "p25-all-households"),
         medianAllHouseholds,
@@ -2152,6 +2395,7 @@ async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; com
           }),
         })),
         titles: corporateTitlesOf(corporateTitles?.rows ?? []),
+        estates: estatesOf(estatesProperty?.rows ?? []),
         headlines: {
           housePurchaseApprovals: lastValue(housePurchaseApprovals),
           remortgageApprovals: lastValue(remortgageApprovals),

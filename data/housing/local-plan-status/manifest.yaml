@@ -1,0 +1,54 @@
+indicator_id: local-plan-status
+title: Local plan status (England)
+sector: housing-land
+publisher: MHCLG / Planning Data
+source_url: https://www.planning.data.gov.uk/dataset/local-plan
+series_id: planning.data.gov.uk dataset=local-plan (+ organisation)
+geography: England local planning authorities — not UK
+frequency: snapshot
+unit: local planning authorities / years / dwellings
+definition: 'For each current local planning authority in England: its most recent
+  adopted local plan (age in years, plan period, homes the plan requires) and the
+  most advanced plan in preparation. England counts by plan age band, preparation
+  stage and adoption year of today''s plans.'
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.local_plans
+curated_path: curated/observations.csv
+update_cadence: monthly (when Planning Data updates)
+raw_evidence:
+- path: raw/2026-11-10/local-plan.csv
+  retrieved_at: '2026-11-10T15:23:39.819391+00:00'
+  checksum_sha256: f5ddace9c54805c84759b5b8c4f4f722470fc55cab03817147feadf784ba03f2
+  content_type: text/csv
+  official_release_date: '2026-11-10'
+  http_status: null
+  source_url: https://files.planning.data.gov.uk/dataset/local-plan.csv
+- path: raw/2026-11-10/organisation.csv
+  retrieved_at: '2026-11-10T15:23:39.819391+00:00'
+  checksum_sha256: e08b36feb25518f4b41c151a002078f6ac8bcb2ec0fea51db7a9ba0b822f4090
+  content_type: text/csv
+  official_release_date: '2026-11-10'
+  http_status: null
+  source_url: https://files.planning.data.gov.uk/organisation-collection/dataset/organisation.csv
+transformations: Current LPAs from organisation.csv (local-planning-authority set,
+  no end-date). Plans credited to every member in `organisations` (joint plans). Ended
+  plan records dropped. Adopted = stage adopted, or blank stage with an adoption date;
+  date = adopted-date, else start-date. Most advanced preparation stage kept.
+revision_notes: Initial Domain 06 ingest 2026-11-10 (T17) from the gap hunt.
+caveats: 'Plan status, not site allocations. Planning Data is compiled from councils
+  and is incomplete: 403 of 987 records have no stage and are not counted as adopted
+  unless they carry an adoption date. For most adopted plans the adoption date is
+  taken from start-date because adopted-date is blank. Required housing is the plan''s
+  own figure over its plan period — not a target for one year, and not comparable
+  across councils with different periods. Joint plans'' housing figures cover all
+  member councils and are not attributed to any one council. Some councils with an
+  adopted plan are missing from Planning Data (e.g. North Hertfordshire).'
+related_indicator_ids:
+- brownfield-land
+- planning-decisions-granted
+- planning-appeals-casework
+- green-belt-area
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

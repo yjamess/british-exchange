@@ -9,7 +9,7 @@
 
 import { useMemo } from "react";
 import { EmptyStage, explorerClasses as t } from "../../..";
-import { fmt } from "../../../data";
+import { fmt, type Pt } from "../../../data";
 import { RankBars, TimeChart } from "../../../instrument/TimeChart";
 import type { HousingV1 } from "../../load";
 import s from "./insecurity.module.css";
@@ -21,6 +21,23 @@ type Props = {
   insecurity: Ins;
   type: string | null;
 };
+
+/** Quarter-to-quarter net stock change (entries − exits). Not separate gross flows. */
+function netStockChange(points: Pt[]): Pt[] {
+  const sorted = [...points].sort((a, b) => a.t - b.t);
+  const out: Pt[] = [];
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = sorted[i - 1]!;
+    const cur = sorted[i]!;
+    out.push({ t: cur.t, v: cur.v - prev.v });
+  }
+  return out;
+}
+
+const signedCount = (v: number) =>
+  Math.abs(v) < 0.5 ? "0" : `${v < 0 ? "−" : "+"}${fmt.count(Math.abs(v))}`;
+const signedCompact = (v: number) =>
+  Math.abs(v) < 0.5 ? "0" : `${v < 0 ? "−" : "+"}${fmt.countCompact(Math.abs(v))}`;
 
 const LONG = new Set(["1-to-2-years", "2-to-5-years", "5-or-more-years"]);
 
@@ -67,10 +84,11 @@ export function temporaryFoot(insecurity: Ins, type: string | null): {
       "Bands are published length-of-stay groups on that date. They are not completed stays.",
       "Five years or more has no published end date.",
       "A one-day count over-represents long stays compared with everyone who passes through in a year.",
-      "Entries and exits across the year are not loaded.",
+      "Where households are placed: the published accommodation types add up to the total at each quarter end, to rounding. Hostels and any other type share one layer (Exchange grouping). Nightly paid accommodation is published from 2002.",
+      "Net change between quarter ends is the published stock this quarter minus the previous quarter — entries minus exits. Separate entry and exit counts are not published in the open live tables.",
       row ? `Accommodation type shown: ${TEMPORARY_TYPE_OPTIONS_SHORT[row.id] ?? row.label}.` : "",
     ].filter(Boolean),
-    source: `MHCLG temporary accommodation length of stay · England · stock on ${date}`,
+    source: `MHCLG · temporary accommodation length of stay · household stock · England · stock on ${date}`,
   };
 }
 
@@ -87,6 +105,19 @@ export function TemporaryLife({ insecurity, type }: Props) {
     ],
     [insecurity.taHouseholds, insecurity.taWithChildren],
   );
+
+  const netSeries = useMemo(() => {
+    const households = netStockChange(insecurity.taHouseholds);
+    const withChildren = netStockChange(insecurity.taWithChildren);
+    return [
+      { id: "net-households", label: "Households · net change", points: households },
+      ...(withChildren.length
+        ? [{ id: "net-with-children", label: "With children · net change", points: withChildren }]
+        : []),
+    ];
+  }, [insecurity.taHouseholds, insecurity.taWithChildren]);
+
+  const latestNet = netSeries[0]?.points.at(-1) ?? null;
 
   if (!row) {
     return (
@@ -168,6 +199,48 @@ export function TemporaryLife({ insecurity, type }: Props) {
           height={260}
           label="Households in temporary accommodation in England, total and with children"
         />
+      </section>
+
+      {insecurity.taByType.some((l) => l.points.length > 0) && (
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>Where households are placed · share of households · England · each quarter end</h3>
+          <TimeChart
+            series={insecurity.taByType}
+            kind="stack"
+            cadence="quarterly"
+            format={fmt.count}
+            height={260}
+            label="Share of households in temporary accommodation in England by type of accommodation"
+          />
+        </section>
+      )}
+
+      <section className={gen.panel}>
+        <h3 className={t.stageTitle}>Change between quarter ends · England · net stock</h3>
+        {latestNet != null && (
+          <p className={s.big}>
+            <span className="bo-fig">{signedCount(latestNet.v)}</span>
+            <span>households from the previous quarter end</span>
+          </p>
+        )}
+        <p className={s.metaLine}>
+          Net change is entries minus exits. Separate entry and exit counts are not published in the
+          open live tables.
+        </p>
+        {netSeries[0] && netSeries[0].points.length > 0 ? (
+          <TimeChart
+            series={netSeries}
+            cadence="quarterly"
+            format={signedCount}
+            axisFormat={signedCompact}
+            height={220}
+            label="Net change in households in temporary accommodation in England between consecutive quarter ends"
+          />
+        ) : (
+          <EmptyStage label="Not loaded">
+            Need at least two quarter-end stocks to show net change.
+          </EmptyStage>
+        )}
       </section>
     </div>
   );

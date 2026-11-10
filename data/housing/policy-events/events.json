@@ -2,7 +2,7 @@
   "registry_id": "housing-policy-events",
   "title": "Housing policy events",
   "sector": "housing-land",
-  "retrieved_at": "2026-11-05",
+  "retrieved_at": "2026-11-10",
   "note": "Acts, statutory instruments, programmes and institutions. The mark is Royal Assent for an Act, the made date for an instrument, and the start date for a programme or institution. Commencement, announcement and repeal are separate facts. An overlapping statistic is context, not an effect.",
   "eras": [
     {
@@ -279,7 +279,7 @@
         "planning",
         "finance"
       ],
-      "summary": "The short title on the enacted text is the Housing, Town Planning, &c. Act, 1919. Royal Assent is printed there as 31 July 1919. Addison Act is a later name, not the short title. The duties in the sections are not extracted in this anchor.",
+      "summary": "The short title on the enacted text is the Housing, Town Planning, &c. Act, 1919. Royal Assent is printed there as 31 July 1919. Addison Act is a later name, not the short title. The duties in the sections are not extracted in this anchor. The Act came into force on Royal Assent day under the Acts of Parliament (Commencement) Act 1793; section 52 is the short title only and does not defer commencement.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "United Kingdom",
       "nations": [
@@ -292,13 +292,31 @@
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "1919-07-31",
+          "instrument": "Acts of Parliament (Commencement) Act 1793",
+          "citation": "33 Geo. 3 c. 13",
+          "url": "https://www.legislation.gov.uk/ukpga/Geo3/33/13",
+          "scope": "Whole Act. The enacted text has no separate commencement provision (section 52 is the short title only). Under the Acts of Parliament (Commencement) Act 1793 an Act comes into force on the day of Royal Assent unless it provides otherwise. Royal Assent day is 31 July 1919."
+        }
+      ],
       "status": "enacted_text_only",
-      "status_note": "legislation.gov.uk currently serves the original enacted text only. A later repeal is not recorded here.",
+      "status_note": "legislation.gov.uk currently serves the original enacted text only. A later repeal is not recorded here. Commencement is pinned from the 1793 default rule plus the absence of a contrary provision in the enacted text.",
       "sources": [
         {
           "label": "Enacted text",
           "url": "https://www.legislation.gov.uk/ukpga/Geo5/9-10/35/enacted",
+          "role": "primary"
+        },
+        {
+          "label": "Section 52 as enacted (short title only)",
+          "url": "https://www.legislation.gov.uk/ukpga/Geo5/9-10/35/section/52/enacted",
+          "role": "primary"
+        },
+        {
+          "label": "Acts of Parliament (Commencement) Act 1793",
+          "url": "https://www.legislation.gov.uk/ukpga/Geo3/33/13",
           "role": "primary"
         }
       ],
@@ -528,7 +546,7 @@
       "topics": [
         "planning"
       ],
-      "summary": "Royal Assent is printed on the enacted text as 6 August 1947. The Commons record of that day lists the Town and Country Planning Act, 1947 among the Acts which received Royal Assent. The long title concerns planning the development and use of land. The day the Act came into force is not in this anchor.",
+      "summary": "Royal Assent is printed on the enacted text as 6 August 1947. The Commons record of that day lists the Town and Country Planning Act, 1947 among the Acts which received Royal Assent. The long title concerns planning the development and use of land. Most of the Act came into force on the appointed day, 1 July 1948 (SI 1948/213); a short list of provisions in section 120(2) came into force on passing.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "United Kingdom",
       "nations": [
@@ -541,9 +559,24 @@
       "start_date": null,
       "end_date": null,
       "date_note": null,
-      "commencements": [],
+      "commencements": [
+        {
+          "date": "1947-08-06",
+          "instrument": "Town and Country Planning Act 1947, section 120(2)",
+          "citation": "10 & 11 Geo. 6 c. 51, s. 120(2)",
+          "url": "https://www.legislation.gov.uk/ukpga/Geo6/10-11/51/pdfs/ukpga_19470051_en.pdf",
+          "scope": "Sections 2 and 3; section 37(2) and section 38(2) and the related Part IV acquisition provisions; and the Part VI / Ninth Schedule provisions listed in section 120(2) — come into force on the date of passing (6 August 1947)."
+        },
+        {
+          "date": "1948-07-01",
+          "instrument": "The Town and Country Planning Act, 1947 (Appointed Day) Order, 1948",
+          "citation": "SI 1948/213",
+          "url": "https://www.legislation.gov.uk/uksi/1948/213/pdfs/uksi_19480213_en.pdf",
+          "scope": "The Act comes into force on 1 July 1948 (the appointed day), except the provisions that came into force on passing under section 120(2). Made 9 February 1948 under section 119."
+        }
+      ],
       "status": "enacted_text_only",
-      "status_note": "Assent is from the enacted PDF and the Commons Royal Assent entry for 6 August 1947. Commencement is not pinned.",
+      "status_note": "Assent is from the enacted PDF and the Commons Royal Assent entry for 6 August 1947. Appointed day is SI 1948/213 (1 July 1948).",
       "sources": [
         {
           "label": "Enacted PDF",
@@ -553,6 +586,11 @@
         {
           "label": "Commons, Royal Assent, 6 August 1947",
           "url": "https://api.parliament.uk/historic-hansard/commons/1947/aug/06/royal-assent",
+          "role": "primary"
+        },
+        {
+          "label": "Appointed Day Order 1948 (SI 1948/213)",
+          "url": "https://www.legislation.gov.uk/uksi/1948/213/pdfs/uksi_19480213_en.pdf",
           "role": "primary"
         }
       ],
@@ -1206,7 +1244,7 @@
         "homeownership",
         "social-housing"
       ],
-      "summary": "Royal Assent is printed as 8 August 1980. Part I Chapter I of the enacted text gives a secure tenant the right to buy the freehold of a house, or a long lease of a flat, in the circumstances that Chapter sets out. Section 1(7) points to a separate Scottish right to purchase in the Tenants' Rights, Etc. (Scotland) Act 1980 (1980 c. 52). Commencement No. 1 did not appoint Part I.",
+      "summary": "Royal Assent is printed as 8 August 1980. Part I Chapter I of the enacted text gives a secure tenant the right to buy the freehold of a house, or a long lease of a flat, in the circumstances that Chapter sets out. Section 1(7) points to a separate Scottish right to purchase in the Tenants' Rights, Etc. (Scotland) Act 1980 (1980 c. 52). Chapter I came into force by section 153(1) of the Act itself — not by a commencement order.",
       "institution": "Parliament of the United Kingdom",
       "jurisdiction": "United Kingdom",
       "nations": [
@@ -1221,15 +1259,36 @@
       "date_note": null,
       "commencements": [
         {
-          "date": null,
+          "date": "1980-10-03",
+          "instrument": "Housing Act 1980, section 153(1)",
+          "citation": "1980 c. 51, s. 153(1)",
+          "url": "https://www.legislation.gov.uk/ukpga/1980/51/section/153/enacted",
+          "scope": "Chapter I of Part I (the right to buy). The enacted text brings Chapter I into operation on the expiry of eight weeks beginning with Royal Assent (8 August 1980) — that day is 3 October 1980. No separate commencement order appoints Chapter I."
+        },
+        {
+          "date": "1980-10-03",
+          "instrument": "Housing Act 1980, section 153(2)",
+          "citation": "1980 c. 51, s. 153(2)",
+          "url": "https://www.legislation.gov.uk/ukpga/1980/51/section/153/enacted",
+          "scope": "Chapter II of Part I (secure tenancies). Comes into operation on a day appointed by order, or if no such order is made, on the same eight-week expiry as Chapter I. No earlier appointment was made, so Chapter II also came into operation on 3 October 1980."
+        },
+        {
+          "date": "1980-10-01",
           "instrument": "The Housing Act 1980 (Commencement No. 1) Order 1980",
           "citation": "SI 1980/1406",
-          "url": "https://www.legislation.gov.uk/uksi/1980/1406/contents",
-          "scope": "Does not appoint Part I. Section 121 comes into operation on 1 October 1980. The Schedule comes into operation on 3 October 1980. The order that appoints Chapter I of Part I is not yet in this registry."
+          "url": "https://www.legislation.gov.uk/uksi/1980/1406/made",
+          "scope": "Does not appoint Part I. Section 121 (Housing Corporation grants) comes into operation on 1 October 1980."
+        },
+        {
+          "date": "1980-10-03",
+          "instrument": "The Housing Act 1980 (Commencement No. 1) Order 1980",
+          "citation": "SI 1980/1406",
+          "url": "https://www.legislation.gov.uk/uksi/1980/1406/made",
+          "scope": "Does not appoint Part I. The Schedule brings Parts III and IV and the other listed provisions into operation on 3 October 1980 — the same calendar day as Chapter I by section 153(1), but under this order, not under that section."
         }
       ],
       "status": "amended",
-      "status_note": "legislation.gov.uk carries a revised text with later effects. The right-to-buy commencement date is deliberately blank.",
+      "status_note": "legislation.gov.uk carries a revised text with later effects. Part I sections 1–50 were repealed for England and Wales by the Housing (Consequential Provisions) Act 1985; the right to buy continues in the Housing Act 1985 consolidation.",
       "sources": [
         {
           "label": "Introduction",
@@ -1242,12 +1301,25 @@
           "role": "primary"
         },
         {
+          "label": "Section 153 as enacted (commencement)",
+          "url": "https://www.legislation.gov.uk/ukpga/1980/51/section/153/enacted",
+          "role": "primary"
+        },
+        {
           "label": "Commencement No. 1",
-          "url": "https://www.legislation.gov.uk/uksi/1980/1406/contents",
+          "url": "https://www.legislation.gov.uk/uksi/1980/1406/made",
           "role": "primary"
         }
       ],
       "linked_indicators": [
+        {
+          "id": "right-to-buy-sales-and-replacements",
+          "title": "Right to Buy sales and replacements",
+          "domain": "policy",
+          "view": "promise",
+          "relationship": "context",
+          "note": "England Right to Buy sales from Live Tables / open data, starting 1980–81. It is a financial-year sales count, not a count of commencement-day sales, and it is not the one-for-one replacement pledge."
+        },
         {
           "id": "dwelling-stock-by-tenure",
           "title": "Dwelling stock by tenure",

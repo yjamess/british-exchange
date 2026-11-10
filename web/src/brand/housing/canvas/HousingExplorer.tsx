@@ -77,6 +77,7 @@ import {
   SupplyGeography,
   GEOGRAPHY_MEASURE_OPTIONS,
   geographyFoot,
+  isGeographyMeasure,
   type GeographyMeasure,
 } from "./supply/SupplyGeography";
 import {
@@ -102,10 +103,14 @@ import {
 } from "./land/DevelopmentSites";
 import {
   GB_HISTORY_YEARS,
+  gbYearLabel,
   HistoricalChange,
+  GB_HISTORY_PLACE_NAMES,
   historyFoot,
   type GbHistoryYear,
 } from "./land/HistoricalChange";
+import { AppealsCasework, appealsFoot } from "./land/AppealsCasework";
+import { LocalPlans, localPlansFigures, localPlansFoot } from "./land/LocalPlans";
 import { InsideHomes, InsideHomesControls, insideHomesFoot } from "./quality/InsideHomes";
 import { EnergyView, EnergyViewControls, energyViewFoot } from "./quality/EnergyView";
 import { StateOfRepair, StateOfRepairControls, stateOfRepairFoot } from "./quality/StateOfRepair";
@@ -138,6 +143,7 @@ import {
   type Owner,
 } from "./ownership/WhoOwns";
 import { MortgageMachine, mortgageFoot } from "./ownership/MortgageMachine";
+import { UnavailableControl } from "./quality/parts";
 import { PropertyWealth, wealthAgeOptions, wealthFoot } from "./ownership/PropertyWealth";
 import { OwnershipData, ownershipDataFoot } from "./ownership/OwnershipData";
 import { PolicyCanvas, PolicyControls, parsePolicyState, policyFigures, policyFootRows, type PolicyView } from "./policy/PolicyCanvas";
@@ -152,6 +158,7 @@ import {
 import { keyParam, parseKeyParam, flowLabel, qKey } from "./insecurity/periods";
 import { toT } from "../../data";
 import { HousingNeed, needFoot, needYearOptions } from "./insecurity/HousingNeed";
+import { CostOfInsecurity, costFoot, costYearOptions } from "./insecurity/CostOfInsecurity";
 import {
   InsecurityData,
   insecurityDataFoot,
@@ -168,6 +175,7 @@ import { useRenting } from "./renting/useRenting";
 import {
   DOMAINS,
   MAX_HISTORY_PLACES,
+  ENGLAND_CODE,
   VIEWS,
   figuresFor,
   pricesMapReading,
@@ -186,13 +194,13 @@ import s from "./explorer.module.css";
  * Shareable URL: ?domain=&view=&place=&measure=&from=&to=&date=&area=&lad=
  * History `place` is comma-separated codes (uk,E12000007,…); Map keeps its own date/area/compare/type.
  * Affordability experiment: ?earn=&dep=&rate=&term=&lti=
- * Housing insecurity: Pathways ?place=&node=&q=2026Q1&read=table · Temporary ?ta= · Displacement ?area=&mode=share · Need ?yr=
+ * Housing insecurity: Pathways ?place=&node=&q=2026Q1&read=table · Temporary ?ta= · Displacement ?area=&mode=share · Need ?yr= · Cost ?cy=
  */
 
 const MEASURE_OPTIONS: PrintOption<Controls["measure"]>[] = [
   { value: "level", label: "Average price" },
   { value: "change", label: "Annual change" },
-  { value: "real", label: "Real price (CPI)" },
+  { value: "real", label: "After inflation" },
 ];
 const SEGMENT_OPTIONS: PrintOption<Controls["segment"]>[] = [
   { value: "new", label: "New vs existing" },
@@ -293,7 +301,11 @@ export function HousingExplorer({
   const agesParam = searchParams.get("ages");
   const agesView =
     agesParam === "place" || agesParam === "mortgage" || agesParam === "data" ? agesParam : "share";
-  const regionCodes = useMemo(() => new Set(data.regions.map((r) => r.code)), [data.regions]);
+  // England is a place too: it sits beside the regions in every place menu.
+  const regionCodes = useMemo(
+    () => new Set([...(data.englandPrice.length ? [ENGLAND_CODE] : []), ...data.regions.map((r) => r.code)]),
+    [data.regions, data.englandPrice],
+  );
   const placeRaw = searchParams.get("place");
   const places = useMemo(() => parsePlaces(placeRaw, regionCodes), [placeRaw, regionCodes]);
   const rawMeasure = searchParams.get("measure");
@@ -363,18 +375,22 @@ export function HousingExplorer({
     });
   const geographyState = useMemo<GeographyState>(
     () => ({
+      scale: searchParams.get("qscale") === "epc" ? "epc" : "survey",
       feature: searchParams.get("qf") || "fabric",
       tenure: searchParams.get("qt") || "all-tenures",
       year: num(searchParams.get("qy")),
+      period: searchParams.get("qp"),
       picked: searchParams.get("qpick"),
     }),
     [searchParams],
   );
   const setGeographyState = (next: Partial<GeographyState>) =>
     setQuery({
+      ...("scale" in next ? { qscale: next.scale === "epc" ? "epc" : null } : {}),
       ...("feature" in next ? { qf: next.feature === "fabric" || !next.feature ? null : next.feature } : {}),
       ...("tenure" in next ? { qt: next.tenure === "all-tenures" || !next.tenure ? null : next.tenure } : {}),
       ...("year" in next ? { qy: next.year != null ? String(next.year) : null } : {}),
+      ...("period" in next ? { qp: next.period } : {}),
       ...("picked" in next ? { qpick: next.picked } : {}),
     });
   const qualityDataState = useMemo<QualityDataState>(
@@ -391,8 +407,8 @@ export function HousingExplorer({
     });
   const qualityIndicator = qualityDataState.indicator;
   const controls = useMemo<Controls>(
-    () => ({ places, measure, segment, qualityIndicator }),
-    [places, measure, segment, qualityIndicator],
+    () => ({ places, measure, segment, qualityIndicator, supplyGeoYear: searchParams.get("gy") ?? undefined }),
+    [places, measure, segment, qualityIndicator, searchParams],
   );
   const fromParam = num(searchParams.get("from"));
   const toParam = num(searchParams.get("to"));
@@ -495,6 +511,7 @@ export function HousingExplorer({
       ages: null,
       own: null,
       wa: null,
+      gy: null,
       // Arrival chip is for Follow hops — clear on a manual domain rail change.
       via: null,
       via_return: null,
@@ -520,15 +537,18 @@ export function HousingExplorer({
     boeRate != null
       ? `Starts at ${scenarioBase.annualRatePercent.toFixed(1)}%. Quoted two-year fixed rate for a 75% loan-to-value mortgage.`
       : null;
-  const benchmarkCode = searchParams.get("bench") ?? "uk";
+  // England by default: the Budget sets this price against England years of pay (AFF1).
+  const defaultBench = data.englandPrice.length ? ENGLAND_CODE : "uk";
+  const benchmarkCode = searchParams.get("bench") ?? defaultBench;
   const priceBenchmarks = useMemo(
     () => [
       { code: "uk", name: "United Kingdom", points: data.price },
+      ...(data.englandPrice.length ? [{ code: ENGLAND_CODE, name: "England", points: data.englandPrice }] : []),
       ...[...data.regions]
         .sort((a, b) => a.name.localeCompare(b.name, "en-GB"))
         .map((place) => ({ code: place.code, name: place.name, points: place.points })),
     ],
-    [data.price, data.regions],
+    [data.price, data.regions, data.englandPrice],
   );
   // Keep History period and Map date/area/type when switching views — they are separate params.
   // On Renting, only the tab that owns `rent` may keep it. Data and Social rent clear it,
@@ -541,6 +561,11 @@ export function HousingExplorer({
         bed: null,
         lettings: null,
         ...(active === "affordability" && id !== "ages" ? { ages: null } : {}),
+        // Quality views share qf/qarch/qar/qt/qy but read them differently: a year or feature
+        // picked on one view must not carry into the next (it also showed a false Reset).
+        ...(active === "quality"
+          ? { qf: null, qarch: null, qar: null, qt: null, qy: null, qp: null, qpick: null }
+          : {}),
       });
       return;
     }
@@ -593,7 +618,14 @@ export function HousingExplorer({
       : searchParams.get("wb") === "affordable"
         ? "affordable"
         : "completions";
-  const geographyMeasure: GeographyMeasure = searchParams.get("gm") === "share" ? "share" : "count";
+  // Supply › Geography year (?gy=FY start year). Latest by default.
+  const supplyGeoYear = data.supplyGeography.byYear[searchParams.get("gy") ?? ""]
+    ? searchParams.get("gy")!
+    : (data.supplyGeography.years[0]?.value ?? "");
+  const supplyGeo = data.supplyGeography.byYear[supplyGeoYear] ?? data.supplyGeography;
+  const geographyMeasure: GeographyMeasure = isGeographyMeasure(searchParams.get("gm"))
+    ? (searchParams.get("gm") as GeographyMeasure)
+    : "count";
   const supplyState = useMemo<SupplyMachineState>(() => {
     const known = data.supplyMachine.byPlace;
     const code = (placeRaw ?? "").split(",").map((p) => p.trim()).find((p) => p in known) ?? "E92000001";
@@ -631,10 +663,10 @@ export function HousingExplorer({
     if (active !== "supply") return null;
     if (view === "machine" || view === "") return supplyMachineFoot(data.supplyMachine, supplyState);
     if (view === "who-builds") return whoBuildsFoot(whoBuildsMode);
-    if (view === "geography") return geographyFoot(data.supplyGeography, geographyMeasure);
+    if (view === "geography") return geographyFoot(supplyGeo, geographyMeasure);
     if (view === "table") return supplyDataFoot();
     return null;
-  }, [active, view, data.supplyMachine, data.supplyGeography, supplyState, whoBuildsMode, geographyMeasure]);
+  }, [active, view, data.supplyMachine, supplyGeo, supplyState, whoBuildsMode, geographyMeasure]);
   const qualityFoot = useMemo(() => {
     if (active !== "quality") return null;
     if (view === "inside" || view === "") return insideHomesFoot(insideState, qualityEvidence);
@@ -722,6 +754,7 @@ export function HousingExplorer({
   const rawOwner = searchParams.get("own");
   const titleOwner: Owner = isOwner(rawOwner) ? rawOwner : "uk";
   const [whoOwnsSearch, setWhoOwnsSearch] = useState("");
+  const [supplyGeoSearch, setSupplyGeoSearch] = useState("");
 
   // Domain 08 Housing insecurity — view state in the URL so every reading is shareable.
   const pathwaysState = useMemo<PathwaysState>(
@@ -748,16 +781,19 @@ export function HousingExplorer({
   const taType = searchParams.get("ta");
   const displacementMode: DisplacementMode = searchParams.get("mode") === "share" ? "share" : "rate";
   const needYear = num(searchParams.get("yr"));
+  const costYear = num(searchParams.get("cy"));
   const insecuritySeriesRaw = searchParams.get("is") ?? "";
   const [displacementSearch, setDisplacementSearch] = useState("");
+  // Renting: local authorities are in the PIPR file but too many for a menu — find one by name.
+  const [rentSearch, setRentSearch] = useState("");
   const pathwayKeys = useMemo(
     () => (active === "insecurity" ? pathwayQuarterKeys(data.insecurity) : []),
     [active, data.insecurity],
   );
   const pathwayLatest = pathwayKeys[pathwayKeys.length - 1] ?? 0;
   const insecurityDataOpts = useMemo(
-    () => (active === "insecurity" ? insecurityDataOptions(data.sources) : []),
-    [active, data.sources],
+    () => (active === "insecurity" ? insecurityDataOptions(data.sources, data.insecurity) : []),
+    [active, data.sources, data.insecurity],
   );
   const insecuritySeries =
     insecurityDataOpts.some((o) => o.value === insecuritySeriesRaw)
@@ -771,14 +807,30 @@ export function HousingExplorer({
     () => (active === "insecurity" ? needYearOptions(data.insecurity) : []),
     [active, data.insecurity],
   );
+  const costOpts = useMemo(
+    () => (active === "insecurity" ? costYearOptions(data.insecurity) : []),
+    [active, data.insecurity],
+  );
   const insecurityFoot = useMemo(() => {
     if (active !== "insecurity") return null;
     if (view === "temporary") return temporaryFoot(data.insecurity, taType);
     if (view === "displacement") return displacementFoot(data.insecurity, displacementMode);
     if (view === "need") return needFoot(data.insecurity, needYear);
+    if (view === "cost") return costFoot(data.insecurity, costYear);
     if (view === "table") return insecurityDataFoot(data.insecurity, data.sources, insecuritySeries);
     return pathwayFoot(data.insecurity, pathwaysState);
-  }, [active, view, data.insecurity, data.sources, taType, displacementMode, needYear, insecuritySeries, pathwaysState]);
+  }, [
+    active,
+    view,
+    data.insecurity,
+    data.sources,
+    taType,
+    displacementMode,
+    needYear,
+    costYear,
+    insecuritySeries,
+    pathwaysState,
+  ]);
   const wealthAgeRaw = searchParams.get("wa");
   const wealthAgeOpts = useMemo(
     () => (active === "ownership" ? wealthAgeOptions(data.ownership) : []),
@@ -834,11 +886,17 @@ export function HousingExplorer({
       ? planningFocusRaw
       : null;
   const sitesFocus: SitesFocus = searchParams.get("sm") === "authority" ? "authority" : "permission";
+  const pmRaw = searchParams.get("pm");
+  const planningInstrument = pmRaw === "appeals" ? "appeals" : pmRaw === "plans" ? "plans" : "p120";
   const gbyRaw = searchParams.get("gby") ?? "";
   const gbHistoryYear: GbHistoryYear = (GB_HISTORY_YEARS as readonly string[]).includes(gbyRaw)
     ? (gbyRaw as GbHistoryYear)
     : "2024-25";
+  const gbpRaw = searchParams.get("gbp") ?? "";
+  const gbFocusPlace =
+    GB_HISTORY_PLACE_NAMES.find((n) => n.toLowerCase() === gbpRaw.toLowerCase()) ?? null;
   const [landSearch, setLandSearch] = useState("");
+  const [gbPlaceSearch, setGbPlaceSearch] = useState(gbFocusPlace ?? "");
   const [landAuthorities, setLandAuthorities] = useState<{ code: string; name: string }[]>([]);
   useEffect(() => {
     if (active !== "land") return;
@@ -857,12 +915,29 @@ export function HousingExplorer({
   }, [active]);
   const landFoot = useMemo(() => {
     if (active !== "land") return null;
-    if (view === "decisions" || view === "planning") return planningFoot(data.planningFlow, planningQuarterIndex);
+    if (view === "decisions" || view === "planning") {
+      return planningInstrument === "appeals"
+        ? appealsFoot(data.planningAppeals)
+        : planningInstrument === "plans"
+          ? localPlansFoot(data.localPlans)
+          : planningFoot(data.planningFlow, planningQuarterIndex);
+    }
     if (view === "sites") return sitesFoot(data.brownfield);
     if (view === "history") return historyFoot(data.greenBelt, gbHistoryYear);
     if (view === "table") return landDataFoot();
     return explorerFoot();
-  }, [active, view, data.planningFlow, data.brownfield, data.greenBelt, planningQuarterIndex, gbHistoryYear]);
+  }, [
+    active,
+    view,
+    data.planningFlow,
+    data.planningAppeals,
+    data.localPlans,
+    data.brownfield,
+    data.greenBelt,
+    planningQuarterIndex,
+    gbHistoryYear,
+    planningInstrument,
+  ]);
 
   const rent = useRenting(
     active === "renting",
@@ -893,8 +968,10 @@ export function HousingExplorer({
           ? policyFigures(view === "promise" || view === "archive" || view === "table" ? view : "time", policyState, policyData)
           : active === "supply" && view === "who-builds"
             ? whoBuildsFigures(data.whoBuilds, whoBuildsMode)
-            : figuresFor(active, data, view, controls),
-    [active, rent.figures, data, view, controls, policyState, policyData, whoBuildsMode],
+            : active === "land" && (view === "decisions" || view === "planning") && planningInstrument === "plans"
+              ? localPlansFigures(data.localPlans)
+              : figuresFor(active, data, view, controls),
+    [active, rent.figures, data, view, controls, policyState, policyData, whoBuildsMode, planningInstrument],
   );
 
   // Period bounds come from the view's own series. A from/to inherited from
@@ -984,6 +1061,7 @@ export function HousingExplorer({
   const isInsecurityTemporary = active === "insecurity" && view === "temporary";
   const isInsecurityDisplacement = active === "insecurity" && view === "displacement";
   const isInsecurityNeed = active === "insecurity" && view === "need";
+  const isInsecurityCost = active === "insecurity" && view === "cost";
   const isInsecurityData = active === "insecurity" && view === "table";
   const isOwnershipNetwork = active === "ownership" && (view === "ownership" || view === "");
   const isOwnershipMortgages = active === "ownership" && view === "mortgages";
@@ -1047,6 +1125,15 @@ export function HousingExplorer({
       title: full && !rent.areas.includes(option.value) ? `At most ${MAX_RENT_PLACES} places` : undefined,
     }));
   }, [rent.areas, rent.places]);
+  // Local authorities stay out of the Places menu (too many). Offer them via search suggestions.
+  const rentLaSuggestions = useMemo(() => {
+    const q = rentSearch.trim().toLowerCase();
+    if (q.length < 2) return [];
+    return rent.places
+      .filter((place) => place.level === "local" && place.name.toLowerCase().includes(q))
+      .slice(0, 40)
+      .map((place) => ({ value: place.code, label: place.name }));
+  }, [rent.places, rentSearch]);
 
   const showControls =
     stage &&
@@ -1079,6 +1166,7 @@ export function HousingExplorer({
     !isInsecurityTemporary &&
     !isInsecurityDisplacement &&
     !isInsecurityNeed &&
+    !isInsecurityCost &&
     !isInsecurityData &&
     !isOwnershipNetwork &&
     !isOwnershipMortgages &&
@@ -1171,9 +1259,9 @@ export function HousingExplorer({
             label="Price benchmark"
             value={benchmarkCode}
             options={priceBenchmarks.map((place) => ({ value: place.code, label: place.name }))}
-            onChange={(v) => setQuery({ bench: v === "uk" ? null : v })}
+            onChange={(v) => setQuery({ bench: v === defaultBench ? null : v })}
           />
-          {benchmarkCode !== "uk" && <ResetButton onClick={() => setQuery({ bench: null })} />}
+          {benchmarkCode !== defaultBench && <ResetButton onClick={() => setQuery({ bench: null })} />}
         </ControlRow>
       )}
       {isAges && (
@@ -1368,8 +1456,39 @@ export function HousingExplorer({
             options={GEOGRAPHY_MEASURE_OPTIONS}
             onChange={(v) => setQuery({ gm: v === "count" ? null : v })}
           />
-          {geographyMeasure !== "count" && (
-            <ResetButton onClick={() => setQuery({ gm: null })} />
+          {data.supplyGeography.years.length > 1 && (
+            <MenuControl
+              label="Financial year"
+              value={supplyGeoYear}
+              options={data.supplyGeography.years.map((y) => ({
+                value: y.value,
+                label: y === data.supplyGeography.years[0] && data.supplyGeography.provisional ? `${y.label} provisional` : y.label,
+              }))}
+              onChange={(v) => setQuery({ gy: v === data.supplyGeography.years[0]?.value ? null : v })}
+            />
+          )}
+          <SearchControl
+            label="Find an authority"
+            value={supplyGeoSearch}
+            placeholder="Type a local authority"
+            onChange={(v) => {
+              setSupplyGeoSearch(v);
+              const hit = supplyGeo.mapPlaces.find(
+                (p) => p.name.toLowerCase() === v.trim().toLowerCase(),
+              );
+              if (hit) setQuery({ area: hit.code });
+            }}
+          />
+          {(geographyMeasure !== "count" ||
+            mapArea ||
+            supplyGeoSearch ||
+            supplyGeoYear !== (data.supplyGeography.years[0]?.value ?? "")) && (
+            <ResetButton
+              onClick={() => {
+                setSupplyGeoSearch("");
+                setQuery({ gm: null, area: null, gy: null });
+              }}
+            />
           )}
         </ControlRow>
       )}
@@ -1405,21 +1524,15 @@ export function HousingExplorer({
             onChange={(v) => setPathways({ place: v === "england" ? null : v })}
           />
           {pathwaysState.place ? (
-            <MenuControl
+            // Places publish the latest quarter only, so this is a fact, not a menu.
+            <UnavailableControl
               label="Quarter"
-              value="place"
-              options={[
-                {
-                  value: "place",
-                  label: `${flowLabel(
-                    (() => {
-                      const p = data.insecurity.pathwayPlaces.find((x) => x.code === pathwaysState.place);
-                      return p ? qKey(toT(p.period)) : pathwayLatest;
-                    })(),
-                  )} · latest by place`,
-                },
-              ]}
-              onChange={() => undefined}
+              reason={`${flowLabel(
+                (() => {
+                  const p = data.insecurity.pathwayPlaces.find((x) => x.code === pathwaysState.place);
+                  return p ? qKey(toT(p.period)) : pathwayLatest;
+                })(),
+              )} only · latest for places`}
             />
           ) : (
             <MenuControl
@@ -1490,6 +1603,20 @@ export function HousingExplorer({
             }}
           />
           {needYear != null && <ResetButton onClick={() => setQuery({ yr: null })} />}
+        </ControlRow>
+      )}
+      {isInsecurityCost && costOpts.length > 0 && (
+        <ControlRow label="Cost of insecurity controls">
+          <MenuControl
+            label="Financial year"
+            value={String(costYear ?? costOpts[0]!.year)}
+            options={costOpts.map((o) => ({ value: o.value, label: o.label }))}
+            onChange={(v) => {
+              const next = Number(v);
+              setQuery({ cy: next === costOpts[0]!.year ? null : String(next) });
+            }}
+          />
+          {costYear != null && <ResetButton onClick={() => setQuery({ cy: null })} />}
         </ControlRow>
       )}
       {isInsecurityData && insecurityDataOpts.length > 0 && (
@@ -1588,28 +1715,59 @@ export function HousingExplorer({
       {isLandHistory && (
         <ControlRow label="Historical change controls">
           <MenuControl
-            label="Boundary year"
+            label="Map date"
             value={gbHistoryYear}
-            options={GB_HISTORY_YEARS.map((y) => ({ value: y, label: y }))}
+            options={[...GB_HISTORY_YEARS].reverse().map((y) => ({ value: y, label: gbYearLabel(y) }))}
             onChange={(id) => setQuery({ gby: id === "2024-25" ? null : id })}
           />
-          {gbyRaw !== "" && <ResetButton onClick={() => setQuery({ gby: null })} />}
-        </ControlRow>
-      )}
-      {isLandDecisionMachine && planningQuarterOpts.length > 0 && (
-        <ControlRow label="Planning decisions controls">
-          <MenuControl
-            label="Quarter"
-            value={String(planningQuarterIndex ?? planningQuarterOpts[0]!.index)}
-            options={planningQuarterOpts.map((o) => ({ value: o.value, label: o.label }))}
+          <SearchControl
+            label="Find a place"
+            value={gbPlaceSearch}
+            placeholder="London, Manchester, York…"
+            note="Cities each Green Belt surrounds"
             onChange={(v) => {
-              const next = Number(v);
-              const latest = planningQuarterOpts[0]!.index;
-              setQuery({ pq: next === latest ? null : String(next) });
+              setGbPlaceSearch(v);
+              const hit = GB_HISTORY_PLACE_NAMES.find((n) => n.toLowerCase() === v.trim().toLowerCase());
+              if (hit) setQuery({ gbp: hit });
+              else if (!v.trim()) setQuery({ gbp: null });
             }}
           />
-          {(planningQuarterIndex != null || planningFocus != null) && (
-            <ResetButton onClick={() => setQuery({ pq: null, pf: null })} />
+          {(gbyRaw !== "" || gbFocusPlace) && (
+            <ResetButton
+              onClick={() => {
+                setGbPlaceSearch("");
+                setQuery({ gby: null, gbp: null });
+              }}
+            />
+          )}
+        </ControlRow>
+      )}
+      {isLandDecisionMachine && (
+        <ControlRow label="Planning decisions controls">
+          <MenuControl
+            label="Measure"
+            value={planningInstrument}
+            options={[
+              { value: "p120", label: "Planning applications" },
+              { value: "appeals", label: "Appeals" },
+              { value: "plans", label: "Local plans" },
+            ]}
+            onChange={(id) => setQuery({ pm: id === "p120" ? null : id, pq: null, pf: null })}
+          />
+          {planningInstrument === "p120" && planningQuarterOpts.length > 0 && (
+            <MenuControl
+              label="Quarter"
+              value={String(planningQuarterIndex ?? planningQuarterOpts[0]!.index)}
+              options={planningQuarterOpts.map((o) => ({ value: o.value, label: o.label }))}
+              onChange={(v) => {
+                const next = Number(v);
+                const latest = planningQuarterOpts[0]!.index;
+                setQuery({ pq: next === latest ? null : String(next) });
+              }}
+            />
+          )}
+          {(planningInstrument !== "p120" || planningQuarterIndex != null || planningFocus != null) && (
+            <ResetButton onClick={() => setQuery({ pm: null, pq: null, pf: null })} />
           )}
         </ControlRow>
       )}
@@ -1624,18 +1782,49 @@ export function HousingExplorer({
 
       {showRentControls && (
         <ControlRow>
-          <MultiMenuControl
-            label="Places"
-            values={rent.areas}
-            options={rentPlaceOptions}
-            onChange={(next) => setQuery({ area: rentAreasParam(next.length > 0 ? next : [RENT_UK]) })}
+          {view === "map" || view === "bedrooms" ? (
+            <MenuControl
+              label="Place"
+              value={rent.areas[0] ?? RENT_UK}
+              options={rentPlaceOptions.map(({ value, label }) => ({ value, label }))}
+              onChange={(code) => setQuery({ area: rentAreasParam([code]) })}
+            />
+          ) : (
+            <MultiMenuControl
+              label="Places"
+              values={rent.areas}
+              options={rentPlaceOptions}
+              onChange={(next) => setQuery({ area: rentAreasParam(next.length > 0 ? next : [RENT_UK]) })}
+            />
+          )}
+          <SearchControl
+            label="Find an authority"
+            value={rentSearch}
+            placeholder="Type a local authority (334 districts)"
+            note="Nations and regions are in Places. Search picks a local authority."
+            suggestions={rentLaSuggestions}
+            onChange={(v) => {
+              setRentSearch(v);
+              const hit = rent.places.find(
+                (p) => p.level === "local" && p.name.toLowerCase() === v.trim().toLowerCase(),
+              );
+              if (!hit) return;
+              const single = view === "map" || view === "bedrooms";
+              const next = single
+                ? [hit.code]
+                : [...rent.areas.filter((c) => c !== hit.code), hit.code].slice(-MAX_RENT_PLACES);
+              setQuery({ area: rentAreasParam(next) });
+              setRentSearch("");
+            }}
           />
-          <MenuControl
-            label="Property"
-            value={rent.category}
-            options={rent.homeOptions.map((id) => ({ value: id, label: categoryLabel(id) }))}
-            onChange={(id) => setQuery({ bed: id === "all" ? null : id })}
-          />
+          {rent.homeOptions.length > 1 && (
+            <MenuControl
+              label="Property"
+              value={rent.category}
+              options={rent.homeOptions.map((id) => ({ value: id, label: categoryLabel(id) }))}
+              onChange={(id) => setQuery({ bed: id === "all" ? null : id })}
+            />
+          )}
           {rentYears.length > 0 && (
             <PeriodControl
               label="Period"
@@ -1661,7 +1850,10 @@ export function HousingExplorer({
               onChange={setPlaces}
               options={[
                 { value: "uk", label: "United Kingdom" },
-                ...data.regions.map((r) => {
+                ...[
+                  ...(data.englandPrice.length ? [{ code: ENGLAND_CODE, name: "England" }] : []),
+                  ...[...data.regions].sort((a, b) => a.name.localeCompare(b.name, "en-GB")),
+                ].map((r) => {
                   const blocked = !places.includes(r.code) && places.length >= MAX_HISTORY_PLACES;
                   return {
                     value: r.code,
@@ -1719,7 +1911,7 @@ export function HousingExplorer({
                     : rent.title
             : isAges
               ? agesView === "place"
-                ? "Private rent · ages 16–34 · England"
+                ? "Private rent · ages 16–34 · English regions"
                 : agesView === "mortgage"
                   ? "Mortgage payment by age · England"
                   : "Housing costs by age · England"
@@ -1729,7 +1921,9 @@ export function HousingExplorer({
                   : "Titles held by UK companies · England and Wales"
               : isMap
                 ? mapTitle
-                : (stage?.title ?? domain.title)
+                : isLandDecisionMachine && planningInstrument === "plans"
+                  ? "Local plans: who has one, and how old it is"
+                  : (stage?.title ?? domain.title)
         }
         bar={stageBar}
         framed={!(active === "supply" && view === "pipeline")}
@@ -1911,7 +2105,12 @@ export function HousingExplorer({
         ) : isSupplyMachine ? (
           <SupplyMachine machine={data.supplyMachine} state={supplyState} onChange={setSupply} />
         ) : isSupplyGeography ? (
-          <SupplyGeography geography={data.supplyGeography} measure={geographyMeasure} />
+          <SupplyGeography
+            geography={supplyGeo}
+            measure={geographyMeasure}
+            area={mapArea}
+            onArea={(code) => setQuery({ area: code })}
+          />
         ) : isWhoBuilds ? (
           <WhoBuilds whoBuilds={data.whoBuilds} mode={whoBuildsMode} />
         ) : isSupplyData ? (
@@ -1919,18 +2118,32 @@ export function HousingExplorer({
         ) : isLandData ? (
           <LandData data={data} />
         ) : isLandDecisionMachine ? (
-          <PlanningDecisionMachine
-            planning={data.planningFlow}
-            quarterIndex={planningQuarterIndex}
-            focus={planningFocus}
-            onFocus={(next) => setQuery({ pf: next })}
-          />
+          planningInstrument === "appeals" ? (
+            <AppealsCasework appeals={data.planningAppeals} />
+          ) : planningInstrument === "plans" ? (
+            <LocalPlans plans={data.localPlans} />
+          ) : (
+            <PlanningDecisionMachine
+              planning={data.planningFlow}
+              quarterIndex={planningQuarterIndex}
+              focus={planningFocus}
+              onFocus={(next) => setQuery({ pf: next })}
+            />
+          )
         ) : isLandExplorer ? (
           <LandExplorer england={data.brownfield} code={lad || null} onCode={(next) => setQuery({ lad: next })} />
         ) : isLandSites ? (
           <DevelopmentSites sites={data.brownfield} focus={sitesFocus} />
         ) : isLandHistory ? (
-          <HistoricalChange greenBelt={data.greenBelt} year={gbHistoryYear} />
+          <HistoricalChange
+            greenBelt={data.greenBelt}
+            year={gbHistoryYear}
+            focusPlace={gbFocusPlace}
+            onFocusPlace={(name) => {
+              setGbPlaceSearch(name ?? "");
+              setQuery({ gbp: name });
+            }}
+          />
         ) : isQualityInside ? (
           <InsideHomes
             state={insideState}
@@ -1979,6 +2192,8 @@ export function HousingExplorer({
           />
         ) : isInsecurityNeed ? (
           <HousingNeed insecurity={data.insecurity} year={needYear} />
+        ) : isInsecurityCost ? (
+          <CostOfInsecurity insecurity={data.insecurity} year={costYear} />
         ) : isInsecurityData ? (
           <InsecurityData insecurity={data.insecurity} sources={data.sources} seriesId={insecuritySeries} />
         ) : isOwnershipNetwork ? (

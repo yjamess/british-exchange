@@ -556,14 +556,45 @@ def authorities() -> list[dict[str, str]]:
     return found
 
 
+ONS_LAD_NAMES = (
+    "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/"
+    "LAD_DEC_2024_UK_NC/FeatureServer/0/query"
+)
+
+
+def current_authorities() -> list[dict[str, str]]:
+    """English local authority districts as of ONS LAD December 2024.
+
+    The Land Explorer search uses this list, not Land Use Stock 2022: the 2023
+    reorganisation (Cumberland, Westmorland and Furness, North Yorkshire, Somerset)
+    abolished 17 districts that the 2022 table still names.
+    """
+    response = httpx.get(
+        ONS_LAD_NAMES,
+        params={"where": "1=1", "outFields": "LAD24CD,LAD24NM", "returnGeometry": "false", "f": "json"},
+        headers={"User-Agent": USER_AGENT},
+        timeout=60.0,
+    )
+    response.raise_for_status()
+    found = [
+        {"code": str(f["attributes"]["LAD24CD"]), "name": str(f["attributes"]["LAD24NM"])}
+        for f in response.json().get("features") or []
+        if str(f["attributes"]["LAD24CD"])[:3] in {"E06", "E07", "E08", "E09"}
+    ]
+    if len(found) < 290:
+        raise RuntimeError(f"ONS LAD Dec 2024 returned only {len(found)} English districts")
+    found.sort(key=lambda a: a["name"])
+    return found
+
+
 def write_authorities() -> Path:
     CURATED.mkdir(parents=True, exist_ok=True)
     path = CURATED / "authorities.json"
     path.write_text(
         json.dumps(
             {
-                "source": "MHCLG Land Use Stock 2022, Table P400a — English local authority districts",
-                "authorities": authorities(),
+                "source": "ONS Open Geography, Local Authority Districts (December 2024) — English districts",
+                "authorities": current_authorities(),
             },
             indent=1,
         )

@@ -75,12 +75,16 @@ PACK_REGISTRY: dict[str, str] = {
     ),
     # Landmark-year England Green Belt plates (Historical Change).
     "housing.green-belt-history-index": "housing/green-belt-history/curated/index.json",
+    "housing.green-belt-history-2010-11": "housing/green-belt-history/curated/2010-11.json",
     "housing.green-belt-history-2019-20": "housing/green-belt-history/curated/2019-20.json",
     "housing.green-belt-history-2020-21": "housing/green-belt-history/curated/2020-21.json",
     "housing.green-belt-history-2021-22": "housing/green-belt-history/curated/2021-22.json",
-    "housing.green-belt-history-2022": "housing/green-belt-history/curated/2022.json",
     "housing.green-belt-history-2023-24": "housing/green-belt-history/curated/2023-24.json",
     "housing.green-belt-history-2024-25": "housing/green-belt-history/curated/2024-25.json",
+    # PINS Casework Database aggregates (Land › Planning decisions › Appeals).
+    "housing.planning-appeals": "housing/planning-appeals/curated/summary.json",
+    # Planning Data local-plan status (Land › Planning decisions › Local plans; T17).
+    "housing.local-plan-status": "housing/local-plan-status/curated/summary.json",
     "housing.policy-events": "housing/policy-events/events.json",
     "housing.policy-tracks": "housing/policy-events/tracks.json",
     "housing.policy-pledges": "housing/policy-events/pledges.json",

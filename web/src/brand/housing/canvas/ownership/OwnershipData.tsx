@@ -34,7 +34,7 @@ export function ownershipDataFoot(): {
       "Quoted mortgage rates are the Economy series already used on Affordability.",
       "Contains HM Land Registry data © Crown copyright and database right 2026. This data is licensed under the Open Government Licence v3.0.",
     ],
-    source: "HM Land Registry · FCA · PRA · MLAR · ONS Wealth and Assets Survey · Bank of England",
+    source: "HM Land Registry · FCA · PRA · MLAR · ONS · Wealth and Assets Survey · Bank of England",
     dataHref: "/data",
   };
 }
@@ -53,7 +53,9 @@ export function OwnershipData({ ownership }: { ownership: Own }) {
   const typeLabels = [...new Set([...titles.uk.types, ...titles.overseas.types].map((r) => r.label))];
   const ukType = new Map(titles.uk.types.map((r) => [r.label, r.v]));
   const hasTitles = places.length > 0;
-  const hasAny = stock.length > 0 || advances.length > 0 || median.length > 0 || hasTitles;
+  const estates = ownership.estates.rows;
+  const COVERAGE = { before: "All estates that reported assets", transition: "Mixed, change on 1 Jan 2022", full: "Full returns only" };
+  const hasAny = stock.length > 0 || advances.length > 0 || median.length > 0 || hasTitles || estates.length > 0;
 
   if (!hasAny) {
     return (
@@ -139,6 +141,36 @@ export function OwnershipData({ ownership }: { ownership: Own }) {
             </section>
           )}
         </>
+      )}
+
+      {estates.length > 0 && (
+        <section className={gen.panel}>
+          <h3 className={t.stageTitle}>Residential property in estates · UK · by tax year of death</h3>
+          <div className={t.tableWrap}>
+            <table className={t.table} aria-label="Residential property in estates reported to HMRC">
+              <thead>
+                <tr>
+                  <th scope="col">Tax year of death</th>
+                  <th scope="col">Estates covered</th>
+                  <th scope="col">Residential property · £ million</th>
+                  <th scope="col">Estates holding it</th>
+                  <th scope="col">All assets · £ million</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...estates].reverse().map((r) => (
+                  <tr key={r.year}>
+                    <th scope="row">{r.year}</th>
+                    <td>{COVERAGE[r.coverage]}</td>
+                    <td>{r.residential == null ? "—" : fmt.count(r.residential)}</td>
+                    <td>{r.holding == null ? "—" : fmt.count(r.holding)}</td>
+                    <td>{r.gross == null ? "—" : fmt.count(r.gross)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
       )}
 
       {stock.length > 0 && (

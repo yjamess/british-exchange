@@ -18,6 +18,8 @@
 .mapSurfaceFlow .mapSvg{width:100%;height:auto;min-height:0;max-height:32rem;aspect-ratio:760 / 880}
 .mapSurfaceFlow .mapTools{top:12px;right:12px}
 .mapSurfaceFlow .mapFoot{display:none}
+/* Phone: the caption and the tools stack above the drawing instead of overlapping it. */
+@media(max-width:560px){.mapSurfaceFlow .mapCaption,.mapSurfaceFlow .mapTools{position:static}.mapSurfaceFlow .mapCaption{margin-bottom:8px}.mapSurfaceFlow .mapTools{margin-bottom:8px}}
 /* Region choropleth: the drawing fills the stage width. No box around it. */
 .mapSurfaceRegion{position:relative;width:min(100%,26rem);max-width:100%;min-width:0;min-height:0;height:auto;overflow:hidden;border:0;background:transparent;display:flex;flex-direction:column;gap:10px}
 .mapSurfaceRegion .mapSvg{width:100%;max-width:100%;height:auto;min-width:0;min-height:0;max-height:none;aspect-ratio:760 / 880;flex:none}

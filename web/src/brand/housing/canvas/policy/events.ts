@@ -9,13 +9,13 @@ import type { Era, EventType, Nation, PolicyEvent, Relationship } from "./types"
 
 export const TYPE_LABEL: Record<EventType, string> = {
   act: "Act",
-  statutory_instrument: "Statutory instrument",
+  statutory_instrument: "Regulation or order",
   programme: "Programme",
   institution: "Institution",
 };
 export const TYPE_PLURAL: Record<EventType, string> = {
   act: "Acts",
-  statutory_instrument: "Statutory instruments",
+  statutory_instrument: "Regulations and orders",
   programme: "Programmes",
   institution: "Institutions",
 };

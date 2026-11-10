@@ -25,8 +25,10 @@ type SeriesDef = {
   label: string;
   measure: string;
   points: (d: Ins) => Pt[];
-  cadence: "quarterly" | "annual";
+  cadence: "quarterly" | "annual" | "monthly";
   asStock?: boolean;
+  /** Indicator the series comes from, when it is one series of a larger indicator. */
+  source?: string;
 };
 
 /** Domain 08 series that have a loaded England time series in the pack. */
@@ -44,6 +46,7 @@ export const INSECURITY_DATA_SERIES: SeriesDef[] = [
     measure: "Flow · quarter",
     points: (d) => d.assessmentsTotal,
     cadence: "quarterly",
+    source: "statutory-homelessness-assessments",
   },
   {
     id: "homelessness-prevention-outcomes",
@@ -53,11 +56,27 @@ export const INSECURITY_DATA_SERIES: SeriesDef[] = [
     cadence: "quarterly",
   },
   {
+    id: "prevention-secured",
+    label: "Prevention ended with accommodation secured",
+    measure: "Flow · quarter",
+    points: (d) => d.preventionSecured,
+    cadence: "quarterly",
+    source: "homelessness-prevention-outcomes",
+  },
+  {
     id: "homelessness-relief-outcomes",
     label: "Relief duties ended",
     measure: "Flow · quarter",
     points: (d) => d.reliefEnded,
     cadence: "quarterly",
+  },
+  {
+    id: "relief-secured",
+    label: "Relief ended with accommodation secured",
+    measure: "Flow · quarter",
+    points: (d) => d.reliefSecured,
+    cadence: "quarterly",
+    source: "homelessness-relief-outcomes",
   },
   {
     id: "homelessness-main-duty",
@@ -67,12 +86,29 @@ export const INSECURITY_DATA_SERIES: SeriesDef[] = [
     cadence: "quarterly",
   },
   {
+    id: "main-duty-accepted",
+    label: "Main duty accepted",
+    measure: "Flow · quarter",
+    points: (d) => d.mainDutyAccepted,
+    cadence: "quarterly",
+    source: "homelessness-main-duty",
+  },
+  {
     id: "temporary-accommodation-households",
     label: "Households in temporary accommodation",
     measure: "Stock · quarter end",
     points: (d) => d.taHouseholds,
     cadence: "quarterly",
     asStock: true,
+  },
+  {
+    id: "ta-households-with-children",
+    label: "Households with children in temporary accommodation",
+    measure: "Stock · quarter end",
+    points: (d) => d.taWithChildren,
+    cadence: "quarterly",
+    asStock: true,
+    source: "temporary-accommodation-households",
   },
   {
     id: "temporary-accommodation-children",
@@ -98,6 +134,38 @@ export const INSECURITY_DATA_SERIES: SeriesDef[] = [
     cadence: "quarterly",
   },
   {
+    id: "landlord-orders",
+    label: "Landlord possession orders",
+    measure: "Flow · quarter",
+    points: (d) => d.possessionLandlordOrders,
+    cadence: "quarterly",
+    source: "possession-claims",
+  },
+  {
+    id: "landlord-warrants",
+    label: "Landlord possession warrants",
+    measure: "Flow · quarter",
+    points: (d) => d.possessionLandlordWarrants,
+    cadence: "quarterly",
+    source: "possession-claims",
+  },
+  {
+    id: "landlord-repossessions",
+    label: "Landlord repossessions by bailiffs",
+    measure: "Flow · quarter",
+    points: (d) => d.possessionLandlordRepossessions,
+    cadence: "quarterly",
+    source: "possession-claims",
+  },
+  {
+    id: "mortgage-claims",
+    label: "Mortgage possession claims",
+    measure: "Flow · quarter",
+    points: (d) => d.possessionMortgageClaims,
+    cadence: "quarterly",
+    source: "possession-claims",
+  },
+  {
     id: "social-housing-waiting-list",
     label: "Households on housing registers",
     measure: "Stock · 31 March",
@@ -119,12 +187,88 @@ export const INSECURITY_DATA_SERIES: SeriesDef[] = [
     points: (d) => d.supportNeedsSeries,
     cadence: "quarterly",
   },
+  {
+    id: "temporary-accommodation-spend",
+    label: "Homelessness net expenditure",
+    measure: "Flow · £ thousand, financial year",
+    points: (d) => d.spendNet,
+    cadence: "annual",
+  },
+  {
+    id: "spend-gross",
+    label: "Homelessness gross expenditure",
+    measure: "Flow · £ thousand, financial year",
+    points: (d) => d.spendGross,
+    cadence: "annual",
+    source: "temporary-accommodation-spend",
+  },
+  {
+    id: "homelessness-priority-need",
+    label: "Main duty: vulnerable households",
+    measure: "Flow · quarter",
+    points: (d) => d.priorityNeedVulnerable,
+    cadence: "quarterly",
+  },
+  {
+    id: "temporary-accommodation-by-type",
+    label: "Temporary accommodation · B&B / shared annexes",
+    measure: "Stock · quarter end",
+    points: (d) => d.taByType.find((line) => line.id === "bb-shared-annexes")?.points ?? [],
+    cadence: "quarterly",
+    asStock: true,
+  },
+  {
+    id: "temporary-accommodation-duration",
+    label: "Temporary accommodation under 6 months",
+    measure: "Stock · length so far · quarter end",
+    points: (d) => d.taDurationUnder6,
+    cadence: "quarterly",
+    asStock: true,
+  },
+  {
+    id: "temporary-accommodation-out-of-area",
+    label: "Out-of-area temporary accommodation · England",
+    measure: "Stock · quarter end",
+    points: (d) => d.taOutOfAreaEngland,
+    cadence: "quarterly",
+    asStock: true,
+  },
+  {
+    id: "rough-sleeping-framework",
+    label: "Rough sleeping framework · people seen in month",
+    measure: "Management information · month",
+    points: (d) => d.roughSleepingFramework,
+    cadence: "monthly",
+    asStock: true,
+  },
+  {
+    id: "concealed-households",
+    label: "Concealed families · England",
+    measure: "Stock · Census Day",
+    points: (d) => d.concealedFamilies,
+    cadence: "annual",
+    asStock: true,
+  },
+  {
+    id: "homelessness-devolved-ta",
+    label: "Devolved temporary accommodation",
+    measure: "Stock · jurisdiction-specific",
+    // Latest snapshot rows are drawn as a nation table, not a time series.
+    points: () => [],
+    cadence: "annual",
+    asStock: true,
+  },
 ];
 
-export function insecurityDataOptions(sources: HousingV1["sources"]): { value: string; label: string }[] {
+export function insecurityDataOptions(
+  sources: HousingV1["sources"],
+  insecurity: Ins,
+): { value: string; label: string }[] {
+  // Offer a series when its indicator loaded and it has points — or devolved nation rows.
   return INSECURITY_DATA_SERIES.filter((row) => {
-    if (row.id === "assessments-total") return Boolean(sources["statutory-homelessness-assessments"]);
-    return Boolean(sources[row.id]);
+    if (!sources[row.source ?? row.id]) return false;
+    if (row.id === "homelessness-devolved-ta") return insecurity.devolvedTa.length > 0;
+    return row.points(insecurity).length > 0;
   }).map((row) => ({ value: row.id, label: row.label }));
 }
 
@@ -134,7 +278,7 @@ export function insecurityDataFoot(
   seriesId: string,
 ): { definition: string; method: string[]; source: string; dataHref?: string } {
   const def = INSECURITY_DATA_SERIES.find((r) => r.id === seriesId) ?? INSECURITY_DATA_SERIES[0]!;
-  const srcKey = def.id === "assessments-total" ? "statutory-homelessness-assessments" : def.id;
+  const srcKey = def.source ?? def.id;
   const src = sources[srcKey];
   return {
     definition: `${def.label}. ${def.measure}.`,
@@ -153,21 +297,22 @@ export function insecurityDataFoot(
   };
 }
 
-function periodCell(p: Pt, cadence: "quarterly" | "annual", asStock?: boolean): string {
+function periodCell(p: Pt, cadence: "quarterly" | "annual" | "monthly", asStock?: boolean): string {
   if (cadence === "quarterly") {
     const k = qKey(p.t);
     return asStock ? stockLabel(k) : flowLabel(k);
   }
+  if (cadence === "monthly") return fmtT(p.t, "monthly");
   return fmtT(p.t, "annual");
 }
 
 export function InsecurityData({ insecurity, sources, seriesId }: Props) {
   const titleId = useId();
-  const options = insecurityDataOptions(sources);
+  const options = insecurityDataOptions(sources, insecurity);
   const activeId = options.some((o) => o.value === seriesId) ? seriesId : options[0]?.value ?? "";
   const def = INSECURITY_DATA_SERIES.find((r) => r.id === activeId) ?? INSECURITY_DATA_SERIES[0]!;
   const points = useMemo(() => [...def.points(insecurity)].sort((a, b) => b.t - a.t), [def, insecurity]);
-  const srcKey = def.id === "assessments-total" ? "statutory-homelessness-assessments" : def.id;
+  const srcKey = def.source ?? def.id;
   const src: Source | undefined = sources[srcKey];
 
   if (options.length === 0) {
@@ -178,7 +323,11 @@ export function InsecurityData({ insecurity, sources, seriesId }: Props) {
     );
   }
 
-  if (points.length === 0) {
+  const showDevolved =
+    insecurity.devolvedTa.length > 0 &&
+    (activeId === "homelessness-devolved-ta" || activeId === "temporary-accommodation-households");
+
+  if (points.length === 0 && !showDevolved) {
     return (
       <EmptyStage label="No observations">
         {def.label} has no loaded points in this build.
@@ -188,34 +337,40 @@ export function InsecurityData({ insecurity, sources, seriesId }: Props) {
 
   return (
     <div className={gen.stack}>
-      <div className={t.tableGroup}>
-        <p className={t.stageTitle} id={titleId}>
-          {def.label} · {def.measure}
-          {src?.unit ? ` · ${src.unit}` : ""}
-        </p>
-        <div className={t.tableWrap}>
-          <table className={t.table} aria-labelledby={titleId}>
-            <thead>
-              <tr>
-                <th scope="col">Period</th>
-                <th scope="col">Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {points.map((p) => (
-                <tr key={p.t}>
-                  <th scope="row">{periodCell(p, def.cadence, def.asStock)}</th>
-                  <td>{fmt.count(p.v)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {insecurity.devolvedTa.length > 0 && activeId === "temporary-accommodation-households" && (
+      {points.length > 0 && (
         <div className={t.tableGroup}>
-          <p className={t.stageTitle}>Devolved temporary accommodation · separate legal definitions</p>
+          <p className={t.stageTitle} id={titleId}>
+            {def.label} · {def.measure}
+            {src?.unit ? ` · ${src.unit}` : ""}
+          </p>
+          <div className={t.tableWrap}>
+            <table className={t.table} aria-labelledby={titleId}>
+              <thead>
+                <tr>
+                  <th scope="col">Period</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {points.map((p) => (
+                  <tr key={p.t}>
+                    <th scope="row">{periodCell(p, def.cadence, def.asStock)}</th>
+                    <td>{fmt.count(p.v)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {showDevolved && (
+        <div className={t.tableGroup}>
+          <p className={t.stageTitle}>
+            {activeId === "homelessness-devolved-ta"
+              ? "Devolved temporary accommodation · separate legal definitions"
+              : "Devolved temporary accommodation · separate legal definitions"}
+          </p>
           <div className={t.tableWrap}>
             <table className={t.table}>
               <thead>

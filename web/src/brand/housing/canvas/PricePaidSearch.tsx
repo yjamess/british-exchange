@@ -41,7 +41,7 @@ type Payload = {
 };
 
 const UNAVAILABLE =
-  "Recorded-sales search is not available on this copy of the Exchange. The monthly UK transaction count below is a different series and is unaffected.";
+  "Recorded-sales search is deferred on this database plan (the full year is too large for the free Postgres quota). The monthly UK transaction count below is a different series and is unaffected.";
 
 function addressLine(r: Result): string {
   const bits = [r.saon, r.paon, r.street, r.locality, r.town].filter(Boolean);

@@ -1,0 +1,35 @@
+indicator_id: planning-appeals-casework
+title: Planning Inspectorate appeals casework (England)
+sector: housing-land
+publisher: Planning Inspectorate
+source_url: https://www.gov.uk/government/publications/planning-inspectorate-appeals-database
+series_id: PINS Casework Database decided appeals
+geography: England — not UK
+frequency: annual aggregates from rolling casework extract
+unit: decided appeals / allow rate %
+definition: Decided Planning Inspectorate casework in England from the published Casework
+  Database. England yearly totals and top local authorities by decided volume. Allow
+  rate = Allowed ÷ (Allowed + Dismissed).
+licence: Open Government Licence v3.0
+agent_owner: housing
+connector_module: housing.connectors.planning_appeals
+curated_path: curated/summary.json
+update_cadence: when PINS republishes the Casework Database
+raw_evidence:
+- path: raw/2026-11-10/Casework_Database_2610.xlsx
+  retrieved_at: '2026-11-10T00:00:00+00:00'
+  checksum_sha256: dff80bd0f17cbc640dc205009a9411269c8e58462b6df71af903c592af3c20fa
+  source_url: https://assets.publishing.service.gov.uk/media/6ad9fcc1c818345ad8aca325/Casework_Database_-_2610.xlsx
+  official_release_date: '2026-10-26'
+transformations: Stream Data Set sheet; keep rows with case number, decision and decision
+  date; aggregate England-by-year and authorities for latest full calendar year; do
+  not geocode site addresses.
+caveats: Rolling Casework Database of decided appeals — not live cases, not a map.
+  Site address is published as text; The Exchange does not geocode it. Blank sheet
+  rows are ignored. Counts can differ from PINS quarterly Official Statistics (different
+  compile day). Allow rate uses Allowed vs Dismissed only — enforcement notice outcomes
+  sit in Other. This is not Live Table P120 (district planning applications).
+revision_notes: Initial Domain 06 appeals ingest 2026-11-10.
+related_indicator_ids:
+- planning-decisions-granted
+schema_version: '1.0'

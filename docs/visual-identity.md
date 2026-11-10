@@ -110,6 +110,7 @@ Twelve columns (`.bo-grid`, max 1320px, 8px rhythm, square corners). Each sectio
   - *Index rail* on paper: one photo-reference plate per research domain (`REF_ICON_PLATES`), numbered `01…`, grouped Ready / In preparation, fixed 4.5rem rows. Current = negative plate + 3px ink bar on the rail edge. Condenses to plates only (GSAP width tween; reduced motion instant).
   - *Instrument frame* for every domain, in this order: crumb · question (Caslon, sentence case) · view tabs → figures strip → labelled controls (Place / Measure / Period, one row) → stage (figure bar “Fig. n” + title + span/geography · plot · **one** Notes foot). No separate Coverage facts strip under the stage (Housing does not use it).
   - *One Notes foot:* `FigureRecord` or `SourceLine` on `<Stage foot={…}>`. Definition, method, derived totals and caveats live there. Never a second Notes under the stage, and never patent detail callouts inside the plot. Housing is the reference.
+  - *Source line grammar (every sector):* `Publisher · series · [Boundaries: …] · geography · [period / as at / release]`. Separate publisher from series with a middle dot (`MHCLG · Live Table 104`, never `MHCLG Live Table 104`). Drop empty parts (`formatSource` in `web/src/brand/template/Explorer.tsx`). Multi-publisher Data tabs list each publisher once, then the series. Full academic citations are for Data provenance desks only — not chart feet.
   - *Under the frame:* Notes foot first, then Next reading (`<Stage follow={…}>`) below a hairline. Both start level with the stage border. The hairline draws once from the left edge the first time it scrolls into view; type never moves; reduced motion shows it drawn. Lab: `/design-lab/under-stage` (B).
   - *Multi-chart stages:* separate plots with `<section>` + `explorerClasses.stageTitle` (sentence case, weight 400), as in Housing supply Pipeline. Prefer `<h3 className={stageTitle}>` (or `<p>`); do not use a bare heading level without the class — browser bold on `h4`/`h5` is not a brand face. Do not title charts with `.bo-label` “FIG. 1 · …” caps.
   - *View tabs* are joined square rectangles: selected and hover are the same solid ink block, with paper type. No underline tabs, no rounded cards.
@@ -128,7 +129,7 @@ Housing & Land is the reference page, not a second design. The next sector copie
 | Piece | Where | What it is |
 |-------|--------|------------|
 | Page | `SectorPage` | Mast, hero plate, sector name on a solid ink strip under the plate. The sector name is the one loud line. |
-| Canvas | `Explorer` | Left rail of domains, then crumb, Caslon question, view tabs, figures, controls, stage, source line. |
+| Canvas | `Explorer` | Left rail of domains, then crumb, Caslon question, view tabs, figures, controls, stage, source line (`formatSource` grammar above). |
 | Charts | `TimeChart`, `RankBars`, `ChangeRows` | Pass data and a form. Ranked bars are solid ink, the same ink as the first line on a time chart. |
 | Data | `tableGroup` / Land Data / Generation Data | Observation tables. Catalogue links live in Notes, not as the Data body. |
 | Policy | `DecisionLedger`, `CatalogueDossier`, `ExactRegister` | Electric slab + catalogue card. One shared module for every event domain. |

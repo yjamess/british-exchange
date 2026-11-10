@@ -84,6 +84,10 @@ export function decode(p: EvidencePayload): Cell[] {
 /* ——— Selection over the table ——— */
 
 export const ENGLAND = "E92000001";
+/** Domestic EPC certificate register — national/region vs local-authority packages. */
+export const EPC_NATIONAL_ID = "epc-domestic-lodgements";
+export const EPC_LA_ID = "epc-domestic-lodgements-by-local-authority";
+
 export type Selection = {
   /** "" = all dwellings, else "dwelling-age:pre-1919" etc. Mutually exclusive with a sub-England area. */
   archetype: string;

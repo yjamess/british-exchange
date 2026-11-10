@@ -29,7 +29,8 @@ export function affordabilityDataFoot(): {
       "England and Wales on the map is not the United Kingdom price.",
       "Purchase-affordability years are financial years, April to March.",
     ],
-    source: "ONS · AFF1 · Housing purchase affordability · MHCLG English Housing Survey · derived rent-to-earnings",
+    source:
+      "ONS · AFF1 · Housing purchase affordability · MHCLG · English Housing Survey · derived rent-to-earnings",
     dataHref: "/data#house-price-to-earnings-ratio",
   };
 }
@@ -228,10 +229,30 @@ export function AffordabilityData({ data }: { data: HousingV1 }) {
   );
 }
 
-const COST_PLACES = ["all households", "London", "England excluding London"] as const;
+const COST_PLACES = [
+  "all households",
+  "North East",
+  "North West",
+  "Yorkshire and the Humber",
+  "East Midlands",
+  "West Midlands",
+  "East",
+  "London",
+  "South East",
+  "South West",
+  "England excluding London",
+] as const;
 const COST_PLACE_LABEL: Record<string, string> = {
   "all households": "England",
+  "North East": "North East",
+  "North West": "North West",
+  "Yorkshire and the Humber": "Yorkshire and the Humber",
+  "East Midlands": "East Midlands",
+  "West Midlands": "West Midlands",
+  East: "East of England",
   London: "London",
+  "South East": "South East",
+  "South West": "South West",
   "England excluding London": "Rest of England",
 };
 const COST_AGE_LABEL: Record<string, string> = {

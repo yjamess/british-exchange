@@ -158,9 +158,10 @@ class ResidentialMortgageBookConnector(Connector):
             caveats=(
                 "Not seasonally adjusted. The outstanding balance is a stock at "
                 "quarter end. Advances and commitments are flows. Do not add the "
-                "stock to Bank of England monthly approvals. Buy-to-let here is a "
-                "share of new advances, including purchase, further advance and "
-                "remortgage. Arrears are loan accounts in arrears, not possessions."
+                "stock to Bank of England monthly approvals. The buy-to-let share is "
+                "buy-to-let house purchase only. With first-time buyers and other "
+                "purchase it sums to the house-purchase share, so never add it to "
+                "house purchase. Arrears are loan accounts in arrears, not possessions."
             ),
             revision_notes="Domain 09 ingest 2026-11-05. September 2026 edition.",
             related_indicator_ids=["mortgage-approvals", "mortgage-rate-2yr-fixed"],

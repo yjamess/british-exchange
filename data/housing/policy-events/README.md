@@ -72,18 +72,18 @@ Northern Ireland is thin: only the Housing (Northern Ireland) Order 1981, the Ho
 
 | id | Royal Assent | Commencement in this file |
 | --- | --- | --- |
-| `housing-town-planning-act-1919` | 31 July 1919 | Not pinned |
-| `town-country-planning-act-1947` | 6 August 1947 | Not pinned |
-| `housing-act-1980` | 8 August 1980 | Commencement No. 1 did not appoint Part I. The right-to-buy day is blank on purpose. |
+| `housing-town-planning-act-1919` | 31 July 1919 | **31 July 1919** — whole Act. No separate commencement section in the enacted text (s.52 is short title only); default under the Acts of Parliament (Commencement) Act 1793. |
+| `town-country-planning-act-1947` | 6 August 1947 | Passing-day provisions under s.120(2) on **6 August 1947**; appointed day **1 July 1948** (SI 1948/213) for the rest of the Act. |
+| `housing-act-1980` | 8 August 1980 | Chapter I (right to buy) **3 October 1980** by enacted s.153(1) — eight weeks beginning with Royal Assent. Not by SI. Commencement No. 1 does not appoint Part I. |
 | `renters-rights-act-2025` | 27 October 2025 | 1 May 2026 for Chapter 1 of Part 1, except section 25(3), for assured tenancies that are not social housing assured tenancies (SI 2026/421). |
 
-For the 1919 and 1947 anchors, `extent` now gives the extent sections read from the enacted text: section 51 (1919) and section 120(3)–(4) (1947).
+For the 1919 and 1947 anchors, `extent` gives the extent sections read from the enacted text: section 51 (1919) and section 120(3)–(4) (1947).
 
 ## Deliberately not included
 
 - **Not verifiable from legislation.gov.uk, GOV.UK or Parliament:** the Increase of Rent and Mortgage Interest (War Restrictions) Act 1915 (not on legislation.gov.uk), the Harlow New Town (Designation) Order 1947 and the Harlow Development Corporation (no primary text found), and the Office of the Deputy Prime Minister (the 2002 transfer order did not clearly cover housing).
 - **The 2024 return to the name Ministry of Housing, Communities and Local Government.** GOV.UK gives the month (July 2024) but not the day. It is described on the DLUHC record, whose `end_date` is blank.
-- **Commencement orders that have not been read.** These include the right-to-buy order for Housing Act 1980 Part I, the Renters' Rights Act appointment for social housing, and most orders for the 2002–2024 Acts.
+- **Commencement orders that have not been read.** These include the Renters' Rights Act appointment for social housing, and most orders for the 2002–2024 Acts. (Housing Act 1980 Chapter I is pinned from the Act itself, not from a missing SI.)
 - **Pledges, archive records and long-run housebuilding series.** Those are kept in separate files.
 - **Any causal claim.** A linked indicator is context only.
 

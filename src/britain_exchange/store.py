@@ -103,6 +103,7 @@ def list_observations_db(
     geography_code: str | None = None,
     series: str | None = None,
     category: str | None = None,
+    period_start: str | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Return observation rows plus dimension facet metadata."""
     with connect() as conn:
@@ -134,6 +135,9 @@ def list_observations_db(
         if category is not None:
             where.append("o.dim_category = %s")
             params.append(category)
+        if period_start is not None:
+            where.append("o.period_start = %s")
+            params.append(period_start)
 
         sql = f"""
             SELECT o.indicator_id,
@@ -151,32 +155,40 @@ def list_observations_db(
         """
         rows = conn.execute(sql, params).fetchall()
 
-        facet_release = selected_release
-        facet_params: list[Any] = [indicator_id]
-        facet_where = ["indicator_id = %s"]
-        if facet_release is not None:
-            facet_where.append("release_id = %s")
-            facet_params.append(facet_release)
-        facets = conn.execute(
-            f"""
-            SELECT
-                array_remove(array_agg(DISTINCT NULLIF(dim_fuel, '')), NULL)
-                    AS fuels,
-                array_remove(array_agg(DISTINCT NULLIF(dim_water_company, '')), NULL)
-                    AS water_companies,
-                array_remove(array_agg(DISTINCT NULLIF(dim_demographic, '')), NULL)
-                    AS demographics,
-                array_remove(array_agg(DISTINCT NULLIF(geography_code, '')), NULL)
-                    AS geography_codes,
-                array_remove(array_agg(DISTINCT NULLIF(dim_series, '')), NULL)
-                    AS series,
-                array_remove(array_agg(DISTINCT NULLIF(dim_category, '')), NULL)
-                    AS categories
-            FROM observation
-            WHERE {" AND ".join(facet_where)}
-            """,
-            facet_params,
-        ).fetchone()
+        # Full-indicator DISTINCT facets are expensive on large packages (EPC LA ≈ 200k).
+        # When the caller already filtered, derive facets from the filtered result set.
+        filtered = any(
+            v is not None
+            for v in (fuel, water_company, demographic, geography_code, series, category, period_start)
+        )
+        facets = None
+        if not filtered:
+            facet_release = selected_release
+            facet_params: list[Any] = [indicator_id]
+            facet_where = ["indicator_id = %s"]
+            if facet_release is not None:
+                facet_where.append("release_id = %s")
+                facet_params.append(facet_release)
+            facets = conn.execute(
+                f"""
+                SELECT
+                    array_remove(array_agg(DISTINCT NULLIF(dim_fuel, '')), NULL)
+                        AS fuels,
+                    array_remove(array_agg(DISTINCT NULLIF(dim_water_company, '')), NULL)
+                        AS water_companies,
+                    array_remove(array_agg(DISTINCT NULLIF(dim_demographic, '')), NULL)
+                        AS demographics,
+                    array_remove(array_agg(DISTINCT NULLIF(geography_code, '')), NULL)
+                        AS geography_codes,
+                    array_remove(array_agg(DISTINCT NULLIF(dim_series, '')), NULL)
+                        AS series,
+                    array_remove(array_agg(DISTINCT NULLIF(dim_category, '')), NULL)
+                        AS categories
+                FROM observation
+                WHERE {" AND ".join(facet_where)}
+                """,
+                facet_params,
+            ).fetchone()
 
     observations = []
     for row in rows:
@@ -191,14 +203,34 @@ def list_observations_db(
         }
         observations.append(item)
 
-    available = {
-        "fuels": list(facets["fuels"] or []) if facets else [],
-        "water_companies": list(facets["water_companies"] or []) if facets else [],
-        "demographics": list(facets["demographics"] or []) if facets else [],
-        "geography_codes": list(facets["geography_codes"] or []) if facets else [],
-        "series": list(facets["series"] or []) if facets else [],
-        "categories": list(facets["categories"] or []) if facets else [],
-        "release_id": selected_release,
-        "current_only": current_only and release_id is None,
-    }
+    if facets is not None:
+        available = {
+            "fuels": list(facets["fuels"] or []),
+            "water_companies": list(facets["water_companies"] or []),
+            "demographics": list(facets["demographics"] or []),
+            "geography_codes": list(facets["geography_codes"] or []),
+            "series": list(facets["series"] or []),
+            "categories": list(facets["categories"] or []),
+            "release_id": selected_release,
+            "current_only": current_only and release_id is None,
+        }
+    else:
+        def _vals(key: str) -> list[str]:
+            seen: list[str] = []
+            for o in observations:
+                v = (o["dimensions"].get(key) if key != "geography_code" else o.get("geography_code")) or ""
+                if v and v not in seen:
+                    seen.append(v)
+            return seen
+
+        available = {
+            "fuels": _vals("fuel"),
+            "water_companies": _vals("water_company"),
+            "demographics": _vals("demographic"),
+            "geography_codes": _vals("geography_code"),
+            "series": _vals("series"),
+            "categories": _vals("category"),
+            "release_id": selected_release,
+            "current_only": current_only and release_id is None,
+        }
     return observations, available

@@ -22,6 +22,7 @@ export {
   Stage,
   EmptyStage,
   FigureRecord,
+  formatSource,
   shortPublisher,
   SourceLine,
   DataTable,

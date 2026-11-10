@@ -15,7 +15,7 @@ export type AgesDisplay = "share" | "place" | "mortgage" | "data";
 
 export const AGES_BREAKDOWN_OPTIONS: { value: "share" | "place" | "mortgage"; label: string }[] = [
   { value: "share", label: "Income share" },
-  { value: "place", label: "Private rent" },
+  { value: "place", label: "Private rent by region" },
   { value: "mortgage", label: "Mortgage" },
 ];
 
@@ -38,7 +38,7 @@ const READING: Record<"share" | "place" | "mortgage", string> = {
   share:
     "Mean share of gross household income spent on the mortgage or the rent, for households in England that pay one. The open square is 2014–15 and the solid square is 2024–25. The survey publishes ages 16–34 and 65 or over.",
   place:
-    "Mean private rent as a share of income for households aged 16–34, in London, in England, and in the rest of England.",
+    "Mean private rent as a share of income for households aged 16–34, by English region, against England as a whole.",
   mortgage:
     "Mortgage payment as a share of household income for owners buying with a mortgage. This series includes ages 35–64. Ages 16–24 rest on a small sample.",
 };
@@ -85,7 +85,7 @@ export function AgesView({
           {breakdown === "share"
             ? "Income share by age · England"
             : breakdown === "place"
-              ? "Private rent · ages 16–34"
+              ? "Private rent · ages 16–34 · by region"
               : "Mortgage payment by age · England"}
         </h3>
         {breakdown === "share" && <ShareChart costs={costs} />}
@@ -143,11 +143,23 @@ function PlaceChart({ costs }: { costs: EhsHousingCostsByAge | null }) {
     young?.rows
       .find((row) => row.place === place)
       ?.tenures.find((tenure) => tenure.id === "private-rent")?.latest.mean;
-  const rows = [
-    { id: "london", label: "London", v: mean("London") },
-    { id: "england", label: "England", v: mean("all households") },
-    { id: "rest", label: "Rest of England", v: mean("England excluding London") },
-  ].flatMap((row) => (row.v == null ? [] : [{ id: row.id, label: row.label, v: row.v }]));
+  // The nine English regions the survey publishes, ranked; England is the reference bar.
+  const REGIONS = [
+    "North East",
+    "North West",
+    "Yorkshire and the Humber",
+    "East Midlands",
+    "West Midlands",
+    "East",
+    "London",
+    "South East",
+    "South West",
+  ];
+  const rows = REGIONS.flatMap((place) => {
+    const v = mean(place);
+    return v == null ? [] : [{ id: place, label: place === "East" ? "East of England" : place, v }];
+  }).sort((a, b) => b.v - a.v);
+  const england = mean("all households");
   if (!costs || rows.length === 0) {
     return (
       <EmptyStage label="In preparation">The private-rent rows are not loaded. No estimated figures.</EmptyStage>
@@ -155,8 +167,9 @@ function PlaceChart({ costs }: { costs: EhsHousingCostsByAge | null }) {
   }
   return (
     <RankBars
-      label={`Mean private rent as a share of income, ages 16 to 34, ${costs.latestYear}`}
+      label={`Mean private rent as a share of income, ages 16 to 34, by region, ${costs.latestYear}`}
       rows={rows}
+      reference={england == null ? undefined : { label: "England", v: england }}
       format={pct}
     />
   );

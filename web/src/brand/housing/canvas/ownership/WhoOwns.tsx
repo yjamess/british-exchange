@@ -87,7 +87,7 @@ export function whoOwnsFoot(titles: Titles, owner: Owner): {
       `Contains HM Land Registry data © Crown copyright and database right ${year}. This data is licensed under the Open Government Licence v3.0.`,
     ],
     // Source row: publisher · series · period. Licence attribution sits in Method.
-    source: `HM Land Registry · ${OWNER[owner].register} · ${monthLabel(titles.period)}`,
+    source: `HM Land Registry · ${OWNER[owner].register} · England and Wales · ${monthLabel(titles.period)}`,
     dataHref: "/data#corporate-owned-titles",
   };
 }

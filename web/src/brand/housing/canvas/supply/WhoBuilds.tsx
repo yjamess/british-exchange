@@ -23,8 +23,8 @@ type Props = {
 };
 
 export const WHO_BUILDS_MEASURE_OPTIONS: { value: WhoBuildsMode; label: string }[] = [
-  { value: "completions", label: "Builder · completions" },
-  { value: "starts", label: "Builder · starts" },
+  { value: "completions", label: "Completions by builder" },
+  { value: "starts", label: "Starts by builder" },
   { value: "affordable", label: "Affordable products" },
 ];
 
@@ -41,6 +41,7 @@ export function whoBuildsFoot(mode: WhoBuildsMode): {
       method: [
         "England only, financial years (MHCLG Live Table 1000).",
         "These are affordable products, not the builder. They are not Live Table 213 completions.",
+        "Home ownership schemes = shared ownership, other affordable home ownership and First Homes (Exchange grouping): shared ownership is only published on its own from 2014. The five lines add up to all affordable completions.",
         "The latest year can be provisional.",
       ],
       source: "MHCLG · Live Table 1000 · England · financial years",
@@ -135,7 +136,6 @@ export function WhoBuilds({ whoBuilds, mode }: Props) {
               ? "England additional affordable homes by tenure — completions"
               : `England house building by builder tenure — ${mode}`
           }
-          showTable={false}
         />
       </section>
     </div>

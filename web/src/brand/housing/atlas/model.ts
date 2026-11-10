@@ -46,6 +46,14 @@ export function breaks(measure: string, mode: Mode): number[] {
   // HM Land Registry CCOD / OCOD titles per local authority
   if (measure === "titles-uk-company") return [5000, 10000, 15000, 20000, 30000, 50000];
   if (measure === "titles-overseas-company") return [50, 100, 250, 500, 1000, 2500];
+  // Domestic EPC lodgements in a quarter (certificates, not dwellings)
+  if (measure === "epc-lodgements") return [100, 250, 500, 1000, 2000, 4000];
+  // Share of lodgements in bands A–C (%)
+  if (measure === "epc-band-ac-share") return [20, 30, 40, 50, 60, 75];
+  // MHCLG Live Table 122 net additional dwellings (districts)
+  if (measure === "net-additions") return [50, 100, 200, 400, 800, 1500];
+  // Net additions per 1,000 dwellings at stock open (Table 100 / 109)
+  if (measure === "net-additions-rate") return [1, 2, 4, 6, 8, 12];
   return [100000, 200000, 300000, 400000, 600000, 1000000];
 }
 /** Shared choropleth bands — canonical copy lives in `@/brand/map`. */
@@ -56,8 +64,15 @@ export function formatValue(value: number | null | undefined, measure: string, m
   if (measure === "index") return value.toFixed(1);
   if (measure === "pte-median") return `${value.toFixed(1)}×`;
   if (measure === "ta-per-thousand") return `${value.toFixed(1)} per 1,000`;
+  if (measure === "net-additions-rate") return `${value.toFixed(1)} per 1,000`;
   if (measure === "ta-out-of-area-share") return `${value.toFixed(0)}%`;
-  if (measure === "sales-volume" || measure.startsWith("titles-")) {
+  if (measure === "epc-band-ac-share") return `${value.toFixed(0)}%`;
+  if (
+    measure === "sales-volume" ||
+    measure.startsWith("titles-") ||
+    measure === "epc-lodgements" ||
+    measure === "net-additions"
+  ) {
     if (compact && Math.abs(value) >= 1000) {
       return `${(value / 1000).toFixed(1).replace(/\.0$/, "")}k`;
     }

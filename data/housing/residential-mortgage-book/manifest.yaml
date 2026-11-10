@@ -29,8 +29,9 @@ transformations: Read Summary 1–3. Year headers fill forward across Q1–Q4 co
 revision_notes: Domain 09 ingest 2026-11-05. September 2026 edition.
 caveats: Not seasonally adjusted. The outstanding balance is a stock at quarter end.
   Advances and commitments are flows. Do not add the stock to Bank of England monthly
-  approvals. Buy-to-let here is a share of new advances, including purchase, further
-  advance and remortgage. Arrears are loan accounts in arrears, not possessions.
+  approvals. The buy-to-let share is buy-to-let house purchase only. With first-time
+  buyers and other purchase it sums to the house-purchase share, so never add it to
+  house purchase. Arrears are loan accounts in arrears, not possessions.
 related_indicator_ids:
 - mortgage-approvals
 - mortgage-rate-2yr-fixed

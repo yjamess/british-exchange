@@ -35,20 +35,35 @@ def _event(raw: dict, event_id: str) -> dict:
     return next(e for e in raw["events"] if e["id"] == event_id)
 
 
-def test_anchor_assent_dates_and_blank_right_to_buy_commencement() -> None:
+def test_anchor_assent_dates_and_right_to_buy_commencement() -> None:
     registry = load_policy_registry(EVENTS)
     by_id = {event.id: event for event in registry.events}
-    assert registry.retrieved_at == date(2026, 11, 5)
+    assert registry.retrieved_at == date(2026, 11, 10)
     assert ANCHORS <= set(by_id)
     assert by_id["housing-town-planning-act-1919"].enactment_date == date(1919, 7, 31)
     assert by_id["town-country-planning-act-1947"].enactment_date == date(1947, 8, 6)
     assert by_id["housing-act-1980"].enactment_date == date(1980, 8, 8)
     assert by_id["renters-rights-act-2025"].enactment_date == date(2025, 10, 27)
 
+    addison = by_id["housing-town-planning-act-1919"]
+    assert addison.commencements[0].when == date(1919, 7, 31)
+    assert "1793" in addison.commencements[0].instrument
+    assert "Whole Act" in addison.commencements[0].scope
+
+    tcp1947 = by_id["town-country-planning-act-1947"]
+    assert [c.when for c in tcp1947.commencements] == [date(1947, 8, 6), date(1948, 7, 1)]
+    assert tcp1947.commencements[1].citation == "SI 1948/213"
+    assert "appointed day" in tcp1947.commencements[1].scope.lower()
+
     right_to_buy = by_id["housing-act-1980"]
-    assert right_to_buy.commencements[0].when is None
-    assert "Part I" in right_to_buy.commencements[0].scope
+    chapter_i = right_to_buy.commencements[0]
+    assert chapter_i.when == date(1980, 10, 3)
+    assert chapter_i.citation == "1980 c. 51, s. 153(1)"
+    assert "Chapter I" in chapter_i.scope
+    assert "section 153(1)" in chapter_i.instrument
+    assert any(c.citation == "SI 1980/1406" and "Does not appoint Part I" in c.scope for c in right_to_buy.commencements)
     assert all(link.relationship == "context" for link in right_to_buy.linked_indicators)
+    assert any(link.indicator_id == "right-to-buy-sales-and-replacements" for link in right_to_buy.linked_indicators)
 
     renters = by_id["renters-rights-act-2025"]
     assert renters.commencements[0].when == date(2026, 5, 1)

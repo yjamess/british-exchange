@@ -15,7 +15,7 @@ curated_path: curated/observations.csv
 update_cadence: quarterly / annual by source
 raw_evidence:
 - path: raw/2026-11-04/Statutory_Homelessness_England_Time_Series_202603.ods
-  retrieved_at: '2026-11-04T23:00:44.027201+00:00'
+  retrieved_at: '2026-11-10T16:04:24.055863+00:00'
   checksum_sha256: 27d9933423411919355a1e014d1e5c2a61254e9083b37700f77fc740d0cc81df
   content_type: application/vnd.oasis.opendocument.spreadsheet
   official_release_date: '2026-08-13'
@@ -39,5 +39,5 @@ related_indicator_ids:
 - rough-sleeping-snapshot
 - social-housing-waiting-list
 open_questions: []
-notion_registry_url: "https://app.notion.com/p/40e654717685819cab3af03532cc5cb0"
+notion_registry_url: ''
 schema_version: '1.0'

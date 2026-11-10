@@ -137,6 +137,7 @@ export const HOUSING_CONNECTIONS: readonly Connection[] = [
   },
 
   // —— Quality › Energy → Energy bills (cross-sector; different “energy”) ——
+  // View-scoped first so it wins over the domain-level Quality hop below.
   {
     id: "housing.quality.energy→energy.prices",
     kind: "contextual",
@@ -154,6 +155,46 @@ export const HOUSING_CONNECTIONS: readonly Connection[] = [
     honesty:
       "English Housing Survey / EPC ratings are not DESNZ household bills — different publishers and definitions.",
     destinationLabel: "Energy · Dissected Bill",
+    primary: true,
+  },
+
+  // —— Quality (other views) → Stock composition ——
+  {
+    id: "housing.quality→stock",
+    kind: "contextual",
+    from: { sector: "housing", domain: "quality" },
+    to: {
+      pathname: HOUSING,
+      domain: "stock",
+      view: "composition",
+      retain: [],
+    },
+    label: "What homes Britain has",
+    why: "Condition and energy ratings describe homes in use — not the dwelling stock count.",
+    learn: "Open Housing stock › Composition for tenure and dwelling mix.",
+    readiness: "ready",
+    honesty: "Survey / EPC condition is not Live Table dwelling stock.",
+    destinationLabel: "Stock · Composition",
+    primary: true,
+  },
+
+  // —— Insecurity › Cost → Affordability (spend ≠ household cost) ——
+  {
+    id: "housing.insecurity.cost→affordability",
+    kind: "contextual",
+    from: { sector: "housing", domain: "insecurity", view: "cost" },
+    to: {
+      pathname: HOUSING,
+      domain: "affordability",
+      view: "rent",
+      retain: [],
+    },
+    label: "What housing costs a household",
+    why: "Council homelessness spend is not a household rent or purchase burden.",
+    learn: "Open Affordability › Rent burden for rent as a share of earnings.",
+    readiness: "ready",
+    honesty: "RO4 money flows are not rent-to-earnings or purchase affordability.",
+    destinationLabel: "Affordability · Rent burden",
     primary: true,
   },
 
@@ -194,6 +235,46 @@ export const HOUSING_CONNECTIONS: readonly Connection[] = [
     readiness: "ready",
     honesty: "Approvals and rates are not a typical household payment.",
     destinationLabel: "Affordability · Budget",
+    primary: true,
+  },
+
+  // —— Ownership (Who owns / Wealth / Data) → Stock tenure ——
+  {
+    id: "housing.ownership→stock.tenure",
+    kind: "contextual",
+    from: { sector: "housing", domain: "ownership" },
+    to: {
+      pathname: HOUSING,
+      domain: "stock",
+      view: "tenure",
+      retain: [],
+    },
+    label: "How tenure is shared",
+    why: "Company titles and property wealth are not household tenure shares.",
+    learn: "Open Housing stock › Tenure over time for owner-occupation and renting.",
+    readiness: "ready",
+    honesty: "Land Registry company titles and ONS tenure are different universes.",
+    destinationLabel: "Stock · Tenure over time",
+    primary: true,
+  },
+
+  // —— Policy → Supply (history ≠ delivery) ——
+  {
+    id: "housing.policy→supply",
+    kind: "contextual",
+    from: { sector: "housing", domain: "policy" },
+    to: {
+      pathname: HOUSING,
+      domain: "supply",
+      view: "machine",
+      retain: [],
+    },
+    label: "Homes being built",
+    why: "Policy history and promises are not the flow of homes delivered.",
+    learn: "Open Construction and supply › Supply machine for net additions.",
+    readiness: "ready",
+    honesty: "Acts and pledges are not completions or net additional dwellings.",
+    destinationLabel: "Supply · Supply machine",
     primary: true,
   },
 ] as const satisfies readonly Connection[];

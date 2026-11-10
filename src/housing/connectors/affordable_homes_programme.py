@@ -15,9 +15,12 @@ Category:
 - ahp-2021-26-gla             GLA lines grouped under "AH: 2021-26 programme"
 - soahp-2016-21-homes-england Homes England's part of AHP 2016-23 (outside London)
 
-London AHP 2016-23 is not built: the GLA table names its programmes differently
-across years ("Homes for Londoners 2016-21", "AH: 2016-23 programme" with
-sub-lines) and its lines do not sum to the programme totals MHCLG publishes.
+London AHP 2016-23 by financial year is not built (labelled gap): the GLA table
+renames programmes across years ("Homes for Londoners 2016-21", then "Homes for
+Londoners", with Building Council Homes / Housing Zones / specialist lines beside
+them) and those lines do not sum to the MHCLG annual-report London total for
+AHP 2016-23. Cumulative London completions for ahp-2016-23 still come from the
+MHCLG annual report.
 
 Checks (fail on mismatch is not enforced; see QA): AHP 2021-26 completions to
 March 2025 equal the MHCLG annual report 2024-25 (33,072 = 32,201 HE + 871 GLA).
