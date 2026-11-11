@@ -48,6 +48,15 @@ uv run .claude/skills/observatory-imprint/scripts/dwelling-types.py $OUT --size 
 # tenure specimens (MHCLG dwelling stock by tenure): same camera as dwelling-types
 uv run .claude/skills/observatory-imprint/scripts/tenure-types.py $OUT --size 1000x1000   # t-owner, t-private, t-social
 
+# everyday-basket specimens (ONS shopping prices): one matched tabletop set, generic and unbranded
+# featured ten → b-<id>.png; twenty type archetypes for every other item → b-type-<id>.png
+B=.claude/skills/observatory-imprint/scripts/basket-items.py
+uv run $B $OUT --res 0.75                                  # all thirty (~2–3 min each)
+uv run $B $OUT --res 0.75 --only featured                  # b-bananas … b-wholemeal-bread
+uv run $B $OUT --res 0.75 --only types                     # b-type-bottle … b-type-car
+uv run $B $OUT --res 0.75 --only eggs,car                  # one or a few; type ids work bare or as type-<id>
+uv run $B /tmp/preview --res 0.3 --only types --preview    # quick two-colour check
+
 # Energy Field Guide tech specimens (Domain 06): illustrative forms — plate area is never MW
 # Writes e-<id>.png (still = frame 0) and e-<id>-atlas-4x5-500.jpg (seamless loop for HalftoneMotion).
 # Wind rotors re-render per frame (~25 min total); --no-atlas for stills only.

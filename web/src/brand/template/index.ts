@@ -4,6 +4,7 @@
  * See web/src/brand/README.md and docs/visual-identity.md.
  */
 export { SectorPage, type SectorStat } from "./SectorPage";
+export { useHeroSize } from "./useHeroSize";
 export { PlateBand, FieldBand } from "./Threshold";
 export {
   Explorer,

@@ -2,34 +2,41 @@ indicator_id: real-gdp-per-head
 title: Real GDP per head
 sector: economy-public-finance
 publisher: ONS
-source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/pn2
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/qna
 series_id: IHXW
 geography: United Kingdom (K02000001); excl. Crown dependencies
 frequency: quarterly
 unit: £ chained volume (market prices), SA
 definition: UK GDP per head in chained volume measures (CVM), seasonally adjusted.
-  ONS CDID IHXW in PN2. Companion to ABMI (real GDP level).
+  ONS CDID IHXW in QNA (reference year 2024). Companion to ABMI (real GDP level).
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.real_gdp_per_head
 curated_path: curated/observations.csv
 update_cadence: quarterly (ONS GDP / QNA)
 raw_evidence:
-- path: raw/2026-11-03/ihxw_pn2.json
-  retrieved_at: '2026-11-03T18:38:14.028509+00:00'
-  checksum_sha256: 245f3fea0aebba90fe62b455c1b537bd21534641561810bce59e36cd1fbef97a
+- path: raw/2026-11-11/ihxw_qna.json
+  retrieved_at: '2026-11-11T15:22:56.393724+00:00'
+  checksum_sha256: 7a03fd267fefc5fcc7e66bc9ac05bf3b42d24806696c4ef7530ac3dcf29fb7ba
   content_type: application/json;charset=utf-8
-  official_release_date: '2026-08-12'
+  official_release_date: '2026-09-29'
   http_status: 200
-  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/pn2/data
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/qna/data
 transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
   Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
   (ONS revises).
-revision_notes: Revises with GDP and population estimate updates / Blue Book.
-caveats: CVM £ per head (IHXW), not current-price IHXT.
+revision_notes: 'Revises with GDP and population estimate updates / Blue Book. Reference
+  year moves with annual rebasing: the retired PN2 pin (2026-08-12) was reference
+  year 2023; QNA vintage 2026-09-29 is reference year 2024 (levels ~4.5% higher, growth
+  since 2019 Q4 within 0.1 pp). Source switched PN2→QNA on 2026-11-11. Do not mix
+  vintages in one level chart.'
+caveats: CVM £ per head (IHXW), not current-price IHXT. ONS publishes 0 as a placeholder
+  before 1955 Q1 — connector maps those to missing (zero_as_missing_before=1955-01-01).
 related_indicator_ids:
-- real-gdp
 - cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
 - labour-productivity
 - employment-rate
 - economic-inactivity-rate

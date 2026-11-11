@@ -9,7 +9,7 @@ frequency: monthly
 unit: Index 2015=100 (CPI all items)
 definition: UK Consumer Prices Index (CPI) all-items index level (2015=100). ONS CDID
   D7BT in dataset MM23. Used to express house prices in real terms. Not the annual
-  rate (D7G7) and not CPIH.
+  rate (D7G7) and not CPIH (L522).
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.cpi_index
@@ -24,12 +24,15 @@ raw_evidence:
   http_status: 200
   source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23/data
 transformations: Download ONS timeseries JSON (/data). Keep only the months array.
-  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
-  (ONS revises).
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPI/CPIH rarely revise history).
 revision_notes: CPI index revises with basket/weight updates and corrections.
-caveats: Index level for deflation; pair with cpi-inflation (D7G7) for the rate.
+caveats: Index level for deflation; pair with cpi-inflation (D7G7) for the rate. Prefer
+  cpih-index for household energy real-terms.
 related_indicator_ids:
 - cpi-inflation
+- cpih-index
+- cpih-inflation
 - real-gdp-per-head
 - labour-productivity
 - employment-rate

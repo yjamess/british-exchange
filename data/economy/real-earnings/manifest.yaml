@@ -4,8 +4,7 @@ sector: economy-public-finance
 publisher: ONS
 source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/a2fc/emp
 series_id: A2FC
-geography: Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for
-  spine
+geography: Great Britain (K03000001); AWE excludes Northern Ireland
 frequency: monthly
 unit: £ per week, SA, real terms (regular pay)
 definition: Average weekly earnings (AWE) whole-economy regular pay in real terms,
@@ -24,19 +23,22 @@ raw_evidence:
   http_status: 200
   source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/a2fc/emp/data
 transformations: Download ONS timeseries JSON (/data). Keep only the months array.
-  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
-  (ONS revises).
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPI/CPIH rarely revise history).
 revision_notes: AWE revises with later returns; real terms use CPIH deflator family.
-caveats: Regular pay excluding bonuses/arrears, real terms. Great Britain AWE coverage
-  for earnings survey — confirm geography notes on ONS page.
+caveats: Regular pay excluding bonuses/arrears, real terms (CPIH-based, 2015 prices).
+  ONS AWE covers Great Britain only — geography_code K03000001.
 related_indicator_ids:
+- nominal-earnings
 - cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
 - real-gdp-per-head
 - labour-productivity
 - employment-rate
 - economic-inactivity-rate
 - real-gdp
-- cpi-inflation
 open_questions: []
 notion_registry_url: https://app.notion.com/40d654717685814a998ad66b45808f8c
 schema_version: '1.0'

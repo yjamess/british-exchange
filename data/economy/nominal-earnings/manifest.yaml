@@ -4,8 +4,7 @@ sector: economy-public-finance
 publisher: ONS
 source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp
 series_id: KAI7
-geography: Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for
-  spine
+geography: Great Britain (K03000001); AWE excludes Northern Ireland
 frequency: monthly
 unit: £ per week, SA, cash terms (regular pay)
 definition: Average weekly earnings (AWE) whole-economy regular pay in cash (nominal)
@@ -24,14 +23,17 @@ raw_evidence:
   http_status: 200
   source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp/data
 transformations: Download ONS timeseries JSON (/data). Keep only the months array.
-  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
-  (ONS revises).
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPI/CPIH rarely revise history).
 revision_notes: AWE revises with later returns.
 caveats: Regular pay per employee, excluding bonuses and arrears; not household income.
-  Used by Energy for bills as a share of average pay (cash bill ÷ cash pay).
+  Used by Energy for bills as a share of average pay (cash bill ÷ cash pay). ONS AWE
+  covers Great Britain only — geography_code K03000001.
 related_indicator_ids:
 - real-earnings
 - cpih-index
+- cpi-index
+- cpi-inflation
 open_questions: []
-notion_registry_url: ''
+notion_registry_url: https://app.notion.com/p/4146547176858139b68ae2c75df07043
 schema_version: '1.0'

@@ -1,0 +1,50 @@
+indicator_id: cpih-inflation-health
+title: CPIH inflation · Health
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55u/mm23
+series_id: L55U
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% annual rate (CPIH COICOP 06)'
+definition: UK CPIH annual rate for COICOP division 06 (Health). ONS CDID L55U in
+  dataset MM23. Companion to headline cpih-inflation (L55O). Not a CPI category series
+  — never mix families.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpih_coicop_divisions
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-11/l55u_mm23.json
+  retrieved_at: '2026-11-11T16:57:38.457096+00:00'
+  checksum_sha256: 0c7ef6d6b85d5efd3c66670354b48c597f45866b061d8e596f32605b1d75a49b
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55u/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPIH division rates rarely revise history).
+revision_notes: CPIH division rates revise with basket/weight updates.
+caveats: Division annual rate, not a contribution in percentage points. Not CPI. Categories
+  UI must label CPIH.
+related_indicator_ids:
+- cpih-inflation
+- cpih-index
+- cpi-inflation
+- cpi-index
+- cpih-inflation-food
+- cpih-inflation-alcohol-tobacco
+- cpih-inflation-clothing
+- cpih-inflation-housing
+- cpih-inflation-furnishings
+- cpih-inflation-transport
+- cpih-inflation-communication
+- cpih-inflation-recreation
+- cpih-inflation-education
+- cpih-inflation-restaurants
+- cpih-inflation-miscellaneous
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

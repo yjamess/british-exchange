@@ -1,37 +1,49 @@
 ---
 name: economy-agent
 description: >-
-  Discover and ingest ONS economic open data into a reproducible dataset under
-  data/economy. Use when the user or orchestrator assigns Economy agent work,
-  ONS sources, or economic ingestion.
+  Discover and ingest ONS / OBR / HMT / BoE economic open data into a reproducible
+  dataset under data/economy. Use when the user or orchestrator assigns Economy
+  domain work. Through Gate 2: datasets + Notion only — no frontend.
 ---
 
 # Economy agent skill
 
 ## Goal
 
-Deliver the **Economy & Public Finance** Notion sector hand-off from ONS / OBR / HMT / BoE. Wait for the shared manifest interface (work-plan T02) before bulk ingest; start with **one** P0 indicator when Orchestrator assigns it.
+Deliver one **Economy & Public Finance** research domain hand-off: verified sources, reproducible connectors under `data/economy`, registry rows, and a Notion domain plan. Stop at evidence — do not ship React until the Orchestrator Review Gate.
 
 ## Notion anchors
 
-- Sector page: https://app.notion.com/p/40d65471768581419ceaefe6dec32ba2
+- Sector: https://app.notion.com/p/40d65471768581419ceaefe6dec32ba2
+- **Control desk:** https://app.notion.com/p/414654717685811caf11f9bfb7b3ef83
 - Registry: https://app.notion.com/p/8780d864ff89472cac966464c4db7558
-- Contract: `docs/brief.md`
+- Kickoff template: `docs/agent-kickoff-economy-domain.md`
+- Overlap matrix: `docs/economy-overlap-matrix.md`
+- Contract: `docs/brief.md` · `docs/connector-contract.md`
 
-## Workflow
+## Workflow (domain-scoped)
 
-1. **Registry** — One row per indicator; reuse Energy-owned canonical IDs when overlapping — no duplicate pipelines.
-2. **Discover** — Prefer ONS API, OBR data, HMT OSCAR, BoE database over scrape.
-3. **Ingest** — Connector under `src/economy/`; raw + curated under `data/economy/`.
-4. **Manifest** — Same shared contract as Energy (indicator ID, series ID, units, geography, licence, checksums).
-5. **Handoff** — Registry → Validation; package matches Notion recommended layout.
+1. **Read** Control Page + overlap matrix + your domain Notion plan + kickoff.
+2. **Registry** — One row per indicator; **reuse** Energy/Housing canonical IDs when overlapping — no duplicate pipelines.
+3. **Discover** — Prefer ONS timeseries / developer API, OBR, HMT OSCAR, BoE database over scrape.
+4. **Ingest** — Connector under `src/economy/`; raw + curated under `data/economy/<indicator-id>/`.
+5. **Manifest** — Shared contract (indicator ID, series ID, units, geography, licence, checksums).
+6. **Notion plan** — Mature the domain page: questions, coverage, flagship, distinctive graphics labelled planned-not-ready if unsupported, tech requirements.
+7. **Handoff** — Four artefacts (foundation, research scope, Notion plan, handover file list). Registry → Validation before Ready.
+
+## Hard rule — no UI before Review Gate
+
+- Do **not** create or edit production Economy explorer canvases (`web/src/brand/economy/**`).
+- Do **not** expand `web/src/brand/sector-pages.ts` Economy domains to match the ten-domain map.
+- You **may** document recommended views and one signature instrument as requirements on the Notion plan.
+- Visual elevation studies are Orchestrator-owned (`/design-lab/economy-elevation`).
 
 ## Beginner defaults
 
 - Use `uv run` ([uv docs](https://docs.astral.sh/uv/)).
 - Prefer `pathlib.Path` ([pathlib](https://docs.python.org/3/library/pathlib.html)).
-- Declare UK/GB/England, SA/NSA, nominal/real, and base years explicitly.
+- Declare UK/GB/England, SA/NSA, nominal/real, and base years explicitly ([PEP 8](https://peps.python.org/pep-0008/) naming; type hints per [typing docs](https://docs.python.org/3/library/typing.html)).
 
-## Done means
+## Done means (G2)
 
-Reproducible Ready-ready package with sample QA notes — not research alone.
+Reproducible package + Validation-ready notes + completed Notion plan + handover — **not** research alone, and **not** a frontend.

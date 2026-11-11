@@ -1,7 +1,7 @@
 # real-gdp
 
 **Owner:** Economy agent  
-**Status:** Ingesting → hand to Validation (do not mark Ready here)  
+**Status:** Validation-ready after 2026-11-11 PN2→QNA source switch (dataset=QNA; **not Ready** — set only by Validation / Orchestrator)  
 **Registry:** https://app.notion.com/40d6547176858109b56fe01fb94ff2eb  
 **indicator_id:** `real-gdp`
 
@@ -11,9 +11,9 @@
 |-------|--------|
 | Publisher | ONS |
 | Series ID (CDID) | **ABMI** |
-| Dataset | **PN2** |
-| Landing | https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2 |
-| Data URL | https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2/data |
+| Dataset | **QNA** (switched from frozen PN2 on 2026-11-11) |
+| Landing | https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna |
+| Data URL | https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna/data |
 | Geography | United Kingdom (`K02000001`) |
 | Frequency | Quarterly |
 | Unit | £ million chained volume (market prices), SA |
@@ -24,7 +24,7 @@
 ```txt
 data/economy/real-gdp/
   manifest.yaml
-  raw/2026-11-03/abmi_pn2.json
+  raw/2026-11-11/abmi_qna.json
   curated/observations.csv
   README.md
 src/economy/connectors/real_gdp.py
@@ -46,27 +46,26 @@ This fetches the timeseries JSON, archives it under `raw/<UTC-date>/`, writes
 - Source: ONS website timeseries JSON (`quarters` array only; annual rows kept in raw, not curated).
 - Period: calendar quarter ISO bounds (`YYYY-MM-DD`).
 - Geography: fixed `K02000001` / `United Kingdom`.
-- `observation_status`: `provisional` (PN2 first-estimate family; ONS revises history).
-- `source_version`: `PN2/ABMI <official_release_date>`.
+- `observation_status`: `provisional` (QNA vintage; ONS revises history).
+- `source_version`: `QNA/ABMI <official_release_date>`.
 
-## Spot-checks (2026-11-03 ingest)
+## Spot-checks (pinned 2026-11-11, dataset QNA)
 
-Against pinned raw JSON `raw/2026-11-03/abmi_pn2.json`:
+Against pinned raw JSON `raw/2026-11-11/abmi_qna.json` (SHA-256 `6ce4b868fc86af44653ae0ae864e587d15a849c54f347b22830cddaa92ad7693`, release 2026-09-29, reference year 2024). Raw↔curated recompute: 0 mismatches over 286 quarters.
 
 | Period | ONS JSON | Curated |
 |--------|----------|---------|
-| 1955 Q1 | 145457 | 145457 |
-| 2019 Q4 | 670587 | 670587 |
-| 2020 Q2 | 522356 | 522356 |
-| 2026 Q2 | 712545 | 712545 |
+| 1955 Q1 | 149440 | 149440 |
+| 2019 Q4 | 700898 | 700898 |
+| 2020 Q2 | 545357 | 545357 |
+| 2026 Q2 | 744453 | 744453 |
 
 Row count: **286** quarterly observations (1955 Q1 → 2026 Q2).
 
 ## Open questions for Validation / Orchestrator
 
-- Prefer QNA vintage after second estimate vs always PN2 landing URL?
 - Also curate annual ABMI aggregates as a second file?
 
 ## Hand-off
 
-Ready for Validation QA once Orchestrator schedules it. Economy does **not** set registry Ready.
+Validation-ready (dataset=QNA). Switch evidence: `docs/handover-economy-05-qna-switch-2026-11-11.md`. The old PN2 pin (2026-08-12, reference year 2023, SHA-256 `a1265250…`) is retired; levels are not comparable across vintages. The 2026-11-03 Validation report (`data/qa/qa_report_real_gdp_2026-11-03.md`) covers the PN2 bytes only and needs a re-run. Economy does **not** set registry Ready.

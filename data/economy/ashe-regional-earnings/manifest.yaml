@@ -1,0 +1,52 @@
+indicator_id: ashe-regional-earnings
+title: ASHE regional earnings (workplace weekly gross)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/placeofworkbylocalauthorityashetable7
+series_id: ASHE Table 7 · place of work · weekly pay gross · median
+geography: United Kingdom — nations, English regions, local authorities (workplace)
+frequency: annual
+unit: £ per week gross (median)
+definition: 'Annual Survey of Hours and Earnings (ASHE) Table 7 — weekly pay gross
+  (£) median for employee jobs by **place of work**. Sheets: All and Full-Time. Editions:
+  2026 provisional, 2025 revised. Not residence-based (Table 8). Not Average Weekly
+  Earnings.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.ashe_regional_earnings
+curated_path: curated/observations.csv
+update_cadence: annual (ASHE Table 7 edition)
+raw_evidence:
+- path: raw/2026-11-11/ashetable72026provisional.zip
+  retrieved_at: '2026-11-11T20:30:37.675694+00:00'
+  checksum_sha256: f468a8056faa9ea83ed712eeacd067e19ed49fe72d53516f6fea8b496b7e4f87
+  content_type: application/zip
+  official_release_date: '2026-10-22'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/placeofworkbylocalauthorityashetable7
+- path: raw/2026-11-11/ashetable72025revised.zip
+  retrieved_at: '2026-11-11T20:30:37.681850+00:00'
+  checksum_sha256: 250fb6a5184743cb01818fb4b87c4627ab0c9058011110b057ca121ce679a599
+  content_type: application/zip
+  official_release_date: '2026-10-22'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/placeofworkbylocalauthorityashetable7
+transformations: 'Pin ASHE Table 7 zips (2026 provisional + 2025 revised). Extract
+  7.1a Weekly pay — Gross. Parse All and Full-Time. Keep rows with GSS codes and published
+  medians. period_start = 1 April of the reference year; basis=workplace. CV rule:
+  omit x / : / .. cells; no invented zeros.'
+revision_notes: Pins under raw/2026-11-11/. 2026 provisional → observation_status=provisional;
+  2025 revised → final. Re-pin on the next ASHE autumn release.
+caveats: Workplace basis (where people work), not where they live. UK employee jobs
+  — cash £, not real terms. Full-Time ≠ All. Met counties / counties sit between regions
+  and districts. Job counts are indicative. Colour CV bands are not ingested.
+related_indicator_ids:
+- ashe-national-earnings
+- ashe-region-industry-earnings
+- nominal-earnings
+- real-earnings
+- ashe-manufacturing-earnings
+open_questions:
+- 'Optional later: Table 8 residence basis; AreaMap for LAs.'
+notion_registry_url: https://app.notion.com/4156547176858138a3bad9dba5156403
+schema_version: '1.0'

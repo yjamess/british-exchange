@@ -22,18 +22,24 @@ from typing import Any, Sequence
 
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation, ObservationStatus
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import ECONOMY_DATA
 
 UK_GEOGRAPHY_CODE = "K02000001"
 UK_GEOGRAPHY_LABEL = "United Kingdom"
 
 SERIES_ID = "ABMI"
-DATASET_ID = "PN2"
+# Source policy (Orchestrator, 2026-11-11): QNA is the live vintage. The PN2
+# landing is frozen at 2026-08-12 and never advances.
+DATASET_ID = "QNA"
 UNIT = "£ million chained volume (market prices), SA"
 
 SOURCE_LANDING_URL = (
-    "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2"
+    "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna"
 )
 SOURCE_DATA_URL = f"{SOURCE_LANDING_URL}/data"
 
@@ -62,16 +68,20 @@ def _parse_quarter_code(raw: str) -> int:
 
 
 def _parse_value(raw: object) -> tuple[float | None, ObservationStatus]:
-    """Parse ONS string/number cell; empty → missing."""
+    """Parse ONS string/number cell; empty → missing.
+
+    Valued cells start as ``final``; ``transform`` marks the latest quarter
+    provisional via ``mark_latest_months_provisional``.
+    """
     if raw is None:
         return None, "missing"
     if isinstance(raw, (int, float)):
-        return float(raw), "provisional"
+        return float(raw), "final"
     text = str(raw).strip()
     if not text or text in {"..", "…", "-"}:
         return None, "missing"
     try:
-        return float(text.replace(",", "")), "provisional"
+        return float(text.replace(",", "")), "final"
     except ValueError as exc:
         raise ValueError(f"Non-numeric ABMI value: {raw!r}") from exc
 
@@ -91,7 +101,7 @@ def _release_date_iso(description: dict[str, Any]) -> str:
 
 def _source_version(description: dict[str, Any]) -> str:
     release = _release_date_iso(description) or "unknown-release"
-    return f"PN2/{SERIES_ID} {release}"
+    return f"{DATASET_ID}/{SERIES_ID} {release}"
 
 
 def parse_abmi_quarters(payload: dict[str, Any]) -> list[Observation]:
@@ -167,8 +177,12 @@ class RealGdpConnector(Connector):
             definition=(
                 "UK GDP at market prices in chained volume measures (CVM), "
                 "seasonally adjusted. Levels in £m from ONS CDID ABMI in "
-                "dataset PN2 (also published under QNA). Reference/base year "
-                "moves with Blue Book (BB2024 last base year 2022)."
+                "dataset QNA (Quarterly National Accounts, the live vintage; "
+                "the PN2 landing is frozen at 2026-08-12). Reference year moves "
+                "with Blue Book / annual rebasing: the retired PN2 pin "
+                "(2026-08-12) was on reference year 2023; the QNA vintage "
+                "2026-09-29 is on reference year 2024. Levels are not "
+                "comparable across vintages."
             ),
             licence="Open Government Licence v3.0",
             agent_owner="economy",
@@ -182,24 +196,30 @@ class RealGdpConnector(Connector):
                 "https://app.notion.com/40d6547176858109b56fe01fb94ff2eb"
             ),
             transformations=(
-                "Download ONS timeseries JSON (ABMI/PN2 /data). Keep only the "
+                "Download ONS timeseries JSON (ABMI/QNA /data). Keep only the "
                 "quarters array (annual aggregates omitted). Map year+Q→ISO "
                 "calendar-quarter bounds. Geography fixed to K02000001 / "
                 "United Kingdom. Values parsed as float £m; empty → missing. "
-                "observation_status=provisional (PN2 first-estimate family; "
-                "ONS revises history)."
+                "Latest quarter provisional; older quarters final "
+                "(charts drop provisional)."
             ),
             revision_notes=(
                 "ABMI levels are routinely revised: (1) each subsequent GDP "
-                "monthly/quarterly release after the first estimate; (2) when "
-                "the series moves from PN2 first estimate into QNA; (3) at "
-                "Blue Book with supply-and-use balancing and CVM rebasing "
-                "(BB2024 restored annual rebasing; last base year 2022 — "
-                "confirm on release notes each ingest). Do not treat a pinned "
-                "historical point as immutable — re-fetch and re-pin raw JSON, "
-                "then compare checksums. observation_status stays "
-                "'provisional' for this PN2-sourced slice to signal revision "
-                "risk. Record official_release_date from description.releaseDate."
+                "monthly/quarterly release after the first estimate; (2) at "
+                "each QNA release; (3) at Blue Book with supply-and-use "
+                "balancing and CVM rebasing (annual rebasing: Blue Book 2025 "
+                "moved the reference year 2022→2023; the QNA vintage of "
+                "2026-09-29 is on 2024 — confirm reference year on release "
+                "notes each ingest). Source switched PN2→QNA on 2026-11-11 "
+                "(Orchestrator source policy): QNA/PN2 level ratio is "
+                "1.027–1.045 across all 286 quarters while growth since "
+                "2019 Q4 differs by under 0.1 pp (PN2 +6.26%, QNA +6.21%) — "
+                "use growth rates or index to a fixed quarter when mixing "
+                "vintages. Do not treat a pinned historical point as "
+                "immutable — re-fetch and re-pin raw JSON, then compare "
+                "checksums. observation_status stays 'provisional' to signal "
+                "revision risk. Record official_release_date from "
+                "description.releaseDate."
             ),
             caveats=(
                 "Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website "
@@ -207,16 +227,20 @@ class RealGdpConnector(Connector):
                 "release and Blue Book. Annual rows present in raw JSON but "
                 "not written to curated observations."
             ),
+            related_indicator_ids=[
+                "real-gdp-per-head",
+                "labour-productivity",
+                "business-investment",
+            ],
             open_questions=[
-                "Prefer QNA vintage after second estimate vs always PN2 landing?",
                 "Should Validation also want annual ABMI aggregates as a second file?",
             ],
         )
 
     def fetch_latest(self, *, retrieved_on: date | None = None) -> RawEvidence:
-        """Download ABMI/PN2 JSON into raw/<YYYY-MM-DD>/ and return evidence."""
+        """Download ABMI/QNA JSON into raw/<YYYY-MM-DD>/ and return evidence."""
         day = retrieved_on or datetime.now(timezone.utc).date()
-        relative = f"raw/{day.isoformat()}/abmi_pn2.json"
+        relative = f"raw/{day.isoformat()}/{SERIES_ID.lower()}_{DATASET_ID.lower()}.json"
         # Peek release date after download for evidence metadata.
         result = self.fetch_url(SOURCE_DATA_URL, relative)
         release_date = ""
@@ -247,7 +271,9 @@ class RealGdpConnector(Connector):
         payload = json.loads(raw_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"Expected JSON object in {raw_path}")
-        return parse_abmi_quarters(payload)
+        observations = parse_abmi_quarters(payload)
+        # Latest quarter only — QNA revises history, but charts plot final.
+        return mark_latest_months_provisional(observations, months=1)
 
 
 def main() -> None:

@@ -8,17 +8,17 @@ geography: United Kingdom (K02000001); excl. Crown dependencies
 frequency: monthly
 unit: £ billion, NSA (ex public sector banks)
 definition: Public sector net debt excluding public sector banks (PSNDex), stock at
-  end of month, £ billion current prices NSA. ONS CDID HF6W in PUSF. Related ratio
-  series HF6X (PSND as % of GDP) is not ingested here — link via related_indicator_ids
-  notes only.
+  end of month, £ billion current prices NSA. ONS CDID HF6W in PUSF. The official
+  ratio HF6X (PSND as % of GDP) is a separate indicator, public-sector-net-debt-percent-gdp
+  — linked via related_indicator_ids, not derived here.
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.public_sector_net_debt
 curated_path: curated/observations.csv
 update_cadence: monthly (ONS Public Sector Finances)
 raw_evidence:
-- path: raw/2026-11-03/hf6w_pusf.json
-  retrieved_at: '2026-11-03T17:45:28.907722+00:00'
+- path: raw/2026-11-11/hf6w_pusf.json
+  retrieved_at: '2026-11-11T14:08:50.875489+00:00'
   checksum_sha256: 1c277e826426a35dc5cbe8dd3d7330275f523ec23edd6890c3fef2cc0cb8540e
   content_type: application/json;charset=utf-8
   official_release_date: '2026-10-20'
@@ -35,13 +35,14 @@ caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeserie
   JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
   package stores period (month) levels only. Quarterly/annual aggregates exist in
   raw JSON but are not written to curated observations. Values are £ billion (not
-  £ million). HF6X (% of GDP) is the companion ratio often quoted alongside HF6W.
+  £ million). The official HF6X ratio (% of GDP) is ingested separately as public-sector-net-debt-percent-gdp;
+  never derive it from real-gdp.
 related_indicator_ids:
 - public-sector-net-borrowing
 - public-sector-debt-interest
 - tax-receipts
 - total-managed-expenditure
-open_questions:
-- Should a second registry row cover HF6X (% of GDP)?
+- public-sector-net-debt-percent-gdp
+open_questions: []
 notion_registry_url: https://app.notion.com/40d65471768581aba151c1ec18617559
 schema_version: '1.0'

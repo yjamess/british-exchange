@@ -1,0 +1,48 @@
+indicator_id: everyday-basket-average-prices
+title: Everyday basket average prices
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/adhocs/2724shoppingpricescomparisontooldatadownloadbeforethe2025update
+series_id: shopping-prices-comparison-tool
+geography: United Kingdom (K02000001); average prices from CPIH price collection
+frequency: monthly
+unit: £ average price (official statistics in development)
+definition: 'Average prices from the ONS Shopping prices comparison tool data download
+  (pre-2025 methodology) for Orchestrator-scoped Category1 groups (Food and drink,
+  Food and drink establishments, Health, Household items, Services, Transport). Cash
+  £ levels reconstructed from January base averages and CPIH item index growth — not
+  a retailer shelf quote. Catalogue size: 326 items. Also writes curated/items.json.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.everyday_basket
+curated_path: curated/observations.csv
+update_cadence: adhoc until live post-2025 average-price download is pinned
+raw_evidence:
+- path: raw/2026-11-11/ons_shopping_prices_pre2025.xlsx
+  retrieved_at: '2026-11-11T19:23:02.169613+00:00'
+  checksum_sha256: 7bd852b570ab394671c02d0b2fdfb3102fb9c3009bf91b778f07587813b37358
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-03-31'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/inflationandpriceindices/adhocs/2724shoppingpricescomparisontooldatadownloadbeforethe2025update/datadownload1.xlsx
+transformations: Download ONS adhoc xlsx. Read sheets metadata + averageprice. Keep
+  rows whose Category1 is in CATEGORY1_ALLOWLIST (Food and drink, Food and drink establishments,
+  Household items, Services, Health, Transport). Apply BASKET_ITEMS slug/label overrides
+  for the original ten specimens. Emit one Observation per item-month with notes category=<slug>;
+  item_id; item; size; category1; category2. Write curated/items.json catalogue.
+revision_notes: ONS revises average prices when the shopping-tool basket updates (typically
+  March). This pin is the pre-2025-update archive ending 2025-01.
+caveats: Official statistics in development. Sample targets price change, not price
+  levels. Never present as a single shop's shelf price. Do not mix with post-Mar-2025
+  scanner-segment average prices without a new pin. Pin ends 2025-01.
+related_indicator_ids:
+- cpih-inflation
+- cpih-index
+- cpi-inflation
+- cpih-inflation-food
+- cpih-inflation-restaurants
+open_questions:
+- Pin current (post-2025) average-price download from the live tool.
+- Whether petrol/diesel should join via a DESNZ/BEIS series (not in this file).
+notion_registry_url: ''
+schema_version: '1.0'

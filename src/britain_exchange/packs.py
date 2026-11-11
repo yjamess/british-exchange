@@ -91,6 +91,8 @@ PACK_REGISTRY: dict[str, str] = {
     "housing.policy-pledges": "housing/policy-events/pledges.json",
     "housing.policy-archive": "housing/policy-events/archive.json",
     "housing.policy-plates": "housing/policy-events/plates.json",
+    # Economy Growth Revisions — PN2 vs QNA rebased indexes (not absolute £ overlay).
+    "economy.gdp-vintage-band": "economy/gdp-vintage-band/curated/band.json",
 }
 
 # Relative paths allowed via GET /packs/rel/{path} (planning-layer districts, live cache).

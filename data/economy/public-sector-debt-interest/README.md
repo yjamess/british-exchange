@@ -1,7 +1,7 @@
 # public-sector-debt-interest
 
 **Owner:** Economy agent  
-**Status:** Ready (self-QA pass)  
+**Status:** Validation (self-QA pass; independent Validation pending — not Ready)  
 **Registry:** https://app.notion.com/40d654717685815cb4e5d52cb43c17f3  
 **indicator_id:** `public-sector-debt-interest`
 
@@ -24,7 +24,7 @@
 ```txt
 data/economy/public-sector-debt-interest/
   manifest.yaml
-  raw/2026-11-03/nmfx_pusf.json
+  raw/2026-11-11/nmfx_pusf.json
   curated/observations.csv
   validation_report.md
   README.md
@@ -53,8 +53,8 @@ SHA-256: `56e3bf137fbb764fb5ea198af5644816c5e7da756e1b818631a8b2aafd9dc620`
 
 ## Related indicators
 
-`public-sector-net-borrowing`, `public-sector-net-debt`, `tax-receipts`, `total-managed-expenditure`
+`public-sector-net-borrowing`, `public-sector-net-debt`, `tax-receipts`, `total-managed-expenditure`, `public-sector-net-debt-percent-gdp` (HF6X)
 
 ## Hand-off
 
-Self-QA verdict **pass**. Registry → Ready.
+Self-QA verdict **pass**. Registry → Validation (2026-11-11). Ready only after independent Validation. Handover: `docs/handover-economy-08-debt.md`.

@@ -1,0 +1,54 @@
+indicator_id: public-sector-net-debt-percent-gdp
+title: Public sector net debt (% of GDP)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/hf6x/pusf
+series_id: HF6X
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% of GDP, NSA (ex public sector banks)'
+definition: 'Public sector net debt excluding public sector banks as a percentage
+  of GDP, not seasonally adjusted. ONS CDID HF6X in PUSF; live series title ''PS:
+  Net Debt (excluding public sector banks) as a % of GDP: NSA'', ONS unit ''%''. Official
+  ONS ratio: numerator is PSND (HF6W concept); denominator is nominal GDP summed over
+  a centred 12-month window (6 months either side of the debt date; monthly GDP =
+  quarterly / 3), using OBR forecasts for the latest quarters.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.public_sector_net_debt_percent_gdp
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-11/hf6x_pusf.json
+  retrieved_at: '2026-11-11T14:08:44.286311+00:00'
+  checksum_sha256: 9e36441224589270407925629a6fbf4ec0428f485a8f328983fa255ada23f4e5
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/hf6x/pusf/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array
+  (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
+  bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
+  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+revision_notes: 'Public Sector Finances (PUSF) monthly estimates revise as administrative
+  data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
+  Record official_release_date from description.releaseDate. HIGH revision risk for
+  the latest ~6 months: the centred GDP denominator uses forecast quarters until outturn
+  replaces them.'
+caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
+  JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
+  package stores period (month) levels only. Quarterly/annual aggregates exist in
+  raw JSON but are not written to curated observations. Values are a ratio in per
+  cent of GDP, not £. Official ONS series; NOT derived from real-gdp (ABMI is chained
+  volume SA, PSND is current prices — mixing them is wrong). The latest ~6 months
+  depend on OBR forecast GDP and revise heavily. Older ONS tables label HF6X 'PSND
+  ex BoE'; this row follows the live title 'excluding public sector banks'.
+related_indicator_ids:
+- public-sector-net-debt
+- public-sector-net-borrowing
+- public-sector-debt-interest
+open_questions:
+- 'Independent Validation: reconcile HF6X x centred nominal GDP (BKTL family) to HF6W,
+  and record revision size at the 2026-11-20 release.'
+notion_registry_url: https://app.notion.com/p/41565471768581e6ad97d6c10b9a5a1a
+schema_version: '1.0'

@@ -1,0 +1,45 @@
+indicator_id: cpih-inflation
+title: CPIH inflation
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23
+series_id: L55O
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% annual rate (CPIH all items)'
+definition: UK Consumer Prices Index including owner occupiers' housing costs (CPIH)
+  annual rate, all items. ONS CDID L55O in dataset MM23. ONS's lead measure of consumer
+  price inflation; companion rate to cpih-index (L522). Distinct from CPI annual rate
+  (D7G7), the Bank of England target measure.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpih_inflation
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-11/l55o_mm23.json
+  retrieved_at: '2026-11-11T14:08:22.954642+00:00'
+  checksum_sha256: 7783d086411a1b3aa8c776eb219e328799a522e2ef8e0c171b80d9fabcb53120
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPI/CPIH rarely revise history).
+revision_notes: CPIH rates revise with basket/weight updates and corrections.
+caveats: Headline CPIH annual rate, not the index level (L522) and not CPI (D7G7).
+  Never label as CPI. Economy-owned; Energy/Housing link by id.
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/415654717685815b877cc6795dac6273
+schema_version: '1.0'

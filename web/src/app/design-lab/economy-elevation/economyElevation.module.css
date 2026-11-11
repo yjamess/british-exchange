@@ -1,0 +1,219 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--bo-s7) var(--bo-s5) var(--bo-s9);
+  color: var(--bo-text);
+  background: var(--bo-paper);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s3) var(--bo-s5);
+  font-size: var(--bo-t-note);
+}
+.nav a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+
+.header {
+  padding: var(--bo-s7) 0 var(--bo-s5);
+  max-width: 62ch;
+}
+.eyebrow {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+.header h1 {
+  margin: var(--bo-s3) 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  color: var(--bo-ink);
+}
+.header p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+}
+
+.section {
+  border-top: var(--bo-hair);
+  padding: var(--bo-s6) 0;
+}
+.section h2 {
+  margin: 0 0 var(--bo-s3);
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: var(--bo-t-ed-m);
+  color: var(--bo-ink);
+}
+.section > p {
+  margin: 0 0 var(--bo-s4);
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.grid {
+  display: grid;
+  gap: var(--bo-s4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.swatch {
+  min-height: 9rem;
+  padding: var(--bo-s4);
+  border: 1px solid var(--bo-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--bo-s3);
+}
+.swatch h3 {
+  margin: 0;
+  font-family: var(--bo-f-head);
+  font-weight: 400;
+  font-size: var(--bo-t-ed-m);
+  color: var(--bo-ink);
+}
+.swatch p {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+}
+.swatch code {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+}
+
+.paper {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+}
+.electric {
+  background: var(--bo-electric);
+  color: var(--bo-paper);
+}
+.electric h3,
+.union h3 {
+  color: var(--bo-paper);
+}
+.union {
+  background: var(--bo-union);
+  color: var(--bo-lavender);
+}
+
+.plates {
+  display: grid;
+  gap: var(--bo-s4);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.plateCard {
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+}
+.plateFrame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bo-paper);
+}
+.plateFrame :global(.bo-plate) {
+  width: 100%;
+  height: 100%;
+  min-height: 12rem;
+}
+.plateCard figcaption {
+  padding: var(--bo-s3) var(--bo-s4);
+  font-size: var(--bo-t-note);
+  line-height: 1.4;
+  border-top: var(--bo-hair);
+}
+.plateCard strong {
+  display: block;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  margin-bottom: var(--bo-s1);
+}
+
+.icons {
+  display: grid;
+  gap: var(--bo-s3);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+.iconCard {
+  border: 1px solid var(--bo-ink-20);
+  padding: var(--bo-s3);
+  display: grid;
+  gap: var(--bo-s2);
+  justify-items: center;
+  text-align: center;
+}
+.iconMask {
+  width: 72px;
+  height: 72px;
+  background-color: var(--bo-ink);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.iconCard span {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--bo-ink);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--bo-t-note);
+}
+.table th,
+.table td {
+  text-align: left;
+  padding: var(--bo-s3) var(--bo-s4);
+  border-bottom: var(--bo-hair);
+  vertical-align: top;
+}
+.table th {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  background: var(--bo-paper-sink);
+}
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.callout {
+  margin-top: var(--bo-s5);
+  padding: var(--bo-s4);
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+}
+.callout p {
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  max-width: 70ch;
+}

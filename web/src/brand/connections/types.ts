@@ -9,7 +9,7 @@ export type ConnectionReadiness = "ready" | "deferred";
 
 /** Where the edge may fire. View omitted = any view in that domain. */
 export type ConnectionOrigin = {
-  sector: "energy" | "housing";
+  sector: "energy" | "housing" | "economy";
   domain: string;
   view?: string;
   /** Selection field the edge cares about (e.g. "fuel"). */

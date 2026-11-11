@@ -1,0 +1,2610 @@
+[
+  {
+    "item_id": 212710,
+    "slug": "avocados",
+    "label": "Avocados",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 210808,
+    "slug": "bacon",
+    "label": "Bacon",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 212223,
+    "slug": "bag-of-sweets-chocolate",
+    "label": "Bag of sweets (chocolate)",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 212603,
+    "slug": "baked-beans",
+    "label": "Baked beans",
+    "size": "400-425g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212311,
+    "slug": "baking-potatoes",
+    "label": "Baking potatoes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Potatoes"
+  },
+  {
+    "item_id": 212719,
+    "slug": "bananas",
+    "label": "Bananas",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 210212,
+    "slug": "basmati-rice",
+    "label": "Basmati rice",
+    "size": "500g-1kg",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 210403,
+    "slug": "beef-mince",
+    "label": "Beef mince",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 210416,
+    "slug": "beef-roasting-joint",
+    "label": "Beef roasting joint",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 210406,
+    "slug": "beef-steak",
+    "label": "Beef steak",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 310207,
+    "slug": "bitter",
+    "label": "Bitter",
+    "size": "4 cans (440-500ml)",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212733,
+    "slug": "blueberries",
+    "label": "Blueberries",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 310429,
+    "slug": "bottle-of-gin",
+    "label": "Bottle of gin",
+    "size": "70cl",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310403,
+    "slug": "bottle-of-vodka",
+    "label": "Bottle of vodka",
+    "size": "70cl",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310401,
+    "slug": "bottle-of-whiskey",
+    "label": "Bottle of whiskey",
+    "size": "70cl",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 210106,
+    "slug": "bread-rolls-white-or-brown",
+    "label": "Bread rolls (white or brown)",
+    "size": "pack of 6",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 210219,
+    "slug": "breakfast-cereal-gluten-free",
+    "label": "Breakfast cereal (gluten free)",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Breakfast"
+  },
+  {
+    "item_id": 210214,
+    "slug": "breakfast-cereal-low-sugar-non-chocolate-coated",
+    "label": "Breakfast cereal (low-sugar/non-chocolate coated)",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Breakfast"
+  },
+  {
+    "item_id": 210213,
+    "slug": "breakfast-cereal-sugar-chocolate-coated",
+    "label": "Breakfast cereal (sugar/chocolate coated)",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Breakfast"
+  },
+  {
+    "item_id": 212530,
+    "slug": "broccoli",
+    "label": "Broccoli",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 211306,
+    "slug": "butter",
+    "label": "Butter",
+    "size": "250g",
+    "category1": "Food and drink",
+    "category2": "Butter, spreads and oils"
+  },
+  {
+    "item_id": 212807,
+    "slug": "canned-fruit",
+    "label": "Canned fruit",
+    "size": "400-450g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212608,
+    "slug": "canned-sweetcorn",
+    "label": "Canned sweetcorn",
+    "size": "198-340g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212601,
+    "slug": "canned-tomatoes",
+    "label": "Canned tomatoes",
+    "size": "390-400g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 211207,
+    "slug": "canned-tuna",
+    "label": "Canned tuna",
+    "size": "130-200g",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 310216,
+    "slug": "cans-of-lager",
+    "label": "Cans of lager",
+    "size": "10-24 cans (440-500ml)",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212518,
+    "slug": "carrots",
+    "label": "Carrots",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212504,
+    "slug": "cauliflower",
+    "label": "Cauliflower",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 210215,
+    "slug": "cereal-bar",
+    "label": "Cereal bar",
+    "size": "one bar",
+    "category1": "Food and drink",
+    "category2": "Breakfast"
+  },
+  {
+    "item_id": 310423,
+    "slug": "champagne-bottle",
+    "label": "Champagne bottle",
+    "size": "75cl",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 211501,
+    "slug": "cheddar-cheese",
+    "label": "Cheddar cheese",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 212217,
+    "slug": "chewing-bubble-gum",
+    "label": "Chewing/bubble gum",
+    "size": "single pack",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 211026,
+    "slug": "chicken-kiev",
+    "label": "Chicken kiev",
+    "size": "pack of 2",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 210114,
+    "slug": "chilled-garlic-bread",
+    "label": "Chilled garlic bread",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 211808,
+    "slug": "chilled-pot-dessert",
+    "label": "Chilled pot dessert",
+    "size": "125-200g",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 212937,
+    "slug": "chilled-ready-meal-fish-veg",
+    "label": "Chilled ready meal (fish/veg)",
+    "size": "serves 1",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 212936,
+    "slug": "chilled-ready-meal-meat",
+    "label": "Chilled ready meal (meat)",
+    "size": "serves 1",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 212211,
+    "slug": "chocolate-caramel-bar",
+    "label": "Chocolate caramel bar",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 212226,
+    "slug": "chocolate-wafer-bar",
+    "label": "Chocolate wafer bar",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 213006,
+    "slug": "coffee-pods",
+    "label": "Coffee pods",
+    "size": "pack of 8-16",
+    "category1": "Food and drink",
+    "category2": "Coffee, tea and cocoa"
+  },
+  {
+    "item_id": 213007,
+    "slug": "coffee-sachets-pack",
+    "label": "Coffee sachets pack",
+    "size": "70-200g",
+    "category1": "Food and drink",
+    "category2": "Coffee, tea and cocoa"
+  },
+  {
+    "item_id": 211024,
+    "slug": "continental-sliced-deli-type-meat",
+    "label": "Continental sliced deli type meat",
+    "size": "40-100g",
+    "category1": "Food and drink",
+    "category2": "Cooked meats"
+  },
+  {
+    "item_id": 212923,
+    "slug": "cook-in-sauce",
+    "label": "Cook-in sauce",
+    "size": "350-520g",
+    "category1": "Food and drink",
+    "category2": "Sauces, pickles, chutney"
+  },
+  {
+    "item_id": 211023,
+    "slug": "cooked-ham-sliced",
+    "label": "Cooked ham (sliced)",
+    "size": "100-200g",
+    "category1": "Food and drink",
+    "category2": "Cooked meats"
+  },
+  {
+    "item_id": 211029,
+    "slug": "cooked-turkey-chicken-sliced",
+    "label": "Cooked turkey/chicken (sliced)",
+    "size": "100-180g",
+    "category1": "Food and drink",
+    "category2": "Cooked meats"
+  },
+  {
+    "item_id": 210211,
+    "slug": "corn-snack",
+    "label": "Corn snack",
+    "size": "50g",
+    "category1": "Food and drink",
+    "category2": "Crisps"
+  },
+  {
+    "item_id": 212531,
+    "slug": "courgettes",
+    "label": "Courgettes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 210221,
+    "slug": "couscous",
+    "label": "Couscous",
+    "size": "100-500g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 310428,
+    "slug": "cream-liqueur-14-20",
+    "label": "Cream liqueur (14-20%)",
+    "size": "70cl-1litre",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212402,
+    "slug": "crisps",
+    "label": "Crisps",
+    "size": "25-50g",
+    "category1": "Food and drink",
+    "category2": "Crisps"
+  },
+  {
+    "item_id": 210324,
+    "slug": "crumpets",
+    "label": "Crumpets",
+    "size": "pack of 6-9",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 212510,
+    "slug": "cucumber",
+    "label": "Cucumber",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 211411,
+    "slug": "dairy-free-spread-margarine",
+    "label": "Dairy free spread/margarine",
+    "size": "450-500g",
+    "category1": "Food and drink",
+    "category2": "Butter, spreads and oils"
+  },
+  {
+    "item_id": 211410,
+    "slug": "dairy-spread-margarine",
+    "label": "Dairy spread/margarine",
+    "size": "450-500g",
+    "category1": "Food and drink",
+    "category2": "Butter, spreads and oils"
+  },
+  {
+    "item_id": 212735,
+    "slug": "dessert-apple",
+    "label": "Dessert apple",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 212808,
+    "slug": "dried-fruit-pack",
+    "label": "Dried fruit pack",
+    "size": "100-250g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 210204,
+    "slug": "dry-spaghetti-or-pasta",
+    "label": "Dry spaghetti or pasta",
+    "size": "500g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 211604,
+    "slug": "eggs",
+    "label": "Eggs",
+    "size": "per dozen",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 212017,
+    "slug": "fizzy-drink",
+    "label": "Fizzy drink",
+    "size": "500ml",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212015,
+    "slug": "fizzy-energy-drink",
+    "label": "Fizzy energy drink",
+    "size": "250-500ml",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 310222,
+    "slug": "flavoured-cider-bottled",
+    "label": "Flavoured cider bottled",
+    "size": "500-568ml",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212024,
+    "slug": "flavoured-water",
+    "label": "Flavoured water",
+    "size": "900ml-1.5litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 310406,
+    "slug": "fortified-wine",
+    "label": "Fortified wine",
+    "size": "70-75cl",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 210910,
+    "slug": "fresh-boneless-chicken-breast",
+    "label": "Fresh boneless chicken breast",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 210905,
+    "slug": "fresh-chilled-whole-chicken",
+    "label": "Fresh/chilled whole chicken",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 211815,
+    "slug": "fresh-double-cream",
+    "label": "Fresh double cream",
+    "size": "250-300ml",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 211105,
+    "slug": "fresh-salmon-fillets",
+    "label": "Fresh salmon fillets",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 210914,
+    "slug": "fresh-turkey-diced-minced",
+    "label": "Fresh turkey diced/minced",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 211101,
+    "slug": "fresh-white-fish-fillets",
+    "label": "Fresh white fish fillets",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 210414,
+    "slug": "frozen-beef-burgers",
+    "label": "Frozen beef burgers",
+    "size": "pack of 4",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 212809,
+    "slug": "frozen-berries",
+    "label": "Frozen berries",
+    "size": "per pack",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 211211,
+    "slug": "frozen-breaded-battered-white-fish",
+    "label": "Frozen breaded/battered white fish",
+    "size": "400-550g",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 211019,
+    "slug": "frozen-chicken-nuggets",
+    "label": "Frozen chicken nuggets",
+    "size": "220-600g",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 211210,
+    "slug": "frozen-fish-fingers",
+    "label": "Frozen fish fingers",
+    "size": "pack of 8-12",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 211106,
+    "slug": "frozen-prawns",
+    "label": "Frozen prawns",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fish"
+  },
+  {
+    "item_id": 212918,
+    "slug": "frozen-ready-cooked-meal",
+    "label": "Frozen ready cooked meal",
+    "size": "serves 1",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 212928,
+    "slug": "frozen-vegetable-burger",
+    "label": "Frozen vegetable burger",
+    "size": "180-454g",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 212006,
+    "slug": "fruit-juice-excluding-orange-juice",
+    "label": "Fruit juice (excluding orange juice)",
+    "size": "1litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212214,
+    "slug": "fruit-pastilles",
+    "label": "Fruit pastilles",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 210802,
+    "slug": "gammon",
+    "label": "Gammon",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 212101,
+    "slug": "granulated-white-sugar",
+    "label": "Granulated white sugar",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212715,
+    "slug": "grapefruit",
+    "label": "Grapefruit",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 212722,
+    "slug": "grapes",
+    "label": "Grapes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 211509,
+    "slug": "hard-cheese",
+    "label": "Hard cheese",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 212107,
+    "slug": "honey",
+    "label": "Honey",
+    "size": "340-454g",
+    "category1": "Food and drink",
+    "category2": "Jams, marmalades and honey"
+  },
+  {
+    "item_id": 213005,
+    "slug": "hot-chocolate-drink",
+    "label": "Hot chocolate drink",
+    "size": "250-400g",
+    "category1": "Food and drink",
+    "category2": "Coffee, tea and cocoa"
+  },
+  {
+    "item_id": 210216,
+    "slug": "hot-oat-cereal",
+    "label": "Hot oat cereal",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Breakfast"
+  },
+  {
+    "item_id": 212933,
+    "slug": "ice-cream",
+    "label": "Ice cream",
+    "size": "450ml-1litre",
+    "category1": "Food and drink",
+    "category2": "Frozen food"
+  },
+  {
+    "item_id": 212511,
+    "slug": "iceberg-lettuce",
+    "label": "Iceberg lettuce",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 210321,
+    "slug": "individual-cakes",
+    "label": "Individual cakes",
+    "size": "pack of 5-6",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 211011,
+    "slug": "individual-meat-pie",
+    "label": "Individual meat pie",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Cooked meats"
+  },
+  {
+    "item_id": 213003,
+    "slug": "instant-coffee",
+    "label": "Instant coffee",
+    "size": "90-100g",
+    "category1": "Food and drink",
+    "category2": "Coffee, tea and cocoa"
+  },
+  {
+    "item_id": 212106,
+    "slug": "jam",
+    "label": "Jam",
+    "size": "340-454g",
+    "category1": "Food and drink",
+    "category2": "Jams, marmalades and honey"
+  },
+  {
+    "item_id": 212712,
+    "slug": "kiwi-fruit",
+    "label": "Kiwi fruit",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 210506,
+    "slug": "lamb-loin-chop-steak",
+    "label": "Lamb loin chop/steak",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 212225,
+    "slug": "large-chocolate-bar",
+    "label": "Large chocolate bar",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 210102,
+    "slug": "large-white-unsliced-bread",
+    "label": "Large white unsliced bread",
+    "size": "750-800g",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 212732,
+    "slug": "lemon",
+    "label": "Lemon",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 212008,
+    "slug": "lemonade",
+    "label": "Lemonade",
+    "size": "2litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212228,
+    "slug": "malted-chocolate-sweets",
+    "label": "Malted chocolate sweets",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 212930,
+    "slug": "mayonnaise",
+    "label": "Mayonnaise",
+    "size": "390-500g / 420-540ml",
+    "category1": "Food and drink",
+    "category2": "Sauces, pickles, chutney"
+  },
+  {
+    "item_id": 212944,
+    "slug": "meat-free-sausages",
+    "label": "Meat free sausages",
+    "size": "per pack",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 212736,
+    "slug": "melon",
+    "label": "Melon",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 210217,
+    "slug": "microwavable-rice",
+    "label": "Microwavable rice",
+    "size": "220-280g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212222,
+    "slug": "milk-chocolate-bar",
+    "label": "Milk chocolate bar",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 212202,
+    "slug": "mints",
+    "label": "Mints",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Chocolate and sweets"
+  },
+  {
+    "item_id": 212022,
+    "slug": "mixer-drink",
+    "label": "Mixer drink",
+    "size": "1litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212404,
+    "slug": "multipack-crisps",
+    "label": "Multipack crisps",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Crisps"
+  },
+  {
+    "item_id": 211030,
+    "slug": "multipack-meat-based-snack",
+    "label": "Multipack meat based snack",
+    "size": "400g",
+    "category1": "Food and drink",
+    "category2": "Cooked meats"
+  },
+  {
+    "item_id": 212023,
+    "slug": "multipack-of-cola-fizzy-drink",
+    "label": "Multipack of cola/fizzy drink",
+    "size": "pack of 4-8 (330ml)",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212520,
+    "slug": "mushrooms",
+    "label": "Mushrooms",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212309,
+    "slug": "new-potatoes",
+    "label": "New potatoes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Potatoes"
+  },
+  {
+    "item_id": 211714,
+    "slug": "non-dairy-milk-drink",
+    "label": "Non-dairy milk drink",
+    "size": "900ml-1litre",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 211408,
+    "slug": "olive-oil",
+    "label": "Olive oil",
+    "size": "500ml-1litre",
+    "category1": "Food and drink",
+    "category2": "Butter, spreads and oils"
+  },
+  {
+    "item_id": 212519,
+    "slug": "onions",
+    "label": "Onions",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212709,
+    "slug": "orange",
+    "label": "Orange",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 211025,
+    "slug": "oven-ready-gammon-pork-joint",
+    "label": "Oven ready gammon/pork joint",
+    "size": "450-900g",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 210115,
+    "slug": "pack-of-wraps-tortillas",
+    "label": "Pack of wraps/tortillas",
+    "size": "pack of 6-8",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 212806,
+    "slug": "packet-of-peanuts",
+    "label": "Packet of peanuts",
+    "size": "150-300g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 211510,
+    "slug": "parmesan-cheese",
+    "label": "Parmesan cheese",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 211409,
+    "slug": "peanut-butter",
+    "label": "Peanut butter",
+    "size": "225-350g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212532,
+    "slug": "peppers",
+    "label": "Peppers",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212737,
+    "slug": "pineapple",
+    "label": "Pineapple",
+    "size": "each",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 210302,
+    "slug": "plain-biscuits",
+    "label": "Plain biscuits",
+    "size": "200-300g",
+    "category1": "Food and drink",
+    "category2": "Biscuits"
+  },
+  {
+    "item_id": 212726,
+    "slug": "plums",
+    "label": "Plums",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 211014,
+    "slug": "pork-sausages",
+    "label": "Pork sausages",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Meat"
+  },
+  {
+    "item_id": 211816,
+    "slug": "powdered-baby-formula",
+    "label": "Powdered baby formula",
+    "size": "400-900g",
+    "category1": "Food and drink",
+    "category2": "Other food"
+  },
+  {
+    "item_id": 310430,
+    "slug": "pre-mixed-spirit-drink",
+    "label": "Pre-mixed spirit drink",
+    "size": "250-330ml",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212409,
+    "slug": "pre-prepared-mashed-potatoes",
+    "label": "Pre-prepared mashed potatoes",
+    "size": "400-650g",
+    "category1": "Food and drink",
+    "category2": "Potatoes"
+  },
+  {
+    "item_id": 310215,
+    "slug": "premium-lager",
+    "label": "Premium lager",
+    "size": "4 bottles",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212940,
+    "slug": "protein-powder",
+    "label": "Protein powder",
+    "size": "900g-2kg",
+    "category1": "Food and drink",
+    "category2": "Other food"
+  },
+  {
+    "item_id": 212613,
+    "slug": "pulses",
+    "label": "Pulses",
+    "size": "390-420g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212941,
+    "slug": "quiche",
+    "label": "Quiche",
+    "size": "340-450g",
+    "category1": "Food and drink",
+    "category2": "Chilled food"
+  },
+  {
+    "item_id": 212734,
+    "slug": "raspberries",
+    "label": "Raspberries",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 310431,
+    "slug": "red-wine",
+    "label": "Red wine",
+    "size": "75cl bottle",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212025,
+    "slug": "regular-cola-drink",
+    "label": "Regular cola drink",
+    "size": "1.25-2litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 210201,
+    "slug": "self-raising-flour",
+    "label": "Self-raising flour",
+    "size": "1.5kg",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 211710,
+    "slug": "semi-skimmed-milk",
+    "label": "Semi-skimmed milk",
+    "size": "2 pints",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 211901,
+    "slug": "small-box-of-tea-bags",
+    "label": "Small box of tea bags",
+    "size": "pack of 80 (230-250g)",
+    "category1": "Food and drink",
+    "category2": "Coffee, tea and cocoa"
+  },
+  {
+    "item_id": 212725,
+    "slug": "small-oranges",
+    "label": "Small oranges",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh fruit"
+  },
+  {
+    "item_id": 211814,
+    "slug": "small-yoghurt",
+    "label": "Small yoghurt",
+    "size": "one",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 211511,
+    "slug": "soft-cheese",
+    "label": "Soft cheese",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 310220,
+    "slug": "speciality-bottled-beer-4-5-5",
+    "label": "Speciality bottled beer (4.5-5%)",
+    "size": "500ml",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 210320,
+    "slug": "sponge-cake",
+    "label": "Sponge cake",
+    "size": "as priced",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 211305,
+    "slug": "spreadable-butter",
+    "label": "Spreadable butter",
+    "size": "500g",
+    "category1": "Food and drink",
+    "category2": "Butter, spreads and oils"
+  },
+  {
+    "item_id": 212010,
+    "slug": "still-mineral-water",
+    "label": "Still mineral water",
+    "size": "1.5-2litre",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 212021,
+    "slug": "still-water",
+    "label": "Still water",
+    "size": "500ml",
+    "category1": "Food and drink",
+    "category2": "Soft drinks"
+  },
+  {
+    "item_id": 310219,
+    "slug": "stout",
+    "label": "Stout",
+    "size": "4 can pack",
+    "category1": "Food and drink",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 212535,
+    "slug": "sweet-potato",
+    "label": "Sweet potato",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Potatoes"
+  },
+  {
+    "item_id": 212515,
+    "slug": "tomatoes",
+    "label": "Tomatoes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212905,
+    "slug": "vegetable-pickle",
+    "label": "Vegetable pickle",
+    "size": "280-520g",
+    "category1": "Food and drink",
+    "category2": "Store cupboard"
+  },
+  {
+    "item_id": 212533,
+    "slug": "vegetable-stir-fry-pack",
+    "label": "Vegetable stir fry pack",
+    "size": "one",
+    "category1": "Food and drink",
+    "category2": "Fresh vegetables"
+  },
+  {
+    "item_id": 212310,
+    "slug": "white-potatoes",
+    "label": "White potatoes",
+    "size": "per kg",
+    "category1": "Food and drink",
+    "category2": "Potatoes"
+  },
+  {
+    "item_id": 210111,
+    "slug": "white-sliced-bread",
+    "label": "White sliced bread",
+    "size": "750-800g",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 211709,
+    "slug": "whole-milk",
+    "label": "Whole milk",
+    "size": "4 pints",
+    "category1": "Food and drink",
+    "category2": "Dairy"
+  },
+  {
+    "item_id": 210113,
+    "slug": "wholemeal-sliced-bread",
+    "label": "Wholemeal sliced bread",
+    "size": "750-800g",
+    "category1": "Food and drink",
+    "category2": "Bakery"
+  },
+  {
+    "item_id": 310306,
+    "slug": "bottle-of-mixer",
+    "label": "Bottle of mixer",
+    "size": "125-200ml",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310315,
+    "slug": "bottle-of-wine",
+    "label": "Bottle of wine",
+    "size": "75cl",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220117,
+    "slug": "bottled-mineral-water",
+    "label": "Bottled mineral water",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 310111,
+    "slug": "bottled-premium-lager-4-3-7-5",
+    "label": "Bottled premium lager (4.3-7.5%)",
+    "size": "one bottle",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220319,
+    "slug": "chinese-takeaway-main-course",
+    "label": "Chinese takeaway, main-course",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 310114,
+    "slug": "cider-4-5-5-5",
+    "label": "Cider (4.5-5.5%)",
+    "size": "per pint",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220310,
+    "slug": "crisps-eating-out",
+    "label": "Crisps (eating out)",
+    "size": "per pack",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 310102,
+    "slug": "draught-bitter",
+    "label": "Draught bitter",
+    "size": "per pint",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310109,
+    "slug": "draught-lager-3-4-4-2",
+    "label": "Draught lager (3.4-4.2%)",
+    "size": "per pint",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310110,
+    "slug": "draught-premium-lager-4-3-7-5",
+    "label": "Draught premium lager (4.3-7.5%)",
+    "size": "per pint",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220125,
+    "slug": "fruit-juice",
+    "label": "Fruit juice",
+    "size": "250-350ml",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 310316,
+    "slug": "gin",
+    "label": "Gin",
+    "size": "30ml",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220120,
+    "slug": "in-store-cafeteria-meal",
+    "label": "In store cafeteria meal",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220318,
+    "slug": "indian-takeaway-main-course",
+    "label": "Indian takeaway, main-course",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220116,
+    "slug": "lemonade-cola-on-tap",
+    "label": "Lemonade/Cola on tap",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 310307,
+    "slug": "liqueur",
+    "label": "Liqueur",
+    "size": "30ml",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 220124,
+    "slug": "muffin-individual-cake",
+    "label": "Muffin/individual cake",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220209,
+    "slug": "primary-school-meal-fixed-charges",
+    "label": "Primary school meal (fixed charges)",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Schools"
+  },
+  {
+    "item_id": 220107,
+    "slug": "pub-hot-meal",
+    "label": "Pub hot meal",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220121,
+    "slug": "restaurant-coffee",
+    "label": "Restaurant cup of coffee",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220128,
+    "slug": "restaurant-main-course",
+    "label": "Restaurant main course",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220122,
+    "slug": "restaurant-sweet-course",
+    "label": "Restaurant sweet course",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Pubs, restaurants and cafes"
+  },
+  {
+    "item_id": 220210,
+    "slug": "secondary-school-cafeteria",
+    "label": "Secondary school (cafeteria)",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Schools"
+  },
+  {
+    "item_id": 220326,
+    "slug": "takeaway-chicken-chips",
+    "label": "Takeaway chicken & chips",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220303,
+    "slug": "takeaway-cold-sandwich",
+    "label": "Takeaway cold sandwich",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220327,
+    "slug": "takeaway-cooked-pastry",
+    "label": "Takeaway cooked pastry",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220301,
+    "slug": "takeaway-fish-and-chips",
+    "label": "Takeaway fish and chips",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220323,
+    "slug": "takeaway-kebab",
+    "label": "Takeaway kebab",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220316,
+    "slug": "takeaway-or-delivery-pizza",
+    "label": "Takeaway or delivery pizza",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220328,
+    "slug": "takeaway-or-eat-in-burger",
+    "label": "Takeaway or eat in burger",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 220320,
+    "slug": "takeaway-soft-drink",
+    "label": "Takeaway soft drink",
+    "size": "as priced",
+    "category1": "Food and drink establishments",
+    "category2": "Fast food and take aways"
+  },
+  {
+    "item_id": 310302,
+    "slug": "vodka",
+    "label": "Vodka",
+    "size": "30ml",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 310301,
+    "slug": "whiskey",
+    "label": "Whiskey",
+    "size": "30ml",
+    "category1": "Food and drink establishments",
+    "category2": "Alcohol"
+  },
+  {
+    "item_id": 520242,
+    "slug": "cold-flu-drink-powder-sachets",
+    "label": "Cold/flu drink powder sachets",
+    "size": "pack of 10",
+    "category1": "Health",
+    "category2": "Personal health"
+  },
+  {
+    "item_id": 520251,
+    "slug": "cough-syrup",
+    "label": "Cough syrup",
+    "size": "150-200ml",
+    "category1": "Health",
+    "category2": "Personal health"
+  },
+  {
+    "item_id": 520139,
+    "slug": "daily-disposable-soft-lenses",
+    "label": "Daily disposable soft lenses",
+    "size": "pack of 30 pairs",
+    "category1": "Health",
+    "category2": "Glasses and contact lenses"
+  },
+  {
+    "item_id": 520216,
+    "slug": "deodorant-anti-perspirant",
+    "label": "Deodorant/anti perspirant",
+    "size": "50-250ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520237,
+    "slug": "hair-gel",
+    "label": "Hair gel",
+    "size": "150-200ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520243,
+    "slug": "liquid-foundation",
+    "label": "Liquid foundation",
+    "size": "30-35ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520247,
+    "slug": "liquid-soap",
+    "label": "Liquid soap",
+    "size": "200-300ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520223,
+    "slug": "mascara",
+    "label": "Mascara",
+    "size": "as priced",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520255,
+    "slug": "mouthwash",
+    "label": "Mouthwash",
+    "size": "300-600ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520250,
+    "slug": "nail-varnish",
+    "label": "Nail varnish",
+    "size": "6-14ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520241,
+    "slug": "razor-cartridge-blades",
+    "label": "Razor cartridge blades",
+    "size": "pack of 3-8",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520226,
+    "slug": "shampoo",
+    "label": "Shampoo",
+    "size": "250-400ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520138,
+    "slug": "spectacle-frames-with-lens",
+    "label": "Spectacle frames with lens",
+    "size": "as priced",
+    "category1": "Health",
+    "category2": "Glasses and contact lenses"
+  },
+  {
+    "item_id": 520235,
+    "slug": "sunscreen",
+    "label": "Sunscreen",
+    "size": "15 SPF",
+    "category1": "Health",
+    "category2": "Personal health"
+  },
+  {
+    "item_id": 520213,
+    "slug": "tissues",
+    "label": "Tissues",
+    "size": "large box",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 520236,
+    "slug": "women-s-permanent-hair-colourant",
+    "label": "Women's permanent hair colourant",
+    "size": "60-140ml",
+    "category1": "Health",
+    "category2": "Personal hygiene and wellness"
+  },
+  {
+    "item_id": 430527,
+    "slug": "a4-printer-paper",
+    "label": "A4 printer paper",
+    "size": "500 sheets",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 430539,
+    "slug": "aa-battery",
+    "label": "AA battery",
+    "size": "pack of 4",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430144,
+    "slug": "adult-bed",
+    "label": "Adult bed",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430505,
+    "slug": "aluminium-cooking-foil",
+    "label": "Aluminium cooking foil",
+    "size": "290-300mm",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430542,
+    "slug": "antibacterial-surface-wipes",
+    "label": "Antibacterial surface wipes",
+    "size": "per pack",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430104,
+    "slug": "armchair",
+    "label": "Armchair",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430503,
+    "slug": "ballpoint-pen",
+    "label": "Ballpoint pen",
+    "size": "single",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 430228,
+    "slug": "bath-towel",
+    "label": "Bath towel",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Bed linen"
+  },
+  {
+    "item_id": 430543,
+    "slug": "bin-liners-for-kitchen-use",
+    "label": "Bin liners for kitchen use",
+    "size": "per pack",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430530,
+    "slug": "black-inkjet-cartridge",
+    "label": "Black inkjet cartridge",
+    "size": "single pack",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 430529,
+    "slug": "bleach",
+    "label": "Bleach",
+    "size": "750ml",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430133,
+    "slug": "bookcase-freestanding-shelve-unit",
+    "label": "Bookcase/freestanding shelve unit",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 410632,
+    "slug": "carpet-cleaner-hire",
+    "label": "Carpet cleaner hire",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 410637,
+    "slug": "ceramic-tiles",
+    "label": "Ceramic tiles",
+    "size": "15x15-25x50cm",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430127,
+    "slug": "chest-of-drawers",
+    "label": "Chest of drawers",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430525,
+    "slug": "clear-sticky-tape",
+    "label": "Clear sticky tape",
+    "size": "per roll",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 420103,
+    "slug": "coal",
+    "label": "Coal",
+    "size": "50kg",
+    "category1": "Household items",
+    "category2": "Solid and liquid fuels"
+  },
+  {
+    "item_id": 430120,
+    "slug": "coffee-table",
+    "label": "Coffee table",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430236,
+    "slug": "curtains-ready-made",
+    "label": "Curtains (ready made)",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furnishing fabrics and curtains"
+  },
+  {
+    "item_id": 430425,
+    "slug": "dinner-plate",
+    "label": "Dinner plate",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Chinaware and glassware"
+  },
+  {
+    "item_id": 430141,
+    "slug": "dinning-table-with-2-6-chairs",
+    "label": "Dinning table with 2-6 chairs",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430356,
+    "slug": "dish-washer",
+    "label": "Dish washer",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 410611,
+    "slug": "door-handle",
+    "label": "Door handle",
+    "size": "pack of 1",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430211,
+    "slug": "double-duvet",
+    "label": "Double duvet",
+    "size": "10-13.5 tog",
+    "category1": "Household items",
+    "category2": "Bed linen"
+  },
+  {
+    "item_id": 430101,
+    "slug": "double-wardrobe",
+    "label": "Double wardrobe",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430216,
+    "slug": "duvet-cover",
+    "label": "Duvet cover",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Bed linen"
+  },
+  {
+    "item_id": 430304,
+    "slug": "electric-cooker",
+    "label": "Electric cooker",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430351,
+    "slug": "electric-hair-styling-appliance",
+    "label": "Electric hair styling appliance",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430358,
+    "slug": "electric-heater",
+    "label": "Electric heater",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430317,
+    "slug": "electric-iron",
+    "label": "Electric iron",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430307,
+    "slug": "electric-kettle",
+    "label": "Electric kettle",
+    "size": "1.5-1.7litre",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430531,
+    "slug": "fabric-conditioner",
+    "label": "Fabric conditioner",
+    "size": "500ml-1.5litre",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430229,
+    "slug": "fabric-roller-blind",
+    "label": "Fabric roller blind",
+    "size": "120-180cm",
+    "category1": "Household items",
+    "category2": "Furnishing fabrics and curtains"
+  },
+  {
+    "item_id": 430224,
+    "slug": "fitted-bed-sheet",
+    "label": "Fitted bed sheet",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Bed linen"
+  },
+  {
+    "item_id": 520118,
+    "slug": "flower-vase",
+    "label": "Flower vase",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Chinaware and glassware"
+  },
+  {
+    "item_id": 430362,
+    "slug": "fridge-freezer",
+    "label": "Fridge/freezer",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430423,
+    "slug": "frying-pan-non-stick",
+    "label": "Frying pan (non-stick)",
+    "size": "24-30cm",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430414,
+    "slug": "gas-cooker",
+    "label": "Gas cooker",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430413,
+    "slug": "gas-fire",
+    "label": "Gas fire",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Solid and liquid fuels"
+  },
+  {
+    "item_id": 430526,
+    "slug": "greetings-card",
+    "label": "Greetings card",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 430142,
+    "slug": "high-chair",
+    "label": "High chair",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430138,
+    "slug": "home-office-desk",
+    "label": "Home office desk",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430509,
+    "slug": "household-cleaner-liquid",
+    "label": "Household cleaner liquid",
+    "size": "450-500ml",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 420405,
+    "slug": "kerosene",
+    "label": "Kerosene",
+    "size": "1000litre",
+    "category1": "Household items",
+    "category2": "Solid and liquid fuels"
+  },
+  {
+    "item_id": 430119,
+    "slug": "kitchen-base-unit",
+    "label": "Kitchen base unit",
+    "size": "width 800-1000mm",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430533,
+    "slug": "kitchen-roll",
+    "label": "Kitchen roll",
+    "size": "pack of 2-4",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430139,
+    "slug": "kitchen-wall-unit",
+    "label": "Kitchen wall unit",
+    "size": "width 800-1000mm",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430137,
+    "slug": "leather-settee",
+    "label": "Leather settee",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430524,
+    "slug": "light-bulb",
+    "label": "Light bulb",
+    "size": "single",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 520134,
+    "slug": "luggage-trolley-case",
+    "label": "Luggage trolley case",
+    "size": "60-70cm",
+    "category1": "Household items",
+    "category2": "Travel"
+  },
+  {
+    "item_id": 430237,
+    "slug": "luxury-vinyl-tile",
+    "label": "Luxury vinyl tile",
+    "size": "per sq. metre",
+    "category1": "Household items",
+    "category2": "Carpets, rugs and flooring"
+  },
+  {
+    "item_id": 410633,
+    "slug": "medium-density-fireboard-mdf",
+    "label": "Medium density fireboard (MDF)",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430143,
+    "slug": "non-leather-settee",
+    "label": "Non leather settee",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 410607,
+    "slug": "paint-brush",
+    "label": "Paint brush",
+    "size": "2inch/5cm width",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 520136,
+    "slug": "photo-frame",
+    "label": "Photo frame",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430422,
+    "slug": "plain-glass-tumbler",
+    "label": "Plain glass tumbler",
+    "size": "single",
+    "category1": "Household items",
+    "category2": "Chinaware and glassware"
+  },
+  {
+    "item_id": 410614,
+    "slug": "power-drill",
+    "label": "Power drill",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 410602,
+    "slug": "ready-mixed-filler",
+    "label": "Ready mixed filler",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430235,
+    "slug": "rug",
+    "label": "Rug",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Carpets, rugs and flooring"
+  },
+  {
+    "item_id": 430409,
+    "slug": "scissors",
+    "label": "Scissors",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 410625,
+    "slug": "screwdriver",
+    "label": "Screwdriver",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 410631,
+    "slug": "shower-head",
+    "label": "Shower head",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430407,
+    "slug": "small-milk-pan",
+    "label": "Small milk pan",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430541,
+    "slug": "smart-wi-fi-light-bulb",
+    "label": "Smart Wi-Fi light bulb",
+    "size": "each",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 630166,
+    "slug": "soundbar",
+    "label": "Soundbar",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Electrical"
+  },
+  {
+    "item_id": 430419,
+    "slug": "stainless-steel-cutlery-set",
+    "label": "Stainless steel cutlery set",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Cookware"
+  },
+  {
+    "item_id": 430134,
+    "slug": "table-lamp",
+    "label": "Table lamp",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 430233,
+    "slug": "tufted-carpet-synthetic",
+    "label": "Tufted carpet (synthetic)",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Carpets, rugs and flooring"
+  },
+  {
+    "item_id": 430234,
+    "slug": "tufted-carpet-wool",
+    "label": "Tufted carpet (wool)",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Carpets, rugs and flooring"
+  },
+  {
+    "item_id": 410621,
+    "slug": "varnish-clear-gloss",
+    "label": "Varnish clear gloss",
+    "size": "750ml-1litre",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 520132,
+    "slug": "wall-hanging-mirror",
+    "label": "Wall hanging mirror",
+    "size": "as priced",
+    "category1": "Household items",
+    "category2": "Furniture"
+  },
+  {
+    "item_id": 410629,
+    "slug": "wallpaper",
+    "label": "Wallpaper",
+    "size": "per roll",
+    "category1": "Household items",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 430540,
+    "slug": "washing-detergent",
+    "label": "Washing detergent",
+    "size": "800ml-1.5litre",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430507,
+    "slug": "washing-up-liquid",
+    "label": "Washing up liquid",
+    "size": "380-900ml",
+    "category1": "Household items",
+    "category2": "Cleaning"
+  },
+  {
+    "item_id": 430535,
+    "slug": "wrapping-paper",
+    "label": "Wrapping paper",
+    "size": "per sheet",
+    "category1": "Household items",
+    "category2": "Stationary"
+  },
+  {
+    "item_id": 520331,
+    "slug": "basic-manicure",
+    "label": "Basic manicure",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 410518,
+    "slug": "carpenter",
+    "label": "Carpenter",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 440120,
+    "slug": "child-minder",
+    "label": "Child minder",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 520332,
+    "slug": "chiropractor-private",
+    "label": "Chiropractor (private)",
+    "size": "per session",
+    "category1": "Services",
+    "category2": "Health"
+  },
+  {
+    "item_id": 410517,
+    "slug": "decorator",
+    "label": "Decorator",
+    "size": "daily rate",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 440101,
+    "slug": "domestic-cleaner",
+    "label": "Domestic cleaner",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 440105,
+    "slug": "driving-lesson",
+    "label": "Driving lesson",
+    "size": "per hour",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440104,
+    "slug": "dry-cleaning-mans-suit",
+    "label": "Dry cleaning mans suit",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 410509,
+    "slug": "electrician",
+    "label": "Electrician",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 440121,
+    "slug": "event-catering",
+    "label": "Event catering",
+    "size": "cost per head",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440128,
+    "slug": "home-care-assistant",
+    "label": "Home care assistant",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 440123,
+    "slug": "home-removal-van",
+    "label": "Home removal van",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 520301,
+    "slug": "men-s-haircut",
+    "label": "Men's haircut",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Hairdressing"
+  },
+  {
+    "item_id": 440126,
+    "slug": "nanny-fees",
+    "label": "Nanny fees",
+    "size": "weekly",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 440232,
+    "slug": "nursery-fees-0-4-yrs",
+    "label": "Nursery fees (0-4 yrs.)",
+    "size": "per day",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 520325,
+    "slug": "nursing-home",
+    "label": "Nursing home",
+    "size": "per week",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 440118,
+    "slug": "pc-repair",
+    "label": "PC repair",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 520313,
+    "slug": "physiotherapy-private",
+    "label": "Physiotherapy (private)",
+    "size": "per session",
+    "category1": "Services",
+    "category2": "Health"
+  },
+  {
+    "item_id": 440129,
+    "slug": "playgroup-fees",
+    "label": "Playgroup fees",
+    "size": "per session",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 410508,
+    "slug": "plumber",
+    "label": "Plumber",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 520326,
+    "slug": "private-dental-examination",
+    "label": "Private dental examination",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Health"
+  },
+  {
+    "item_id": 520324,
+    "slug": "residential-home",
+    "label": "Residential home",
+    "size": "per week",
+    "category1": "Services",
+    "category2": "Care"
+  },
+  {
+    "item_id": 440127,
+    "slug": "self-storage-fee",
+    "label": "Self-storage fee",
+    "size": "monthly",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440254,
+    "slug": "solicitor",
+    "label": "Solicitor",
+    "size": "hourly rate",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440227,
+    "slug": "standard-funeral-cremation-service",
+    "label": "Standard funeral cremation service",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440240,
+    "slug": "standard-will-for-a-single-person",
+    "label": "Standard will for a single person",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Other"
+  },
+  {
+    "item_id": 440116,
+    "slug": "washing-machine-repair",
+    "label": "Washing machine repair",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 440113,
+    "slug": "window-cleaning",
+    "label": "Window cleaning",
+    "size": "average 3-bed semi detached",
+    "category1": "Services",
+    "category2": "Maintenance and repair"
+  },
+  {
+    "item_id": 520303,
+    "slug": "women-s-hairdressing-cut-blow-dry",
+    "label": "Women's hairdressing (cut & blow dry)",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Hairdressing"
+  },
+  {
+    "item_id": 520311,
+    "slug": "women-s-highlighting",
+    "label": "Women's highlighting",
+    "size": "as priced",
+    "category1": "Services",
+    "category2": "Hairdressing"
+  },
+  {
+    "item_id": 620318,
+    "slug": "adult-bike",
+    "label": "Adult bike",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Bikes and cycling equipment"
+  },
+  {
+    "item_id": 620319,
+    "slug": "adult-cycle-helmet",
+    "label": "Adult cycle helmet",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Bikes and cycling equipment"
+  },
+  {
+    "item_id": 610115,
+    "slug": "adult-electric-bike",
+    "label": "Adult electric bike",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Bikes and cycling equipment"
+  },
+  {
+    "item_id": 610227,
+    "slug": "car-mot-test-fee",
+    "label": "Car MOT test fee",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 620315,
+    "slug": "car-park-charges",
+    "label": "Car park charges",
+    "size": "per 2 hrs",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610236,
+    "slug": "car-repairs-local-garage",
+    "label": "Car repairs (local garage)",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610235,
+    "slug": "car-repairs-main-dealer",
+    "label": "Car repairs (main dealer)",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610231,
+    "slug": "car-service-local-garage",
+    "label": "Car service (local garage)",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610232,
+    "slug": "car-service-main-dealer",
+    "label": "Car service (main dealer)",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610204,
+    "slug": "car-tyre",
+    "label": "Car tyre",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Spare parts"
+  },
+  {
+    "item_id": 610238,
+    "slug": "car-wash-hand-or-automatic",
+    "label": "Car wash (hand or automatic)",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610242,
+    "slug": "exhaust-fitting",
+    "label": "Exhaust fitting",
+    "size": "as priced",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 620308,
+    "slug": "minicab-fare",
+    "label": "Minicab fare",
+    "size": "per 2 miles",
+    "category1": "Transport",
+    "category2": "Services"
+  },
+  {
+    "item_id": 610303,
+    "slug": "multigrade-oil",
+    "label": "Multigrade oil",
+    "size": "per litre",
+    "category1": "Transport",
+    "category2": "Spare parts"
+  },
+  {
+    "item_id": 620307,
+    "slug": "self-drive-car-hire",
+    "label": "Self drive car hire",
+    "size": "per day",
+    "category1": "Transport",
+    "category2": "Vehicle hire"
+  },
+  {
+    "item_id": 620303,
+    "slug": "self-drive-van-hire",
+    "label": "Self drive van hire",
+    "size": "per day",
+    "category1": "Transport",
+    "category2": "Vehicle hire"
+  }
+]

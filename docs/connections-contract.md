@@ -54,7 +54,8 @@ One `Connection` object everywhere (`web/src/brand/connections/`):
 | Types + resolve | `web/src/brand/connections/` |
 | Energy seed registry | `web/src/brand/connections/energy.ts` (all Ready domains) |
 | Housing seed registry | `web/src/brand/connections/housing.ts` |
-| UI | `EnergyStageFollow` / `FollowStep` via Stage `follow` + `ArrivalFrom` (lab 1 + 4; never inside the stage body) |
+| Economy seed registry | `web/src/brand/connections/economy.ts` (Inflation deep-brief edges first; grow with Wave A elevation) |
+| UI | `EnergyStageFollow` / `EconomyStageFollow` / `FollowStep` via Stage `follow` + `ArrivalFrom` (lab 1 + 4; never inside the stage body) |
 | Visual lab | `/design-lab/follow` |
 | Tests | `npm run test:connections` |
 

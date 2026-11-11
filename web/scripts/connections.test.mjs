@@ -44,10 +44,17 @@ async function loadConnections() {
     .replace(/from ["']\.\/resolve["']/g, `from "${resolveUrl}"`);
   const housingUrl = `data:text/javascript;base64,${Buffer.from(housingCode).toString("base64")}`;
 
+  let economyCode = await transpile(path.join(connectionsRoot, "economy.ts"), "economy.ts");
+  economyCode = economyCode
+    .replace(/from ["']\.\/types["']/g, `from "${typesUrl}"`)
+    .replace(/from ["']\.\/resolve["']/g, `from "${resolveUrl}"`);
+  const economyUrl = `data:text/javascript;base64,${Buffer.from(economyCode).toString("base64")}`;
+
   const resolveMod = await import(resolveUrl);
   const energyMod = await import(energyUrl);
   const housingMod = await import(housingUrl);
-  return { ...resolveMod, ...energyMod, ...housingMod };
+  const economyMod = await import(economyUrl);
+  return { ...resolveMod, ...energyMod, ...housingMod, ...economyMod };
 }
 
 /** Load ENERGY_DOMAIN_VIEWS for param declarations. */
@@ -340,4 +347,59 @@ test("Policy Ledger and Jobs Pay have contextual primaries without inferred year
     assert.deepEqual(primary?.to.retain, []);
     assert.ok(primary?.honesty);
   }
+});
+
+test("Economy Inflation deep-brief Follows resolve Ready destinations", () => {
+  const rate = conn.primaryEconomyConnection({ domain: "inflation", view: "rate" });
+  assert.ok(rate);
+  assert.equal(rate.id, "economy.inflation.rate→energy.prices.bill");
+  assert.equal(rate.to.pathname, "/energy");
+  const hrefRate = conn.resolveEconomyConnectionHref(rate);
+  assert.ok(hrefRate);
+  assert.match(hrefRate, /domain=prices/);
+  assert.match(hrefRate, /view=bill/);
+
+  const index = conn.primaryEconomyConnection({ domain: "inflation", view: "index" });
+  assert.ok(index);
+  assert.equal(index.id, "economy.inflation.index→housing.prices");
+  assert.equal(index.to.pathname, "/housing");
+
+  const data = conn.primaryEconomyConnection({ domain: "inflation", view: "data" });
+  assert.ok(data);
+  assert.equal(data.id, "economy.inflation.data→wages.vs-prices");
+  assert.match(conn.resolveEconomyConnectionHref(data) ?? "", /domain=wages/);
+
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "inflation", view: "categories" })?.id,
+    "economy.inflation.categories→wages.vs-prices",
+  );
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "inflation", view: "basket" })?.id,
+    "economy.inflation.basket→energy.prices.bill",
+  );
+});
+
+test("Economy Wages deep-brief Follows resolve Ready destinations", () => {
+  const value = conn.primaryEconomyConnection({ domain: "wages", view: "value" });
+  assert.ok(value);
+  assert.equal(value.id, "economy.wages.value→inflation.rate");
+  assert.match(conn.resolveEconomyConnectionHref(value) ?? "", /domain=inflation/);
+  assert.match(conn.resolveEconomyConnectionHref(value) ?? "", /measure=cpih/);
+
+  const vs = conn.primaryEconomyConnection({ domain: "wages", view: "vs-prices" });
+  assert.ok(vs);
+  assert.equal(vs.id, "economy.wages.vs-prices→inflation.index");
+
+  // Retired Real pay / Cash pay tabs fold into Pay cheque vs prices: no edge starts from them.
+  assert.equal(conn.primaryEconomyConnection({ domain: "wages", view: "real" }), null);
+  assert.equal(conn.primaryEconomyConnection({ domain: "wages", view: "cash" }), null);
+
+  const data = conn.primaryEconomyConnection({ domain: "wages", view: "data" });
+  assert.ok(data);
+  assert.equal(data.to.domain, "industrial-work");
+
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "wages", view: "ladder" })?.id,
+    "economy.wages.ladder→energy.jobs.pay",
+  );
 });

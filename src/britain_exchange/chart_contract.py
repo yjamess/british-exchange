@@ -15,6 +15,8 @@ ChartKind = Literal[
 MEASURE_FAMILY: dict[str, str] = {
     "cpi-inflation": "cpi",  # not CPIH
     "cpi-index": "cpi",  # index level companion to D7G7 rate
+    "cpih-inflation": "cpih",  # L55O — not CPI
+    "cpih-index": "cpih",  # L522 — not CPI
     "manufacturing-share-of-gva": "gva_cvm_weight_pct",
     "rail-punctuality": "rail_ppm",
 }
@@ -23,6 +25,8 @@ MEASURE_FAMILY: dict[str, str] = {
 DISPLAY_TITLE: dict[str, str] = {
     "cpi-inflation": "CPI inflation (not CPIH)",
     "cpi-index": "CPI index (D7BT, 2015=100)",
+    "cpih-inflation": "CPIH inflation (not CPI)",
+    "cpih-index": "CPIH index (L522, 2015=100)",
     "manufacturing-share-of-gva": "Manufacturing share of GVA (CVM industry weights)",
     "rail-punctuality": "Rail punctuality (PPM, Great Britain)",
     "nhs-elective-waiting-list": "NHS elective waiting list (England)",
@@ -121,7 +125,7 @@ def chart_meta_for_indicator(
         "measure_family": MEASURE_FAMILY.get(indicator_id, indicator_id),
         "england_only": england_only,
         "is_cpi": indicator_id in {"cpi-inflation", "cpi-index"},
-        "is_cpih": False,  # CPIH is not in the Ready catalogue; keep explicit
+        "is_cpih": indicator_id in {"cpih-inflation", "cpih-index"},
         "is_gva_cvm_weight": indicator_id == "manufacturing-share-of-gva",
         "is_rail_ppm": indicator_id == "rail-punctuality",
         "allows_industry_aggregate": False

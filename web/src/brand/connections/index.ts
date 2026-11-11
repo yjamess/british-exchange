@@ -46,5 +46,15 @@ export {
   resolveHousingConnectionHref,
 } from "./housing";
 
+export {
+  ECONOMY_CONNECTIONS,
+  economyConnectionById,
+  economyConnectionsFor,
+  firstEconomyConnection,
+  primaryEconomyConnection,
+  resolveEconomyConnectionHref,
+} from "./economy";
+
 export { ArrivalFrom, FollowLink, FollowList, FollowStep } from "./FollowLink";
 export { EnergyStageFollow } from "./EnergyFollow";
+export { EconomyStageFollow } from "./EconomyFollow";

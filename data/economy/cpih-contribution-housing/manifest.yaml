@@ -1,0 +1,52 @@
+indicator_id: cpih-contribution-housing
+title: CPIH contribution · Housing, water & fuels
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l5h8/mm23
+series_id: L5H8
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: percentage points (CPIH COICOP 04 contribution to annual rate)
+definition: UK CPIH contribution of COICOP division 04 (Housing, water & fuels) to
+  the all-items annual rate, in percentage points. ONS CDID L5H8 in dataset MM23.
+  Companion to headline cpih-inflation (L55O). Division contributions plus a small
+  rounding effect sum to the headline annual rate.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpih_coicop_contributions
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-11/l5h8_mm23.json
+  retrieved_at: '2026-11-11T17:37:13.118850+00:00'
+  checksum_sha256: 5b47f5c236db13d963f290af8f7c17f5e4ee4d259325277213a9d708d2499db1
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l5h8/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final.
+revision_notes: CPIH contributions revise with basket/weight updates.
+caveats: Contribution in percentage points, not the division's own annual rate. Not
+  CPI. Categories UI must label CPIH. Rounding effect (L5GO) not pinned.
+related_indicator_ids:
+- cpih-inflation
+- cpih-index
+- cpi-inflation
+- cpi-index
+- cpih-contribution-food
+- cpih-contribution-alcohol-tobacco
+- cpih-contribution-clothing
+- cpih-contribution-furnishings
+- cpih-contribution-health
+- cpih-contribution-transport
+- cpih-contribution-communication
+- cpih-contribution-recreation
+- cpih-contribution-education
+- cpih-contribution-restaurants
+- cpih-contribution-miscellaneous
+- cpih-inflation-housing
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

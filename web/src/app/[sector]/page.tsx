@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { EconomySector } from "@/brand/economy/EconomySector";
+import { resolveEconomyDomain } from "@/brand/economy/domain-sources";
+import { loadEconomy } from "@/brand/economy/load";
 import { EnergySector } from "@/brand/energy/EnergySector";
 import { legacyEnergyRedirect } from "@/brand/energy/legacy-views";
 import { loadEnergy } from "@/brand/energy/load";
@@ -57,6 +60,27 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
         policyEvents={data.policyEvents}
         policyPledges={data.policyPledges}
         shockEvents={data.shockEvents}
+      />
+    );
+  }
+  if (sector === "economy") {
+    const query = await searchParams;
+    const domain = resolveEconomyDomain(query.domain);
+    // Legacy scaffold domains → Wave A ids
+    if (typeof query.domain === "string" && query.domain !== domain) {
+      const u = new URLSearchParams();
+      u.set("domain", domain);
+      redirect(`/economy?${u}`);
+    }
+    const data = await loadEconomy(domain);
+    return (
+      <EconomySector
+        config={config}
+        titles={titles}
+        inflation={data.inflation}
+        wages={data.wages}
+        debt={data.debt}
+        growth={data.growth}
       />
     );
   }

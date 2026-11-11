@@ -1,7 +1,7 @@
 # public-sector-net-debt
 
 **Owner:** Economy agent  
-**Status:** Ready (self-QA pass)  
+**Status:** Validation (self-QA pass; independent Validation pending — not Ready)  
 **Registry:** https://app.notion.com/40d65471768581aba151c1ec18617559  
 **indicator_id:** `public-sector-net-debt`
 
@@ -24,7 +24,7 @@
 ```txt
 data/economy/public-sector-net-debt/
   manifest.yaml
-  raw/2026-11-03/hf6w_pusf.json
+  raw/2026-11-11/hf6w_pusf.json
   curated/observations.csv
   validation_report.md
   README.md
@@ -53,8 +53,8 @@ SHA-256: `1c277e826426a35dc5cbe8dd3d7330275f523ec23edd6890c3fef2cc0cb8540e`
 
 ## Related indicators
 
-`public-sector-net-borrowing`, `public-sector-debt-interest`, `tax-receipts`, `total-managed-expenditure`
+`public-sector-net-borrowing`, `public-sector-debt-interest`, `tax-receipts`, `total-managed-expenditure`, `public-sector-net-debt-percent-gdp` (HF6X)
 
 ## Hand-off
 
-Self-QA verdict **pass**. Registry → Ready.
+Self-QA verdict **pass**. Registry → Validation (2026-11-11). Ready only after independent Validation. Handover: `docs/handover-economy-08-debt.md`. Official %GDP companion HF6X is ingested separately as `public-sector-net-debt-percent-gdp` (Validation) — see `docs/handover-economy-08-hf6x.md`.

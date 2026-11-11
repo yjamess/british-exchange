@@ -1,0 +1,52 @@
+{
+  "inflation": {
+    "page": "https://commons.wikimedia.org/wiki/File:Fuel_prices_sign%2C_Belfast_%2811_October_2018%29_-_geograph.org.uk_-_5936689.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Fuel prices sign, Belfast (Geograph, Wikimedia Commons)"
+  },
+  "wages": {
+    "page": "https://commons.wikimedia.org/wiki/File:Clocking_-on_machine_at_the_Brewery_Museum_in_Burton-upon-Trent_-_geograph.org.uk_-_2664345.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Clocking-on machine, Brewery Museum, Burton-upon-Trent (Geograph, Wikimedia Commons)"
+  },
+  "employment": {
+    "page": "https://commons.wikimedia.org/wiki/File:Jobcentre_Plus%2C_City_Road%2C_Chester_-_geograph.org.uk_-_3328899.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Jobcentre Plus, City Road, Chester (Geograph, Wikimedia Commons)"
+  },
+  "household": {
+    "page": "https://commons.wikimedia.org/wiki/File:Barclays_Bank_cash_machine_-_geograph.org.uk_-_6450466.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Barclays Bank cash machine (Geograph, Wikimedia Commons)"
+  },
+  "growth": {
+    "page": "https://commons.wikimedia.org/wiki/File:Canary_Wharf_Skyline_-_geograph.org.uk_-_2088457.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Canary Wharf skyline (Geograph, Wikimedia Commons)"
+  },
+  "tax": {
+    "page": "https://commons.wikimedia.org/wiki/File:HMRC_Building%2C_Pilgrim%27s_Quarter%2C_Pilgrim_Street%2C_Newcastle_upon_Tyne_-_geograph.org.uk_-_8289061.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "HMRC regional centre, Pilgrim's Quarter, Newcastle upon Tyne (Geograph, Wikimedia Commons)"
+  },
+  "spending": {
+    "page": "https://commons.wikimedia.org/wiki/File:Midpark_Hospital_Entrance_%28geograph_5999290%29.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Midpark Hospital entrance, Dumfries (Geograph, Wikimedia Commons)"
+  },
+  "debt": {
+    "page": "https://commons.wikimedia.org/wiki/File:Bank_of_England_Threadneedle_St._%2812565194585%29.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Bank of England, Threadneedle Street (Flickr, Wikimedia Commons)"
+  },
+  "investment": {
+    "page": "https://commons.wikimedia.org/wiki/File:Cranes_at_Trinity_Terminal%2C_Port_of_Felixstowe_-_geograph.org.uk_-_7456601.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "Container cranes, Trinity Terminal, Port of Felixstowe (Geograph, Wikimedia Commons)"
+  },
+  "policy": {
+    "page": "https://commons.wikimedia.org/wiki/File:View_of_the_HM_Treasury_building_from_Horse_Guards_Road_Geograph_%283888622%29.jpg",
+    "license": "CC BY-SA 2.0",
+    "credit": "HM Treasury from Horse Guards Road (Geograph, Wikimedia Commons)"
+  }
+}

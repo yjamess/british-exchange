@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-10T21:15:26.112183+00:00",
+  "updated_at": "2026-11-11T20:31:34.557114+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -12,6 +12,138 @@
       "compression": null,
       "stored_size": null,
       "stored_checksum_sha256": null
+    },
+    {
+      "path": "data/economy/ashe-industry-earnings/curated/observations.csv",
+      "size": 374812,
+      "checksum_sha256": "086a44123d716767bef14f98e0dbf70890f0d2523394cc62586421e22a024369",
+      "storage_key": "economy/ashe-industry-earnings/curated/observations.csv",
+      "uploaded_at": "2026-11-11T20:31:09.011978+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 374812,
+      "stored_checksum_sha256": "086a44123d716767bef14f98e0dbf70890f0d2523394cc62586421e22a024369"
+    },
+    {
+      "path": "data/economy/ashe-industry-earnings/raw/2026-11-11/ashetable42025revised.zip",
+      "size": 2961773,
+      "checksum_sha256": "df87c313d1cb40bf499f1ec001076bcb9c9884c6443d76b186f09e84ff614bc3",
+      "storage_key": "economy/ashe-industry-earnings/raw/2026-11-11/ashetable42025revised.zip",
+      "uploaded_at": "2026-11-11T20:31:11.708516+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 2961773,
+      "stored_checksum_sha256": "df87c313d1cb40bf499f1ec001076bcb9c9884c6443d76b186f09e84ff614bc3"
+    },
+    {
+      "path": "data/economy/ashe-industry-earnings/raw/2026-11-11/ashetable42026provisional.zip",
+      "size": 2967024,
+      "checksum_sha256": "afa6848f20c5554ef16fbc7fc099aee05d12714a36b239b1892cb90c2a7c687c",
+      "storage_key": "economy/ashe-industry-earnings/raw/2026-11-11/ashetable42026provisional.zip",
+      "uploaded_at": "2026-11-11T20:31:14.095621+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 2967024,
+      "stored_checksum_sha256": "afa6848f20c5554ef16fbc7fc099aee05d12714a36b239b1892cb90c2a7c687c"
+    },
+    {
+      "path": "data/economy/ashe-national-earnings/curated/observations.csv",
+      "size": 21729,
+      "checksum_sha256": "00378fac299e257e4c65faed8042c5264f5fad59a1026bba975ff235af36d922",
+      "storage_key": "economy/ashe-national-earnings/curated/observations.csv",
+      "uploaded_at": "2026-11-11T20:30:53.636603+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 21729,
+      "stored_checksum_sha256": "00378fac299e257e4c65faed8042c5264f5fad59a1026bba975ff235af36d922"
+    },
+    {
+      "path": "data/economy/ashe-national-earnings/raw/2026-11-11/ashetable12025revised.zip",
+      "size": 634797,
+      "checksum_sha256": "688dcfe4c07dd7e6235c5dad8683107b2e83fcc1ae959d3ed1703317d19867ae",
+      "storage_key": "economy/ashe-national-earnings/raw/2026-11-11/ashetable12025revised.zip",
+      "uploaded_at": "2026-11-11T20:30:54.535427+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 634797,
+      "stored_checksum_sha256": "688dcfe4c07dd7e6235c5dad8683107b2e83fcc1ae959d3ed1703317d19867ae"
+    },
+    {
+      "path": "data/economy/ashe-national-earnings/raw/2026-11-11/ashetable12026provisional.zip",
+      "size": 635627,
+      "checksum_sha256": "b0143def67e3863a34421608608f63b77b7eebd8fbbd5f2109d6811eb184351d",
+      "storage_key": "economy/ashe-national-earnings/raw/2026-11-11/ashetable12026provisional.zip",
+      "uploaded_at": "2026-11-11T20:30:55.639033+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 635627,
+      "stored_checksum_sha256": "b0143def67e3863a34421608608f63b77b7eebd8fbbd5f2109d6811eb184351d"
+    },
+    {
+      "path": "data/economy/ashe-region-industry-earnings/curated/observations.csv",
+      "size": 148508,
+      "checksum_sha256": "6105e02f26f03d0f80a6ab00443228f92fbe9bc6bc56c1714e0eee40d5d9b5bf",
+      "storage_key": "economy/ashe-region-industry-earnings/curated/observations.csv",
+      "uploaded_at": "2026-11-11T20:31:15.178099+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 148508,
+      "stored_checksum_sha256": "6105e02f26f03d0f80a6ab00443228f92fbe9bc6bc56c1714e0eee40d5d9b5bf"
+    },
+    {
+      "path": "data/economy/ashe-region-industry-earnings/raw/2026-11-11/ashetable52026provisional.zip",
+      "size": 22876247,
+      "checksum_sha256": "164220a6bfecee98e15e853db66d998dabdc7acd76998754f19ca29fee833bff",
+      "storage_key": "economy/ashe-region-industry-earnings/raw/2026-11-11/ashetable52026provisional.zip",
+      "uploaded_at": "2026-11-11T20:31:34.556745+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 22876247,
+      "stored_checksum_sha256": "164220a6bfecee98e15e853db66d998dabdc7acd76998754f19ca29fee833bff"
+    },
+    {
+      "path": "data/economy/ashe-regional-earnings/curated/observations.csv",
+      "size": 537556,
+      "checksum_sha256": "5354dccbd9ce8d549df8d5b5922f74d85bdd3b968d5269892478ff373c2efcea",
+      "storage_key": "economy/ashe-regional-earnings/curated/observations.csv",
+      "uploaded_at": "2026-11-11T20:30:56.656418+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 537556,
+      "stored_checksum_sha256": "5354dccbd9ce8d549df8d5b5922f74d85bdd3b968d5269892478ff373c2efcea"
+    },
+    {
+      "path": "data/economy/ashe-regional-earnings/raw/2026-11-11/ashetable72025revised.zip",
+      "size": 7159975,
+      "checksum_sha256": "250fb6a5184743cb01818fb4b87c4627ab0c9058011110b057ca121ce679a599",
+      "storage_key": "economy/ashe-regional-earnings/raw/2026-11-11/ashetable72025revised.zip",
+      "uploaded_at": "2026-11-11T20:31:03.078142+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 7159975,
+      "stored_checksum_sha256": "250fb6a5184743cb01818fb4b87c4627ab0c9058011110b057ca121ce679a599"
+    },
+    {
+      "path": "data/economy/ashe-regional-earnings/raw/2026-11-11/ashetable72026provisional.zip",
+      "size": 7205397,
+      "checksum_sha256": "f468a8056faa9ea83ed712eeacd067e19ed49fe72d53516f6fea8b496b7e4f87",
+      "storage_key": "economy/ashe-regional-earnings/raw/2026-11-11/ashetable72026provisional.zip",
+      "uploaded_at": "2026-11-11T20:31:08.063342+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 7205397,
+      "stored_checksum_sha256": "f468a8056faa9ea83ed712eeacd067e19ed49fe72d53516f6fea8b496b7e4f87"
+    },
+    {
+      "path": "data/economy/gdp-vintage-band/curated/band.json",
+      "size": 151736,
+      "checksum_sha256": "f4e1bf116fc3a490c6cd1655ae5265cba69056753e512f1182ca68b308c0eec5",
+      "storage_key": "economy/gdp-vintage-band/curated/band.json",
+      "uploaded_at": "2026-11-11T18:05:39.903162+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 151736,
+      "stored_checksum_sha256": "f4e1bf116fc3a490c6cd1655ae5265cba69056753e512f1182ca68b308c0eec5"
     },
     {
       "path": "data/energy/domestic-economy7-electricity-bills/.DS_Store",
@@ -89,6 +221,17 @@
       "compression": null,
       "stored_size": 20304,
       "stored_checksum_sha256": "5e0ab4318a796d6628029a8e9951447a2e16b768ef46ec3a3cb609346028a2ae"
+    },
+    {
+      "path": "data/energy/industrial-policy/pledges.json",
+      "size": 20796,
+      "checksum_sha256": "503a1aa61bc4dd7505fa3a2be6123a50cb4c7dc1641f64868c3fb8d532bb917e",
+      "storage_key": "energy/industrial-policy/pledges.json",
+      "uploaded_at": "2026-11-11T14:38:08.254941+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 20796,
+      "stored_checksum_sha256": "503a1aa61bc4dd7505fa3a2be6123a50cb4c7dc1641f64868c3fb8d532bb917e"
     },
     {
       "path": "data/energy/manufacturing-iop-by-division/.DS_Store",

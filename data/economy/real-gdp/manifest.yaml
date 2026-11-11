@@ -2,44 +2,53 @@ indicator_id: real-gdp
 title: Real GDP
 sector: economy-public-finance
 publisher: ONS
-source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna
 series_id: ABMI
 geography: United Kingdom (K02000001); excl. Crown dependencies
 frequency: quarterly
 unit: £ million chained volume (market prices), SA
-definition: UK GDP at market prices in chained volume measures (CVM), seasonally adjusted.
-  Levels in £m from ONS CDID ABMI in dataset PN2 (also published under QNA). Reference/base
-  year moves with Blue Book (BB2024 last base year 2022).
+definition: 'UK GDP at market prices in chained volume measures (CVM), seasonally
+  adjusted. Levels in £m from ONS CDID ABMI in dataset QNA (Quarterly National Accounts,
+  the live vintage; the PN2 landing is frozen at 2026-08-12). Reference year moves
+  with Blue Book / annual rebasing: the retired PN2 pin (2026-08-12) was on reference
+  year 2023; the QNA vintage 2026-09-29 is on reference year 2024. Levels are not
+  comparable across vintages.'
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.real_gdp
 curated_path: curated/observations.csv
 update_cadence: quarterly (ONS GDP first estimate + QNA; Blue Book annually)
 raw_evidence:
-- path: raw/2026-11-03/abmi_pn2.json
-  retrieved_at: '2026-11-03T15:04:04.185594+00:00'
-  checksum_sha256: a1265250cf820db23acee78d3ffbbe48ddd0ac3ca7a0aef4027332dbf0d3296d
+- path: raw/2026-11-11/abmi_qna.json
+  retrieved_at: '2026-11-11T15:22:56.030043+00:00'
+  checksum_sha256: 6ce4b868fc86af44653ae0ae864e587d15a849c54f347b22830cddaa92ad7693
   content_type: application/json;charset=utf-8
-  official_release_date: '2026-08-12'
+  official_release_date: '2026-09-29'
   http_status: 200
-  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2/data
-transformations: Download ONS timeseries JSON (ABMI/PN2 /data). Keep only the quarters
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna/data
+transformations: Download ONS timeseries JSON (ABMI/QNA /data). Keep only the quarters
   array (annual aggregates omitted). Map year+Q→ISO calendar-quarter bounds. Geography
   fixed to K02000001 / United Kingdom. Values parsed as float £m; empty → missing.
-  observation_status=provisional (PN2 first-estimate family; ONS revises history).
+  Latest quarter provisional; older quarters final (charts drop provisional).
 revision_notes: 'ABMI levels are routinely revised: (1) each subsequent GDP monthly/quarterly
-  release after the first estimate; (2) when the series moves from PN2 first estimate
-  into QNA; (3) at Blue Book with supply-and-use balancing and CVM rebasing (BB2024
-  restored annual rebasing; last base year 2022 — confirm on release notes each ingest).
-  Do not treat a pinned historical point as immutable — re-fetch and re-pin raw JSON,
-  then compare checksums. observation_status stays ''provisional'' for this PN2-sourced
-  slice to signal revision risk. Record official_release_date from description.releaseDate.'
+  release after the first estimate; (2) at each QNA release; (3) at Blue Book with
+  supply-and-use balancing and CVM rebasing (annual rebasing: Blue Book 2025 moved
+  the reference year 2022→2023; the QNA vintage of 2026-09-29 is on 2024 — confirm
+  reference year on release notes each ingest). Source switched PN2→QNA on 2026-11-11
+  (Orchestrator source policy): QNA/PN2 level ratio is 1.027–1.045 across all 286
+  quarters while growth since 2019 Q4 differs by under 0.1 pp (PN2 +6.26%, QNA +6.21%)
+  — use growth rates or index to a fixed quarter when mixing vintages. Do not treat
+  a pinned historical point as immutable — re-fetch and re-pin raw JSON, then compare
+  checksums. observation_status stays ''provisional'' to signal revision risk. Record
+  official_release_date from description.releaseDate.'
 caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
   JSON. Historical levels revise each quarterly release and Blue Book. Annual rows
   present in raw JSON but not written to curated observations.
-related_indicator_ids: []
+related_indicator_ids:
+- real-gdp-per-head
+- labour-productivity
+- business-investment
 open_questions:
-- Prefer QNA vintage after second estimate vs always PN2 landing?
 - Should Validation also want annual ABMI aggregates as a second file?
 notion_registry_url: https://app.notion.com/40d6547176858109b56fe01fb94ff2eb
 schema_version: '1.0'

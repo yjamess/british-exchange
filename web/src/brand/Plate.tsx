@@ -110,6 +110,26 @@ export const PLATES = {
 } as const satisfies Record<string, PlateEntry>;
 
 /**
+ * UK circulating coins (coin-types.py) — one matched set at true relative size: `mm` is the
+ * Royal Mint diameter (width across for the heptagonal 50p / 20p). Faces are the King Charles III
+ * reverses, reproduced under Royal Mint permission (docs/permissions/royal-mint-coins.md);
+ * obverse not used. Square masks; use with fit="contain" and size the box by `mm`.
+ * `pence` orders them for change-making (largest first).
+ */
+export const COIN_PLATES = {
+  "2pound": { src: "/brand/plates/c-coin-2pound.png", mm: 28.4, pence: 200, label: "£2", alt: "Halftone two pound coin, national flowers reverse: rose, thistle, daffodil and shamrock" },
+  "1pound": { src: "/brand/plates/c-coin-1pound.png", mm: 23.43, pence: 100, label: "£1", alt: "Halftone twelve-sided one pound coin, bees reverse" },
+  "50p": { src: "/brand/plates/c-coin-50p.png", mm: 27.3, pence: 50, label: "50p", alt: "Halftone fifty pence coin, Atlantic salmon reverse" },
+  "20p": { src: "/brand/plates/c-coin-20p.png", mm: 21.4, pence: 20, label: "20p", alt: "Halftone twenty pence coin, puffin reverse" },
+  "10p": { src: "/brand/plates/c-coin-10p.png", mm: 24.5, pence: 10, label: "10p", alt: "Halftone ten pence coin, capercaillie reverse" },
+  "5p": { src: "/brand/plates/c-coin-5p.png", mm: 18.0, pence: 5, label: "5p", alt: "Halftone five pence coin, oak leaves and acorns reverse" },
+  "2p": { src: "/brand/plates/c-coin-2p.png", mm: 25.9, pence: 2, label: "2p", alt: "Halftone two pence coin, red squirrel reverse" },
+  "1p": { src: "/brand/plates/c-coin-1p.png", mm: 20.3, pence: 1, label: "1p", alt: "Halftone one penny coin, hazel dormouse reverse" },
+} as const satisfies Record<string, { src: string; mm: number; pence: number; label: string; alt: string }>;
+
+export type CoinName = keyof typeof COIN_PLATES;
+
+/**
  * Dwelling-type specimens (dwelling-types.py) — one matched set: same camera, light, ground and
  * scale, so the buildings compare at true relative size. Keys are Census 2021 TS044 type ids.
  * 1000×1000 masks; use with fit="contain".
@@ -142,6 +162,58 @@ export const TENURE_PLATES = {
     alt: "Halftone specimen drawing of a council deck-access block with open walkways and stair towers — social rented",
   },
 } as const satisfies Record<string, { src: string; alt: string }>;
+
+/**
+ * Everyday-basket specimens (basket-items.py) — one matched set for the ONS shopping-price
+ * items: same tabletop camera, light, ground and screen; sizes compressed toward a common scale
+ * so small items still read in a grid. Generic and unbranded: no logos, lettering or packaging
+ * marks. The milks differ by cap and label band (striped = semi-skimmed, solid = whole); the
+ * breads by crumb (white vs flecked brown). 1000×1000 masks; use with fit="contain".
+ */
+export const BASKET_PLATES = {
+  bananas: { src: "/brand/plates/b-bananas.png", alt: "Halftone drawing of a bunch of bananas" },
+  butter: { src: "/brand/plates/b-butter.png", alt: "Halftone drawing of a block of butter, wrapper peeled back, with a knife" },
+  eggs: { src: "/brand/plates/b-eggs.png", alt: "Halftone drawing of an open box of six eggs" },
+  "instant-coffee": { src: "/brand/plates/b-instant-coffee.png", alt: "Halftone drawing of a jar of instant coffee with a spoonful of granules" },
+  "restaurant-coffee": { src: "/brand/plates/b-restaurant-coffee.png", alt: "Halftone drawing of a cup of coffee on a saucer with a teaspoon" },
+  "semi-skimmed-milk": { src: "/brand/plates/b-semi-skimmed-milk.png", alt: "Halftone drawing of a plastic milk bottle with a striped cap — semi-skimmed" },
+  "whole-milk": { src: "/brand/plates/b-whole-milk.png", alt: "Halftone drawing of a plastic milk bottle with a solid dark cap — whole milk" },
+  "white-potatoes": { src: "/brand/plates/b-white-potatoes.png", alt: "Halftone drawing of a pile of potatoes" },
+  "white-bread": { src: "/brand/plates/b-white-bread.png", alt: "Halftone drawing of a sliced white loaf showing white crumb" },
+  "wholemeal-bread": { src: "/brand/plates/b-wholemeal-bread.png", alt: "Halftone drawing of a sliced wholemeal loaf showing flecked brown crumb" },
+} as const satisfies Record<string, { src: string; alt: string }>;
+
+export type BasketItemName = keyof typeof BASKET_PLATES;
+
+/**
+ * Basket type archetypes (basket-items.py --only types) — the generic picture for every basket
+ * item that has no featured plate, chosen by item type. Same matched set as BASKET_PLATES
+ * (camera, light, ground, screen); generic and unbranded. 1000×1000 masks; use with fit="contain".
+ */
+export const BASKET_TYPE_PLATES = {
+  bottle: { src: "/brand/plates/b-type-bottle.png", alt: "Halftone drawing of a glass bottle" },
+  pint: { src: "/brand/plates/b-type-pint.png", alt: "Halftone drawing of a pint glass of beer" },
+  tin: { src: "/brand/plates/b-type-tin.png", alt: "Halftone drawing of a ribbed food tin with a ring pull" },
+  box: { src: "/brand/plates/b-type-box.png", alt: "Halftone drawing of a cereal box" },
+  packet: { src: "/brand/plates/b-type-packet.png", alt: "Halftone drawing of a sealed snack packet" },
+  jar: { src: "/brand/plates/b-type-jar.png", alt: "Halftone drawing of a screw-top jar" },
+  carton: { src: "/brand/plates/b-type-carton.png", alt: "Halftone drawing of a gable-top carton" },
+  fruit: { src: "/brand/plates/b-type-fruit.png", alt: "Halftone drawing of an apple with a leaf beside an orange" },
+  veg: { src: "/brand/plates/b-type-veg.png", alt: "Halftone drawing of carrots with their tops beside a head of broccoli" },
+  meat: { src: "/brand/plates/b-type-meat.png", alt: "Halftone drawing of two cuts of meat in a wrapped tray" },
+  meal: { src: "/brand/plates/b-type-meal.png", alt: "Halftone drawing of a plated meal with a knife and fork" },
+  toiletry: { src: "/brand/plates/b-type-toiletry.png", alt: "Halftone drawing of a pump bottle beside a tube" },
+  textile: { src: "/brand/plates/b-type-textile.png", alt: "Halftone drawing of a stack of folded towels" },
+  kitchenware: { src: "/brand/plates/b-type-kitchenware.png", alt: "Halftone drawing of a saucepan beside a dinner plate" },
+  appliance: { src: "/brand/plates/b-type-appliance.png", alt: "Halftone drawing of an electric kettle" },
+  chair: { src: "/brand/plates/b-type-chair.png", alt: "Halftone drawing of a wooden chair" },
+  tools: { src: "/brand/plates/b-type-tools.png", alt: "Halftone drawing of a toolbox with a screwdriver on the lid and a hammer beside it" },
+  ticket: { src: "/brand/plates/b-type-ticket.png", alt: "Halftone drawing of two paper tickets with perforated stubs" },
+  bike: { src: "/brand/plates/b-type-bike.png", alt: "Halftone drawing of a bicycle side-on" },
+  car: { src: "/brand/plates/b-type-car.png", alt: "Halftone drawing of a small hatchback car" },
+} as const satisfies Record<string, { src: string; alt: string }>;
+
+export type BasketTypeName = keyof typeof BASKET_TYPE_PLATES;
 
 /**
  * Energy Field Guide specimens (energy-tech-types.py) — one matched set for Domain 06.
@@ -351,6 +423,47 @@ export const REF_ICON_PLATES = {
   energyPolicy: {
     src: "/brand/plates/i-ref-energy-policy.png",
     alt: "Redcar blast furnace — industrial policy and transition",
+  },
+  // Economy & Public Finance (data/icon-refs/economy/fetch_refs.py)
+  economyInflation: {
+    src: "/brand/plates/i-ref-economy-inflation.png",
+    alt: "Forecourt fuel price sign, Belfast — inflation and prices",
+  },
+  economyWages: {
+    src: "/brand/plates/i-ref-economy-wages.png",
+    alt: "Clocking-on machine, Burton-upon-Trent — wages and earnings",
+  },
+  economyEmployment: {
+    src: "/brand/plates/i-ref-economy-employment.png",
+    alt: "Jobcentre Plus, Chester — employment and the labour market",
+  },
+  economyHousehold: {
+    src: "/brand/plates/i-ref-economy-household.png",
+    alt: "High-street cash machine — household finances",
+  },
+  economyGrowth: {
+    src: "/brand/plates/i-ref-economy-growth.png",
+    alt: "Canary Wharf skyline — growth and productivity",
+  },
+  economyTax: {
+    src: "/brand/plates/i-ref-economy-tax.png",
+    alt: "HMRC regional centre, Newcastle — taxation and revenue",
+  },
+  economySpending: {
+    src: "/brand/plates/i-ref-economy-spending.png",
+    alt: "NHS hospital entrance, Dumfries — public spending",
+  },
+  economyDebt: {
+    src: "/brand/plates/i-ref-economy-debt.png",
+    alt: "Bank of England, Threadneedle Street — public debt",
+  },
+  economyInvestment: {
+    src: "/brand/plates/i-ref-economy-investment.png",
+    alt: "Container cranes, Port of Felixstowe — investment and trade",
+  },
+  economyPolicy: {
+    src: "/brand/plates/i-ref-economy-policy.png",
+    alt: "HM Treasury, Horse Guards Road — economic policy",
   },
 } as const;
 

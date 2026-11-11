@@ -17,8 +17,8 @@ connector_module: economy.connectors.public_sector_debt_interest
 curated_path: curated/observations.csv
 update_cadence: monthly (ONS Public Sector Finances)
 raw_evidence:
-- path: raw/2026-11-03/nmfx_pusf.json
-  retrieved_at: '2026-11-03T17:45:29.140809+00:00'
+- path: raw/2026-11-11/nmfx_pusf.json
+  retrieved_at: '2026-11-11T14:08:51.328354+00:00'
   checksum_sha256: 56e3bf137fbb764fb5ea198af5644816c5e7da756e1b818631a8b2aafd9dc620
   content_type: application/json;charset=utf-8
   official_release_date: '2026-10-20'
@@ -42,6 +42,7 @@ related_indicator_ids:
 - public-sector-net-debt
 - tax-receipts
 - total-managed-expenditure
+- public-sector-net-debt-percent-gdp
 open_questions:
 - Prefer a public-sector (not CG-only) interest series if one is promoted as headline
   in a later PSF bulletin?

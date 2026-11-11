@@ -37,6 +37,8 @@ export function breaks(measure: string, mode: Mode): number[] {
   if (measure === "average-rent" || measure.startsWith("bedrooms-") || measure.startsWith("type-")) {
     return [800, 1000, 1200, 1400, 1800, 2500];
   }
+  // ASHE Table 7 workplace median weekly gross pay (£ a week), local authorities
+  if (measure === "weekly-pay") return [550, 600, 650, 700, 800, 950];
   // AFF1 workplace median price-to-earnings (×)
   if (measure === "pte-median") return [4, 5, 6, 7, 8, 10];
   // MHCLG TA1 households in temporary accommodation per 1,000 households

@@ -23,7 +23,11 @@ from typing import Any, Literal, Sequence
 
 from britain_exchange.connector import Connector
 from britain_exchange.manifest import Manifest, RawEvidence
-from britain_exchange.observation import Observation, ObservationStatus
+from britain_exchange.observation import (
+    Observation,
+    ObservationStatus,
+    mark_latest_months_provisional,
+)
 from britain_exchange.paths import ECONOMY_DATA
 
 UK_GEOGRAPHY_CODE = "K02000001"
@@ -75,6 +79,15 @@ class OnsSeriesSpec:
     geography: str = "United Kingdom (K02000001); excl. Crown dependencies"
     licence: str = "Open Government Licence v3.0"
     raw_filename: str = ""
+    # ONS sometimes publishes 0 as a placeholder before the first real observation
+    # (e.g. IHXW GDP per head). When set (ISO period_start), value 0 before this
+    # date becomes missing — never invent numbers, only drop placeholders.
+    zero_as_missing_before: str | None = None
+    # CPI/CPIH rarely revise history — keep only the latest month provisional.
+    # Earnings / QNA can raise this. Charts drop provisional points.
+    provisional_months: int = 1
+    geography_code: str = UK_GEOGRAPHY_CODE
+    geography_label: str = UK_GEOGRAPHY_LABEL
 
     @property
     def data_url(self) -> str:
@@ -120,16 +133,21 @@ def parse_month_name(raw: str) -> int:
 
 
 def parse_value(raw: object) -> tuple[float | None, ObservationStatus]:
-    """Parse ONS string/number cell; empty → missing."""
+    """Parse ONS string/number cell; empty → missing.
+
+    Valued cells start as ``final``; ``transform`` then marks the latest
+    ``provisional_months`` via ``mark_latest_months_provisional``.
+    See https://docs.python.org/3/library/typing.html#typing.Literal
+    """
     if raw is None:
         return None, "missing"
     if isinstance(raw, (int, float)):
-        return float(raw), "provisional"
+        return float(raw), "final"
     text = str(raw).strip()
     if not text or text in {"..", "…", "-"}:
         return None, "missing"
     try:
-        return float(text.replace(",", "")), "provisional"
+        return float(text.replace(",", "")), "final"
     except ValueError as exc:
         raise ValueError(f"Non-numeric ONS value: {raw!r}") from exc
 
@@ -194,14 +212,20 @@ def parse_ons_periods(
             period_note = f"month={month:02d}"
 
         value, status = parse_value(row.get("value"))
+        if (
+            spec.zero_as_missing_before
+            and value == 0.0
+            and period_start < spec.zero_as_missing_before
+        ):
+            value, status = None, "missing"
         dataset = str(row.get("sourceDataset") or spec.dataset_id)
         observations.append(
             Observation(
                 indicator_id=spec.indicator_id,
                 period_start=period_start,
                 period_end=period_end,
-                geography_code=UK_GEOGRAPHY_CODE,
-                geography_label=UK_GEOGRAPHY_LABEL,
+                geography_code=spec.geography_code,
+                geography_label=spec.geography_label,
                 value=value,
                 unit=spec.unit,
                 observation_status=status,
@@ -285,7 +309,11 @@ class OnsTimeseriesConnector(Connector):
         payload = json.loads(raw_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict):
             raise ValueError(f"Expected JSON object in {raw_path}")
-        return parse_ons_periods(payload, spec=self.spec)
+        observations = parse_ons_periods(payload, spec=self.spec)
+        return mark_latest_months_provisional(
+            observations,
+            months=self.spec.provisional_months,
+        )
 
 
 def run_connector(connector: OnsTimeseriesConnector) -> None:

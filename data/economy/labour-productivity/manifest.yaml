@@ -15,8 +15,8 @@ connector_module: economy.connectors.labour_productivity
 curated_path: curated/observations.csv
 update_cadence: quarterly (ONS productivity)
 raw_evidence:
-- path: raw/2026-11-03/lzvb_prdy.json
-  retrieved_at: '2026-11-03T18:38:14.233894+00:00'
+- path: raw/2026-11-11/lzvb_prdy.json
+  retrieved_at: '2026-11-11T15:22:57.448457+00:00'
   checksum_sha256: 0203bfc8991c4e3162ea6e7183859f7e522a78978a508a99bbb70cb06b816f89
   content_type: application/json;charset=utf-8
   official_release_date: '2026-08-17'
@@ -25,10 +25,16 @@ raw_evidence:
 transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
   Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
   (ONS revises).
-revision_notes: Productivity revises with GDP and labour input revisions.
+revision_notes: Productivity revises with GDP and labour input revisions. Index base
+  year (2023=100 at the 2026-08-17 release) can move at the next productivity release
+  (2026-11-17) when output is rebased; re-read the series title for the base year
+  on every re-pin.
 caveats: Output per hour (LZVB), not output per filled job (LNNN).
 related_indicator_ids:
 - cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
 - real-gdp-per-head
 - employment-rate
 - economic-inactivity-rate

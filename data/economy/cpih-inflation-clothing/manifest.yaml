@@ -1,0 +1,50 @@
+indicator_id: cpih-inflation-clothing
+title: CPIH inflation · Clothing & footwear
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55r/mm23
+series_id: L55R
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% annual rate (CPIH COICOP 03)'
+definition: UK CPIH annual rate for COICOP division 03 (Clothing & footwear). ONS
+  CDID L55R in dataset MM23. Companion to headline cpih-inflation (L55O). Not a CPI
+  category series — never mix families.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cpih_coicop_divisions
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Consumer price inflation)
+raw_evidence:
+- path: raw/2026-11-11/l55r_mm23.json
+  retrieved_at: '2026-11-11T16:57:38.218223+00:00'
+  checksum_sha256: 8ebc7ab99f7a01b9a52f26f02a1895cadde16200dc6dd58686c3f38e07b87a6e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55r/mm23/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPIH division rates rarely revise history).
+revision_notes: CPIH division rates revise with basket/weight updates.
+caveats: Division annual rate, not a contribution in percentage points. Not CPI. Categories
+  UI must label CPIH.
+related_indicator_ids:
+- cpih-inflation
+- cpih-index
+- cpi-inflation
+- cpi-index
+- cpih-inflation-food
+- cpih-inflation-alcohol-tobacco
+- cpih-inflation-housing
+- cpih-inflation-furnishings
+- cpih-inflation-health
+- cpih-inflation-transport
+- cpih-inflation-communication
+- cpih-inflation-recreation
+- cpih-inflation-education
+- cpih-inflation-restaurants
+- cpih-inflation-miscellaneous
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -8,6 +8,7 @@ Y1_RELATED = [
     "cpi-inflation",
     "cpi-index",
     "cpih-index",
+    "cpih-inflation",
     "real-gdp-per-head",
     "labour-productivity",
     "employment-rate",
@@ -19,7 +20,8 @@ Y1_RELATED = [
 _MONTHLY_TRANSFORM = (
     "Download ONS timeseries JSON (/data). Keep only the months array. "
     "Map year+month → ISO month bounds. Geography K02000001. "
-    "observation_status=provisional (ONS revises)."
+    "Latest month provisional; older months final "
+    "(CPI/CPIH rarely revise history)."
 )
 
 _QUARTERLY_TRANSFORM = (
@@ -29,8 +31,11 @@ _QUARTERLY_TRANSFORM = (
 )
 
 
-def _related_except(indicator_id: str) -> list[str]:
-    return [i for i in Y1_RELATED if i != indicator_id]
+def _related_except(indicator_id: str, *extra: str) -> list[str]:
+    """Y1_RELATED minus this indicator, plus any extras — each id listed once."""
+    related = [i for i in Y1_RELATED if i != indicator_id]
+    related.extend(i for i in extra if i not in related)
+    return related
 
 
 CPI_INFLATION = OnsSeriesSpec(
@@ -80,7 +85,7 @@ CPI_INDEX = OnsSeriesSpec(
     transformations=_MONTHLY_TRANSFORM,
     revision_notes="CPI index revises with basket/weight updates and corrections.",
     caveats="Index level for deflation; pair with cpi-inflation (D7G7) for the rate. Prefer cpih-index for household energy real-terms.",
-    related_indicator_ids=_related_except("cpi-index") + ["uk-average-house-price", "cpih-index"],
+    related_indicator_ids=_related_except("cpi-index", "uk-average-house-price"),
 )
 
 CPIH_INDEX = OnsSeriesSpec(
@@ -105,21 +110,53 @@ CPIH_INDEX = OnsSeriesSpec(
     transformations=_MONTHLY_TRANSFORM,
     revision_notes="CPIH index revises with basket/weight updates and corrections.",
     caveats="Not CPI (D7BT). Energy must link this Economy series — do not fork under data/energy.",
-    related_indicator_ids=_related_except("cpih-index") + ["cpi-index", "domestic-electricity-bills", "domestic-gas-bills"],
+    related_indicator_ids=_related_except(
+        "cpih-index", "domestic-electricity-bills", "domestic-gas-bills"
+    ),
+)
+
+CPIH_INFLATION = OnsSeriesSpec(
+    indicator_id="cpih-inflation",
+    title="CPIH inflation",
+    series_id="L55O",
+    dataset_id="MM23",
+    landing_url=(
+        "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23"
+    ),
+    unit="% annual rate (CPIH all items)",
+    definition=(
+        "UK Consumer Prices Index including owner occupiers' housing costs (CPIH) "
+        "annual rate, all items. ONS CDID L55O in dataset MM23. ONS's lead measure "
+        "of consumer price inflation; companion rate to cpih-index (L522). "
+        "Distinct from CPI annual rate (D7G7), the Bank of England target measure."
+    ),
+    frequency="monthly",
+    period_kind="months",
+    notion_registry_url="https://app.notion.com/p/415654717685815b877cc6795dac6273",
+    connector_module="economy.connectors.cpih_inflation",
+    update_cadence="monthly (ONS Consumer price inflation)",
+    transformations=_MONTHLY_TRANSFORM,
+    revision_notes="CPIH rates revise with basket/weight updates and corrections.",
+    caveats=(
+        "Headline CPIH annual rate, not the index level (L522) and not CPI (D7G7). "
+        "Never label as CPI. Economy-owned; Energy/Housing link by id."
+    ),
+    related_indicator_ids=_related_except("cpih-inflation"),
 )
 
 REAL_GDP_PER_HEAD = OnsSeriesSpec(
     indicator_id="real-gdp-per-head",
     title="Real GDP per head",
     series_id="IHXW",
-    dataset_id="PN2",
+    dataset_id="QNA",
     landing_url=(
-        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/pn2"
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ihxw/qna"
     ),
     unit="£ chained volume (market prices), SA",
     definition=(
         "UK GDP per head in chained volume measures (CVM), seasonally adjusted. "
-        "ONS CDID IHXW in PN2. Companion to ABMI (real GDP level)."
+        "ONS CDID IHXW in QNA (reference year 2024). Companion to ABMI "
+        "(real GDP level)."
     ),
     frequency="quarterly",
     period_kind="quarters",
@@ -127,9 +164,22 @@ REAL_GDP_PER_HEAD = OnsSeriesSpec(
     connector_module="economy.connectors.real_gdp_per_head",
     update_cadence="quarterly (ONS GDP / QNA)",
     transformations=_QUARTERLY_TRANSFORM,
-    revision_notes="Revises with GDP and population estimate updates / Blue Book.",
-    caveats="CVM £ per head (IHXW), not current-price IHXT.",
-    related_indicator_ids=["real-gdp"] + _related_except("real-gdp-per-head"),
+    revision_notes=(
+        "Revises with GDP and population estimate updates / Blue Book. "
+        "Reference year moves with annual rebasing: the retired PN2 pin "
+        "(2026-08-12) was reference year 2023; QNA vintage 2026-09-29 is "
+        "reference year 2024 (levels ~4.5% higher, growth since 2019 Q4 "
+        "within 0.1 pp). Source switched PN2→QNA on 2026-11-11. "
+        "Do not mix vintages in one level chart."
+    ),
+    caveats=(
+        "CVM £ per head (IHXW), not current-price IHXT. ONS publishes 0 as a "
+        "placeholder before 1955 Q1 — connector maps those to missing "
+        "(zero_as_missing_before=1955-01-01)."
+    ),
+    # Y1_RELATED already contains "real-gdp"; do not prepend it again.
+    related_indicator_ids=_related_except("real-gdp-per-head"),
+    zero_as_missing_before="1955-01-01",
 )
 
 LABOUR_PRODUCTIVITY = OnsSeriesSpec(
@@ -152,7 +202,12 @@ LABOUR_PRODUCTIVITY = OnsSeriesSpec(
     connector_module="economy.connectors.labour_productivity",
     update_cadence="quarterly (ONS productivity)",
     transformations=_QUARTERLY_TRANSFORM,
-    revision_notes="Productivity revises with GDP and labour input revisions.",
+    revision_notes=(
+        "Productivity revises with GDP and labour input revisions. Index "
+        "base year (2023=100 at the 2026-08-17 release) can move at the next "
+        "productivity release (2026-11-17) when output is rebased; re-read "
+        "the series title for the base year on every re-pin."
+    ),
     caveats="Output per hour (LZVB), not output per filled job (LNNN).",
     related_indicator_ids=_related_except("labour-productivity"),
 )
@@ -232,11 +287,14 @@ REAL_EARNINGS = OnsSeriesSpec(
     transformations=_MONTHLY_TRANSFORM,
     revision_notes="AWE revises with later returns; real terms use CPIH deflator family.",
     caveats=(
-        "Regular pay excluding bonuses/arrears, real terms. Great Britain AWE "
-        "coverage for earnings survey — confirm geography notes on ONS page."
+        "Regular pay excluding bonuses/arrears, real terms (CPIH-based, 2015 "
+        "prices). ONS AWE covers Great Britain only — geography_code K03000001."
     ),
-    related_indicator_ids=_related_except("real-earnings") + ["cpi-inflation"],
-    geography="Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for spine",
+    geography="Great Britain (K03000001); AWE excludes Northern Ireland",
+    geography_code="K03000001",
+    geography_label="Great Britain",
+    # Y1_RELATED already lists the CPI/CPIH family; add the nominal companion once.
+    related_indicator_ids=["nominal-earnings"] + _related_except("real-earnings"),
 )
 
 NOMINAL_EARNINGS = OnsSeriesSpec(
@@ -255,17 +313,20 @@ NOMINAL_EARNINGS = OnsSeriesSpec(
     ),
     frequency="monthly",
     period_kind="months",
-    notion_registry_url="",
+    notion_registry_url="https://app.notion.com/p/4146547176858139b68ae2c75df07043",
     connector_module="economy.connectors.nominal_earnings",
     update_cadence="monthly (ONS AWE)",
     transformations=_MONTHLY_TRANSFORM,
     revision_notes="AWE revises with later returns.",
     caveats=(
         "Regular pay per employee, excluding bonuses and arrears; not household income. "
-        "Used by Energy for bills as a share of average pay (cash bill ÷ cash pay)."
+        "Used by Energy for bills as a share of average pay (cash bill ÷ cash pay). "
+        "ONS AWE covers Great Britain only — geography_code K03000001."
     ),
-    related_indicator_ids=["real-earnings", "cpih-index"],
-    geography="Great Britain / UK AWE whole economy (see ONS notes); coded K02000001 for spine",
+    related_indicator_ids=["real-earnings", "cpih-index", "cpi-index", "cpi-inflation"],
+    geography="Great Britain (K03000001); AWE excludes Northern Ireland",
+    geography_code="K03000001",
+    geography_label="Great Britain",
 )
 
 ALL_Y1_SPECS = (

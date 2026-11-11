@@ -1,10 +1,10 @@
-"""Fiscal-wave ONS PUSF / PN2 series specs (Economy agent).
+"""Fiscal-wave ONS PUSF / QNA series specs (Economy agent).
 
 Five public-finance indicators share the PUSF release family but each has its
 own CDID — one connector / data folder per registry row. Cross-link via
 ``related_indicator_ids`` (do not duplicate the same CDID into two folders).
 
-Business investment (NPEL) is GDP/PN2, not PUSF, but lives in this wave.
+Business investment (NPEL) is GDP/QNA, not PUSF, but lives in this wave.
 """
 
 from __future__ import annotations
@@ -23,8 +23,9 @@ _PUSF_TRANSFORM = (
     "Download ONS timeseries JSON (/data). Keep only the months array "
     "(quarters/years kept in raw, not curated). Map year+month name → ISO "
     "calendar-month bounds. Geography fixed to K02000001 / United Kingdom. "
-    "Values parsed as float; empty → missing. observation_status=provisional "
-    "(PSF monthly estimates are routinely revised)."
+    "Values parsed as float; empty → missing. Latest valued month "
+    "provisional; older valued months final (PSF revises recent months — "
+    "charts drop provisional)."
 )
 
 _PUSF_REVISIONS = (
@@ -41,8 +42,17 @@ _PUSF_CAVEATS = (
 )
 
 
+PSND_PERCENT_GDP_ID = "public-sector-net-debt-percent-gdp"
+"""Official HF6X ratio row — linked only from the Domain 08 debt family."""
+
+
 def _related_except(indicator_id: str) -> list[str]:
     return [i for i in PUSF_RELATED if i != indicator_id]
+
+
+def _debt_family_related(indicator_id: str) -> list[str]:
+    """PUSF links plus HF6X (Domain 08 debt / borrowing / interest only)."""
+    return [*_related_except(indicator_id), PSND_PERCENT_GDP_ID]
 
 
 PUBLIC_SECTOR_NET_BORROWING = OnsSeriesSpec(
@@ -68,7 +78,7 @@ PUBLIC_SECTOR_NET_BORROWING = OnsSeriesSpec(
     transformations=_PUSF_TRANSFORM,
     revision_notes=_PUSF_REVISIONS,
     caveats=_PUSF_CAVEATS,
-    related_indicator_ids=_related_except("public-sector-net-borrowing"),
+    related_indicator_ids=_debt_family_related("public-sector-net-borrowing"),
     open_questions=[
         "Also curate financial-year-to-date PSNB as a derived series?",
     ],
@@ -87,8 +97,9 @@ PUBLIC_SECTOR_NET_DEBT = OnsSeriesSpec(
     definition=(
         "Public sector net debt excluding public sector banks (PSNDex), "
         "stock at end of month, £ billion current prices NSA. ONS CDID HF6W "
-        "in PUSF. Related ratio series HF6X (PSND as % of GDP) is not ingested "
-        "here — link via related_indicator_ids notes only."
+        "in PUSF. The official ratio HF6X (PSND as % of GDP) is a separate "
+        "indicator, public-sector-net-debt-percent-gdp — linked via "
+        "related_indicator_ids, not derived here."
     ),
     frequency="monthly",
     period_kind="months",
@@ -99,12 +110,60 @@ PUBLIC_SECTOR_NET_DEBT = OnsSeriesSpec(
     revision_notes=_PUSF_REVISIONS,
     caveats=(
         _PUSF_CAVEATS
-        + " Values are £ billion (not £ million). HF6X (% of GDP) is the "
-        "companion ratio often quoted alongside HF6W."
+        + " Values are £ billion (not £ million). The official HF6X ratio "
+        "(% of GDP) is ingested separately as "
+        "public-sector-net-debt-percent-gdp; never derive it from real-gdp."
     ),
-    related_indicator_ids=_related_except("public-sector-net-debt"),
+    related_indicator_ids=_debt_family_related("public-sector-net-debt"),
+    open_questions=[],
+)
+
+PUBLIC_SECTOR_NET_DEBT_PERCENT_GDP = OnsSeriesSpec(
+    indicator_id=PSND_PERCENT_GDP_ID,
+    title="Public sector net debt (% of GDP)",
+    series_id="HF6X",
+    dataset_id="PUSF",
+    landing_url=(
+        "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/"
+        "publicsectorfinance/timeseries/hf6x/pusf"
+    ),
+    unit="% of GDP, NSA (ex public sector banks)",
+    definition=(
+        "Public sector net debt excluding public sector banks as a percentage "
+        "of GDP, not seasonally adjusted. ONS CDID HF6X in PUSF; live series "
+        "title 'PS: Net Debt (excluding public sector banks) as a % of GDP: "
+        "NSA', ONS unit '%'. Official ONS ratio: numerator is PSND (HF6W "
+        "concept); denominator is nominal GDP summed over a centred 12-month "
+        "window (6 months either side of the debt date; monthly GDP = "
+        "quarterly / 3), using OBR forecasts for the latest quarters."
+    ),
+    frequency="monthly",
+    period_kind="months",
+    notion_registry_url="https://app.notion.com/p/41565471768581e6ad97d6c10b9a5a1a",
+    connector_module="economy.connectors.public_sector_net_debt_percent_gdp",
+    update_cadence="monthly (ONS Public Sector Finances)",
+    transformations=_PUSF_TRANSFORM,
+    revision_notes=(
+        _PUSF_REVISIONS
+        + " HIGH revision risk for the latest ~6 months: the centred GDP "
+        "denominator uses forecast quarters until outturn replaces them."
+    ),
+    caveats=(
+        _PUSF_CAVEATS
+        + " Values are a ratio in per cent of GDP, not £. Official ONS series; "
+        "NOT derived from real-gdp (ABMI is chained volume SA, PSND is current "
+        "prices — mixing them is wrong). The latest ~6 months depend on OBR "
+        "forecast GDP and revise heavily. Older ONS tables label HF6X 'PSND ex "
+        "BoE'; this row follows the live title 'excluding public sector banks'."
+    ),
+    related_indicator_ids=[
+        "public-sector-net-debt",
+        "public-sector-net-borrowing",
+        "public-sector-debt-interest",
+    ],
     open_questions=[
-        "Should a second registry row cover HF6X (% of GDP)?",
+        "Independent Validation: reconcile HF6X x centred nominal GDP (BKTL "
+        "family) to HF6W, and record revision size at the 2026-11-20 release.",
     ],
 )
 
@@ -136,7 +195,7 @@ PUBLIC_SECTOR_DEBT_INTEREST = OnsSeriesSpec(
         + " Chosen NMFX (CG net interest payable) over broader PS interest/"
         "dividend paid series — document if a PS-wide alternative is preferred."
     ),
-    related_indicator_ids=_related_except("public-sector-debt-interest"),
+    related_indicator_ids=_debt_family_related("public-sector-debt-interest"),
     open_questions=[
         "Prefer a public-sector (not CG-only) interest series if one is "
         "promoted as headline in a later PSF bulletin?",
@@ -211,15 +270,16 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
     indicator_id="business-investment",
     title="Business investment",
     series_id="NPEL",
-    dataset_id="PN2",
+    dataset_id="QNA",
     landing_url=(
-        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/pn2"
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/qna"
     ),
     unit="£ million chained volume, SA",
     definition=(
         "UK business investment (GFCF) in chained volume measures, seasonally "
-        "adjusted, £ million. ONS CDID NPEL in dataset PN2 (also published "
-        "under QNA / UKEA / business investment releases)."
+        "adjusted, £ million. ONS CDID NPEL in dataset QNA (live vintage; "
+        "the PN2 landing is frozen at 2026-08-12). Also published in the "
+        "business investment releases."
     ),
     frequency="quarterly",
     period_kind="quarters",
@@ -229,16 +289,21 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
         "quarterly (ONS GDP first estimate / QNA; Blue Book annually)"
     ),
     transformations=(
-        "Download ONS timeseries JSON (NPEL/PN2 /data). Keep only the "
+        "Download ONS timeseries JSON (NPEL/QNA /data). Keep only the "
         "quarters array (annual aggregates omitted). Map year+Q→ISO "
         "calendar-quarter bounds. Geography fixed to K02000001 / "
         "United Kingdom. Values parsed as float £m; empty → missing. "
-        "observation_status=provisional (PN2 first-estimate family)."
+        "observation_status=provisional (QNA vintage; ONS revises history)."
     ),
     revision_notes=(
         "NPEL levels revise with GDP/QNA releases and Blue Book CVM rebasing. "
         "Re-fetch and re-pin raw JSON; compare checksums. "
-        "observation_status stays provisional to signal revision risk."
+        "observation_status stays provisional to signal revision risk. "
+        "Source switched PN2→QNA on 2026-11-11 (Orchestrator source policy). "
+        "Vintage evidence: QNA 2026-09-29 latest quarter is 83,534 vs 78,413 "
+        "in the retired PN2 2026-08-12 pin (+6.5%); level ratio is "
+        "non-uniform (0.951–1.080) so 2026 Q2 YoY growth is +5.2% on QNA "
+        "vs +0.8% on PN2. Never mix vintages in one chart."
     ),
     caveats=(
         "Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website "
@@ -247,9 +312,8 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
         "Annual rows present in raw JSON but not written to curated."
     ),
     related_indicator_ids=["real-gdp"],
-    open_questions=[
-        "Prefer QNA/UKEA vintage vs PN2 landing for NPEL?",
-    ],
+    # Resolved 2026-11-11: Orchestrator chose QNA over the frozen PN2 landing.
+    open_questions=[],
 )
 
 ALL_FISCAL_SPECS: dict[str, OnsSeriesSpec] = {
@@ -257,6 +321,7 @@ ALL_FISCAL_SPECS: dict[str, OnsSeriesSpec] = {
     for spec in (
         PUBLIC_SECTOR_NET_BORROWING,
         PUBLIC_SECTOR_NET_DEBT,
+        PUBLIC_SECTOR_NET_DEBT_PERCENT_GDP,
         PUBLIC_SECTOR_DEBT_INTEREST,
         TAX_RECEIPTS,
         TOTAL_MANAGED_EXPENDITURE,

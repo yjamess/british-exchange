@@ -1,0 +1,81 @@
+/* What does £1 buy? — two titled cards of real change. One ink; coins sized by diameter (--d, mm). */
+
+.cards {
+  /* CSS length per coin millimetre */
+  --mm: 0.24rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bo-s4);
+  width: 100%;
+  min-width: 0;
+  color: var(--bo-ink);
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: var(--bo-s4);
+  min-width: 0;
+  padding: var(--bo-s4);
+  border: var(--bo-rule);
+}
+.card h3 {
+  margin: 0;
+}
+
+.equation {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  column-gap: var(--bo-s4);
+  align-items: start;
+}
+
+.side {
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+.side p {
+  margin: 0;
+}
+
+.value,
+.equals {
+  font-size: var(--bo-t-d2);
+  line-height: 1;
+}
+/* "=" sits on the figures' line, under the labels */
+.equals {
+  margin: 0;
+  padding-top: calc(var(--bo-t-label) * 1.4 + var(--bo-s2));
+}
+
+.coins {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(1.2 * var(--mm));
+  min-height: calc(28.4 * var(--mm));
+  margin-top: var(--bo-s2);
+}
+
+.coin {
+  flex: none;
+  width: calc(var(--d) * var(--mm));
+  aspect-ratio: 1;
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .cards {
+    --mm: 0.2rem;
+  }
+  .card {
+    padding: var(--bo-s3);
+  }
+}

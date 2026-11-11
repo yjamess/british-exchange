@@ -1384,3 +1384,277 @@ Audit: [audit-observation-storage-uniqueness.md](audit-observation-storage-uniqu
 - Follow: Policy Ledger → Generation History; Jobs Pay → Labour Landscape; Low-carbon Capacity → Generation History. Cloud-backed destinations verified. Networks hold unchanged.
 - Validation: 38 web tests and TypeScript; six raw checksum/key checks; all earnings months and MPP numeric source cells; exact weights reproduction/additive checks and independent Section C samples.
 - Remaining: browser access host unavailable, so desktop/390px inspection pending; Fossils suppression/glyph triage; full stale-menu sweep and deployed Railway verification; held owner content unchanged. Energy not Gate-4-final.
+
+---
+
+## Economy & Public Finance · Gate 1 orchestration · 2026-11-10
+
+**Status:** Wave A **G3 complete** (2026-11-11) for Explorer UI + cloud Ready loads. Review Gate **locked**. **Wave B unblocked** for evidence kickoffs (still no Wave B UI until Wave B G2+G3).  
+**Notion Control:** [Economy Sector Control](https://app.notion.com/p/414654717685811caf11f9bfb7b3ef83)  
+**Sector:** [Economy & Public Finance](https://app.notion.com/p/40d65471768581419ceaefe6dec32ba2)  
+**Overlap:** [economy-overlap-matrix.md](economy-overlap-matrix.md)  
+**Wave A review:** [economy-wave-a-review-2026-11-11.md](economy-wave-a-review-2026-11-11.md)  
+**Visual contract:** [economy-visual-contract.md](economy-visual-contract.md)  
+**Kickoff template:** [agent-kickoff-economy-domain.md](agent-kickoff-economy-domain.md)  
+**Orchestrator:** this chat  
+**Rule (locked 2026-11-11):** Finish Wave A **G2** (done) and Wave A **G3** (Explorer build under shared shell + Review Gate visual contract) **before** opening Wave B (03·06·07). No parallel Wave B research while Wave A G3 is open.
+
+Wave A production rail: Inflation · Wages · Growth · Debt (`sector-pages.ts`).
+
+### EC-G1-01 — Notion Sector Control + domain stubs
+- Owner: Orchestrator
+- Status: done (2026-11-10)
+- Output: Control Page + domains 01–10 under Economy workspace; sector status → Gate 1 in progress
+- Notes: Wave A = 01·02·05·08; B = 03·06·07; C = 04·09·10
+
+### EC-G1-02 — Overlap matrix + inventory
+- Owner: Orchestrator
+- Status: done (2026-11-10)
+- Output: `docs/economy-overlap-matrix.md`
+- Notes: 17 Economy pins mapped; Energy Jobs/BRES/ASHE manufacturing + Housing mortgage/CPI links recorded; recommend `business-investment` primary home in Domain 09
+
+### EC-G1-03 — Repo artefacts (skill + kickoff template)
+- Owner: Orchestrator
+- Status: done (2026-11-10)
+- Output: `.cursor/skills/economy-agent/SKILL.md` (no UI before Review Gate); `docs/agent-kickoff-economy-domain.md`
+
+### EC-G1-04 — Wave A kickoffs (01 · 02 · 05 · 08)
+- Owner: Orchestrator → Economy domain subagents
+- Status: done (kickoffs 2026-11-10; artefacts returned 2026-11-11)
+- Inputs: overlap matrix; existing `data/economy/` pins; Notion domain pages
+- Output: kickoffs + `docs/handover-economy-01-inflation.md` · `…-02-wages.md` · `…-05-growth.md` · `…-08-debt.md`
+- Notes: See EC-G2-WA
+
+### EC-G1-05 — Visual elevation lab (orchestrator-owned)
+- Owner: Orchestrator
+- Status: done (lab + draft contract 2026-11-10)
+- Output: `/design-lab/economy-elevation`; `docs/economy-visual-contract-draft.md`
+- Notes: Winners fold into Review Gate visual contract only; production canvas still frozen
+
+### EC-G2-WA — Wave A evidence review
+- Owner: Orchestrator
+- Status: done (2026-11-11)
+- Output: [economy-wave-a-review-2026-11-11.md](economy-wave-a-review-2026-11-11.md)
+- Decisions: NPEL → Domain 09; HF6X for debt%; AWE GB override approved in principle; L55O next CPIH rate pin; GDP re-pin before Growth Ready
+- Notes: Four artefacts accepted; **not** G3; Validation P0 = `cpi-index` + debt trio
+
+### EC-G2-VAL — Validation P0 (Wave A)
+- Owner: Validation → Orchestrator Ready flip
+- Status: **done** (2026-11-11)
+- Output:
+  - `data/qa/qa_report_cpi_index_2026-11-11.md` — pass → Ready ([registry](https://app.notion.com/p/41565471768581feb1d3e53475e9220a))
+  - `data/qa/qa_report_public_sector_debt_trio_2026-11-11.md` — pass → Ready (HF6W / DZLS / NMFX)
+  - Script: `src/validation/qa_economy_wave_a_p0_2026_11_11.py`
+- Notes: W1 raw absent locally (gitignore); re-pin after 18/20 Nov releases
+
+### EC-G2-PIN — Wave A+ pins L55O + HF6X
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-11)
+- Output:
+  - `cpih-inflation` (L55O) Ready — QA `qa_report_cpih_inflation_2026-11-11.md`; 2026-09 = 3.6%
+  - `public-sector-net-debt-percent-gdp` (HF6X) Ready — QA `qa_report_public_sector_net_debt_percent_gdp_2026-11-11.md`; 2026-09 = 94.0% (warn: OBR forecast tail)
+- Notes: Unlocks CPI vs CPIH rate view + debt %GDP dial without deriving from ABMI
+
+### EC-G2-GROWTH — Growth QNA + earnings Ready
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-11)
+- Output:
+  - ABMI/IHXW/NPEL on **QNA** (2026-09-29); LZVB on PRDY (2026-08-17) — QA `qa_report_economy_growth_qna_2026-11-11.md`
+  - IHXW: `zero_as_missing_before=1955-01-01` → 36 pre-1955 zeros → missing; first real 1955 Q1 = 2,936
+  - AWE: geography override **K03000001 / Great Britain** on `nominal-earnings` + `real-earnings` — QA `qa_report_economy_earnings_2026-11-11.md`
+  - Registry Ready flips: `real-gdp`, `real-gdp-per-head`, `business-investment`, `labour-productivity`, `nominal-earnings`, `real-earnings`
+- Notes: Live ONS re-fetch blocked in this session (DNS); curated re-written from existing QNA/AWE pins. Re-pin ABMI/IHXW/NPEL after 12 Nov; LZVB + AWE after 17 Nov. Energy Prices joins earnings by year — GB code change is safe.
+
+### EC-G2-CLOSE — Wave A G2 closed
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Wave A domains 01·02·05·08 evidence + Validation Ready; Control board updated
+- Notes: Review Gate + G3 still required before Wave B
+
+### EC-G3-PREP — Review Gate → Wave A G3
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Inputs: `docs/economy-visual-contract-draft.md`; `/design-lab/economy-elevation`; Wave A Ready series
+- Output: Locked [economy-visual-contract.md](economy-visual-contract.md); Wave A rail in `sector-pages.ts`
+- Notes: Sage/straw by domain family; hero `containerPort` print; proof-tile rail until Economy REF_ICON set; ship order 01→08→05→02
+
+### EC-G3-01 — Inflation domain (Changing Price of Britain)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `/economy?domain=inflation` (rate · index · data); CPI/CPIH switch; cloud-loaded MM23 quartet
+- Notes: `chart_contract` CPIH flags fixed
+
+### EC-G3-02 — Wages domain (Pay cheque vs prices)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `/economy?domain=wages` (real · pay vs prices · cash · data); GB≠UK chip
+- Notes: Cloud-loaded AWE + CPIH
+
+### EC-G3-03 — Growth domain
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `/economy?domain=growth` (GDP · per head · productivity · data)
+- Notes: QNA ABMI/IHXW + PRDY LZVB cloud-loaded; IHXW missing pre-1955
+
+### EC-G3-04 — Debt domain (Debt dial)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `/economy?domain=debt` (dial measure switch · data); HF6X official %GDP
+- Notes: Never derive %GDP from ABMI
+
+### EC-G3-CLOSE — Wave A G3 closed
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Four Wave A domains live under [economy-visual-contract.md](economy-visual-contract.md); Ready series in Supabase
+- Notes: G4 structural audit still pending. Wave B evidence may start; Wave B UI still gated on B G2+G3.
+
+### EC-G3-RAIL — Ten-domain rail + REF_ICON plate set
+- Owner: Orchestrator (+ owner photo-refs)
+- Status: **done** (2026-11-11) — **owner confirmed outlines/plates placed**
+- Output: `sector-pages.ts` economy → 01–10; `REF_ICON_PLATES.economy*` (ten `i-ref-economy-*.png`); rail wired in `EconomyCanvas`
+- Notes: Status from `ECONOMY_READY_DOMAINS`, never from packs. Wave B/C canvases still gated on their own G2+G3.
+
+### EC-G4 — Structural consistency audit (Wave A Economy)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11) — conditional close
+- Output: [gate4-audit-economy-wave-a-2026-11-11.md](gate4-audit-economy-wave-a-2026-11-11.md)
+- Notes: No P0. P1 partially closed by EC-DB-01/02 (Inflation + Wages Follow + `domain-sources.ts`). Remaining P1: Follows on Growth · Debt. P2: 390px measure; sage/straw on Growth/Debt.
+
+### EC-WB-KICK — Wave B evidence kickoffs (03 · 06 · 07)
+- Owner: Orchestrator → Economy domain subagents
+- Status: **done** (kickoffs 2026-11-11)
+- Output: [agent-kickoff-economy-03-employment.md](agent-kickoff-economy-03-employment.md) · […-06-tax.md](agent-kickoff-economy-06-tax.md) · […-07-spending.md](agent-kickoff-economy-07-spending.md)
+- Notes: Evidence + Notion only — no Wave B canvases until each domain’s G2+G3
+
+### EC-DB-CYCLE — Chronological deep briefs (Energy/Housing bar)
+- Owner: Orchestrator
+- Status: **Wave A done** (2026-11-11) — 01 · 02 · 05 · 08 elevated
+- Inputs: Locked Wave A G3; Energy Prices-style deep briefs; owner chronological order
+- Output: Notion deep brief + canvas elevation per domain before treating UI as “deep”
+- Notes: Wave A order **01 → 02 → 05 → 08** complete. Wave B **03 → 06 → 07** only after each domain’s G2+G3. Wave B canvases still gated.
+
+### EC-DB-01 — Inflation deep brief + elevation
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Notion Domain 01 deep brief (*The Changing Price of Britain*); `connections/economy.ts` + `EconomyStageFollow`; `economy/domain-sources.ts`; Inflation tabs Categories / Everyday basket (`EmptyStage`); sage Data section breaks; ArrivalFrom on Economy explorer
+- Notes: Follows — rate→Energy bill · index→Housing prices · data→Wages vs-prices. Re-pin after **18 Nov** CPI. Source feet: no CDID / `source_version` pin leaks (`economy/citations.ts`).
+
+### EC-01-EDIT — Inflation editorial pass (brief 01–04)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: *What £1 buys* rebuilt to brief 02 (Year + Measure; `PoundBuys` area-true instrument; cost-of-£1 `TimeChart`; derived, said so in Notes); public copy cleaned on all tabs (no pp / COICOP / planned-not-ready / owner notes); peak figure on Changing price; sage removed from Inflation + Wages Data (contract: paper only); sector band hero = night (template)
+- Notes: Provisional bug fixed in EC-01-PROV (latest month only; charts plot final).
+
+### EC-01-CLOSE — Inflation domain close
+- Owner: Orchestrator
+- Status: **done** (2026-11-11) — Categories + Everyday basket wired; provisional fixed; contributions shipped
+- Done: tabs 01 Changing price · 02 What £1 buys · 03 What's driving it (contributions default + annual-rates lens) · 04 Everyday basket · Data
+- Notes: Basket Notes state official statistics in development; pin ends Jan 2025. Charts / Data tables use **final** rows only.
+- Editorial (Orchestrator, 2026-11-11): *What £1 buys* = two titled coin cards (`PoundBuys`, King Charles III reverses under Royal Mint permission — `docs/permissions/royal-mint-coins.md`; light/ink-numeral variant). *Everyday basket* = price-tag wall (`BasketWall`): Show menu + search over 326 items, year menus (January prices), Play the months, pinned till strip; featured ten drawn + 20 generic type plates (`basket-items.py`). Basket loads by January + per item (API caps 10k rows) — `basket-load.ts`. Public copy and Follow lines de-jargoned.
+- Later (owner): tidy weaker plates (kettle, ticket, hammer, broccoli; scale of chair/bike/car); Clothing and Recreation not yet in the basket pin.
+
+### EC-01-CONTRIB — CPIH contributions by COICOP division
+- Owner: Economy / Orchestrator
+- Status: **done** (2026-11-11) — Ready + cloud + UI
+- Output: CDIDs L5H5–L5HG → `cpih-contribution-*` (165 months each); QA [qa_report_economy_01_contributions_2026-11-11.md](../data/qa/qa_report_economy_01_contributions_2026-11-11.md); Supabase releases 204–215; Categories Lens = Contributions | Annual rates
+- Notes: Aug 2026 sum 3.28pp vs headline 3.3%. Rounding L5GO not pinned.
+
+### EC-01-PROV — CPI/CPIH observation_status fix
+- Owner: Economy / Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `OnsTimeseriesConnector` marks latest month provisional only; older months `final`. Everyday basket archive all `final`. Reloaded headline quartet + 12 COICOP + basket to Supabase.
+- Notes: Spot-check cloud: `cpi-inflation` 452 final / 1 provisional; basket 802 final.
+
+### EC-01-COICOP — Ingest CPIH COICOP divisions
+- Owner: Economy (Orchestrator CDID map)
+- Status: **Ready** (2026-11-11) — cloud-loaded + UI wired
+- Output: [economy-01-coicop-cdid-map.md](economy-01-coicop-cdid-map.md); 12 pins `cpih-inflation-*`; QA pass; Supabase releases 191–202; Inflation › What's driving it RankBars
+- Notes: CPIH annual rates L55P–L55Z + L562 only.
+
+### EC-01-BASKET — Official average prices (everyday basket)
+- Owner: Economy
+- Status: **Ready** (2026-11-11) — cloud-loaded + UI wired
+- Output: `everyday-basket-average-prices` (802 obs); QA pass; Supabase release 203; Inflation › Everyday basket
+- Notes: Official statistics in development; pin ends Jan 2025. Post-2025 live tool download still open. **Superseded by EC-01-BASKET-X** (Category1 expand).
+
+### EC-01-BASKET-X — Everyday basket Category1 expand
+- Owner: Economy → Validation → Orchestrator
+- Status: **Ready** (2026-11-11) — ingest + QA pass + Supabase reload (release 203, 26 306 obs)
+- Inputs: ONS shopping-prices pre-2025 xlsx; Orchestrator Category1 allowlist
+- Output: `everyday-basket-average-prices` (26 306 obs, 326 items); `curated/items.json`; QA [qa_report_everyday_basket_expand_2026-11-11.md](../data/qa/qa_report_everyday_basket_expand_2026-11-11.md); kickoff [agent-kickoff-validation-economy-01-basket-expand.md](agent-kickoff-validation-economy-01-basket-expand.md)
+- Notes: Groups = Food and drink (+ establishments) · Household items · Services · Health · Transport. Original 10 slug overrides kept. Clothing / Recreation excluded. Search UI owner-owned (no `web/` in this task).
+
+### EC-DB-02 — Wages deep brief + elevation
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Notion Domain 02 deep brief (*Pay cheque vs prices*); Wages Follows; Wage ladder `EmptyStage`; sage Data breaks
+- Notes: Follows — real→Inflation CPIH · vs-prices→Inflation index · cash→Energy afford · data→Energy Jobs pay. Re-pin after **17 Nov** AWE. National ASHE planned-not-ready.
+
+### EC-DB-02b — Wages · The Value of Work
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Inputs: Notion Domain 02 §7 approved refinement; Ready `real-earnings` (A2FC)
+- Output: `/economy?domain=wages&view=value` — Compare year menu; distance-to-peak figures; TimeChart peak/year rules; exact levels table; Follow → Inflation CPIH
+- Notes: Final months only. Peak = observed high in pin. ASHE ladder still EmptyStage.
+
+### EC-DB-05 — Growth deep brief + elevation
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Notion Domain 05 deep brief locked; `/economy?domain=growth` tabs produce · ledger · productivity · revisions · data; Follows → Energy Jobs productivity · Debt dial · Wages real; provisional = latest quarter only (reloaded)
+- Notes: Vintage stamp in Notes (QNA 2026-09-29, ref yr 2024). Re-pin after **12 Nov** GDP / **17 Nov** productivity before claiming post-release Validation.
+
+### EC-DB-05b — Growth vintage-band store
+- Owner: Economy (+ Orchestrator UI)
+- Status: **done** (2026-11-11)
+- Output: `economy.connectors.gdp_vintage_band` → `data/economy/gdp-vintage-band/curated/band.json`; pack id `economy.gdp-vintage-band` in `PACK_REGISTRY` + Storage (`--keep-local`); Growth › Revisions plots PN2 vs QNA rebased to 2019 Q4 = 100 (GDP · per head)
+- Notes: Absolute £ levels kept in spot table only (ratio ~1.045). Do not overlay levels. Re-build pack when raw pins re-dated after 12 Nov.
+
+### EC-V-05b — Validation Growth vintage-band
+- Owner: Validation
+- Status: **done** (2026-11-11)
+- Output: [qa_report_economy_05_vintage_band_2026-11-11.md](../data/qa/qa_report_economy_05_vintage_band_2026-11-11.md) — **pass** (19/19); kickoff [agent-kickoff-validation-economy-05-vintage-band.md](agent-kickoff-validation-economy-05-vintage-band.md)
+- Notes: Rebased indexes trusted for Revisions; rebuild pack after 12 Nov GDP re-pin.
+
+### EC-DB-08 — Debt deep brief + elevation
+- Owner: Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Notion Domain 08 deep brief (*What Britain owes*); `/economy?domain=debt` tabs dial · borrowing · interest · data; Follows → Growth ledger/data; PSF `observation_status` fixed (latest month only provisional) + cloud reload releases 49–51 / 188; 12-month rolling sums labelled derived
+- Notes: HF6X official only. Re-pin after **20 Nov** PSF.
+
+### EC-02-PROV — AWE observation_status fix
+- Owner: Economy / Orchestrator
+- Status: **done** (2026-11-11)
+- Output: Offline re-curate `nominal-earnings` / `real-earnings` → latest month provisional only; cloud reload (releases 179 / 52). Fixes empty Wages charts that filtered to `final`.
+- Notes: Same root cause as EC-01-PROV / Debt PSF — curated written before mark_latest applied.
+
+### EC-02-ASHE — National Wage ladder (ASHE Table 1)
+- Owner: Economy / Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `ashe-national-earnings` from `ashetable12026provisional.zip`; connector `economy.connectors.ashe_national_earnings`; QA pass; cloud release **217**; `/economy?domain=wages&view=ladder` RankBars (All / Full-Time); Follow → Energy Jobs Pay
+- Notes: Spot All median **£673.1** · Full-Time **£811.2**. UK ≠ GB AWE. Manufacturing Table 4 stays Energy. Re-pin on 2026 revised.
+
+### EC-02-GEO — Geography of Pay (ASHE Table 7 workplace)
+- Owner: Economy / Orchestrator
+- Status: **done** (2026-11-11)
+- Output: `ashe-regional-earnings` from `ashetable72026provisional.zip`; connector `economy.connectors.ashe_regional_earnings`; QA pass; cloud release **218**; `/economy?domain=wages&view=geography` RegionMap + RankBars (English regions) + nations RankBars; Coverage All / Full-Time; Follow → Wage ladder + Energy Jobs Pay
+- Notes: Workplace ≠ residence (Table 8 deferred). Spot Full-Time UK **£811.2** · London **£1038.1**. LA rows curated for later AreaMap. Re-pin on 2026 revised.
+
+### EC-02-ASHE-B — Wages domain data completion (ASHE extensions)
+- Owner: Economy
+- Status: **done · Validation requested** (2026-11-11)
+- Output (no frontend):
+  1. `ashe-national-earnings` — 2026 provisional + 2025 revised; sheets All / Full-Time / Part-Time; **72** obs; cloud release **220**; QA `data/qa/qa_report_ashe_national_earnings_2026-11-11b.md`
+  2. `ashe-regional-earnings` — 2026 provisional + 2025 revised workplace Table 7.1a; **1576** obs; cloud release **222**; QA `…_regional_earnings_2026-11-11b.md`
+  3. `ashe-industry-earnings` **(new)** — Table 4.1a SIC sections A–U; median/mean/percentiles; All + Full-Time; both editions; **954** obs; cloud release **219**; QA `…_industry_earnings_2026-11-11.md`
+  4. `ashe-region-industry-earnings` **(new)** — Table 5.1a workplace region × SIC section medians; 2026 provisional; **402** obs; cloud release **221**; QA `…_region_industry_earnings_2026-11-11.md`
+- Entrypoints: `economy.connectors.ashe_national_earnings` · `ashe_regional_earnings` · `ashe_industry_earnings` · `ashe_region_industry_earnings` (+ shared `ashe_common.py`)
+- Archive: Storage push `--keep-local` for all four packs under `data/economy/`
+- **Manufacturing boundary:** Energy `ashe-manufacturing-earnings` remains authoritative for manufacturing Jobs Pay (section C + divisions 10–33). Economy Table 4 pack loads all sections including C for Wages — link only; do not fork Energy.
+- Coverage gap: Table 5.1a has no England / NI × section cross-tabs (regions + Wales + Scotland only). Table 8 residence deferred.
+- Next: Validation sample QA → Orchestrator Ready flip; UI already waiting on multi-year / industry series.
+
+### Review — Economy deep-brief cycle (01 · 02 · 05 · 08)
+- **Shipped:** Inflation · Wages (ladder + Geography of Pay) · Growth (+ vintage-band) · Debt dial elevated
+- **Next:** Wave A G4 structural audit, or wait for 12/17/20 Nov re-pins; Wave B still gated on per-domain G2+G3
+- **Still blocked:** Wave B canvases; post-release re-pins (GDP 12 Nov · productivity 17 Nov · PSF 20 Nov · ASHE 2026 revised later); optional ASHE Table 8 residence / LA AreaMap
+

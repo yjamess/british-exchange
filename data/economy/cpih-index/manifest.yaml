@@ -24,21 +24,21 @@ raw_evidence:
   http_status: 200
   source_url: https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l522/mm23/data
 transformations: Download ONS timeseries JSON (/data). Keep only the months array.
-  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
-  (ONS revises).
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (CPI/CPIH rarely revise history).
 revision_notes: CPIH index revises with basket/weight updates and corrections.
 caveats: Not CPI (D7BT). Energy must link this Economy series — do not fork under
   data/energy.
 related_indicator_ids:
 - cpi-inflation
 - cpi-index
+- cpih-inflation
 - real-gdp-per-head
 - labour-productivity
 - employment-rate
 - economic-inactivity-rate
 - real-earnings
 - real-gdp
-- cpi-index
 - domestic-electricity-bills
 - domestic-gas-bills
 open_questions: []
