@@ -65,10 +65,8 @@ export function CombBars({
         />
       </svg>
       {hi !== null ? (
-        <Readout x={x(points[hi]!.t)} f={f}>
-          <b>{fmtT(points[hi]!.t, cadence)}</b>
-          <span>{format(points[hi]!.v)}</span>
-        </Readout>
+        <Readout x={x(points[hi]!.t)} f={f} head={fmtT(points[hi]!.t, cadence)}
+          rows={[{ label, value: `${format(points[hi]!.v)}${points[hi]!.provisional ? " · provisional" : ""}` }]} />
       ) : null}
     </div>
   );

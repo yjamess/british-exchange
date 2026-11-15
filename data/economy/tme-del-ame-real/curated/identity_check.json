@@ -1,0 +1,108 @@
+{
+  "pass": true,
+  "indicator_id": "tme-del-ame-real",
+  "price_base": "2025-26",
+  "unit": "\u00a3 million, 2025-26 prices, financial year",
+  "deflator": "Real-terms figures are the nominal figures adjusted to 2025-26 price levels using GDP deflators from the Office for National Statistics (released 30 June 2026).",
+  "v4": [
+    {
+      "fy": "2021-22",
+      "total_del": 648705.0,
+      "departmental_ame": 816338.0,
+      "other_ame": -202678.0,
+      "table_tme": 1262365.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2022-23",
+      "total_del": 613433.0,
+      "departmental_ame": 461587.0,
+      "other_ame": 240194.0,
+      "table_tme": 1315214.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2023-24",
+      "total_del": 601148.0,
+      "departmental_ame": 584293.0,
+      "other_ame": 139510.0,
+      "table_tme": 1324951.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2024-25",
+      "total_del": 616422.0,
+      "departmental_ame": 626432.0,
+      "other_ame": 91603.0,
+      "table_tme": 1334457.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2025-26",
+      "total_del": 639807.0,
+      "departmental_ame": 622645.0,
+      "other_ame": 97670.0,
+      "table_tme": 1360122.0,
+      "sum_minus_tme": 0.0
+    }
+  ],
+  "price_base_equals_nominal": {
+    "fy": "2025-26",
+    "resource_del": 496670.0,
+    "capital_del": 127532.0,
+    "total-del": 639807.0,
+    "departmental-ame": 622645.0,
+    "other-ame": 97670.0,
+    "table-tme": 1360122.0
+  },
+  "total_del_not_rebuilt": [
+    {
+      "fy": "2021-22",
+      "resource_del": 525528.0,
+      "capital_del": 112366.0,
+      "resource_plus_capital": 637894.0,
+      "published_total_del": 648705.0,
+      "gap": 10811.0,
+      "curated": false
+    },
+    {
+      "fy": "2022-23",
+      "resource_del": 487372.0,
+      "capital_del": 113423.0,
+      "resource_plus_capital": 600795.0,
+      "published_total_del": 613433.0,
+      "gap": 12638.0,
+      "curated": false
+    },
+    {
+      "fy": "2023-24",
+      "resource_del": 474641.0,
+      "capital_del": 114385.0,
+      "resource_plus_capital": 589026.0,
+      "published_total_del": 601148.0,
+      "gap": 12122.0,
+      "curated": false
+    },
+    {
+      "fy": "2024-25",
+      "resource_del": 485757.0,
+      "capital_del": 115432.0,
+      "resource_plus_capital": 601189.0,
+      "published_total_del": 616422.0,
+      "gap": 15233.0,
+      "curated": false
+    },
+    {
+      "fy": "2025-26",
+      "resource_del": 496670.0,
+      "capital_del": 127532.0,
+      "resource_plus_capital": 624202.0,
+      "published_total_del": 639807.0,
+      "gap": 15605.0,
+      "curated": false
+    }
+  ],
+  "real_table_tme_equals_nominal_only_in_price_base_year": true,
+  "ebft_deflated": false,
+  "row_count": 20
+}

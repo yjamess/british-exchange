@@ -3,13 +3,14 @@
 import { useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { fmtT, type Pt } from "../data";
 import { easeInOut, setOf, useDrawOn, useTweened } from "./motion";
+import { ReadoutCard } from "./ReadoutCard";
 import { SeriesLegend } from "./SeriesLegend";
 import { explorerClasses as t } from "../template";
 import s from "./instrument.module.css";
 
 /**
  * v1 time chart — the chart template for every sector (see docs/visual-identity.md › Charts).
- * - series order: Electric, Ochre, Union, Verdigris, Plum
+ * - series order: the twelve Electric spectrum chart inks
  * - Plot fills the stage by default. SeriesLegend under the plot names series and shows latest
  *   values (one series or many). End-of-line leaders reserve a right gutter — pass `leaders={true}`
  *   only when that pattern is deliberate (Generation fuel-mix end names). Never default them on:
@@ -32,26 +33,16 @@ const STEP: Record<Cadence, number> = { monthly: 1 / 12, quarterly: 0.25, annual
 /** Distinct categorical colours; labels remain Union, with matching swatches. */
 export const SERIES_TONES = [
   "var(--bo-ink)",
-  "var(--bo-chart-2)",
-  "var(--bo-chart-3)",
-  "var(--bo-chart-4)",
-  "var(--bo-chart-5)",
+  ...Array.from({ length: 11 }, (_, i) => `var(--bo-chart-${i + 2})`),
 ];
 /** Retain identity assignments for the lifetime of a chart, including removed series. */
-export function assignSeriesSlots(previous: Map<string, number>, ids: string[]) {
+export function assignSeriesSlots(previous: Map<string, number>, ids: string[], paletteSize = SERIES_TONES.length) {
   const next = new Map(previous);
-  for (const id of ids) if (!next.has(id)) next.set(id, next.size % SERIES_TONES.length);
+  for (const id of ids) if (!next.has(id)) next.set(id, next.size % Math.max(1, paletteSize));
   return next;
 }
-const TONES = SERIES_TONES;
 /** Stack layers — distinct solids so SeriesLegend swatches match the plot (hatch is for provisional bars only). */
-const LAYERS = [
-  "var(--bo-ink)",
-  "var(--bo-green)",
-  "var(--bo-mustard)",
-  "var(--bo-chart-4)",
-  "var(--bo-chart-5)",
-];
+const LAYERS = SERIES_TONES;
 /** Square marks at observations only when they can be told apart; dense series stay a clean line. */
 const MAX_MARKS = 60;
 /** Above this, end-of-line leaders become spaghetti — use a compact legend instead. */
@@ -169,7 +160,10 @@ export function TimeChart({
   motion = true,
   showTable = true,
   leaders,
+  seriesTones,
 }: {
+  /** Optional comparison palette (design-lab studies); defaults retain the live identity. */
+  seriesTones?: readonly string[];
   /** Disable only when the enclosing explorer provides a dedicated accessible Data view. */
   showTable?: boolean;
   series: ChartSeries[];
@@ -222,9 +216,11 @@ export function TimeChart({
   void area;
   // Remember slots by identity across selection changes, rather than recolouring by position.
   const slots = useRef(new Map<string, number>());
-  slots.current = assignSeriesSlots(slots.current, inputSeries.filter(sr => sr.role !== "reference").map(sr => sr.id));
+  const tones = seriesTones?.length ? seriesTones : SERIES_TONES;
+  const layers = seriesTones?.length ? seriesTones : LAYERS;
+  slots.current = assignSeriesSlots(slots.current, inputSeries.filter(sr => sr.role !== "reference").map(sr => sr.id), tones.length);
   const toneFor = (id: string) => inputSeries.find(sr => sr.id === id)?.role === "reference"
-    ? "var(--bo-chart-reference)" : TONES[slots.current.get(id) ?? 0];
+    ? "var(--bo-chart-reference)" : tones[(slots.current.get(id) ?? 0) % tones.length];
   const wrap = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(760);
   const [tableOpen, setTableOpen] = useState(false);
@@ -501,7 +497,7 @@ export function TimeChart({
                 // Names live in SeriesLegend under the plot — no in-plot tags (avoids top/bottom split).
                 const el = (
                   <g key={sr.id}>
-                    <path d={d} fill={LAYERS[i % LAYERS.length]} stroke="var(--bo-paper)" strokeWidth={1.5} />
+                    <path d={d} fill={layers[i % layers.length]} stroke="var(--bo-paper)" strokeWidth={1.5} />
                   </g>
                 );
                 base = top;
@@ -624,36 +620,19 @@ export function TimeChart({
         </svg>
 
         {tc !== undefined && readout.length > 0 && (
-          <div
-            className={s.readout}
-            data-rich={inspect ? "true" : undefined}
-            data-stack={kind === "stack" ? "true" : undefined}
-            style={{
-              left: Math.max(
-                0,
-                Math.min(x(tc) + 12, width - (inspect || kind === "stack" ? 320 : 240)),
-              ),
-            }}
-            aria-live="polite"
-          >
-            {/* Period stays for screen readers; the floating year in the plot corner was noise. */}
-            <span className="bo-visually-hidden">{period(tc)}</span>
-            {readout.map((r) => (
-              <span key={r.id} className={s.readRow}>
-                {series.length > 1 && <span className={s.readName}><i aria-hidden="true" style={{ background: toneFor(r.id) }} />{r.label}</span>}
-                <b className="bo-num">
-                  {!r.p ? "Not available" : kind === "stack" ? `${format(r.p.v)} · ${((r.p.v / (stackTotals[idx!] || 1)) * 100).toFixed(1)}%` : format(r.p.v)}
-                  {!inspect && r.p?.provisional ? " · provisional" : ""}
-                </b>
-              </span>
-            ))}
-            {inspect?.(tc).map((row) => (
-              <span key={row.label} className={s.readRow}>
-                <span>{row.label}</span>
-                <b className="bo-num">{row.value}</b>
-              </span>
-            ))}
-          </div>
+          <ReadoutCard
+            head={period(tc)}
+            style={{ left: Math.max(0, Math.min(x(tc) + 12, width - 340)) }}
+            rows={[
+              ...readout.map((r, i) => ({
+                id: r.id,
+                label: r.label,
+                tone: series.length > 1 ? kind === "stack" ? layers[i % layers.length] : toneFor(r.id) : undefined,
+                value: `${!r.p ? "Not available" : kind === "stack" ? `${format(r.p.v)} · ${((r.p.v / (stackTotals[idx!] || 1)) * 100).toFixed(1)}%` : format(r.p.v)}${!inspect && r.p?.provisional ? " · provisional" : ""}`,
+              })),
+              ...(inspect?.(tc) ?? []).map((row, i) => ({ ...row, id: `inspect-${i}` })),
+            ]}
+          />
         )}
       </div>
 
@@ -662,7 +641,7 @@ export function TimeChart({
           dense={manySeries || series.length > 4}
           items={series.map((sr, i) => {
             const last = sr.points.at(-1);
-            const tone = kind === "stack" ? LAYERS[i % LAYERS.length]! : toneFor(sr.id);
+            const tone = kind === "stack" ? layers[i % layers.length]! : toneFor(sr.id);
             return {
               id: sr.id,
               label: sr.label,

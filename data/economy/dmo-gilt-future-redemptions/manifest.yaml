@@ -1,0 +1,53 @@
+indicator_id: dmo-gilt-future-redemptions
+title: Gilt future redemptions by financial year (DMO D8B)
+sector: economy-public-finance
+publisher: UK Debt Management Office (DMO)
+source_url: https://www.dmo.gov.uk/data/pdfdatareport?reportCode=D8B
+series_id: D8B
+geography: United Kingdom (K02000001); UK central government gilts
+frequency: ad_hoc
+unit: £ million
+definition: 'DMO report D8B: amount of conventional and index-linked gilts due to
+  redeem in each future financial year (1 April–31 March), £ million, net of government
+  holdings. Notes carry series=conventional|index_linked|total and fy=YYYY-YYYY.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.dmo_gilt_future_redemptions
+curated_path: curated/observations.csv
+update_cadence: living profile — DMO updates as gilts are issued/redeem; re-pin the
+  browser-downloaded .xls when a fresh snapshot is needed
+raw_evidence:
+- path: raw/Future Redemptions Nov 14 2026.xls
+  retrieved_at: '2026-11-14T00:00:00+00:00'
+  checksum_sha256: 50e75c5e54ae79c057ec1525c881c974467bf8933ee0e833a981e8b7e70b111c
+  content_type: application/vnd.ms-excel
+  official_release_date: '2026-11-14'
+  http_status: null
+  source_url: https://www.dmo.gov.uk/data/pdfdatareport?reportCode=D8B
+transformations: 'Read Sheet1 of the pinned .xls with xlrd. Header row 1, FY rows
+  from row 2 until the first blank label. Comma-formatted strings parsed to numbers.
+  One observation per FY per series; period = FY start to FY end. Values unchanged
+  from the publisher; no derived totals. Self-check: conventional + index_linked ==
+  published total (£1m rounding).'
+revision_notes: Snapshot data-date 2026-11-14. The profile changes with every new
+  issue and redemption. Rows marked provisional because DMO notes government-holdings
+  data are only updated after month-end, so net figures may temporarily overstate
+  before the monthly update.
+caveats: 'Net of government holdings (market-hands amounts). Index-linked redemptions
+  include only part of the inflation uplift; the rest sits in the CGNCR in the redeeming
+  year, so IL redemptions do NOT tally with uplifted nominal in issue (see dmo-gilts-in-issue).
+  Not a gilt sales / issuance forecast. Not PSND (HF6W) and not a repayment schedule
+  for all public-sector debt. Gilts only: no Treasury bills, NS&I or non-gilt debt.
+  This D8B export starts at FY 2027-28 and omits the remainder of the current financial
+  year (2026-27); gilts maturing before April 2027 still appear in dmo-gilts-in-issue
+  — do not chart D8B alone as if nothing redeems until 2027-28.'
+status_note: ''
+related_indicator_ids:
+- dmo-gilts-in-issue
+- cg-cash-debt-reconciliation
+- public-sector-net-debt
+open_questions:
+- 'Validation: spot-check FY totals against the DMO D8B PDF/XML export.'
+- Raw is a browser pin (captcha); agree re-pin cadence with Orchestrator.
+notion_registry_url: ''
+schema_version: '1.0'

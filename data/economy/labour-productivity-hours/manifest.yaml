@@ -1,0 +1,48 @@
+indicator_id: labour-productivity-hours
+title: Labour productivity hours
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/lzva/prdy
+series_id: LZVA
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: Index 2023=100, SA (productivity hours, whole economy)
+definition: UK whole-economy productivity hours worked, seasonally adjusted index
+  (2023=100). ONS CDID LZVA in PRDY — the labour-input companion to output per hour
+  (LZVB).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.labour_productivity_hours
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS productivity)
+raw_evidence:
+- path: raw/2026-11-11/lzva_prdy.json
+  retrieved_at: '2026-11-11T21:20:06.695667+00:00'
+  checksum_sha256: 8b0ea517da669940c2f60e26a4108579778a8d2f23f6f4eb0efe71a8f08c0213
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-08-17'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/labourproductivity/timeseries/lzva/prdy/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
+  Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: Hours revise with LFS labour-input and seasonal-adjustment updates.
+  Index base year (2023=100 at the 2026-08-17 release) can move at the next productivity
+  release (2026-11-17); re-read the series title on every re-pin.
+caveats: Productivity hours index (LZVA), not absolute hours totals and not employment
+  (LF24). Same PRDY vintage as labour-productivity (LZVB). LFS labour inputs are not
+  accredited official statistics — keep that on Notes.
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- employment-rate
+- economic-inactivity-rate
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/41565471768581e788f5d9373c99e34c
+schema_version: '1.0'

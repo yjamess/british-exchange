@@ -1,0 +1,59 @@
+indicator_id: uk-vacancies
+title: UK vacancies (total)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ap2y/lms
+series_id: AP2Y
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Thousands of vacancies, SA (three-month average)
+definition: UK total vacancies, seasonally adjusted, thousands. ONS CDID AP2Y in LMS
+  (Vacancy Survey). Headline three-month average; not hires and not Claimant Count.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.uk_vacancies
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS vacancies / labour market)
+raw_evidence:
+- path: raw/2026-11-14/ap2y_lms.json
+  retrieved_at: '2026-11-14T22:57:38.667773+00:00'
+  checksum_sha256: 325f20bd13f1c65d0232f79cf6bf3fd1eeb7e79782092002380a2a2da2c5a71e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ap2y/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: Vacancy Survey revises with returns and seasonal-adjustment updates.
+  Oct 2026 bulletin noted seasonal-adjustment basis unchanged; check LMS/UNEM processing
+  notes on every re-pin (historic LMS vacancy update lag vs VACS01–03 has occurred).
+caveats: Vacancies ≠ hires. Vacancy Survey employer measure — distinct from LFS employment/unemployment.
+  Three-month average shown as mid-month in LMS convention.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- inactivity-reason-other
+- average-actual-weekly-hours
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41865471768581c4b9dcc8143efc237b
+schema_version: '1.0'

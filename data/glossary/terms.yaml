@@ -1,0 +1,788 @@
+# Shared terms registry. Plain definitions for acronyms and terms of art that recur
+# across sector pages. One row per term. Loaded to Postgres `glossary_term` by
+# `uv run python -m britain_exchange.glossary`; this file is the connector pin.
+# Fields: slug, short, full_name, definition (one sentence, for the popover),
+# note (optional, longer), sector, group, related_indicator_ids, source_url.
+# Derived 2026-11-14 from Housing copy; see docs/glossary-seed-housing.md.
+
+terms:
+  - slug: mhclg
+    short: "MHCLG"
+    full_name: "Ministry of Housing, Communities and Local Government"
+    definition: "The government department that publishes England's housing, planning and homelessness statistics."
+    sector: housing-land
+    group: publisher
+    seen_on: "Supply, Stock, Insecurity, Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: ons
+    short: "ONS"
+    full_name: "Office for National Statistics"
+    definition: "The UK's national statistics body; source of prices, earnings, rents, Census and inflation series here."
+    sector: shared
+    group: publisher
+    seen_on: "All"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: ehs
+    short: "EHS"
+    full_name: "English Housing Survey"
+    definition: "A yearly survey of a sample of English homes and households, run for MHCLG; its figures are estimates, not a register."
+    sector: housing-land
+    group: publisher
+    seen_on: "Quality, Stock"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: epc-register
+    short: "EPC register"
+    full_name: "Energy Performance Certificate register"
+    definition: "The administrative list of energy certificates lodged when a building is sold, let or built; it covers only those buildings, not all homes."
+    sector: housing-land
+    group: publisher
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: uk-hpi
+    short: "UK HPI"
+    full_name: "UK House Price Index"
+    definition: "HM Land Registry's monthly measure of average house prices, built from completed sales."
+    sector: housing-land
+    group: publisher
+    seen_on: "Prices, Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: hm-land-registry
+    short: "HM Land Registry"
+    full_name: "HM Land Registry"
+    definition: "The body that records property ownership in England and Wales and publishes price-paid and ownership data."
+    sector: housing-land
+    group: publisher
+    seen_on: "Prices, Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: ccod-ocod
+    short: "CCOD / OCOD"
+    full_name: "Commercial and Corporate Ownership Data / Overseas Companies Ownership Data"
+    definition: "HM Land Registry lists of titles owned by UK companies and by overseas companies."
+    sector: housing-land
+    group: publisher
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: fca-pra
+    short: "FCA / PRA"
+    full_name: "Financial Conduct Authority / Prudential Regulation Authority"
+    definition: "The two regulators that jointly collect mortgage lending returns from lenders."
+    sector: housing-land
+    group: publisher
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: mlar
+    short: "MLAR"
+    full_name: "Mortgage Lenders and Administrators Return"
+    definition: "The quarterly lending return every regulated mortgage lender files; source of advances, balances and arrears here."
+    sector: housing-land
+    group: publisher
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: moj
+    short: "MoJ"
+    full_name: "Ministry of Justice"
+    definition: "Publishes court statistics, including landlord and mortgage possession actions."
+    sector: housing-land
+    group: publisher
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: hmrc
+    short: "HMRC"
+    full_name: "HM Revenue and Customs"
+    definition: "The tax authority; source here of property in estates reported for inheritance tax."
+    sector: shared
+    group: publisher
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: aff1
+    short: "AFF1"
+    full_name: "ONS housing affordability table 1"
+    definition: "The ONS table that compares median house prices with median earnings by area."
+    sector: housing-land
+    group: publisher
+    seen_on: "Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: pipr
+    short: "PIPR"
+    full_name: "Price Index of Private Rents"
+    definition: "The ONS monthly measure of private rents, with average rent levels by area."
+    sector: housing-land
+    group: publisher
+    seen_on: "Renting, Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: wealth-and-assets-survey
+    short: "Wealth and Assets Survey"
+    full_name: "Wealth and Assets Survey"
+    definition: "An ONS household survey that asks people what their property and debts are worth."
+    sector: housing-land
+    group: publisher
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: census-ts044
+    short: "Census TS044"
+    full_name: "Census 2021 table TS044, accommodation type"
+    definition: "Counts households by type of home on Census Day; a count of households, not of dwellings."
+    sector: housing-land
+    group: publisher
+    seen_on: "Stock"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: mhclg-live-tables
+    short: "Live Table 213 / 1000 / 118"
+    full_name: "MHCLG live tables"
+    definition: "MHCLG's standing spreadsheets: 213 is quarterly starts and completions, 1000 is affordable supply, 118 is net additional dwellings."
+    sector: housing-land
+    group: publisher
+    seen_on: "Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: planning-data
+    short: "Planning Data"
+    full_name: "planning.data.gov.uk"
+    definition: "The government's open platform for planning datasets such as brownfield sites, Article 4 directions and tree preservation orders."
+    sector: housing-land
+    group: publisher
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: d7bt
+    short: "D7BT"
+    full_name: "ONS CPI all-items index"
+    definition: "The series code for the Consumer Prices Index used to turn nominal pounds into real terms."
+    sector: shared
+    group: publisher
+    seen_on: "Prices"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: nominal
+    short: "Nominal"
+    full_name: "Nominal pounds"
+    definition: "Pounds of the month or year shown, with no adjustment for inflation."
+    sector: shared
+    group: measure
+    seen_on: "Prices, Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: real-terms
+    short: "Real terms"
+    full_name: "CPI-adjusted pounds"
+    definition: "Pounds restated in the money of a chosen month so that inflation is removed; here an Exchange calculation using CPI."
+    sector: shared
+    group: measure
+    seen_on: "Prices"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: cpi
+    short: "CPI"
+    full_name: "Consumer Prices Index"
+    definition: "The ONS's main measure of inflation, tracking the prices of a basket of goods and services."
+    sector: shared
+    group: measure
+    seen_on: "Prices"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: median
+    short: "Median"
+    full_name: "Median"
+    definition: "The middle value: half are above it and half below."
+    sector: shared
+    group: measure
+    seen_on: "Affordability, Prices"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: mean
+    short: "Mean"
+    full_name: "Mean (average)"
+    definition: "All values added together and divided by how many there are."
+    sector: shared
+    group: measure
+    seen_on: "Affordability, Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: provisional
+    short: "Provisional"
+    full_name: "Provisional figure"
+    definition: "A first estimate the publisher expects to revise; drawn dotted on the Exchange."
+    sector: shared
+    group: measure
+    seen_on: "Supply, Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: affordability-ratio
+    short: "Affordability ratio"
+    full_name: "House price to earnings ratio"
+    definition: "Median house price divided by median annual earnings; \"8×\" means a home costs eight years of pay."
+    sector: housing-land
+    group: measure
+    seen_on: "Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: workplace-based-earnings
+    short: "Workplace-based earnings"
+    full_name: "Workplace-based median earnings"
+    definition: "Pay measured where people work rather than where they live."
+    sector: housing-land
+    group: measure
+    seen_on: "Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: rent-to-earnings
+    short: "Rent-to-earnings"
+    full_name: "Rent as a share of earnings"
+    definition: "Annual rent divided by annual median earnings; an Exchange calculation, not a published statistic."
+    sector: housing-land
+    group: measure
+    seen_on: "Affordability"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: ltv
+    short: "LTV"
+    full_name: "Loan-to-value"
+    definition: "The mortgage as a share of the property's price; 75% LTV means a 25% deposit."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: quoted-rate
+    short: "Quoted rate"
+    full_name: "Quoted mortgage rate"
+    definition: "The interest rate lenders advertise for a given product, as collected by the Bank of England."
+    sector: housing-land
+    group: measure
+    seen_on: "Affordability, Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: gross-advances
+    short: "Gross advances"
+    full_name: "Gross mortgage advances"
+    definition: "The value of new mortgages lent in the period, before any repayments."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: arrears
+    short: "Arrears"
+    full_name: "Mortgage arrears"
+    definition: "Loan balances where the borrower has fallen behind on payments."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: buy-to-let
+    short: "Buy-to-let"
+    full_name: "Buy-to-let mortgage"
+    definition: "A mortgage on a property bought to rent out rather than live in."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: remortgage
+    short: "Remortgage"
+    full_name: "Remortgage"
+    definition: "Taking a new mortgage on a home you already own, usually to replace the old one."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: first-time-buyer
+    short: "First-time buyer"
+    full_name: "First-time buyer"
+    definition: "A purchaser who has not owned a home before."
+    sector: housing-land
+    group: measure
+    seen_on: "Prices, Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: net-property-wealth
+    short: "Net property wealth"
+    full_name: "Net property wealth"
+    definition: "What a household says its property is worth, minus the mortgage still owed."
+    sector: housing-land
+    group: measure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: dwelling
+    short: "Dwelling"
+    full_name: "Dwelling"
+    definition: "A self-contained home; the unit MHCLG counts in the housing stock."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock, Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: household
+    short: "Household"
+    full_name: "Household"
+    definition: "One person or a group living together at the same address; several households can share one dwelling."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock, Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: tenure
+    short: "Tenure"
+    full_name: "Tenure"
+    definition: "The terms on which a home is held: owned outright, owned with a mortgage, rented privately or rented from a social landlord."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock, Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: owner-occupied
+    short: "Owner-occupied"
+    full_name: "Owner-occupied"
+    definition: "Lived in by its owner, with or without a mortgage."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: private-rented
+    short: "Private rented"
+    full_name: "Private rented sector"
+    definition: "Homes rented from a private landlord."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock, Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: social-rented
+    short: "Social rented"
+    full_name: "Social rented sector"
+    definition: "Homes rented from a council or housing association at below-market rents."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock, Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: freehold
+    short: "Freehold"
+    full_name: "Freehold"
+    definition: "Outright ownership of the property and the land it stands on."
+    sector: housing-land
+    group: tenure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: leasehold
+    short: "Leasehold"
+    full_name: "Leasehold"
+    definition: "Ownership of a property for a fixed term under a lease, with the land owned by someone else."
+    sector: housing-land
+    group: tenure
+    seen_on: "Ownership"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: registered-provider
+    short: "Registered provider"
+    full_name: "Registered provider of social housing"
+    definition: "A housing association or other landlord registered with the Regulator of Social Housing."
+    sector: housing-land
+    group: tenure
+    seen_on: "Supply, Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: social-rent
+    short: "Social rent"
+    full_name: "Social rent"
+    definition: "The lowest social-housing rent, set by a national formula."
+    sector: housing-land
+    group: tenure
+    seen_on: "Renting, Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: affordable-rent
+    short: "Affordable rent"
+    full_name: "Affordable rent"
+    definition: "Social-housing rent set at up to 80% of the local market rent."
+    sector: housing-land
+    group: tenure
+    seen_on: "Renting, Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: intermediate-rent
+    short: "Intermediate rent"
+    full_name: "Intermediate rent"
+    definition: "Rent between social and market levels, including shared-ownership and rent-to-buy homes."
+    sector: housing-land
+    group: tenure
+    seen_on: "Renting"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: vacant
+    short: "Vacant / long-term vacant"
+    full_name: "Vacant dwelling"
+    definition: "A home with no one living in it; long-term means empty for more than six months."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: concealed-household
+    short: "Concealed household"
+    full_name: "Concealed household"
+    definition: "A family or couple living within another household because they do not have a home of their own."
+    sector: housing-land
+    group: tenure
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: adjustment-to-census
+    short: "Adjustment to Census"
+    full_name: "Adjustment to Census"
+    definition: "A statistical correction MHCLG spreads across the years between censuses so the stock matches the Census count."
+    sector: housing-land
+    group: tenure
+    seen_on: "Stock"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: starts
+    short: "Starts"
+    full_name: "Dwelling starts"
+    definition: "New homes whose foundations have been laid in the period."
+    sector: housing-land
+    group: planning
+    seen_on: "Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: completions
+    short: "Completions"
+    full_name: "Dwelling completions"
+    definition: "New homes finished and ready to live in during the period."
+    sector: housing-land
+    group: planning
+    seen_on: "Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: net-additional-dwellings
+    short: "Net additional dwellings"
+    full_name: "Net additional dwellings"
+    definition: "The yearly change in the number of homes, counting new builds, conversions and changes of use, minus demolitions."
+    sector: housing-land
+    group: planning
+    seen_on: "Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: builder-tenure
+    short: "Builder tenure"
+    full_name: "Tenure of builder"
+    definition: "Who built the home: a private firm, a housing association or a council. It is not who lives there afterwards."
+    sector: housing-land
+    group: planning
+    seen_on: "Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: lpa
+    short: "LPA"
+    full_name: "Local planning authority"
+    definition: "The council that decides planning applications for an area."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: planning-permission
+    short: "Planning permission"
+    full_name: "Planning permission"
+    definition: "A council's formal consent for development; a permission is not a built home."
+    sector: housing-land
+    group: planning
+    seen_on: "Land, Supply"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: allow-rate
+    short: "Allow rate"
+    full_name: "Appeal allow rate"
+    definition: "The share of planning appeals the Planning Inspectorate decided in the appellant's favour."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: brownfield
+    short: "Brownfield"
+    full_name: "Brownfield land"
+    definition: "Land that has been built on before and is listed by a council as potentially suitable for housing."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: green-belt
+    short: "Green Belt"
+    full_name: "Green Belt"
+    definition: "Land around a town or city where planning policy strongly restricts building."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: article-4
+    short: "Article 4"
+    full_name: "Article 4 direction"
+    definition: "A council order removing automatic planning rights in an area, so changes need an application."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: tpo
+    short: "TPO"
+    full_name: "Tree preservation order"
+    definition: "A council order protecting a tree or woodland from felling or damage."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: local-plan
+    short: "Local plan"
+    full_name: "Local plan"
+    definition: "The council's adopted document setting out where and how much development is expected."
+    sector: housing-land
+    group: planning
+    seen_on: "Land"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: decent-homes-standard
+    short: "Decent Homes Standard"
+    full_name: "Decent Homes Standard"
+    definition: "The government's minimum standard a home must meet on safety, repair, facilities and warmth."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: non-decent
+    short: "Non-decent"
+    full_name: "Non-decent home"
+    definition: "A home that fails at least one part of the Decent Homes Standard."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: hhsrs
+    short: "HHSRS"
+    full_name: "Housing Health and Safety Rating System"
+    definition: "The method councils use to score hazards in a home, such as cold, damp or falls."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: category-1-hazard
+    short: "Category 1 hazard"
+    full_name: "Category 1 hazard"
+    definition: "The most serious hazard rating under HHSRS; a home with one fails the statutory minimum."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: epc-band
+    short: "EPC band"
+    full_name: "Energy Performance Certificate band"
+    definition: "A home's energy-efficiency rating from A (best) to G (worst)."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: band-c
+    short: "Band C"
+    full_name: "EPC band C"
+    definition: "The energy rating the government uses as its target for most homes."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: sap
+    short: "SAP"
+    full_name: "Standard Assessment Procedure"
+    definition: "The government's method for calculating a home's energy rating; the method changed in 2012."
+    sector: housing-land
+    group: quality
+    seen_on: "Quality"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: prevention-duty
+    short: "Prevention duty"
+    full_name: "Prevention duty"
+    definition: "A council's legal duty to help a household at risk of losing its home within 56 days."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: relief-duty
+    short: "Relief duty"
+    full_name: "Relief duty"
+    definition: "A council's legal duty to help a household that is already homeless find a home."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: main-duty
+    short: "Main duty"
+    full_name: "Main housing duty"
+    definition: "The council's duty to secure accommodation for a household that is eligible, homeless, in priority need and not intentionally homeless."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: priority-need
+    short: "Priority need"
+    full_name: "Priority need"
+    definition: "Groups the law says a council must house, such as families with children or people who are vulnerable."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: intentionally-homeless
+    short: "Intentionally homeless"
+    full_name: "Intentionally homeless"
+    definition: "Found to have lost a home through a deliberate act or omission; owed less help."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: temporary-accommodation
+    short: "Temporary accommodation"
+    full_name: "Temporary accommodation"
+    definition: "Housing a council arranges while it decides or discharges a homelessness duty."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: possession-action
+    short: "Possession claim / order / warrant"
+    full_name: "Possession action"
+    definition: "The three court steps a landlord or lender takes to repossess a home: claim, then order, then warrant for bailiffs."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: section-21
+    short: "Section 21"
+    full_name: "Section 21 notice"
+    definition: "The \"no-fault\" notice a private landlord in England could use to end a tenancy."
+    sector: housing-land
+    group: insecurity
+    seen_on: "Insecurity, Policy"
+    related_indicator_ids: []
+    source_url: ""
+
+  - slug: income-fifths
+    short: "income fifths"
+    full_name: "Income fifths (quintile groups)"
+    definition: "Households ranked by income and split into five equal groups of 20%; the lowest fifth has the lowest incomes and the highest fifth the highest."
+    note: "ONS ranks households by equivalised disposable income — income after direct taxes and benefits, adjusted for household size — before cutting the five groups."
+    sector: economy-public-finance
+    group: method
+    seen_on: "Tax · Who bears the tax burden"
+    related_indicator_ids: [effects-of-taxes-and-benefits]
+    source_url: "https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/theeffectsoftaxesandbenefitsonhouseholdincome/latest"

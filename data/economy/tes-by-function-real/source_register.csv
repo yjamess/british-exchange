@@ -1,0 +1,15 @@
+series,classification,role,cofog,label,table,curated
+cofog-01-general-public-services,total,function,GF01,General public services,4.3,true
+cofog-02-defence,total,function,GF02,Defence,4.3,true
+cofog-03-public-order-and-safety,total,function,GF03,Public order and safety,4.3,true
+cofog-04-economic-affairs,total,function,GF04,Economic affairs,4.3,true
+cofog-05-environment-protection,total,function,GF05,Environment protection,4.3,true
+cofog-06-housing-and-community-amenities,total,function,GF06,Housing and community amenities,4.3,true
+cofog-07-health,total,function,GF07,Health,4.3,true
+cofog-08-recreation-culture-and-religion,total,function,GF08,"Recreation, culture and religion",4.3,true
+cofog-09-education,total,function,GF09,Education,4.3,true
+cofog-10-social-protection,total,function,GF10,Social protection,4.3,true
+eu-transactions,total,eu-transactions,,EU transactions,4.3,true
+tes-total,total,tes-total,,Public sector expenditure on services,4.3,true
+accounting-adjustments,total,bridge,,Accounting adjustments,4.3,true
+table-tme,total,table-tme,,Total Managed Expenditure,4.3,true

@@ -1,0 +1,72 @@
+{
+  "rule": "MF6P + AIIH + NMHM + AHGR = AHHY (\u00a3 million, NSA)",
+  "ahhy_source": "data/economy/tax-receipts/curated/observations.csv",
+  "ahgr_source": "Appendix D Time Series column AHGR (PUSF /timeseries/ahgr/pusf/data returned 404 at pin time)",
+  "months_checked_ok": 345,
+  "months_failed": [],
+  "n_failed": 0,
+  "months_skipped_incomplete": 60,
+  "spot_months": [
+    {
+      "period": "2026-04-01",
+      "MF6P": 65549.0,
+      "AIIH": 14801.0,
+      "NMHM": 4450.0,
+      "AHGR": -141.0,
+      "sum_components": 84659.0,
+      "AHHY_tax_receipts": 84659.0,
+      "diff": 0.0
+    },
+    {
+      "period": "2026-05-01",
+      "MF6P": 65968.0,
+      "AIIH": 16744.0,
+      "NMHM": 4450.0,
+      "AHGR": -141.0,
+      "sum_components": 87021.0,
+      "AHHY_tax_receipts": 87021.0,
+      "diff": 0.0
+    },
+    {
+      "period": "2026-06-01",
+      "MF6P": 69844.0,
+      "AIIH": 18011.0,
+      "NMHM": 4449.0,
+      "AHGR": -140.0,
+      "sum_components": 92164.0,
+      "AHHY_tax_receipts": 92164.0,
+      "diff": 0.0
+    },
+    {
+      "period": "2026-07-01",
+      "MF6P": 82634.0,
+      "AIIH": 16678.0,
+      "NMHM": 4494.0,
+      "AHGR": -65.0,
+      "sum_components": 103741.0,
+      "AHHY_tax_receipts": 103741.0,
+      "diff": 0.0
+    },
+    {
+      "period": "2026-08-01",
+      "MF6P": 66630.0,
+      "AIIH": 17567.0,
+      "NMHM": 4494.0,
+      "AHGR": -65.0,
+      "sum_components": 88626.0,
+      "AHHY_tax_receipts": 88626.0,
+      "diff": 0.0
+    },
+    {
+      "period": "2026-09-01",
+      "MF6P": 66282.0,
+      "AIIH": 17414.0,
+      "NMHM": 4494.0,
+      "AHGR": -63.0,
+      "sum_components": 88127.0,
+      "AHHY_tax_receipts": 88127.0,
+      "diff": 0.0
+    }
+  ],
+  "pass": true
+}

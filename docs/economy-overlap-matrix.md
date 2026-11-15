@@ -19,8 +19,12 @@ Provisional domain map (01–10) stays mutable until G1 lock. This matrix is the
 | `cpih-inflation` | L55O | ONS | 01 | CPIH annual rate · **Ready 2026-11-11** |
 | `nominal-earnings` | KAI7 | ONS | 02 Wages, Earnings & Income | AWE regular pay, cash |
 | `real-earnings` | A2FC | ONS | 02 | AWE regular pay, real |
-| `employment-rate` | LF24 | ONS | 03 Employment & Labour Market | UK 16–64 SA |
-| `economic-inactivity-rate` | LF2S | ONS | 03 | UK 16–64 SA |
+| `employment-rate` | LF24 | ONS | 03 Employment & Labour Market | UK 16–64 SA · re-pin 2026-11-14 |
+| `employment-level` | LF2G | ONS | 03 | UK 16–64 SA thousands · flagship count |
+| `unemployment-rate` | LF2Q | ONS | 03 | UK 16–64 SA % of economically active (not MGSX) |
+| `unemployment-level` | LF2I | ONS | 03 | UK 16–64 SA thousands · flagship count |
+| `economic-inactivity-rate` | LF2S | ONS | 03 | UK 16–64 SA · re-pin 2026-11-14 |
+| `economic-inactivity-level` | LF2M | ONS | 03 | UK 16–64 SA thousands · flagship count |
 | `mortgage-rate-2yr-fixed` | IUMBV34 | BoE | 04 Household Finances | Housing already links |
 | `real-gdp` | ABMI | ONS | 05 Productivity & Economic Growth | |
 | `real-gdp-per-head` | IHXW | ONS | 05 | |
@@ -59,7 +63,10 @@ All of the above live under `src/economy/connectors/` + `data/economy/<id>/`. Tr
 | COICOP / category inflation | 01 | High for flagship depth | Needed before contribution charts |
 | ONS average prices / item basket | 01 | Concept only | “Price of everyday Britain” stays planned-not-ready |
 | National ASHE distribution | 02 | Medium | Distinct from manufacturing ASHE |
-| Unemployment rate / vacancies | 03 | Medium | Not in current pins |
+| Inactivity-by-reason pack (INAC01) | 03 | Medium | **Ingested** 2026-11-14 (LF63/65/67/69/6B/6D); discouraged levels still Blocked (LF77 % only) |
+| Vacancies (Vacancy Survey) | 03 | Medium | **Ingested** `uk-vacancies` AP2Y — Validation next |
+| Hours / FT–PT | 03 | Medium | **Ingested** YBUV + YCBE/YCBH; underemployment still Blocked |
+| Workforce jobs total | 03 | Medium | **Ingested** DYDC; industry sections (JOBS02) still Blocked |
 | Household income (HBAI) / savings | 04 | High | May later move to People — document ownership |
 | Trade goods/services | 09 | High | Almost empty beyond investment |
 | OSCAR / COFOG spending splits | 07 | Medium | TME alone is thin for “services” |

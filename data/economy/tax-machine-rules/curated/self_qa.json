@@ -1,0 +1,175 @@
+{
+  "indicator_id": "tax-machine-income-tax-rules",
+  "retrieved_date": "2026-11-15",
+  "overall": "pass",
+  "checks": [
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/income_tax_rates.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/nics_rates.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/employers_2025_26.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/employers_2026_27.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/scottish_2025_26.html sha256 match=True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains 'Personal Allowance': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains '\u00a312,570': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains 'Up to \u00a337,700': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains '\u00a337,701 to \u00a3125,140': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Primary Threshold': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Upper Earnings Limit': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Between Primary Threshold and Upper Earnings Limit': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2025_26.html contains '2025 to 2026': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2025_26.html contains 'Up to \u00a337,700': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2025_26.html contains 'Up to \u00a32,827': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2025_26.html contains '\u00a312,570 per year': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2025_26.html contains '\u00a350,270 per year': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2026_27.html contains '2026 to 2027': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2026_27.html contains 'Up to \u00a337,700': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2026_27.html contains 'Up to \u00a33,967': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2026_27.html contains '\u00a312,570 per year': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2026_27.html contains '\u00a350,270 per year': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "scottish_2025_26.html contains '2025 to 2026': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "scottish_2025_26.html contains '\u00a312,571 to \u00a315,397': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "scottish_2025_26.html contains '19%': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "scottish_2025_26.html contains '48%': True"
+    },
+    {
+      "id": "C3_scotland_contrast",
+      "result": "pass",
+      "notes": "Scotland IT \u00a39127.20 > E/W/NI \u00a37540.00 at gross \u00a350,270"
+    },
+    {
+      "id": "C4_worked_example",
+      "result": "pass",
+      "notes": "ewni_low: IT=3486.00 (exp 3486.00); NICs=1394.40 (exp 1394.40)"
+    },
+    {
+      "id": "C4_worked_example",
+      "result": "pass",
+      "notes": "ewni_basic_top: IT=7540.00 (exp 7540.00); NICs=3016.00 (exp 3016.00)"
+    },
+    {
+      "id": "C4_worked_example",
+      "result": "pass",
+      "notes": "ewni_higher: IT=19432.00 (exp 19432.00); NICs=3610.60 (exp 3610.60)"
+    },
+    {
+      "id": "C4_worked_example",
+      "result": "pass",
+      "notes": "scotland_contrast_basic_top: IT=9127.20 (exp 9127.20); NICs=3016.00 (exp 3016.00)"
+    },
+    {
+      "id": "C5_no_blend",
+      "result": "pass",
+      "notes": "income_tax_bands.csv has no NICs columns/labels"
+    }
+  ],
+  "sample_liability": {
+    "example_id": "ewni_higher",
+    "gross": "80000.00",
+    "jurisdiction": "england-wales-ni",
+    "tax_year": "2025-26",
+    "income_tax_gbp": "19432.00",
+    "employee_class1_nics_gbp": "3610.60"
+  }
+}

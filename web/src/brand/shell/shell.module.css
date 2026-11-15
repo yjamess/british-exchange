@@ -1,0 +1,180 @@
+/* Site shell — mast and site index. Paper mast with one rule; Union index panel (Index mode). */
+
+/* ——— Mast ——— */
+.mast {
+  background: var(--bo-paper);
+  border-bottom: var(--bo-rule);
+}
+.mastInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--bo-s4);
+  padding-block: var(--bo-s4);
+  flex-wrap: wrap;
+}
+.wordmark {
+  font-size: 22px;
+  color: var(--bo-ink);
+  text-decoration: none;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--bo-text);
+}
+/* One mark for every state: hover and current are solid ink with paper type. */
+.navItem {
+  appearance: none;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navItem:hover,
+.navItem[aria-current="page"],
+.navItem[aria-expanded="true"] {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.navItem:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+/* ——— Index panel ——— */
+.indexRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+.indexRoot[data-open] {
+  pointer-events: auto;
+}
+.backdrop {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--bo-union);
+  opacity: 0;
+  transition: opacity var(--bo-med) var(--bo-ease);
+  cursor: default;
+}
+.indexRoot[data-open] .backdrop {
+  opacity: 0.55;
+}
+.index {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(26rem, 100%);
+  overflow-y: auto;
+  padding: var(--bo-s4) var(--bo-s6) var(--bo-s8);
+  border-right: 1px solid var(--bo-lavender);
+  transform: translateX(-100%);
+  transition: transform var(--bo-med) var(--bo-ease);
+}
+.indexRoot[data-open] .index {
+  transform: none;
+}
+.indexHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--bo-s8);
+}
+.indexLabel {
+  margin: 0;
+  color: var(--bo-lavender);
+}
+.close {
+  appearance: none;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  background: none;
+  color: var(--bo-paper);
+  cursor: pointer;
+}
+.close:hover {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+}
+.close:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+/* Index lists: numbered rows, dotted dividers, condensed capitals. */
+.list {
+  list-style: none;
+  margin: var(--bo-s2) 0 var(--bo-s8);
+  padding: 0;
+}
+.row {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: baseline;
+  gap: var(--bo-s3);
+  padding: 10px 0;
+  border-top: 1px dotted var(--bo-lavender);
+  color: inherit;
+  text-decoration: none;
+  font-size: 22px;
+}
+.list li:last-child .row {
+  border-bottom: 1px dotted var(--bo-lavender);
+}
+.row:hover .name,
+.row:hover .name b,
+.row[aria-current="page"] .name,
+.row[aria-current="page"] .name b {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+}
+.row:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.num {
+  font-size: 0.6em;
+}
+.name {
+  display: inline;
+  padding: 0 4px;
+  margin: 0 -4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.state {
+  color: var(--bo-lavender);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .index {
+    transition: none;
+  }
+}
+@media (max-width: 600px) {
+  .mastInner {
+    gap: var(--bo-s2);
+  }
+  .wordmark {
+    font-size: 18px;
+  }
+  .row {
+    font-size: 20px;
+  }
+}

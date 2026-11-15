@@ -1,0 +1,3 @@
+role,publisher,channel,url,format,valuation,notes
+primary,ONS,DMO Quarterly Review,https://www.dmo.gov.uk/media/wysdetq0/oct-dec-2025.pdf,PDF,market value £mn,"pypdf text parse; ONS CDIDs not located"
+hub,DMO,Gilt market data,https://www.dmo.gov.uk/data/gilt-market/,HTML,,landing page

@@ -26,6 +26,14 @@ Read `docs/visual-identity.md` › Explorer. **Energy & Industry** is the locked
 - Do **not** render the explorer `<Coverage>` facts strip (`SPAN` / `OBSERVATIONS` / …) on sector domain stages. Energy does not. Span, unit and geography sit in the stage bar meta and Notes when needed.
 - **Source line** (every sector): `Publisher · series · [Boundaries: …] · geography · [period]` via `formatSource`. Never smash publisher into the series name. Full citations only on Data provenance desks.
 
+## Terms — the "i" marker (shared registry)
+
+- Acronyms and terms of art get a `<Term slug="…">text</Term>` marker (`web/src/brand/term/`): a small mono "i" after the word, click or keyboard opens a paper popover with the plain definition from the shared registry (`data/glossary/terms.yaml` → Postgres `glossary_term` → `/glossary`).
+- Allowed in stage titles, section `stageTitle`s, stage meta and the Notes foot. **Never inside a plot.** First occurrence per stage only. More than three markers on one stage means the copy is wrong: expand the acronym in words instead.
+- Menus, figure-strip labels and axis labels are strings and cannot carry a marker, so bare acronyms there are rewritten in words ("75% loan-to-value", "price to earnings"). Publisher codes stay in the source line.
+- Every stage lists its terms under **Terms** inside the one Notes foot: markers on the stage register themselves; words that sit in menus or captions are passed as `terms={[...]}` on `FigureRecord` / `SourceLine` (Housing: `canvas/terms.ts`). No separate "How to read" block.
+- New terms are rows in `data/glossary/terms.yaml`, loaded with `uv run python -m britain_exchange.glossary`; never hardcode a definition in JSX.
+
 ## Multi-chart titles (Consumption / Housing pipeline pattern)
 
 - Separate charts with `<section>` + `<h3 className={explorerClasses.stageTitle}>…</h3>` (sentence case).
@@ -34,7 +42,8 @@ Read `docs/visual-identity.md` › Explorer. **Energy & Industry** is the locked
 
 ## Briefs do not override the shell
 
-- A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite do: outer `ControlRow`, then Stage body as `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows`.
+- A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite do: outer `ControlRow`, then Stage body as `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows` (and the **map** when the data is geographical).
+- **Geography → map.** Regions, local authorities, stations and other place series use `RegionMap` / `AreaMap` / `StationPointMap` / `WorldChoropleth`. Do not ship a Geography / Places / Map view as `RankBars` alone. See `docs/visual-identity.md` › Charts › Geography.
 - At most one custom instrument per tab, one ink (stipple / sparse dots / hatch / cross / engrave). Never chart colours, gutter end labels, axis markers, value legends or "exact values" drawers in a custom view.
 - Claude Code: use the `exchange-domain-view` skill (`.claude/skills/exchange-domain-view/SKILL.md`) for any domain-tab change.
 

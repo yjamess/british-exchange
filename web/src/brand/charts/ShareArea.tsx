@@ -124,18 +124,13 @@ export function ShareArea({ years, bands, height = 360, label }: Props) {
         />
       </svg>
       {hi !== null ? (
-        <Readout x={x(years[hi]!)} f={f}>
-          <b>{years[hi]}</b>
-          {[...bands].reverse().map((b) => (
-            <span key={b.id} className={c.readRow}>
-              <span>
-                <i data-pattern={b.pattern} aria-hidden="true" />
-                {b.label}
-              </span>
-              <span>{fmt.pct((b.values[hi] ?? 0) * 100, 1)}</span>
-            </span>
-          ))}
-        </Readout>
+        <Readout x={x(years[hi]!)} f={f} head={years[hi]!}
+          rows={[...bands].reverse().map((b) => ({
+            id: b.id,
+            label: b.label,
+            pattern: b.pattern,
+            value: fmt.pct((b.values[hi] ?? 0) * 100, 1),
+          }))} />
       ) : null}
       <ul className={c.legend} aria-hidden="true">
         {[...bands].reverse().map((b) => (

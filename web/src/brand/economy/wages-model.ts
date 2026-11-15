@@ -179,76 +179,6 @@ export function asheEditionLabel(rows: Observation[], periodStart: string | null
   return `April ${year}${kind ? ` ${kind}` : ""}`;
 }
 
-/* ——— Wage spectrum: blocks between published percentiles ——— */
-
-export type SpectrumBlock = {
-  id: string;
-  /** Lower / upper percentile (0 and 100 for the open tails). */
-  pLo: number;
-  pHi: number;
-  /** £ a week at each edge; `hi` is null for the open top tail. */
-  lo: number;
-  hi: number | null;
-  /** Share of employee jobs in this block, % (always published: pHi − pLo). */
-  share: number;
-  /** Share per £100 of pay — the block's height on one fixed scale. Null for the open tail. */
-  density: number | null;
-  tail: "below" | "above" | null;
-};
-
-/** Spectrum blocks for one sheet and edition. Needs p10…p90 and the median. */
-export function spectrumBlocks(ranks: AsheLadderPoint[]): SpectrumBlock[] {
-  const pts = ranks
-    .filter((r) => r.order <= 90)
-    .map((r) => ({ p: r.order, v: r.v }))
-    .sort((a, b) => a.p - b.p);
-  if (pts.length < 2) return [];
-  const out: SpectrumBlock[] = [];
-  const first = pts[0]!;
-  if (first.p > 0) {
-    out.push({
-      id: "below",
-      pLo: 0,
-      pHi: first.p,
-      lo: 0,
-      hi: first.v,
-      share: first.p,
-      density: first.v > 0 ? (first.p / first.v) * 100 : null,
-      tail: "below",
-    });
-  }
-  for (let i = 0; i + 1 < pts.length; i++) {
-    const a = pts[i]!;
-    const b = pts[i + 1]!;
-    const width = b.v - a.v;
-    out.push({
-      id: `p${a.p}-p${b.p}`,
-      pLo: a.p,
-      pHi: b.p,
-      lo: a.v,
-      hi: b.v,
-      share: b.p - a.p,
-      density: width > 0 ? ((b.p - a.p) / width) * 100 : null,
-      tail: null,
-    });
-  }
-  const last = pts[pts.length - 1]!;
-  if (last.p < 100) {
-    out.push({
-      id: "above",
-      pLo: last.p,
-      pHi: 100,
-      lo: last.v,
-      hi: null,
-      share: 100 - last.p,
-      density: null,
-      tail: "above",
-    });
-  }
-  return out;
-}
-
-
 export type AsheLadderPoint = {
   id: string;
   label: string;
@@ -590,4 +520,65 @@ export function valueOfWork(rows: Observation[], year: number): ValueOfWork | nu
     belowPeak: last.v - peak.v,
     belowPeakPct: peak.v !== 0 ? last.v / peak.v - 1 : 0,
   };
+}
+
+/* ——— Lost and gained purchasing power: the longest spell below a previous high ——— */
+
+export type RecoverySpell = {
+  /** Month the previous high was set. */
+  peakT: number;
+  peakV: number;
+  /** Lowest month inside the spell. */
+  troughT: number;
+  troughV: number;
+  /** Month the high was regained; null if still below at the end of the window. */
+  regainedT: number | null;
+  /** Months from the high to regaining it (or to the window end if not regained). */
+  months: number;
+};
+
+/**
+ * Longest stretch below an earlier high that overlaps [fromT, toT], from monthly points.
+ * Highs are running maxima over the whole published series, so the first month cannot be a spell.
+ */
+export function longestSpellBelowHigh(points: Pt[], fromT: number, toT: number): RecoverySpell | null {
+  const spells: RecoverySpell[] = [];
+  let high = -Infinity;
+  let highT = NaN;
+  let open: RecoverySpell | null = null;
+  for (const p of points) {
+    if (p.t > toT + 1e-6) break;
+    if (p.v >= high) {
+      if (open) {
+        open.regainedT = p.t;
+        open.months = Math.round((p.t - open.peakT) * 12);
+        spells.push(open);
+        open = null;
+      }
+      high = p.v;
+      highT = p.t;
+      continue;
+    }
+    if (!open) open = { peakT: highT, peakV: high, troughT: p.t, troughV: p.v, regainedT: null, months: 0 };
+    if (p.v < open.troughV) {
+      open.troughV = p.v;
+      open.troughT = p.t;
+    }
+  }
+  if (open) {
+    open.months = Math.round((toT - open.peakT) * 12);
+    spells.push(open);
+  }
+  const overlapping = spells.filter((sp) => (sp.regainedT ?? toT) >= fromT - 1e-6 && sp.peakT <= toT + 1e-6);
+  if (!overlapping.length) return null;
+  return overlapping.reduce((a, b) => (b.months > a.months ? b : a));
+}
+
+export function fmtMonths(months: number): string {
+  const y = Math.floor(months / 12);
+  const m = months % 12;
+  const parts: string[] = [];
+  if (y) parts.push(`${y} year${y === 1 ? "" : "s"}`);
+  if (m || !y) parts.push(`${m} month${m === 1 ? "" : "s"}`);
+  return parts.join(" ");
 }

@@ -20,30 +20,6 @@
 .stackLabel { font-family: var(--bo-f-data); font-size: var(--bo-t-micro); letter-spacing: 0.06em; text-transform: uppercase; }
 .cursor { stroke: var(--bo-ink); stroke-width: 1; }
 
-.readout {
-  position: absolute; top: 6px; width: 228px; pointer-events: none;
-  display: grid; gap: 4px; padding: 10px 12px;
-  background: var(--bo-paper); color: var(--bo-ink); border: var(--bo-rule);
-}
-.readout[data-rich="true"] { width: 280px; }
-/* Stack hover includes "mtoe · %" — keep that value on one line. */
-.readout[data-stack="true"] { width: 300px; }
-.readRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  min-width: 0;
-  font-size: var(--bo-t-note);
-  color: var(--bo-text);
-}
-.readRow b {
-  color: var(--bo-ink);
-  font-weight: 500;
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
-
 /* Open key under the plot — swatch + name (+ optional latest). Never a boxed card. */
 .legend {
   list-style: none;
@@ -66,7 +42,7 @@
   gap: 4px 16px;
 }
 .legend[data-dense="true"] i { width: 10px; height: 10px; }
-.legend[data-dense="true"] span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend[data-dense="true"] span { min-width: 0; overflow-wrap: anywhere; white-space: normal; line-height: 1.4; }
 .legend[data-dense="true"] b {
   font-family: var(--bo-f-fig);
   font-stretch: var(--bo-fig-wdth);
@@ -171,17 +147,6 @@
 .seriesControls button { font:inherit; font-size:var(--bo-t-note); border:1px solid var(--bo-ink); color:var(--bo-ink); background:var(--bo-paper); padding:7px 10px; cursor:pointer; }
 .seriesControls button[aria-pressed="true"] { color:var(--bo-paper); background:var(--bo-ink); }
 .seriesControls button:focus-visible { outline:2px solid var(--bo-signal); outline-offset:3px; }
-.readName {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.readName i { width: 10px; height: 10px; flex-shrink: 0; }
-
 /* ——— EventRail: dated events on a chart's time axis ——— */
 .rail { position: relative; min-width: 0; }
 .railAxis { position: absolute; top: 0; height: 0; border-top: var(--bo-rule); }

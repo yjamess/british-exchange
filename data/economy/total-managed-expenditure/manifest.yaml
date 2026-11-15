@@ -8,16 +8,18 @@ geography: United Kingdom (K02000001); excl. Crown dependencies
 frequency: monthly
 unit: £ million, NSA
 definition: Public sector total managed expenditure (TME), £ million current prices
-  NSA. ONS CDID EBFT in PUSF — open monthly series matching the HMT/OBR TME concept
-  published via ONS Public Sector Finances.
+  NSA. ONS CDID EBFT in PUSF — open monthly National Accounts aggregate matching the
+  HMT/OBR TME concept (public-sector current expenditure plus public-sector gross
+  investment). HMT presents TME as DEL + AME (plus accounting adjustments in PESA/PSS
+  tables); this row is the ONS monthly TME level, not a departmental outturn table.
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.total_managed_expenditure
 curated_path: curated/observations.csv
 update_cadence: monthly (ONS Public Sector Finances)
 raw_evidence:
-- path: raw/2026-11-03/ebft_pusf.json
-  retrieved_at: '2026-11-03T17:45:30.053450+00:00'
+- path: raw/2026-11-14/ebft_pusf.json
+  retrieved_at: '2026-11-14T22:39:57.139052+00:00'
   checksum_sha256: 2669443f7b262618fe67a0346c5b0c58fba700f1091fd234dfb9977a5268cfbc
   content_type: application/json;charset=utf-8
   official_release_date: '2026-10-20'
@@ -26,21 +28,26 @@ raw_evidence:
 transformations: Download ONS timeseries JSON (/data). Keep only the months array
   (quarters/years kept in raw, not curated). Map year+month name → ISO calendar-month
   bounds. Geography fixed to K02000001 / United Kingdom. Values parsed as float; empty
-  → missing. observation_status=provisional (PSF monthly estimates are routinely revised).
+  → missing. Latest valued month provisional; older valued months final (PSF revises
+  recent months — charts drop provisional).
 revision_notes: Public Sector Finances (PUSF) monthly estimates revise as administrative
   data arrive and methods change. Re-fetch and re-pin raw JSON; compare checksums.
   Record official_release_date from description.releaseDate.
 caveats: Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website timeseries
   JSON. Headline fiscal measures often quoted as financial-year-to-date sums — this
   package stores period (month) levels only. Quarterly/annual aggregates exist in
-  raw JSON but are not written to curated observations.
+  raw JSON but are not written to curated observations. TME is the consolidated public-sector
+  spending aggregate — not the same as HMT departmental DEL outturn, OSCAR organisation
+  lines, or 'services people receive' (PESA TES / COFOG). Do not invent function shares
+  or residual identities with tax-receipts / borrowing.
+status_note: ''
 related_indicator_ids:
 - public-sector-net-borrowing
 - public-sector-net-debt
 - public-sector-debt-interest
 - tax-receipts
 open_questions:
-- Cross-check annual TME against HMT OSCAR / OBR Economic and Fiscal Outlook tables
-  in Validation?
+- Cross-check annual TME against HMT PESA/PSS Table 1.1 and OBR EFO in Validation
+  (levels / FY, not OSCAR drill-down)?
 notion_registry_url: https://app.notion.com/40d65471768581fdbd63d0fe45d94e87
 schema_version: '1.0'

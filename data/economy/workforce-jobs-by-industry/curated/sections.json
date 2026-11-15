@@ -1,0 +1,127 @@
+{
+  "source": "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/workforcejobsbyindustryjobs02",
+  "release_date": "2026-09-15",
+  "sheet": "WFJ SA",
+  "unit": "Thousands of jobs, SA",
+  "jobs_not_people": true,
+  "shares": "not stored \u2014 do not invent a share of DYDC",
+  "sections": [
+    {
+      "series": "A",
+      "section_name": "Agriculture, forestry and fishing",
+      "kind": "section"
+    },
+    {
+      "series": "B",
+      "section_name": "Mining and quarrying",
+      "kind": "section"
+    },
+    {
+      "series": "C",
+      "section_name": "Manufacturing",
+      "kind": "section"
+    },
+    {
+      "series": "D",
+      "section_name": "Electricity, gas, steam and air conditioning supply",
+      "kind": "section"
+    },
+    {
+      "series": "E",
+      "section_name": "Water supply, sewerage, waste and remediation",
+      "kind": "section"
+    },
+    {
+      "series": "F",
+      "section_name": "Construction",
+      "kind": "section"
+    },
+    {
+      "series": "G",
+      "section_name": "Wholesale and retail trade; repair of motor vehicles",
+      "kind": "section"
+    },
+    {
+      "series": "H",
+      "section_name": "Transport and storage",
+      "kind": "section"
+    },
+    {
+      "series": "I",
+      "section_name": "Accommodation and food service activities",
+      "kind": "section"
+    },
+    {
+      "series": "J",
+      "section_name": "Information and communication",
+      "kind": "section"
+    },
+    {
+      "series": "K",
+      "section_name": "Financial and insurance activities",
+      "kind": "section"
+    },
+    {
+      "series": "L",
+      "section_name": "Real estate activities",
+      "kind": "section"
+    },
+    {
+      "series": "M",
+      "section_name": "Professional, scientific and technical activities",
+      "kind": "section"
+    },
+    {
+      "series": "N",
+      "section_name": "Administrative and support service activities",
+      "kind": "section"
+    },
+    {
+      "series": "O",
+      "section_name": "Public administration and defence",
+      "kind": "section"
+    },
+    {
+      "series": "P",
+      "section_name": "Education",
+      "kind": "section"
+    },
+    {
+      "series": "Q",
+      "section_name": "Human health and social work activities",
+      "kind": "section"
+    },
+    {
+      "series": "R",
+      "section_name": "Arts, entertainment and recreation",
+      "kind": "section"
+    },
+    {
+      "series": "S",
+      "section_name": "Other service activities",
+      "kind": "section"
+    },
+    {
+      "series": "T",
+      "section_name": "Activities of households as employers",
+      "kind": "section"
+    },
+    {
+      "series": "total",
+      "section_name": "All jobs",
+      "kind": "total"
+    }
+  ],
+  "linked_indicators": {
+    "C": "manufacturing-employment",
+    "total": "workforce-jobs"
+  },
+  "not_curated": [
+    "WFJ NSA",
+    "EJ NSA",
+    "EJ SA",
+    "SEJ NSA",
+    "SEJ SA",
+    "G-T total services (aggregate of G to T)"
+  ]
+}

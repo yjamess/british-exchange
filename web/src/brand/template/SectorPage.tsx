@@ -6,11 +6,14 @@ import p from "./page.module.css";
 /**
  * Brand template — SectorPage. The canonical page for a British Exchange sector:
  *
- *   mast (wordmark · Sectors / {label})
+ *   crumb (Sectors / {label}; the site mast comes from the root layout)
  *   hero — the plate fills the picture; the sector name sits on an ink strip under it
  *   [stats strip]   optional; the Explorer has its own figures, so most pages leave it off
  *   [threshold]     optional band between head and explorer (<PlateBand/> or <FieldBand/>)
  *   main            usually one <Explorer/>
+ *
+ * Plate treatment: the full hero is print. The band (a domain is open) is always night,
+ * so the open domain reads as a darker threshold above the white Explorer.
  *
  * Wrap the route in <BrandRoot>. Heavy capitals only for the wordmark and the sector name.
  */
@@ -44,21 +47,14 @@ export function SectorPage({
   const headingId = `${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-heading`;
   return (
     <div className={p.page}>
-      <header className={p.mast}>
-        <div className={`bo-wrap ${p.mastInner}`}>
-          <Link href="/" className={`bo-statement ${p.wordmark}`}>
-            British Exchange
-          </Link>
-          <nav aria-label="Breadcrumb" className="bo-label">
-            <span>Sectors</span> / <span aria-current="page">{label}</span>
-          </nav>
-        </div>
-      </header>
+      <nav aria-label="Breadcrumb" className={`bo-wrap bo-label ${p.crumb}`}>
+        <Link href="/sectors">Sectors</Link> / <span aria-current="page">{label}</span>
+      </nav>
 
       <section className={p.hero} data-size={hero} aria-labelledby={headingId}>
         <Plate
           name={plate.name}
-          treatment={plate.treatment ?? "print"}
+          treatment={hero === "band" ? "night" : (plate.treatment ?? "print")}
           className={p.heroPlate}
           position={plate.position ?? "50% 45%"}
           label={PLATES[plate.name].alt}

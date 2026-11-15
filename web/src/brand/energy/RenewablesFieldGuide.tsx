@@ -7,9 +7,9 @@
  * the rest stay still. Reduced motion shows the still frame.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { ENERGY_TECH_PLATES, Plate } from "../Plate";
 import { HalftoneMotion, type MotionAtlas } from "../motion";
-import { explorerClasses as t } from "../template";
 import {
   FIELD_TECHS,
   fmtGw,
@@ -164,50 +164,12 @@ export function RenewablesFieldGuide({
       </section>
 
       <section className={s.panel}>
-        <h3 className={t.stageTitle}>
-          {selected.label}
-          {selected.nuclear ? " · low-carbon" : ""} · {year}
-        </h3>
-        <dl className={s.metrics} aria-label={`${selected.label} measures · ${year}`}>
-          <div>
-            <dt>Installed capacity</dt>
-            <dd className="bo-fig">
-              {selected.capacityMw != null ? fmtGw(selected.capacityMw) : "—"}
-            </dd>
-            <dd className={s.note}>Installed capacity · {year}</dd>
-          </div>
-          <div>
-            <dt>Annual generation</dt>
-            <dd className="bo-fig">
-              {selected.generationTwh != null ? fmtTwh(selected.generationTwh) : "—"}
-            </dd>
-            <dd className={s.note}>Calendar year</dd>
-          </div>
-          <div>
-            <dt>Load factor</dt>
-            <dd className="bo-fig">
-              {selected.loadPct != null ? fmtLoadPct(selected.loadPct) : "—"}
-            </dd>
-            <dd className={s.note}>
-              {selected.nuclear ? "Nuclear stations" : "Published load factor"}
-            </dd>
-          </div>
-          <div>
-            <dt>Active planning</dt>
-            <dd className="bo-fig">
-              {selected.nuclear
-                ? "Not in planning data"
-                : selected.plannedMw != null
-                  ? fmtGw(selected.plannedMw)
-                  : "—"}
-            </dd>
-            <dd className={s.note}>
-              {selected.nuclear
-                ? "Nuclear is outside the renewable planning database"
-                : "Planning register · not yet operating"}
-            </dd>
-          </div>
-        </dl>
+        <ReadoutCard placement="inline" head={`${selected.label}${selected.nuclear ? " · low-carbon" : ""} · ${year}`} rows={[
+          { label: "Installed capacity", value: selected.capacityMw != null ? fmtGw(selected.capacityMw) : "—" },
+          { label: "Annual generation", value: selected.generationTwh != null ? fmtTwh(selected.generationTwh) : "—" },
+          { label: selected.nuclear ? "Load factor · nuclear stations" : "Load factor", value: selected.loadPct != null ? fmtLoadPct(selected.loadPct) : "—" },
+          { label: "Active planning · not yet operating", value: selected.nuclear ? "Not in planning data" : selected.plannedMw != null ? fmtGw(selected.plannedMw) : "—" },
+        ]} />
       </section>
     </div>
   );

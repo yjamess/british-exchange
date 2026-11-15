@@ -1,0 +1,59 @@
+indicator_id: dmo-debt-portfolio-composition
+title: Debt portfolio composition (gilts and Treasury bills)
+sector: economy-public-finance
+publisher: DMO
+source_url: https://www.dmo.gov.uk/media/wysdetq0/oct-dec-2025.pdf
+series_id: DMO Quarterly Review — debt portfolio statistics
+geography: United Kingdom (K02000001); central government debt portfolio
+frequency: quarterly
+unit: £ billion (uplifted nominal or market value — see notes valuation=)
+definition: 'DMO debt portfolio by instrument: conventional gilts, index-linked gilts
+  and Treasury bills issued for debt-management purposes. Uplifted nominal (index-linked
+  gilts include inflation uplift) at four quarter-ends and market value at two, each
+  on a gross basis and a net basis (net excludes gilts held by the DMO).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.dmo_debt_portfolio_composition
+curated_path: curated/observations.csv
+update_cadence: quarterly (DMO Quarterly Review)
+raw_evidence:
+- path: raw/dmo_quarterly_review_2025_q4.pdf
+  retrieved_at: '2026-11-14T15:52:31.128522+00:00'
+  checksum_sha256: ddd016d62c3f69f5ea8b9e8d90563ec720a52c078ecfc30b48e0d5654f26cfd7
+  content_type: application/pdf
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.dmo.gov.uk/media/wysdetq0/oct-dec-2025.pdf
+transformations: 'pypdf text extraction of QR pages 1-2; regex row parse; every printed
+  £bn cell kept as one observation. series=<valuation>-<basis>-<instrument>; valuation=uplifted-nominal|market-value;
+  basis=gross|net; instrument=total|conventional-gilts|index-linked-gilts|treasury-bills.
+  Self-check: total == sum of instruments (±£0.02bn); net ≤ gross.'
+revision_notes: 'Pinned QR: Oct-Dec 2025. Only the quarter-ends printed in that QR
+  are curated (uplifted nominal Mar/Jun/Sep/Dec 2025; market value Sep/Dec 2025).
+  The DMO website holds the full quarterly history (data section). Method note: all
+  rows are ''final'' in this QR vintage, but DMO can revise earlier quarters (QR footnote
+  3 on T-bill history) and a newer QR may restate them; ''final'' means ''as printed
+  in this QR'', not ''never revised''.'
+caveats: Uplifted nominal ≠ market value ≠ nominal in issue (D1A) ≠ PSND (HF6W); never
+  sum across valuations. Excludes the £500m UK Sovereign Sukuk. T-bills are debt-management
+  only (cash-management T-bills excluded from QR statistics since June 2016). Conventional
+  gilts include green gilts (£49.6bn at Dec 2025 per QR footnote 4). Average maturity,
+  yields and duration printed in the QR are NOT curated here. Earlier quarters in
+  the QR may still be revised by DMO (see revision_notes).
+status_note: 'Validation pass with warnings (qa_report_economy_08_debt_ownership_2026-11-14.md):
+  48/48 cells equal the QR PDF. Warnings: only the quarters printed in one QR, official_release_date
+  unknown.'
+related_indicator_ids:
+- gilt-holdings-by-sector
+- dmo-gilts-in-issue
+- dmo-government-holdings
+- dmo-gilt-future-redemptions
+- public-sector-net-debt
+open_questions:
+- Back-fill earlier quarters from older QRs or the DMO quarterly debt portfolio history.
+- 'Validation: spot-check against the QR PDF.'
+- Confirm the QR Oct-Dec 2025 publication date and fill raw_evidence.official_release_date
+  (not stated in the PDF text; PDF file metadata says created 2026-03-13, which is
+  not proof of the release date).
+notion_registry_url: ''
+schema_version: '1.0'

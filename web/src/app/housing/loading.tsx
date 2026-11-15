@@ -1,11 +1,6 @@
-import { BrandRoot } from "@/brand/BrandRoot";
+import { SectorSkeleton } from "@/brand/template/SectorSkeleton";
 
+/** First render of /housing on the way. Rail hops never show this; they fetch in place. */
 export default function Loading() {
-  return (
-    <BrandRoot>
-      <main style={{ padding: "clamp(24px, 5vw, 80px)" }} aria-busy="true">
-        <p className="bo-label" role="status">Loading housing data…</p>
-      </main>
-    </BrandRoot>
-  );
+  return <SectorSkeleton label="Housing & Land" name="Housing" />;
 }

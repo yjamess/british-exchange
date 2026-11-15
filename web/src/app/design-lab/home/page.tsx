@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BrandRoot } from "@/brand/BrandRoot";
 import { Plate, type PlateName } from "@/brand/Plate";
+import { HalftoneMotion } from "@/brand/motion";
 import { SECTOR_PAGES } from "@/brand/sector-pages";
 import { SECTORS } from "@/brand/sectors";
 import styles from "./home.module.css";
@@ -93,12 +94,14 @@ export default function HomeLabPage() {
         </header>
 
         <section className={styles.hero} aria-labelledby="home-loud">
-          <Plate
-            name="globe"
-            treatment="print"
+          {/* The page's one monumental motion: film screen of the turbine loop. Still plate without WebGL. */}
+          <HalftoneMotion
+            atlas="offshoreWind"
+            mode="film"
+            fps={10}
+            fallback="offshoreWind"
             className={styles.heroPlate}
-            position="50% 42%"
-            label="Halftone globe circled by data orbits — the Exchange"
+            label="Offshore wind turbines turning"
           />
           <div className={`bo-on-ink ${styles.heroTitle}`}>
             <div className={`bo-wrap ${styles.heroTitleInner}`}>

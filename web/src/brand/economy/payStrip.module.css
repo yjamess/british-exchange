@@ -1,0 +1,109 @@
+/* Wages 02 — Lost and gained purchasing power. Two engraved rules: pounds a week, and months.
+   One ink on paper; every length is measured against its rule's ticks. */
+
+.root {
+  container-type: inline-size;
+  container-name: paystrip;
+  display: grid;
+  gap: var(--bo-s5);
+  width: 100%;
+  min-width: 0;
+}
+
+.strip {
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+.stripHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bo-s2) var(--bo-s4);
+}
+.stripTitle {
+  color: var(--bo-ink);
+}
+.stripFig {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 300;
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.stripFig small {
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  margin-left: var(--bo-s2);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--bo-f-data);
+}
+.rule {
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+.tick {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.tickMinor {
+  stroke: var(--bo-ink-40);
+  stroke-width: 1;
+}
+.tickText {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  fill: var(--bo-text);
+}
+.pointer {
+  fill: var(--bo-ink);
+}
+.pointerOpen {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+.dim {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.dimDashed {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.label {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  fill: var(--bo-ink);
+  text-transform: uppercase;
+}
+.labelFig {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 300;
+  font-size: var(--bo-t-fig-s);
+  fill: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.band {
+  fill: var(--bo-ink);
+}
+
+.foot {
+  margin: 0;
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+  max-width: 64ch;
+}

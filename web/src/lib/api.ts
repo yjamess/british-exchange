@@ -101,6 +101,12 @@ export type IndicatorListItem = {
   /** Latest period_end (ISO date), "" when empty. */
   coverage_end: string;
   observation_count: number;
+  /** Series in the dataset: one place × one breakdown, observed over time (Postgres; 0 on the files store). */
+  series_count?: number;
+  /** The publisher's update cadence, registry wording. */
+  update_cadence?: string;
+  /** One plain sentence when the series is finished, a one-off, pinned or dated into the future. */
+  status_note?: string;
   /** Size of the series CSV in bytes (files store); absent from the Postgres listing. */
   csv_bytes?: number | null;
   /** Latest official release date among pinned raw evidence (ISO date). */
@@ -194,4 +200,24 @@ export async function fetchPackRelText(relPath: string): Promise<string> {
 
 export async function fetchPackRelJson<T>(relPath: string): Promise<T> {
   return JSON.parse(await fetchPackRelText(relPath)) as T;
+}
+
+/* ——— Shared terms registry (the Term marker reads this) ——— */
+export type GlossaryTerm = {
+  slug: string;
+  short: string;
+  full_name: string;
+  definition: string;
+  note: string;
+  sector: string;
+  group: string;
+  related_indicator_ids: string[];
+  source_url: string;
+};
+
+export async function fetchGlossary(sector?: string): Promise<GlossaryTerm[]> {
+  const q = sector ? `?sector=${encodeURIComponent(sector)}` : "";
+  const res = await fetch(`${apiBase()}/glossary${q}`, apiInit());
+  if (!res.ok) throw new Error(`Failed to load glossary: ${res.status}`);
+  return res.json() as Promise<GlossaryTerm[]>;
 }

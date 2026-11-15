@@ -7,6 +7,7 @@
  * Never invent spare capacity. GB ≠ UK. Flows GWh ≠ capacity MW. Pilot ≠ national DNO.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
@@ -490,40 +491,15 @@ export function NetworksCanvas({
                     <button type="button" className={t.textButton} onClick={() => sync({ site: null })}>
                       Clear selection
                     </button>
-                    <p className="bo-label">
-                      {selectedSite.type} · {selectedSite.owner}
-                      {selectedSite.operating_area ? ` · ${selectedSite.operating_area}` : ""}
-                    </p>
-                    <h3 className={s.stationName}>
-                      {selectedSite.locality || selectedSite.number || selectedSite.id}
-                    </h3>
-                    <dl className={s.stationMeta}>
-                      {selectedSite.number ? (
-                        <div>
-                          <dt className="bo-label">Number</dt>
-                          <dd className="bo-fig">{selectedSite.number}</dd>
-                        </div>
-                      ) : null}
-                      {selectedSite.class ? (
-                        <div>
-                          <dt className="bo-label">Class</dt>
-                          <dd>{selectedSite.class}</dd>
-                        </div>
-                      ) : null}
-                      {selectedSite.data_confidence ? (
-                        <div>
-                          <dt className="bo-label">Data confidence</dt>
-                          <dd>{selectedSite.data_confidence}</dd>
-                        </div>
-                      ) : null}
-                      <div>
-                        <dt className="bo-label">Coordinates</dt>
-                        <dd className="bo-fig">
-                          {Math.abs(selectedSite.lat).toFixed(4)}°{selectedSite.lat >= 0 ? "N" : "S"}{" "}
-                          {Math.abs(selectedSite.lon).toFixed(4)}°{selectedSite.lon >= 0 ? "E" : "W"}
-                        </dd>
-                      </div>
-                    </dl>
+                    <ReadoutCard placement="inline" head={selectedSite.locality || selectedSite.number || selectedSite.id} rows={[
+                      { label: "Type", value: selectedSite.type },
+                      { label: "Owner", value: selectedSite.owner },
+                      ...(selectedSite.operating_area ? [{ label: "Operating area", value: selectedSite.operating_area }] : []),
+                      ...(selectedSite.number ? [{ label: "Number", value: selectedSite.number }] : []),
+                      ...(selectedSite.class ? [{ label: "Class", value: selectedSite.class }] : []),
+                      ...(selectedSite.data_confidence ? [{ label: "Data confidence", value: selectedSite.data_confidence }] : []),
+                      { label: "Coordinates", value: `${Math.abs(selectedSite.lat).toFixed(4)}°${selectedSite.lat >= 0 ? "N" : "S"} ${Math.abs(selectedSite.lon).toFixed(4)}°${selectedSite.lon >= 0 ? "E" : "W"}` },
+                    ]} />
                   </>
                 ) : (
                   <>

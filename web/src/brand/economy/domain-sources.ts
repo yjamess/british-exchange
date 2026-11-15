@@ -13,7 +13,14 @@ import {
 export type { EconomyDomainId };
 
 /** Named server loaders in `load.ts` that feed EconomySector props. */
-export type EconomyPackKey = "inflation" | "wages" | "debt" | "growth";
+export type EconomyPackKey =
+  | "inflation"
+  | "wages"
+  | "employment"
+  | "tax"
+  | "spending"
+  | "debt"
+  | "growth";
 
 /**
  * Packs required to render each domain canvas.
@@ -22,11 +29,11 @@ export type EconomyPackKey = "inflation" | "wages" | "debt" | "growth";
 export const DOMAIN_PACKS = {
   inflation: ["inflation"],
   wages: ["wages"],
-  employment: [],
+  employment: ["employment"],
   household: [],
   growth: ["growth"],
-  tax: [],
-  spending: [],
+  tax: ["tax"],
+  spending: ["spending"],
   debt: ["debt"],
   investment: [],
   policy: [],
@@ -46,7 +53,7 @@ export function resolveEconomyDomain(raw: string | string[] | undefined): Econom
 
 export function packsFor(scope: EconomyScope): readonly EconomyPackKey[] {
   if (scope === "all") {
-    return ["inflation", "wages", "debt", "growth"];
+    return ["inflation", "wages", "employment", "tax", "spending", "debt", "growth"];
   }
   return DOMAIN_PACKS[scope];
 }

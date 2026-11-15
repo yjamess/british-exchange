@@ -1,0 +1,61 @@
+note,text
+[note 1],Figures for previous years have been revised.
+[note 2],"‘Other excise duties’ includes betting and gaming duties, cider and perry duties, spirit-based ready-to-drink beverage duties and wine duties."
+[note 3],Percentage tax gap estimates for avoidance and the hidden economy are not shown as tax receipts cannot be calculated.
+[note 4],"‘Other taxes, levies and duties’ includes Aggregates Levy, Air Passenger Duty, Customs Duty, Climate Change Levy, Digital Services Tax, Insurance Premium Tax, Plastic Packaging Tax and Soft Drinks Industry Levy."
+[note 5],The Petroleum Revenue Tax gap is not calculated from tax year 2015 to 2016 as it was permanently zero-rated from 1 January 2016.
+[note 6],Around two thirds of the overall tax gap is projected in 2023-24 and 2024-25.
+[note 7],Some elements shown in this table are projected for certain tax years. Further information can be found in `Measuring tax gaps 2026 edition: tax gap estimates for 2024 to 2025`
+[note 8],"The percentage tax gap is the tax gap pound value as a proportion of theoretical liability, where theoretical liability is defined as the tax gap plus the amount of tax actually received."
+[note 9],All excise tax gap point estimates and percentage tax gaps include duty only.
+[note 10],Figures may not sum due to rounding.
+[note 11],"Ghosts are individuals who do not declare any of their income to HMRC, be it earned or unearned."
+[note 12],Moonlighters are individuals who are employees in their legitimate occupation but do not declare earnings from other sources of income.
+[note 13],"Figures for previous years have been revised following methodological improvements and incorporating more up-to-date data, notably from the Office for National Statistics on consumer expenditure."
+[note 14],VAT receipts are expressed net of payments and repayments.
+[note 15],"From 2019 to 2020 through to 2022 to 2023, the VAT receipts figures used to estimate the VAT gap have been adjusted to account for the impact of the VAT deferred between March 2020 and June 2020 under the ‘VAT Payments Deferral Scheme’ and the ‘VAT Deferral New Payment Scheme’ – key fiscal support measures in the government’s response to COVID-19. When estimating the VAT gap for these years, this adjustment ensures that only the net VAT receipts which related to the theoretical VAT liability in the year are properly taken into account."
+[note 16],"The VAT total theoretical liability is the amount of VAT that should be paid in theory. This is calcualted by applying the rate of VAT on expenditure where VAT should be payable, assuming that there is no fraud, avoidance, or losses due to error or non-compliance."
+[note 17],"The VAT total theoretical liability includes irrecoverable VAT, which is the VAT paid on ‘finally taxed expenditure’ which cannot be reclaimed, for example by those not registered for VAT."
+[note 18],Tobacco includes hand-rolling tobacco and cigarettes.
+[note 19],The beer estimate for 2005 to 2006 and 2006 to 2007 is based on the beer upper bound estimate. All other years are based on the central estimate.
+[note 20],The hydrocarbon oils estimate for years following 2016 to 2017 are not directly comparable to previous years due to a methodological change.
+[note 21],Lower estimates have been projected from 2016 to 2017 onwards.
+[note 22],The tax gap includes both duty and VAT.
+[note 23],"Figures for the tax year 2020 to 2021, 2021 to 2022, 2022 to 2023, 2023 to 2024 and 2024 to 2025 have been projected from 2019 to 2020."
+[note 24],Negative numbers have been truncated at zero.
+[note 25],The upper (or lower) bounds for both cigarette and hand-rolling tobacco cannot be combined. Only the central estimates are simultaneously possible.
+[note 26],The cigarettes illicit market figures are based on weighted average price (WAP) data for all UK duty paid cigarettes.
+[note 27],"Figures for the tax year 2020 to 2021, 2021 to 2022, and 2022 to 2023 have been imputed based on known values from 2019 to 2020 and 2023 to 2024. Figures for the tax year 2024 to 2025 have been estimated based on established historical trends."
+[note 28],"The weighted average price (WAP) data for all UK duty paid hand-rolling tobacco is not available prior to tax year 2012 to 2013, so the losses are based on the price of a ‘typical brand’."
+[note 29],Tax gap figures for tax years 2014 to 2015 and 2015 to 2016 are rolled forward from 2013 to 2014.
+[note 30],Tax gap figures from 2016 to 2017 are not directly comparable to previous years due to a methodological change.
+[note 31],The rate of non-compliance in the tax year 2016 to 2017 is used for estimate in 2017 to 2018 and 2018 to 2019. The rate from 2019 to 2020 is used again for 2020 to 2021 and 2021 to 2022. The rate from 2022 to 2023 is also used for 2023 to 2024 and 2024 to 2025.
+[note 32],Market share figures are limited to values between 0% and 100%
+[note 33],Consumption estimates are based on the weighted average price (WAP) of cigarettes.
+[note 34],Consumption estimates are based on the 'typical brand'. Weighted average price (WAP) data for hand rolling tobacco is not available prior to 2012 to 2013.
+[note 35],Tax gap estimates from 2023 to 2024 are projected based on Self Assessment liabilities figures for the respective years and will be revised when operational data becomes available.
+[note 36],Compliance yield for 2020 to 2021 and 2021 to 2022 is based on recorded yield for 2019 to 2020. Compliance yield for all other years is based on period of settlement of enquiry.
+[note 37],The non-payment figure for 2020 to 2021 and 2021 to 2022 is the total non-payment for these years split equally between them.
+[note 38],Liability refers to the actual amount expected to be received by HMRC based on taxpayer declarations and HMRC's compliance activity.
+[note 39],"The PAYE employer compliance tax gap is made up of 3 components: small businesses, mid-sized businesses and large businesses"
+[note 40],Compliance yield is recoded by period of settlement of enquiry.
+[note 41],"Year relates to when the enquiry was opened, as employer compliance queries are not made in relation to an annual return."
+[note 42],"Values exclude the tax gap relating to avoidance; this figure is available at an aggregate level for Income Tax, NICs and Capital Gains Tax."
+[note 43],Projection factor applied to the gross tax gap estimate for 2022 to 2023 to produce projected estimates from 2023 to 2024 onward. This is based on the trend in estimated PAYE liabilities.
+[note 44],"Compliance yield is the total yield from closed risks, plus the estimated compliance yield from open risks."
+[note 45],Compliance yield in this table relates to a specific accounting period and therefore cannot be compared to reported compliance yield in HMRC’s Annual Report and Accounts. A projection factor is applied to the compliance yield estimate for 2022 to 2023 to produce projected estimates from 2023 to 2024 onward. This is based on the trend in estimated PAYE liabilities.
+[note 46],The tax gap estimates are projected in 2023 to 2024 and 2024 to 2025 by applying uplifts to the underlying user numbers based on previous years.
+[note 47],"The Corporation Tax gap is made up of 3 components: small businesses, mid-sized businesses and large businesses."
+[note 48],Total tax gap includes avoidance estimates.
+[note 49],Tax gap estimates from 2023 to 2024 are projected based on a constant gross tax gap and Corporation Tax small business liabilities figures for the respective years.
+[note 50],Projection factor applied to the gross tax gap estimate for 2021 to 2022 to produce projected estimates from 2022 to 2023 onward. This is based on the trend in estimated Corporation Tax liabilities.
+[note 51],Compliance yield in this table relates to a specific accounting period and therefore cannot be compared to reported compliance yield in HMRC’s Annual Report and Accounts. A projection factor is applied to the compliance yield estimate for 2021 to 2022 to produce projected estimates from 2022 to 2023 onward. This is based on the trend in estimated Corporation Tax liabilities.
+[note 52],Projection factor applied to the gross tax gap estimate for 2022 to 2023 to produce projected estimates from 2023 to 2024 onward. This is based on the trend in estimated Corporation Tax liabilities.
+[note 53],Compliance yield in this table relates to a specific accounting period and therefore cannot be compared to reported compliance yield in HMRC’s Annual Report and Accounts. A projection factor is applied to the compliance yield estimate for 2022 to 2023 to produce projected estimates from 2023 to 2024 onward. This is based on the trend in estimated Corporation Tax liabilities.
+[note 54],Tax gap figures from 2011 to 2012 are not directly comparable to previous years due to a methodological change.
+[note 55],Tax gap figures from 2015 to 2016 are not directly comparable to previous years due to a methodological change
+[note 56],Upper and lower bounds are only available from the tax year 2013 to 2014.
+[note 57],Tax gap figures from 2018 to 2019 are not directly comparable to previous years due to a methodological change
+[note 58],"The Soft Drinks Industry Levy was introduced on 6 April 2018 and forms part of the ‘Other taxes, levies and duties’ estimates from 2018 to 2019."
+[note 59],"The Digital Services Tax was introduced on 1 April 2020 and forms part of the ‘Other taxes, levies and duties’ estimates from 2021 to 2022."
+[note 60],"The Plastic Packaging Tax was introduced on 1 April 2022 and forms part of the 'Other taxes, levies and duties' estimate from 2022 to 2023."

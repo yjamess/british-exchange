@@ -1,0 +1,80 @@
+{
+  "rule": "NMBY + NMCU + LIQR = MF6P (\u00a3 million, NSA)",
+  "mf6p_ready_source": "data/economy/tax-receipts-composition/curated/observations.csv (series=MF6P; read-only)",
+  "mf6p_pinned_source": "raw/*/mf6p_pusf.json (same pin vintage)",
+  "months_checked_ok": 354,
+  "months_failed": [],
+  "n_failed": 0,
+  "months_skipped_incomplete": 0,
+  "mf6p_ready_vs_pinned_mismatches": [],
+  "n_mf6p_ready_vs_pinned_mismatches": 0,
+  "spot_months": [
+    {
+      "period": "2026-04-01",
+      "NMBY": 32365.0,
+      "NMCU": 30805.0,
+      "LIQR": 2379.0,
+      "sum_components": 65549.0,
+      "MF6P_pinned": 65549.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 65549.0,
+      "diff_vs_ready": 0.0
+    },
+    {
+      "period": "2026-05-01",
+      "NMBY": 31289.0,
+      "NMCU": 32132.0,
+      "LIQR": 2547.0,
+      "sum_components": 65968.0,
+      "MF6P_pinned": 65968.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 65968.0,
+      "diff_vs_ready": 0.0
+    },
+    {
+      "period": "2026-06-01",
+      "NMBY": 31820.0,
+      "NMCU": 35381.0,
+      "LIQR": 2643.0,
+      "sum_components": 69844.0,
+      "MF6P_pinned": 69844.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 69844.0,
+      "diff_vs_ready": 0.0
+    },
+    {
+      "period": "2026-07-01",
+      "NMBY": 31702.0,
+      "NMCU": 48323.0,
+      "LIQR": 2609.0,
+      "sum_components": 82634.0,
+      "MF6P_pinned": 82634.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 82634.0,
+      "diff_vs_ready": 0.0
+    },
+    {
+      "period": "2026-08-01",
+      "NMBY": 30912.0,
+      "NMCU": 33370.0,
+      "LIQR": 2348.0,
+      "sum_components": 66630.0,
+      "MF6P_pinned": 66630.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 66630.0,
+      "diff_vs_ready": 0.0
+    },
+    {
+      "period": "2026-09-01",
+      "NMBY": 31454.0,
+      "NMCU": 32087.0,
+      "LIQR": 2741.0,
+      "sum_components": 66282.0,
+      "MF6P_pinned": 66282.0,
+      "diff_vs_pinned": 0.0,
+      "MF6P_ready_composition": 66282.0,
+      "diff_vs_ready": 0.0
+    }
+  ],
+  "pass": true
+}

@@ -32,3 +32,4 @@ related_indicator_ids: []
 open_questions: []
 notion_registry_url: https://app.notion.com/40d6547176858126a378fbaf1b18f2d4
 schema_version: '1.0'
+status_note: "A Bank of England research dataset that ends in 2016 and is no longer extended."

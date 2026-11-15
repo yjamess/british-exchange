@@ -7,6 +7,7 @@
  * Not spare capacity. Not a national DNO atlas.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { MAP_HEIGHT, MAP_WIDTH, stationPosition } from "../energy/station-model";
 import type { SsenLine, SsenSubstation } from "../energy/networks-model";
@@ -125,19 +126,17 @@ export function NetworkTopologyMap({
   };
 
   const focus = hovered ?? selected;
-  const caption = hovered
-    ? `${hovered.type} · ${hovered.owner}${hovered.locality ? ` · ${hovered.locality}` : ""}`
-    : selected
-      ? `${selected.type} · ${selected.owner} · selected`
-      : null;
 
   return (
     <div className={s.wrap}>
       <div className={s.surface}>
-        {caption && (
+        {focus && (
           <div className={s.caption}>
-            <span>{caption}</span>
-            {focus ? <span>{coord(focus.lat, focus.lon)}</span> : null}
+            <ReadoutCard placement="inline" head={focus.locality || focus.number || focus.id} style={{ maxWidth: 340, pointerEvents: "none" }} rows={[
+              { label: "Type", value: focus.type },
+              { label: "Owner", value: focus.owner },
+              { label: "Coordinates", value: coord(focus.lat, focus.lon) },
+            ]} />
           </div>
         )}
 

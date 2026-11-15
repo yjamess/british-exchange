@@ -3,7 +3,7 @@
  * Identity: docs/visual-identity.md · Tokens: brand.css (under .bo, applied by BrandRoot).
  *
  *   Root & type   BrandRoot, brandFonts
- *   Imagery       Plate + PLATES / DWELLING_PLATES / TENURE_PLATES / ENERGY_TECH_PLATES / MANUFACTURING_PLATES / REF_ICON_PLATES / ICON_PLATES / SCENE_ICON_PLATES
+ *   Imagery       Plate + PLATES / DWELLING_PLATES / TENURE_PLATES / ENERGY_TECH_PLATES / MANUFACTURING_PLATES / WORK_PLATES / REF_ICON_PLATES / ICON_PLATES / SCENE_ICON_PLATES
  *   Template      SectorPage, Explorer (+ head, figures, controls, stage, source, table, coverage), PlateBand, FieldBand
  *   Menus         PrintSelect (Base UI) — via MenuControl / PeriodControl in the template
  *   Motion        DualScramble, ScrambleGroup, HalftoneMotion, DitherField (+ fields), DensityStrip, groundField
@@ -26,6 +26,7 @@ export {
   TENURE_PLATES,
   ENERGY_TECH_PLATES,
   MANUFACTURING_PLATES,
+  WORK_PLATES,
   REF_ICON_PLATES,
   ICON_PLATES,
   SCENE_ICON_PLATES,
@@ -38,6 +39,7 @@ export {
 } from "./Plate";
 
 export * from "./template";
+export { Term, GlossaryProvider, useGlossary, useTerm } from "./term";
 
 export { PrintSelect, type PrintOption } from "./PrintSelect";
 
@@ -116,3 +118,8 @@ export {
   type Series,
 } from "./data";
 export { SiteFooter } from "./footer/SiteFooter";
+export { SiteHeader } from "./shell/SiteHeader";
+export { SiteIndex } from "./shell/SiteIndex";
+export { PlainPage, PageInPreparation } from "./template/PlainPage";
+
+export { ReadoutCard, type ReadoutRow } from "./instrument/ReadoutCard";

@@ -1,0 +1,57 @@
+indicator_id: employment-by-occupation
+title: Employment by occupation (SOC 2020 major groups, aged 16 and over)
+sector: economy-public-finance
+publisher: ONS via Nomis
+source_url: https://www.nomisweb.co.uk/datasets/aps210/reports/employment-by-status-and-occupation?compare=K02000001
+series_id: NM_17_5 variables 1815–1823 · measures 20599/21001/21002 · release 2026-10-20
+geography: United Kingdom (K02000001); aged 16 and over
+frequency: quarterly
+unit: People, APS (share numerator); % of people in employment (share); people in
+  employment (denominator). Rolling twelve-month windows.
+definition: People in employment by Standard Occupational Classification 2020 major
+  group (1–9), United Kingdom, aged 16 and over, from the Annual Population Survey
+  on Nomis (NM_17_5, report aps210). Each window is twelve months ending in a calendar
+  quarter. Stores the published share of all in employment, the published numerator
+  (people) and the published denominator (all in employment). The nine groups sum
+  to slightly under 100% because some respondents' occupation is not classified.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.employment_by_occupation
+curated_path: curated/observations.csv
+update_cadence: quarterly (Nomis APS, about three months after each window ends)
+raw_evidence:
+- path: raw/2026-11-15/aps_occupation_uk.csv
+  retrieved_at: '2026-11-15T14:00:18.179310+00:00'
+  checksum_sha256: 0081a5276b77882bf2b88f9adf02bc0a5f98bdcf92782a37e21566e018a9ac95
+  content_type: text/csv
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.nomisweb.co.uk/api/v01/dataset/NM_17_5.data.csv?geography=2092957697&variable=1815,1816,1817,1818,1819,1820,1821,1822,1823&measures=20599,21001,21002&date=latestMINUS86-latest
+transformations: Download one Nomis CSV (UK, variables 1815–1823, measures 20599 share,
+  21001 numerator, 21002 denominator, all windows). Skip empty cells (windows before
+  Jan–Dec 2021 carry no SOC2020 value). Window label 'Jul 2025-Jun 2026' → period_start
+  first day of the start month, period_end last day of the end month. Fail if numerator
+  ÷ denominator × 100 differs from the published share by more than 0.06 points, or
+  if denominators differ across groups within a window. Notes carry series=people|share|employment;
+  soc=1..9|all; occupation=; window=. Latest window per series marked provisional;
+  older windows final.
+revision_notes: 'ONS discontinued LFS table EMP04 after April–June 2018 and directs
+  users to the APS on Nomis. APS estimates revise when the survey is reweighted (Nomis
+  LastRevised 2023-01-27). Re-pin on each quarterly APS update (Nomis LastUpdated
+  at pin: 2026-10-20).'
+caveats: People, not jobs — do not compare with Workforce Jobs (JOBS02 / DYDC). APS,
+  aged 16 and over, not seasonally adjusted, rolling twelve-month windows that overlap
+  — compare the same window end across years. Numerators are published to the nearest
+  100 and shares to one decimal place. Groups sum to about 99.5–99.8% of the denominator;
+  the rest is unclassified occupation. Not the 16–64 seasonally adjusted LFS workforce.
+status_note: ''
+related_indicator_ids:
+- employment-level
+- workforce-jobs-by-industry
+- employment-full-time
+- employment-part-time
+open_questions:
+- SOC2010 windows (2004–2020) exist under different Nomis variable codes; not bridged
+  here.
+notion_registry_url: ''
+schema_version: '1.0'

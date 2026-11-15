@@ -6,6 +6,9 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/brand/footer/SiteFooter";
+import { SiteHeader } from "@/brand/shell/SiteHeader";
+import { GlossaryProvider } from "@/brand/term";
+import { loadGlossary } from "@/lib/glossary";
 
 /** Display: Libre Caslon Display (Google Fonts) — user’s “Libra Calson”. */
 const display = Libre_Caslon_Display({
@@ -26,20 +29,25 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Britain Exchange",
-  description: "Verified UK public data — first proof chart slice",
+  title: { default: "British Exchange", template: "%s · British Exchange" },
+  description: "An open British Observatory: deep public data and independent, original investigations.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Shared terms registry behind every Term marker; an empty list just renders terms plain.
+  const glossary = await loadGlossary();
   return (
     <html lang="en-GB">
       <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
-        {children}
-        <SiteFooter />
+        <GlossaryProvider terms={glossary}>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </GlossaryProvider>
       </body>
     </html>
   );

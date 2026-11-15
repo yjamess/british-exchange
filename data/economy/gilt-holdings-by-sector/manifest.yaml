@@ -1,0 +1,62 @@
+indicator_id: gilt-holdings-by-sector
+title: Who owns the debt? Gilt holdings by sector (market value)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.dmo.gov.uk/media/wysdetq0/oct-dec-2025.pdf
+series_id: ONS gilt holdings by sector (DMO QR table; CDIDs not located)
+geography: United Kingdom (K02000001); holders of UK government gilts
+frequency: quarterly
+unit: £ million, market value
+definition: ONS estimate of who holds UK government gilts, by institutional sector,
+  valued at market prices (£ million, end of quarter). Seven published sectors plus
+  TOTAL; the Bank of England appears as its Asset Purchase Facility; monetary financial
+  institutions exclude the Bank of England. ONS is the publisher of the numbers; the
+  DMO Quarterly Review is the republication channel.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.gilt_holdings_by_sector
+curated_path: curated/observations.csv
+update_cadence: quarterly (DMO Quarterly Review, ~6 weeks after quarter end)
+raw_evidence:
+- path: raw/2026-11-14/dmo_quarterly_review_2025_q4.pdf
+  retrieved_at: '2026-11-14T15:52:31.128522+00:00'
+  checksum_sha256: ddd016d62c3f69f5ea8b9e8d90563ec720a52c078ecfc30b48e0d5654f26cfd7
+  content_type: application/pdf
+  official_release_date: ''
+  http_status: null
+  source_url: https://www.dmo.gov.uk/media/wysdetq0/oct-dec-2025.pdf
+transformations: 'pypdf text extraction of the QR ''Gilt and Treasury Bill Holdings''
+  page; regex row parse (label + four quarterly £mn values + latest-quarter %); self-check
+  sum(sectors)==TOTAL within rounding and printed % vs computed. One row per sector×quarter
+  plus TOTAL. notes: series=<sector slug>; sector=…; component=sector|total; valuation=market-value.
+  Latest quarter per series marked provisional.'
+revision_notes: 'ONS: ''These figures can be revised retrospectively.'' Each QR restates
+  recent quarters; re-pin newer QRs and let the latest QR win for overlaps. Pinned
+  QR: Oct-Dec 2025 (quarters Q4 2024 – Q3 2025). Method note: only the latest quarter
+  per series is flagged provisional, but ONS can revise any earlier quarter in the
+  QR too, so ''final'' on Q4 2024 – Q2 2025 means ''final in this QR vintage'', not
+  ''will never change''. Any display should say figures may be revised retrospectively.'
+caveats: 'MARKET VALUE, not nominal: ≠ gilts in issue (D1A), ≠ uplifted-nominal debt
+  portfolio, ≠ public-sector net debt (HF6W), ≠ DMO/CRND official holdings (D4L).
+  Overseas % is a share of gilt market value, not of PSND. ''Other financial institutions
+  and PNFC'' is a large mixed residual (funds, dealers, hedge funds). Sector names
+  have changed over time; Bank of England''s discontinued 2002 sector table is NOT
+  used. ONS figures can be revised retrospectively; earlier quarters in the QR may
+  still revise (see revision_notes).'
+status_note: 'Validation pass with warnings (qa_report_economy_08_debt_ownership_2026-11-14.md):
+  32/32 cells equal the QR PDF. Warnings: 4-quarter depth, no ONS CDIDs, official_release_date
+  unknown.'
+related_indicator_ids:
+- dmo-government-holdings
+- dmo-debt-portfolio-composition
+- dmo-gilts-in-issue
+- public-sector-net-debt
+open_questions:
+- Locate ONS UKEA / sector-account CDIDs for these holdings to replace the PDF parse.
+- Pin newer QRs (Jan-Mar, Apr-Jun, Jul-Sep 2026) to extend the series past Q3 2025.
+- 'Validation: spot-check against the QR PDF and an independent ONS release.'
+- Confirm the QR Oct-Dec 2025 publication date and fill raw_evidence.official_release_date
+  (not stated in the PDF text; PDF file metadata says created 2026-03-13, which is
+  not proof of the release date).
+notion_registry_url: ''
+schema_version: '1.0'

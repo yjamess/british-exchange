@@ -65,4 +65,4 @@ Housing Gate 2 instruments already use these packages. Notion lagged: nine domai
 
 - `local-plan-status` — Validation sample of council plan pages still open (work-plan T17).
 - `planning-appeals` — summary pack live; formal registry row deferred.
-- Price Paid search — deferred (BX-BACK-001).
+- Price Paid search — closed 2026-11-15 (BX-BACK-001): 992 278 rows loaded to Postgres after Pro.

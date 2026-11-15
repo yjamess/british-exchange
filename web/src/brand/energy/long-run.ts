@@ -82,7 +82,7 @@ export const LONG_FUELS: LongFuel[] = [
     label: "Coal",
     short: "Coal",
     sourceLabels: ["Coal"],
-    fill: { kind: "solid", color: "var(--bo-union)", text: "var(--bo-paper)" },
+    fill: { kind: "solid", color: "var(--bo-chart-3)", text: "var(--bo-paper)" },
     includes: "Coal burned in power stations.",
     selectable: true,
   },

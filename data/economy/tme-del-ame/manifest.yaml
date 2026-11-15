@@ -1,0 +1,65 @@
+indicator_id: tme-del-ame
+title: Total DEL, departmental AME, and other AME (PSS Table 1.1)
+sector: economy-public-finance
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-spending-statistics-release-july-2026
+series_id: PSS July 2026 Table 1.1
+geography: United Kingdom (K02000001); public sector via departmental budgets plus
+  Other AME
+frequency: annual
+unit: £ million, nominal, financial year
+definition: 'HM Treasury control totals from PSS July 2026 Table 1.1, financial-year
+  outturn, £ million, nominal. Curated rows are the published Total DEL, Departmental
+  AME, Other AME, and this table''s Total Managed Expenditure. Identity: Total DEL
+  + Departmental AME + Other AME = this table''s TME. Other AME is kept, including
+  when it is negative. Total DEL is the published row, not resource DEL plus capital
+  DEL. The denominator is this table''s TME, not monthly ONS EBFT, and not TES.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tme_del_ame
+curated_path: curated/observations.csv
+update_cadence: PSS key series are updated in the November, February and April cycle.
+  Re-pin on a new edition; do not overwrite this checksum.
+raw_evidence:
+- path: raw/2026-11-15/July_PSS_2026_Chapter_1.xlsx
+  retrieved_at: '2026-11-15T20:10:36.252739+00:00'
+  checksum_sha256: ff40d00e69d7b5cb2db4504e24ba774dd09b181ac676d0518ab0e16581305dbe
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a5749ec2f6185941a9a6519/July_PSS_2026_Chapter_1.xlsx
+transformations: Download PSS July 2026 Chapter 1. Read sheet Table_1_1 only. Keep
+  financial years 2021-22 to 2025-26. Curate Total DEL, Departmental AME, Other AME,
+  and table TME from the published of-which block. Do not curate resource or capital
+  DEL, departmental detail, or Other AME components. 2025-26 observation_status=estimated
+  (first estimate). Notes use series, classification, role, fy, label, table=1.1.
+  Table TME notes set denominator=hmt-table-tme.
+revision_notes: PSS July 2026, file updated 2026-07-29. Outturn only — PESA plan years
+  2026-27 to 2028-29 are not in this workbook and are not in this pin. 2025-26 is
+  the first estimate and can still be revised.
+caveats: 'Denominator is this table''s TME, not monthly EBFT and not TES. In 2024-25,
+  Total DEL 595,892 + Departmental AME 605,568 + Other AME 88,552 = table TME 1,290,012.
+  Dropping Other AME leaves the total short by 88,552. Resource DEL 469,578 + capital
+  DEL 111,587 = 581,165, which is not Total DEL 595,892 (footnote 6: Scottish Government
+  block grant adjustments sit outside that pair). 2021-22 Other AME is -167,119. No
+  Tax−Spend=Borrow identity. No OSCAR rows. No PESA plan years. Central government
+  gross debt interest sits inside Other AME and is not merged with public-sector-debt-interest
+  (NMFX). These totals are HMT financial-year table TME / TES, not monthly ONS EBFT
+  (total-managed-expenditure, PSF 2026-10-20). Derived April–March sums of that Ready
+  pin: 2023-24 summed EBFT 1,258,195 vs HMT table TME 1,230,807 (difference 27,388);
+  2024-25 summed EBFT 1,294,828 vs HMT table TME 1,290,012 (difference 4,816). Different
+  vintage, the HMT footnote excluding temporary effects of banks classified to the
+  public sector, and a derived monthly sum rather than an official financial-year
+  series. Do not rescale COFOG or DEL shares onto EBFT.'
+status_note: Financial-year outturn for 2021-22 to 2025-26 from PSS July 2026. 2025-26
+  is a first estimate and can still be revised.
+related_indicator_ids:
+- tes-by-function
+- total-managed-expenditure
+- public-sector-debt-interest
+open_questions:
+- Table 1.2 real terms is not in this pin.
+- PESA plan years after 2025-26 are out of scope.
+- Do not rescale these financial-year rows onto monthly EBFT.
+notion_registry_url: https://app.notion.com/p/419654717685815dbb3de6db75d6a00d
+schema_version: '1.0'

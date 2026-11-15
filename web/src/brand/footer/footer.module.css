@@ -1,5 +1,4 @@
-/* Site footer — layout from "Footer — ASCII field". Electric ink ground, paper type.
-   Copy on the left on solid ink; the dot field (one morphing glyph) fills the right 60%. */
+/* Site footer. Electric ink ground, paper type. Copy only; no field or mark. */
 
 .root {
   background: var(--bo-ink);
@@ -11,32 +10,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column-reverse;
-}
-
-/* ——— Field ——— */
-.field {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 60%;
-  z-index: 0;
-  color: var(--bo-paper);
-}
-/* Copy over imagery sits on a solid panel. */
-.fieldLabel {
-  position: absolute;
-  top: 20px;
-  right: 32px;
-  margin: 0;
-  padding: 4px 8px;
-  background: var(--bo-ink);
-  font-family: var(--bo-f-data);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: var(--bo-track-label);
-  text-transform: uppercase;
-  color: var(--bo-paper);
 }
 
 /* ——— Copy ——— */
@@ -129,13 +102,7 @@
   }
 }
 
-/* Narrow: copy first, then the field as its own band below. */
 @media (max-width: 820px) {
-  .field {
-    position: relative;
-    width: 100%;
-    height: 200px;
-  }
   .copy {
     max-width: none;
   }

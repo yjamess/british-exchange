@@ -7,6 +7,7 @@
  * One Notes foot; chart titles use explorer stageTitle.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useCallback, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
@@ -989,93 +990,29 @@ export function ConsumptionCanvas({ pack }: { pack: ConsumptionPack }) {
 
                     {selectedPlace ? (
                       <>
-                        <h3 className={s.stationName}>{selectedPlace.la}</h3>
-                        {selectedRegionPlace && (
-                          <p className={s.links}>
-                            {selectedRegionPlace.label.replace(/ \(inc unallocated\)/i, "")}
-                          </p>
-                        )}
-                        <p className={s.stationValue}>
-                          <span className="bo-fig">
-                            {intensityOn && selectedPop && typeof selectedKtoe === "number"
-                              ? toePerResident(selectedKtoe, selectedPop.persons).toLocaleString(
-                                  "en-GB",
-                                  { maximumFractionDigits: 2 },
-                                )
-                              : typeof selectedKtoe === "number"
-                                ? (selectedKtoe / 1000).toLocaleString("en-GB", {
-                                    maximumFractionDigits: 2,
-                                  })
-                                : "—"}
-                          </span>
-                          <span className="bo-label">{intensityOn ? "toe/person" : "Mtoe"}</span>
-                        </p>
-                        <dl className={s.geoPanelMeta}>
-                          {(
-                            [
-                              ["domestic", "Domestic"],
-                              ["transport", "Transport"],
-                              ["industry-commercial", "Industry & commercial"],
-                            ] as const
-                          ).map(([sec, label]) => {
+                        <ReadoutCard placement="inline" head={`${selectedPlace.la} · ${y}`} rows={[
+                          { label: intensityOn ? "Tonnes of oil equivalent per resident" : "Consumption · Mtoe", value: intensityOn && selectedPop && typeof selectedKtoe === "number" ? toePerResident(selectedKtoe, selectedPop.persons).toLocaleString("en-GB", { maximumFractionDigits: 2 }) : typeof selectedKtoe === "number" ? (selectedKtoe / 1000).toLocaleString("en-GB", { maximumFractionDigits: 2 }) : "—" },
+                          ...(selectedRegionPlace ? [{ label: "Region", value: selectedRegionPlace.label.replace(/ \(inc unallocated\)/i, "") }] : []),
+                          ...([["domestic", "Domestic"], ["transport", "Transport"], ["industry-commercial", "Industry & commercial"]] as const).flatMap(([sec, label]) => {
                             const ktoe = selectedPlace.sectors[sec]?.[String(y)] ?? 0;
-                            if (ktoe <= 0) return null;
-                            const v =
-                              intensityOn && selectedPop
-                                ? toePerResident(ktoe, selectedPop.persons)
-                                : ktoe / 1000;
-                            return (
-                              <div key={sec}>
-                                <dt>{label}</dt>
-                                <dd>{v.toLocaleString("en-GB", { maximumFractionDigits: 2 })}</dd>
-                              </div>
-                            );
-                          })}
-                          {selectedChangePct != null && !intensityOn && (
-                            <div>
-                              <dt>
-                                Change · {earliestGeo}–{y}
-                              </dt>
-                              <dd>
-                                {selectedChangePct > 0 ? "+" : ""}
-                                {selectedChangePct.toFixed(1)}%
-                              </dd>
-                            </div>
-                          )}
-                          {placeShareOfRegion != null && (
-                            <div>
-                              <dt>Share of region</dt>
-                              <dd>{placeShareOfRegion.toFixed(1)}%</dd>
-                            </div>
-                          )}
-                          {selectedPop && (
-                            <div>
-                              <dt>Residents · mid-{selectedPop.denomYear}</dt>
-                              <dd>{Math.round(selectedPop.persons).toLocaleString("en-GB")}</dd>
-                            </div>
-                          )}
-                        </dl>
+                            if (ktoe <= 0) return [];
+                            const v = intensityOn && selectedPop ? toePerResident(ktoe, selectedPop.persons) : ktoe / 1000;
+                            return [{ label, value: v.toLocaleString("en-GB", { maximumFractionDigits: 2 }) }];
+                          }),
+                          ...(selectedChangePct != null && !intensityOn ? [{ label: `Change · ${earliestGeo}–${y}`, value: `${selectedChangePct > 0 ? "+" : ""}${selectedChangePct.toFixed(1)}%` }] : []),
+                          ...(placeShareOfRegion != null ? [{ label: "Share of region", value: `${placeShareOfRegion.toFixed(1)}%` }] : []),
+                          ...(selectedPop ? [{ label: `Residents · mid-${selectedPop.denomYear}`, value: Math.round(selectedPop.persons).toLocaleString("en-GB") }] : []),
+                        ]} />
                       </>
                     ) : region && !placeQ.trim() ? (
                       <>
-                        <h3 className={s.stationName}>
-                          {selectedRegionPlace?.label.replace(/ \(inc unallocated\)/i, "") ??
-                            "Region"}
-                        </h3>
-                        <p className={s.stationValue}>
-                          <span className="bo-fig">
-                            {(() => {
-                              const row = geoRanks.find((r) => r.id === region);
-                              if (!row) return "—";
-                              return intensityOn
-                                ? row.v.toLocaleString("en-GB", { maximumFractionDigits: 2 })
-                                : (row.v / 1000).toLocaleString("en-GB", {
-                                    maximumFractionDigits: 1,
-                                  });
-                            })()}
-                          </span>
-                          <span className="bo-label">{intensityOn ? "toe/person" : "Mtoe"}</span>
-                        </p>
+                        <ReadoutCard placement="inline" head={`${selectedRegionPlace?.label.replace(/ \(inc unallocated\)/i, "") ?? "Region"} · ${y}`} rows={[
+                          { label: intensityOn ? "Tonnes of oil equivalent per resident" : "Consumption · Mtoe", value: (() => {
+                            const row = geoRanks.find((r) => r.id === region);
+                            if (!row) return "—";
+                            return intensityOn ? row.v.toLocaleString("en-GB", { maximumFractionDigits: 2 }) : (row.v / 1000).toLocaleString("en-GB", { maximumFractionDigits: 1 });
+                          })() },
+                        ]} />
                         <p className="bo-label">Authorities in this area</p>
                         {laRanks.length === 0 ? (
                           <p className={s.links}>No local-authority rows for this selection.</p>

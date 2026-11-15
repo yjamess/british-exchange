@@ -238,6 +238,21 @@
 .canvas[data-patches] {
   clip-path: inset(0 -100vmax -100vmax -100vmax);
 }
+/* Rail hop in flight: a solid paper veil over the previous domain, with one line. It appears
+   after a short delay so a warm hop (a few hundred ms) does not flash. */
+.busy {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background: var(--bo-paper);
+  padding: var(--bo-s6) 0;
+  color: var(--bo-ink);
+  animation: busyAppear 0s 220ms both;
+}
+@keyframes busyAppear {
+  from { visibility: hidden; }
+  to { visibility: visible; }
+}
 /* Decoration slot (sector art behind the content); its wrapper takes no grid row. */
 .decor {
   display: contents;
@@ -289,7 +304,8 @@
   color: var(--bo-text);
 }
 .question {
-  margin: var(--bo-s5) 0 0;
+  /* The head grid supplies equal spacing from the breadcrumb rule and to the tabs. */
+  margin: 0;
   font-family: var(--bo-f-head);
   font-weight: 400;
   font-size: clamp(2.2rem, 3.6vw, 3.25rem);
@@ -695,8 +711,8 @@ p.stageTitle,
 .record {
   min-width: 0;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: var(--bo-s3) var(--bo-s4);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bo-s2) var(--bo-s4);
   align-items: start;
   margin: 0;
   font: var(--bo-t-note)/1.5 var(--bo-f-body);
@@ -705,10 +721,11 @@ p.stageTitle,
 .record[data-notes="false"] {
   grid-template-columns: minmax(0, 1fr) auto;
 }
-.recordDetails { min-width: 0; }
+.recordDetails { min-width: 0; grid-column: 1; grid-row: 1; }
 .recordSummary {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   gap: 10px;
   width: fit-content;
   padding: 4px 0;
@@ -718,7 +735,8 @@ p.stageTitle,
   font-size: var(--bo-t-small);
 }
 .recordSummary::-webkit-details-marker { display: none; }
-.recordMark { position: relative; width: 10px; height: 10px; flex: none; }
+.recordSummary > span:nth-child(2) { white-space: nowrap; }
+.recordMark { position: relative; width: 10px; height: 10px; flex: none; align-self: center; }
 .recordMark::before,
 .recordMark::after { content: ""; position: absolute; background: var(--bo-ink); }
 .recordMark::before { left: 0; top: 4px; width: 10px; height: 1px; }
@@ -738,16 +756,51 @@ p.stageTitle,
 .recordPanel p { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
 .recordPanel p + p { margin-top: var(--bo-s3); }
 .recordPanel :global(.bo-label) { display: block; margin-bottom: 4px; color: var(--bo-ink); }
+.recordTerms {
+  display: grid;
+  gap: var(--bo-s2);
+  margin: 0;
+}
+.recordTerms > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
+  gap: var(--bo-s3);
+  align-items: baseline;
+}
+.recordTerms dt {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+.recordTerms dt a { color: inherit; text-decoration: none; }
+.recordTerms dt a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.recordTerms dd { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
+@media (max-width: 560px) {
+  .recordTerms > div { grid-template-columns: 1fr; gap: 2px; }
+}
 .recordSource {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: var(--bo-t-note);
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--bo-text);
-  text-align: right;
-  overflow-wrap: anywhere;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+.record[data-notes="false"] .recordSource {
+  grid-column: 1;
+  grid-row: 1;
+}
+.record[data-notes="false"] .recordData {
+  grid-column: 2;
+  grid-row: 1;
 }
 .recordData {
-  margin-top: 4px;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  margin: 0;
   font-family: var(--bo-f-data);
   font-size: var(--bo-t-label);
   font-weight: 500;
@@ -797,9 +850,11 @@ p.stageTitle,
 .sourceId:focus-visible, .sourceSummary:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 3px; }
 @media (max-width: 640px) {
   .record { grid-template-columns: minmax(0, 1fr) auto; }
-  .recordDetails { grid-column: 1 / -1; }
-  .recordSource { grid-column: 1; text-align: left; }
-  .recordData { grid-column: 2; }
+  .recordDetails { grid-column: 1; grid-row: 1; }
+  .recordData { grid-column: 2; grid-row: 1; }
+  .recordSource { flex-basis: 100%; padding-left: 20px; }
+  .record[data-notes="false"] .recordSource { grid-column: 1; grid-row: 1; }
+  .record[data-notes="false"] .recordData { grid-column: 2; grid-row: 1; }
 }
 @media (max-width: 560px) {
   .sourceLine { gap: var(--bo-s2); }
@@ -1127,4 +1182,10 @@ p.stageTitle,
 }
 .menuYear {
   min-width: 5.75rem;
+}
+
+/* Loading skeleton: the rail's column, empty, so the canvas sits where it will. */
+.skeletonRail {
+  border-right: var(--bo-rule);
+  min-height: 26rem;
 }

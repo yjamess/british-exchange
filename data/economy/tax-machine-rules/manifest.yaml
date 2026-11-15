@@ -1,0 +1,84 @@
+indicator_id: tax-machine-income-tax-rules
+title: Tax Machine income-tax + employee Class 1 NICs rules
+sector: economy-public-finance
+publisher: HMRC / GOV.UK (rates and allowances); Scottish Income Tax via GOV.UK
+source_url: https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past
+series_id: tax-machine-statute-pin
+geography: England, Wales and Northern Ireland (full PAYE-style tables); Scotland
+  as labelled alternate income-tax bands. NICs thresholds are UK-wide for Class 1
+  in this pin.
+frequency: ad_hoc
+unit: GBP thresholds / percent rates / GBP modelled liability
+definition: Dated statutory Personal Allowance, income-tax bands/rates, and employee
+  Class 1 (category A) NICs thresholds/rates for tax years 2025–26 and 2026–27, plus
+  hypothetical worked liabilities. Educational Tax Machine evidence — not observed
+  receipts and not tax advice. Income tax and NICs are separate stages.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tax_machine_rules
+curated_path: curated/observations.csv
+update_cadence: re-pin when GOV.UK rates pages update (typically each tax year)
+raw_evidence:
+- path: raw/2026-11-15/income_tax_rates.html
+  retrieved_at: '2026-11-15T14:08:01.172174+00:00'
+  checksum_sha256: c554bb32dd37880f4f83a3bdc98e8e8241133a90ff2746c3089388443883b279
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past
+- path: raw/2026-11-15/nics_rates.html
+  retrieved_at: '2026-11-15T14:08:01.292520+00:00'
+  checksum_sha256: d8d15066bccdbbd66223d9ee019947f47527db95b491ec8b133f5f86bc3d965d
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions
+- path: raw/2026-11-15/employers_2025_26.html
+  retrieved_at: '2026-11-15T14:08:01.576492+00:00'
+  checksum_sha256: c2984177ca616a9059630d6bcef5ecd6b9b4f373140f300d415f8a82e59a204a
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2025-to-2026
+- path: raw/2026-11-15/employers_2026_27.html
+  retrieved_at: '2026-11-15T14:08:01.737112+00:00'
+  checksum_sha256: 2161c1e6baceb9c23a455458b9c2b1d014a2f3751d2f69555df3ddb830814def
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027
+- path: raw/2026-11-15/scottish_2025_26.html
+  retrieved_at: '2026-11-15T14:08:01.844315+00:00'
+  checksum_sha256: 22d6bbbed7f6b408f5bb132c31ab425eec523220b710e0ef24d38efaa241764b
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/scottish-income-tax/2025-to-2026-tax-year
+transformations: Download GOV.UK HTML snapshots. Curated CSV/JSON tables are typed
+  extractions of published allowances, bands (income after allowances), and annual
+  Class 1 employee thresholds/rates. Worked examples recompute liabilities from curated
+  tables with documented exclusions. observations.csv stores key rule parameters as
+  Observation rows (dimensions in notes).
+revision_notes: Re-fetch HTML when HMRC updates rates pages. Do not invent missing
+  years. Scotland and E/W/NI must stay labelled separately.
+caveats: 'Educational illustration of dated statutory income-tax and employee Class
+  1 NICs rules — not tax advice and not a substitute for HMRC guidance or a personal
+  tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled
+  alternate band table. Statutory incidence (who the law charges) is not the same
+  as economic incidence (who ultimately bears the cost). Modelled liabilities are
+  not observed population tax paid. Exclusions: benefits in kind; pension contributions
+  / relief; marriage allowance; blind person''s allowance; student loan repayments;
+  savings / dividend income (starting rate for savings and dividend rates out of scope);
+  personal allowance taper for income above £100,000 (examples stay at or below £100,000);
+  employer Class 1 NICs (employer stage not modelled); married women''s reduced NICs
+  rates / other category letters (category A only); corporation tax, VAT, CGT, council
+  tax. Kickoff preferred years were 2025–26 / 2024–25; this pin uses current + one
+  prior on 2026-11-15 retrieval → 2026–27 + 2025–26 (both published on GOV.UK).'
+status_note: Statute pin Ready (Validation PASS 2026-11-15). Tax Machine calculator
+  UI still Review Gate only — educational not advice.
+related_indicator_ids:
+- tax-receipts
+open_questions:
+- Extend pin to 2024–25 historical contrast later?
+notion_registry_url: https://app.notion.com/p/4196547176858125b10af2e78e4b5c6c
+schema_version: '1.0'

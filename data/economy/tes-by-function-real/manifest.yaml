@@ -1,0 +1,81 @@
+indicator_id: tes-by-function-real
+title: Public sector expenditure on services by function in real terms (PSS Table
+  4.3)
+sector: economy-public-finance
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-spending-statistics-release-july-2026
+series_id: PSS July 2026 Table 4.3
+geography: 'United Kingdom public sector (K02000001): central government, local government
+  and public corporations, including devolved administrations inside the functions'
+frequency: annual
+unit: £ billion, 2025-26 prices, financial year
+definition: HM Treasury Total Expenditure on Services (TES) by UN COFOG level 1, from
+  PSS July 2026 Table 4.3. Financial-year outturn from 2003-04 to 2025-26, £ billion,
+  one decimal place, 2025-26 prices. Each function is the published total (current
+  and capital already summed). EU transactions keep the published sign and sit inside
+  TES but outside the ten functions. The published TES total is stored because level-1
+  leaves can miss it by up to £0.2 billion. Accounting adjustments are the bridge
+  from TES to this table's Total Managed Expenditure. They are not a function. In
+  2025-26 these rows equal nominal Table 4.2. Health in 2024-25 is 250.8, against
+  Table 4.2 Health 242.4. Table 4.2 is not curated. Real-terms figures are the nominal
+  figures adjusted to 2025-26 price levels using GDP deflators from the Office for
+  National Statistics (released 30 June 2026). PESA plan years are not in these pins.
+  Where PESA prints plan years, it also uses OBR GDP deflator forecasts from the 3
+  March 2026 Economic and fiscal outlook. That forecast deflator is not applied here.
+  This table's real TME is not monthly ONS EBFT.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tes_by_function_real
+curated_path: curated/observations.csv
+update_cadence: PSS key series are updated in the November, February and April cycle.
+  Re-pin on a new edition; do not overwrite this checksum.
+raw_evidence:
+- path: raw/2026-11-15/July_PSS_2026_Chapter_4.xlsx
+  retrieved_at: '2026-11-15T20:57:21.296452+00:00'
+  checksum_sha256: 573625f73c0e311ff68c5635691801be955fd466cd9b5b4a0e00b8173852195c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a574aac822fbe6b8245c955/July_PSS_2026_Chapter_4.xlsx
+transformations: Download PSS July 2026 Chapter 4. Read sheet 4_3 for curated rows.
+  Keep financial years 2003-04 to 2025-26. Curate ten COFOG level-1 functions, EU
+  transactions, published TES, accounting adjustments, and table TME. All rows are
+  classification=total because the sheet does not split current and capital. Skip
+  of-which lines. Do not invent a residual for the £ billion rounding gap. Read sheet
+  4_2 only to prove Health 2024-25 is 242.4 nominal and that 2025-26 real equals nominal.
+  2025-26 observation_status=estimated. Notes use series, classification, role, fy,
+  cofog, label, table=4.3, price_base=2025-26, terms=real. Table TME notes set denominator=hmt-table-tme.
+revision_notes: PSS July 2026, file updated 2026-07-29. 2025-26 is the first outturn
+  estimate. Later PSS editions can revise these years. Compare sha256 before replacing
+  the raw workbook. Real-terms figures are the nominal figures adjusted to 2025-26
+  price levels using GDP deflators from the Office for National Statistics (released
+  30 June 2026).
+caveats: Unit is £ billion at 2025-26 prices, one decimal place. Do not mix these
+  rows with £ million Table 5.4 or Table 1.2. Real-terms figures are the nominal figures
+  adjusted to 2025-26 price levels using GDP deflators from the Office for National
+  Statistics (released 30 June 2026). PESA plan years are not in these pins. Where
+  PESA prints plan years, it also uses OBR GDP deflator forecasts from the 3 March
+  2026 Economic and fiscal outlook. That forecast deflator is not applied here. In
+  2024-25, Health is 250.8 (real) against Table 4.2 Health 242.4 (nominal). TES is
+  1,206.6 and accounting adjustments are 127.8; their sum is 0.1 below published table
+  TME 1,334.5. That rounding is stored as printed. No residual function. EU transactions
+  in 2024-25 are -1.5, so the ten functions are not TES on their own. Defence is the
+  UN COFOG definition, not the NATO definition. Public-sector debt interest is an
+  of-which line inside General public services and is not a separate curated function.
+  No Tax−Spend=Borrow identity. No OSCAR rows. No PESA plan years. These rows are
+  official HMT real-terms financial-year tables. They are not monthly EBFT divided
+  by CPIH or by the GDP deflator. Do not treat real HMT table TME as a real monthly
+  EBFT series.
+status_note: Financial-year outturn for 2003-04 to 2025-26 from PSS July 2026 Table
+  4.3, 2025-26 prices. 2025-26 is a first estimate and can still be revised. 2025-26
+  real equals nominal Table 4.2.
+related_indicator_ids:
+- tes-by-function
+- tme-del-ame-real
+- total-managed-expenditure
+open_questions:
+- Nominal Table 4.2 is checked in self-QA and is not its own pin.
+- Do not deflate monthly total-managed-expenditure to match this table.
+- Do not rescale these £ billion rows onto £ million Table 1.2.
+notion_registry_url: https://app.notion.com/p/4196547176858116bd53d358fb541942
+schema_version: '1.0'

@@ -1,0 +1,57 @@
+indicator_id: dmo-government-holdings
+title: Official government holdings of gilts (DMO D4L)
+sector: economy-public-finance
+publisher: DMO
+source_url: https://www.dmo.gov.uk/data/gilt-market/government-holdings/
+series_id: D4L
+geography: United Kingdom (K02000001); gilts held by CRND and the DMO
+frequency: monthly
+unit: £ million, nominal
+definition: Nominal value (£ million, excluding repo) of gilts held by the Commissioners
+  for the Reduction of the National Debt (CRND) and the DMO, month-end, summed across
+  gilts into total / conventional / index-linked. OFFICIAL holdings — NOT who owns
+  the debt. Excludes the Bank of England, local authorities and public corporations.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.dmo_government_holdings
+curated_path: curated/observations.csv
+update_cadence: monthly (month-end, ~10 working days after)
+raw_evidence:
+- path: raw/Government Holdings of Gilts Nov 14 2026.xls
+  retrieved_at: '2026-11-14T16:56:55.034546+00:00'
+  checksum_sha256: 3e086d618b565a559018e14ff4eff5ed339daa32f8566efdd9c7fa43103e4665
+  content_type: application/vnd.ms-excel
+  official_release_date: '2026-11-14'
+  http_status: null
+  source_url: https://www.dmo.gov.uk/data/gilt-market/government-holdings/
+transformations: 'Parse every ''Financial Year'' block of the D4L .xls (ISIN rows
+  × month columns named by each block''s header). Blank cells skipped. Sum gilts per
+  month: total, conventional, index-linked (name contains ''Index-linked''). notes:
+  series=<total|conventional|index-linked>; holder=CRND+DMO; valuation=nominal. Latest
+  month per series marked provisional. Latest per-gilt month-end snapshot in curated/latest_snapshot_by_gilt.csv
+  (side file, not observations).'
+revision_notes: Browser export pinned 14 Nov 2026 (data date 14 Nov 2026; latest month
+  column Oct 2026). Re-pin monthly. Earlier months may be restated by DMO.
+caveats: 'NOMINAL, official holdings only: ≠ ONS market-value sector holdings (gilt-holdings-by-sector),
+  ≠ gilts in issue, ≠ PSND (HF6W). The file does not state whether index-linked rows
+  are inflation-uplifted. Validation evidence (D11b) says they are NOMINAL (not uplifted):
+  D4L index-linked is ~£2.1bn while the QR gross-minus-net gap is ~£5.0bn uplifted,
+  and D4L x the D1A uplift ratio lands within ~3% of that gap. DMO has not confirmed
+  this, so never add D4L index-linked to uplifted totals. Bank of England APF gilts
+  are NOT in this series. Totals are Exchange-derived sums of gilt rows (the file
+  has no total row), not a DMO-published figure.'
+status_note: 'Validation pass with warnings (qa_report_economy_08_debt_ownership_2026-11-14.md):
+  777/777 values re-summed from the raw xls; conventional ties to QR gross-minus-net
+  within £0.01bn. Warning: index-linked basis is evidence-based (nominal), DMO confirmation
+  pending.'
+related_indicator_ids:
+- gilt-holdings-by-sector
+- dmo-gilts-in-issue
+- dmo-debt-portfolio-composition
+- dmo-gilt-future-redemptions
+open_questions:
+- Ask DMO to confirm index-linked D4L figures are nominal (Validation D11b evidence
+  says nominal, not uplifted; unconfirmed).
+- 'Validation: spot-check a month against the DMO D4L web table / D1A.'
+notion_registry_url: ''
+schema_version: '1.0'

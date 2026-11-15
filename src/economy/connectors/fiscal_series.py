@@ -248,8 +248,11 @@ TOTAL_MANAGED_EXPENDITURE = OnsSeriesSpec(
     unit="£ million, NSA",
     definition=(
         "Public sector total managed expenditure (TME), £ million current "
-        "prices NSA. ONS CDID EBFT in PUSF — open monthly series matching "
-        "the HMT/OBR TME concept published via ONS Public Sector Finances."
+        "prices NSA. ONS CDID EBFT in PUSF — open monthly National Accounts "
+        "aggregate matching the HMT/OBR TME concept (public-sector current "
+        "expenditure plus public-sector gross investment). HMT presents TME "
+        "as DEL + AME (plus accounting adjustments in PESA/PSS tables); this "
+        "row is the ONS monthly TME level, not a departmental outturn table."
     ),
     frequency="monthly",
     period_kind="months",
@@ -258,11 +261,17 @@ TOTAL_MANAGED_EXPENDITURE = OnsSeriesSpec(
     update_cadence="monthly (ONS Public Sector Finances)",
     transformations=_PUSF_TRANSFORM,
     revision_notes=_PUSF_REVISIONS,
-    caveats=_PUSF_CAVEATS,
+    caveats=(
+        _PUSF_CAVEATS
+        + " TME is the consolidated public-sector spending aggregate — not "
+        "the same as HMT departmental DEL outturn, OSCAR organisation lines, "
+        "or 'services people receive' (PESA TES / COFOG). Do not invent "
+        "function shares or residual identities with tax-receipts / borrowing."
+    ),
     related_indicator_ids=_related_except("total-managed-expenditure"),
     open_questions=[
-        "Cross-check annual TME against HMT OSCAR / OBR Economic and Fiscal "
-        "Outlook tables in Validation?",
+        "Cross-check annual TME against HMT PESA/PSS Table 1.1 and OBR EFO "
+        "in Validation (levels / FY, not OSCAR drill-down)?",
     ],
 )
 
@@ -270,16 +279,17 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
     indicator_id="business-investment",
     title="Business investment",
     series_id="NPEL",
-    dataset_id="QNA",
+    dataset_id="PN2",
     landing_url=(
-        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/qna"
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/npel/pn2"
     ),
     unit="£ million chained volume, SA",
     definition=(
         "UK business investment (GFCF) in chained volume measures, seasonally "
-        "adjusted, £ million. ONS CDID NPEL in dataset QNA (live vintage; "
-        "the PN2 landing is frozen at 2026-08-12). Also published in the "
-        "business investment releases."
+        "adjusted, £ million. ONS CDID NPEL in dataset PN2 (GDP first "
+        "quarterly estimate — live vintage as of 2026-11-14; prefer QNA when "
+        "its releaseDate is newer). Also published in the business investment "
+        "releases."
     ),
     frequency="quarterly",
     period_kind="quarters",
@@ -289,21 +299,18 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
         "quarterly (ONS GDP first estimate / QNA; Blue Book annually)"
     ),
     transformations=(
-        "Download ONS timeseries JSON (NPEL/QNA /data). Keep only the "
+        "Download ONS timeseries JSON (NPEL/PN2 /data). Keep only the "
         "quarters array (annual aggregates omitted). Map year+Q→ISO "
         "calendar-quarter bounds. Geography fixed to K02000001 / "
         "United Kingdom. Values parsed as float £m; empty → missing. "
-        "observation_status=provisional (QNA vintage; ONS revises history)."
+        "Latest quarter provisional; older quarters final."
     ),
     revision_notes=(
         "NPEL levels revise with GDP/QNA releases and Blue Book CVM rebasing. "
         "Re-fetch and re-pin raw JSON; compare checksums. "
-        "observation_status stays provisional to signal revision risk. "
-        "Source switched PN2→QNA on 2026-11-11 (Orchestrator source policy). "
-        "Vintage evidence: QNA 2026-09-29 latest quarter is 83,534 vs 78,413 "
-        "in the retired PN2 2026-08-12 pin (+6.5%); level ratio is "
-        "non-uniform (0.951–1.080) so 2026 Q2 YoY growth is +5.2% on QNA "
-        "vs +0.8% on PN2. Never mix vintages in one chart."
+        "Orchestrator 2026-11-14: live pin is PN2 (aligned with ABMI/IHXW). "
+        "Aug-2026 PN2 vs Sep-2026 QNA level ratio was non-uniform "
+        "(0.951–1.080) — never mix vintages in one chart."
     ),
     caveats=(
         "Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website "
@@ -312,7 +319,7 @@ BUSINESS_INVESTMENT = OnsSeriesSpec(
         "Annual rows present in raw JSON but not written to curated."
     ),
     related_indicator_ids=["real-gdp"],
-    # Resolved 2026-11-11: Orchestrator chose QNA over the frozen PN2 landing.
+    # Orchestrator 2026-11-14: PN2 for first-estimate cadence (see real_gdp).
     open_questions=[],
 )
 

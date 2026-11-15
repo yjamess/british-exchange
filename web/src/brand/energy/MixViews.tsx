@@ -25,11 +25,11 @@ type Props = {
 const ORDER: LongFuelId[] = ["coal", "oil", "gas", "nuclear", "renewables", "other", "storage", "unallocated"];
 const FUELS = ORDER.map((id) => LONG_FUELS.find((f) => f.id === id)!);
 
-/** Line ink: the fuel's chart token; other fuels take plum so they never read as nuclear (electric),
+/** Line ink: the fuel's chart token; other fuels take violet so they never read as nuclear (electric),
  *  storage takes green. Only "not allocated" is dashed slate: a reconciliation, not an observed fuel.
  *  (Dotted means provisional in the line language, so no fuel is dotted.) */
 const stroke = (f: LongFuel) =>
-  f.fill.kind === "solid" ? f.fill.color : f.id === "other" ? "var(--bo-chart-5)" : f.id === "storage" ? "var(--bo-green)" : "var(--bo-chart-reference)";
+  f.fill.kind === "solid" ? f.fill.color : f.id === "other" ? "var(--bo-chart-6)" : f.id === "storage" ? "var(--bo-green)" : "var(--bo-chart-reference)";
 const dash = (f: LongFuel) => (f.fill.kind === "outline" ? "3 3" : undefined);
 const fmtV = (m: Measure) => (m === "share" ? fmtPct : fmtTWh);
 

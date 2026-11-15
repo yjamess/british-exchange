@@ -1,0 +1,6 @@
+cdid,role,slug,label,source
+MF6P,component,cg-taxes,Total central government taxes,pusf-json
+AIIH,component,social-contributions,Social contributions (mainly NICs),pusf-json
+NMHM,component,council-tax,Council tax,pusf-json
+AHGR,component,other-lg-taxes,Other local government taxes,appendix-d-time-series
+AHHY,total,tax-receipts,Total PS taxes + NICs,ready-tax-receipts-cross-check-only

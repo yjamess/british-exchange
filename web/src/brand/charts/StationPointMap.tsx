@@ -11,6 +11,7 @@
  * station. Focus is a Signal ring. Hover is an ink hairline.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import {
   MAP_HEIGHT,
@@ -170,18 +171,18 @@ export function StationPointMap({
     return p.matrixTransform(svg.current!.getScreenCTM()!.inverse());
   };
 
-  const caption = hovered
-    ? `${hovered.name} · ${hovered.mw.toLocaleString("en-GB")} MW${stationPlace(hovered) ? ` · ${stationPlace(hovered)}` : ""}`
-    : selected
-      ? `${selected.name} · selected`
-      : "";
+  const focus = hovered ?? selected;
 
   return (
     <div className={s.wrap}>
       <div className={s.surface}>
         <div className={s.caption}>
           <span className="bo-label">Great Britain · installed capacity</span>
-          <span>{caption}</span>
+          {focus && <ReadoutCard placement="inline" head={focus.name} style={{ maxWidth: 340, pointerEvents: "none" }} rows={[
+            { label: "Installed capacity", value: `${focus.mw.toLocaleString("en-GB")} MW` },
+            { label: "Technology group", value: FAMILY_LABEL[stationGroup(focus)] },
+            ...(stationPlace(focus) ? [{ label: "Place", value: stationPlace(focus) }] : []),
+          ]} />}
         </div>
 
         <div className={s.tools} role="group" aria-label="Map controls">
@@ -305,7 +306,6 @@ export function StationPointMap({
                     }
                   }}
                 >
-                  <title>{`${p.name} · ${p.mw.toLocaleString("en-GB")} MW · ${FAMILY_LABEL[group]}`}</title>
                   <rect className={s.hit} x={cx - hit} y={cy - hit} width={hit * 2} height={hit * 2} />
                   {mark(group, cx, cy, half)}
                 </g>

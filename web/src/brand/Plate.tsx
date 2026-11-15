@@ -270,6 +270,36 @@ export const MANUFACTURING_PLATES = {
 } as const satisfies Record<string, { src: string; alt: string }>;
 
 /**
+ * Work-section specimens — one per SIC 2007 section (A–T), the ONS JOBS02 industry groups,
+ * keyed by section letter. Matched set from work-sections.py: same camera, floor and light as
+ * the manufacturing set. Illustrative forms of the kit each kind of work is done with;
+ * plate size is never jobs or share.
+ */
+const work = (file: string, alt: string) => ({ src: `/brand/plates/w-${file}.png`, alt: `Halftone specimen drawing of ${alt}` });
+export const WORK_PLATES = {
+  A: work("farming", "a tractor"),
+  B: work("mining", "a pithead headframe with its winding wheel"),
+  C: work("factory", "a north-light factory with three roof bays and a chimney"),
+  D: work("power", "a lattice pylon with three crossarms"),
+  E: work("water", "a water tower beside a wheelie bin"),
+  F: work("construction", "a tower crane on its base block"),
+  G: work("retail", "a shop shelving unit stocked with goods"),
+  H: work("transport", "an articulated lorry"),
+  I: work("hospitality", "a laid table with a teapot, two cups and a cake stand"),
+  J: work("telecoms", "a telecom mast with panel antennas and a dish"),
+  K: work("finance", "a safe with a dial beside a strongbox"),
+  L: work("property", "a front door in a brick wall with a sale board"),
+  M: work("science", "a microscope"),
+  N: work("admin", "a filing cabinet with one drawer open"),
+  O: work("civic", "a stone portico with four columns"),
+  P: work("education", "a blackboard on an easel beside a stack of books"),
+  Q: work("health", "a hospital bed with a raised head section"),
+  R: work("recreation", "a football goal with a ball"),
+  S: work("services", "a washing machine beside a laundry basket"),
+  T: work("household", "a bucket with a mop and a broom"),
+} as const satisfies Record<string, { src: string; alt: string }>;
+
+/**
  * Penship icons — 2D technical pen lines (penship-icons.py).
  * Use for condensed nav when a clear symbol reads better than a scene crop.
  */

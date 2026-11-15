@@ -7,6 +7,7 @@
  * (lodgements count or A–C share of lodgements). Survey ≠ register.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useMemo } from "react";
 import { RegionMap, type RegionDatum } from "@/brand/map";
 import {
@@ -426,14 +427,10 @@ function EpcGeography({ state, onChange, evidence, failed }: GeoShared) {
             <p className="bo-label">In focus</p>
             {selected ? (
               <>
-                <p className={mapCss.placeName}>{selected.label}</p>
-                <p className={`bo-fig ${mapCss.readoutValue}`}>{fmtValue(selected.v)}</p>
-                <p className={mapCss.readoutMeta}>
-                  {measureLabel.toLowerCase()} · {quarterLabel(period)}
-                  {england != null
-                    ? ` · England ${measure === "band-ac" ? pct(england) : fmt.count(england)}`
-                    : ""}
-                </p>
+                <ReadoutCard placement="inline" head={`${selected.label} · ${quarterLabel(period)}`} rows={[
+                  { label: measureLabel, value: fmtValue(selected.v) },
+                  ...(england != null ? [{ label: "England", value: measure === "band-ac" ? pct(england) : fmt.count(england) }] : []),
+                ]} />
               </>
             ) : (
               <p className={mapCss.readoutMeta}>

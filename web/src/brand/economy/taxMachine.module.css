@@ -1,0 +1,214 @@
+/* Tax 02 — The Tax Machine. One engraved rule of gross income; bands are measured segments
+   filled with pen patterns in one ink, and the tax taken from each band is drawn beneath on the
+   same pounds scale. Never opacity; type is never faded. */
+
+.root {
+  container-type: inline-size;
+  container-name: taxmachine;
+  display: grid;
+  gap: var(--bo-s5);
+  width: 100%;
+  min-width: 0;
+}
+
+.strip {
+  position: relative;
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+/* Hover readout for a row — the same card as TimeChart's inspect readout. */
+.rowHit {
+  fill: transparent;
+  stroke: none;
+}
+.stripHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bo-s2) var(--bo-s4);
+}
+.stripTitle {
+  color: var(--bo-ink);
+}
+.stripFig {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 300;
+  font-size: var(--bo-t-fig);
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.stripFig small {
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+  margin-left: var(--bo-s2);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--bo-f-data);
+}
+
+/* Marks */
+.rule {
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+.tick {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.tickMinor {
+  stroke: var(--bo-ink-40);
+  stroke-width: 1;
+}
+.tickText {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  fill: var(--bo-text);
+}
+.label {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  fill: var(--bo-ink);
+  text-transform: uppercase;
+}
+.labelFig {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 300;
+  font-size: var(--bo-t-fig-s);
+  fill: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.rowLabel {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  fill: var(--bo-ink);
+}
+.rowNote {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.04em;
+  fill: var(--bo-text);
+}
+
+/* Pattern primitives (same grammar as Housing's Supply Machine). */
+.inkFill {
+  fill: var(--bo-ink);
+}
+.penLine {
+  stroke: var(--bo-ink);
+  stroke-width: 0.9;
+}
+
+/* Segments: the taxed part of a band is filled; the part the income never reaches is an
+   outline only; the allowance (no tax) is a dashed outline. */
+.seg {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.segEmpty {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.segAllowance {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+.segOpen {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.taxBar {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.pointer {
+  fill: var(--bo-ink);
+}
+.pointerOpen {
+  fill: var(--bo-paper);
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
+}
+.pointerLine {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.stem {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+.nicTick {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.earnMark {
+  stroke: var(--bo-ink);
+  stroke-width: 2.5;
+}
+.cfTick {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.gapRow {
+  stroke: var(--bo-ink-40);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+/* Key — same grammar as SeriesLegend under a line chart: mark · name · value. */
+.key {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bo-s1) var(--bo-s5);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+.key li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bo-s2);
+  min-width: 0;
+}
+.key svg {
+  flex: none;
+}
+.key b {
+  font-weight: 600;
+  color: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.keyTotal {
+  margin-left: auto;
+}
+
+/* Exact steps — closed disclosure, as TimeChart's Exact values. */
+.exact {
+  display: grid;
+  gap: var(--bo-s3);
+  border-top: var(--bo-hair);
+  padding-top: var(--bo-s3);
+  min-width: 0;
+}
+.exact > :global(summary) {
+  cursor: pointer;
+}

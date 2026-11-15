@@ -12,6 +12,7 @@ import { fmt, fmtT } from "../../../data";
 import { RankBars, TimeChart } from "../../../instrument/TimeChart";
 import type { HousingV1 } from "../../load";
 import gen from "../../../energy/generation.module.css";
+import { Term } from "../../..";
 
 type Props = {
   vacancy: HousingV1["vacancy"];
@@ -74,7 +75,7 @@ export function VacancyView({ vacancy, secondHomes }: Props) {
   return (
     <div className={gen.stack}>
       <section className={gen.panel}>
-        <h3 className={t.stageTitle}>England · vacant dwellings over time</h3>
+        <h3 className={t.stageTitle}>England · <Term slug="vacant">vacant dwellings</Term> over time</h3>
         <TimeChart
           series={series}
           cadence="annual"

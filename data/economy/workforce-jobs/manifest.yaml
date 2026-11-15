@@ -1,0 +1,69 @@
+indicator_id: workforce-jobs
+title: Workforce jobs (UK total)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/dydc/lms
+series_id: DYDC
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: Thousands of jobs, SA
+definition: UK total workforce jobs, seasonally adjusted, thousands. ONS CDID DYDC
+  in LMS (JOBS01 family). Jobs measure (employer surveys + LFS components) — not the
+  same as LFS employed people (LF2G/MGRZ). Industry sections live in JOBS02 — not
+  this single series.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.workforce_jobs
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS vacancies and jobs / workforce jobs)
+raw_evidence:
+- path: raw/2026-11-14/dydc_lms.json
+  retrieved_at: '2026-11-14T22:59:59.361975+00:00'
+  checksum_sha256: 03d34d073c6b5bcddbcd5a24e1ec54042590a20b45ec40acc3339eb9a3ba85a6
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/dydc/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array.
+  Map year+Q → ISO quarter bounds. Geography K02000001. observation_status=provisional
+  (ONS revises).
+revision_notes: Workforce jobs revise with QBS/QPSES/LFS inputs and annual benchmarking
+  (typically December). Prefer JOBS02 for industry breakdown; link Energy manufacturing-employment
+  — never fork.
+caveats: Jobs ≠ people in employment. One person can hold more than one job. National
+  total only. Industry sections are workforce-jobs-by-industry (JOBS02 levels,
+  not shares). Section C is the same published series as Energy
+  manufacturing-employment (JWR7). Do not fork that indicator. BRES stays
+  with Energy.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- inactivity-reason-other
+- uk-vacancies
+- average-actual-weekly-hours
+- employment-full-time
+- employment-part-time
+- real-earnings
+- real-gdp
+- manufacturing-employment
+- workforce-jobs-by-industry
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41865471768581c38bcafcb0c97f907e
+schema_version: '1.0'

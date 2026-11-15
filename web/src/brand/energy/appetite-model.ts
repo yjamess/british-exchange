@@ -54,8 +54,7 @@ export const SCOPE_LABEL: Record<SectorId, string> = {
 };
 
 /**
- * Fuel groups. Seven carriers, five chart colours: manufactured gas reuses plum (coal-derived, like
- * solid fuels) and heat reuses Union, both hatched so they never read as the same carrier.
+ * Seven fuel carriers use distinct Electric spectrum inks; existing print patterns remain.
  */
 export const FUEL_GROUPS: { id: string; label: string; color: string; print: Print; match: (fuel: string) => boolean }[] = [
   { id: "petroleum", label: "Petroleum", color: "var(--bo-chart-2)", print: "screen", match: (f) => /petroleum/i.test(f) },
@@ -68,9 +67,9 @@ export const FUEL_GROUPS: { id: string; label: string; color: string; print: Pri
     print: "screen",
     match: (f) => /(^|- )coal$|^coal$|coke and breeze|other solid fuels/i.test(f),
   },
-  { id: "manufactured-gas", label: "Town & coke oven gas", color: "var(--bo-chart-5)", print: "hatch", match: (f) => /town gas|coke oven gas/i.test(f) },
+  { id: "manufactured-gas", label: "Town & coke oven gas", color: "var(--bo-chart-6)", print: "hatch", match: (f) => /town gas|coke oven gas/i.test(f) },
   { id: "bioenergy", label: "Bioenergy & waste", color: "var(--bo-chart-4)", print: "screen", match: (f) => /bioenergy/i.test(f) },
-  { id: "heat", label: "Heat sold", color: "var(--bo-chart-3)", print: "hatch", match: (f) => /^heat$/i.test(f) },
+  { id: "heat", label: "Heat sold", color: "var(--bo-chart-7)", print: "hatch", match: (f) => /^heat$/i.test(f) },
 ];
 
 type Cell = { sector: string; fuel: string; year: number; v: number };

@@ -13,6 +13,7 @@ import { RankBars, TimeChart } from "../../../instrument/TimeChart";
 import type { HousingV1 } from "../../load";
 import s from "./insecurity.module.css";
 import gen from "../../../energy/generation.module.css";
+import { Term } from "../../..";
 
 type Ins = HousingV1["insecurity"];
 
@@ -147,7 +148,7 @@ export function CostOfInsecurity({ insecurity, year }: Props) {
       </section>
 
       <section className={gen.panel}>
-        <h3 className={t.stageTitle}>Households in temporary accommodation · England · 31 March stock</h3>
+        <h3 className={t.stageTitle}>Households in <Term slug="temporary-accommodation">temporary accommodation</Term> · England · 31 March stock</h3>
         <p className={s.metaLine}>
           Stock at the end of each financial year, shown beside the spend — not a cost per household.
         </p>

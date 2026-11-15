@@ -2,9 +2,11 @@
 
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { useDomainData } from "../template/useDomainData";
+import { useHeroSize } from "../template/useHeroSize";
 import { SectorPage, PlateBand, FieldBand, ridgesField, fmt, fmtT, toT, type Pt, type SectorStat } from "..";
 import type { HousingV1 } from "./load";
-import { HousingExplorer } from "./canvas/HousingExplorer";
+import { DOMAIN_IDS, HousingExplorer } from "./canvas/HousingExplorer";
 import type { DomainId } from "./canvas/model";
 import type { PricesMapPayload } from "./canvas/PricesMapStage";
 
@@ -104,9 +106,17 @@ export function HousingPage({
   /** Atlas + boundaries for Domain 03 Affordability Map (null if unavailable). */
   affordMap?: PricesMapPayload | null;
 }) {
-  const searchParams = useSearchParams();
-  // The bare /housing URL is the landing. A domain in the query is a sub-page.
-  const hero = searchParams.get("domain") ? "band" : "full";
+  // Full plate on any fresh load; the band only after a domain hop in this visit.
+  const hero = useHeroSize(initialDomain);
+  // Rail hops fetch the next domain's payload and push the URL; the page never unmounts.
+  const rawDomain = useSearchParams().get("domain");
+  const urlDomain = (rawDomain && DOMAIN_IDS.has(rawDomain) ? rawDomain : initialDomain) as DomainId;
+  const hop = useDomainData<DomainId, HousingV1>({
+    endpoint: "/api/housing/domain",
+    initialDomain,
+    initialData: data,
+    urlDomain,
+  });
   return (
     <SectorPage
       name="Housing"
@@ -117,8 +127,9 @@ export function HousingPage({
       threshold={threshold === "plate" ? <PlateBand plate="landPlots" /> : threshold === "ridges" ? <RidgesBand data={data} /> : undefined}
     >
       <HousingExplorer
-        data={data}
+        data={hop.data}
         initialDomain={initialDomain}
+        hop={hop}
         stageBar={stageBar}
         ground={ground}
         pricesMap={pricesMap}

@@ -6,6 +6,7 @@
  * Search lives in the explorer control row; query is passed in.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useMemo } from "react";
 import { RegionMap } from "../map";
 import { RankBars } from "../instrument/TimeChart";
@@ -109,22 +110,11 @@ export function PricesGeography({
 
             {selectedRow && detail ? (
               <>
-                <h3 className={s.stationName}>{detail.label}</h3>
-                <p className={s.stationValue}>
-                  <span className="bo-fig">{format(detail.value)}</span>
-                  <span className="bo-label">a year</span>
-                </p>
+                <ReadoutCard placement="inline" head={detail.label} rows={[
+                  { label: "Annual bill", value: `${format(detail.value)} a year` },
+                  ...(detail.lines ?? []),
+                ]} />
                 {detail.note ? <p className={s.links}>{detail.note}</p> : null}
-                {detail.lines && detail.lines.length > 0 ? (
-                  <dl className={s.geoPanelMeta}>
-                    {detail.lines.map((line) => (
-                      <div key={line.label}>
-                        <dt>{line.label}</dt>
-                        <dd>{line.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                ) : null}
                 {!mapSelected ? (
                   <p className={s.links}>
                     Not drawn on the English map — use the ranked list for this area.

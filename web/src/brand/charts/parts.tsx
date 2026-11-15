@@ -7,7 +7,7 @@
  *  - Labels are mono, units are formatted, raw floats never reach the screen.
  */
 
-import type { ReactNode } from "react";
+import { ReadoutCard, type ReadoutRow } from "../instrument/ReadoutCard";
 import { yearTicks } from "../data";
 import c from "./charts.module.css";
 
@@ -49,20 +49,8 @@ export function TimeAxis({ t0, t1, x, f, maxTicks = 8 }: { t0: number; t1: numbe
 }
 
 /** Floating readout pinned to the top of the plot, flipping side near the right edge. */
-export function Readout({ x, f, children }: { x: number; f: Frame; children: ReactNode }) {
-  const flip = x > f.w * 0.66;
-  return (
-    <div
-      className={c.readout}
-      style={{
-        left: flip ? undefined : x + 10,
-        right: flip ? f.w - x + 10 : undefined,
-        top: f.t,
-      }}
-    >
-      {children}
-    </div>
-  );
+export function Readout({ x, f, head, rows }: { x: number; f: Frame; head: string | number; rows: ReadoutRow[] }) {
+  return <ReadoutCard head={head} rows={rows} style={{ left: Math.max(0, Math.min(x + 10, f.w - 340)), top: f.t }} />;
 }
 
 /** Spread end-labels vertically so they never overlap. */

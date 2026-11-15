@@ -1,0 +1,69 @@
+{
+  "overall": "pass",
+  "checks": [
+    {
+      "id": "R1_kai7_raw_present",
+      "result": "pass",
+      "notes": "path=kai7_emp.json"
+    },
+    {
+      "id": "R2_kai7_checksum",
+      "result": "pass",
+      "notes": "c23b05e8873d568c"
+    },
+    {
+      "id": "R3_profile_count_le_3",
+      "result": "pass",
+      "notes": "3"
+    },
+    {
+      "id": "R4_jurisdictions_separate",
+      "result": "pass",
+      "notes": "england-wales-ni,scotland"
+    },
+    {
+      "id": "R5_assumptions_present",
+      "result": "pass",
+      "notes": "earnings_measure+counterfactual"
+    },
+    {
+      "id": "R6_disclaimer",
+      "result": "pass",
+      "notes": "disclaimer"
+    },
+    {
+      "id": "R7_spot_liability_2021_22",
+      "result": "pass",
+      "notes": "pkg=3193.0 re=3193.0"
+    },
+    {
+      "id": "R8_scotland_2017_22_unchanged",
+      "result": "pass",
+      "notes": "rows=28 sha=c3ab0cbf7c6753e0"
+    },
+    {
+      "id": "R9_ewni_effective_rate_rises",
+      "result": "pass",
+      "notes": "1.75"
+    },
+    {
+      "id": "R10_ewni_cf_extra_tax_positive",
+      "result": "pass",
+      "notes": "623.4"
+    }
+  ],
+  "scotland_2017_22_fingerprint": {
+    "rows": 28,
+    "sha256": "c3ab0cbf7c6753e036b50feab5119211234d0251cd689a93694d1328d60a8f1a"
+  },
+  "kai7": {
+    "source": "live_ons",
+    "http_status": 200,
+    "source_url": "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp/data",
+    "checksum_sha256": "c23b05e8873d568c7cab0dd7779b442e9370bb477b1705c544bf34d1634c7c98",
+    "retrieved_at": "2026-11-15T15:37:15.501440+00:00",
+    "ons_release_date": "2026-10-19T23:00:00.000Z",
+    "ons_title": "AWE: Whole Economy Level (\u00a3): Seasonally Adjusted Regular Pay Excluding Arrears",
+    "ons_cdid": "KAI7"
+  }
+}

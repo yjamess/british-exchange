@@ -1,0 +1,103 @@
+{
+  "rule": "total == sum(instruments) within \u00a30.02bn; net total <= gross total",
+  "parts_checks": [
+    {
+      "valuation": "market-value",
+      "basis": "gross",
+      "as_of": "2025-09-30",
+      "total": 2370.59,
+      "sum_of_parts": 2370.59,
+      "ok": true
+    },
+    {
+      "valuation": "market-value",
+      "basis": "gross",
+      "as_of": "2025-12-31",
+      "total": 2484.57,
+      "sum_of_parts": 2484.57,
+      "ok": true
+    },
+    {
+      "valuation": "market-value",
+      "basis": "net",
+      "as_of": "2025-09-30",
+      "total": 2216.27,
+      "sum_of_parts": 2216.28,
+      "ok": true
+    },
+    {
+      "valuation": "market-value",
+      "basis": "net",
+      "as_of": "2025-12-31",
+      "total": 2327.87,
+      "sum_of_parts": 2327.86,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "gross",
+      "as_of": "2025-03-31",
+      "total": 2716.13,
+      "sum_of_parts": 2716.13,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "gross",
+      "as_of": "2025-06-30",
+      "total": 2794.99,
+      "sum_of_parts": 2794.99,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "gross",
+      "as_of": "2025-09-30",
+      "total": 2850.04,
+      "sum_of_parts": 2850.04,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "gross",
+      "as_of": "2025-12-31",
+      "total": 2908.65,
+      "sum_of_parts": 2908.65,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "net",
+      "as_of": "2025-03-31",
+      "total": 2558.02,
+      "sum_of_parts": 2558.02,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "net",
+      "as_of": "2025-06-30",
+      "total": 2614.63,
+      "sum_of_parts": 2614.63,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "net",
+      "as_of": "2025-09-30",
+      "total": 2672.28,
+      "sum_of_parts": 2672.28,
+      "ok": true
+    },
+    {
+      "valuation": "uplifted-nominal",
+      "basis": "net",
+      "as_of": "2025-12-31",
+      "total": 2731.49,
+      "sum_of_parts": 2731.49,
+      "ok": true
+    }
+  ],
+  "net_le_gross": true,
+  "pass": true
+}

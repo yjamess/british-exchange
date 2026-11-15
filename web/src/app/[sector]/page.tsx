@@ -10,6 +10,7 @@ import { resolveEnergyDomain } from "@/brand/energy/domain-sources";
 import { SECTOR_PAGES } from "@/brand/sector-pages";
 import { SectorTemplate } from "@/brand/template";
 import { fetchIndicators } from "@/lib/api";
+import { packTree } from "@/lib/wire";
 
 export const dynamic = "force-dynamic";
 
@@ -41,27 +42,8 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
     // Same pattern as Housing: hydrate only the selected domain's declared packs.
     const domain = resolveEnergyDomain(query.domain);
     const data = await loadEnergy(domain);
-    return (
-      <EnergySector
-        config={config}
-        titles={titles}
-        generation={data.generation}
-        capacity={data.capacity}
-        longRun={data.longRun}
-        yearMix={data.yearMix}
-        atlas={data.atlas}
-        consumption={data.consumption}
-        prices={data.prices}
-        fossils={data.fossils}
-        imports={data.imports}
-        manufacturing={data.manufacturing}
-        renewables={data.renewables}
-        networks={data.networks}
-        policyEvents={data.policyEvents}
-        policyPledges={data.policyPledges}
-        shockEvents={data.shockEvents}
-      />
-    );
+    // Packed by column (`packTree`): the HTML carries a fraction of the raw rows' bytes.
+    return <EnergySector config={config} titles={titles} data={packTree(data)} />;
   }
   if (sector === "economy") {
     const query = await searchParams;
@@ -73,16 +55,7 @@ export default async function SectorRoute({ params, searchParams }: Params & Sea
       redirect(`/economy?${u}`);
     }
     const data = await loadEconomy(domain);
-    return (
-      <EconomySector
-        config={config}
-        titles={titles}
-        inflation={data.inflation}
-        wages={data.wages}
-        debt={data.debt}
-        growth={data.growth}
-      />
-    );
+    return <EconomySector config={config} titles={titles} data={packTree(data)} />;
   }
   return <SectorTemplate config={config} titles={titles} />;
 }

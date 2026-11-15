@@ -1,0 +1,140 @@
+/* Wages 03 — Britain's wage ladder. A vertical pay scale with one rung per published
+   percentile. One ink on paper; rung spacing is measured, labels name what each rung is. */
+
+.root {
+  container-type: inline-size;
+  container-name: ladder;
+  display: grid;
+  gap: var(--bo-s3);
+  width: 100%;
+  min-width: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--bo-f-data);
+}
+
+.axis {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.grid {
+  stroke: var(--bo-ink-10);
+  stroke-width: 1;
+}
+.stile {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+}
+.stileOpen {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+.rung {
+  stroke: var(--bo-ink);
+  stroke-width: 1.5;
+}
+.rungMinor {
+  stroke: var(--bo-ink);
+  stroke-width: 1;
+}
+.rungMedian {
+  stroke: var(--bo-ink);
+  stroke-width: 3;
+}
+.rungOn {
+  stroke-width: 4;
+}
+.leader {
+  stroke: var(--bo-ink-40);
+  stroke-width: 1;
+}
+.tick {
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  fill: var(--bo-text);
+}
+.name {
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-ui);
+  fill: var(--bo-text);
+}
+.nameOn {
+  fill: var(--bo-ink);
+  font-weight: 500;
+}
+.value {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-weight: 300;
+  font-size: var(--bo-t-fig-s);
+  fill: var(--bo-ink);
+  font-variant-numeric: tabular-nums;
+}
+.share {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  fill: var(--bo-ink);
+  text-transform: uppercase;
+}
+.shareBar {
+  stroke: var(--bo-ink-20);
+  stroke-width: 6;
+}
+.tagBox {
+  fill: var(--bo-ink);
+}
+.tagText {
+  font-size: var(--bo-t-label);
+  letter-spacing: 0.06em;
+  fill: var(--bo-paper);
+  text-transform: uppercase;
+}
+.hit {
+  cursor: pointer;
+  outline: none;
+}
+.hit rect {
+  fill: transparent;
+}
+.hit:focus-visible rect {
+  stroke: var(--bo-signal);
+  stroke-width: 2;
+}
+
+.readout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bo-s1) var(--bo-s5);
+  align-items: baseline;
+  min-height: 2.5rem;
+  padding-top: var(--bo-s2);
+  border-top: var(--bo-hair);
+  font-size: var(--bo-t-note);
+  line-height: 1.45;
+  color: var(--bo-text);
+}
+@container ladder (min-width: 40rem) {
+  .readout {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+.readoutFig {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-size: var(--bo-t-fig);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  color: var(--bo-ink);
+  white-space: nowrap;
+}
+.readoutText b {
+  font-weight: 500;
+  color: var(--bo-ink);
+}

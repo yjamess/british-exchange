@@ -121,6 +121,17 @@
   }
 }
 
+/* Economy › What Britain Does for Work — small plate mark above a selected industry chart. */
+.industryLead {
+  width: min(7.5rem, 28%);
+  margin: 0 0 var(--bo-s3);
+}
+.industryLeadPlate {
+  aspect-ratio: 1;
+  width: 100%;
+  display: block;
+}
+
 /* Housing-style map + ranks split (Energy Geography). */
 .geoSplit {
   display: grid;

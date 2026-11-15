@@ -1,4 +1,4 @@
-"""ONS Business investment CVM SA (NPEL / QNA) — quarterly £m."""
+"""ONS Business investment CVM SA (NPEL / PN2) — quarterly £m."""
 
 from __future__ import annotations
 

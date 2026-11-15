@@ -12,6 +12,7 @@
  * One ink: layers are told apart by pen hatching and outline, not by fills of opacity.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { fmt, fmtT } from "../../../data";
 import type { HousingV1 } from "../../load";
@@ -589,17 +590,8 @@ function RecordCard({ dataset, layer, f, orgs, onClose }: { dataset: string; lay
           ×
         </button>
       </div>
-      <h3 className={s.placeTitle}>{p.name || p.reference || layer.label}</h3>
-      <dl>
-        {rows
-          .filter(([, v]) => v)
-          .map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-      </dl>
+      <ReadoutCard placement="inline" head={p.name || p.reference || layer.label}
+        rows={rows.filter(([, value]) => value).map(([label, value]) => ({ label, value }))} />
       <p className={s.caveat}>{CAVEAT[dataset]}</p>
       {(doc || p.entity) && (
         <p className={s.links}>

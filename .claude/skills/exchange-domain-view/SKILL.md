@@ -75,10 +75,17 @@ inside the stage, drawn in the house style. Everything around it is the template
 ```
 
 Pick the form from the identity doc's table: lines/stack → `TimeChart`; one period across
-categories → `RankBars`; two periods → `ChangeRows`; tables → `s.table` or `DataTable`.
+categories → `RankBars`; **places / geography → map** (`RegionMap` / `AreaMap` /
+`StationPointMap` / `WorldChoropleth` — never RankBars alone for a Geography view);
+two periods → `ChangeRows`; tables → `s.table` or `DataTable`.
 Line charts use `SeriesLegend` under the plot for names and latest values so the plot fills
 the stage. End-of-line leaders default **off** — pass `leaders={true}` only when deliberate.
 Empty states use `EmptyStage`.
+
+Chart inspection uses `ReadoutCard` from `@/brand` (Tax Machine reference): pass `head`,
+labelled `rows` (`label`, `value`, optional `tone` or `pattern`) and placement `style`.
+Even one figure keeps its label. `TimeChart` already supplies this card; do not fork
+its markup or CSS for a sector. The owning instrument keeps hover/keyboard state.
 
 ## 2b. Data tab and policy bodies
 

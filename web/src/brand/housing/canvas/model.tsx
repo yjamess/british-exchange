@@ -7,6 +7,7 @@ import type { HousingV1 } from "../load";
 import { priceCatalogue } from "./PricesData";
 import { INSECURITY_RECORDS } from "./insecurity/InsecurityData";
 import { qKey, stockLabel } from "./insecurity/periods";
+import { Term } from "../../term";
 
 /**
  * Housing explorer — model. One structure for every research domain:
@@ -123,8 +124,8 @@ function yearAgo(p: Pt[], cadenceSteps: number): Pt | undefined {
 export type Figure = { label: string; value: string; note: string };
 
 export type Stage = {
-  /** Figure title shown in the stage bar. */
-  title: string;
+  /** Figure title shown in the stage bar. May carry a <Term> marker. */
+  title: ReactNode;
   /** Time series behind the view (unclipped); empty for non-temporal views. */
   series: ChartSeries[];
   cadence: Cadence;
@@ -240,7 +241,7 @@ export const ENGLAND_CODE = "E92000001";
 
 /**
  * One series for a time chart. The id is how TimeChart chooses the ink
- * (Electric, then Ochre, Union, Verdigris, Plum) and keeps that choice.
+ * (the twelve Electric spectrum inks) and keeps that choice.
  * The label is the default id, so two series on one chart are not both "s".
  */
 function line(points: Pt[], label: string, id = label): ChartSeries[] {
@@ -394,7 +395,11 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         if (real) {
           const pts = d.priceReal.length > 0 ? d.priceReal : d.price;
           return {
-            title: "Average house price · real terms · United Kingdom",
+            title: (
+              <>
+                Average house price · <Term slug="real-terms">real terms</Term> · United Kingdom
+              </>
+            ),
             series: line(pts, "United Kingdom (real)"),
             cadence: "monthly",
             format: fmt.gbp,
@@ -414,7 +419,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
             derived:
               d.priceReal.length > 0
                 ? "Deflated by the ONS CPI all-items index (D7BT) to the latest CPI month. Exchange calculation"
-                : "CPI index not loaded yet — showing nominal prices",
+                : "Inflation index not loaded yet — showing nominal prices",
             reading: pricesHistoryReading(d, "real"),
           };
         }
@@ -492,7 +497,11 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
       }
       if (view === "types") {
         return {
-          title: "Average price by property type, nominal · United Kingdom",
+          title: (
+            <>
+              Average price by property type, <Term slug="nominal">nominal</Term> · United Kingdom
+            </>
+          ),
           series: d.types,
           cadence: "monthly",
           format: fmt.gbp,
@@ -535,7 +544,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
       if (view === "transactions") {
         return {
           title: "Recorded sales, and the monthly UK count",
-          series: line(d.sales, "UK HPI sales volume"),
+          series: line(d.sales, "Sales recorded (UK House Price Index)"),
           cadence: "monthly",
           format: fmt.count,
           plot: (sr, cad) => (
@@ -714,7 +723,7 @@ export function stageFor(domain: DomainId, view: string, c: Controls, d: Housing
         const eng = d.purchaseAffordRegions.find((r) => r.id === "E92000001");
         return {
           title: "Who can afford Britain · household income versus house prices",
-          series: eng ? line(eng.points, "England median/median") : line(d.afford, "England AFF1 (fallback)"),
+          series: eng ? line(eng.points, "England median/median") : line(d.afford, "England (price to earnings)"),
           cadence: "annual",
           format: (v) => `${v.toFixed(2)}×`,
           plot: () => null,
@@ -1395,8 +1404,8 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
       if (view === "transactions") {
         const paid = d.pricePaid;
         return [
-          sv && { label: "UK HPI sales", value: fmt.count(sv.v), note: `Monthly count · ${fmtT(sv.t)}` },
-          svCh && { label: "Volume on a year earlier", value: fmt.pctSigned(svCh.v), note: `UK HPI · ${fmtT(svCh.t)}` },
+          sv && { label: "Sales recorded · UK", value: fmt.count(sv.v), note: `House Price Index monthly count · ${fmtT(sv.t)}` },
+          svCh && { label: "Volume on a year earlier", value: fmt.pctSigned(svCh.v), note: `House Price Index · ${fmtT(svCh.t)}` },
           paid.available && paid.year != null
             ? {
                 label: `Price Paid ${paid.year}`,
@@ -1409,7 +1418,7 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
       if (view === "table") {
         return [
           p && { label: "Average price · UK", value: fmt.gbp(p.v), note: `Nominal · ${fmtT(p.t)}` },
-          real && { label: "CPI-adjusted · UK", value: fmt.gbp(real.v), note: `Latest CPI pounds · ${fmtT(real.t)}` },
+          real && { label: "In today’s pounds · UK", value: fmt.gbp(real.v), note: `Adjusted for inflation (CPI) · ${fmtT(real.t)}` },
           { label: "Series listed", value: String(priceCatalogue(d).length), note: "Coverage differs by row" },
         ].filter(Boolean) as Figure[];
       }
@@ -1525,7 +1534,7 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         return [
           a && { label: "Years of pay · England", value: fmt.ratio(a.v), note: fmtT(a.t, "annual") },
           a10 && { label: "Ten years earlier", value: fmt.ratio(a10.v), note: fmtT(a10.t, "annual") },
-          { label: "Geography", value: "E&W", note: "AFF1 local authorities · Scotland/NI unpublished" },
+          { label: "Geography", value: "E&W", note: "English and Welsh local authorities · Scotland and NI not published" },
         ].filter(Boolean) as Figure[];
       }
       if (view === "ages") {
@@ -1555,7 +1564,7 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
             value: `${(rentBurden.v * 100).toFixed(1)}%`,
             note: fmtT(rentBurden.t, "annual"),
           },
-          a && { label: "Years of pay · buy", value: fmt.ratio(a.v), note: "AFF1 workplace median" },
+          a && { label: "Years of pay · buy", value: fmt.ratio(a.v), note: "median price ÷ median workplace earnings" },
         ].filter(Boolean) as Figure[];
       }
       if (view === "households") {
@@ -1825,7 +1834,7 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
         if (id === "ehs-decent-homes") return row("Non-decent · England", decent, "Survey estimate · fails the Decent Homes Standard");
         if (id === "ehs-category-1-hazards") return row("Category 1 hazard · England", haz, "Survey estimate");
         if (id === "ehs-damp-surveyor") return row("Surveyor damp · England", damp, "Surveyor inspection · not a resident report");
-        if (id === "ehs-energy-efficiency-bands") return row("Bands A–C · England", energy, "EHS modelled · not the EPC register");
+        if (id === "ehs-energy-efficiency-bands") return row("Bands A–C · England", energy, "Survey estimate · not the certificate register");
         return [];
       }
       if (view === "energy") {
@@ -1839,7 +1848,7 @@ export function figuresFor(domain: DomainId, d: HousingV1, view = "", c?: Contro
           energy && {
             label: "Bands A–C · England",
             value: fmt.pct(energy.v),
-            note: "EHS modelled · not EPC register",
+            note: "Survey estimate · not the certificate register",
           },
           central && {
             label: "Central heating",

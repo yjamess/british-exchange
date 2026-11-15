@@ -68,50 +68,6 @@
   cursor: crosshair;
 }
 
-/* Paper card — matches instrument TimeChart readout (not ink-on-paper inverse). */
-.readout {
-  position: absolute;
-  z-index: 2;
-  top: 6px;
-  display: grid;
-  gap: 4px;
-  width: 200px;
-  padding: 10px 12px;
-  font-family: var(--bo-f-data);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--bo-ink);
-  background: var(--bo-paper);
-  border: var(--bo-rule);
-  pointer-events: none;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-.readout b {
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--bo-ink);
-}
-
-.readRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--bo-text);
-}
-
-.readRow > span:first-child {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.readRow i,
 .legend i {
   display: inline-block;
   width: 14px;
@@ -122,12 +78,10 @@
   background: var(--bo-paper);
 }
 
-.readRow i[data-pattern="solid"],
 .legend i[data-pattern="solid"] {
   background: var(--bo-ink);
 }
 
-.readRow i[data-pattern="hatch"],
 .legend i[data-pattern="hatch"] {
   background: repeating-linear-gradient(
     -45deg,
@@ -138,7 +92,6 @@
   );
 }
 
-.readRow i[data-pattern="stipple"],
 .legend i[data-pattern="stipple"] {
   background-image: radial-gradient(var(--bo-ink) 0.7px, var(--bo-paper) 0.8px);
   background-size: 3px 3px;

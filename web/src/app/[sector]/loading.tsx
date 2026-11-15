@@ -1,14 +1,6 @@
-import { BrandRoot } from "@/brand/BrandRoot";
+import { SectorSkeleton } from "@/brand/template/SectorSkeleton";
 
-/** Shown while a sector route (including Energy domain switches) reloads server data. */
+/** First render of a sector route on the way. Rail hops never show this; they fetch in place. */
 export default function Loading() {
-  return (
-    <BrandRoot>
-      <main style={{ padding: "clamp(24px, 5vw, 80px)" }} aria-busy="true">
-        <p className="bo-label" role="status">
-          Loading…
-        </p>
-      </main>
-    </BrandRoot>
-  );
+  return <SectorSkeleton />;
 }

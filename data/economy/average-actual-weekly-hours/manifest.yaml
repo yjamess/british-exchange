@@ -1,0 +1,61 @@
+indicator_id: average-actual-weekly-hours
+title: Average actual weekly hours (all workers)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ybuv/lms
+series_id: YBUV
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Hours per week, SA (main & 2nd job)
+definition: UK average actual weekly hours of work for all workers in main and second
+  job, seasonally adjusted. ONS CDID YBUV in LMS (HOUR01 SA family). Headline hours
+  series for The Working Week.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.average_actual_weekly_hours
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-14/ybuv_lms.json
+  retrieved_at: '2026-11-14T22:57:48.141389+00:00'
+  checksum_sha256: c921d1f97de5057879532a5b179da0c5c1c07b91c253a2d9bea3e61928dc7235
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ybuv/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS hours revise with reweighting and seasonal-adjustment updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Average hours across
+  workers with a main and/or second job — not total hours (YBUS) and not FT-only (YBUY).
+  Underemployment / FT–PT packs are separate EMP01 series if ingested later.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- inactivity-reason-other
+- uk-vacancies
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/418654717685812287abf07322e3768b
+schema_version: '1.0'

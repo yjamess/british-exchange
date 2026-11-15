@@ -6,6 +6,7 @@
  * Observation provisional flags are preserved for dotted traces and exact-value status.
  */
 
+import { createDomainCache } from "@/lib/domain-cache";
 import { apiBase, fetchIndicator, fetchObservations, fetchPackJson, type IndicatorMeta, type Observation } from "@/lib/api";
 import type { LocalPlanStatus } from "./canvas/land/LocalPlans";
 import { toT, type Pt } from "../data";
@@ -788,23 +789,14 @@ function rollingYear(q: Pt[]): Pt[] {
   });
 }
 
-/** Bound cached payloads by domain, never by every place/period query combination. */
-const HOUSING_CACHE_MS = 10 * 60 * 1000;
-const housingCache = new Map<HousingScope, { at: number; data: HousingV1 }>();
-const housingInflight = new Map<HousingScope, Promise<HousingV1>>();
+/**
+ * Bound cached payloads by domain, never by every place/period query combination.
+ * Stale entries are served and rebuilt in the background; a failed build keeps good data.
+ */
+export const housingDomainCache = createDomainCache<HousingScope, HousingV1>(buildHousing);
 
 export function loadHousing(scope: HousingScope = "all"): Promise<HousingV1> {
-  const cached = housingCache.get(scope);
-  if (cached && Date.now() - cached.at < HOUSING_CACHE_MS) return Promise.resolve(cached.data);
-  const inflight = housingInflight.get(scope);
-  if (inflight) return inflight;
-  const job = buildHousing(scope).then(({ data, complete }) => {
-    if (complete) housingCache.set(scope, { at: Date.now(), data });
-    // Keep good data during a temporary API outage rather than replacing it with holes.
-    return complete ? data : cached?.data ?? data;
-  }).finally(() => housingInflight.delete(scope));
-  housingInflight.set(scope, job);
-  return job;
+  return housingDomainCache.get(scope);
 }
 
 async function buildHousing(scope: HousingScope): Promise<{ data: HousingV1; complete: boolean }> {

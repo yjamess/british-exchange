@@ -1,0 +1,15 @@
+cdid,role,slug,label
+M98R,lhs,cgncr-ex-ukar-nr,CG net cash requirement (exc NRAM/B&B, Network Rail)
+LSIW,adj,adj-gilt-premia,Net premia/discounts of gilt issuances
+MW7L,adj,adj-il-gilt-uplift,Index-linked gilt capital uplift
+E3VL,adj,adj-other-gilt,Other gilt-related adjustments
+E3VM,adj,adj-reclass-imputed,Reclassifications and imputed liabilities
+N42A,adj,adj-official-reserves,Revaluation of official reserves
+E3VX,adj,adj-reserves-sdr,Official reserves SDRs
+N42C,adj,adj-national-savings,National savings and tax instruments
+N42E,adj,adj-debt-management-account,Debt management account
+N42F,adj,adj-foreign-currency,Other foreign currency revaluation
+E3VY,adj,adj-other-sterling-debt,Other sterling debt
+E3VZ,adj,adj-other-liquid-assets,Other liquid assets
+N42H,adj,adj-other,Other adjustments
+MW4W,rhs,cg-change-in-net-debt-ex-ukar-nr,Changes in CG net debt (exc NRAM/B&B, Network Rail)

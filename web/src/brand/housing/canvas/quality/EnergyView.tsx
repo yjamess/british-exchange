@@ -8,6 +8,7 @@
  * of a selected, non-exhaustive population).
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useMemo } from "react";
 import { ControlRow, DualScramble, DUAL_DIGITS, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart } from "../../..";
 import { HomeCutaway3D } from "./cutaway/HomeCutaway3D";
@@ -278,16 +279,9 @@ export function EnergyView({ state, onChange, evidence, failed }: EnergyShared) 
         <aside className={e.panel} data-plain="" aria-live="polite">
           {cat === "bands" && (
             <>
-              <p className={e.big}>
-                <span className="bo-fig">
-                  <DualScramble text={pct(abc?.v)} chars={DUAL_DIGITS} trigger="manual" duration={0.6} />
-                </span>
-                <span>
-                  of dwellings in bands A–C
-                  <br />
-                  {tenureLabel}
-                </span>
-              </p>
+              <ReadoutCard placement="inline" head={tenureLabel} rows={[
+                { label: "Dwellings in bands A–C", value: <DualScramble text={pct(abc?.v)} chars={DUAL_DIGITS} trigger="manual" duration={0.6} /> },
+              ]} />
               <p className={e.body}>
                 Share of dwellings in bands A to C, modelled by the English Housing Survey from surveyed characteristics.
               </p>
@@ -383,14 +377,9 @@ export function EnergyView({ state, onChange, evidence, failed }: EnergyShared) 
               <p className={e.body}>Modelled share of dwellings that could reach band C, and the mean cost for those that could.</p>
               <BasisTag basis="modelled-derived" note="Depends on the survey's assumptions." />
               <RankBars label="Improvement to band C" rows={rows("ehs-energy-improvement", IMPROVE)} format={(v) => `${v.toFixed(1)}%`} />
-              <p className={e.big}>
-                <span className="bo-fig">{cost?.v != null ? `£${Math.round(cost.v).toLocaleString("en-GB")}` : "—"}</span>
-                <span>
-                  mean modelled cost to reach band C
-                  <br />
-                  per improvable dwelling · {tenureLabel}
-                </span>
-              </p>
+              <ReadoutCard placement="inline" head={tenureLabel} rows={[
+                { label: "Mean modelled cost to reach band C · per improvable dwelling", value: cost?.v != null ? `£${Math.round(cost.v).toLocaleString("en-GB")}` : "Not available" },
+              ]} />
             </>
           )}
         </aside>

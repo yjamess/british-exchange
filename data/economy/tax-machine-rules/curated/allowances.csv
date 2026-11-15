@@ -1,0 +1,5 @@
+tax_year,jurisdiction,allowance_id,amount_gbp,income_limit_gbp,taper_rule,source_note
+2025-26,england-wales-ni,personal_allowance,12570,100000,reduce_by_1_for_every_2_above_limit_to_zero,GOV.UK Income Tax rates and allowances
+2025-26,scotland,personal_allowance,12570,100000,reduce_by_1_for_every_2_above_limit_to_zero,GOV.UK Income Tax rates and allowances
+2026-27,england-wales-ni,personal_allowance,12570,100000,reduce_by_1_for_every_2_above_limit_to_zero,GOV.UK Income Tax rates and allowances
+2026-27,scotland,personal_allowance,12570,100000,reduce_by_1_for_every_2_above_limit_to_zero,GOV.UK Income Tax rates and allowances

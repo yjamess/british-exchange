@@ -1,0 +1,105 @@
+{
+  "indicator_id": "effects-of-taxes-and-benefits",
+  "retrieved_pin_date": "2026-11-15",
+  "official_release_date": "2025-09-25",
+  "period": "2023-04-01 \u2192 2024-03-31 (FYE 2024)",
+  "checks": [
+    {
+      "name": "t8_bottom_direct_gross",
+      "actual": 15.7,
+      "expected": 15.7,
+      "pass": true
+    },
+    {
+      "name": "t8_bottom_indirect_gross",
+      "actual": 21.0,
+      "expected": 21.0,
+      "pass": true
+    },
+    {
+      "name": "t8_bottom_all_gross",
+      "actual": 36.7,
+      "expected": 36.7,
+      "pass": true
+    },
+    {
+      "name": "t8_bottom_indirect_disposable",
+      "actual": 24.9,
+      "expected": 24.9,
+      "pass": true
+    },
+    {
+      "name": "t8_bottom_indirect_expenditure",
+      "actual": 16.5,
+      "expected": 16.5,
+      "pass": true
+    },
+    {
+      "name": "t8_top_direct_gross",
+      "actual": 28.8,
+      "expected": 28.8,
+      "pass": true
+    },
+    {
+      "name": "t8_top_indirect_gross",
+      "actual": 7.5,
+      "expected": 7.5,
+      "pass": true
+    },
+    {
+      "name": "t2a_bottom_direct_gbp",
+      "actual": 3696.0,
+      "expected": 3696.0,
+      "pass": true
+    },
+    {
+      "name": "t2a_bottom_indirect_gbp",
+      "actual": 4929.0,
+      "expected": 4929.0,
+      "pass": true
+    },
+    {
+      "name": "t2a_all_direct_gbp",
+      "actual": 15743.0,
+      "expected": 15743.0,
+      "pass": true
+    },
+    {
+      "name": "t2a_all_indirect_gbp",
+      "actual": 7363.0,
+      "expected": 7363.0,
+      "pass": true
+    },
+    {
+      "name": "t8_bottom_direct_plus_indirect_eq_all",
+      "actual": 36.7,
+      "expected": 36.7,
+      "pass": true
+    },
+    {
+      "name": "no_invented_direct_denominators",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "name": "row_counts",
+      "actual": {
+        "table8": 30,
+        "table2a": 12,
+        "total": 42
+      },
+      "expected": {
+        "table8": 30,
+        "table2a": 12,
+        "total": 42
+      },
+      "pass": true
+    }
+  ],
+  "summary": {
+    "pass": 14,
+    "fail": 0,
+    "failed_names": []
+  }
+}

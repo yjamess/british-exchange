@@ -1,0 +1,58 @@
+indicator_id: underemployment
+title: Underemployment (aged 16 and over)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/underemploymentandoveremploymentemp16
+series_id: EMP16 NSA · release 2026-08-18
+geography: United Kingdom (K02000001); aged 16 and over
+frequency: quarterly
+unit: People, NSA (underemployment level and employment denominator); % of people
+  in employment, NSA (rate, unknowns not removed)
+definition: 'UK underemployment from ONS table EMP16: people aged 16 and over who
+  want more hours, are available to start within two weeks, and work at or below the
+  hours threshold. Not seasonally adjusted. Labour Force Survey. Stores the headline
+  level (people), total employment (people, the rate''s denominator), and the unadjusted
+  rate (percent of total employment). The workbook banner says thousands; the cells
+  are people, proved by level / employment × 100 = the rate.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.underemployment
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS EMP16; file name changes each edition)
+raw_evidence:
+- path: raw/2026-11-15/emp16.xls
+  retrieved_at: '2026-11-15T10:05:42.937818+00:00'
+  checksum_sha256: 2a8573b783bb0f736738257db82d0b10dcb47b52606f5e5ab5908b7d83678085
+  content_type: application/vnd.ms-excel;charset=utf-8
+  official_release_date: '2026-08-18'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/underemploymentandoveremploymentemp16/current/emp16aug2026.xls
+transformations: 'Download EMP16 xls. From sheet Levels keep ''Underemployment level''
+  and ''Total in employment''. From sheet Rates keep ''Underemployment rate1'' (footnote
+  1: share of total employment, no adjustment for unknowns). Map Jan-Mar / Apr-Jun
+  / Jul-Sep / Oct-Dec to calendar quarters. Do not divide by 1,000. Fail if level
+  / employment × 100 misses the published rate by more than 0.0001 percentage points.
+  Notes: series=underemployment_level|employment_level|underemployment_rate; adjustment=NSA;
+  age=16+. Latest quarter per series marked provisional. Publication date read from
+  the workbook. Footnote digits glued onto a year (''Jan-Mar 20191'' on Levels, ''Jan-Mar
+  20194'' on Rates) are 2019 Q1; notes keep source_label.'
+revision_notes: LFS underemployment revises when the survey is reweighted. EMP16 is
+  not seasonally adjusted — compare the same quarter across years (ONS note on the
+  sheet). January–March 2019 onward has a reweighting step change. This pin's file
+  is emp16aug2026.xls.
+caveats: 'NSA, aged 16 and over, quarterly. Not the 16–64 SA labour market. Not involuntary
+  part-time (involuntary-part-time / YCCX: could not find a full-time job, thousands,
+  SA). Not all part-time employment (YCBH). Cells are people even though the banner
+  says thousands — do not divide by 1,000. The rate''s denominator is total employment,
+  including people whose underemployment status is unknown (EMP16 footnote 1). Overemployment
+  and the hours sub-components are not curated.'
+status_note: 'Validated 2026-11-15 (qa_report_economy_03_gaps_2026-11-15.md). Ready for cloud load.'
+related_indicator_ids:
+- involuntary-part-time
+- employment-part-time
+- employment-full-time
+- average-actual-weekly-hours
+open_questions:
+- ONS does not publish an SA underemployment twin in EMP16.
+notion_registry_url: https://app.notion.com/p/419654717685811983cddc434dd85f7b
+schema_version: '1.0'

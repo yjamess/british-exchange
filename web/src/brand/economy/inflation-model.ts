@@ -174,19 +174,33 @@ export type CoicopRank = {
 
 type DivisionSpec = { id: string; label: string };
 
+/** Final months present in every division pack (ISO period_start), ascending. */
+export function coicopMonths(
+  packs: Record<string, { observations: Observation[] } | null | undefined>,
+  divisions: readonly DivisionSpec[] = CPIH_COICOP_DIVISIONS,
+): string[] {
+  if (!divisions.length) return [];
+  const first = finalObs(packs[divisions[0]!.id]?.observations ?? []);
+  const months: string[] = [];
+  for (const row of first) {
+    const period = row.period_start;
+    const ok = divisions.every((div) =>
+      finalObs(packs[div.id]?.observations ?? []).some(
+        (r) => r.period_start === period && r.value != null,
+      ),
+    );
+    if (ok) months.push(period);
+  }
+  return months;
+}
+
 /** Latest final month shared by every division pack (ISO period_start). */
 export function coicopLatestMonth(
   packs: Record<string, { observations: Observation[] } | null | undefined>,
   divisions: readonly DivisionSpec[] = CPIH_COICOP_DIVISIONS,
 ): string | null {
-  let latest: string | null = null;
-  for (const div of divisions) {
-    const rows = finalObs(packs[div.id]?.observations ?? []);
-    const last = rows[rows.length - 1];
-    if (!last) return null;
-    if (latest == null || last.period_start < latest) latest = last.period_start;
-  }
-  return latest;
+  const months = coicopMonths(packs, divisions);
+  return months[months.length - 1] ?? null;
 }
 
 /** RankBars rows for one month of CPIH division values (signed). */

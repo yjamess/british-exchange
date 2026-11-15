@@ -261,6 +261,286 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     primary: false,
   },
 
+  // —— Employment · The British Workforce → Wages (GB pay; UK labour) ——
+  {
+    id: "economy.employment.workforce→wages.value",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "workforce" },
+    to: {
+      pathname: ECONOMY,
+      domain: "wages",
+      view: "value",
+      retain: [],
+    },
+    label: "What pay is worth",
+    why: "Headcounts show who is in work — Wages shows whether pay has kept its value.",
+    learn: "Open Wages › The Value of Work. Labour Force Survey is United Kingdom; average weekly earnings are Great Britain.",
+    readiness: "ready",
+    honesty: "UK labour-force counts and Great Britain pay are different geographies. Moving together is not cause and effect.",
+    destinationLabel: "Wages · The Value of Work",
+    primary: true,
+  },
+
+  // —— Employment · Rates → Energy manufacturing employment ——
+  {
+    id: "economy.employment.rates→energy.industrial-work.landscape",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "rates" },
+    to: {
+      pathname: ENERGY,
+      domain: "industrial-work",
+      view: "landscape",
+      retain: [],
+    },
+    label: "Manufacturing jobs",
+    why: "National rates are not factory employment — Energy owns manufacturing jobs and places.",
+    learn: "Open Energy › Jobs › Labour Landscape. Link only — never fork manufacturing employment under Economy.",
+    readiness: "ready",
+    honesty: "Whole-economy LFS rates are not manufacturing jobs. Link only.",
+    destinationLabel: "Energy · Jobs · Labour Landscape",
+    primary: true,
+  },
+
+  // —— Employment · Data → Wages pay vs prices ——
+  {
+    id: "economy.employment.data→wages.vs-prices",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "data" },
+    to: {
+      pathname: ECONOMY,
+      domain: "wages",
+      view: "vs-prices",
+      retain: [],
+    },
+    label: "Pay against prices",
+    why: "Labour-force tables are not pay — Wages holds cash and real earnings.",
+    learn: "Open Wages › Pay vs prices. UK LFS ≠ Great Britain AWE.",
+    readiness: "ready",
+    honesty: "Employment status and earnings are different publications. Geography break: UK vs Great Britain.",
+    destinationLabel: "Wages · Pay vs prices",
+    primary: true,
+  },
+
+  // —— Employment · What Britain Does → Energy manufacturing jobs ——
+  {
+    id: "economy.employment.industry→energy.industrial-work.landscape",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "industry" },
+    to: {
+      pathname: ENERGY,
+      domain: "industrial-work",
+      view: "landscape",
+      retain: [],
+    },
+    label: "Manufacturing jobs",
+    why: "National workforce jobs are not manufacturing employment — Energy owns the factory reading.",
+    learn: "Open Energy › Jobs › Labour Landscape. Link only — never fork manufacturing under Economy.",
+    readiness: "ready",
+    honesty: "Workforce jobs (DYDC) are jobs, not people. Manufacturing stays on Energy.",
+    destinationLabel: "Energy · Jobs · Labour Landscape",
+    primary: true,
+  },
+
+  // —— Employment · Outside the Workforce → Workforce composition ——
+  {
+    id: "economy.employment.inactive→employment.workforce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "inactive" },
+    to: {
+      pathname: ECONOMY,
+      domain: "employment",
+      view: "workforce",
+      retain: [],
+    },
+    label: "The British Workforce",
+    why: "Reasons for inactivity are a cut of people already outside the labour force — the composition shows how large that group is.",
+    learn: "Open The British Workforce for employed, unemployed and inactive headcounts on the same age and seasonally adjusted basis.",
+    readiness: "ready",
+    honesty: "Principal-reason levels are not flows of people between reasons. They sit inside the inactive count, not beside the employed.",
+    destinationLabel: "Employment · The British Workforce",
+    primary: true,
+  },
+
+  // —— Employment · Working Week → Growth productivity ——
+  {
+    id: "economy.employment.hours→growth.productivity",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "hours" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "productivity",
+      retain: [],
+    },
+    label: "Hours and output",
+    why: "Average hours and full-time / part-time levels are labour input — Growth holds output per hour.",
+    learn: "Open Growth › Productivity. Average actual hours are not the same series as whole-economy hours used in labour productivity.",
+    readiness: "ready",
+    honesty: "LFS average hours and productivity hours are different publications. Moving together is not cause and effect.",
+    destinationLabel: "Growth · Productivity",
+    primary: true,
+  },
+
+  // —— Employment · Demand for Labour → Rates ——
+  {
+    id: "economy.employment.vacancies→employment.rates",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "vacancies" },
+    to: {
+      pathname: ECONOMY,
+      domain: "employment",
+      view: "rates",
+      retain: [],
+    },
+    label: "Unemployment rate",
+    why: "Vacancies measure open posts reported by employers — Rates hold unemployment as a share of the economically active.",
+    learn: "Open Rates for employment, unemployment and inactivity percentages. Do not treat vacancies as hires or as a local occupational map.",
+    readiness: "ready",
+    honesty: "Vacancy Survey posts are not the same as ILO unemployment. Different surveys, different units.",
+    destinationLabel: "Employment · Rates",
+    primary: true,
+  },
+
+  // —— Employment · Geography → Wages Geography of pay ——
+  {
+    id: "economy.employment.geography→wages.geography",
+    kind: "contextual",
+    from: { sector: "economy", domain: "employment", view: "geography" },
+    to: {
+      pathname: ECONOMY,
+      domain: "wages",
+      view: "geography",
+      retain: [],
+    },
+    label: "Geography of pay",
+    why: "Regional labour-force rates show who is in work — Wages shows workplace pay by place.",
+    learn: "Open Wages › Geography of pay. HI00 rates are resident people; ASHE geography is workplace pay.",
+    readiness: "ready",
+    honesty: "Resident employment rates and workplace earnings are different surveys and geographies. Link only.",
+    destinationLabel: "Wages · Geography of pay",
+    primary: true,
+  },
+
+  // —— Tax · What Britain Raises → Debt borrowing ——
+  {
+    id: "economy.tax.raises→debt.borrowing",
+    kind: "contextual",
+    from: { sector: "economy", domain: "tax", view: "raises" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "borrowing",
+      retain: [],
+    },
+    label: "What the state borrows",
+    why: "Tax receipts are one side of the public-finance story — Debt holds net borrowing.",
+    learn: "Open Debt › Borrowing. Receipts and borrowing are related flows, not a closed identity here.",
+    readiness: "ready",
+    honesty: "Taxes and borrowing are different publications. Moving together is not cause and effect.",
+    destinationLabel: "Debt · Borrowing",
+    primary: true,
+  },
+
+  // —— Tax · Data → Debt dial ——
+  {
+    id: "economy.tax.data→debt.dial",
+    kind: "contextual",
+    from: { sector: "economy", domain: "tax", view: "data" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "dial",
+      retain: [],
+    },
+    label: "What Britain owes",
+    why: "Tax tables are receipts — Debt holds the stock and borrowing readings.",
+    learn: "Open Debt › What Britain owes.",
+    readiness: "ready",
+    honesty: "Receipts and debt are separate public-finance measures.",
+    destinationLabel: "Debt · What Britain owes",
+    primary: true,
+  },
+
+  // —— Tax · What Britain Raises → Spending TME ——
+  {
+    id: "economy.tax.raises→spending.spends",
+    kind: "contextual",
+    from: { sector: "economy", domain: "tax", view: "raises" },
+    to: {
+      pathname: ECONOMY,
+      domain: "spending",
+      view: "spends",
+      retain: [],
+    },
+    label: "What the state spends",
+    why: "Receipts are one side of the public-finance story — Spending holds total managed expenditure.",
+    learn: "Open Spending › What the state spends. Receipts and spending are related flows, not a closed identity here.",
+    readiness: "ready",
+    honesty: "Taxes and managed expenditure are different publications. Do not treat receipts minus spending as borrowing on these pages.",
+    destinationLabel: "Spending · What the state spends",
+    primary: false,
+  },
+
+  // —— Spending · What the state spends → Tax raises (primary Follow) ——
+  {
+    id: "economy.spending.spends→tax.raises",
+    kind: "contextual",
+    from: { sector: "economy", domain: "spending", view: "spends" },
+    to: {
+      pathname: ECONOMY,
+      domain: "tax",
+      view: "raises",
+      retain: [],
+    },
+    label: "What Britain raises",
+    why: "Managed expenditure is the spending side — Tax holds public-sector taxes and National Insurance.",
+    learn: "Open Tax › What Britain Raises. Do not invent a residual identity between the two.",
+    readiness: "ready",
+    honesty: "Spending and receipts are separate public-finance measures.",
+    destinationLabel: "Tax · What Britain Raises",
+    primary: true,
+  },
+
+  // —— Spending · What the state spends → Debt borrowing ——
+  {
+    id: "economy.spending.spends→debt.borrowing",
+    kind: "contextual",
+    from: { sector: "economy", domain: "spending", view: "spends" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "borrowing",
+      retain: [],
+    },
+    label: "What the state borrows",
+    why: "Managed expenditure is one side of the public-finance story — Debt holds net borrowing.",
+    learn: "Open Debt › Borrowing. Spending and borrowing are related flows, not a closed identity here.",
+    readiness: "ready",
+    honesty: "Managed expenditure and borrowing are different publications. Moving together is not cause and effect.",
+    destinationLabel: "Debt · Borrowing",
+    primary: false,
+  },
+
+  // —— Spending · Data → Debt dial ——
+  {
+    id: "economy.spending.data→debt.dial",
+    kind: "contextual",
+    from: { sector: "economy", domain: "spending", view: "data" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "dial",
+      retain: [],
+    },
+    label: "What Britain owes",
+    why: "Spending tables are flows — Debt holds the stock and borrowing readings.",
+    learn: "Open Debt › What Britain owes.",
+    readiness: "ready",
+    honesty: "Managed expenditure and debt are separate public-finance measures.",
+    destinationLabel: "Debt · What Britain owes",
+    primary: true,
+  },
+
   // —— Growth · What Britain produces → Energy manufacturing productivity ——
   {
     id: "economy.growth.produce→energy.industrial-work.productivity",
@@ -301,7 +581,7 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     primary: true,
   },
 
-  // —— Growth · Ledger → Debt dial ——
+  // —— Growth · Ledger → What Britain owes ——
   {
     id: "economy.growth.ledger→debt.dial",
     kind: "contextual",
@@ -312,12 +592,12 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
       view: "dial",
       retain: [],
     },
-    label: "Public debt dial",
-    why: "Output growth is one side of the public-finance story — Debt holds the official debt and borrowing dials.",
-    learn: "Open Debt › Dial. Debt % of GDP uses the official HF6X series — never derive from ABMI.",
+    label: "What Britain owes",
+    why: "Output growth is one side of the public-finance story — Debt holds the official debt and borrowing readings.",
+    learn: "Open Debt › What Britain owes. Debt % of GDP uses the official ONS ratio — never rebuild it from real GDP.",
     readiness: "ready",
     honesty: "GDP and public finances are different publications. No causal claim from coincident moves.",
-    destinationLabel: "Debt · Dial",
+    destinationLabel: "Debt · What Britain owes",
     primary: true,
   },
 
@@ -341,7 +621,47 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     primary: true,
   },
 
-  // —— Debt · Dial → Growth ledger ——
+  // —— Growth · Anatomy → Employment industry jobs ——
+  {
+    id: "economy.growth.anatomy→employment.industry",
+    kind: "contextual",
+    from: { sector: "economy", domain: "growth", view: "anatomy" },
+    to: {
+      pathname: ECONOMY,
+      domain: "employment",
+      view: "industry",
+      retain: [],
+    },
+    label: "What Britain Does for Work",
+    why: "Industry shares of gross value added are not the same as workforce jobs by industry.",
+    learn: "Open Employment › What Britain Does for Work for JOBS02 workforce jobs. Manufacturing productivity stays on Energy.",
+    readiness: "ready",
+    honesty: "GVA pounds and workforce jobs are different publications. Do not treat shares as employment.",
+    destinationLabel: "Employment · What Britain Does for Work",
+    primary: true,
+  },
+
+  // —— Growth · Revisions → What Britain produces ——
+  {
+    id: "economy.growth.revisions→growth.produce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "growth", view: "revisions" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "produce",
+      retain: [],
+    },
+    label: "What Britain produces",
+    why: "Revisions compare two dated GDP estimates as indexes — Produce holds the live latest release in pounds.",
+    learn: "Open What Britain produces for the current first-estimate / latest GDP levels. Do not mix pound levels across price bases.",
+    readiness: "ready",
+    honesty: "The two-vintage band is not a full revision archive. Produce uses the latest release only.",
+    destinationLabel: "Growth · What Britain produces",
+    primary: true,
+  },
+
+  // —— Debt · What Britain owes → Growth ledger ——
   {
     id: "economy.debt.dial→growth.ledger",
     kind: "contextual",
@@ -356,7 +676,67 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     why: "Debt % of GDP uses the official PSF ratio — Growth shows output growth, not the PSF denominator.",
     learn: "Open Growth › Ledger for GDP and per-head growth since 2019 Q4.",
     readiness: "ready",
-    honesty: "HF6X must never be rebuilt from ABMI. Coincident moves are not causation.",
+    honesty: "Debt as a share of GDP is the published ratio, not worked out from GDP here. Moving together is not cause and effect.",
+    destinationLabel: "Growth · Ledger",
+    primary: true,
+  },
+
+  // —— Debt · Who owns the debt → Growth ledger ——
+  {
+    id: "economy.debt.ownership→growth.ledger",
+    kind: "contextual",
+    from: { sector: "economy", domain: "debt", view: "ownership" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "ledger",
+      retain: [],
+    },
+    label: "How fast output is growing",
+    why: "Who holds gilts is a market-value ownership reading — Growth holds the output side of the public-finance story.",
+    learn: "Open Growth › Ledger. Do not treat ownership shares as a share of GDP or of public-sector net debt.",
+    readiness: "ready",
+    honesty: "Gilt holdings are market value and are not public sector net debt. Moving together is not cause and effect.",
+    destinationLabel: "Growth · Ledger",
+    primary: true,
+  },
+
+  // —— Debt · Debt anatomy → Growth ledger ——
+  {
+    id: "economy.debt.anatomy→growth.ledger",
+    kind: "contextual",
+    from: { sector: "economy", domain: "debt", view: "anatomy" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "ledger",
+      retain: [],
+    },
+    label: "How fast output is growing",
+    why: "Debt anatomy is the instrument mix of central government liabilities — Growth holds the output reading beside it.",
+    learn: "Open Growth › Ledger. Instrument totals are not public sector net debt.",
+    readiness: "ready",
+    honesty: "Portfolio composition is uplifted nominal and is not public sector net debt (HF6W).",
+    destinationLabel: "Growth · Ledger",
+    primary: true,
+  },
+
+  // —— Debt · Repayment calendar → Growth ledger ——
+  {
+    id: "economy.debt.repayment→growth.ledger",
+    kind: "contextual",
+    from: { sector: "economy", domain: "debt", view: "repayment" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "ledger",
+      retain: [],
+    },
+    label: "How fast output is growing",
+    why: "Scheduled gilt redemptions are a financing calendar — Growth holds the output reading beside it.",
+    learn: "Open Growth › Ledger. Redemptions are not a forecast of GDP or of public-sector net debt.",
+    readiness: "ready",
+    honesty: "Future redemptions are net of government holdings and are not public sector net debt.",
     destinationLabel: "Growth · Ledger",
     primary: true,
   },
@@ -376,12 +756,32 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     why: "Borrowing is a public-finance flow — Growth holds the output growth reading beside it.",
     learn: "Open Growth › Ledger. Do not overlay borrowing on GDP levels.",
     readiness: "ready",
-    honesty: "Stock/flow and publication families differ. Link only.",
+    honesty: "Borrowing is a flow and output is a level. One does not explain the other.",
     destinationLabel: "Growth · Ledger",
     primary: true,
   },
 
-  // —— Debt · Interest → Growth ledger ——
+  // —— Debt · Cash to debt (CG REC3) → Growth ledger ——
+  {
+    id: "economy.debt.machine→growth.ledger",
+    kind: "contextual",
+    from: { sector: "economy", domain: "debt", view: "machine" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "ledger",
+      retain: [],
+    },
+    label: "How fast output is growing",
+    why: "The machine shows how central government cash borrowing turns into the change in its debt — Growth holds the output reading beside it.",
+    learn: "Open Growth › Ledger. Do not treat cash borrowing as GDP.",
+    readiness: "ready",
+    honesty: "Central government cash and debt change only — not public sector net borrowing or net debt.",
+    destinationLabel: "Growth · Ledger",
+    primary: true,
+  },
+
+  // —— Debt · Cost of debt → Growth ledger ——
   {
     id: "economy.debt.interest→growth.ledger",
     kind: "contextual",
@@ -396,7 +796,7 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     why: "Interest cost is central-government expenditure — Growth shows output, not the fiscal interest bill.",
     learn: "Open Growth › Ledger for the output side of the public-finance story.",
     readiness: "ready",
-    honesty: "NMFX is CG interest, not whole public sector. No causal claim from coincident moves.",
+    honesty: "Interest here is central government only. Moving together is not cause and effect.",
     destinationLabel: "Growth · Ledger",
     primary: true,
   },
@@ -416,7 +816,7 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     why: "Public-finance pins and national-accounts pins are different publications — keep the tables separate.",
     learn: "Open Growth › Data for GDP and productivity rows.",
     readiness: "ready",
-    honesty: "Do not join PSF and QNA tables into one chart.",
+    honesty: "Public-finance and output tables are published separately and are not joined here.",
     destinationLabel: "Growth · Data",
     primary: true,
   },

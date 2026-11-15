@@ -13,6 +13,7 @@
  * Nothing is estimated for a finer level. The drawing does not describe any particular property.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useEffect, useMemo, useState } from "react";
 import { ChipToggles, ControlRow, DualScramble, DUAL_DIGITS, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart, explorerClasses as tc } from "../../..";
 import { HomeCutaway3D } from "./cutaway/HomeCutaway3D";
@@ -401,16 +402,11 @@ export function InsideHomes({ state, onChange, evidence, failed }: Shared) {
             <EmptyStage label="Loading">Loading the survey evidence…</EmptyStage>
           ) : (
             <>
-              <p className={q.big}>
-                <span className="bo-fig">
-                  <DualScramble text={cellText(cell)} chars={DUAL_DIGITS} trigger="manual" duration={0.7} />
-                </span>
-                <span>
-                  {feature.unit}
-                  <br />
-                  {TENURES.find((x) => x.id === t)?.label} · {periodLabel(cell, y)} · {scope}
-                </span>
-              </p>
+              <ReadoutCard placement="inline" head={`${feature.label} · ${periodLabel(cell, y)}`} rows={[
+                { label: feature.unit, value: <DualScramble text={cellText(cell)} chars={DUAL_DIGITS} trigger="manual" duration={0.7} /> },
+                { label: "Tenure", value: TENURES.find((x) => x.id === t)?.label ?? "Not available" },
+                { label: "Scope", value: scope },
+              ]} />
               {cell?.status === "suppressed" && <p className={h.flag}>Suppressed in the source: fewer than five surveyed dwellings.</p>}
               {cell?.status === "missing" && <p className={h.flag}>Not collected for this period (COVID-19).</p>}
               <p className={q.body}>
@@ -447,14 +443,10 @@ export function InsideHomes({ state, onChange, evidence, failed }: Shared) {
               {companion && feature.companion && (
                 <section className={q.section} aria-label={feature.companion.label}>
                   <p className="bo-label">{feature.companion.label}</p>
-                  <p className={q.big}>
-                    <span className="bo-fig">{cellText(companion)}</span>
-                    <span>
-                      {feature.companion.unit} · {periodLabel(companion, companion.year)}
-                      <br />
-                      {feature.companion.note}
-                    </span>
-                  </p>
+                  <ReadoutCard placement="inline" head={periodLabel(companion, companion.year)} rows={[
+                    { label: feature.companion.unit, value: cellText(companion) },
+                  ]} />
+                  <p className={q.note}>{feature.companion.note}</p>
                 </section>
               )}
               {trend.length > 1 && (

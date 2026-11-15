@@ -1,0 +1,50 @@
+indicator_id: gva-by-industry-section
+title: GVA by industry section (SIC 2007)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/ukgdpolowlevelaggregates/current
+series_id: GDP(O) LLA · SIC sections A–T · KKP5 family
+geography: United Kingdom (K02000001)
+frequency: annual+quarterly
+unit: £ million (current prices SA; chained volume SA)
+definition: UK output gross value added (GVA) by SIC 2007 section from the ONS GDP
+  output approach low-level aggregates workbook. Stores section totals A–T plus Total
+  GVA in current prices (£m, SA) and chained volume (£m, SA). Current-price levels
+  are suitable for additive industry shares; chained-volume levels are not strictly
+  additive. Figures are output GVA and are not balanced to income/expenditure GVA.
+  Not GDP at market prices.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.gva_by_industry_section
+curated_path: curated/observations.csv
+update_cadence: quarterly (with GDP first estimate / QNA)
+raw_evidence:
+- path: raw/2026-11-14/gdplowlevelaggregates.xlsx
+  retrieved_at: '2026-11-14T14:21:54.913138+00:00'
+  checksum_sha256: 0de14b31c32033e96c21d9e3475b8aeb2277019c114c400e43b326276f637ec0
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/grossdomesticproductgdp/datasets/ukgdpolowlevelaggregates/current/gdplowlevelaggregates2026q3.xlsx
+transformations: Download ONS gdplowlevelaggregates xlsx. From sheet 1 (current prices
+  £m SA) and sheet 2a (CVM £m SA), keep Total GVA + single-letter SIC sections A–T
+  only. Map annual years and YYYY Qn to ISO quarter/year bounds. Notes carry series=section
+  (A–T|total), cdid, section_name, kind→category, grain. Latest valued period per
+  section×kind marked provisional.
+revision_notes: Revises with each GDP first estimate and QNA; Blue Book changes industry
+  structure occasionally (see workbook Cover_sheet). Pin the dated xlsx under raw/<date>/;
+  compare checksums.
+caveats: Do not sum chained-volume section £m as if they equal Total GVA. Do not treat
+  this as regional GVA (Regions owns gva-by-uk-nation-and-region). Do not fork Energy
+  manufacturing-share-of-gva (L4NT CVM weights). Low-level series can be volatile
+  — prefer section aggregates.
+status_note: ''
+related_indicator_ids:
+- real-gdp
+- manufacturing-share-of-gva
+- gva-by-uk-nation-and-region
+open_questions:
+- Should Anatomy also pin sheet 4 CVM weights (parts per thousand) as a third kind
+  for composition that matches GDP(O) indexing?
+notion_registry_url: https://app.notion.com/p/4186547176858181a65bd3ad760c924a
+schema_version: '1.0'

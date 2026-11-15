@@ -1,0 +1,48 @@
+indicator_id: involuntary-part-time
+title: Involuntary part-time (could not find full-time job)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/yccx/lms
+series_id: YCCX
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: 'Thousands of people, SA (UK: All)'
+definition: 'UK people in part-time work because they could not find a full-time job,
+  seasonally adjusted, thousands. ONS CDID YCCX in LMS. Title: ''LFS: Part-time workers:
+  Could not find full-time job: UK: All: Thousands: SA''. This is a reason for part-time
+  work (EMP01 family), not underemployment (EMP16) and not all part-time employment
+  (YCBH).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.involuntary_part_time
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-15/yccx_lms.json
+  retrieved_at: '2026-11-15T10:05:06.631397+00:00'
+  checksum_sha256: e9825b73379f2aaa42fcdd390164bbf6883ff9e11d5f0739ceb6a2eed19207bd
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/yccx/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS levels revise with reweighting and seasonal-adjustment updates.
+caveats: 'LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. ONS title says UK:
+  All, not aged 16–64. It sits with EMP01 part-time reasons beside YCBH (16+). Do
+  not mix into the 16–64 workforce stack. Not a share of part-time jobs — the level
+  only. Not EMP16 underemployment (people who want more hours, NSA, counted as people
+  rather than thousands).'
+status_note: 'Validated 2026-11-15 (qa_report_economy_03_gaps_2026-11-15.md). Ready for cloud load.'
+related_indicator_ids:
+- employment-part-time
+- employment-full-time
+- underemployment
+- average-actual-weekly-hours
+- employment-level
+open_questions: []
+notion_registry_url: https://app.notion.com/p/4196547176858174bd68dabbaa9b11da
+schema_version: '1.0'

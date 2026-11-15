@@ -1,0 +1,78 @@
+indicator_id: tax-receipts-cg-composition
+title: Tax receipts CG composition (Anatomy drill under MF6P)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/appendixdpublicsectorcurrentreceipts/current
+series_id: NMBY+NMCU+LIQR→MF6P
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, NSA (CG tax composition under MF6P)
+definition: 'ONS Public Sector Finances Appendix D / PUSF National Accounts drill
+  of central-government taxes under MF6P. Curated leaves: NMBY (CG taxes on production),
+  NMCU (CG taxes on income and wealth), LIQR (other CG taxes). Published identity:
+  NMBY + NMCU + LIQR = MF6P. Sibling of Ready tax-receipts-composition (AHHY four
+  heads) — does not rewrite that package. Chart / parent total is MF6P — not HMRC
+  cash.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tax_receipts_cg_composition
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances / Appendix D)
+raw_evidence:
+- path: raw/2026-11-15/appendix_d_public_sector_current_receipts.xlsx
+  retrieved_at: '2026-11-15T15:11:07.620062+00:00'
+  checksum_sha256: 7a06b80fb26f2f64a7e5578c158de62d124df20f2aeb1bc406f680b279997679
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-21'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/appendixdpublicsectorcurrentreceipts/current/publicsectorcurrentreceiptsappendixdfinal.xlsx
+- path: raw/2026-11-15/liqr_pusf.json
+  retrieved_at: '2026-11-15T15:11:07.755645+00:00'
+  checksum_sha256: acdaf3c877f36f514454841d82cee78ffcc19509633b027f2a6ea46873ceaa31
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/liqr/pusf/data
+- path: raw/2026-11-15/mf6p_pusf.json
+  retrieved_at: '2026-11-15T15:11:07.917147+00:00'
+  checksum_sha256: 87ea045812bf3cc55a757fd9c50c85a887d30c5d7f7894cd2a2f77732a78d5e8
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/mf6p/pusf/data
+- path: raw/2026-11-15/nmby_pusf.json
+  retrieved_at: '2026-11-15T15:11:08.078662+00:00'
+  checksum_sha256: 9d8155937473898b8f2eb93d10709bcceee276957cdddaf4005bdf83aaaeb86f
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/nmby/pusf/data
+- path: raw/2026-11-15/nmcu_pusf.json
+  retrieved_at: '2026-11-15T15:11:08.241377+00:00'
+  checksum_sha256: 6e369dabf20c2b04a4fad03e2e8240f2d71a3cb4b25833be6c67c4f885628533
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/nmcu/pusf/data
+transformations: Download Appendix D xlsx (spot evidence) + PUSF /data JSON for NMBY,
+  NMCU, LIQR, MF6P. Curate only the three leaves with notes series=<CDID>; category=<slug>;
+  source=pusf-json. Latest valued month per leaf marked provisional. MF6P total is
+  NOT curated as a leaf — identity vs pinned MF6P JSON and Ready tax-receipts-composition
+  series=MF6P.
+revision_notes: PSF / Appendix D pin release 2026-10-21; next PSF 20 Nov 2026 may
+  revise recent months. Re-pin JSON (+ workbook); re-run identity check (curated/cg_identity_check.json).
+  Deeper leaves (LIBR / NZGF / CPRN) deferred until Orchestrator opens a second-depth
+  task.
+caveats: Accruals / National Accounts (Appendix D / PSA6D family) — NOT HMRC cash
+  receipts and NOT PSA7D. Do not stack HMRC cash under AHHY or MF6P. This package
+  drills MF6P only; AHHY four-head identity remains in tax-receipts-composition. No
+  invented residual from an incomplete leaf set.
+status_note: ''
+related_indicator_ids:
+- tax-receipts-composition
+- tax-receipts
+- public-sector-net-borrowing
+open_questions:
+- Optional second depth under NMCU/NMBY (LIBR / NZGF / CPRN) after Validation?
+notion_registry_url: https://app.notion.com/p/41965471768581ceb258cd766de891cb
+schema_version: '1.0'

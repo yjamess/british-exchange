@@ -6,6 +6,7 @@
  * Measure / search controls live in HousingExplorer. No table-code jargon on screen.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyStage, MapLegend, explorerClasses as t } from "../../..";
 import { fmt } from "../../../data";
@@ -178,45 +179,14 @@ export function Displacement({ insecurity, area, mode, onArea }: Props) {
             <p className="bo-label">In focus</p>
             {selected ? (
               <>
-                <p className={s.placeName}>{selected.name}</p>
-                <p className={`bo-fig ${s.readoutValue}`}>
-                  {selectedV == null
-                    ? "—"
-                    : mode === "rate"
-                      ? selectedV.toFixed(1)
-                      : `${selectedV.toFixed(0)}%`}
-                </p>
-                <p className={s.readoutMeta}>
-                  {measure.figure}
-                  {rank > 0 ? ` · ${ordinal(rank)} of ${ranked.length}` : ""}
-                  {` · ${date}`}
-                </p>
-                <dl className={s.facts}>
-                  <div>
-                    <dt>In temporary accommodation</dt>
-                    <dd>
-                      {selected.households == null
-                        ? "Not published"
-                        : `${fmt.count(selected.households)} households`}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Children</dt>
-                    <dd>{selected.children == null ? "Not published" : fmt.count(selected.children)}</dd>
-                  </div>
-                  <div>
-                    <dt>Per 1,000 households</dt>
-                    <dd>{selected.rate == null ? "Not published" : selected.rate.toFixed(1)}</dd>
-                  </div>
-                  <div>
-                    <dt>Placed outside the authority</dt>
-                    <dd>
-                      {selected.outOfArea == null
-                        ? "Not published or suppressed"
-                        : `${fmt.count(selected.outOfArea)} households`}
-                    </dd>
-                  </div>
-                </dl>
+                <ReadoutCard placement="inline" head={`${selected.name} · ${date}`} rows={[
+                  { label: measure.figure, value: selectedV == null ? "Not available" : mode === "rate" ? selectedV.toFixed(1) : `${selectedV.toFixed(0)}%` },
+                  ...(rank > 0 ? [{ label: "Rank", value: `${ordinal(rank)} of ${ranked.length}` }] : []),
+                  { label: "In temporary accommodation", value: selected.households == null ? "Not published" : `${fmt.count(selected.households)} households` },
+                  { label: "Children", value: selected.children == null ? "Not published" : fmt.count(selected.children) },
+                  { label: "Per 1,000 households", value: selected.rate == null ? "Not published" : selected.rate.toFixed(1) },
+                  { label: "Placed outside the authority", value: selected.outOfArea == null ? "Not published or suppressed" : `${fmt.count(selected.outOfArea)} households` },
+                ]} />
                 {selected.days.some((d) => d.mean != null || d.median != null) && (
                   <div className={t.tableWrap}>
                     <table className={t.table}>
@@ -249,10 +219,9 @@ export function Displacement({ insecurity, area, mode, onArea }: Props) {
                   Select a local authority on the map or in the ranking. No place is chosen until you do.
                 </p>
                 {engOut != null && (
-                  <p className={s.big}>
-                    <span className="bo-fig">{fmt.count(engOut)}</span>
-                    <span>households placed outside their authority · England · {date}</span>
-                  </p>
+                  <ReadoutCard placement="inline" head={`England · ${date}`} rows={[
+                    { label: "Households placed outside their authority", value: fmt.count(engOut) },
+                  ]} />
                 )}
               </>
             )}

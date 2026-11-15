@@ -1,0 +1,295 @@
+{
+  "indicator_id": "tax-machine-income-tax-rules",
+  "safety": "Educational illustration of dated statutory income-tax and employee Class 1 NICs rules \u2014 not tax advice and not a substitute for HMRC guidance or a personal tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled alternate band table. Statutory incidence (who the law charges) is not the same as economic incidence (who ultimately bears the cost). Modelled liabilities are not observed population tax paid.",
+  "exclusions": [
+    "benefits in kind",
+    "pension contributions / relief",
+    "marriage allowance",
+    "blind person's allowance",
+    "student loan repayments",
+    "savings / dividend income (starting rate for savings and dividend rates out of scope)",
+    "personal allowance taper for income above \u00a3100,000 (examples stay at or below \u00a3100,000)",
+    "employer Class 1 NICs (employer stage not modelled)",
+    "married women's reduced NICs rates / other category letters (category A only)",
+    "corporation tax, VAT, CGT, council tax"
+  ],
+  "tax_years_in_tables": [
+    "2025-26",
+    "2026-27"
+  ],
+  "worked_examples_tax_year": "2025-26",
+  "examples": [
+    {
+      "example_id": "ewni_low",
+      "tax_year": "2025-26",
+      "jurisdiction": "england-wales-ni",
+      "scenario_type": "hypothetical_taxable_employment_income",
+      "gross_taxable_income_gbp": "30000.00",
+      "exclusions": [
+        "benefits in kind",
+        "pension contributions / relief",
+        "marriage allowance",
+        "blind person's allowance",
+        "student loan repayments",
+        "savings / dividend income (starting rate for savings and dividend rates out of scope)",
+        "personal allowance taper for income above \u00a3100,000 (examples stay at or below \u00a3100,000)",
+        "employer Class 1 NICs (employer stage not modelled)",
+        "married women's reduced NICs rates / other category letters (category A only)",
+        "corporation tax, VAT, CGT, council tax"
+      ],
+      "income_tax_gbp": "3486.00",
+      "employee_class1_nics_gbp": "1394.40",
+      "combined_statutory_deductions_gbp": "4880.40",
+      "note": "Combined figure is the sum of two separate statutory stages (income tax + employee Class 1 NICs), not a single blended tax rate.",
+      "income_tax_steps": [
+        {
+          "step": "personal_allowance",
+          "detail": "PA=12570 (standard; taper limit 100000)",
+          "amount": "12570.00"
+        },
+        {
+          "step": "taxable_income",
+          "detail": "gross 30000 \u2212 PA 12570",
+          "amount": "17430.00"
+        },
+        {
+          "step": "band_basic",
+          "detail": "Basic rate @ 20% on 17430.00 (after-allowance window 0\u201337700)",
+          "amount": "3486.00"
+        },
+        {
+          "step": "income_tax_total",
+          "detail": "sum of band tax (separate from NICs)",
+          "amount": "3486.00"
+        }
+      ],
+      "employee_class1_nics_steps": [
+        {
+          "step": "nic_pt_to_uel",
+          "detail": "earnings 17430.00 between PT 12570 and UEL 50270 @ 8%",
+          "amount": "1394.40"
+        },
+        {
+          "step": "nic_above_uel",
+          "detail": "earnings 0.00 above UEL 50270 @ 2%",
+          "amount": "0.00"
+        },
+        {
+          "step": "employee_class1_nics_total",
+          "detail": "category A employee primary contributions (not blended with income tax)",
+          "amount": "1394.40"
+        }
+      ],
+      "safety": "Educational illustration of dated statutory income-tax and employee Class 1 NICs rules \u2014 not tax advice and not a substitute for HMRC guidance or a personal tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled alternate band table. Statutory incidence (who the law charges) is not the same as economic incidence (who ultimately bears the cost). Modelled liabilities are not observed population tax paid."
+    },
+    {
+      "example_id": "ewni_basic_top",
+      "tax_year": "2025-26",
+      "jurisdiction": "england-wales-ni",
+      "scenario_type": "hypothetical_taxable_employment_income",
+      "gross_taxable_income_gbp": "50270.00",
+      "exclusions": [
+        "benefits in kind",
+        "pension contributions / relief",
+        "marriage allowance",
+        "blind person's allowance",
+        "student loan repayments",
+        "savings / dividend income (starting rate for savings and dividend rates out of scope)",
+        "personal allowance taper for income above \u00a3100,000 (examples stay at or below \u00a3100,000)",
+        "employer Class 1 NICs (employer stage not modelled)",
+        "married women's reduced NICs rates / other category letters (category A only)",
+        "corporation tax, VAT, CGT, council tax"
+      ],
+      "income_tax_gbp": "7540.00",
+      "employee_class1_nics_gbp": "3016.00",
+      "combined_statutory_deductions_gbp": "10556.00",
+      "note": "Combined figure is the sum of two separate statutory stages (income tax + employee Class 1 NICs), not a single blended tax rate.",
+      "income_tax_steps": [
+        {
+          "step": "personal_allowance",
+          "detail": "PA=12570 (standard; taper limit 100000)",
+          "amount": "12570.00"
+        },
+        {
+          "step": "taxable_income",
+          "detail": "gross 50270 \u2212 PA 12570",
+          "amount": "37700.00"
+        },
+        {
+          "step": "band_basic",
+          "detail": "Basic rate @ 20% on 37700.00 (after-allowance window 0\u201337700)",
+          "amount": "7540.00"
+        },
+        {
+          "step": "income_tax_total",
+          "detail": "sum of band tax (separate from NICs)",
+          "amount": "7540.00"
+        }
+      ],
+      "employee_class1_nics_steps": [
+        {
+          "step": "nic_pt_to_uel",
+          "detail": "earnings 37700.00 between PT 12570 and UEL 50270 @ 8%",
+          "amount": "3016.00"
+        },
+        {
+          "step": "nic_above_uel",
+          "detail": "earnings 0.00 above UEL 50270 @ 2%",
+          "amount": "0.00"
+        },
+        {
+          "step": "employee_class1_nics_total",
+          "detail": "category A employee primary contributions (not blended with income tax)",
+          "amount": "3016.00"
+        }
+      ],
+      "safety": "Educational illustration of dated statutory income-tax and employee Class 1 NICs rules \u2014 not tax advice and not a substitute for HMRC guidance or a personal tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled alternate band table. Statutory incidence (who the law charges) is not the same as economic incidence (who ultimately bears the cost). Modelled liabilities are not observed population tax paid."
+    },
+    {
+      "example_id": "ewni_higher",
+      "tax_year": "2025-26",
+      "jurisdiction": "england-wales-ni",
+      "scenario_type": "hypothetical_taxable_employment_income",
+      "gross_taxable_income_gbp": "80000.00",
+      "exclusions": [
+        "benefits in kind",
+        "pension contributions / relief",
+        "marriage allowance",
+        "blind person's allowance",
+        "student loan repayments",
+        "savings / dividend income (starting rate for savings and dividend rates out of scope)",
+        "personal allowance taper for income above \u00a3100,000 (examples stay at or below \u00a3100,000)",
+        "employer Class 1 NICs (employer stage not modelled)",
+        "married women's reduced NICs rates / other category letters (category A only)",
+        "corporation tax, VAT, CGT, council tax"
+      ],
+      "income_tax_gbp": "19432.00",
+      "employee_class1_nics_gbp": "3610.60",
+      "combined_statutory_deductions_gbp": "23042.60",
+      "note": "Combined figure is the sum of two separate statutory stages (income tax + employee Class 1 NICs), not a single blended tax rate.",
+      "income_tax_steps": [
+        {
+          "step": "personal_allowance",
+          "detail": "PA=12570 (standard; taper limit 100000)",
+          "amount": "12570.00"
+        },
+        {
+          "step": "taxable_income",
+          "detail": "gross 80000 \u2212 PA 12570",
+          "amount": "67430.00"
+        },
+        {
+          "step": "band_basic",
+          "detail": "Basic rate @ 20% on 37700.00 (after-allowance window 0\u201337700)",
+          "amount": "7540.00"
+        },
+        {
+          "step": "band_higher",
+          "detail": "Higher rate @ 40% on 29730.00 (after-allowance window 37701\u2013125140)",
+          "amount": "11892.00"
+        },
+        {
+          "step": "income_tax_total",
+          "detail": "sum of band tax (separate from NICs)",
+          "amount": "19432.00"
+        }
+      ],
+      "employee_class1_nics_steps": [
+        {
+          "step": "nic_pt_to_uel",
+          "detail": "earnings 37700.00 between PT 12570 and UEL 50270 @ 8%",
+          "amount": "3016.00"
+        },
+        {
+          "step": "nic_above_uel",
+          "detail": "earnings 29730.00 above UEL 50270 @ 2%",
+          "amount": "594.60"
+        },
+        {
+          "step": "employee_class1_nics_total",
+          "detail": "category A employee primary contributions (not blended with income tax)",
+          "amount": "3610.60"
+        }
+      ],
+      "safety": "Educational illustration of dated statutory income-tax and employee Class 1 NICs rules \u2014 not tax advice and not a substitute for HMRC guidance or a personal tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled alternate band table. Statutory incidence (who the law charges) is not the same as economic incidence (who ultimately bears the cost). Modelled liabilities are not observed population tax paid."
+    },
+    {
+      "example_id": "scotland_contrast_basic_top",
+      "tax_year": "2025-26",
+      "jurisdiction": "scotland",
+      "scenario_type": "hypothetical_taxable_employment_income",
+      "gross_taxable_income_gbp": "50270.00",
+      "exclusions": [
+        "benefits in kind",
+        "pension contributions / relief",
+        "marriage allowance",
+        "blind person's allowance",
+        "student loan repayments",
+        "savings / dividend income (starting rate for savings and dividend rates out of scope)",
+        "personal allowance taper for income above \u00a3100,000 (examples stay at or below \u00a3100,000)",
+        "employer Class 1 NICs (employer stage not modelled)",
+        "married women's reduced NICs rates / other category letters (category A only)",
+        "corporation tax, VAT, CGT, council tax"
+      ],
+      "income_tax_gbp": "9127.20",
+      "employee_class1_nics_gbp": "3016.00",
+      "combined_statutory_deductions_gbp": "12143.20",
+      "note": "Combined figure is the sum of two separate statutory stages (income tax + employee Class 1 NICs), not a single blended tax rate.",
+      "income_tax_steps": [
+        {
+          "step": "personal_allowance",
+          "detail": "PA=12570 (standard; taper limit 100000)",
+          "amount": "12570.00"
+        },
+        {
+          "step": "taxable_income",
+          "detail": "gross 50270 \u2212 PA 12570",
+          "amount": "37700.00"
+        },
+        {
+          "step": "band_starter",
+          "detail": "Starter rate @ 19% on 2827.00 (after-allowance window 0\u20132827)",
+          "amount": "537.13"
+        },
+        {
+          "step": "band_basic",
+          "detail": "Basic rate @ 20% on 12094.00 (after-allowance window 2828\u201314921)",
+          "amount": "2418.80"
+        },
+        {
+          "step": "band_intermediate",
+          "detail": "Intermediate rate @ 21% on 16171.00 (after-allowance window 14922\u201331092)",
+          "amount": "3395.91"
+        },
+        {
+          "step": "band_higher",
+          "detail": "Higher rate @ 42% on 6608.00 (after-allowance window 31093\u201362430)",
+          "amount": "2775.36"
+        },
+        {
+          "step": "income_tax_total",
+          "detail": "sum of band tax (separate from NICs)",
+          "amount": "9127.20"
+        }
+      ],
+      "employee_class1_nics_steps": [
+        {
+          "step": "nic_pt_to_uel",
+          "detail": "earnings 37700.00 between PT 12570 and UEL 50270 @ 8%",
+          "amount": "3016.00"
+        },
+        {
+          "step": "nic_above_uel",
+          "detail": "earnings 0.00 above UEL 50270 @ 2%",
+          "amount": "0.00"
+        },
+        {
+          "step": "employee_class1_nics_total",
+          "detail": "category A employee primary contributions (not blended with income tax)",
+          "amount": "3016.00"
+        }
+      ],
+      "safety": "Educational illustration of dated statutory income-tax and employee Class 1 NICs rules \u2014 not tax advice and not a substitute for HMRC guidance or a personal tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled alternate band table. Statutory incidence (who the law charges) is not the same as economic incidence (who ultimately bears the cost). Modelled liabilities are not observed population tax paid."
+    }
+  ]
+}

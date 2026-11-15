@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import threading
 from typing import Any
 
 from britain_exchange.db import connect, database_url
@@ -11,13 +12,41 @@ def using_postgres() -> bool:
     return database_url() is not None
 
 
+_CATALOGUE_CACHE: dict[str, Any] = {"key": None, "rows": None}
+_CATALOGUE_LOCK = threading.Lock()
+
+# Cheap: two small tables. Changes whenever a release is loaded/switched or metadata is refreshed.
+_CATALOGUE_FINGERPRINT = """
+    SELECT (SELECT COUNT(*) FROM data_release WHERE is_current) AS releases,
+           (SELECT COALESCE(MAX(release_id), 0) FROM data_release) AS last_release,
+           (SELECT COALESCE(MAX(updated_at)::text, '') FROM indicator) AS last_meta
+"""
+
+
 def list_indicators_db() -> list[dict[str, Any]]:
+    """The catalogue listing. Aggregating 1M+ observations takes ~20s, so the result is cached
+    until the release or indicator tables change (checked with a cheap fingerprint)."""
+    with connect() as conn:
+        key = tuple(conn.execute(_CATALOGUE_FINGERPRINT).fetchone().values())
+        if _CATALOGUE_CACHE["key"] == key and _CATALOGUE_CACHE["rows"] is not None:
+            return _CATALOGUE_CACHE["rows"]
+    with _CATALOGUE_LOCK:  # one rebuild at a time; others reuse it
+        if _CATALOGUE_CACHE["key"] == key and _CATALOGUE_CACHE["rows"] is not None:
+            return _CATALOGUE_CACHE["rows"]
+        rows = _list_indicators_uncached()
+        _CATALOGUE_CACHE.update(key=key, rows=rows)
+        return rows
+
+
+def _list_indicators_uncached() -> list[dict[str, Any]]:
     with connect() as conn:
         rows = conn.execute(
             """
             SELECT i.indicator_id, i.title, i.sector, i.publisher, i.unit, i.frequency,
                    i.source_url, i.notion_registry_url, i.agent_owner, i.geography,
                    i.series_id, i.caveats, i.licence, i.definition,
+                   i.update_cadence, i.status_note,
+                   COALESCE(ser.series_count, 0) AS series_count,
                    COALESCE(cov.coverage_start, '') AS coverage_start,
                    COALESCE(cov.coverage_end, '') AS coverage_end,
                    COALESCE(cov.observation_count, 0) AS observation_count,
@@ -33,6 +62,17 @@ def list_indicators_db() -> list[dict[str, Any]]:
                 JOIN data_release r ON r.release_id = o.release_id AND r.is_current
                 GROUP BY o.indicator_id
             ) cov ON cov.indicator_id = i.indicator_id
+            LEFT JOIN (
+                -- a series = one place x one breakdown, observed over time
+                SELECT indicator_id, COUNT(*) AS series_count
+                FROM (
+                    SELECT DISTINCT o.indicator_id, o.geography_code, o.dim_fuel, o.dim_water_company,
+                           o.dim_demographic, o.dim_series, o.dim_category
+                    FROM observation o
+                    JOIN data_release r ON r.release_id = o.release_id AND r.is_current
+                ) s
+                GROUP BY indicator_id
+            ) ser ON ser.indicator_id = i.indicator_id
             LEFT JOIN (
                 SELECT indicator_id,
                        MAX(official_release_date)::text AS release_date,

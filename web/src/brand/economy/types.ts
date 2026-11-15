@@ -41,6 +41,18 @@ export type DebtPack = {
   borrowing: SeriesPack | null;
   interest: SeriesPack | null;
   percentGdp: SeriesPack | null;
+  /** DMO Quarterly Review portfolio — conventional / index-linked / T-bills (Anatomy). */
+  portfolio: SeriesPack | null;
+  /** DMO D1A snapshot of every gilt in issue (Anatomy detail). */
+  giltsInIssue: SeriesPack | null;
+  /** ONS sector gilt holdings, market value £m (Who owns the debt). */
+  ownership: SeriesPack | null;
+  /** DMO D8B future redemptions by financial year (Repayment calendar). */
+  redemptions: SeriesPack | null;
+  /** DMO D4L official government holdings — Data tab only, never ownership. */
+  governmentHoldings: SeriesPack | null;
+  /** ONS Appendix A REC3 — central government cash requirement → change in net debt (Cash to debt). */
+  cashBridge: SeriesPack | null;
 };
 
 /** One ONS release vintage inside `economy.gdp-vintage-band`. */
@@ -63,16 +75,16 @@ export type GdpVintage = {
 
 export type GdpVintageSpot = {
   latest_period: string;
-  pn2_level: number;
-  qna_level: number;
+  first_level: number;
+  latest_level: number;
   level_ratio: number;
-  pn2_since_ref_pct: number;
-  qna_since_ref_pct: number;
-  pn2_reference_year: number;
-  qna_reference_year: number;
+  first_since_ref_pct: number;
+  latest_since_ref_pct: number;
+  first_reference_year: number;
+  latest_reference_year: number;
 };
 
-/** Dated PN2 + QNA store for the Growth Revisions signature chart. */
+/** Dated first-estimate + latest-release store for the Growth Revisions chart. */
 export type GdpVintageBandPack = {
   pack_id: string;
   built_at: string;
@@ -94,8 +106,145 @@ export type GrowthPack = {
   gdp: SeriesPack | null;
   gdpPerHead: SeriesPack | null;
   productivity: SeriesPack | null;
+  /** Whole-economy productivity hours (LZVA) — Productivity Engine companion to LZVB. */
+  productivityHours: SeriesPack | null;
+  /** SIC section GVA (current prices) for Anatomy — shares only. */
+  industryGva: SeriesPack | null;
   /** Null when Storage pack is missing — Revisions falls back to EmptyStage. */
   vintageBand: GdpVintageBandPack | null;
+};
+
+/** Domain 03 — national LFS levels + rates (UK 16–64 SA) + completion packs. */
+export type EmploymentPack = {
+  employmentRate: SeriesPack | null;
+  inactivityRate: SeriesPack | null;
+  unemploymentRate: SeriesPack | null;
+  employmentLevel: SeriesPack | null;
+  unemploymentLevel: SeriesPack | null;
+  inactivityLevel: SeriesPack | null;
+  /** Outside the Workforce — principal reason levels (000s SA 16–64). */
+  reasonStudents: SeriesPack | null;
+  reasonFamilyHome: SeriesPack | null;
+  reasonTempSick: SeriesPack | null;
+  reasonLongTermSick: SeriesPack | null;
+  reasonRetired: SeriesPack | null;
+  reasonOther: SeriesPack | null;
+  reasonDiscouraged: SeriesPack | null;
+  /** Working Week / Demand / national jobs. */
+  averageHours: SeriesPack | null;
+  employmentFullTime: SeriesPack | null;
+  employmentPartTime: SeriesPack | null;
+  /** Working Week — EMP16 underemployment (people, NSA, 16+) and YCCX involuntary part-time (000s SA). */
+  underemployment: SeriesPack | null;
+  involuntaryPartTime: SeriesPack | null;
+  /** APS employment by SOC 2020 major group (people, 16+, rolling twelve-month windows). */
+  employmentByOccupation: SeriesPack | null;
+  vacancies: SeriesPack | null;
+  workforceJobs: SeriesPack | null;
+  /** JOBS02 WFJ SA sections A–T + total (jobs, not people). */
+  workforceJobsByIndustry: SeriesPack | null;
+  /** Regions HI00 — linked, not forked under Economy. */
+  regionalEmploymentRate: SeriesPack | null;
+  regionalUnemploymentRate: SeriesPack | null;
+  regionalInactivityRate: SeriesPack | null;
+};
+
+/**
+ * Educational fiscal-drag worked examples (`economy.tax-fiscal-drag`).
+ * Status is `documented` — not a separate Registry Ready flip.
+ */
+export type FiscalDragLiability = {
+  gross_employment_income_gbp: number;
+  personal_allowance_applied_gbp: number;
+  taxable_income_gbp: number;
+  income_tax_gbp: number;
+  effective_income_tax_rate_percent: number;
+};
+
+export type FiscalDragYear = {
+  tax_year: string;
+  awe_index_vs_2021_22: number;
+  awe_annualised_x52_gbp: number;
+  actual_statutory: FiscalDragLiability;
+  /** E/W/NI only — PA/basic upper indexed to KAI7; absent for Scotland. */
+  counterfactual_thresholds_indexed_to_awe?: {
+    personal_allowance_gbp: number;
+    basic_upper_after_allowance_gbp: number;
+    liability: FiscalDragLiability;
+    extra_tax_vs_counterfactual_gbp: number;
+  };
+};
+
+export type FiscalDragProfile = {
+  profile_id: string;
+  label: string;
+  jurisdiction: "england-wales-ni" | "scotland" | string;
+  base_gross_gbp: number;
+  notes: string;
+  years: FiscalDragYear[];
+};
+
+export type FiscalDragPack = {
+  indicator_id: string;
+  artefact: string;
+  status: string;
+  generated_at?: string;
+  assumptions: {
+    educational_disclaimer: string;
+    earnings_measure: {
+      publisher: string;
+      series_id: string;
+      title: string;
+      geography: string;
+      related_indicator_id?: string;
+    };
+    counterfactual: {
+      base_tax_year: string;
+      end_tax_year: string;
+      jurisdiction_scope: string;
+      scotland_note: string;
+      freeze_context: string;
+    };
+    tax_model: {
+      exclusions: string[];
+    };
+  };
+  profiles: FiscalDragProfile[];
+};
+
+/** Domain 06 — public-sector taxes + NICs (AHHY) + Tax Machine + Anatomy composition. */
+export type TaxPack = {
+  taxReceipts: SeriesPack | null;
+  /** Ready statute pin — income tax bands + employee Class 1 NICs. */
+  taxMachineRules: SeriesPack | null;
+  /** Ready multi-year rates/thresholds archive (Time Machine). */
+  taxTimeMachine: SeriesPack | null;
+  /**
+   * Documented fiscal-drag examples pack (`economy.tax-fiscal-drag`).
+   * Nullable when Storage/API is unavailable — UI falls back to rates-only Time Machine.
+   */
+  fiscalDrag: FiscalDragPack | null;
+  /** Ready Appendix D heads under AHHY — MF6P + AIIH + NMHM + AHGR. */
+  taxComposition: SeriesPack | null;
+  /** Ready CG drill under MF6P — NMBY + NMCU + LIQR. */
+  taxCgComposition: SeriesPack | null;
+  /** Ready ONS Effects of taxes and benefits (FYE 2024). */
+  taxBurden: SeriesPack | null;
+  /** Ready HMRC Measuring tax gaps (MTG 2026). */
+  taxGap: SeriesPack | null;
+};
+
+/** Domain 07 — TME flagship + TES/COFOG + DEL/AME (+ real-terms). */
+export type SpendingPack = {
+  totalManagedExpenditure: SeriesPack | null;
+  /** Ready HMT PSS Table 5.4 — TES by COFOG (not monthly EBFT). */
+  tesByFunction: SeriesPack | null;
+  /** Ready HMT PSS Table 1.1 — Total DEL + Departmental AME + Other AME. */
+  tmeDelAme: SeriesPack | null;
+  /** Ready HMT PSS Table 1.2 — real terms, 2025-26 prices, £ million. */
+  tmeDelAmeReal: SeriesPack | null;
+  /** Ready HMT PSS Table 4.3 — real TES/COFOG, 2025-26 prices, £ billion. */
+  tesByFunctionReal: SeriesPack | null;
 };
 
 export type EconomyDomainId =
@@ -124,11 +273,14 @@ export const ECONOMY_DOMAIN_IDS: EconomyDomainId[] = [
   "policy",
 ];
 
-/** Wave A domains with a drawn canvas and cloud-loaded Ready series. Everything else is In preparation. */
+/** Domains with a drawn canvas and cloud-loaded Ready series. Everything else is In preparation. */
 export const ECONOMY_READY_DOMAINS: ReadonlySet<EconomyDomainId> = new Set<EconomyDomainId>([
   "inflation",
   "wages",
+  "employment",
   "growth",
+  "tax",
+  "spending",
   "debt",
 ]);
 

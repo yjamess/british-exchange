@@ -1,0 +1,78 @@
+indicator_id: tax-receipts-composition
+title: Tax receipts composition (Anatomy under AHHY)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/appendixdpublicsectorcurrentreceipts/current
+series_id: MF6P+AIIH+NMHM+AHGR→AHHY
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, NSA (PS taxes + NICs composition)
+definition: 'ONS Public Sector Finances Appendix D / PUSF National Accounts breakdown
+  of public-sector taxes and social contributions. Curated components: MF6P (total
+  CG taxes), AIIH (social contributions / mainly NICs), NMHM (council tax), AHGR (other
+  local government taxes). Published identity: MF6P + AIIH + NMHM + AHGR = AHHY. Chart
+  total is Ready tax-receipts (AHHY) — not JW2O and not HMRC cash.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tax_receipts_composition
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances / Appendix D)
+raw_evidence:
+- path: raw/2026-11-15/ahgr_pusf_probe.json
+  retrieved_at: '2026-11-15T14:26:59.708016+00:00'
+  checksum_sha256: a7a1297a75c6450ae64940c3c54bcd0cc7cd23b30995f5aa58581b3ac5769247
+  content_type: application/json
+  official_release_date: ''
+  http_status: 404
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/ahgr/pusf/data
+- path: raw/2026-11-15/appendix_d_public_sector_current_receipts.xlsx
+  retrieved_at: '2026-11-15T14:26:59.783454+00:00'
+  checksum_sha256: 7a06b80fb26f2f64a7e5578c158de62d124df20f2aeb1bc406f680b279997679
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-21'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/appendixdpublicsectorcurrentreceipts/current/publicsectorcurrentreceiptsappendixdfinal.xlsx
+- path: raw/2026-11-15/aiih_pusf.json
+  retrieved_at: '2026-11-15T14:26:59.864237+00:00'
+  checksum_sha256: 4bcf79500e3f8516d3e885014fde57c242d6ac7b9a45e50328e2b9d0bebf5569
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/aiih/pusf/data
+- path: raw/2026-11-15/mf6p_pusf.json
+  retrieved_at: '2026-11-15T14:26:59.958672+00:00'
+  checksum_sha256: 87ea045812bf3cc55a757fd9c50c85a887d30c5d7f7894cd2a2f77732a78d5e8
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/mf6p/pusf/data
+- path: raw/2026-11-15/nmhm_pusf.json
+  retrieved_at: '2026-11-15T14:27:00.042162+00:00'
+  checksum_sha256: 6ee71d11bd5a4a4946fd0b061dc3c814e106be2dcea55c12ef3d0092f1ed2246
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/nmhm/pusf/data
+transformations: 'Download Appendix D xlsx + PUSF /data JSON for MF6P, AIIH, NMHM.
+  AHGR has no live PUSF /data (404) — parse the Appendix D Time Series AHGR column
+  with openpyxl. Keep months only. Notes: series=<CDID>; category=<slug>; source=pusf-json|appendix-d-time-series.
+  Latest valued month per series marked provisional. AHHY total is NOT curated here
+  — cross-check against Ready tax-receipts observations.'
+revision_notes: PSF / Appendix D pin release 2026-10-21; next PSF 20 Nov 2026 may
+  revise recent months. Re-pin workbook + JSON; re-run identity check (curated/anatomy_identity_check.json).
+  Re-probe AHGR /data — switch to JSON if ONS publishes it.
+caveats: Accruals / National Accounts (Appendix D / PSA6D family) — NOT HMRC cash
+  receipts and NOT PSA7D. Do not use JW2O (broader public-sector current receipts)
+  as the Anatomy total. AHGR is workbook-sourced while PUSF timeseries JSON returns
+  404 — not an Exchange-invented residual. Do not mix HMRC cash heads under AHHY.
+status_note: Ready after Validation PASS 2026-11-15 (23/0/0). Anatomy UI may use this
+  stack under AHHY. Accruals only — not HMRC cash.
+related_indicator_ids:
+- tax-receipts
+- public-sector-net-borrowing
+- total-managed-expenditure
+open_questions:
+- When AHGR PUSF /data recovers, switch source and keep workbook as evidence?
+- Optional CG drill under MF6P (LIBR / NZGF / CPRN) as second wave?
+notion_registry_url: https://app.notion.com/p/419654717685818dac2bc06033d4a01c
+schema_version: '1.0'

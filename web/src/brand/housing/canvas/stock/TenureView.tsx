@@ -11,6 +11,7 @@ import { EmptyStage, explorerClasses as t } from "../../..";
 import { ShareArea, type Band } from "../../../charts/ShareArea";
 import type { HousingV1 } from "../../load";
 import gen from "../../../energy/generation.module.css";
+import { Term } from "../../..";
 
 type Props = {
   tenure: HousingV1["tenure"];
@@ -68,7 +69,7 @@ export function TenureView({ tenure }: Props) {
   return (
     <div className={gen.stack}>
       <section className={gen.panel}>
-        <h3 className={t.stageTitle}>Dwelling stock by tenure · England · share over time</h3>
+        <h3 className={t.stageTitle}>Dwelling stock by <Term slug="tenure">tenure</Term> · England · share over time</h3>
         <ShareArea
           years={tenure.years}
           bands={bands}

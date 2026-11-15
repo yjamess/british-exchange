@@ -1,0 +1,411 @@
+{
+  "indicator_id": "tax-machine-income-tax-history",
+  "related_ready_indicator_id": "tax-machine-income-tax-rules",
+  "retrieved_date": "2026-11-15",
+  "year_span": "2010-11\u20262026-27",
+  "overall": "pass",
+  "checks": [
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/table_a2_rates.ods sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/table_a1_allowances.ods sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/table_a4_nics.ods sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/income_tax_rates.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/nics_rates.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/rates_of_income_landing.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/allowances_landing.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/nics_stats_landing.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_2017_18_govscot.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_2018_19_govscot.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_hmrc_sit_2019.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_hmrc_sit_2020.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_hmrc_sit_2021.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_2020_21_govscot.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_2021_22_budget.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_2022_23_govscot.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/sco_hmrc_sit_2023.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/employers_2018_19.html sha256 match=True"
+    },
+    {
+      "id": "C1_checksum",
+      "result": "pass",
+      "notes": "raw/2026-11-15/employers_2020_21.html sha256 match=True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains 'Personal Allowance': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains '\u00a312,570': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains 'Up to \u00a337,700': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "income_tax_rates.html contains 'Starter rate': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Primary Threshold': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Upper Earnings Limit': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "nics_rates.html contains 'Between Primary Threshold and Upper Earnings Limit': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2017_18_govscot.html contains '\u00a343,000': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2017_18_govscot.html contains 'Scottish Basic rate': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2017_18_govscot.html contains '20%': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2018_19_govscot.html contains 'Starter Rate': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2018_19_govscot.html contains '19%': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2018_19_govscot.html contains '\u00a313,850': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2018_19_govscot.html contains '\u00a343,430': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2019.html contains '2017 to 2018': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2019.html contains '2018 to 2019': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2019.html contains '2019 to 2020': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2019.html contains '19%': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2020.html contains '2019 to 2020': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2020.html contains '\u00a314,549': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2020.html contains '41%': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2021.html contains '2020 to 2021': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2021.html contains '\u00a314,585': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2021.html contains '\u00a325,158': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2020_21_govscot.html contains '2020-21': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2020_21_govscot.html contains '\u00a314,585': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2020_21_govscot.html contains '\u00a343,430': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2020_21_govscot.html contains '2021-22': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2021_22_budget.html contains '2021-22': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2021_22_budget.html contains '\u00a314,667': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2021_22_budget.html contains '\u00a325,296': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2021_22_budget.html contains '\u00a343,662': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2022_23_govscot.html contains '2022 to 2023': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2022_23_govscot.html contains '\u00a314,732': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2022_23_govscot.html contains '\u00a325,688': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_2022_23_govscot.html contains '\u00a343,662': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2023.html contains '2022 to 2023': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2023.html contains '\u00a314,732': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "sco_hmrc_sit_2023.html contains '\u00a325,688': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2018_19.html contains 'Scottish starter': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2018_19.html contains '\u00a32,000': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2018_19.html contains '\u00a331,580': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2020_21.html contains 'Scottish starter': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2020_21.html contains '\u00a32,085': True"
+    },
+    {
+      "id": "C2_raw_anchor",
+      "result": "pass",
+      "notes": "employers_2020_21.html contains '\u00a330,930': True"
+    },
+    {
+      "id": "C3_year_span",
+      "result": "pass",
+      "notes": "E/W/NI years 2010-11\u20262026-27 (target 2010-11\u20262026-27)"
+    },
+    {
+      "id": "C4_pa_2025_26",
+      "result": "pass",
+      "notes": "2025\u201326 PA=12570"
+    },
+    {
+      "id": "C5_basic_upper_2025_26",
+      "result": "pass",
+      "notes": "basic upper=37700 rate=20"
+    },
+    {
+      "id": "C6_scotland_2025_26_vs_ready_pin",
+      "result": "pass",
+      "notes": "Scotland 2025\u201326 starter upper 2827; top rate 48% (matches Ready pin family)"
+    },
+    {
+      "id": "C7_scotland_2017_22_filled",
+      "result": "pass",
+      "notes": "Scotland historical pinned=True; remaining gaps=[]"
+    },
+    {
+      "id": "C7b_scotland_2018_19_employers",
+      "result": "pass",
+      "notes": "2018\u201319 starter 2000 / intermediate 31580 / higher 41% (employers + gov.scot)"
+    },
+    {
+      "id": "C7c_scotland_2020_21_employers",
+      "result": "pass",
+      "notes": "2020\u201321 starter 2085 / intermediate 30930 (employers + HMRC SIT)"
+    },
+    {
+      "id": "C7d_scotland_2021_22_srr",
+      "result": "pass",
+      "notes": "2021\u201322 SRR rate limits 2097 / 12726 / 31092"
+    },
+    {
+      "id": "C7e_scotland_not_ewni_copy",
+      "result": "pass",
+      "notes": "2018\u201319 Scotland has starter + higher 41% vs E/W/NI higher 40%"
+    },
+    {
+      "id": "C8_no_nics_blend_in_it_bands",
+      "result": "pass",
+      "notes": "income_tax_bands.csv has no NICs threshold columns"
+    },
+    {
+      "id": "C9_nics_split_2022-23",
+      "result": "pass",
+      "notes": "2022-23 status=intra_year_change; main_rate_parsed=None"
+    },
+    {
+      "id": "C9_nics_split_2023-24",
+      "result": "pass",
+      "notes": "2023-24 status=intra_year_change; main_rate_parsed=None"
+    },
+    {
+      "id": "C10_fiscal_drag_deferred",
+      "result": "superseded",
+      "notes": "was deferred at history pin; now documented — see curated/fiscal_drag_self_qa.json (EC-VAL-06E-DRAG)"
+    },
+    {
+      "id": "C11_2010_11_additional_50",
+      "result": "pass",
+      "notes": "2010\u201311 additional=50"
+    }
+  ],
+  "fiscal_drag": {
+    "status": "documented",
+    "reason": "See curated/fiscal_drag_status.json + fiscal_drag_examples.json (ONS KAI7 path; EC-VAL-06E-DRAG).",
+    "examples_path": "curated/fiscal_drag_examples.json"
+  },
+  "sample_rules": {
+    "tax_year": "2025-26",
+    "ewni_personal_allowance": "12570",
+    "ewni_basic_upper": "37700",
+    "scotland_starter_upper": "2827",
+    "nics_pt_weekly_2025_26": "242"
+  }
+}

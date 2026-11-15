@@ -1,0 +1,78 @@
+{
+  "rule": "sum(sectors) == TOTAL (\u00b1rounding) per quarter; printed % == value/TOTAL",
+  "sum_checks": [
+    {
+      "quarter": "2024-Q4",
+      "sum_of_sectors": 2052855,
+      "published_total": 2052855,
+      "diff": 0,
+      "ok": true
+    },
+    {
+      "quarter": "2025-Q1",
+      "sum_of_sectors": 2064665,
+      "published_total": 2064665,
+      "diff": 0,
+      "ok": true
+    },
+    {
+      "quarter": "2025-Q2",
+      "sum_of_sectors": 2126975,
+      "published_total": 2126975,
+      "diff": 0,
+      "ok": true
+    },
+    {
+      "quarter": "2025-Q3",
+      "sum_of_sectors": 2124632,
+      "published_total": 2124632,
+      "diff": 0,
+      "ok": true
+    }
+  ],
+  "share_checks": [
+    {
+      "sector": "insurance-pension-funds",
+      "published_pct": 21.1,
+      "computed_pct": 21.138,
+      "ok": true
+    },
+    {
+      "sector": "overseas",
+      "published_pct": 33.4,
+      "computed_pct": 33.384,
+      "ok": true
+    },
+    {
+      "sector": "bank-of-england-apf",
+      "published_pct": 18.5,
+      "computed_pct": 18.533,
+      "ok": true
+    },
+    {
+      "sector": "other-financial-pnfc",
+      "published_pct": 16.8,
+      "computed_pct": 16.773,
+      "ok": true
+    },
+    {
+      "sector": "monetary-financial-institutions",
+      "published_pct": 10.0,
+      "computed_pct": 9.986,
+      "ok": true
+    },
+    {
+      "sector": "households-npish",
+      "published_pct": 0.1,
+      "computed_pct": 0.139,
+      "ok": true
+    },
+    {
+      "sector": "local-authorities-public-corporations",
+      "published_pct": 0.0,
+      "computed_pct": 0.047,
+      "ok": true
+    }
+  ],
+  "pass": true
+}

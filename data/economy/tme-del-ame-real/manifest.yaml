@@ -1,0 +1,76 @@
+indicator_id: tme-del-ame-real
+title: Total DEL, departmental AME, and other AME in real terms (PSS Table 1.2)
+sector: economy-public-finance
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-spending-statistics-release-july-2026
+series_id: PSS July 2026 Table 1.2
+geography: United Kingdom (K02000001); public sector via departmental budgets plus
+  Other AME
+frequency: annual
+unit: £ million, 2025-26 prices, financial year
+definition: 'HM Treasury control totals from PSS July 2026 Table 1.2, financial-year
+  outturn, £ million, 2025-26 prices. Curated rows are the published Total DEL, Departmental
+  AME, Other AME, and this table''s Total Managed Expenditure. Identity: Total DEL
+  + Departmental AME + Other AME = this table''s TME. Other AME is kept, including
+  when it is negative. Total DEL is the published row, not resource DEL plus capital
+  DEL. In 2025-26, real equals nominal Table 1.1, including resource DEL 496,670.
+  Real-terms figures are the nominal figures adjusted to 2025-26 price levels using
+  GDP deflators from the Office for National Statistics (released 30 June 2026). PESA
+  plan years are not in these pins. Where PESA prints plan years, it also uses OBR
+  GDP deflator forecasts from the 3 March 2026 Economic and fiscal outlook. That forecast
+  deflator is not applied here. The denominator is this table''s real TME, not monthly
+  ONS EBFT.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tme_del_ame_real
+curated_path: curated/observations.csv
+update_cadence: PSS key series are updated in the November, February and April cycle.
+  Re-pin on a new edition; do not overwrite this checksum.
+raw_evidence:
+- path: raw/2026-11-15/July_PSS_2026_Chapter_1.xlsx
+  retrieved_at: '2026-11-15T20:57:20.958945+00:00'
+  checksum_sha256: ff40d00e69d7b5cb2db4504e24ba774dd09b181ac676d0518ab0e16581305dbe
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a5749ec2f6185941a9a6519/July_PSS_2026_Chapter_1.xlsx
+transformations: Download PSS July 2026 Chapter 1. Read sheet Table_1_2 for the curated
+  rows. Keep financial years 2021-22 to 2025-26. Curate Total DEL, Departmental AME,
+  Other AME, and table TME. Do not curate resource or capital DEL, departmental detail,
+  or Other AME components. Read Table_1_1 in the same workbook only to prove the 2025-26
+  price base (real equals nominal). 2025-26 observation_status=estimated (first estimate).
+  Notes use series, classification, role, fy, label, table=1.2, price_base=2025-26,
+  terms=real. Table TME notes set denominator=hmt-table-tme.
+revision_notes: PSS July 2026, file updated 2026-07-29. Outturn only — PESA plan years
+  2026-27 to 2028-29 are not in this workbook and are not in this pin. 2025-26 is
+  the first estimate and can still be revised. Real-terms figures are the nominal
+  figures adjusted to 2025-26 price levels using GDP deflators from the Office for
+  National Statistics (released 30 June 2026).
+caveats: 'Prices are 2025-26 prices, £ million. Real-terms figures are the nominal
+  figures adjusted to 2025-26 price levels using GDP deflators from the Office for
+  National Statistics (released 30 June 2026). PESA plan years are not in these pins.
+  Where PESA prints plan years, it also uses OBR GDP deflator forecasts from the 3
+  March 2026 Economic and fiscal outlook. That forecast deflator is not applied here.
+  Denominator is this table''s real TME, not monthly EBFT and not TES. In 2024-25,
+  Total DEL 616,422 + Departmental AME 626,432 + Other AME 91,603 = table TME 1,334,457.
+  Dropping Other AME leaves the total short by 91,603. Resource DEL + capital DEL
+  is not published Total DEL (footnote 7: Scottish Government block grant adjustments,
+  Table 1.4, sit outside that pair). 2021-22 Other AME is -202,678. In 2025-26 the
+  four control totals and resource DEL 496,670 equal nominal Table 1.1. Earlier years
+  do not. No Tax−Spend=Borrow identity. No OSCAR rows. No PESA plan years. These rows
+  are official HMT real-terms financial-year tables. They are not monthly EBFT divided
+  by CPIH or by the GDP deflator. Do not treat real HMT table TME as a real monthly
+  EBFT series.'
+status_note: Financial-year outturn for 2021-22 to 2025-26 from PSS July 2026 Table
+  1.2, 2025-26 prices. 2025-26 is a first estimate and can still be revised. 2025-26
+  real equals 2025-26 nominal.
+related_indicator_ids:
+- tme-del-ame
+- tes-by-function-real
+- total-managed-expenditure
+open_questions:
+- Do not deflate monthly total-managed-expenditure to match this table.
+- PESA plan years after 2025-26 are out of scope.
+- Do not mix these £ million rows with Table 4.3 £ billion rows.
+notion_registry_url: https://app.notion.com/p/419654717685815ba4c7d9d669dd661b
+schema_version: '1.0'

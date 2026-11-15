@@ -118,23 +118,12 @@ export function LineChart({ series, height = 340, format, tickFormat, cadence = 
         />
       </svg>
       {hovered && hovered[0]?.p ? (
-        <Readout x={hx} f={f}>
-          <b>{fmtT(hovered[0].p.t, cadence)}</b>
-          {hovered
-            .sort((a, b) => b.p!.v - a.p!.v)
-            .map(({ s, p }) => (
-              <span key={s.id} className={c.readRow}>
-                <span>
-                  <i style={{ background: s.role === "signal" ? "var(--bo-signal)" : s.role === "primary" ? "var(--bo-paper)" : "var(--bo-paper-on-ink-70)" }} />
-                  {s.label}
-                </span>
-                <span>
-                  {format(p!.v)}
-                  {p!.provisional ? " · prov." : ""}
-                </span>
-              </span>
-            ))}
-        </Readout>
+        <Readout x={hx} f={f} head={fmtT(hovered[0].p.t, cadence)}
+          rows={[...hovered].sort((a, b) => b.p!.v - a.p!.v).map(({ s, p }) => ({
+            id: s.id,
+            label: s.label,
+            value: `${format(p!.v)}${p!.provisional ? " · provisional" : ""}`,
+          }))} />
       ) : null}
     </div>
   );

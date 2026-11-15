@@ -21,6 +21,7 @@ import { fmt, fmtT, type Pt } from "../../../data";
 import { TimeChart } from "../../../instrument/TimeChart";
 import gen from "../../../energy/generation.module.css";
 import s from "./landExplorer.module.css";
+import { Term } from "../../..";
 
 type Enc = { type: "MultiPolygon"; c: [number, number][][][] };
 type Bbox = [number, number, number, number];
@@ -353,7 +354,7 @@ export function HistoricalChange({
       </section>
 
       <section className={gen.panel}>
-        <h3 className={t.stageTitle}>Where the Green Belt is · England · {when}</h3>
+        <h3 className={t.stageTitle}>Where the <Term slug="green-belt">Green Belt</Term> is · England · {when}</h3>
         {loading ? (
           <EmptyStage label="Loading">Drawing the Green Belt at {when}…</EmptyStage>
         ) : error || !drawn || !plate || !view ? (

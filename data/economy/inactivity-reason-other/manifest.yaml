@@ -1,0 +1,72 @@
+indicator_id: inactivity-reason-other
+title: Economic inactivity — other reasons (aged 16–64)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf6d/lms
+series_id: LF6D
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Thousands of people aged 16–64, SA
+definition: UK economically inactive aged 16–64 whose main reason is 'other', seasonally
+  adjusted, thousands. ONS CDID LF6D in LMS. Prefer over % series LF7B. Discouraged
+  workers are a separate INAC01 level (LFL8), not folded into this series.
+  LF77 is the percent companion only.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.inactivity_reason_other
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-14/lf6d_lms.json
+  retrieved_at: '2026-11-14T22:57:30.078425+00:00'
+  checksum_sha256: dbab33afb2ef718fc396088a447a4f70fae91274170d95fe35c0f2fc8ec4d4aa
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf6d/lms/data
+- path: raw/2026-11-14/lf6d_lms.csv
+  retrieved_at: '2026-11-14T23:23:33.111727+00:00'
+  checksum_sha256: 7b23891da450dc641366791610ce885b720ae605f91202d3280fb725892cc292
+  content_type: text/csv
+  official_release_date: '2026-10-20'
+  http_status: null
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf6d/lms
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS reason levels revise with reweighting and seasonal-adjustment
+  updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Reason levels from
+  LMS / INAC01 SA (economic inactivity by reason). Sum of principal reason levels
+  ≈ economic-inactivity-level (LF2M). Add inactivity-reason-discouraged (LFL8);
+  published rounding can leave a small residual. Never invent levels from
+  % series × LF2M. Do not draw person-flow arrows between reasons.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- uk-vacancies
+- average-actual-weekly-hours
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/418654717685811c97bcde11b151f43e
+schema_version: '1.0'

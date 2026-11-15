@@ -1,7 +1,9 @@
-"""Dated vintage store for Growth Revisions (PN2 vs QNA).
+"""Dated vintage store for Growth Revisions (first estimate vs latest release).
 
 Builds a curated JSON pack from the pinned raw ABMI / IHXW files so the UI can
-draw both vintages without inventing numbers.
+draw both vintages without inventing numbers. Roles: ``first`` is the earliest
+pinned first estimate of the shared latest quarter; ``latest`` is the newest
+pinned release (12 Nov 2026 PN2, which carried the Sep QNA history unchanged).
 
 Honesty rule (Growth handover §1.3):
 - Absolute £ levels are **not** comparable across vintages (reference year moves).
@@ -31,12 +33,12 @@ OUT_PATH = ECONOMY_DATA / "gdp-vintage-band" / "curated" / "band.json"
 REF_PERIOD = "2019-10-01"  # 2019 Q4
 REF_LABEL = "2019 Q4"
 
-# (indicator key, path under data/economy/, dataset label, chain-volume reference year)
-VINTAGE_FILES: tuple[tuple[str, str, str, int], ...] = (
-    ("real-gdp", "real-gdp/raw/2026-11-11/abmi_pn2.json", "PN2", 2023),
-    ("real-gdp", "real-gdp/raw/2026-11-11/abmi_qna.json", "QNA", 2024),
-    ("real-gdp-per-head", "real-gdp-per-head/raw/2026-11-11/ihxw_pn2.json", "PN2", 2023),
-    ("real-gdp-per-head", "real-gdp-per-head/raw/2026-11-11/ihxw_qna.json", "QNA", 2024),
+# (indicator key, path under data/economy/, role, ONS dataset, chain-volume reference year)
+VINTAGE_FILES: tuple[tuple[str, str, str, str, int], ...] = (
+    ("real-gdp", "real-gdp/raw/2026-11-11/abmi_pn2.json", "first", "PN2", 2023),
+    ("real-gdp", "real-gdp/raw/2026-11-14/abmi_pn2.json", "latest", "PN2", 2024),
+    ("real-gdp-per-head", "real-gdp-per-head/raw/2026-11-11/ihxw_pn2.json", "first", "PN2", 2023),
+    ("real-gdp-per-head", "real-gdp-per-head/raw/2026-11-14/ihxw_pn2.json", "latest", "PN2", 2024),
 )
 
 QUARTER_NUMBER = {"Q1": 1, "Q2": 2, "Q3": 3, "Q4": 4}
@@ -133,12 +135,12 @@ def levels_payload(points: list[QuarterPoint]) -> list[dict[str, float | str]]:
 
 
 def build_pack() -> dict[str, Any]:
-    """Assemble PN2 + QNA vintages for GDP and GDP per head."""
+    """Assemble first-estimate + latest-release vintages for GDP and GDP per head."""
     by_indicator: dict[str, list[dict[str, Any]]] = {
         "real-gdp": [],
         "real-gdp-per-head": [],
     }
-    for key, rel, dataset, ref_year in VINTAGE_FILES:
+    for key, rel, role, dataset, ref_year in VINTAGE_FILES:
         path = ECONOMY_DATA / rel
         if not path.is_file():
             raise FileNotFoundError(
@@ -158,10 +160,11 @@ def build_pack() -> dict[str, Any]:
         latest = points[-1]
         ref = next(p for p in points if p.period_start == REF_PERIOD)
         since_pct = (latest.value / ref.value - 1.0) * 100.0
+        by_period = {p.period_start: p.value for p in points}
         by_indicator[key].append(
             {
-                "id": dataset.lower(),
-                "label": f"{dataset} · {_release_date(description) or 'unknown-release'}",
+                "id": role,
+                "label": f"{role} · {_release_date(description) or 'unknown-release'}",
                 "dataset": dataset,
                 "release_date": _release_date(description),
                 "reference_year": ref_year,
@@ -172,6 +175,8 @@ def build_pack() -> dict[str, Any]:
                 "latest_level": latest.value,
                 "ref_level": ref.value,
                 "since_ref_pct": round(since_pct, 4),
+                "_by_period": by_period,
+                "_ref_level": ref.value,
                 "levels": levels_payload(points),
                 "index": index,
             }
@@ -180,18 +185,27 @@ def build_pack() -> dict[str, Any]:
     spot: dict[str, Any] = {}
     for key, vintages in by_indicator.items():
         by_id = {v["id"]: v for v in vintages}
-        pn2, qna = by_id["pn2"], by_id["qna"]
-        ratio = float(qna["latest_level"]) / float(pn2["latest_level"])
+        first, latest = by_id["first"], by_id["latest"]
+        # Compare both vintages at the latest quarter they share — the newer
+        # release carries one more quarter than the first estimate.
+        common = min(first["range"][1], latest["range"][1])
+        first_level = float(first["_by_period"][common])
+        latest_level = float(latest["_by_period"][common])
         spot[key] = {
-            "latest_period": qna["range"][1],
-            "pn2_level": pn2["latest_level"],
-            "qna_level": qna["latest_level"],
-            "level_ratio": round(ratio, 4),
-            "pn2_since_ref_pct": pn2["since_ref_pct"],
-            "qna_since_ref_pct": qna["since_ref_pct"],
-            "pn2_reference_year": pn2["reference_year"],
-            "qna_reference_year": qna["reference_year"],
+            "latest_period": common,
+            "first_level": first_level,
+            "latest_level": latest_level,
+            "level_ratio": round(latest_level / first_level, 4),
+            "first_since_ref_pct": round((first_level / float(first["_ref_level"]) - 1.0) * 100.0, 4),
+            "latest_since_ref_pct": round((latest_level / float(latest["_ref_level"]) - 1.0) * 100.0, 4),
+            "first_reference_year": first["reference_year"],
+            "latest_reference_year": latest["reference_year"],
         }
+
+    for vintages in by_indicator.values():
+        for v in vintages:
+            v.pop("_by_period", None)
+            v.pop("_ref_level", None)
 
     return {
         "pack_id": "economy.gdp-vintage-band",
@@ -210,7 +224,7 @@ def build_pack() -> dict[str, Any]:
 
 
 def main() -> None:
-    """Build the vintage-band pack from pinned PN2 + QNA raw JSON."""
+    """Build the vintage-band pack from pinned first-estimate + latest raw JSON."""
     pack = build_pack()
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(pack, indent=2) + "\n", encoding="utf-8")
@@ -219,8 +233,8 @@ def main() -> None:
     for key, spot in pack["spot"].items():
         print(
             f"  {key}: ratio={spot['level_ratio']} "
-            f"pn2_since={spot['pn2_since_ref_pct']}% "
-            f"qna_since={spot['qna_since_ref_pct']}%"
+            f"first_since={spot['first_since_ref_pct']}% "
+            f"latest_since={spot['latest_since_ref_pct']}%"
         )
 
 

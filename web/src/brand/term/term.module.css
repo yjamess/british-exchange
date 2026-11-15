@@ -1,0 +1,85 @@
+/* Term marker and popover. One ink; paper panel; no underline on the term itself. */
+
+.term {
+  position: relative;
+  display: inline;
+  white-space: nowrap;
+}
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 0.95em;
+  height: 0.95em;
+  margin-left: 0.3em;
+  padding: 0;
+  vertical-align: 0.08em;
+  border: 1px solid var(--bo-ink-60);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--bo-ink);
+  font: 500 0.62em/1 var(--bo-f-data);
+  font-style: normal;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+.mark:hover,
+.term[data-open] .mark {
+  border-color: var(--bo-ink);
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+}
+.mark:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+
+.panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  width: min(22rem, calc(100vw - 2 * var(--bo-gutter, 16px)));
+  padding: var(--bo-s3) var(--bo-s4) var(--bo-s3);
+  border: var(--bo-rule);
+  background: var(--bo-paper);
+  color: var(--bo-text);
+  box-shadow: 0 8px 24px -12px color-mix(in srgb, var(--bo-ink) 40%, transparent);
+  white-space: normal;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  font: 400 var(--bo-t-note) / 1.45 var(--bo-f-body);
+}
+.panel[data-align="end"] {
+  left: auto;
+  right: 0;
+}
+.panel:focus { outline: none; }
+.name {
+  margin: 0 0 var(--bo-s1);
+  color: var(--bo-ink);
+  font-size: var(--bo-t-small);
+}
+.name b { font-weight: 500; }
+.full {
+  display: block;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink-60);
+  margin-top: 2px;
+}
+.definition { margin: 0; }
+.more {
+  display: inline-block;
+  margin-top: var(--bo-s2);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}

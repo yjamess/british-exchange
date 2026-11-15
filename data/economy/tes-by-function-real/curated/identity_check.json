@@ -1,0 +1,238 @@
+{
+  "pass": true,
+  "indicator_id": "tes-by-function-real",
+  "price_base": "2025-26",
+  "unit": "\u00a3 billion, 2025-26 prices, financial year",
+  "deflator": "Real-terms figures are the nominal figures adjusted to 2025-26 price levels using GDP deflators from the Office for National Statistics (released 30 June 2026).",
+  "years": "2003-04 to 2025-26",
+  "year_count": 23,
+  "gaps": [
+    {
+      "fy": "2003-04",
+      "leaf_sum": 801.0,
+      "tes": 801.0,
+      "leaf_gap": 0.0,
+      "adjustments": 81.1,
+      "table_tme": 882.0,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2004-05",
+      "leaf_sum": 835.2,
+      "tes": 835.2,
+      "leaf_gap": 0.0,
+      "adjustments": 91.4,
+      "table_tme": 926.6,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2005-06",
+      "leaf_sum": 865.9,
+      "tes": 866.0,
+      "leaf_gap": -0.1,
+      "adjustments": 86.8,
+      "table_tme": 952.8,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2006-07",
+      "leaf_sum": 879.0,
+      "tes": 878.9,
+      "leaf_gap": 0.1,
+      "adjustments": 90.9,
+      "table_tme": 969.8,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2007-08",
+      "leaf_sum": 914.8,
+      "tes": 914.8,
+      "leaf_gap": 0.0,
+      "adjustments": 95.4,
+      "table_tme": 1010.2,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2008-09",
+      "leaf_sum": 957.6,
+      "tes": 957.6,
+      "leaf_gap": 0.0,
+      "adjustments": 103.8,
+      "table_tme": 1061.4,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2009-10",
+      "leaf_sum": 1000.7,
+      "tes": 1000.7,
+      "leaf_gap": 0.0,
+      "adjustments": 100.0,
+      "table_tme": 1100.7,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2010-11",
+      "leaf_sum": 1014.5,
+      "tes": 1014.5,
+      "leaf_gap": 0.0,
+      "adjustments": 101.8,
+      "table_tme": 1116.4,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2011-12",
+      "leaf_sum": 997.2,
+      "tes": 997.4,
+      "leaf_gap": -0.2,
+      "adjustments": 99.3,
+      "table_tme": 1096.7,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2012-13",
+      "leaf_sum": 984.8,
+      "tes": 984.8,
+      "leaf_gap": 0.0,
+      "adjustments": 113.0,
+      "table_tme": 1097.7,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2013-14",
+      "leaf_sum": 980.4,
+      "tes": 980.3,
+      "leaf_gap": 0.1,
+      "adjustments": 102.8,
+      "table_tme": 1083.1,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2014-15",
+      "leaf_sum": 984.2,
+      "tes": 984.1,
+      "leaf_gap": 0.1,
+      "adjustments": 114.0,
+      "table_tme": 1098.1,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2015-16",
+      "leaf_sum": 997.4,
+      "tes": 997.3,
+      "leaf_gap": 0.1,
+      "adjustments": 103.7,
+      "table_tme": 1101.0,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2016-17",
+      "leaf_sum": 988.9,
+      "tes": 988.9,
+      "leaf_gap": 0.0,
+      "adjustments": 114.6,
+      "table_tme": 1103.5,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2017-18",
+      "leaf_sum": 1006.9,
+      "tes": 1007.0,
+      "leaf_gap": -0.1,
+      "adjustments": 119.4,
+      "table_tme": 1126.4,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2018-19",
+      "leaf_sum": 1014.4,
+      "tes": 1014.3,
+      "leaf_gap": 0.1,
+      "adjustments": 109.7,
+      "table_tme": 1124.0,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2019-20",
+      "leaf_sum": 1022.4,
+      "tes": 1022.6,
+      "leaf_gap": -0.2,
+      "adjustments": 109.4,
+      "table_tme": 1132.0,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2020-21",
+      "leaf_sum": 1229.6,
+      "tes": 1229.6,
+      "leaf_gap": 0.0,
+      "adjustments": 111.2,
+      "table_tme": 1340.7,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2021-22",
+      "leaf_sum": 1154.4,
+      "tes": 1154.5,
+      "leaf_gap": -0.1,
+      "adjustments": 107.9,
+      "table_tme": 1262.4,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2022-23",
+      "leaf_sum": 1220.3,
+      "tes": 1220.4,
+      "leaf_gap": -0.1,
+      "adjustments": 94.8,
+      "table_tme": 1315.2,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2023-24",
+      "leaf_sum": 1200.1,
+      "tes": 1200.3,
+      "leaf_gap": -0.2,
+      "adjustments": 124.7,
+      "table_tme": 1325.0,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2024-25",
+      "leaf_sum": 1206.5,
+      "tes": 1206.6,
+      "leaf_gap": -0.1,
+      "adjustments": 127.8,
+      "table_tme": 1334.5,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2025-26",
+      "leaf_sum": 1227.7,
+      "tes": 1227.6,
+      "leaf_gap": 0.1,
+      "adjustments": 132.5,
+      "table_tme": 1360.1,
+      "bridge_gap": 0.0
+    }
+  ],
+  "nonzero_gap_years": 18,
+  "max_abs_leaf_gap": 0.2,
+  "max_abs_bridge_gap": 0.1,
+  "health_2024_25": {
+    "real": 250.8,
+    "nominal_table_4_2": 242.4,
+    "table_4_2_curated": false
+  },
+  "spot_2024_25": {
+    "eu_transactions": -1.5,
+    "tes": 1206.6,
+    "accounting_adjustments": 127.8,
+    "table_tme": 1334.5,
+    "tes_plus_adjustments_minus_tme": -0.1
+  },
+  "price_base_equals_table_4_2": true,
+  "of_which_skipped": 8,
+  "residual_function_rows": 0,
+  "ebft_deflated": false,
+  "row_count": 322
+}

@@ -6,6 +6,7 @@
  * Owner and authority search live in HousingExplorer. Counts only; no title, address or name.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useMemo } from "react";
 import { EmptyStage, MapLegend, explorerClasses as t } from "../../..";
 import { fmt } from "../../../data";
@@ -16,6 +17,7 @@ import type { HousingV1, OwnerTitles } from "../../load";
 import { useGeometry } from "../insecurity/Displacement";
 import s from "../insecurity/insecurity.module.css";
 import gen from "../../../energy/generation.module.css";
+import { Term } from "../../..";
 
 type Titles = HousingV1["ownership"]["titles"];
 export type Owner = "uk" | "overseas";
@@ -162,33 +164,21 @@ export function WhoOwns({ titles, owner, area, onArea }: Props) {
             <p className="bo-label">In focus</p>
             {selected ? (
               <>
-                <p className={s.placeName}>{selected.name}</p>
-                <p className={`bo-fig ${s.readoutValue}`}>{fmt.count(selected.v)}</p>
-                <p className={s.readoutMeta}>
-                  titles held by {o.lower}
-                  {rank > 0 ? ` · ${ordinal(rank)} of ${ranked.length}` : ""}
-                  {` · ${month}`}
-                </p>
-                <dl className={s.facts}>
-                  <div>
-                    <dt>UK companies</dt>
-                    <dd>{fmt.count((owner === "uk" ? selected : selectedOther)?.v ?? 0)} titles</dd>
-                  </div>
-                  <div>
-                    <dt>Overseas companies</dt>
-                    <dd>{fmt.count((owner === "overseas" ? selected : selectedOther)?.v ?? 0)} titles</dd>
-                  </div>
-                </dl>
+                <ReadoutCard placement="inline" head={`${selected.name} · ${month}`} rows={[
+                  { label: `Titles held by ${o.lower}`, value: fmt.count(selected.v) },
+                  ...(rank > 0 ? [{ label: "Rank", value: `${ordinal(rank)} of ${ranked.length}` }] : []),
+                  { label: "UK company titles", value: fmt.count((owner === "uk" ? selected : selectedOther)?.v ?? 0) },
+                  { label: "Overseas company titles", value: fmt.count((owner === "overseas" ? selected : selectedOther)?.v ?? 0) },
+                ]} />
               </>
             ) : (
               <>
                 <p className={s.readoutMeta}>
                   Select a local authority on the map or in the ranking. No place is chosen until you do.
                 </p>
-                <p className={s.big}>
-                  <span className="bo-fig">{fmt.count(data.total)}</span>
-                  <span>titles held by {o.lower} · England and Wales · {month}</span>
-                </p>
+                <ReadoutCard placement="inline" head={`England and Wales · ${month}`} rows={[
+                  { label: `Titles held by ${o.lower}`, value: fmt.count(data.total) },
+                ]} />
               </>
             )}
 
@@ -233,7 +223,9 @@ export function WhoOwns({ titles, owner, area, onArea }: Props) {
         </section>
       ) : (
         <section className={gen.panel}>
-          <h3 className={t.stageTitle}>Freehold and leasehold · UK companies · {month}</h3>
+          <h3 className={t.stageTitle}>
+            <Term slug="freehold">Freehold</Term> and <Term slug="leasehold">leasehold</Term> · UK companies · {month}
+          </h3>
           <RankBars
             label={`Titles held by UK companies by tenure · ${month}`}
             rows={[

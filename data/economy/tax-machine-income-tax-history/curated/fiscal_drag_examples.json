@@ -1,0 +1,855 @@
+{
+  "indicator_id": "tax-machine-income-tax-history",
+  "artefact": "fiscal_drag_examples",
+  "status": "documented",
+  "generated_at": "2026-11-15T15:37:15.517699+00:00",
+  "assumptions": {
+    "educational_disclaimer": "Educational illustration of statutory income-tax arithmetic under labelled assumptions \u2014 not tax advice, not a personal tax calculation, and not a substitute for HMRC guidance.",
+    "earnings_measure": {
+      "publisher": "ONS",
+      "series_id": "KAI7",
+      "dataset": "EMP",
+      "title": "AWE: Whole Economy Level (\u00a3): Seasonally Adjusted Regular Pay Excluding Arrears",
+      "related_indicator_id": "nominal-earnings",
+      "geography": "Great Britain (K03000001) \u2014 AWE excludes Northern Ireland",
+      "unit": "\u00a3 per week, SA, cash (regular pay)",
+      "landing_url": "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp",
+      "data_url": "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp/data",
+      "annualisation": "tax_year_mean_weekly \u00d7 52",
+      "tax_year_window": "April\u2013March inclusive; require 12 months",
+      "vintage_note": "Pinned ONS EMP/KAI7 JSON; releaseDate from description",
+      "not_this_measure": [
+        "ASHE median/mean weekly pay",
+        "AWE total pay (incl. bonuses)",
+        "Northern Ireland earnings",
+        "household income / take-home pay"
+      ]
+    },
+    "counterfactual": {
+      "base_tax_year": "2021-22",
+      "end_tax_year": "2025-26",
+      "jurisdiction_scope": "E/W/NI only \u2014 PA and basic-rate upper after allowance indexed to KAI7 from 2021\u201322 levels; rates unchanged; additional-rate threshold follows actual statute (incl. 2023\u201324 cut).",
+      "scotland_note": "Scotland profile uses actual pinned Scottish bands each year. No invented Scotland freeze or E/W/NI copy.",
+      "price_basis": "nominal GBP throughout (not real / CPI-deflated)",
+      "freeze_context": "UK Personal Allowance \u00a312,570 and E/W/NI basic band upper \u00a337,700 (HRT \u00a350,270) held in the curated pin across 2021\u201322\u20262025\u201326."
+    },
+    "tax_model": {
+      "income_type": "hypothetical taxable employment income (NSND) only",
+      "personal_allowance_taper": "\u00a31 reduction per \u00a32 above \u00a3100,000 to zero",
+      "band_basis": "after-allowance bands from curated income_tax_bands.csv",
+      "exclusions": [
+        "employee/employer Class 1 NICs",
+        "student loan",
+        "pension contributions / gift aid",
+        "savings starting rate / dividends",
+        "marriage / blind / age allowances",
+        "Welsh rates (use E/W/NI table as labelled england-wales-ni)",
+        "benefits-in-kind / payroll quirks"
+      ]
+    },
+    "profiles_are_hypothetical": true,
+    "wage_path_not_invented": "Growth path = observed KAI7 tax-year annualised index only; starting levels are labelled hypothetical multiples/levels."
+  },
+  "awe_tax_year_path": [
+    {
+      "tax_year": "2021-22",
+      "awe_mean_weekly_gbp": 548.75,
+      "awe_annualised_x52_gbp": 28535.0,
+      "months_used": 12,
+      "series_id": "KAI7",
+      "geography": "Great Britain (K03000001)",
+      "definition": "Tax-year mean of monthly ONS AWE whole-economy regular pay (SA, cash, excl. bonuses/arrears), annualised \u00d752 for educational gross employment income paths. Not ASHE; not NI; not take-home pay."
+    },
+    {
+      "tax_year": "2022-23",
+      "awe_mean_weekly_gbp": 582.3333,
+      "awe_annualised_x52_gbp": 30281.33,
+      "months_used": 12,
+      "series_id": "KAI7",
+      "geography": "Great Britain (K03000001)",
+      "definition": "Tax-year mean of monthly ONS AWE whole-economy regular pay (SA, cash, excl. bonuses/arrears), annualised \u00d752 for educational gross employment income paths. Not ASHE; not NI; not take-home pay."
+    },
+    {
+      "tax_year": "2023-24",
+      "awe_mean_weekly_gbp": 622.25,
+      "awe_annualised_x52_gbp": 32357.0,
+      "months_used": 12,
+      "series_id": "KAI7",
+      "geography": "Great Britain (K03000001)",
+      "definition": "Tax-year mean of monthly ONS AWE whole-economy regular pay (SA, cash, excl. bonuses/arrears), annualised \u00d752 for educational gross employment income paths. Not ASHE; not NI; not take-home pay."
+    },
+    {
+      "tax_year": "2024-25",
+      "awe_mean_weekly_gbp": 656.75,
+      "awe_annualised_x52_gbp": 34151.0,
+      "months_used": 12,
+      "series_id": "KAI7",
+      "geography": "Great Britain (K03000001)",
+      "definition": "Tax-year mean of monthly ONS AWE whole-economy regular pay (SA, cash, excl. bonuses/arrears), annualised \u00d752 for educational gross employment income paths. Not ASHE; not NI; not take-home pay."
+    },
+    {
+      "tax_year": "2025-26",
+      "awe_mean_weekly_gbp": 684.8333,
+      "awe_annualised_x52_gbp": 35611.33,
+      "months_used": 12,
+      "series_id": "KAI7",
+      "geography": "Great Britain (K03000001)",
+      "definition": "Tax-year mean of monthly ONS AWE whole-economy regular pay (SA, cash, excl. bonuses/arrears), annualised \u00d752 for educational gross employment income paths. Not ASHE; not NI; not take-home pay."
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "ewni_awe_scaled",
+      "label": "E/W/NI \u00b7 AWE-scaled hypothetical (1.0\u00d7 base AWE)",
+      "jurisdiction": "england-wales-ni",
+      "base_gross_gbp": 28535.0,
+      "notes": "Starts at 1.0\u00d7 tax-year-annualised KAI7 in 2021\u201322; gross grows exactly with the KAI7 tax-year index.",
+      "years": [
+        {
+          "tax_year": "2021-22",
+          "awe_index_vs_2021_22": 1.0,
+          "awe_annualised_x52_gbp": 28535.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 28535.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 15965.0,
+            "income_tax_gbp": 3193.0,
+            "effective_income_tax_rate_percent": 11.19,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 15965.0,
+                "tax_gbp": 3193.0
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 12570,
+            "basic_upper_after_allowance_gbp": 37700,
+            "liability": {
+              "gross_employment_income_gbp": 28535.0,
+              "personal_allowance_applied_gbp": 12570.0,
+              "taxable_income_gbp": 15965.0,
+              "income_tax_gbp": 3193.0,
+              "effective_income_tax_rate_percent": 11.19,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 37700.0,
+                  "taxable_in_band_gbp": 15965.0,
+                  "tax_gbp": 3193.0
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 0.0
+          }
+        },
+        {
+          "tax_year": "2022-23",
+          "awe_index_vs_2021_22": 1.0612,
+          "awe_annualised_x52_gbp": 30281.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 30281.33,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 17711.33,
+            "income_tax_gbp": 3542.27,
+            "effective_income_tax_rate_percent": 11.698,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 17711.33,
+                "tax_gbp": 3542.27
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 13339,
+            "basic_upper_after_allowance_gbp": 40007,
+            "liability": {
+              "gross_employment_income_gbp": 30281.33,
+              "personal_allowance_applied_gbp": 13339.0,
+              "taxable_income_gbp": 16942.33,
+              "income_tax_gbp": 3388.47,
+              "effective_income_tax_rate_percent": 11.19,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 40007.0,
+                  "taxable_in_band_gbp": 16942.33,
+                  "tax_gbp": 3388.47
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 153.8
+          }
+        },
+        {
+          "tax_year": "2023-24",
+          "awe_index_vs_2021_22": 1.133941,
+          "awe_annualised_x52_gbp": 32357.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 32357.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 19787.0,
+            "income_tax_gbp": 3957.4,
+            "effective_income_tax_rate_percent": 12.23,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 19787.0,
+                "tax_gbp": 3957.4
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 14254,
+            "basic_upper_after_allowance_gbp": 42750,
+            "liability": {
+              "gross_employment_income_gbp": 32357.0,
+              "personal_allowance_applied_gbp": 14254.0,
+              "taxable_income_gbp": 18103.0,
+              "income_tax_gbp": 3620.6,
+              "effective_income_tax_rate_percent": 11.19,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 42750.0,
+                  "taxable_in_band_gbp": 18103.0,
+                  "tax_gbp": 3620.6
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 336.8
+          }
+        },
+        {
+          "tax_year": "2024-25",
+          "awe_index_vs_2021_22": 1.196811,
+          "awe_annualised_x52_gbp": 34151.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 34151.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 21581.0,
+            "income_tax_gbp": 4316.2,
+            "effective_income_tax_rate_percent": 12.639,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 21581.0,
+                "tax_gbp": 4316.2
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 15044,
+            "basic_upper_after_allowance_gbp": 45120,
+            "liability": {
+              "gross_employment_income_gbp": 34151.0,
+              "personal_allowance_applied_gbp": 15044.0,
+              "taxable_income_gbp": 19107.0,
+              "income_tax_gbp": 3821.4,
+              "effective_income_tax_rate_percent": 11.19,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 45120.0,
+                  "taxable_in_band_gbp": 19107.0,
+                  "tax_gbp": 3821.4
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 494.8
+          }
+        },
+        {
+          "tax_year": "2025-26",
+          "awe_index_vs_2021_22": 1.247988,
+          "awe_annualised_x52_gbp": 35611.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 35611.33,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 23041.33,
+            "income_tax_gbp": 4608.27,
+            "effective_income_tax_rate_percent": 12.94,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 23041.33,
+                "tax_gbp": 4608.27
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 15687,
+            "basic_upper_after_allowance_gbp": 47049,
+            "liability": {
+              "gross_employment_income_gbp": 35611.33,
+              "personal_allowance_applied_gbp": 15687.0,
+              "taxable_income_gbp": 19924.33,
+              "income_tax_gbp": 3984.87,
+              "effective_income_tax_rate_percent": 11.19,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 47049.0,
+                  "taxable_in_band_gbp": 19924.33,
+                  "tax_gbp": 3984.87
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 623.4
+          }
+        }
+      ],
+      "summary": {
+        "base_tax_year": "2021-22",
+        "end_tax_year": "2025-26",
+        "gross_growth_percent": 24.799,
+        "income_tax_base_gbp": 3193.0,
+        "income_tax_end_gbp": 4608.27,
+        "income_tax_change_gbp": 1415.27,
+        "effective_rate_base_percent": 11.19,
+        "effective_rate_end_percent": 12.94,
+        "effective_rate_change_pp": 1.75
+      }
+    },
+    {
+      "profile_id": "ewni_near_higher",
+      "label": "E/W/NI \u00b7 near higher-rate threshold (hypothetical \u00a345,000 base)",
+      "jurisdiction": "england-wales-ni",
+      "base_gross_gbp": 45000.0,
+      "notes": "Hypothetical base \u00a345,000 in 2021\u201322 (below HRT \u00a350,270); gross grows with the same KAI7 tax-year index \u2014 growth not invented.",
+      "years": [
+        {
+          "tax_year": "2021-22",
+          "awe_index_vs_2021_22": 1.0,
+          "awe_annualised_x52_gbp": 28535.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 45000.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 32430.0,
+            "income_tax_gbp": 6486.0,
+            "effective_income_tax_rate_percent": 14.413,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 32430.0,
+                "tax_gbp": 6486.0
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 12570,
+            "basic_upper_after_allowance_gbp": 37700,
+            "liability": {
+              "gross_employment_income_gbp": 45000.0,
+              "personal_allowance_applied_gbp": 12570.0,
+              "taxable_income_gbp": 32430.0,
+              "income_tax_gbp": 6486.0,
+              "effective_income_tax_rate_percent": 14.413,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 37700.0,
+                  "taxable_in_band_gbp": 32430.0,
+                  "tax_gbp": 6486.0
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 0.0
+          }
+        },
+        {
+          "tax_year": "2022-23",
+          "awe_index_vs_2021_22": 1.0612,
+          "awe_annualised_x52_gbp": 30281.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 47753.98,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 35183.98,
+            "income_tax_gbp": 7036.8,
+            "effective_income_tax_rate_percent": 14.736,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 35183.98,
+                "tax_gbp": 7036.8
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 13339,
+            "basic_upper_after_allowance_gbp": 40007,
+            "liability": {
+              "gross_employment_income_gbp": 47753.98,
+              "personal_allowance_applied_gbp": 13339.0,
+              "taxable_income_gbp": 34414.98,
+              "income_tax_gbp": 6883.0,
+              "effective_income_tax_rate_percent": 14.413,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 40007.0,
+                  "taxable_in_band_gbp": 34414.98,
+                  "tax_gbp": 6883.0
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 153.8
+          }
+        },
+        {
+          "tax_year": "2023-24",
+          "awe_index_vs_2021_22": 1.133941,
+          "awe_annualised_x52_gbp": 32357.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 51027.33,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 38457.33,
+            "income_tax_gbp": 7842.93,
+            "effective_income_tax_rate_percent": 15.37,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 37700.0,
+                "tax_gbp": 7540.0
+              },
+              {
+                "band_id": "higher",
+                "band_label": "Higher rate",
+                "rate_percent": 40.0,
+                "after_allowance_from_gbp": 37700.0,
+                "after_allowance_to_gbp": 125140.0,
+                "taxable_in_band_gbp": 757.33,
+                "tax_gbp": 302.93
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 14254,
+            "basic_upper_after_allowance_gbp": 42750,
+            "liability": {
+              "gross_employment_income_gbp": 51027.33,
+              "personal_allowance_applied_gbp": 14254.0,
+              "taxable_income_gbp": 36773.33,
+              "income_tax_gbp": 7354.67,
+              "effective_income_tax_rate_percent": 14.413,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 42750.0,
+                  "taxable_in_band_gbp": 36773.33,
+                  "tax_gbp": 7354.67
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 488.26
+          }
+        },
+        {
+          "tax_year": "2024-25",
+          "awe_index_vs_2021_22": 1.196811,
+          "awe_annualised_x52_gbp": 34151.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 53856.49,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 41286.49,
+            "income_tax_gbp": 8974.6,
+            "effective_income_tax_rate_percent": 16.664,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 37700.0,
+                "tax_gbp": 7540.0
+              },
+              {
+                "band_id": "higher",
+                "band_label": "Higher rate",
+                "rate_percent": 40.0,
+                "after_allowance_from_gbp": 37700.0,
+                "after_allowance_to_gbp": 125140.0,
+                "taxable_in_band_gbp": 3586.49,
+                "tax_gbp": 1434.6
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 15044,
+            "basic_upper_after_allowance_gbp": 45120,
+            "liability": {
+              "gross_employment_income_gbp": 53856.49,
+              "personal_allowance_applied_gbp": 15044.0,
+              "taxable_income_gbp": 38812.49,
+              "income_tax_gbp": 7762.5,
+              "effective_income_tax_rate_percent": 14.413,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 45120.0,
+                  "taxable_in_band_gbp": 38812.49,
+                  "tax_gbp": 7762.5
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 1212.1
+          }
+        },
+        {
+          "tax_year": "2025-26",
+          "awe_index_vs_2021_22": 1.247988,
+          "awe_annualised_x52_gbp": 35611.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 56159.45,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 43589.45,
+            "income_tax_gbp": 9895.78,
+            "effective_income_tax_rate_percent": 17.621,
+            "band_steps": [
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 37700.0,
+                "taxable_in_band_gbp": 37700.0,
+                "tax_gbp": 7540.0
+              },
+              {
+                "band_id": "higher",
+                "band_label": "Higher rate",
+                "rate_percent": 40.0,
+                "after_allowance_from_gbp": 37700.0,
+                "after_allowance_to_gbp": 125140.0,
+                "taxable_in_band_gbp": 5889.45,
+                "tax_gbp": 2355.78
+              }
+            ]
+          },
+          "counterfactual_thresholds_indexed_to_awe": {
+            "personal_allowance_gbp": 15687,
+            "basic_upper_after_allowance_gbp": 47049,
+            "liability": {
+              "gross_employment_income_gbp": 56159.45,
+              "personal_allowance_applied_gbp": 15687.0,
+              "taxable_income_gbp": 40472.45,
+              "income_tax_gbp": 8094.49,
+              "effective_income_tax_rate_percent": 14.413,
+              "band_steps": [
+                {
+                  "band_id": "basic",
+                  "band_label": "Basic rate",
+                  "rate_percent": 20.0,
+                  "after_allowance_from_gbp": 0.0,
+                  "after_allowance_to_gbp": 47049.0,
+                  "taxable_in_band_gbp": 40472.45,
+                  "tax_gbp": 8094.49
+                }
+              ]
+            },
+            "extra_tax_vs_counterfactual_gbp": 1801.29
+          }
+        }
+      ],
+      "summary": {
+        "base_tax_year": "2021-22",
+        "end_tax_year": "2025-26",
+        "gross_growth_percent": 24.799,
+        "income_tax_base_gbp": 6486.0,
+        "income_tax_end_gbp": 9895.78,
+        "income_tax_change_gbp": 3409.78,
+        "effective_rate_base_percent": 14.413,
+        "effective_rate_end_percent": 17.621,
+        "effective_rate_change_pp": 3.208
+      }
+    },
+    {
+      "profile_id": "scotland_awe_scaled",
+      "label": "Scotland \u00b7 AWE-scaled hypothetical (same earnings as ewni_awe_scaled)",
+      "jurisdiction": "scotland",
+      "base_gross_gbp": 28535.0,
+      "notes": "Same earnings path as ewni_awe_scaled; Scottish band table from this package (not E/W/NI). Scotland thresholds are not assumed frozen.",
+      "years": [
+        {
+          "tax_year": "2021-22",
+          "awe_index_vs_2021_22": 1.0,
+          "awe_annualised_x52_gbp": 28535.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 28535.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 15965.0,
+            "income_tax_gbp": 3204.42,
+            "effective_income_tax_rate_percent": 11.23,
+            "band_steps": [
+              {
+                "band_id": "starter",
+                "band_label": "Starter rate",
+                "rate_percent": 19.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 2097.0,
+                "taxable_in_band_gbp": 2097.0,
+                "tax_gbp": 398.43
+              },
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 2097.0,
+                "after_allowance_to_gbp": 12726.0,
+                "taxable_in_band_gbp": 10629.0,
+                "tax_gbp": 2125.8
+              },
+              {
+                "band_id": "intermediate",
+                "band_label": "Intermediate rate",
+                "rate_percent": 21.0,
+                "after_allowance_from_gbp": 12726.0,
+                "after_allowance_to_gbp": 31092.0,
+                "taxable_in_band_gbp": 3239.0,
+                "tax_gbp": 680.19
+              }
+            ]
+          }
+        },
+        {
+          "tax_year": "2022-23",
+          "awe_index_vs_2021_22": 1.0612,
+          "awe_annualised_x52_gbp": 30281.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 30281.33,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 17711.33,
+            "income_tax_gbp": 3566.58,
+            "effective_income_tax_rate_percent": 11.778,
+            "band_steps": [
+              {
+                "band_id": "starter",
+                "band_label": "Starter rate",
+                "rate_percent": 19.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 2162.0,
+                "taxable_in_band_gbp": 2162.0,
+                "tax_gbp": 410.78
+              },
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 2162.0,
+                "after_allowance_to_gbp": 13118.0,
+                "taxable_in_band_gbp": 10956.0,
+                "tax_gbp": 2191.2
+              },
+              {
+                "band_id": "intermediate",
+                "band_label": "Intermediate rate",
+                "rate_percent": 21.0,
+                "after_allowance_from_gbp": 13118.0,
+                "after_allowance_to_gbp": 31092.0,
+                "taxable_in_band_gbp": 4593.33,
+                "tax_gbp": 964.6
+              }
+            ]
+          }
+        },
+        {
+          "tax_year": "2023-24",
+          "awe_index_vs_2021_22": 1.133941,
+          "awe_annualised_x52_gbp": 32357.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 32357.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 19787.0,
+            "income_tax_gbp": 4002.47,
+            "effective_income_tax_rate_percent": 12.37,
+            "band_steps": [
+              {
+                "band_id": "starter",
+                "band_label": "Starter rate",
+                "rate_percent": 19.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 2162.0,
+                "taxable_in_band_gbp": 2162.0,
+                "tax_gbp": 410.78
+              },
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 2162.0,
+                "after_allowance_to_gbp": 13118.0,
+                "taxable_in_band_gbp": 10956.0,
+                "tax_gbp": 2191.2
+              },
+              {
+                "band_id": "intermediate",
+                "band_label": "Intermediate rate",
+                "rate_percent": 21.0,
+                "after_allowance_from_gbp": 13118.0,
+                "after_allowance_to_gbp": 31092.0,
+                "taxable_in_band_gbp": 6669.0,
+                "tax_gbp": 1400.49
+              }
+            ]
+          }
+        },
+        {
+          "tax_year": "2024-25",
+          "awe_index_vs_2021_22": 1.196811,
+          "awe_annualised_x52_gbp": 34151.0,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 34151.0,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 21581.0,
+            "income_tax_gbp": 4369.04,
+            "effective_income_tax_rate_percent": 12.793,
+            "band_steps": [
+              {
+                "band_id": "starter",
+                "band_label": "Starter rate",
+                "rate_percent": 19.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 2306.0,
+                "taxable_in_band_gbp": 2306.0,
+                "tax_gbp": 438.14
+              },
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 2306.0,
+                "after_allowance_to_gbp": 13991.0,
+                "taxable_in_band_gbp": 11685.0,
+                "tax_gbp": 2337.0
+              },
+              {
+                "band_id": "intermediate",
+                "band_label": "Intermediate rate",
+                "rate_percent": 21.0,
+                "after_allowance_from_gbp": 13991.0,
+                "after_allowance_to_gbp": 31092.0,
+                "taxable_in_band_gbp": 7590.0,
+                "tax_gbp": 1593.9
+              }
+            ]
+          }
+        },
+        {
+          "tax_year": "2025-26",
+          "awe_index_vs_2021_22": 1.247988,
+          "awe_annualised_x52_gbp": 35611.33,
+          "actual_statutory": {
+            "gross_employment_income_gbp": 35611.33,
+            "personal_allowance_applied_gbp": 12570.0,
+            "taxable_income_gbp": 23041.33,
+            "income_tax_gbp": 4661.2,
+            "effective_income_tax_rate_percent": 13.089,
+            "band_steps": [
+              {
+                "band_id": "starter",
+                "band_label": "Starter rate",
+                "rate_percent": 19.0,
+                "after_allowance_from_gbp": 0.0,
+                "after_allowance_to_gbp": 2827.0,
+                "taxable_in_band_gbp": 2827.0,
+                "tax_gbp": 537.13
+              },
+              {
+                "band_id": "basic",
+                "band_label": "Basic rate",
+                "rate_percent": 20.0,
+                "after_allowance_from_gbp": 2827.0,
+                "after_allowance_to_gbp": 14921.0,
+                "taxable_in_band_gbp": 12094.0,
+                "tax_gbp": 2418.8
+              },
+              {
+                "band_id": "intermediate",
+                "band_label": "Intermediate rate",
+                "rate_percent": 21.0,
+                "after_allowance_from_gbp": 14921.0,
+                "after_allowance_to_gbp": 31092.0,
+                "taxable_in_band_gbp": 8120.33,
+                "tax_gbp": 1705.27
+              }
+            ]
+          }
+        }
+      ],
+      "summary": {
+        "base_tax_year": "2021-22",
+        "end_tax_year": "2025-26",
+        "gross_growth_percent": 24.799,
+        "income_tax_base_gbp": 3204.42,
+        "income_tax_end_gbp": 4661.2,
+        "income_tax_change_gbp": 1456.78,
+        "effective_rate_base_percent": 11.23,
+        "effective_rate_end_percent": 13.089,
+        "effective_rate_change_pp": 1.859
+      }
+    }
+  ],
+  "profile_count": 3
+}

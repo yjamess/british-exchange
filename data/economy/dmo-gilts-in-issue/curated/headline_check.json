@@ -1,0 +1,12 @@
+{
+  "rule": "sum(conventional nominal) + sum(index-linked uplifted nominal) \u2248 headline",
+  "headline_gbp_million": 2939040.0,
+  "conventional_nominal_gbp_million": 2222280.293,
+  "index_linked_nominal_gbp_million": 438195.936,
+  "index_linked_uplifted_nominal_gbp_million": 716762.7,
+  "sum_conventional_plus_il_uplifted_gbp_million": 2939042.992,
+  "diff_gbp_million": 2.992,
+  "tolerance_gbp_million": 5.0,
+  "pass": true,
+  "note": "Diagnostic only. This is a gilt-book total, not PSND (HF6W)."
+}

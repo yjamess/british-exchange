@@ -64,9 +64,13 @@ export function switchEnergyDomain(
 /**
  * Hook for Energy canvases and the sector shell.
  * - sync(): control / view changes → replaceState, pruned to the active view
- * - goDomain(): domain hop → router.push, portable year only by default
+ * - goDomain(): domain hop → client fetch + pushState through `useDomainData` when the
+ *   sector shell passes its hop, else router.push; portable year only by default
  */
-export function useEnergyNavigation(domain: EnergyDomainId) {
+export function useEnergyNavigation(
+  domain: EnergyDomainId,
+  hop?: { go: (next: EnergyDomainId, href: string) => void } | null,
+) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -84,10 +88,11 @@ export function useEnergyNavigation(domain: EnergyDomainId) {
     (next: EnergyDomainId, options?: { retain?: readonly string[]; view?: string | null }) => {
       if (next === domain) return null;
       const result = switchEnergyDomain(searchParams, next, domain, options);
-      commitExplorerUrl(result, pathname, router);
+      if (hop && result.history === "push") hop.go(next, result.href(pathname));
+      else commitExplorerUrl(result, pathname, router);
       return result;
     },
-    [domain, pathname, router, searchParams],
+    [domain, hop, pathname, router, searchParams],
   );
 
   const resolved = resolveEnergyUrl(searchParams, domain);

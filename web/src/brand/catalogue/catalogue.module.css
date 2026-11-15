@@ -1,4 +1,6 @@
-/* Data catalogue — quiet page: mast, head, sticky controls, one table per sector. */
+/* Data page — head, sticky menus, a ledger of sector slabs (electric closed → paper open, as the
+   policy Decision Ledger, set in the index's condensed capitals), tables by research domain,
+   and the record card that opens under a row. */
 
 .page {
   color: var(--bo-ink);
@@ -6,44 +8,28 @@
   min-height: 100vh;
 }
 
-/* ——— Mast (as SectorPage) ——— */
-.mast {
-  background: var(--bo-paper);
-  border-bottom: var(--bo-rule);
-}
-.mastInner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--bo-s4);
-  padding-block: var(--bo-s4);
-  flex-wrap: wrap;
-}
-.wordmark {
-  font-size: 22px;
-  color: var(--bo-ink);
-  text-decoration: none;
-}
-.mastInner nav [aria-current] {
-  color: var(--bo-ink);
-}
-
 /* ——— Head ——— */
 .head {
   display: grid;
   gap: var(--bo-s4);
-  padding-block: var(--bo-s8) var(--bo-s6);
+  padding-block: var(--bo-s8) var(--bo-s7);
 }
 .head > :global(.bo-label) {
   margin: 0;
   color: var(--bo-text);
 }
+/* Live totals: datasets · series · observations. */
+.head > .totals {
+  margin: 0;
+  color: var(--bo-ink);
+}
 .head h1 {
   max-width: 18ch;
   color: var(--bo-ink);
 }
-.head dl {
-  margin-top: var(--bo-s4);
+.head > :global(.bo-prose) {
+  max-width: 62ch;
+  margin: 0;
 }
 
 /* ——— Controls: stay in reach while scrolling a long list ——— */
@@ -52,7 +38,7 @@
   top: 0;
   z-index: 20;
   background: var(--bo-paper);
-  border-block: var(--bo-rule);
+  border-bottom: var(--bo-rule);
 }
 .barInner {
   display: flex;
@@ -62,9 +48,21 @@
   flex-wrap: wrap;
   padding-block: var(--bo-s4);
 }
+.count {
+  margin: 0;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+  white-space: nowrap;
+}
+
+/* ——— Search (the other controls are template menus) ——— */
 .search {
   appearance: none;
-  width: clamp(14rem, 24vw, 20rem);
+  width: clamp(12rem, 20vw, 18rem);
   height: 2.25rem;
   padding: 0 var(--bo-s2);
   border: 0;
@@ -82,42 +80,140 @@
   outline: 2px solid var(--bo-signal);
   outline-offset: 4px;
 }
-.count {
-  margin: 0;
-  font-family: var(--bo-f-data);
-  font-size: var(--bo-t-label);
-  font-weight: 500;
-  letter-spacing: var(--bo-track-label);
-  text-transform: uppercase;
-  color: var(--bo-text);
-  white-space: nowrap;
-}
 
-/* ——— Sections ——— */
+/* ——— Ledger: one slab per sector. Closed = electric, open = paper in an electric frame. ——— */
 .main {
   padding-block: var(--bo-s6) var(--bo-s9);
 }
-.section {
-  scroll-margin-top: 7rem;
-  padding-top: var(--bo-s7);
-}
-.sectionHead {
+.ledger {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--bo-s4);
-  flex-wrap: wrap;
-  padding-bottom: var(--bo-s3);
-}
-.sectionHead h2 {
-  color: var(--bo-ink);
-}
-.sectionHead p {
+  flex-direction: column;
+  gap: 0.35rem;
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.terms {
+  margin: 0 0 var(--bo-s5);
+  padding: var(--bo-s3) var(--bo-s4);
+  border: var(--bo-hair);
   color: var(--bo-text);
 }
-.sectionHead a {
-  color: var(--bo-ink);
+.terms > :global(.bo-label) { color: var(--bo-ink); margin: 0 0 var(--bo-s2); }
+.terms dl { display: grid; gap: var(--bo-s2); margin: 0; }
+.terms dl > div { display: grid; grid-template-columns: minmax(7rem, auto) minmax(0, 1fr); gap: var(--bo-s3); align-items: baseline; }
+.terms dt { font-family: var(--bo-f-data); font-size: var(--bo-t-label); letter-spacing: var(--bo-track-label); text-transform: uppercase; }
+.terms dt a { color: var(--bo-ink); text-decoration: none; }
+.terms dt a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.terms dd { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
+@media (max-width: 560px) { .terms dl > div { grid-template-columns: 1fr; gap: 2px; } }
+.slab {
+  background: var(--bo-electric);
+  color: var(--bo-paper);
+  scroll-margin-top: 7rem;
+  transition: background var(--bo-fast) var(--bo-ease);
+}
+.slab[data-open] {
+  background: var(--bo-paper);
+  color: var(--bo-union);
+  border: 1px solid var(--bo-electric);
+}
+.slab[data-empty] {
+  background: var(--bo-paper);
+  border: 1px solid var(--bo-ink-20);
+  color: var(--bo-text);
+}
+.slabToggle {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+  width: 100%;
+  margin: 0;
+  padding: 0.9rem 1.15rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.slabToggle:disabled {
+  cursor: default;
+}
+.slabToggle:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
+}
+.slabNum {
+  color: inherit;
+}
+/* The index's condensed two-tone capitals: the first word in paper, the rest in lavender. */
+.slabName {
+  display: block;
+  font-size: 28px;
+  line-height: 1.05;
+  color: var(--bo-lavender);
+}
+.slabName b {
+  color: var(--bo-paper);
+}
+.slab[data-open] .slabName,
+.slab[data-empty] .slabName {
+  color: var(--bo-union);
+}
+.slab[data-open] .slabName b {
+  color: var(--bo-electric);
+}
+.slab[data-empty] .slabName b {
+  color: var(--bo-text);
+}
+.slab:not([data-open]):not([data-empty]) .slabToggle:hover .slabName {
+  color: var(--bo-paper);
+}
+.slabMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  color: inherit;
+  white-space: nowrap;
+}
+.slab[data-open] .slabMeta {
+  color: var(--bo-text);
+}
+.slabBody {
+  display: grid;
+  gap: var(--bo-s7);
+  padding: var(--bo-s2) 1.15rem var(--bo-s6);
+}
+.slabQuestion {
+  margin: 0;
+  color: var(--bo-electric);
+}
+/* Domain titles: a step below the question, clearly above the rows, so the hierarchy reads. */
+.groupTitle {
+  margin: 0 0 var(--bo-s3);
+  font-family: var(--bo-f-head);
+  font-size: var(--bo-t-ed-m);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--bo-electric);
+}
+.slabFoot {
+  margin: 0;
+}
+.slabFoot a {
+  color: var(--bo-electric);
+  text-underline-offset: 3px;
+}
+
+/* ——— Groups: one table per research domain ——— */
+.groups {
+  display: grid;
+  gap: var(--bo-s7);
 }
 
 /* ——— Table ——— */
@@ -137,7 +233,7 @@
   font-weight: 500;
   letter-spacing: var(--bo-track-label);
   text-transform: uppercase;
-  color: var(--bo-ink);
+  color: var(--bo-text);
   white-space: nowrap;
 }
 .table td,
@@ -152,21 +248,19 @@
 .table td:last-child {
   padding-right: 0;
 }
-.num {
-  text-align: right !important;
-  font-variant-numeric: tabular-nums;
-}
 .nowrap {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-/* The row's download: quiet, under the release date. */
+.colSeries { width: 46%; }
+.colPlace { width: 18%; }
+.colPeriod { width: 22%; }
+.colUpdated { width: 14%; }
+
 .csv {
   display: block;
   margin-top: 2px;
-  font-family: var(--bo-f-data);
-  font-size: var(--bo-t-micro);
-  letter-spacing: 0.02em;
+  font-size: var(--bo-t-note);
   color: var(--bo-ink);
   text-underline-offset: 3px;
 }
@@ -178,14 +272,10 @@
 .row {
   scroll-margin-top: 9rem;
 }
-/* Title cell: the row opens from its title; hover underlines it. */
-.colSeries { width: 31%; }
-.colPublisher { width: 15%; }
-.colGeo { width: 15%; }
-.colFreq { width: 9%; }
-.colCoverage { width: 12%; }
-.colCount { width: 8%; }
-.colRelease { width: 10%; }
+.titleCell {
+  position: relative;
+}
+/* The row opens from its title; hover draws the underline. */
 .rowButton {
   appearance: none;
   display: grid;
@@ -202,83 +292,144 @@
   cursor: pointer;
 }
 .title {
+  width: fit-content;
   font-size: var(--bo-t-ui);
   line-height: 1.35;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 3px;
-  transition: text-decoration-color var(--bo-fast) var(--bo-ease);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--bo-fast) var(--bo-ease);
 }
-.rowButton:hover .title {
-  text-decoration-color: var(--bo-ink);
+.rowButton:hover .title,
+.row[data-open] .title {
+  background-size: 100% 1px;
 }
 .rowButton:focus-visible {
   outline: 2px solid var(--bo-signal);
   outline-offset: 2px;
 }
-.id {
-  font-family: var(--bo-f-data);
-  font-size: var(--bo-t-micro);
-  letter-spacing: 0.02em;
+.source {
+  font-size: var(--bo-t-note);
   color: var(--bo-text);
-  overflow-wrap: anywhere;
 }
-/* Selection is one mark: an ink rule on the open row. */
+/* Selection is one mark: the ink rule on the open row, carried on down the record. */
 .row[data-open] .rowButton {
   border-left-color: var(--bo-ink);
 }
-.row[data-open] td,
-.row[data-open] th {
-  border-bottom-color: transparent;
-}
 
-/* ——— The record, opened in place ——— */
-.recordRow td {
-  padding: 0 0 var(--bo-s5) !important;
-  border-bottom: var(--bo-rule);
+/* ——— The record: a well that grows under the row, spanning the table ——— */
+.well {
+  position: relative;
+  overflow: hidden;
+}
+/* A record's well spans all four columns from inside the first cell. */
+.titleCell .well {
+  width: calc(100% / 0.46 - var(--bo-s4) / 0.46 + var(--bo-s4));
+  margin-top: var(--bo-s3);
+}
+.wellRule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--bo-ink);
 }
 .record {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: var(--bo-s6);
-  padding: var(--bo-s2) 0 0 calc(var(--bo-s3) + 3px);
-  border-left: 3px solid var(--bo-ink);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--bo-s6) var(--bo-s8);
+  padding: var(--bo-s3) 0 var(--bo-s4) calc(var(--bo-s3) + 3px);
+  font-weight: 400;
 }
-.recordText {
+.story {
   display: grid;
   align-content: start;
-  gap: var(--bo-s3);
+  gap: var(--bo-s5);
 }
-.recordText :global(.bo-label) {
+.story p {
+  margin: 0;
+}
+.recordLabel {
+  margin: 0 0 var(--bo-s2) !important;
   color: var(--bo-ink);
 }
-.links {
+.recordProse {
+  font-size: var(--bo-t-ui);
+  line-height: 1.5;
+  color: var(--bo-text);
+  max-width: 58ch;
+}
+.recordNote {
+  font-size: var(--bo-t-note);
+  line-height: 1.5;
+  color: var(--bo-text);
+  max-width: 58ch;
+}
+/* Explore, questions and datasets shown alongside: plain link rows behind hairlines. */
+.related {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--bo-hair);
+}
+.related li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px var(--bo-s4);
+  padding: var(--bo-s2) 0;
+  border-bottom: var(--bo-hair);
+  font-size: var(--bo-t-ui);
+}
+.related a {
+  color: var(--bo-ink);
+  text-underline-offset: 3px;
+}
+.related a:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 2px;
+}
+.related span {
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-text);
+}
+.ways {
   display: flex;
   flex-wrap: wrap;
   gap: var(--bo-s2) var(--bo-s5);
-  margin: var(--bo-s2) 0 0;
-  font-size: var(--bo-t-note);
+  font-size: var(--bo-t-ui);
 }
-.links a {
+.ways a {
   color: var(--bo-ink);
+  text-underline-offset: 3px;
 }
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--bo-s3) var(--bo-s5);
+/* The register: label · value rows behind hairlines. */
+.register {
   margin: 0;
+  align-self: start;
+  border-top: var(--bo-rule);
 }
-.facts div {
+.registerRow {
   display: grid;
-  gap: 2px;
-  min-width: 0;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--bo-s4);
+  padding: var(--bo-s2) 0;
+  border-bottom: var(--bo-hair);
 }
-.facts dt {
+.registerRow dt {
   color: var(--bo-text);
+  line-height: 1.5;
 }
-.facts dd {
+.registerRow dd {
   margin: 0;
   font-size: var(--bo-t-note);
+  line-height: 1.5;
   color: var(--bo-ink);
   overflow-wrap: anywhere;
 }
@@ -287,11 +438,7 @@
 .empty {
   display: grid;
   gap: var(--bo-s2);
-  padding: var(--bo-s7) 0;
-  border-bottom: var(--bo-hair);
-}
-.empty p {
-  margin: 0;
+  margin: 0 0 var(--bo-s6);
   color: var(--bo-text);
 }
 .inlineButton {
@@ -306,7 +453,7 @@
   cursor: pointer;
 }
 
-/* ——— Narrow: each row becomes a stacked card of label · value ——— */
+/* ——— Narrow: each row becomes a stacked card ——— */
 @media (max-width: 960px) {
   .bar {
     position: static;
@@ -338,8 +485,16 @@
     padding: 0 !important;
     border: 0 !important;
   }
+  /* The title cell dissolves so its button leads the card and the record closes it. */
   .row .titleCell {
+    display: contents;
+  }
+  .row .rowButton {
     grid-column: 1 / -1;
+  }
+  .row .well {
+    grid-column: 1 / -1;
+    order: 10;
   }
   .row td::before {
     content: attr(data-label);
@@ -350,22 +505,31 @@
     text-transform: uppercase;
     color: var(--bo-text);
   }
-  .num {
-    text-align: left !important;
+  .titleCell .well {
+    width: 100%;
   }
   .record {
     grid-template-columns: 1fr;
   }
 }
-
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .search {
     width: 100%;
   }
   .barInner > [role="group"] > * {
     flex: 1 1 100%;
   }
-  .facts {
-    grid-template-columns: 1fr;
+  .slabToggle {
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+  .slabMeta {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+  .slabName {
+    font-size: 24px;
+  }
+  .registerRow {
+    grid-template-columns: 6rem minmax(0, 1fr);
   }
 }

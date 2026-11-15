@@ -76,6 +76,15 @@ export default function DesignLabPage() {
           <Link href="/design-lab/follow" className={styles.back}>
             Follow treatments →
           </Link>
+          <Link href="/design-lab/palettes" className={styles.back}>
+            Colour studies: twelve chart inks →
+          </Link>
+          <Link href="/design-lab/economy-elevation" className={styles.back}>
+            Economy elevation →
+          </Link>
+          <Link href="/design-lab/dark-moments" className={styles.back}>
+            Dark moments: Union, night, film →
+          </Link>
         </div>
       </main>
     </div>

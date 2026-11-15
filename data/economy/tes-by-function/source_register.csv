@@ -1,0 +1,29 @@
+series,classification,role,cofog,label,table,curated
+cofog-01-general-public-services,current,function,GF01,General public services,5.4,true
+cofog-02-defence,current,function,GF02,Defence,5.4,true
+cofog-03-public-order-and-safety,current,function,GF03,Public order and safety,5.4,true
+cofog-04-economic-affairs,current,function,GF04,Economic affairs,5.4,true
+cofog-05-environment-protection,current,function,GF05,Environment protection,5.4,true
+cofog-06-housing-and-community-amenities,current,function,GF06,Housing and community amenities,5.4,true
+cofog-07-health,current,function,GF07,Health,5.4,true
+cofog-08-recreation-culture-and-religion,current,function,GF08,"Recreation, culture and religion",5.4,true
+cofog-09-education,current,function,GF09,Education,5.4,true
+cofog-10-social-protection,current,function,GF10,Social protection,5.4,true
+eu-transactions,current,eu-transactions,,EU transactions,5.4,true
+tes-total,current,tes-total,,Total public sector current expenditure on services,5.4,true
+accounting-adjustments,current,bridge,,Accounting adjustments,5.4,true
+cofog-01-general-public-services,capital,function,GF01,General public services,5.4,true
+cofog-02-defence,capital,function,GF02,Defence,5.4,true
+cofog-03-public-order-and-safety,capital,function,GF03,Public order and safety,5.4,true
+cofog-04-economic-affairs,capital,function,GF04,Economic affairs,5.4,true
+cofog-05-environment-protection,capital,function,GF05,Environment protection,5.4,true
+cofog-06-housing-and-community-amenities,capital,function,GF06,Housing and community amenities,5.4,true
+cofog-07-health,capital,function,GF07,Health,5.4,true
+cofog-08-recreation-culture-and-religion,capital,function,GF08,"Recreation, culture and religion",5.4,true
+cofog-09-education,capital,function,GF09,Education,5.4,true
+cofog-10-social-protection,capital,function,GF10,Social protection,5.4,true
+tes-total,capital,tes-total,,Total public sector capital expenditure on services,5.4,true
+accounting-adjustments,capital,bridge,,Accounting adjustments,5.4,true
+tes-total,total,tes-total,,Total public sector expenditure on services,5.4,true
+accounting-adjustments,total,bridge,,Accounting adjustments,5.4,true
+table-tme,total,table-tme,,Total Managed Expenditure,5.4,true

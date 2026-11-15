@@ -1,0 +1,64 @@
+indicator_id: unemployment-rate-by-region
+title: Unemployment rate by region
+sector: regions-places
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/headlinelabourforcesurveyindicatorsforallregionshi00
+series_id: HI00 ILO unemployment rate aged 16 and over SA (persons)
+geography: UK countries and English regions (GSS / ITL1). No UK or Great Britain total
+  in HI00. Persons.
+frequency: monthly
+unit: '% of economically active aged 16 and over, SA'
+definition: Labour Force Survey ILO unemployment rate for people aged 16 and over
+  by UK country and English region. Share of the economically active aged 16 and over
+  who are ILO unemployed. Persons, seasonally adjusted. This is the regional bulletin
+  headline, not the 16-to-64 unemployment rate and not the Claimant Count.
+licence: Open Government Licence v3.0
+agent_owner: regions
+connector_module: regions.connectors.hi00_labour
+curated_path: curated/observations.csv
+update_cadence: monthly HI00 release (LFS regional headlines)
+raw_evidence:
+- path: raw/2026-11-15/regionaltable1s.xlsx
+  retrieved_at: '2026-11-15T10:05:41.057232+00:00'
+  checksum_sha256: ff374cf96c5fa18a60f4540318b03a24fc06e9b0cd6af502c9dd205dcdc4967d
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-20'
+  http_status: null
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/headlinelabourforcesurveyindicatorsforallregionshi00/current/regionaltable1s.xlsx
+transformations: Read HI00 Index for GSS code, label, and persons sheet. On each sheet,
+  find the age-group header, then take only the unemployment-rate column inside the
+  16-and-over block. Ignore men and women sheets. Do not read Claimant Count. Keep
+  workbook precision. Mark only the latest rolling quarter provisional.
+revision_notes: Pinned regionaltable1s.xlsx on 2026-11-15. sha256 ff374cf96c5fa18a60f4540318b03a24fc06e9b0cd6af502c9dd205dcdc4967d.
+  Same file as the 2026-11-03 pin (official release 2026-10-20). Employment parsing
+  now uses the 16-to-64 block. The previous parser took the first Employment rate
+  (%) column, which is aged 16 and over. Not Ready until Validation.
+caveats: 'Age break versus Economy unemployment-rate (LF2Q): LF2Q is UK, aged 16 to
+  64. This indicator is aged 16 and over, matching the regional bulletin and the UK
+  16-and-over headline (4.7% in June to August 2026), not LF2Q (4.9%). HI00 also has
+  a 16-to-64 unemployment rate (sheet column 17); it is not the published regional
+  headline and is not ingested. Do not add this rate to the 16-to-64 employment or
+  inactivity rates — different age and a different denominator. LFS sample sizes are
+  smaller for regions than for the UK, so short-term moves are noisy. Persons sheets
+  only (men and women are in the workbook and are not ingested). Seasonally adjusted
+  rolling three-month periods, published monthly. HI00 has no UK or Great Britain
+  sheet — do not invent those rows by adding regions. Claimant Count is not in this
+  workbook and is not ILO unemployment. These rates are resident LFS people, not BRES
+  employee jobs. Next HI00 release 17 November 2026.'
+status_note: Pinned to the 20 October 2026 HI00 release. The next regional labour
+  market release is 17 November 2026.
+related_indicator_ids:
+- employment-rate-by-region
+- economic-inactivity-rate-by-region
+open_questions:
+- UK and Great Britain headline rates are in the regional bulletin table but not in
+  HI00. Left to Economy national series; do not sum regions.
+- HI00 column 17 is a 16-to-64 ILO unemployment rate (closer to Economy LF2Q on age)
+  but it is not the published regional headline, so it is not ingested.
+- Level cells are people (they reproduce the rates). A corner label says thousands.
+  Levels are not ingested until that label is reconciled.
+- Workbook footnotes shade some estimates as small samples. That flag is not copied
+  onto rows.
+- Local authority Annual Population Survey geography is out of scope for this pin.
+notion_registry_url: https://app.notion.com/p/41965471768581128c18ee73f2921996
+schema_version: '1.0'

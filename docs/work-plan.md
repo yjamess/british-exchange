@@ -1,5 +1,39 @@
 # British Exchange — Work plan
 
+## Adopt Electric spectrum · 2026-11-15
+
+1. **Orchestrator — in progress:** user selected Electric spectrum. Promote twelve chart inks and companion sage ground to shared brand tokens; use one sequence for lines/stacks/legend/readout; let dense legends wrap full names; update visual identity and mark study adopted. Verify live ten-series spending chart, mobile and shared checks.
+
+## Alternative chart palettes · 2026-11-15
+
+1. **Orchestrator — complete:** three lab-only twelve-ink palette studies at `/design-lab/palettes` (Electric spectrum, Mineral daylight, Citrus & ink), linked from lab index. Real HMT spending functions compared against current five-ink palette. TimeChart accepts opt-in comparison tones; live tokens/defaults intact. Full names, line/composition modes, focus, contrast measurements, companion grounds and greyscale inspection included. TypeScript and targeted ESLint passed; browser verified ten unique series colours per study, view/focus controls and 390px layout. Every proposed chart ink has ≥3:1 contrast against paper (minimums 3.44/3.31/3.08). Screenshots `/private/tmp/bx-palette-{desktop,mobile,stack}.png`.
+
+## Complete sector readout sweep · 2026-11-15
+
+1. **Orchestrator — complete:** audited all ten Energy domains; migrated remaining custom selected-place/field-guide records and shared station, field, network and country map readouts; Useful Energy now uses shared card with pointer/touch/focus/Escape inspection. Added shared inline placement API.
+2. **Housing sub-agent — complete:** audited all ten Housing domains; migrated custom map, selected-feature, comparison and scenario readouts in ten Housing components.
+3. **Orchestrator — complete:** reviewed Housing handoff; full TypeScript passed and targeted ESLint has no errors (four existing Energy warnings). Checked Energy field guide and Housing supply at desktop/mobile widths; Useful Energy keyboard/pointer/Escape/mobile checks passed. Full coverage: [readout-rollout.md](readout-rollout.md).
+
+## Shared inspection readout · 2026-11-15
+
+1. **Orchestrator — complete:** extracted Tax Machine’s labelled paper card into exported `ReadoutCard`; migrated TaxYearRows, TaxDragRows, RevenueRows, shared TimeChart and legacy chart hover cards across Housing, Economy and Energy. People has no current readout implementation. Single-series values retain their labels; missing/provisional states, keyboard inspection and chart swatches are preserved. Removed obsolete card CSS. Added usage guidance to visual identity and exchange-domain-view. Targeted ESLint and TypeScript passed. Visually compared Tax Machine and Economy inflation cards at 1440px, plus inflation at 390px; screenshots in `/private/tmp/bx-readout-{tax,economy,mobile}.png`. Housing/Energy full-page visual checks were limited by slow page loads; their cards use the same shared renderers.
+
+## Source-foot placement reference · 2026-11-15
+
+1. **Orchestrator — implemented:** applied exchange-domain-view, explorer-stage rule and visual-identity shared source layout: one Sources & notes disclosure with source names in its summary, View data at right, disclosure content below, mobile source wrapping. Shared FigureRecord covers Economy, Housing and Energy. Browser screenshot comparison remains outstanding.
+
+## Compact Economy source feet · 2026-11-15
+
+1. **Orchestrator — complete:** per user clarification, Economy feet show publisher and source name only; removed coverage/date suffixes and the KAI7 pin. Shared desktop foot aligns source beside Notes and Data, with source wrapping below on mobile. Targeted lint and diff checks run.
+
+## Shared explorer header spacing · 2026-11-15
+
+1. **Orchestrator — complete:** removed the question’s additional 24px top margin. The shared header now uses its 16px grid gap on both sides of the question, across sectors and screen sizes. Verified shared CSS and checked the targeted diff.
+
+## Glossary presentation · 2026-11-15
+
+1. **Orchestrator — complete:** refined glossary typography, entry spacing, search feedback and section navigation within the shared visual identity. Targeted ESLint and TypeScript checks passed; browser visual review remains outstanding. Follow-up: data-catalogue inspired ruled search, numbered section headings and aligned column labels; retains PlainPage per visual-identity.md. Follow-up ESLint passed; full TypeScript check now reports unrelated nullable-number errors in TaxCanvas.tsx:517 and :522.
+
 ## Energy & Industry · Domain 01 Electricity Generation · 2026-11-06
 
 Follow [Energy & Industry](https://app.notion.com/p/40d6547176858194bc18cec7be0a812d) and [Electricity Generation domain brief](https://app.notion.com/p/410654717685812d9babc01e2f053c63). Kickoff: [agent-kickoff-generation.md](agent-kickoff-generation.md).
@@ -761,7 +795,7 @@ Follow [Housing & Land product scope](https://app.notion.com/p/40d65471768581fea
 
 1. **Done — Domain 01 (prices):** History · Types · Segments · Transactions · Map · Data.
    - **Review 2026-11-10 (Energy frame):** Data / Transactions as titled panels; ledes moved to Notes feet; empties use `EmptyStage`. History / Types / Segments / Map already used outer place/measure/period controls.
-   - **Deferred (Free-tier):** Recorded-sales search (`price-paid-2025`, ~900k rows) not loaded into Postgres. HPI sales-volume chart stays. Tracked as BX-BACK-001 on [Notion — Cross-sector backlog](https://app.notion.com/p/41465471768581a5bef6d539d77dad53).
+   - **Done (2026-11-15):** Recorded-sales search loaded after Pro upgrade — `price-paid-2025` **992 278** rows in `price_paid_transaction`; `GET /housing/price-paid` live. BX-BACK-001 closed.
 2. **Done — Domain 02 (Renting):** Monthly · Map · Change · Index · By size · Table ([brief](https://app.notion.com/p/40e65471768580d6ab18c12c0424c865)).
 3. **Done — Domain 03 (Affordability):** [Notion brief](https://app.notion.com/p/40e654717685817cb98bdec53c60b676).
    - **Live:** Budget (BoE IUMBV34 default rate) · Map · Ages · Rent burden · Households · Ratio · Table.
@@ -1601,13 +1635,49 @@ Wave A production rail: Inflation · Wages · Growth · Debt (`sector-pages.ts`)
 - Owner: Orchestrator
 - Status: **done** (2026-11-11)
 - Output: Notion Domain 05 deep brief locked; `/economy?domain=growth` tabs produce · ledger · productivity · revisions · data; Follows → Energy Jobs productivity · Debt dial · Wages real; provisional = latest quarter only (reloaded)
-- Notes: Vintage stamp in Notes (QNA 2026-09-29, ref yr 2024). Re-pin after **12 Nov** GDP / **17 Nov** productivity before claiming post-release Validation.
+- Notes: Live vintage stamp updated 2026-11-14 → **PN2 2026-11-12** (ref yr 2024, through 2026 Q3). Productivity half of BX-BACK-005 still waits on **17 Nov** PRDY.
+
+### EC-05-REPIN-GDP — Post-12-Nov GDP first estimate (BX-BACK-005 half)
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-14) — GDP half closed; productivity half still open
+- Output: Live source switched **QNA→PN2** (QNA stayed on 2026-09-29; PN2 published Q3). Re-pinned `real-gdp` / `real-gdp-per-head` / `business-investment`; Supabase releases **225** / **226** / **224**; Storage archive `raw/2026-11-14/*_pn2.json`; QA [qa_report_economy_05_gdp_repin_2026-11-14.md](../data/qa/qa_report_economy_05_gdp_repin_2026-11-14.md) **pass**; Produce Notes stamp → PN2 2026-11-12
+- Spot: ABMI 2026 Q3 = 749 999 (£m); QoQ ~+0.7% / YoY ~+1.9% vs [ONS bulletin](https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026)
+- Notes: Revisions pack still Aug-PN2 vs Sep-QNA rebase (BX-BACK-008). Prefer QNA again only when its `releaseDate` is newer than PN2.
+
+### EC-DB-05c — Growth §7 refine (Produce · Ledger · Engine honesty)
+- Owner: Orchestrator
+- Status: **done** (2026-11-11) — UI refinements; release-gated work on Notion Cross-sector backlog
+- Output: Produce measure definitions + vintage Notes; Growth Ledger **From** baseline menu (2019 Q4 default · 2008 · 1990 · 1979 · 1955; URL `base`); Data cells body type (no `bo-fig`)
+- Parked → [Cross-sector backlog](https://app.notion.com/p/41465471768581a5bef6d539d77dad53): **BX-BACK-005** GDP/productivity re-pins + vintage-band rebuild · **BX-BACK-007** Anatomy GVA · **BX-BACK-008** full Revision Archive
+- Notes: IHXW pre-1955 already blank in curated (not charted as zero). Structural audit still open after Wave A polish. **BX-BACK-006 closed** by EC-05-HOURS.
+
+### EC-05-HOURS — Productivity hours (LZVA) + Engine UI
+- Owner: Economy → Validation → Orchestrator
+- Status: **Ready** (2026-11-11)
+- Output: `labour-productivity-hours` (221 obs, LZVA/PRDY); connector `economy.connectors.labour_productivity_hours`; QA [qa_report_labour_productivity_hours_2026-11-11.md](../data/qa/qa_report_labour_productivity_hours_2026-11-11.md); Supabase release **223**; registry [Ready](https://app.notion.com/p/41565471768581e788f5d9373c99e34c); Growth › Productivity Engine dual chart (hours + output per hour)
+- Notes: Same periods as LZVB; accounting split labelled (not causal; not ABMI). Re-pin with LZVB after **17 Nov** (BX-BACK-005). Design lock: Produce/Ledger keep total output; Engine stays hours+OPH only (not GDP on the same instrument).
+
+### EC-05-DATA — Next Economy data wave (output index · Anatomy · Revisions)
+- Owner: Economy (later)
+- Status: **partial** — Anatomy GVA ingest done (EC-05-GVA); Engine output + full Revision Archive still open
+- Output: [agent-kickoff-economy-05-data-wave.md](agent-kickoff-economy-05-data-wave.md)
+- Scope remaining: (1) pin ONS **productivity output** index (BX-BACK-009); (2) dated GDP vintages for full Revision Archive (BX-BACK-008)
+- Notes: Do not invent output from ABMI.
+
+### EC-05-GVA — Industry GVA by SIC section (BX-BACK-007)
+- Owner: Economy → Validation → Orchestrator
+- Status: **Ready** (2026-11-14) — ingest + Validation pass + Anatomy UI live
+- Output: `gva-by-industry-section` (7098 obs); connector `economy.connectors.gva_by_industry_section`; source [GDP(O) LLA](https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/ukgdpolowlevelaggregates/current) release 2026-11-12; Supabase release **230**; QA [qa_report_gva_by_industry_section_validation_2026-11-14.md](../data/qa/qa_report_gva_by_industry_section_validation_2026-11-14.md); registry [Ready](https://app.notion.com/p/4186547176858181a65bd3ad760c924a)
+- UI: `/economy?domain=growth&view=anatomy` — RankBars shares (current prices) · ChangeRows vs compare quarter · Data table · `anatomy-model.ts`
+- Spot: 2026 Q3 current-price Total GVA 726 868 £m; A–T sum within £1; Manufacturing C ≈ 8.4% (not L4NT)
+- Notes: `kind=current_price` → API `category`; `series=` = section letter. Do not fork Energy `manufacturing-share-of-gva`.
 
 ### EC-DB-05b — Growth vintage-band store
 - Owner: Economy (+ Orchestrator UI)
 - Status: **done** (2026-11-11)
 - Output: `economy.connectors.gdp_vintage_band` → `data/economy/gdp-vintage-band/curated/band.json`; pack id `economy.gdp-vintage-band` in `PACK_REGISTRY` + Storage (`--keep-local`); Growth › Revisions plots PN2 vs QNA rebased to 2019 Q4 = 100 (GDP · per head)
-- Notes: Absolute £ levels kept in spot table only (ratio ~1.045). Do not overlay levels. Re-build pack when raw pins re-dated after 12 Nov.
+- Notes: Absolute £ levels kept in spot table only (ratio ~1.045). Do not overlay levels.
+- **Rebuilt 2026-11-14:** vintages are now `first` (PN2 2026-08-12, 2023 prices) vs `latest` (PN2 2026-11-12, 2024 prices), spot at the shared latest quarter (2026 Q2). The 12 Nov PN2 carried the 29 Sep QNA history unchanged (max index diff 0.00), so QNA-vs-Nov would plot two identical lines. Pack pushed to Storage (`--keep-local`). UI ids `pn2`/`qna` → `first`/`latest`; copy is plain words (no PN2/QNA on screen).
 
 ### EC-V-05b — Validation Growth vintage-band
 - Owner: Validation
@@ -1615,11 +1685,68 @@ Wave A production rail: Inflation · Wages · Growth · Debt (`sector-pages.ts`)
 - Output: [qa_report_economy_05_vintage_band_2026-11-11.md](../data/qa/qa_report_economy_05_vintage_band_2026-11-11.md) — **pass** (19/19); kickoff [agent-kickoff-validation-economy-05-vintage-band.md](agent-kickoff-validation-economy-05-vintage-band.md)
 - Notes: Rebased indexes trusted for Revisions; rebuild pack after 12 Nov GDP re-pin.
 
+### EC-G4-05 — Growth Gate 4 structural + Validation roll-up
+- Owner: Orchestrator (+ Validation priors)
+- Status: **done** (2026-11-15)
+- Output: [gate4-audit-growth.md](gate4-audit-growth.md) · [qa_economy_domain05_gate4_2026-11-15.md](../data/qa/qa_economy_domain05_gate4_2026-11-15.md)
+- Cleanups: Follow on Anatomy → Employment industry · Revisions → Produce; Stage Follow on all six views
+- Notes: connections tests 23/23; calendar PRDY **17 Nov** remains; full Revision Archive deferred
+
+### Review — Economy Domain 05 (complete)
+- **Shipped:** Gates 2–4 · Produce · Ledger · Anatomy · Productivity · Revisions (two-vintage) · Data · Follows complete
+- **Calendar:** Re-pin LZVB + LZVA after **17 Nov 2026**
+- **Deferred:** Full Revision Archive · Engine output index · regional GVA
+- **Next:** Wave B Tax/Spending polish · Wave C
+
 ### EC-DB-08 — Debt deep brief + elevation
 - Owner: Orchestrator
 - Status: **done** (2026-11-11)
 - Output: Notion Domain 08 deep brief (*What Britain owes*); `/economy?domain=debt` tabs dial · borrowing · interest · data; Follows → Growth ledger/data; PSF `observation_status` fixed (latest month only provisional) + cloud reload releases 49–51 / 188; 12-month rolling sums labelled derived
 - Notes: HF6X official only. Re-pin after **20 Nov** PSF.
+
+### EC-DB-08b — Debt §7 visual refinement (approved 2026-11-12)
+- Owner: Orchestrator (+ Validation for stock-flow bridge)
+- Status: **done** (2026-11-14) — Cost of Debt + CG Cash to debt + Gate 4; open tail: PSF re-pin **20 Nov**
+- **2026-11-14 (owner-approved):** Tab **Cash to debt** shows the **central government** cash-to-debt bridge (REC3) — `cg-cash-debt-reconciliation` loaded to Postgres (release **236**) + archived; `debt-bridge-model.ts`; Period menu (last twelve months · financial years from 2000/01); RankBars cash → named adjustments with Change in debt as the reference; 12-month-sum TimeChart; Data tab FY table. Scope stated on screen as central government; not labelled public sector. Tab order: owes · who owns · anatomy · repayment · borrowing · cash to debt · interest · data. Plain-word pass on dial / borrowing / interest labels and Notes.
+- **2026-11-14 visual pass (owner-directed):** Follow lines in plain words; Data tab tiles = tables / latest month / release; Ownership groups holders under 0.5% as "Other holders"; Anatomy replaces the 4-quarter stack (three fills) with ChangeRows Q1→selected quarter, basis menu "Held outside government / All in issue", no "uplifted nominal" on screen; Repayment leads with the 10-year bars, line chart = All gilts + index-linked reference (conventional dropped), Reset hidden on views without controls; Cost of debt = one chart (12-month sum ink, month reference) matching Borrowing, Scope tile → "A year earlier" 12-month sum; Machine 12-month chart from 2010. Open: active-tab style renders blank in headless Chromium on every tab — check in Arc.
+- Inputs: Notion Domain 08 §7 + §8 data work order; live `/economy?domain=debt`; cloud Ready HF6W / HF6X / DZLS / NMFX
+- Tasks:
+  1. **EC-DB-08b-1…3** Dial / Cost of debt / conceptual Machine — **done** (Cost of Debt: separate month + 12m panels; CG scope Notes)
+  2. **EC-DB-08b-3v** PSNB→PSND sample — **done · fail** → [qa_report_economy_08_borrowing_machine_2026-11-14.md](../data/qa/qa_report_economy_08_borrowing_machine_2026-11-14.md)
+  3. **EC-DB-08c** Official reconciliation evidence (Notion §8) — **done** (see below)
+  4. **EC-DB-08b-4** Re-pin PSF after **20 Nov 2026**
+  5. **EC-DB-08b-5** Structural audit — **done** 2026-11-14 → [gate4-audit-debt.md](gate4-audit-debt.md)
+- Do not: invent residual; numeric public-sector Machine; Fiscal Balance without 06/07
+
+### EC-DB-08c — Borrowing Machine official reconciliation evidence (Option 1)
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-14) — evidence Ready; gate = CG cash/debt only; **numeric public-sector Machine deferred**
+- Output:
+  - Source matrix [economy-08-borrowing-machine-source-matrix.md](economy-08-borrowing-machine-source-matrix.md)
+  - Decision memo [economy-08-borrowing-machine-decision-memo.md](economy-08-borrowing-machine-decision-memo.md)
+  - Package `data/economy/cg-cash-debt-reconciliation/` (Appendix A + 14 REC3 CDIDs; 5343 obs)
+  - Connector `economy.connectors.cg_cash_debt_reconciliation`
+  - QA [qa_report_economy_08_cg_cash_debt_rec3_2026-11-14.md](../data/qa/qa_report_economy_08_cg_cash_debt_rec3_2026-11-14.md) — **pass** (disk+live pin, re-parse, identity 317/317 from 2000-04, Appendix A FY samples £0)
+  - Kickoff closed: [agent-kickoff-economy-08-borrowing-machine.md](agent-kickoff-economy-08-borrowing-machine.md)
+- Gate: verified **central-government** M98R+adj=MW4W only — may later name a separate CG cash/debt instrument; **not** public-sector Borrowing Machine
+- Residual Orchestrator: registry row + optional cloud load for REC3; PSF re-pin 20 Nov
+- Do not: UI numeric public-sector Machine; conflate with Debt Anatomy / ownership / repayment (EC-DB-08d)
+
+### EC-V-08c — Validation REC3 CG cash/debt package
+- Owner: Validation
+- Status: **done · pass** (2026-11-14)
+- Output: [qa_report_economy_08_cg_cash_debt_rec3_2026-11-14.md](../data/qa/qa_report_economy_08_cg_cash_debt_rec3_2026-11-14.md) · script `validation.qa_economy_08_cg_cash_debt_rec3_2026_11_14`
+- Notes: Pre-2000-04 monthly gaps are official (workbook); not a connector fail. Re-run after 20 Nov PSF.
+
+### EC-DB-08d — What Britain Owes · Debt Anatomy / Ownership / Repayment
+- Owner: Economy → Validation → Orchestrator G3
+- Status: **done** (2026-11-14) — G2 curated + Validation pass + cloud **231–235** + G3 UI + Gate 4
+- Views: `/economy?domain=debt&view=anatomy|ownership|repayment` — [UI](0695d331-2624-4bd8-9f0f-29f837b1e77f)
+- Packages: `dmo-gilts-in-issue` · `dmo-gilt-future-redemptions` · `gilt-holdings-by-sector` · `dmo-debt-portfolio-composition` · `dmo-government-holdings` (Data tab only)
+- QA: `data/qa/qa_report_economy_08_dmo_d8b_d1a_2026-11-14.md` · `…_debt_ownership_2026-11-14.md`
+- Gate 4: [gate4-audit-debt.md](gate4-audit-debt.md) — Follow edges + Cash to debt label + `dmo_pins` checksum share
+- Open (non-blocking): registry rows; ONS CDIDs; NS&I panel; PSF re-pin **20 Nov**
+- Deferred: numeric public-sector Borrowing Machine; invent totals ≠ HF6W
 
 ### EC-02-PROV — AWE observation_status fix
 - Owner: Economy / Orchestrator
@@ -1641,7 +1768,7 @@ Wave A production rail: Inflation · Wages · Growth · Debt (`sector-pages.ts`)
 
 ### EC-02-ASHE-B — Wages domain data completion (ASHE extensions)
 - Owner: Economy
-- Status: **done · Validation requested** (2026-11-11)
+- Status: **done · Validation PASS · Ready** (2026-11-11)
 - Output (no frontend):
   1. `ashe-national-earnings` — 2026 provisional + 2025 revised; sheets All / Full-Time / Part-Time; **72** obs; cloud release **220**; QA `data/qa/qa_report_ashe_national_earnings_2026-11-11b.md`
   2. `ashe-regional-earnings` — 2026 provisional + 2025 revised workplace Table 7.1a; **1576** obs; cloud release **222**; QA `…_regional_earnings_2026-11-11b.md`
@@ -1651,10 +1778,608 @@ Wave A production rail: Inflation · Wages · Growth · Debt (`sector-pages.ts`)
 - Archive: Storage push `--keep-local` for all four packs under `data/economy/`
 - **Manufacturing boundary:** Energy `ashe-manufacturing-earnings` remains authoritative for manufacturing Jobs Pay (section C + divisions 10–33). Economy Table 4 pack loads all sections including C for Wages — link only; do not fork Energy.
 - Coverage gap: Table 5.1a has no England / NI × section cross-tabs (regions + Wales + Scotland only). Table 8 residence deferred.
-- Next: Validation sample QA → Orchestrator Ready flip; UI already waiting on multi-year / industry series.
+- **Validation (2026-11-11):** Independent sample QA **pass** — script `src/validation/qa_economy_02_ashe_b_2026_11_11.py`; report `data/qa/qa_report_economy_02_ashe_b_2026-11-11.md`. Registry Status → **Ready** (all four). Spots: national All median 673.1/641.7; PT 288.1; FT London 1038.1/959.5; FT Manufacturing C 808.6/774.0 (= Energy); London×C 947.2.
+
+### EC-V-02-ASHE-B — Validation ASHE-B Ready flip
+- Owner: Validation
+- Status: **done** (2026-11-11)
+- Output: `data/qa/qa_report_economy_02_ashe_b_2026-11-11.md` · Notion Ready on national / regional / industry / region-industry
+- Notes: No data edits. UI may now treat multi-year + industry series as trusted.
+
+### EC-CTRL — Economy control-density parity (Energy frame)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: Generation-style **From** / Month / **Series** menus where Ready packs already hold history; Data tabs show one full series (no 24-row truncate). Shared helper `web/src/brand/economy/series-window.ts`.
+- Shipped: Debt (From + Data Series) · Inflation (From + categories Month + Data Series) · Growth (produce From via `start` + Data Series) · Wages (Data Series) · Employment (From on rates/inactive/hours/vacancies + Data Series)
+- Skipped (honest): Tax/Spending prep EmptyStages; MultiMenu / ExactRegister; chart `showTable={false}` kept (Energy convention)
 
 ### Review — Economy deep-brief cycle (01 · 02 · 05 · 08)
-- **Shipped:** Inflation · Wages (ladder + Geography of Pay) · Growth (+ vintage-band) · Debt dial elevated
-- **Next:** Wave A G4 structural audit, or wait for 12/17/20 Nov re-pins; Wave B still gated on per-domain G2+G3
-- **Still blocked:** Wave B canvases; post-release re-pins (GDP 12 Nov · productivity 17 Nov · PSF 20 Nov · ASHE 2026 revised later); optional ASHE Table 8 residence / LA AreaMap
+- **Shipped:** Inflation · Wages · Growth **Gate 4 closed** ([gate4-audit-growth.md](gate4-audit-growth.md)) · Debt **Gate 4 closed** · Employment **Gate 4 closed**
+- **Shipped (08):** Dial · anatomy · ownership · repayment · borrowing · **Cash to debt** · Cost of debt · Data; Follows complete; numeric PS Machine deferred
+- **Shipped (05):** Produce · Ledger · Anatomy · Productivity Engine · Revisions (two-vintage) · Data; Follows complete
+- **Shipped (03):** Workforce · Rates · Outside · Industry plates · Hours · Vacancies · Geography · Data
+- **Shipped (control density 2026-11-15):** EC-CTRL — From / Month / Data Series across Debt · Inflation · Growth · Wages · Employment
+- **Next:** Wave B Tax/Spending polish; calendar re-pins (**17 Nov** LMS + PRDY productivity · **20 Nov** PSF)
+- **Still deferred:** Numeric public-sector Borrowing Machine; full Growth Revision Archive. (Employment underemployment UI + occupation closed 2026-11-15 — EC-G2-03d)
+- **Blockers for user:** none — Domains 03 · 05 · 08 Gate 4 closed barring calendar re-pins
 
+---
+
+## Economy & Public Finance · Domain 03 Employment & Labour Market · 2026-11-14
+
+Follow [03 · Employment & Labour Market](https://app.notion.com/p/414654717685813fb55ad2fc81cd4e4f). Kickoff: [agent-kickoff-economy-03-employment.md](agent-kickoff-economy-03-employment.md).
+
+**Domain 03 question (provisional):** Who is in work in Britain, who is inactive, and how has the labour market changed?
+
+**Flagship (Notion-locked):** **The British Workforce** — working-age composition (employed / unemployed / inactive). Signature second: **Outside the Workforce**.
+
+**Status:** **complete** (2026-11-15) — Gates 2–4. Gate 4: [gate4-audit-employment.md](gate4-audit-employment.md) · Validation roll-up `data/qa/qa_economy_domain03_gate4_2026-11-15.md`.  
+**Updated:** 2026-11-15  
+**Orchestrator:** this chat  
+**Rule:** Rates do not compose a population. Flagship uses matched official **counts**. Link Energy Jobs manufacturing — never fork. Underemployment UI deferred; EMP04 occupation labelled gap.
+
+### EC-G2-03 — Employment Phase 0 evidence gate
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (Economy Phase 0, 2026-11-14) — Validation QA still open
+- Inputs: Notion Domain 03 deep brief; kickoff; pins `employment-rate` (LF24) · `economic-inactivity-rate` (LF2S) last retrieved 2026-11-03 / release 2026-10-19; overlap matrix
+- Output:
+  1. Re-pin LF24 + LF2S vs latest LMS; provisional = latest month only
+  2. Count/rate inventory (CDIDs) for employed · unemployed · inactive · economically active — same age/geo/SA basis
+  3. Companion registry rows + ingest for any series required to prove flagship composition (or explicit Blocked if ONS does not publish matched counts)
+  4. Gap list for Outside the Workforce · industry/occupation · hours · vacancies · geography (planned-not-ready unless scoped)
+  5. Four artefacts → `docs/handover-economy-03-employment.md`; Notion plan checkboxes updated
+- Do not: frontend; fork Energy manufacturing / BRES; invent rate→composition; claim claimant count = ILO unemployment
+- **Economy status note (2026-11-14):**
+  - Re-pinned LF24 + LF2S (`raw/2026-11-14/`); ONS release still **2026-10-19**; checksums unchanged vs 2026-11-03 pin; spots Jul 2026 (Jun–Aug) **75.3%** / **20.9%**; `observation_status` fixed to **latest month provisional only**
+  - Flagship composition **proven** from matched UK 16–64 SA counts: LF2G 32,823 + LF2I 1,675 + LF2M 9,091 = 43,589 (~LF2O 43,590)
+  - New indicators ingested + registry → Validation: `employment-level` (LF2G), `unemployment-level` (LF2I), `economic-inactivity-level` (LF2M), `unemployment-rate` (LF2Q, not MGSX)
+  - Handover: `docs/handover-economy-03-employment.md` · Notion Domain 03 Phase 0 checkboxes + experience states updated
+  - Next LMS release **17 Nov 2026** — re-pin all six after bulletin
+  - **Next:** Validation task VAL-EC-03-LMS (sample QA vs A02 SA / Oct 2026 bulletin → `data/qa/`) before Ready / G3
+
+### EC-DB-03 — Employment deep brief (Orchestrator)
+- Owner: Orchestrator
+- Status: **done** (Notion elevated 2026-11-14) — G3 UI still gated on Validation Ready + Review
+- Output: Notion Domain 03 deep brief (six experiences · phased programme · evidence gate); kickoff refreshed
+- Notes: Canvas `/economy?domain=employment` only after G2 Ready + Review + G3 authorisation
+
+### VAL-EC-03-LMS — Validation LMS flagship set
+- Owner: Validation → Orchestrator (subagent hit weekly usage limit; Orchestrator completed QA)
+- Status: **done · pass** (2026-11-14)
+- Inputs: [handover-economy-03-employment.md](handover-economy-03-employment.md) · kickoff [agent-kickoff-validation-economy-03-lms.md](agent-kickoff-validation-economy-03-lms.md)
+- Series: LF24 · LF2S · LF2G · LF2I · LF2M · LF2Q (UK 16–64 SA; release 2026-10-19)
+- Output: [qa_report_economy_03_lms_2026-11-14.md](../data/qa/qa_report_economy_03_lms_2026-11-14.md) — **50/0/0 pass**; script `validation.qa_economy_03_lms_2026_11_14`
+- Notes: Bulletin confirms LF24 75.3% / LF2S 20.9%; composition 43,589 vs LF2O 43,590; LF2Q 4.9% kept distinct from bulletin 16+ 4.7%. Registry → **Ready** (all six).
+- Do not: edit curated; frontend; Energy manufacturing QA as Economy
+
+### EC-03-CLOUD — Cloud load LMS six
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Inputs: Ready packages under `data/economy/{employment,unemployment,economic-inactivity}-*/`
+- Output: Supabase via `load_ready --via-rest` — releases **45–46** (rates) · **237–240** (levels + LF2Q); 666 obs each
+- Notes: Production UI may read these without local files
+
+### EC-G3-03 — The British Workforce (flagship UI)
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: `/economy?domain=employment` — views workforce · rates · inactive (EmptyStage) · data; `EmploymentCanvas` + `workforce-model`; pack load + Follows (Wages · Energy Jobs)
+- Notes: Composition from LF2G/LF2I/LF2M only; rates tab labels denominators; GB≠UK chip in Follow honesty
+
+### EC-G4-03 — Employment Gate 4 structural + Validation roll-up
+- Owner: Orchestrator (+ Validation priors)
+- Status: **done** (2026-11-15)
+- Output: [gate4-audit-employment.md](gate4-audit-employment.md) · [qa_economy_domain03_gate4_2026-11-15.md](../data/qa/qa_economy_domain03_gate4_2026-11-15.md)
+- Cleanups: Follow on inactive · hours · vacancies · geography; Hours Notes honesty (EMP16/YCCX Ready not drawn); `sector-pages` series list; industry specimen wall restored
+- Notes: connections tests 23/23; no curated rewrites
+
+### Review — Economy Domain 03 (complete)
+- **Shipped:** Gates 2–4 · Workforce · Rates · Outside the Workforce (incl. discouraged) · Working Week · Demand · Industry (JOBS02 + plates) · Geography (HI00) · Data · Follows complete
+- **Closed 2026-11-15 (EC-G2-03d):** Underemployment + involuntary part-time drawn on Working Week; occupation ingested from Nomis APS (EMP04 discontinued) and drawn on What Britain Does for Work
+- **Calendar:** Re-pin LMS / HI00 / EMP16 / YCCX / APS after **17 Nov 2026**
+- **Next:** Wave B Tax/Spending polish · Wave C
+
+### EC-G2-03c — Employment labelled gaps (Economy)
+- Owner: Economy → Validation → Orchestrator
+- Status: **done · Ready + cloud** (2026-11-15)
+- Kickoff: [agent-kickoff-economy-03-gaps.md](agent-kickoff-economy-03-gaps.md)
+- Handover: [`handover-economy-03-gaps.md`](handover-economy-03-gaps.md)
+- Owns: JOBS02 industry sections · underemployment · discouraged levels
+- Do not: React; fork Energy manufacturing; invent discouraged from %; invent shares of DYDC; Geography atlas (Regions owns)
+- **Economy status note (2026-11-15):**
+  - `workforce-jobs-by-industry` — JOBS02 WFJ SA, sections A–T + total. 2026 Q2 total **36,734** (matches DYDC), manufacturing **2,460** (matches Energy JWR7). Section sum 36,733 (rounding). No shares stored.
+  - `underemployment` — EMP16 NSA, aged 16+, **people** (banner says thousands; rate identity holds). Apr–Jun 2026 level **2,768,796**. No SA twin.
+  - `involuntary-part-time` — YCCX, thousands SA, UK: All. Jul 2026 = **915**.
+  - `inactivity-reason-discouraged` — LFL8, the INAC01 SA all-persons level. Jul 2026 = **30**. Seven reasons sum **9,090** vs LF2M **9,091**.
+  - `inactivity-reason-discouraged-rate` — LF77 **0.3%**. Not a level. Do not multiply by LF2M.
+  - Not ingested: EMP04 occupation (LFS people by SOC); JOBS02 employee/self-employment/NSA sheets; EMP16 overemployment; LF8B wants-a-job subset (Jul 2026 = 19).
+  - Registry: five rows → Ready after Validation. Cloud releases **255–259**.
+
+### EC-G2-03d — Occupation + Working Week UI (Economy → Validation → Orchestrator)
+- Owner: Economy (ingest) · Validation (QA) · Orchestrator (G3 UI)
+- Status: **done · Ready + cloud + UI** (2026-11-15)
+- Handover: [handover-economy-03-occupation.md](handover-economy-03-occupation.md)
+- **EMP04 is discontinued** (ONS, last edition Apr–Jun 2018). Source is the official successor: Nomis APS `NM_17_5` / `aps210`.
+- `employment-by-occupation` — nine SOC 2020 major groups, UK, 16+, people + share + denominator, rolling twelve-month windows from Jan–Dec 2021. Jul 2025–Jun 2026: Professional **27.2%**, all in employment **33,470,000**. 361 rows. People, not jobs.
+- Validation: [qa_report_economy_03_occupation_2026-11-15.md](../data/qa/qa_report_economy_03_occupation_2026-11-15.md) **15/0/0**. Cloud: Postgres 361 rows · archive pushed, local deleted.
+- UI: Working Week — want-more-hours rate (EMP16) + part-time-could-not-find-full-time (YCCX) panels, figure strip Average hours · Part-time · Want more hours, Notes rewritten. What Britain Does for Work — occupation `RankBars` (latest final window). Data — three new series. `tsc` / `eslint` clean; headless desktop 1440 inspected vs Energy Consumption.
+- Open: Notion registry row for `employment-by-occupation` (MCP cannot open the registry); SOC 2010 windows not bridged.
+
+### RG-EMP-GEO — Geography of Employment (Regions)
+- Owner: Regions → Validation → Orchestrator
+- Status: **done · Regions hand-off** (2026-11-15)
+- Kickoff: [agent-kickoff-regions-employment-geography.md](agent-kickoff-regions-employment-geography.md)
+- Handover: [handover-regions-employment-geography.md](handover-regions-employment-geography.md)
+- **Shipped:** HI00 three series · release **2026-10-20** · sha `ff374cf9…` · 5343 rows each · employment 16–64 **column fix** (was 16+ mis-parse) · ILO unemployment 16+ · inactivity 16–64
+
+### VAL-RG-EMP-GEO — Validation HI00 regional labour
+- Owner: Validation → Orchestrator (in-orchestrator)
+- Status: **done · pass** (2026-11-15)
+- Output: [qa_report_regions_employment_geography_2026-11-15.md](../data/qa/qa_report_regions_employment_geography_2026-11-15.md) — **59/0/0**
+- Notes: NE employment **70.5** (not ~55.3); all 13 geos × 3 measures match bulletin Jun–Aug 2026; cloud releases **252–254**
+
+### EC-G3-03-GEO — Economy Geography tab (Orchestrator)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `/economy?domain=employment&view=geography` — RankBars + ChangeRows; measure control (employment / unemployment / inactivity); Regions HI00 packs via API (no Economy fork)
+- Notes: No UK/GB invent; Claimant≠ILO; Stage Follow on
+
+### EC-VAL-03-GAPS — Validation Economy 03c packs
+- Owner: Validation → Orchestrator (in-orchestrator)
+- Status: **done · pass** (2026-11-15)
+- Output: [qa_report_economy_03_gaps_2026-11-15.md](../data/qa/qa_report_economy_03_gaps_2026-11-15.md) — **24/0/0**
+- Notes: JOBS02 total 36,734 + C 2,460; EMP16 people identity; YCCX 915; LFL8 30; LF77 0.3 not ×LF2M; seven reasons 9,090 vs LF2M 9,091
+
+### EC-03c-CLOUD — Cloud load gap packs
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Releases: **255** discouraged · **256** discouraged-rate · **257** involuntary-part-time · **258** underemployment · **259** workforce-jobs-by-industry
+
+### EC-G3-03-GAPS — Industry + discouraged UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: Industry RankBars (JOBS02 A–T) · Outside the Workforce includes LFL8 discouraged · Geography wired
+- Deferred UI: underemployment / involuntary part-time on Working Week
+
+### EC-G2-03b — Employment domain completion (remaining experiences)
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-14)
+- Kickoff: [agent-kickoff-economy-03-employment-complete.md](agent-kickoff-economy-03-employment-complete.md)
+- Handover: [`handover-economy-03-employment-complete.md`](handover-economy-03-employment-complete.md)
+- **Shipped:** reason levels LF63/65/67/69/6B/6D · YBUV · YCBE/YCBH · AP2Y · DYDC
+- **Blocked / planned-not-ready:** discouraged levels; JOBS02 industry; underemployment; Geography
+- **Link only:** Energy manufacturing / BRES
+
+### EC-VAL-03-COMPLETE — Validation employment completion packs
+- Owner: Validation → Orchestrator (in-orchestrator)
+- Status: **done · pass** (2026-11-14)
+- Output: [qa_report_economy_03_employment_complete_2026-11-14.md](../data/qa/qa_report_economy_03_employment_complete_2026-11-14.md) — **82/0/0**; script `validation.qa_economy_03_employment_complete_2026_11_14`
+- Notes: sum reasons 9,060 vs LF2M 9,091; AP2Y 691; DYDC 36,734 Q2; FT/PT 16+ labelled
+
+### EC-03b-CLOUD — Cloud load completion packs
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: releases **241–251** (hours · FT/PT · six reasons · vacancies · workforce-jobs)
+
+### EC-G3-03b — Employment remaining experiences UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: `/economy?domain=employment` — inactive · industry · hours · vacancies · geography EmptyStage; Follow industry → Energy Jobs
+- Notes: Reason RankBars + stack; FT/PT age-break in Notes; industry sections EmptyStage under workforce-jobs chart
+
+### EC-03-CSV — Owner ONS CSV pins beside JSON
+- Owner: Economy
+- Status: **done** (2026-11-14)
+- Inputs: six CSVs copied into `data/economy/inactivity-reason-*/raw/2026-11-14/*.csv` (LF63/65/67/69/6B/6D)
+- Output: second `raw_evidence` rows + package READMEs; spot-check vs curated/JSON **pass** (no re-curate); note in `inactivity-reason-pack/reconciliation_notes.md`
+
+---
+
+---
+
+## Economy & Public Finance · Domain 06 Taxation & Revenue · 2026-11-14
+
+Follow [06 · Taxation & Revenue](https://app.notion.com/p/414654717685816bb414e87ccbd501fc). Kickoff: [agent-kickoff-economy-06-tax.md](agent-kickoff-economy-06-tax.md).
+
+**Domain 06 question (provisional):** How does Britain raise public money, who contributes, and how has the tax system changed?
+
+**Flagship (Notion-locked):** **What Britain Raises** — AHHY public-sector taxes + NICs. Signature concept: **The Tax Machine** (rules — not G2 UI).
+
+**Status:** Wave B **G3 complete deepen** (2026-11-15) — `/economy?domain=tax` · Raises · Machine · Anatomy · Burden · Time Machine · Gap · Data.  
+**Updated:** 2026-11-15  
+**Orchestrator:** this chat  
+**Rule:** AHHY ≠ HMRC cash. No invented tax/GDP. No mixing HMRC cash into ONS accruals. Tax Machine / Time Machine ≠ tax advice.
+
+### EC-G2-06 — Taxation Phase 0 evidence gate
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-14)
+- Inputs: Notion Domain 06 deep brief; kickoff; pin `tax-receipts` (AHHY)
+- Output: Re-pin AHHY; accounting note; breakdown inventory (no component ingest); handover [`handover-economy-06-tax.md`](handover-economy-06-tax.md)
+- **Economy note:** release **2026-10-20**; spot **2026-09 = 88,127** £m NSA; 353 final + 1 provisional; next PSF **20 Nov**
+
+### EC-VAL-06 — Validation tax-receipts (AHHY)
+- Owner: Validation → Orchestrator (completed in-orchestrator after prior Validation agent usage limit)
+- Status: **done · pass** (2026-11-14)
+- Output: [qa_report_economy_06_tax_receipts_2026-11-14.md](../data/qa/qa_report_economy_06_tax_receipts_2026-11-14.md) — **12/0/0**; script `validation.qa_economy_06_tax_receipts_2026_11_14`
+- Notes: Registry → **Ready**; cloud release **54** (354 obs)
+
+### EC-G3-06 — What Britain Raises (flagship UI)
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: `/economy?domain=tax` — views raises · anatomy · machine · data; `TaxCanvas`; month + derived 12-month sum; Follows → Debt
+- Notes: AHHY ≠ HMRC cash in Notes; no tax/GDP; Anatomy/Machine EmptyStage
+
+### EC-G2-06B — Anatomy of Revenue reconcile discovery
+- Owner: Economy
+- Status: **done** (2026-11-15) — [Anatomy revenue discovery](29437e87-656d-4b0f-af2c-8823c478b331)
+- Inputs: [handover-economy-06-tax.md](handover-economy-06-tax.md) §2.2; Notion Domain 06 Anatomy brief
+- Output: [economy-06-anatomy-source-matrix.md](economy-06-anatomy-source-matrix.md) + [handover-economy-06-anatomy.md](handover-economy-06-anatomy.md); kickoff [agent-kickoff-economy-06-anatomy.md](agent-kickoff-economy-06-anatomy.md)
+- **Verdict:** `path-found-ons-nab` — Appendix D heads `MF6P + AIIH + NMHM + AHGR = AHHY` (Sep 2026 spot 88,127). Prefer EmptyStage until pin task; proposed id `tax-receipts-composition`. Never HMRC cash under AHHY.
+- Do not: ingest components until Orchestrator opens pin; frontend; mix frameworks
+- Blockers for pin: AHGR PUSF `/data` 404 (workbook/residual); next PSF 20 Nov
+
+### EC-G2-06C — Tax Machine statute pin (income tax + employee NICs)
+- Owner: Economy → Validation
+- Status: **done** (2026-11-15) — [Tax Machine statute pin](66717d30-f2ad-40d8-9d09-543e0ab79455) · Validation-ready (not Ready)
+- Inputs: Notion Tax Machine brief; GOV.UK rates/allowances; Scotland separate
+- Output: `data/economy/tax-machine-rules/` · id `tax-machine-income-tax-rules` · years 2025–26 + 2026–27 · E/W/NI + Scotland · [handover-economy-06-tax-machine.md](handover-economy-06-tax-machine.md)
+- Self-QA: pass · sample £80k E/W/NI → IT £19,432 · NICs £3,610.60 (separate stage)
+- Do not: frontend calculator; Ready without Validation; invent rates; blend NICs into income tax
+
+### EC-VAL-06C — Validation tax-machine-income-tax-rules
+- Owner: Validation
+- Status: **done · pass** (2026-11-15) — [Validate Tax Machine rules](a4da3eba-f921-4097-a753-a4128c67de88) · **25/0/0**
+- Inputs: [handover-economy-06-tax-machine.md](handover-economy-06-tax-machine.md); kickoff [agent-kickoff-validation-economy-06-tax-machine.md](agent-kickoff-validation-economy-06-tax-machine.md)
+- Output: [qa_report_economy_06_tax_machine_2026-11-15.md](../data/qa/qa_report_economy_06_tax_machine_2026-11-15.md); script `validation.qa_economy_06_tax_machine_2026_11_15`
+- Notes: Registry → **Ready** · [Tax Machine income-tax rules](https://app.notion.com/p/4196547176858125b10af2e78e4b5c6c); cloud load below
+
+### EC-06C-CLOUD — Cloud load tax-machine-income-tax-rules
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `load_ready --via-rest --only tax-machine-income-tax-rules` → release **261** · 46 observations
+
+### EC-G4-06 — Gate 4 / polish What Britain Raises
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Inputs: live `/economy?domain=tax`; structural-consistency-audit; Anatomy + Tax Machine handovers
+- Output: EmptyStage/Notes honesty polish in `TaxCanvas`; [gate4-audit-economy-06-tax.md](gate4-audit-economy-06-tax.md); [qa_economy_domain06_gate4_2026-11-15.md](../data/qa/qa_economy_domain06_gate4_2026-11-15.md)
+- Notes: Anatomy EmptyStage (pin gated); Tax Machine EmptyStage until Review Gate UI; phone 390px deferred
+
+### EC-G3-06C — Tax Machine calculator UI (Review Gate)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Inputs: Ready `tax-machine-income-tax-rules` (cloud 261); Validated arithmetic
+- Output: `/economy?domain=tax&view=machine` — tax year · place · gross presets; income-tax + employee NICs step tables; URL `ty`/`juris`/`gross`; model `tax-machine-model.ts` (API observations only)
+- Notes: Educational not advice; presets ≤ £100k; Scotland labelled; stages separate; matches QA spots (£80k → IT £19,432 · NICs £3,610.60)
+
+### EC-G2-06B-PIN — Anatomy composition pin (`tax-receipts-composition`)
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — [Pin Anatomy tax composition](3e23d995-ba70-4a64-8e4b-2a8ff05fc36b) · Validation-ready
+- Inputs: [economy-06-anatomy-source-matrix.md](economy-06-anatomy-source-matrix.md); kickoff [agent-kickoff-economy-06-anatomy-pin.md](agent-kickoff-economy-06-anatomy-pin.md)
+- Output: `data/economy/tax-receipts-composition/` · 1,509 rows · identity exact Jul/Aug/Sep 2026 · [handover-economy-06-anatomy-pin.md](handover-economy-06-anatomy-pin.md)
+- AHGR: Appendix D Time Series (PUSF `/data` still 404)
+- Registry: [Validation](https://app.notion.com/p/419654717685818dac2bc06033d4a01c)
+- Do not: frontend; HMRC cash; JW2O as total; Ready without Validation
+
+### EC-VAL-06B — Validation tax-receipts-composition
+- Owner: Validation
+- Status: **done · pass** (2026-11-15) — [Validate tax composition](a701de41-4a3e-4e97-bf74-f92845bea6ec) · **23/0/0**
+- Inputs: [handover-economy-06-anatomy-pin.md](handover-economy-06-anatomy-pin.md); kickoff [agent-kickoff-validation-economy-06-anatomy.md](agent-kickoff-validation-economy-06-anatomy.md)
+- Output: [qa_report_economy_06_tax_composition_2026-11-15.md](../data/qa/qa_report_economy_06_tax_composition_2026-11-15.md)
+- Notes: Registry → **Ready**; identity 345 months; AHGR workbook-sourced
+
+### EC-06B-CLOUD — Cloud load tax-receipts-composition
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `load_ready --via-rest --only tax-receipts-composition` → release **262** · 1,509 observations
+
+### EC-G3-06B — Anatomy of Revenue UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `/economy?domain=tax&view=anatomy` — RankBars + stack history; Measure Pounds / Share; `tax-anatomy-model.ts`
+- Notes: Four Appendix D heads under AHHY; not HMRC cash; AHGR may be small negative
+
+### EC-G3-06-TABS — Notion six-experience tab rail
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: Tax canvas tabs match brief order — Raises · Machine · Anatomy · Burden · Time Machine · Gap · Data; last three = honest EmptyStages (Effects of taxes and benefits / rates archive / Measuring tax gaps)
+- Notes: no invented distributional, historical, or gap series
+
+### EC-G2-06D — Who Bears the Tax Burden? evidence pin
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — [Pin tax burden evidence](d4d53c6f-ff16-48aa-88bd-1c003255d6f3)
+- Inputs: Notion §D; kickoff [agent-kickoff-economy-06-burden.md](agent-kickoff-economy-06-burden.md)
+- Output: `effects-of-taxes-and-benefits` (ETB Table 8 + Table 2a FYE 2024) + [handover-economy-06-burden.md](handover-economy-06-burden.md); registry [Validation](https://app.notion.com/p/41965471768581f5a6d8f652ce533d8c)
+- Do not: frontend; invent shares; fairness claims; Ready without Validation
+
+### EC-VAL-06D — Validation effects-of-taxes-and-benefits
+- Owner: Validation
+- Status: **done** (2026-11-15) — [Validate tax burden pin](d0960c46-0e3d-42e5-856e-c53586293bf6) · **PASS 30/0/0**
+- Inputs: [handover-economy-06-burden.md](handover-economy-06-burden.md); kickoff [agent-kickoff-validation-economy-06-burden.md](agent-kickoff-validation-economy-06-burden.md)
+- Output: `data/qa/qa_report_economy_06_burden_2026-11-15.md`
+- Do not: edit curated; frontend; Ready without PASS
+
+### EC-G3-06D — Who Bears the Tax Burden? UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — Notion Ready · `load_ready` release **263** (42 obs) · RankBars live
+- Inputs: Ready `effects-of-taxes-and-benefits`; `tax-burden-model.ts`; Explorer shell
+- Output: `/economy?domain=tax&view=burden` · measure menu (`bm`) · published ETB denominators only
+- Do not: invent direct×disposable/expenditure shares; fairness claims
+
+### EC-G2-06E — Tax Time Machine evidence pin
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — Economy self-QA pass; fiscal drag deferred
+- Inputs: Notion §E; Ready `tax-machine-income-tax-rules`; kickoff [agent-kickoff-economy-06-timemachine.md](agent-kickoff-economy-06-timemachine.md)
+- Output: `tax-machine-income-tax-history` · `data/economy/tax-machine-income-tax-history/` · years 2010–11…2026–27 · [handover-economy-06-timemachine.md](handover-economy-06-timemachine.md) · ask `EC-VAL-06E`
+- Do not: frontend; invent rates; silent Scotland=rUK
+
+### EC-VAL-06E — Validation tax-machine-income-tax-history
+- Owner: Validation
+- Status: **done** (2026-11-15) — [Validate Time Machine history](bd21d3c2-d6e8-4c81-bc5a-c98054ba2011) · **PASS 64/2/0**
+- Inputs: [handover-economy-06-timemachine.md](handover-economy-06-timemachine.md); kickoff [agent-kickoff-validation-economy-06-timemachine.md](agent-kickoff-validation-economy-06-timemachine.md)
+- Output: [qa_report_economy_06_timemachine_2026-11-15.md](../data/qa/qa_report_economy_06_timemachine_2026-11-15.md) · script `validation.qa_economy_06_timemachine_2026_11_15`
+- Notes: Scotland 2017–22 gap documented; NICs weekly×52 ≠ Ready PAYE annual PT/UEL (warn only); fiscal drag deferred
+- Follow-up: Notion **Ready** · cloud release **265** (228 obs)
+
+### EC-G3-06E — The Tax Time Machine UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — [Ship Time Machine G3 UI](1e29eddb-b240-4f8a-8d8b-089cfd22a8e6) · cloud **release_id=265**
+- Inputs: Ready `tax-machine-income-tax-history` · release **265** · Explorer shell
+- Output: `/economy?domain=tax&view=timemachine` live · Place / Stage / Tax year · PA + basic-upper TimeCharts · band RankBars · NICs separate stage · Scotland 2017–22 gap honest
+- Do not: invent Scotland 2017–22; blend NICs into income tax; fiscal-drag calculator
+
+### EC-G2-06F — Tax Gap evidence pin
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — [Pin HMRC tax gap evidence](c648ca7e-a93c-4fee-becd-538466e762aa)
+- Indicator: `hmrc-tax-gap` · package `data/economy/hmrc-tax-gap/` · MTG 2026 · 2024–25 headline £59.2bn / 6.4%
+- Registry: [Ready](https://app.notion.com/p/41965471768581969367c87a93f92f58)
+- Inputs: Notion §F; kickoff [agent-kickoff-economy-06-tax-gap.md](agent-kickoff-economy-06-tax-gap.md)
+- Output: HMRC Measuring tax gaps pin + [handover-economy-06-tax-gap.md](handover-economy-06-tax-gap.md)
+- Do not: frontend; equate gap with fraud; invent components; Ready without Validation
+
+### EC-VAL-06F — Validation hmrc-tax-gap
+- Owner: Validation
+- Status: **done** (2026-11-15) — [Validate HMRC tax gap pin](dfa99a9c-fe24-441f-bb22-76f0049532ed) · **PASS 32/0/0**
+- Inputs: [handover-economy-06-tax-gap.md](handover-economy-06-tax-gap.md); kickoff [agent-kickoff-validation-economy-06-tax-gap.md](agent-kickoff-validation-economy-06-tax-gap.md)
+- Output: `data/qa/qa_report_economy_06_tax_gap_2026-11-15.md`
+- Do not: edit curated; frontend; Ready without PASS
+
+### EC-G3-06F — The Tax Gap UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — [Ship Tax Gap G3 UI](d467f22d-2c14-4203-85a9-dae5af094e31) · cloud **release_id=264**
+- Inputs: Ready `hmrc-tax-gap`; QA PASS 32/0/0; Explorer shell
+- Output: `/economy?domain=tax&view=gap` live · by tax / by behaviour / history · gap ≠ fraud Notes
+- Do not: invent components; equate gap with fraud
+
+### EC-G2-06E-SCOT — Scotland income-tax bands 2017–18…2022–23
+- Owner: Economy → Validation → Orchestrator (UI refresh)
+- Status: **done** (2026-11-15) — Validation **PASS** 77/0/0; Orchestrator may re-load cloud + refresh Time Machine gap copy
+- Inputs: Ready `tax-machine-income-tax-history`; kickoff [agent-kickoff-economy-06-scotland-bands.md](agent-kickoff-economy-06-scotland-bands.md)
+- Output: Scotland 2017–18…2022–23 pinned (`pinned_govscot_hmrc_sit`); [handover-economy-06-scotland-bands.md](handover-economy-06-scotland-bands.md)
+- Do not: invent bands; copy E/W/NI; frontend; Ready without Validation
+- Validation: **`EC-VAL-06E-SCOT`** PASS
+
+### EC-VAL-06E-SCOT — Validation Scotland 2017–22 bands
+- Owner: Validation
+- Status: **done** (2026-11-15) — **PASS** 77/0/0; Ready recommendation **yes** (cloud re-load + gap-copy refresh)
+- Inputs: [handover-economy-06-scotland-bands.md](handover-economy-06-scotland-bands.md); kickoff [agent-kickoff-validation-economy-06-scotland-bands.md](agent-kickoff-validation-economy-06-scotland-bands.md)
+- Output: [qa_report_economy_06_scotland_bands_2026-11-15.md](../data/qa/qa_report_economy_06_scotland_bands_2026-11-15.md) · script `validation.qa_economy_06_scotland_bands_2026_11_15`
+- Years checked: 2018–19, 2020–21, 2022–23 (primary) + 2017–18, 2019–20, 2021–22
+- Blockers: none; fiscal drag still deferred; Notion Ready / UI = Orchestrator
+- Do not: silently rewrite curated bands; flip Ready without Orchestrator
+
+### EC-G2-06B-DRILL — Anatomy CG drill under MF6P
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — Economy pin + Validation **PASS**; Ready flip / cloud / UI = Orchestrator
+- Inputs: [economy-06-anatomy-source-matrix.md](economy-06-anatomy-source-matrix.md); kickoff [agent-kickoff-economy-06-anatomy-cg-drill.md](agent-kickoff-economy-06-anatomy-cg-drill.md)
+- Output: `data/economy/tax-receipts-cg-composition/` · 1,113 rows · identity exact Jul/Aug/Sep 2026 (354 months) · [handover-economy-06-anatomy-cg-drill.md](handover-economy-06-anatomy-cg-drill.md) · registry [Validation](https://app.notion.com/p/41965471768581ceb258cd766de891cb)
+- Do not: HMRC cash under AHHY; rewrite four-head Ready package; frontend; Ready without Validation
+
+### EC-VAL-06B-DRILL — Validation tax-receipts-cg-composition
+- Owner: Validation
+- Status: **done** (2026-11-15) — **PASS** 25/0/0; Ready recommendation **yes**
+- Inputs: [handover-economy-06-anatomy-cg-drill.md](handover-economy-06-anatomy-cg-drill.md); kickoff [agent-kickoff-validation-economy-06-anatomy-cg-drill.md](agent-kickoff-validation-economy-06-anatomy-cg-drill.md)
+- Output: [qa_report_economy_06_tax_cg_composition_2026-11-15.md](../data/qa/qa_report_economy_06_tax_cg_composition_2026-11-15.md) · script `validation.qa_economy_06_tax_cg_composition_2026_11_15`
+- Checks: V1 identity NMBY+NMCU+LIQR=MF6P **354** months exact; V2 leaves vs PUSF+workbook; V3 MF6P vs Ready composition **0** mismatches; V4 accruals caveats; V5 no HMRC cash / LIBR·NZGF·CPRN deferred
+- Blockers: none for Ready (calendar re-pin after **20 Nov 2026** PSF)
+- Follow-up: Notion **Ready** · cloud release **266** (1,113 obs)
+
+### EC-G3-06B-DRILL — Anatomy CG drill UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — Level `al` AHHY heads vs CG under MF6P; release **266** confirmed (1,113 obs)
+- Inputs: Ready `tax-receipts-cg-composition` · release **266** · existing Anatomy tab
+- Output: `/economy?domain=tax&view=anatomy&al=cg` — RankBars + stack; `taxCgComposition` in TaxPack; `anatomyCg*` in `tax-anatomy-model.ts`
+- Do not: invent LIBR/NZGF/CPRN; HMRC cash; rewrite four-head AHHY package
+
+### EC-G3-06E-SCOT — Time Machine UI refresh (Scotland 2017–22)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — cloud history **262** obs (release **265** upsert); removed hardcoded `SCOTLAND_GAP_YEARS`
+- Output: Scotland 2017–22 selectable from pinned data; Notes no longer call those years a gap
+
+### EC-G2-06E-DRAG — Fiscal drag examples
+- Owner: Economy → Validation → Orchestrator (UI)
+- Status: **done** (2026-11-15) — Economy self-QA **pass** 10/10; `fiscal_drag_status.json` → **documented**
+- Inputs: kickoff [agent-kickoff-economy-06-fiscal-drag.md](agent-kickoff-economy-06-fiscal-drag.md); ONS **AWE KAI7** (EMP release 2026-10-19)
+- Output: `curated/fiscal_drag_examples.json` (3 profiles) + `awe_kai7_tax_year.csv` + raw `kai7_emp.json`; [handover-economy-06-fiscal-drag.md](handover-economy-06-fiscal-drag.md)
+- Earnings path: tax-year mean KAI7 ×52, **2021–22…2025–26**; Scotland 2017–22 bands **unchanged**
+- Do not: invent wage growth; frontend calculator; Ready flip by Economy
+- Validation: **`EC-VAL-06E-DRAG`** **done** (PASS 16/1/0)
+
+### EC-VAL-06E-DRAG — Validation fiscal-drag examples
+- Owner: Validation
+- Status: **done** (2026-11-15) — PASS **16 pass / 1 warn / 0 fail**
+- Inputs: [handover-economy-06-fiscal-drag.md](handover-economy-06-fiscal-drag.md); kickoff [agent-kickoff-validation-economy-06-fiscal-drag.md](agent-kickoff-validation-economy-06-fiscal-drag.md)
+- Output: [qa_report_economy_06_fiscal_drag_2026-11-15.md](../data/qa/qa_report_economy_06_fiscal_drag_2026-11-15.md); script `validation.qa_economy_06_fiscal_drag_2026_11_15`
+- Findings: KAI7 checksum + tax-year ×52 match; E/W/NI liability + KAI7-indexed counterfactual recompute; Scotland uses Scottish bands; 2017–22 fingerprint `c3ab0cbf…8f1a` unchanged; status=`documented` / `ready=false`
+- Warn (non-blocking): package `manifest.yaml` `transformations` has unquoted colon — `yaml.safe_load` fails (owner: Economy quote-fix optional)
+- UI recommendation: Orchestrator **may** ship Time Machine fiscal-drag overlay (educational caveats); do **not** flip Registry Ready for fiscal-drag alone
+- Do not: rewrite curated bands; frontend by Validation; Ready without Orchestrator
+
+### EC-G3-06E-DRAG — Tax Time Machine fiscal-drag overlay UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — [Ship fiscal drag Time Machine UI](dff17af1-9614-4918-bcd7-c88ab79d740c)
+- Inputs: Validation PASS 16/1/0; pack `economy.tax-fiscal-drag` (Storage archived); Explorer shell
+- Output: `/economy?domain=tax&view=timemachine&ts=income-tax&tf=fiscal-drag` · Focus + Profile menus · effective rate + tax £ TimeCharts · E/W/NI extra-tax panel · Notes cite ONS KAI7 (not deferred)
+- Honesty: educational only; 3 JSON profiles only; Scotland = actual bands (no freeze); NICs excluded
+- Do not: flip Notion Registry Ready for fiscal-drag alone; rewrite Scotland bands / Burden / Gap / Anatomy
+
+### Review — Economy Domain 06 (complete deepen)
+- **Shipped:** AHHY flagship + Gate 4; Tax Machine; Anatomy (+ **CG drill G3**, cloud **266**); **Burden G3** (cloud **263**); **Tax Gap G3** (cloud **264**); **Time Machine G3** (cloud **265**, PASS 64/2/0) + **fiscal-drag overlay G3** (pack `economy.tax-fiscal-drag`, status `documented`)
+- **Scotland 2017–22:** Validation PASS 77/0/0 · cloud **262** obs · Time Machine UI gap hardcode removed
+- **Fiscal drag:** Validation PASS 16/1/0 · pack archived · **EC-G3-06E-DRAG done** — Frozen thresholds focus on Time Machine; **no** Registry Ready flip for drag alone
+- **Calendar:** re-pin AHHY + composition (+ CG drill) after **20 Nov 2026** PSF; AWE KAI7 next release **17 Nov 2026**
+
+---
+
+## Economy & Public Finance · Domain 07 Public Spending & Services · 2026-11-14
+
+Follow [07 · Public Spending & Services](https://app.notion.com/p/41465471768581df9c9ad184839231b7). Kickoff: [agent-kickoff-economy-07-spending.md](agent-kickoff-economy-07-spending.md).
+
+**Domain 07 question (provisional):** What does the state spend, and where does managed expenditure go?
+
+**Flagship (planned):** **What the state spends** — EBFT Total Managed Expenditure. Function breakdowns planned-not-ready until OSCAR/COFOG sourced.
+
+**Status:** Wave B **G3 live** (2026-11-14) — `/economy?domain=spending` · What the state spends + Function/DEL·AME EmptyStages + Data.  
+**Updated:** 2026-11-14  
+**Orchestrator:** this chat  
+**Rule:** No invented function shares. No residual identity with Tax or Debt. TME ≠ services delivered without a labelled gap.
+
+### EC-G2-07 — Spending Phase 0 evidence gate
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (2026-11-14)
+- Inputs: Notion Domain 07 stub; kickoff; pin `total-managed-expenditure` (EBFT)
+- Output: Re-pin EBFT; accounting note; OSCAR/COFOG inventory (no component ingest); handover [`handover-economy-07-spending.md`](handover-economy-07-spending.md)
+- **Economy note:** release **2026-10-20**; spot **2026-09 = 123,791** £m NSA; 353 final + 1 provisional; next PSF **20 Nov**; raw sha `2669443f…` (unchanged vs 2026-11-03 vintage)
+- Do not: frontend; invent COFOG shares; residual Tax−Spend=Borrow charts
+
+### EC-VAL-07 — Validation total-managed-expenditure (EBFT)
+- Owner: Validation → Orchestrator (completed in-orchestrator after prior Validation agent usage limit)
+- Status: **done · pass** (2026-11-14)
+- Inputs: [`handover-economy-07-spending.md`](handover-economy-07-spending.md); `data/economy/total-managed-expenditure/`
+- Output: [qa_report_economy_07_tme_2026-11-14.md](../data/qa/qa_report_economy_07_tme_2026-11-14.md) — **17/0/0**; script `validation.qa_economy_07_tme_2026_11_14`
+- Notes: Registry **Ready** confirmed; cloud release **55** (354 obs). Spots 1997-04 / 2012-01 / 2026-08 / 2026-09 match raw JSON; provisional = latest only.
+- Do not: edit curated; frontend; invent COFOG / residual identities
+
+### EC-07-CLOUD — Cloud load TME
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: `load_ready --via-rest` → release **55** · 354 observations
+
+### EC-G3-07 — What the state spends (flagship UI)
+- Owner: Orchestrator
+- Status: **done** (2026-11-14)
+- Output: `/economy?domain=spending` — views spends · function · delame · data; `SpendingCanvas`; month + derived 12-month sum; Follows → Tax (primary) · Debt (registry)
+- Notes: TME ≠ OSCAR/TES/COFOG in Notes; no residual Tax−Spend=Borrow; Function/DEL·AME EmptyStage
+
+### Review — Economy Domain 07
+- **Shipped:** EBFT Ready + cloud + G3 *What the state spends*
+- **EmptyStage:** Where spending goes · DEL and AME (real-terms gap in Notes)
+- **Calendar:** Re-pin after **20 Nov 2026** PSF
+- **Next:** Wave B deepen — Function / DEL·AME source discovery (opened 2026-11-15)
+
+### EC-G2-07B — Function / DEL·AME source discovery
+- Owner: Economy ([Economy function discovery](5a77541a-a50c-41f5-9b26-933a43fb2ddd))
+- Status: **done** (2026-11-15)
+- Inputs: [handover-economy-07-spending.md](handover-economy-07-spending.md) §2.2–2.3; kickoff [agent-kickoff-economy-07-function.md](agent-kickoff-economy-07-function.md)
+- Output: [economy-07-spending-source-matrix.md](economy-07-spending-source-matrix.md) + [handover-economy-07-function.md](handover-economy-07-function.md); Notion Domain 07 deepen notes
+- **Verdict:** Function **`path-found-tes-cofog`** (PSS/PESA Table 5.4); DEL·AME **`path-found-pss-table-1-1`** (Table 1.1). Spot Health 2024-25 = **242,429** £m; DEL+Dept AME+Other AME = table TME **1,290,012**. Neither is a split of monthly EBFT (FY sum gap ~£4.8bn in 2024-25). OSCAR / ESA / real-terms monthly deferred.
+- Do not: frontend; invent EBFT shares; residual Tax−Spend=Borrow; equate TME with services without a labelled gap
+
+### EC-G2-07B-PIN — Function / DEL·AME pin
+- Owner: Economy ([Economy function pin](b0c42301-14e2-436d-a04a-a168bb1dff79))
+- Status: **done** (2026-11-15) — Validation-ready (not Ready)
+- Inputs: matrix + [handover-economy-07-function.md](handover-economy-07-function.md); kickoff [agent-kickoff-economy-07-function-pin.md](agent-kickoff-economy-07-function-pin.md)
+- Output: `data/economy/tes-by-function/` (140 rows) · `data/economy/tme-del-ame/` (20 rows) · connectors · [handover-economy-07-function-pin.md](handover-economy-07-function-pin.md)
+- Spots: Health 2024-25 **242,429**; DEL+Dept AME+Other AME = table TME **1,290,012**; raw sha match discovery
+- Registry: [TES](https://app.notion.com/p/41965471768581c5a15bea3cca34d474) · [DEL/AME](https://app.notion.com/p/419654717685815dbb3de6db75d6a00d) — **Validation**
+- Do not: frontend; rescale onto EBFT; Ready without Validation
+
+### EC-VAL-07B — Validation function / DEL·AME pins
+- Owner: Validation ([Validate Economy 07 pins](8a31c479-8ef4-41e0-a765-58020201bac2))
+- Status: **done · pass** (2026-11-15) — **7 pass / 1 warn / 0 fail**
+- Inputs: [handover-economy-07-function-pin.md](handover-economy-07-function-pin.md); kickoff [agent-kickoff-validation-economy-07-function.md](agent-kickoff-validation-economy-07-function.md)
+- Output: [qa_report_economy_07_function_delame_2026-11-15.md](../data/qa/qa_report_economy_07_function_delame_2026-11-15.md); script `validation.qa_economy_07_function_delame_2026_11_15`
+- Notes: Warn = documented 2023-24 £1m TES rounding; EBFT FY gap context only. Registry → **Ready** (Orchestrator)
+
+### EC-07B-CLOUD — Cloud load tes-by-function + tme-del-ame
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `load_ready --via-rest` → `tes-by-function` release **267** (140 obs) · `tme-del-ame` release **268** (20 obs)
+
+### EC-G3-07B — Function / DEL·AME UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `/economy?domain=spending&view=function|delame` — RankBars + history; Measure Pounds/Share; FY menu; Data tables; model `spending-function-model.ts`
+- Notes: TES/COFOG ≠ monthly EBFT; Other AME kept; no residual function; Notes cover services↔table-TME bridge
+
+### Review — Economy Domain 07 (deepen)
+- **Shipped:** EBFT flagship; `tes-by-function` + `tme-del-ame` Ready · cloud **267**/**268** · G3 Function + DEL·AME
+- **Warn:** 2023-24 £1m TES rounding (published cells kept)
+- **Calendar:** re-pin EBFT after **20 Nov 2026** PSF; next PSS cycle Nov/Feb/Apr
+- **Next:** none for real terms / services — see Review below
+- **Still deferred:** ESA Table 11; OSCAR; Table 4.2 as its own pin; Gate 4
+
+### EC-G2-07C-PIN — Real terms pin (Tables 1.2 + 4.3)
+- Owner: Economy
+- Status: **done** (2026-11-15) — Validation-ready (not Ready)
+- Inputs: [economy-07-spending-source-matrix.md](economy-07-spending-source-matrix.md) §E; kickoff [agent-kickoff-economy-07-real-pin.md](agent-kickoff-economy-07-real-pin.md)
+- Output: `data/economy/tme-del-ame-real/` (20 rows) · `data/economy/tes-by-function-real/` (322 rows) · [handover-economy-07-real-pin.md](handover-economy-07-real-pin.md)
+- Spots: Table 1.2 resource DEL 2025-26 **496,670** (equals nominal); Table 4.3 Health 2024-25 **250.8** £bn (Table 4.2 companion 242.4, not curated)
+- Registry: [real DEL/AME](https://app.notion.com/p/419654717685815ba4c7d9d669dd661b) · [real TES](https://app.notion.com/p/4196547176858116bd53d358fb541942) — **Validation**
+- Do not: frontend; deflate monthly EBFT; plan years; Ready without `EC-VAL-07C`
+
+### EC-VAL-07C — Validation real-terms pins
+- Owner: Validation ([Validate Economy 07 real](47dff7d3-163a-47cf-a25b-dfd065a318df))
+- Status: **done · pass** (2026-11-15) — **8 pass / 0 warn / 0 fail**
+- Inputs: [handover-economy-07-real-pin.md](handover-economy-07-real-pin.md); kickoff [agent-kickoff-validation-economy-07-real.md](agent-kickoff-validation-economy-07-real.md)
+- Output: [qa_report_economy_07_real_2026-11-15.md](../data/qa/qa_report_economy_07_real_2026-11-15.md); script `validation.qa_economy_07_real_2026_11_15`
+- Notes: Registry → **Ready** (Orchestrator)
+
+### EC-07C-CLOUD — Cloud load real-terms pins
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `tme-del-ame-real` release **269** (20) · `tes-by-function-real` release **270** (322)
+
+### EC-G3-07C — Real terms UI + Services narrative
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `/economy?domain=spending&view=real` (Instrument DEL·AME / Functions) · `view=services` (TES↔adjustments↔table TME bridge)
+- Notes: 2025-26 prices labelled; not monthly EBFT; Services uses nominal `tes-by-function` bridge rows
+
+### Review — Economy Domain 07 (real terms + services)
+- **Shipped:** Real terms Ready · cloud **269**/**270** · G3 Real + Services narrative
+- **Still deferred:** ESA Table 11; OSCAR; Table 4.2 nominal long-run companion; Gate 4
+- **Calendar:** re-pin EBFT after **20 Nov 2026** PSF
+
+
+## Review — BX-BACK-001 Price Paid search · 2026-11-15
+
+- **Shipped:** Pro Postgres already live; table was still empty. Restored `pp-2025.csv` from Storage, loaded **992 278** rows (~323 MB). Meta `available: true`; sample search OX28 returns sales.
+- **Blocked:** none
+- **Next:** hard-refresh Housing › Prices › Transactions; Railway API already points at the same Supabase DB so no redeploy needed for data
+
+## Cross-sector · Terms registry and `Term` marker · 2026-11-14
+
+Decided with owner 2026-11-14. Pages read as if written for people who already know the data. Fix in two layers: expand bare acronyms in copy, and a shared "i" marker that opens a plain definition. Sector by sector, Housing first; the glossary is derived from each sector's real copy, not written in the abstract. Seed: `docs/glossary-seed-housing.md`.
+
+### GLOSS-01 — Terms registry (Orchestrator) — done 2026-11-14
+
+- `data/glossary/terms.yaml`: slug, short, full name, one-sentence plain definition, longer note (optional), sector, related indicator ids, source URL. Shipped: migration `008_glossary_terms.sql`, loader `britain_exchange.glossary`, 77 rows loaded to Supabase.
+- Postgres table `glossary_terms` loaded by `src/britain_exchange/` loader; local YAML is connector pin only (cloud rule).
+- API: `GET /glossary` (all, by sector) and `GET /glossary/{slug}`.
+- Indicator manifests may list `terms: [slug]`.
+- Seed from the Housing table; Validation checks each definition against the publisher's own wording.
+
+### GLOSS-02 — `Term` primitive and glossary page (Orchestrator, `web/src/brand/`) — done 2026-11-14
+
+- One component `<Term slug>children</Term>`: small mono "i" in a hairline circle after the term, ink only, no underline on the text. Opens a paper popover on click or keyboard focus (not hover only): short form, full name, one sentence, "More" link. Popover reuses existing disclosure and panel styles.
+- Allowed in labels, menus, figure strip, stage meta, Notes foot. Never inside a plot. First occurrence per stage only.
+- Rule: more than three markers on one stage means the copy is wrong; send it back to the copy pass.
+- "Terms" row inside the existing Sources & notes disclosure listing terms used on that stage. No separate "How to read" section; the one-Notes-foot rule stands.
+- `/glossary` page listing terms by sector; footer link; terms included in search alongside indicators.
+
+### GLOSS-03-HOUSING — Housing copy pass (Housing, with Orchestrator review) — first pass done 2026-11-14; owner review of placements pending
+
+- Expand the bare labels listed at the end of `docs/glossary-seed-housing.md`.
+- Place `Term` markers on first occurrences across the nine Housing domains.
+- No new notes blocks; definitions come from the registry only.
+- Then repeat for Energy (GLOSS-03-ENERGY) and Economy (GLOSS-03-ECONOMY), each deriving its own seed first.

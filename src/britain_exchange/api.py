@@ -18,6 +18,7 @@ import csv
 import io
 import json
 import logging
+import threading
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from dataclasses import asdict
@@ -39,6 +40,7 @@ from britain_exchange.chart_contract import (
     infer_chart_kind,
 )
 from britain_exchange.dimensions import merge_row_dimensions
+from britain_exchange.glossary import get_term, list_terms
 from britain_exchange.packs import PACK_REGISTRY, PackBlob, get_pack, get_pack_rel, list_packs
 from britain_exchange.db import close_pool
 from britain_exchange.runtime import postgres_required_but_missing, require_postgres
@@ -52,10 +54,20 @@ from britain_exchange.store import (
 logger = logging.getLogger(__name__)
 
 
+def _warm_catalogue() -> None:
+    try:
+        list_indicators_db()
+    except Exception:  # warming is best effort; the first request builds it instead
+        logger.exception("catalogue warm-up failed")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     # Pool opens lazily on first query; close on shutdown so session-mode
     # clients are returned to Supabase (see britain_exchange.db).
+    if using_postgres():
+        # Warm the catalogue cache off the request path (the aggregate takes ~20s).
+        threading.Thread(target=_warm_catalogue, name="catalogue-warm", daemon=True).start()
     yield
     close_pool()
 
@@ -93,8 +105,13 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "https://british-exchange.vercel.app",
     ],
+    # Local Next often hops ports when 3000 is busy (3001, 3002, …).
     # Preview deploys: https://british-exchange-….vercel.app
-    allow_origin_regex=r"https://british-exchange.*\.vercel\.app",
+    # Starlette CORS: https://www.starlette.io/middleware/#corsmiddleware
+    allow_origin_regex=(
+        r"https://british-exchange.*\.vercel\.app"
+        r"|http://(localhost|127\.0\.0\.1):\d+"
+    ),
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["*"],
@@ -330,6 +347,24 @@ def pack_body(pack_id: str) -> Response:
     return _pack_response(blob)
 
 
+@app.get("/glossary")
+def glossary_index(
+    sector: str | None = Query(default=None, description="Sector slug, e.g. housing-land; shared terms are always included."),
+) -> list[dict[str, Any]]:
+    """Shared terms registry: the plain definitions behind the Term marker."""
+    _refuse_files_store()
+    return list_terms(sector)
+
+
+@app.get("/glossary/{slug}")
+def glossary_term(slug: str) -> dict[str, Any]:
+    _refuse_files_store()
+    row = get_term(slug)
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Unknown term: {slug}")
+    return row
+
+
 @app.get("/indicators")
 def list_indicators() -> list[dict[str, Any]]:
     _refuse_files_store()
@@ -361,6 +396,9 @@ def list_indicators() -> list[dict[str, Any]]:
                 "coverage_start": cov.start,
                 "coverage_end": cov.end,
                 "observation_count": cov.count,
+                "series_count": 0,  # Postgres computes series; the files store is dev-only
+                "update_cadence": m.update_cadence,
+                "status_note": m.status_note,
                 "csv_bytes": package.curated_csv.stat().st_size,
                 "release_date": max(releases, default=""),
                 "retrieved_at": max(retrieved, default=""),

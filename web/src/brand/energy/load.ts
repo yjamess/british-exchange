@@ -97,7 +97,8 @@ import {
   type NetworksPack,
   type SsenAtlasPack,
 } from "./networks-model";
-import { packAllowed, type EnergyPackKey, type EnergyScope } from "./domain-sources";
+import { packAllowed, packsFor, type EnergyPackKey, type EnergyScope } from "./domain-sources";
+import { createDomainCache } from "@/lib/domain-cache";
 import {
   EMPTY_POLICY_EVENTS_PACK,
   loadPolicyEventsPack,
@@ -691,13 +692,14 @@ const EARNINGS_META: IndicatorMeta = {
   source_url:
     "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp",
   series_id: "KAI7",
-  geography: "Great Britain (K02000001 spine)",
+  geography: "Great Britain (K03000001)",
   frequency: "monthly",
   unit: "£ per week, SA, cash terms (regular pay)",
   definition:
     "Average weekly earnings (AWE) whole-economy regular pay in cash terms, seasonally adjusted.",
   licence: "Open Government Licence v3.0",
-  caveats: "Regular pay per employee, excluding bonuses; not household income. Energy annualises ×52 (mean of the year's months).",
+  caveats:
+    "Great Britain only (excludes NI). Regular pay per employee, excluding bonuses; not household income. Energy annualises ×52 (mean of the year's months).",
   revision_notes: "ONS AWE EMP/A2FC.",
   notion_registry_url: "",
 };
@@ -1872,7 +1874,19 @@ export type EnergySectorData = {
  * Pass `scope: "all"` for design-lab or full-sector consumers.
  * Domain switches must navigate through Next so this runs again server-side.
  */
-export async function loadEnergy(scope: EnergyScope = "generation"): Promise<EnergySectorData> {
+export function loadEnergy(scope: EnergyScope = "generation"): Promise<EnergySectorData> {
+  return energyDomainCache.get(scope);
+}
+
+/** One cached payload per domain; stale entries are served and rebuilt behind the reader. */
+export const energyDomainCache = createDomainCache<EnergyScope, EnergySectorData>(async (scope) => {
+  const data = await buildEnergy(scope);
+  // Complete when every pack the domain declares came back (null = loader failed).
+  const complete = packsFor(scope).every((key) => data[key] !== null);
+  return { data, complete };
+});
+
+async function buildEnergy(scope: EnergyScope): Promise<EnergySectorData> {
   const need = (key: EnergyPackKey) => packAllowed(scope, key);
   const skip = <T>(empty: T) => Promise.resolve(empty);
 

@@ -40,7 +40,7 @@ import {
   asCategoryLens,
   asMeasure,
   basketLatestMonth,
-  coicopLatestMonth,
+  coicopMonths,
   coicopRanksForMonth,
   finalObs,
   fmtIndex,
@@ -55,6 +55,7 @@ import {
   type CategoryLens,
   type InflationMeasure,
 } from "./inflation-model";
+import { coerceFromYear, fromYearOptions, pointsFrom } from "./series-window";
 import { BasketWall } from "./BasketWall";
 import { useBasket } from "./basket";
 import { BASKET_GROUPS } from "./basket-catalogue";
@@ -110,6 +111,9 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   );
   const [yearRaw, setYear] = useState<string>(() => searchParams.get("year") ?? String(DEFAULT_YEAR));
   const [catLens, setCatLens] = useState<CategoryLens>(() => asCategoryLens(searchParams.get("cat")));
+  const [catMonthRaw, setCatMonth] = useState(() => searchParams.get("month") ?? "");
+  const [fromRaw, setFrom] = useState(() => searchParams.get("from") ?? "");
+  const [dataSeries, setDataSeries] = useState(() => searchParams.get("series") ?? "");
 
   const sync = useCallback(
     (next: {
@@ -117,6 +121,9 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
       measure?: InflationMeasure;
       year?: string;
       cat?: CategoryLens;
+      month?: string;
+      from?: string;
+      series?: string;
     }) => {
       const u = new URLSearchParams(window.location.search);
       u.set("domain", "inflation");
@@ -124,25 +131,46 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
       const m = next.measure ?? measure;
       const y = next.year ?? yearRaw;
       const cat = next.cat ?? catLens;
+      const month = next.month ?? catMonthRaw;
+      const fr = next.from ?? fromRaw;
+      const ser = next.series ?? dataSeries;
       u.set("view", v);
       if (v === "rate" || v === "index") u.set("measure", m);
       else u.delete("measure");
       if (v === "index") u.set("year", y);
       else u.delete("year");
-      if (v !== "basket") {
+      if (v === "basket") {
+        /* basket owns from/to/q via useBasket */
+      } else if (v === "rate") {
+        u.delete("to");
+        u.delete("q");
+        if (fr) u.set("from", fr);
+        else u.delete("from");
+      } else {
         u.delete("from");
         u.delete("to");
         u.delete("q");
       }
-      if (v === "categories") u.set("cat", cat);
-      else u.delete("cat");
+      if (v === "categories") {
+        u.set("cat", cat);
+        if (month) u.set("month", month);
+        else u.delete("month");
+      } else {
+        u.delete("cat");
+        u.delete("month");
+      }
+      if (v === "data" && ser) u.set("series", ser);
+      else u.delete("series");
       window.history.replaceState(null, "", `${pathname}?${u}`);
       if (next.view != null) setView(next.view);
       if (next.measure != null) setMeasure(next.measure);
       if (next.year != null) setYear(next.year);
       if (next.cat != null) setCatLens(next.cat);
+      if (next.month != null) setCatMonth(next.month);
+      if (next.from != null) setFrom(next.from);
+      if (next.series != null) setDataSeries(next.series);
     },
-    [pathname, view, measure, yearRaw, catLens],
+    [pathname, view, measure, yearRaw, catLens, catMonthRaw, fromRaw, dataSeries],
   );
 
   const measureLabel = measure === "cpih" ? "CPIH" : "CPI";
@@ -150,15 +178,21 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   /* ——— 01 Changing price ——— */
   const ratePack = measure === "cpih" ? pack.cpihRate : pack.cpiRate;
   const rateRows = useMemo(() => ratePack?.observations ?? [], [ratePack]);
-  const ratePts = useMemo(() => monthlyPoints(rateRows), [rateRows]);
+  const ratePtsAll = useMemo(() => monthlyPoints(rateRows), [rateRows]);
+  const rateFromOpts = useMemo(() => fromYearOptions(ratePtsAll), [ratePtsAll]);
+  const rateFromYear = coerceFromYear(fromRaw || null, ratePtsAll);
+  const ratePts = useMemo(
+    () => (view === "rate" ? pointsFrom(ratePtsAll, rateFromYear) : ratePtsAll),
+    [view, ratePtsAll, rateFromYear],
+  );
   const latestRate = useMemo(() => {
     const finals = finalObs(rateRows);
     return finals[finals.length - 1] ?? null;
   }, [rateRows]);
   const yoyPp = rateYoYChangePp(rateRows);
   const peak = useMemo(
-    () => (ratePts.length ? ratePts.reduce((a, p) => (p.v > a.v ? p : a)) : null),
-    [ratePts],
+    () => (ratePtsAll.length ? ratePtsAll.reduce((a, p) => (p.v > a.v ? p : a)) : null),
+    [ratePtsAll],
   );
   /** Chart series key only — never put this on the source foot. */
   const seriesKey = measure === "cpih" ? "cpih-inflation" : "cpi-inflation";
@@ -189,14 +223,39 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
     () => (catLens === "contributions" ? (pack.contributions ?? {}) : (pack.coicop ?? {})),
     [catLens, pack.contributions, pack.coicop],
   );
-  const coicopMonth = useMemo(
-    () =>
-      coicopLatestMonth(
-        categoryPacks,
-        catLens === "contributions" ? CPIH_CONTRIBUTION_DIVISIONS : CPIH_COICOP_DIVISIONS,
-      ),
-    [categoryPacks, catLens],
+  const categoryDivisions =
+    catLens === "contributions" ? CPIH_CONTRIBUTION_DIVISIONS : CPIH_COICOP_DIVISIONS;
+  const coicopMonthList = useMemo(
+    () => coicopMonths(categoryPacks, categoryDivisions),
+    [categoryPacks, categoryDivisions],
   );
+  const coicopMonthOptions: PrintOption<string>[] = useMemo(
+    () =>
+      [...coicopMonthList]
+        .reverse()
+        .map((p) => ({ value: p, label: labelMonth(p) })),
+    [coicopMonthList],
+  );
+  const coicopMonth = useMemo(() => {
+    if (catMonthRaw && coicopMonthList.includes(catMonthRaw)) return catMonthRaw;
+    return coicopMonthList[coicopMonthList.length - 1] ?? null;
+  }, [catMonthRaw, coicopMonthList]);
+  const dataSeriesOptions: PrintOption<string>[] = useMemo(() => {
+    const opts: PrintOption<string>[] = [];
+    if (finalObs(pack.cpiRate?.observations ?? []).length)
+      opts.push({ value: "cpi-inflation", label: "CPI annual rate" });
+    if (finalObs(pack.cpihRate?.observations ?? []).length)
+      opts.push({ value: "cpih-inflation", label: "CPIH annual rate" });
+    if (finalObs(pack.cpiIndex?.observations ?? []).length)
+      opts.push({ value: "cpi-index", label: "CPI index" });
+    if (finalObs(pack.cpihIndex?.observations ?? []).length)
+      opts.push({ value: "cpih-index", label: "CPIH index" });
+    return opts;
+  }, [pack]);
+  const activeDataSeries =
+    dataSeriesOptions.find((o) => o.value === dataSeries)?.value ??
+    dataSeriesOptions[0]?.value ??
+    "";
   const coicopRanks = useMemo(
     () =>
       coicopMonth
@@ -392,10 +451,10 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
       <FigureRecord
         source={economySource(ECONOMY_SOURCE.consumerPrices, "United Kingdom", economyPeriod("monthly"))}
         definition={MEASURE_DEFINITION}
-        method="Latest 24 final months of each series. The full series are in the data catalogue."
+        method="The Series menu shows one Ready table in full. Charts on the other tabs use final months only."
       />
     );
-    body = <InflationData pack={pack} />;
+    body = <InflationData pack={pack} seriesId={activeDataSeries} />;
   } else if (view === "categories") {
     const isContrib = catLens === "contributions";
     foot = (
@@ -529,7 +588,7 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
               {measureLabel} annual rate · {fmtT(first.t)}–{fmtT(last.t)} · %
             </h3>
             <TimeChart
-              key={`rate-${measure}`}
+              key={`rate-${measure}-${rateFromYear}`}
               label={`${measureLabel} annual rate`}
               series={[{ id: seriesKey, label: `${measureLabel} annual rate`, points: ratePts }]}
               cadence="monthly"
@@ -567,13 +626,31 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
             onChange={(id) => sync({ measure: id })}
           />
         ) : null}
-        {view === "categories" ? (
+        {view === "rate" && rateFromOpts.length ? (
           <MenuControl
-            label="Lens"
-            value={catLens}
-            options={CATEGORY_LENS_OPTIONS}
-            onChange={(id) => sync({ cat: id as CategoryLens })}
+            label="From"
+            value={String(rateFromYear)}
+            options={rateFromOpts}
+            onChange={(id) => sync({ from: id })}
           />
+        ) : null}
+        {view === "categories" ? (
+          <>
+            <MenuControl
+              label="Lens"
+              value={catLens}
+              options={CATEGORY_LENS_OPTIONS}
+              onChange={(id) => sync({ cat: id as CategoryLens })}
+            />
+            {coicopMonthOptions.length && coicopMonth ? (
+              <MenuControl
+                label="Month"
+                value={coicopMonth}
+                options={coicopMonthOptions}
+                onChange={(id) => sync({ month: id })}
+              />
+            ) : null}
+          </>
         ) : null}
         {view === "basket" && basketYears.length ? (
           <>
@@ -591,6 +668,14 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
             </TextButton>
           </>
         ) : null}
+        {view === "data" && dataSeriesOptions.length ? (
+          <MenuControl
+            label="Series"
+            value={activeDataSeries}
+            options={dataSeriesOptions}
+            onChange={(id) => sync({ series: id })}
+          />
+        ) : null}
         <ResetButton
           onClick={() => {
             basket.reset();
@@ -599,6 +684,9 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
               measure: "cpi",
               year: String(DEFAULT_YEAR),
               cat: "contributions",
+              month: "",
+              from: "",
+              series: "",
             });
           }}
         />
@@ -618,51 +706,46 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   );
 }
 
-function InflationData({ pack }: { pack: InflationPack }) {
+function InflationData({ pack, seriesId }: { pack: InflationPack; seriesId: string }) {
   const tables = [
     { id: "cpi-inflation", title: "CPI annual rate · %", pack: pack.cpiRate },
     { id: "cpih-inflation", title: "CPIH annual rate · %", pack: pack.cpihRate },
     { id: "cpi-index", title: "CPI index · 2015 = 100", pack: pack.cpiIndex },
     { id: "cpih-index", title: "CPIH index · 2015 = 100", pack: pack.cpihIndex },
   ];
-  const any = tables.some((x) => (x.pack?.observations.length ?? 0) > 0);
-  if (!any) {
+  const tbl = tables.find((x) => x.id === seriesId) ?? tables.find((x) => (x.pack?.observations.length ?? 0) > 0);
+  if (!tbl) {
     return <EmptyStage label="Not available">Inflation series are not available right now.</EmptyStage>;
+  }
+  const rows = finalObs(tbl.pack?.observations ?? []).slice().reverse();
+  if (!rows.length) {
+    return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
   }
   return (
     <div className={s.stack}>
-      {tables.map((tbl) => {
-        const rows = finalObs(tbl.pack?.observations ?? [])
-          .slice()
-          .reverse()
-          .slice(0, 24);
-        if (!rows.length) return null;
-        return (
-          <div key={tbl.id} className={t.tableGroup}>
-            <p className={t.stageTitle}>{tbl.title}</p>
-            <div className={t.tableWrap}>
-              <table className={t.table}>
-                <thead>
-                  <tr>
-                    <th scope="col">Month</th>
-                    <th scope="col">Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map((r) => (
-                    <tr key={`${tbl.id}-${r.period_start}`}>
-                      <td>{fmtT(monthlyPoints([r])[0]!.t)}</td>
-                      <td className="bo-fig">
-                        {tbl.id.includes("index") ? fmtIndex(r.value as number) : fmtRate(r.value as number)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        );
-      })}
+      <div className={t.tableGroup}>
+        <p className={t.stageTitle}>{tbl.title}</p>
+        <div className={t.tableWrap}>
+          <table className={t.table}>
+            <thead>
+              <tr>
+                <th scope="col">Month</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={`${tbl.id}-${r.period_start}`}>
+                  <td>{fmtT(monthlyPoints([r])[0]!.t)}</td>
+                  <td>
+                    {tbl.id.includes("index") ? fmtIndex(r.value as number) : fmtRate(r.value as number)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

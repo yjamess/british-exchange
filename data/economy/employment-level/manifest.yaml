@@ -1,0 +1,53 @@
+indicator_id: employment-level
+title: Employment level (aged 16–64)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf2g/lms
+series_id: LF2G
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Thousands of people aged 16–64, SA
+definition: UK number of people aged 16 to 64 in employment, seasonally adjusted,
+  thousands. ONS CDID LF2G in LMS. Matched count companion to employment-rate (LF24)
+  for The British Workforce flagship.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.employment_level
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-14/lf2g_lms.json
+  retrieved_at: '2026-11-14T21:07:43.239932+00:00'
+  checksum_sha256: 649acb03fd1798abfefa61e4bf035cff4e85748bc2c630672961648810319ceb
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf2g/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS levels revise with reweighting and seasonal-adjustment updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Aged 16–64 levels,
+  not the headline 16+ employment level (MGRZ). Link Energy manufacturing-employment
+  — do not fork industry jobs here.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41865471768581aebb16ea1522da303b
+schema_version: '1.0'

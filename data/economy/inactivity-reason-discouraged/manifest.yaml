@@ -1,0 +1,55 @@
+indicator_id: inactivity-reason-discouraged
+title: Economic inactivity — discouraged workers (aged 16–64)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lfl8/lms
+series_id: LFL8
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Thousands of people aged 16–64, SA
+definition: 'UK economically inactive aged 16–64 whose main reason is being a discouraged
+  worker (not looking because they believe no jobs are available), seasonally adjusted,
+  thousands. ONS CDID LFL8. The LMS title is only ''Discouraged workers level people:
+  000s''. Age, geography and seasonal adjustment are taken from INAC01 SA, where LFL8
+  is the dataset identifier on the all-persons reason-levels column. Not LF77 (percent)
+  and not LF8B (wants-a-job subset).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.inactivity_reason_discouraged
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-15/lfl8_lms.json
+  retrieved_at: '2026-11-15T10:05:06.144038+00:00'
+  checksum_sha256: efb31a30eea68faee478eeaefa72f64c6723fd4a3cb46a482ae8bd785726a5cc
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lfl8/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS reason levels revise with reweighting and seasonal-adjustment
+  updates. Counts are small — INAC01 shades small samples.
+caveats: 'LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. This is the published
+  level (LFL8), not a level made by multiplying LF77 by LF2M. LF8B is the wants-a-job
+  subset and is smaller. Do not treat the LMS title''s missing ''16–64'' / ''SA''
+  words as a different series — the INAC01 SA identifier row is the basis. Small sample:
+  do not overinterpret month-to-month moves.'
+status_note: 'Validated 2026-11-15 (qa_report_economy_03_gaps_2026-11-15.md). Ready for cloud load.'
+related_indicator_ids:
+- economic-inactivity-level
+- economic-inactivity-rate
+- inactivity-reason-discouraged-rate
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- inactivity-reason-other
+open_questions:
+- LMS title omits 16–64 and SA; re-check the INAC01 SA identifier row on each re-pin.
+notion_registry_url: https://app.notion.com/p/4196547176858182bddbcee4b7cd75d7
+schema_version: '1.0'

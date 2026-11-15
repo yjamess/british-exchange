@@ -1,0 +1,5 @@
+cdid,role,slug,label,source,curate
+NMBY,component,cg-production-taxes,Total CG taxes on production,pusf-json,true
+NMCU,component,cg-income-wealth-taxes,Total CG taxes on income and wealth,pusf-json,true
+LIQR,component,other-cg-taxes,Other CG taxes,pusf-json,true
+MF6P,total-evidence,cg-taxes-total,Total central government taxes,pusf-json,false

@@ -33,13 +33,15 @@ UK_GEOGRAPHY_CODE = "K02000001"
 UK_GEOGRAPHY_LABEL = "United Kingdom"
 
 SERIES_ID = "ABMI"
-# Source policy (Orchestrator, 2026-11-11): QNA is the live vintage. The PN2
-# landing is frozen at 2026-08-12 and never advances.
-DATASET_ID = "QNA"
+# Source policy (Orchestrator, 2026-11-14): PN2 is the live first-estimate
+# landing again. Evidence: QNA stayed on release 2026-09-29 (through 2026 Q2)
+# while PN2 published 2026-11-12 with 2026 Q3. Prefer QNA again only when its
+# description.releaseDate is strictly newer than PN2 (full accounts).
+DATASET_ID = "PN2"
 UNIT = "£ million chained volume (market prices), SA"
 
 SOURCE_LANDING_URL = (
-    "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/qna"
+    "https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/abmi/pn2"
 )
 SOURCE_DATA_URL = f"{SOURCE_LANDING_URL}/data"
 
@@ -177,12 +179,12 @@ class RealGdpConnector(Connector):
             definition=(
                 "UK GDP at market prices in chained volume measures (CVM), "
                 "seasonally adjusted. Levels in £m from ONS CDID ABMI in "
-                "dataset QNA (Quarterly National Accounts, the live vintage; "
-                "the PN2 landing is frozen at 2026-08-12). Reference year moves "
-                "with Blue Book / annual rebasing: the retired PN2 pin "
-                "(2026-08-12) was on reference year 2023; the QNA vintage "
-                "2026-09-29 is on reference year 2024. Levels are not "
-                "comparable across vintages."
+                "dataset PN2 (GDP first quarterly estimate — live vintage as "
+                "of 2026-11-14). Reference year moves with Blue Book / annual "
+                "rebasing: the retired Aug-2026 PN2 pin was on reference year "
+                "2023; the Nov-2026 PN2 / Sep-2026 QNA vintages are on "
+                "reference year 2024. Levels are not comparable across "
+                "vintages."
             ),
             licence="Open Government Licence v3.0",
             agent_owner="economy",
@@ -196,7 +198,7 @@ class RealGdpConnector(Connector):
                 "https://app.notion.com/40d6547176858109b56fe01fb94ff2eb"
             ),
             transformations=(
-                "Download ONS timeseries JSON (ABMI/QNA /data). Keep only the "
+                "Download ONS timeseries JSON (ABMI/PN2 /data). Keep only the "
                 "quarters array (annual aggregates omitted). Map year+Q→ISO "
                 "calendar-quarter bounds. Geography fixed to K02000001 / "
                 "United Kingdom. Values parsed as float £m; empty → missing. "
@@ -207,19 +209,15 @@ class RealGdpConnector(Connector):
                 "ABMI levels are routinely revised: (1) each subsequent GDP "
                 "monthly/quarterly release after the first estimate; (2) at "
                 "each QNA release; (3) at Blue Book with supply-and-use "
-                "balancing and CVM rebasing (annual rebasing: Blue Book 2025 "
-                "moved the reference year 2022→2023; the QNA vintage of "
-                "2026-09-29 is on 2024 — confirm reference year on release "
-                "notes each ingest). Source switched PN2→QNA on 2026-11-11 "
-                "(Orchestrator source policy): QNA/PN2 level ratio is "
-                "1.027–1.045 across all 286 quarters while growth since "
-                "2019 Q4 differs by under 0.1 pp (PN2 +6.26%, QNA +6.21%) — "
+                "balancing and CVM rebasing. Orchestrator source policy "
+                "2026-11-14: live pin is PN2 (first estimate) when it has the "
+                "newer releaseDate — QNA 2026-09-29 did not advance on "
+                "2026-11-12; PN2 did (2026 Q3). Prefer QNA again when its "
+                "releaseDate is newer. The Aug-2026 PN2 (ref year 2023) vs "
+                "Sep-2026 QNA (ref year 2024) level ratio was 1.027–1.045 — "
                 "use growth rates or index to a fixed quarter when mixing "
-                "vintages. Do not treat a pinned historical point as "
-                "immutable — re-fetch and re-pin raw JSON, then compare "
-                "checksums. observation_status stays 'provisional' to signal "
-                "revision risk. Record official_release_date from "
-                "description.releaseDate."
+                "vintages. Re-fetch and re-pin raw JSON; compare checksums. "
+                "Record official_release_date from description.releaseDate."
             ),
             caveats=(
                 "Legacy api.ons.gov.uk retired 2024-11-25; ingest uses website "
@@ -238,7 +236,7 @@ class RealGdpConnector(Connector):
         )
 
     def fetch_latest(self, *, retrieved_on: date | None = None) -> RawEvidence:
-        """Download ABMI/QNA JSON into raw/<YYYY-MM-DD>/ and return evidence."""
+        """Download ABMI/PN2 JSON into raw/<YYYY-MM-DD>/ and return evidence."""
         day = retrieved_on or datetime.now(timezone.utc).date()
         relative = f"raw/{day.isoformat()}/{SERIES_ID.lower()}_{DATASET_ID.lower()}.json"
         # Peek release date after download for evidence metadata.

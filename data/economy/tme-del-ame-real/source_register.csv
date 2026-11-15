@@ -1,0 +1,7 @@
+series,classification,role,label,table,curated
+total-del,control-total,control-total,Total DEL,1.2,true
+departmental-ame,control-total,control-total,Departmental AME,1.2,true
+other-ame,control-total,control-total,Other AME,1.2,true
+table-tme,total,table-tme,Total Managed Expenditure,1.2,true
+total-resource-del,not-curated,excluded,Total resource DEL,1.2,false
+total-capital-del,not-curated,excluded,Total capital DEL,1.2,false

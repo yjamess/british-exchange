@@ -1,0 +1,96 @@
+{
+  "pass": true,
+  "indicator_id": "tme-del-ame",
+  "v4": [
+    {
+      "fy": "2021-22",
+      "total_del": 534892.0,
+      "departmental_ame": 673115.0,
+      "other_ame": -167119.0,
+      "table_tme": 1040888.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2022-23",
+      "total_del": 541362.0,
+      "departmental_ame": 407356.0,
+      "other_ame": 211974.0,
+      "table_tme": 1160692.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2023-24",
+      "total_del": 558434.0,
+      "departmental_ame": 542776.0,
+      "other_ame": 129597.0,
+      "table_tme": 1230807.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2024-25",
+      "total_del": 595892.0,
+      "departmental_ame": 605568.0,
+      "other_ame": 88552.0,
+      "table_tme": 1290012.0,
+      "sum_minus_tme": 0.0
+    },
+    {
+      "fy": "2025-26",
+      "total_del": 639807.0,
+      "departmental_ame": 622645.0,
+      "other_ame": 97670.0,
+      "table_tme": 1360122.0,
+      "sum_minus_tme": 0.0
+    }
+  ],
+  "total_del_not_rebuilt": {
+    "fy": "2024-25",
+    "resource_del": 469578.0,
+    "capital_del": 111587.0,
+    "resource_plus_capital": 581165.0,
+    "published_total_del": 595892.0,
+    "curated_resource_or_capital_del": false
+  },
+  "row_count": 20,
+  "ebft_gap": {
+    "official_release_date": "2026-10-20",
+    "read_error": "",
+    "years": [
+      {
+        "fy": "2021-22",
+        "hmt_table_tme": 1040888.0,
+        "ebft_months": 12,
+        "ebft_sum": 1051427.0,
+        "difference": 10539.0
+      },
+      {
+        "fy": "2022-23",
+        "hmt_table_tme": 1160692.0,
+        "ebft_months": 12,
+        "ebft_sum": 1178953.0,
+        "difference": 18261.0
+      },
+      {
+        "fy": "2023-24",
+        "hmt_table_tme": 1230807.0,
+        "ebft_months": 12,
+        "ebft_sum": 1258195.0,
+        "difference": 27388.0
+      },
+      {
+        "fy": "2024-25",
+        "hmt_table_tme": 1290012.0,
+        "ebft_months": 12,
+        "ebft_sum": 1294828.0,
+        "difference": 4816.0
+      },
+      {
+        "fy": "2025-26",
+        "hmt_table_tme": 1360122.0,
+        "ebft_months": 12,
+        "ebft_sum": 1365598.0,
+        "difference": 5476.0
+      }
+    ]
+  }
+}

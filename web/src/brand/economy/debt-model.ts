@@ -92,6 +92,7 @@ export function fmtPctGdp(v: number): string {
 
 export type DebtMeasure = "debt" | "borrowing" | "interest" | "percent";
 
+/** Measure menu — plain words; stock / flow / ratio sit in stage titles and Notes. */
 export const DEBT_MEASURES: { value: DebtMeasure; label: string }[] = [
   { value: "debt", label: "Net debt" },
   { value: "percent", label: "Debt % of GDP" },

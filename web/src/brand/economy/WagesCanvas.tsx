@@ -36,7 +36,8 @@ import {
 } from "../template";
 import s from "../energy/generation.module.css";
 import { ECONOMY_SOURCE, economyPeriod, economySource } from "./citations";
-import { WageSpectrum } from "./WageSpectrum";
+import { WageLadder } from "./WageLadder";
+import { PayStrip } from "./PayStrip";
 import {
   annualAverages,
   asAsheSheet,
@@ -55,6 +56,7 @@ import {
   drawdownPoints,
   finalObs,
   fmtGbpWeek,
+  longestSpellBelowHigh,
   fmtIndex,
   fmtPct1,
   monthlyPoints,
@@ -62,7 +64,6 @@ import {
   rebasedPair,
   seriesYears,
   sicLabel,
-  spectrumBlocks,
   yoyPct,
   yoyPoints,
   type AsheSheet,
@@ -135,6 +136,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
   const [sicRaw, setSic] = useState<string>(() => searchParams.get("sic") ?? DEFAULT_SIC);
   const [placeRaw, setPlace] = useState<string>(() => searchParams.get("place") ?? "");
   const [placeSearch, setPlaceSearch] = useState("");
+  const [dataSeries, setDataSeries] = useState(() => searchParams.get("series") ?? "");
   const { geometry, error: geometryError } = useGeometry();
 
   const sync = useCallback(
@@ -147,6 +149,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       lens?: GeoLens;
       sic?: string;
       place?: string;
+      series?: string;
     }) => {
       const v = next.view ?? view;
       const ln = next.lens ?? lens;
@@ -156,6 +159,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       const to = next.to ?? toRaw;
       const f = next.from ?? fromRaw;
       const sheet = next.sheet ?? asheSheet;
+      const ser = next.series ?? dataSeries;
       const u = new URLSearchParams(window.location.search);
       u.set("domain", "wages");
       u.set("view", v);
@@ -174,6 +178,8 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       else u.delete("sic");
       if (v === "geography" && ln === "local" && pl) u.set("place", pl);
       else u.delete("place");
+      if (v === "data" && ser) u.set("series", ser);
+      else u.delete("series");
       window.history.replaceState(null, "", `${pathname}?${u}`);
       if (next.view != null) {
         setView(next.view);
@@ -185,12 +191,13 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       if (next.lens != null) setLens(next.lens);
       if (next.sic != null) setSic(next.sic);
       if (next.place != null) setPlace(next.place);
+      if (next.series != null) setDataSeries(next.series);
       if (next.sheet != null) {
         setAsheSheet(next.sheet);
         setSelectedRegion(null);
       }
     },
-    [pathname, view, yearRaw, toRaw, fromRaw, asheSheet, lens, sicRaw, placeRaw],
+    [pathname, view, yearRaw, toRaw, fromRaw, asheSheet, lens, sicRaw, placeRaw, dataSeries],
   );
 
   const realRows = pack.real?.observations ?? [];
@@ -215,26 +222,15 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
     () => (priorEdition ? asheLadderRanks(asheRows, asheSheet, false, priorEdition) : []),
     [asheRows, asheSheet, priorEdition],
   );
-  const blocks = useMemo(() => spectrumBlocks(ladderRanks), [ladderRanks]);
-  const priorBlocks = useMemo(() => spectrumBlocks(priorRanks), [priorRanks]);
-  /* One fixed scale across sheets and editions so the drawings compare honestly. */
-  const spectrumScale = useMemo(() => {
+  /* One pay scale per coverage sheet, fixed across editions, so the chosen ladder fills the stage. */
+  const ladderAxisMax = useMemo(() => {
     let maxPay = 0;
-    let maxDensity = 0;
     for (const ed of editions) {
-      for (const sheet of ALL_SHEETS) {
-        const ranks = asheLadderRanks(asheRows, sheet, false, ed);
-        for (const b of spectrumBlocks(ranks)) {
-          if (b.hi != null) maxPay = Math.max(maxPay, b.hi);
-          if (b.density != null && b.tail == null) maxDensity = Math.max(maxDensity, b.density);
-        }
-      }
+      for (const r of asheLadderRanks(asheRows, asheSheet, false, ed)) maxPay = Math.max(maxPay, r.v);
     }
-    return {
-      axisMax: Math.max(250, Math.ceil((maxPay * 1.12) / 250) * 250),
-      densityMax: Math.max(1, Math.ceil(maxDensity * 1.1)),
-    };
-  }, [asheRows, editions]);
+    const step = maxPay > 1000 ? 250 : 100;
+    return Math.max(step, Math.ceil((maxPay * 1.12) / step) * step);
+  }, [asheRows, asheSheet, editions]);
   const asheMedian = asheStatistic(asheRows, asheSheet, "median", latestEdition);
   const asheP10 = asheStatistic(asheRows, asheSheet, "p10", latestEdition);
   const asheP90 = asheStatistic(asheRows, asheSheet, "p90", latestEdition);
@@ -379,6 +375,25 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
     [realRows, compareYear, toYear],
   );
   const drawdown = useMemo(() => drawdownPoints(realPts), [realPts]);
+  const spell = useMemo(
+    () => (worth ? longestSpellBelowHigh(realPts, worth.fromYear, worth.toT) : null),
+    [realPts, worth],
+  );
+  const realRange = useMemo(() => {
+    let lo = Infinity;
+    let hi = -Infinity;
+    for (const p of realPts) {
+      if (p.v < lo) lo = p.v;
+      if (p.v > hi) hi = p.v;
+    }
+    return { lo, hi };
+  }, [realPts]);
+
+  const dataSeriesOptions = useMemo(() => wagesDataSeriesOptions(pack), [pack]);
+  const activeDataSeries =
+    dataSeriesOptions.find((o) => o.value === dataSeries)?.value ??
+    dataSeriesOptions[0]?.value ??
+    "";
 
   const figures: ExplorerFigure[] = useMemo(() => {
     if (view === "value") {
@@ -647,6 +662,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
           "ONS real average weekly earnings as published (CPIH, 2015 prices), seasonally adjusted, Great Britain. Final months only.",
           "A year is the average of its twelve months. 'Now' is the latest final month.",
           "Below the previous high is an Exchange calculation from the published series: each month against the highest month before it. Zero means a new high. The peak is the highest month in this series since 2000, not a claim about all time.",
+          "The measured strip reads the difference in pounds a week and, times 52, an approximate yearly figure. The spell is the longest run of months below an earlier high that overlaps the chosen interval, from the month the high was set to the month it was regained.",
         ]}
       />
     );
@@ -703,36 +719,19 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
         </section>
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Levels · {worth.fromYear} average · {worth.toYear != null ? `${worth.toYear} average` : "now"} · observed peak · £
+            Lost and gained · {worth.fromYear} average to {worth.toYear != null ? `${worth.toYear} average` : fmtT(worth.toT)} · £ a week · 2015 prices
           </h3>
-          <div className={t.tableWrap}>
-            <table className={t.table}>
-              <thead>
-                <tr>
-                  <th scope="col">Reading</th>
-                  <th scope="col">£ a week</th>
-                  <th scope="col">When</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{worth.fromYear} average</td>
-                  <td>{fmtGbpWeek(worth.fromAvg)}</td>
-                  <td>{worth.fromYear}</td>
-                </tr>
-                <tr>
-                  <td>{worth.toYear != null ? `${worth.toYear} average` : "Latest"}</td>
-                  <td>{fmtGbpWeek(worth.toValue)}</td>
-                  <td>{worth.toYear != null ? worth.toYear : fmtT(worth.toT)}</td>
-                </tr>
-                <tr>
-                  <td>Observed peak</td>
-                  <td>{fmtGbpWeek(worth.peak.v)}</td>
-                  <td>{fmtT(worth.peak.t, "annual")}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <PayStrip
+            fromLabel={`${worth.fromYear} average`}
+            fromValue={worth.fromAvg}
+            toLabel={worth.toYear != null ? `${worth.toYear} average` : fmtT(worth.toT)}
+            toValue={worth.toValue}
+            seriesMin={realRange.lo}
+            seriesMax={realRange.hi}
+            spell={spell}
+            windowEndT={worth.toT}
+            label="Real weekly pay at the two chosen dates, the difference between them, and the longest spell below a previous high"
+          />
         </section>
       </div>
     );
@@ -750,8 +749,8 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
           "This is pay per job before tax, not take-home pay, household income or self-employed earnings. It is a different survey from the average weekly earnings on the other tabs.",
         ]}
         method={[
-          "Each block spans the published pay at two neighbouring percentiles. Its area is the share of jobs between them, so its height is that share per £100 of pay. Heights are an Exchange calculation from the published percentiles; the pay values and shares are ONS figures.",
-          "The lowest and highest tenths are drawn dashed because ONS does not publish where they start or end.",
+          "Every rung is a published figure: the pay at the 10th, 20th, 25th, 30th, 40th, 50th, 60th, 70th, 75th, 80th and 90th percentiles. One tenth of jobs sits between each pair of decile rungs. Nothing between the rungs is estimated.",
+          "The ladder runs dashed below the 10th and above the 90th percentile because ONS does not publish where the lowest and highest tenths start or end.",
           `Coverage sheets: all employee jobs, full-time and part-time. Median is ONS's preferred average; the mean is higher because of high earners (${
             asheMean != null ? fmtGbpWeek(asheMean) : "—"
           } for ${sheetWord} jobs in ${latestEditionLabel.replace(" provisional", "")}).`,
@@ -759,7 +758,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
         ]}
       />
     );
-    body = !blocks.length ? (
+    body = !ladderRanks.length ? (
       <EmptyStage label="Not available">
         National ASHE percentiles are not loaded from the Exchange API right now.
       </EmptyStage>
@@ -767,21 +766,14 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       <div className={s.stack}>
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Where jobs sit on the pay scale · {sheetWord} employee jobs · UK · {latestEditionLabel} · £ a week
+            The ladder · {sheetWord} employee jobs · UK · {latestEditionLabel} · £ a week
           </h3>
-          <WageSpectrum
-            blocks={blocks}
-            median={asheMedian}
-            axisMax={spectrumScale.axisMax}
-            densityMax={spectrumScale.densityMax}
-            compare={
-              priorBlocks.length
-                ? { label: priorEditionLabel, blocks: priorBlocks, median: priorMedian }
-                : null
-            }
+          <WageLadder
+            ranks={ladderRanks}
+            axisMax={ladderAxisMax}
             editionLabel={latestEditionLabel}
             sheetLabel={sheetWord}
-            label="Share of employee jobs along the weekly pay scale"
+            label="Weekly gross pay at each published percentile, drawn as rungs on one pay scale"
           />
         </section>
         {priorRanks.length ? (
@@ -1220,13 +1212,13 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
         source={economySource(ECONOMY_SOURCE.earnings, "Great Britain", economyPeriod("monthly"))}
         definition="Observation tables for Ready earnings series on this domain."
         method={[
-          "Real and cash average weekly earnings, Great Britain: latest 24 final months.",
+          "The Series menu shows one Ready table in full. Real and cash average weekly earnings use final months only.",
           "Annual Survey of Hours and Earnings, weekly gross pay: ladder percentiles (UK), nations and regions by place of work, industries (UK) and industry by place. The latest April is provisional; the earlier April is revised.",
           "Local-authority rows are on the Geography of pay tab under Local areas.",
         ]}
       />
     );
-    body = <WagesData pack={pack} />;
+    body = <WagesData pack={pack} seriesId={activeDataSeries} />;
   } else {
     foot = null;
     body = <EmptyStage label="Not available">Unknown wages view.</EmptyStage>;
@@ -1311,6 +1303,14 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
             />
           </>
         ) : null}
+        {view === "data" && dataSeriesOptions.length ? (
+          <MenuControl
+            label="Series"
+            value={activeDataSeries}
+            options={dataSeriesOptions}
+            onChange={(id) => sync({ series: id })}
+          />
+        ) : null}
         <ResetButton
           onClick={() => {
             setSelectedRegion(null);
@@ -1323,6 +1323,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
               lens: "place",
               sic: DEFAULT_SIC,
               place: "",
+              series: "",
             });
           }}
         />
@@ -1347,8 +1348,46 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
   );
 }
 
-function WagesData({ pack }: { pack: WagesPack }) {
-  const tables = [
+function wagesDataSeriesOptions(pack: WagesPack): PrintOption<string>[] {
+  const opts: PrintOption<string>[] = [];
+  if (finalObs(pack.real?.observations ?? []).length) {
+    opts.push({ value: "real-earnings", label: "Real AWE" });
+  }
+  if (finalObs(pack.nominal?.observations ?? []).length) {
+    opts.push({ value: "nominal-earnings", label: "Cash AWE" });
+  }
+  const asheRows = pack.ashe?.observations ?? [];
+  for (const sheet of ALL_SHEETS) {
+    const eds = asheEditions(asheRows);
+    if (eds.some((ed) => asheLadderRanks(asheRows, sheet, true, ed).length)) {
+      opts.push({
+        value: `ladder-${sheet}`,
+        label: `Pay ladder · ${asheSheetLabel(sheet)}`,
+      });
+    }
+  }
+  const geoRows = pack.asheRegional?.observations ?? [];
+  for (const sheet of ["All", "Full-Time"] as AsheSheet[]) {
+    if (asheRegionalPoints(geoRows, sheet, "region").length) {
+      opts.push({
+        value: `geo-${sheet}`,
+        label: `Nations and regions · ${asheSheetLabel(sheet)}`,
+      });
+    }
+  }
+  const indRows = pack.asheIndustry?.observations ?? [];
+  if (asheIndustryPoints(indRows, "All").length) {
+    opts.push({ value: "industries", label: "Industries · UK" });
+  }
+  const regIndRows = pack.asheRegionIndustry?.observations ?? [];
+  if (asheEditions(regIndRows).length && asheSections(regIndRows).length) {
+    opts.push({ value: "industry-by-place", label: "Industry by place" });
+  }
+  return opts;
+}
+
+function WagesData({ pack, seriesId }: { pack: WagesPack; seriesId: string }) {
+  const aweTables = [
     { id: "real-earnings", title: "Real AWE · £ per week · 2015 prices · Great Britain", pack: pack.real },
     { id: "nominal-earnings", title: "Cash AWE · £ per week · Great Britain", pack: pack.nominal },
   ];
@@ -1361,82 +1400,70 @@ function WagesData({ pack }: { pack: WagesPack }) {
   const indEds = asheEditions(indRows);
   const regIndLatest = asheEditions(regIndRows).at(-1) ?? null;
   const edLabel = (rows: Observation[], ed: string) => asheEditionLabel(rows, ed);
+  const cell = (v: number | null | undefined) => (v == null ? "—" : fmtGbpWeek(v));
 
-  const ladderTables = ALL_SHEETS.map((sheet) => {
-    const byEd = asheEds.map((ed) => asheLadderRanks(asheRows, sheet, true, ed));
-    const ids = byEd[byEd.length - 1]?.map((r) => ({ id: r.id, label: r.label })) ?? [];
-    return { sheet, ids, byEd };
-  }).filter((x) => x.ids.length);
-
-  const geoTables = (["All", "Full-Time"] as AsheSheet[]).map((sheet) => {
-    const byEd = geoEds.map((ed) => [
-      ...asheRegionalPoints(geoRows, sheet, "nation", ed).filter((p) =>
-        (NATION_CODES as readonly string[]).includes(p.code),
-      ),
-      ...asheRegionalPoints(geoRows, sheet, "region", ed),
-    ]);
-    const places = byEd[byEd.length - 1] ?? [];
-    return { sheet, places, byEd };
-  }).filter((x) => x.places.length);
-
-  const industryTable = (["All", "Full-Time"] as AsheSheet[]).flatMap((sheet) =>
-    indEds.map((ed) => ({ sheet, ed, pts: asheIndustryPoints(indRows, sheet, ed) })),
-  ).filter((c) => c.pts.length);
-  const industryIds = asheSections(indRows);
-
-  const regIndPlaces = regIndLatest
-    ? [...new Map(
-        regIndRows
-          .filter((r) => r.period_start === regIndLatest)
-          .map((r) => [r.geography_code, r.geography_label] as const),
-      ).entries()].sort((a, b) => a[1].localeCompare(b[1]))
-    : [];
-  const regIndSections = asheSections(regIndRows);
-  const regIndValue = (code: string, sic: string) =>
-    asheRegionIndustryByIndustry(regIndRows, "All", code, regIndLatest).find((p) => p.sic === sic)?.v ?? null;
-
-  const anyAwe = tables.some((x) => finalObs(x.pack?.observations ?? []).length > 0);
-  if (!anyAwe && !ladderTables.length && !geoTables.length && !industryTable.length && !regIndPlaces.length) {
+  const anyAwe = aweTables.some((x) => finalObs(x.pack?.observations ?? []).length > 0);
+  const hasLadder = ALL_SHEETS.some((sheet) =>
+    asheEds.some((ed) => asheLadderRanks(asheRows, sheet, true, ed).length),
+  );
+  const hasGeo = (["All", "Full-Time"] as AsheSheet[]).some(
+    (sheet) => asheRegionalPoints(geoRows, sheet, "region").length > 0,
+  );
+  const hasIndustry = asheIndustryPoints(indRows, "All").length > 0;
+  const hasRegInd = !!regIndLatest && asheSections(regIndRows).length > 0;
+  if (!anyAwe && !hasLadder && !hasGeo && !hasIndustry && !hasRegInd) {
     return (
       <EmptyStage label="In preparation">
         Earnings series are not loaded yet. No estimated figures.
       </EmptyStage>
     );
   }
-  const cell = (v: number | null | undefined) => (v == null ? "—" : fmtGbpWeek(v));
-  return (
-    <div className={s.stack}>
-      {tables.map((tbl) => {
-        const rows = finalObs(tbl.pack?.observations ?? []).slice().reverse().slice(0, 24);
-        if (!rows.length) return null;
-        return (
-          <div key={tbl.id} className={t.tableGroup}>
-            <p className={t.stageTitle}>{tbl.title}</p>
-            <div className={t.tableWrap}>
-              <table className={t.table}>
-                <thead>
-                  <tr>
-                    <th scope="col">Month</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Geography</th>
+
+  const awe = aweTables.find((x) => x.id === seriesId);
+  if (awe) {
+    const rows = finalObs(awe.pack?.observations ?? []).slice().reverse();
+    if (!rows.length) {
+      return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
+    }
+    return (
+      <div className={s.stack}>
+        <div className={t.tableGroup}>
+          <p className={t.stageTitle}>{awe.title}</p>
+          <div className={t.tableWrap}>
+            <table className={t.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Month</th>
+                  <th scope="col">Value</th>
+                  <th scope="col">Geography</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={`${awe.id}-${r.period_start}`}>
+                    <td>{fmtT(monthlyPoints([r])[0]!.t)}</td>
+                    <td>{fmtGbpWeek(r.value as number)}</td>
+                    <td>Great Britain</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {rows.map((r) => (
-                    <tr key={`${tbl.id}-${r.period_start}`}>
-                      <td>{fmtT(monthlyPoints([r])[0]!.t)}</td>
-                      <td>{fmtGbpWeek(r.value as number)}</td>
-                      <td>Great Britain</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
-        );
-      })}
-      {ladderTables.map(({ sheet, ids, byEd }) => (
-        <div key={`ladder-${sheet}`} className={t.tableGroup}>
+        </div>
+      </div>
+    );
+  }
+
+  if (seriesId.startsWith("ladder-")) {
+    const sheet = asAsheSheet(seriesId.slice("ladder-".length));
+    const byEd = asheEds.map((ed) => asheLadderRanks(asheRows, sheet, true, ed));
+    const ids = byEd[byEd.length - 1]?.map((r) => ({ id: r.id, label: r.label })) ?? [];
+    if (!ids.length) {
+      return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
+    }
+    return (
+      <div className={s.stack}>
+        <div className={t.tableGroup}>
           <p className={t.stageTitle}>
             Pay ladder · weekly gross · {asheSheetLabel(sheet)} employee jobs · UK · £ a week
           </p>
@@ -1463,11 +1490,28 @@ function WagesData({ pack }: { pack: WagesPack }) {
             </table>
           </div>
         </div>
-      ))}
-      {geoTables.map(({ sheet, places, byEd }) => (
-        <div key={`geo-${sheet}`} className={t.tableGroup}>
+      </div>
+    );
+  }
+
+  if (seriesId.startsWith("geo-")) {
+    const sheet = asAsheSheet(seriesId.slice("geo-".length));
+    const byEd = geoEds.map((ed) => [
+      ...asheRegionalPoints(geoRows, sheet, "nation", ed).filter((p) =>
+        (NATION_CODES as readonly string[]).includes(p.code),
+      ),
+      ...asheRegionalPoints(geoRows, sheet, "region", ed),
+    ]);
+    const places = byEd[byEd.length - 1] ?? [];
+    if (!places.length) {
+      return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
+    }
+    return (
+      <div className={s.stack}>
+        <div className={t.tableGroup}>
           <p className={t.stageTitle}>
-            Nations and regions · median weekly gross · place of work · {asheSheetLabel(sheet)} employee jobs · £ a week
+            Nations and regions · median weekly gross · place of work · {asheSheetLabel(sheet)} employee
+            jobs · £ a week
           </p>
           <div className={t.tableWrap}>
             <table className={t.table}>
@@ -1492,8 +1536,20 @@ function WagesData({ pack }: { pack: WagesPack }) {
             </table>
           </div>
         </div>
-      ))}
-      {industryTable.length ? (
+      </div>
+    );
+  }
+
+  if (seriesId === "industries") {
+    const industryTable = (["All", "Full-Time"] as AsheSheet[])
+      .flatMap((sheet) => indEds.map((ed) => ({ sheet, ed, pts: asheIndustryPoints(indRows, sheet, ed) })))
+      .filter((c) => c.pts.length);
+    const industryIds = asheSections(indRows);
+    if (!industryTable.length) {
+      return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
+    }
+    return (
+      <div className={s.stack}>
         <div className={t.tableGroup}>
           <p className={t.stageTitle}>Industries · median weekly gross · UK · £ a week</p>
           <div className={t.tableWrap}>
@@ -1523,8 +1579,27 @@ function WagesData({ pack }: { pack: WagesPack }) {
             </table>
           </div>
         </div>
-      ) : null}
-      {regIndPlaces.length ? (
+      </div>
+    );
+  }
+
+  if (seriesId === "industry-by-place") {
+    const regIndPlaces = regIndLatest
+      ? [...new Map(
+          regIndRows
+            .filter((r) => r.period_start === regIndLatest)
+            .map((r) => [r.geography_code, r.geography_label] as const),
+        ).entries()].sort((a, b) => a[1].localeCompare(b[1]))
+      : [];
+    const regIndSections = asheSections(regIndRows);
+    const regIndValue = (code: string, sic: string) =>
+      asheRegionIndustryByIndustry(regIndRows, "All", code, regIndLatest).find((p) => p.sic === sic)?.v ??
+      null;
+    if (!regIndPlaces.length) {
+      return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
+    }
+    return (
+      <div className={s.stack}>
         <div className={t.tableGroup}>
           <p className={t.stageTitle}>
             Industry by place · median weekly gross · all employee jobs · place of work ·{" "}
@@ -1553,7 +1628,9 @@ function WagesData({ pack }: { pack: WagesPack }) {
             </table>
           </div>
         </div>
-      ) : null}
-    </div>
-  );
+      </div>
+    );
+  }
+
+  return <EmptyStage label="Not available">This series is not available right now.</EmptyStage>;
 }

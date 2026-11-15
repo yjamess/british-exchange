@@ -6,6 +6,7 @@
  * Price benchmark lives in the outer ControlRow; Notes carry method.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useId, useMemo } from "react";
 import { fmt, fmtT, type Pt } from "../../../data";
 import {
@@ -227,8 +228,11 @@ export function AffordabilityExperiment({
 
           <div className={s.readout}>
             <div className={s.instrument} aria-label="Cost of a home">
-              <p className="bo-label">Purchase budget</p>
-              <p className={`bo-fig ${s.budget}`}>{fmt.gbp(result.maxBudget)}</p>
+              <ReadoutCard placement="inline" head="User scenario" rows={[
+                { label: "Purchase budget", value: fmt.gbp(result.maxBudget) },
+                { label: "Deposit", value: fmt.gbp(result.deposit) },
+                { label: "Loan", value: fmt.gbp(result.maxLoan) },
+              ]} />
               <div
                 className={s.bar}
                 role="img"
@@ -262,41 +266,14 @@ export function AffordabilityExperiment({
               </ul>
             </div>
 
-            <dl className={s.metrics}>
-              <div>
-                <dt>Monthly repayment</dt>
-                <dd className="bo-fig">{fmt.gbp(result.monthlyRepayment)}</dd>
-                <dd className={s.note}>{result.repaymentBurdenPercent.toFixed(0)}% of monthly gross earnings</dd>
-              </div>
-              <div>
-                <dt>Years to save deposit</dt>
-                <dd className="bo-fig">
-                  {result.yearsToSaveDeposit != null ? `${result.yearsToSaveDeposit.toFixed(1)} yrs` : "—"}
-                </dd>
-                <dd className={s.note}>At {(result.savingsRate * 100).toFixed(0)}% of gross earnings saved each year</dd>
-              </div>
-              <div>
-                <dt>Your years of pay · {benchmark?.name ?? "price benchmark"}</dt>
-                <dd className="bo-fig">{derivedYears != null ? fmt.ratio(derivedYears) : "—"}</dd>
-                <dd className={s.note}>
-                  {benchmark?.name ?? "Benchmark"} average price ÷ your earnings
-                  {canAffordMark != null
-                    ? canAffordMark
-                      ? " · budget covers that average"
-                      : " · budget below that average"
-                    : ""}
-                </dd>
-              </div>
-              <div>
-                <dt>England years of pay · ONS</dt>
-                <dd className="bo-fig">{official ? fmt.ratio(official.v) : "—"}</dd>
-                <dd className={s.note}>
-                  {official
-                    ? `Workplace-based median · ${fmtT(official.t, "annual")}`
-                    : "Awaiting house-price-to-earnings-ratio"}
-                </dd>
-              </div>
-            </dl>
+            <ReadoutCard placement="inline" head="User scenario · repayments and affordability" rows={[
+              { label: "Monthly repayment", value: fmt.gbp(result.monthlyRepayment) },
+              { label: "Share of monthly gross earnings", value: `${result.repaymentBurdenPercent.toFixed(0)}%` },
+              { label: `Years to save deposit · ${(result.savingsRate * 100).toFixed(0)}% of earnings saved`, value: result.yearsToSaveDeposit != null ? `${result.yearsToSaveDeposit.toFixed(1)} yrs` : "Not available" },
+              { label: `Your years of pay · ${benchmark?.name ?? "price benchmark"}`, value: derivedYears != null ? fmt.ratio(derivedYears) : "Not available" },
+              ...(canAffordMark != null ? [{ label: "Budget covers the benchmark average", value: canAffordMark ? "Yes" : "No" }] : []),
+              { label: `England years of pay · ONS workplace-based median${official ? ` · ${fmtT(official.t, "annual")}` : ""}`, value: official ? fmt.ratio(official.v) : "Not available" },
+            ]} />
           </div>
         </div>
       </div>

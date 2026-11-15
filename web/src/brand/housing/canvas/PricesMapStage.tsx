@@ -5,6 +5,7 @@
  * One cohesive canvas: no separate /housing/explore page.
  */
 
+import { ReadoutCard } from "../../instrument/ReadoutCard";
 import { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from "react";
 import { PrintSelect } from "../../PrintSelect";
 import { TimeChart } from "../../instrument/TimeChart";
@@ -549,22 +550,11 @@ export function PricesMapStage({
             </p>
           ) : (
             <>
-          <h3 className={s.placeName}>{name}</h3>
-          <p className={`bo-fig ${s.value}`}>{formatValue(value, atlas.measure, displayMode)}</p>
-          <p className={s.valueLabel}>
-            {measureLabel}
-            {!isAfford && !isRent
-              ? atlas.measure === "sales-volume"
-                ? " · transaction count"
-                : mapMode === "change"
-                  ? " · annual change, nominal"
-                  : " · nominal"
-              : mapMode === "change"
-                ? " · annual change"
-                : ""}
-            {" · "}
-            {periodText(period)}
-          </p>
+          <ReadoutCard placement="inline" head={`${name} · ${periodText(period)}`} rows={[
+            { label: `${measureLabel}${!isAfford && !isRent ? atlas.measure === "sales-volume" ? " · transaction count" : mapMode === "change" ? " · annual change, nominal" : " · nominal" : mapMode === "change" ? " · annual change" : ""}`, value: value == null ? "Not available" : formatValue(value, atlas.measure, displayMode) },
+            ...(value != null && !isAfford ? [{ label: "Annual change", value: formatValue(annual, atlas.measure, "change") }] : []),
+            ...(value != null ? [{ label: `${isAfford ? "England" : "UK"} ${mapMode === "change" ? "annual change" : ukLevelLabel}`, value: formatValue(valueAt(benchmark, monthIndex, readMode), atlas.measure, displayMode) }] : []),
+          ]} />
           {!isAfford && !isRent && (
             <p className={s.notice}>
               {atlas.measure === "sales-volume"
@@ -583,22 +573,7 @@ export function PricesMapStage({
                 ? "No AFF1 ratio for this place and year (England & Wales only). Gaps stay visible — no substitute value."
                 : "No observation for this place and month. Gaps stay visible — no substitute value."}
             </p>
-          ) : (
-            <dl className={s.benchmarks}>
-              {!isAfford && (
-                <div>
-                  <dt>Annual change</dt>
-                  <dd>{formatValue(annual, atlas.measure, "change")}</dd>
-                </div>
-              )}
-              <div>
-                <dt>
-                  {isAfford ? "England" : "UK"} {mapMode === "change" ? "annual change" : ukLevelLabel}
-                </dt>
-                <dd>{formatValue(valueAt(benchmark, monthIndex, readMode), atlas.measure, displayMode)}</dd>
-              </div>
-            </dl>
-          )}
+          ) : null}
 
           <div className={s.compare}>
             <span className="bo-label" id={`${searchId}-compare`}>
@@ -623,10 +598,9 @@ export function PricesMapStage({
             />
           </div>
           {compare && (
-            <p className={s.compareReadout}>
-              <span>{compare.name}</span>
-              <strong>{formatValue(valueAt(compare, monthIndex, readMode), atlas.measure, displayMode)}</strong>
-            </p>
+            <ReadoutCard placement="inline" head={`${compare.name} · ${periodText(period)}`} rows={[
+              { label: measureLabel, value: formatValue(valueAt(compare, monthIndex, readMode), atlas.measure, displayMode) },
+            ]} />
           )}
 
           <div className={s.trendHead}>

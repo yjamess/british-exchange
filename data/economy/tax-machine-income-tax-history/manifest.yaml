@@ -1,0 +1,198 @@
+indicator_id: tax-machine-income-tax-history
+title: Tax Time Machine income-tax (+ employee Class 1 NICs) history
+sector: economy-public-finance
+publisher: HMRC / GOV.UK (rates statistics + rates and allowances)
+source_url: https://www.gov.uk/government/statistics/rates-of-income-statistics
+series_id: tax-machine-timemachine-history
+geography: England, Wales and Northern Ireland (HMRC Table A.2); Scotland as labelled
+  alternate (gov.scot/HMRC SIT 2017–18…2022–23; GOV.UK 2023–24…2026–27; pre-divergence
+  mirror 2010–11…2016–17). Employee Class 1 NICs UK-wide.
+frequency: annual_tax_year
+unit: GBP thresholds / percent rates / GBP weekly NICs thresholds
+definition: Multi-year Personal Allowance and income-tax band history (2010-11…2026-27)
+  for The Tax Time Machine, plus optional employee Class 1 (category A) NICs thresholds/rates
+  as a separate stage. Sibling of the Ready statute pin tax-machine-income-tax-rules.
+  Educational evidence — not tax advice. Fiscal-drag worked examples documented (KAI7 path); not Ready alone.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tax_machine_income_tax_history
+curated_path: curated/observations.csv
+update_cadence: re-pin when HMRC Table A.1/A.2/A.4 or GOV.UK rates pages update
+raw_evidence:
+- path: raw/2026-11-15/table_a2_rates.ods
+  retrieved_at: '2026-11-15T15:12:46.185817+00:00'
+  checksum_sha256: 31281efc152adf8c0e8ab56f73dcb80282f9542ec83b0289c93cd279dbb7eba2
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: ''
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a54ca0b9e9c95844ae64d9a/Table_a2_-_Income_Tax_-_rates_and_allowances.ods
+- path: raw/2026-11-15/table_a1_allowances.ods
+  retrieved_at: '2026-11-15T15:12:46.237841+00:00'
+  checksum_sha256: 5b91e2bb93f0bc69c36a8dacb5605497fe169b5632dc4bdef255502daed8bde4
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: ''
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a54c97ba4890e65cce64db8/Table_a1_-_Income_Tax_-_personal_allowances_and_reliefs.ods
+- path: raw/2026-11-15/table_a4_nics.ods
+  retrieved_at: '2026-11-15T15:12:46.295359+00:00'
+  checksum_sha256: 0928355419d32ea47fd79cc7e2774e59b3559f7cbcd0a954d4d7abc573ce744d
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: ''
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a54ca0fa4890e65cce64db9/Table_a4_-_National_Insurance_Contributions_-_rates_and_allowances.ods
+- path: raw/2026-11-15/income_tax_rates.html
+  retrieved_at: '2026-11-15T15:12:46.441802+00:00'
+  checksum_sha256: 3f6008d6d2676bcc97c44048d29400784b3818a53a66c80d8e4eea812e928b48
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/rates-and-allowances-income-tax/income-tax-rates-and-allowances-current-and-past
+- path: raw/2026-11-15/nics_rates.html
+  retrieved_at: '2026-11-15T15:12:46.586878+00:00'
+  checksum_sha256: e4c649354484f86552be76190b7c03df80c781a310873b22c04624bd6fbe6baf
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/rates-and-allowances-national-insurance-contributions/rates-and-allowances-national-insurance-contributions
+- path: raw/2026-11-15/rates_of_income_landing.html
+  retrieved_at: '2026-11-15T15:12:46.674732+00:00'
+  checksum_sha256: d767ee32be4af2fde20c417fda42d8ad1c681b12e496111925028e6f04f2156e
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/statistics/rates-of-income-statistics
+- path: raw/2026-11-15/allowances_landing.html
+  retrieved_at: '2026-11-15T15:12:46.764097+00:00'
+  checksum_sha256: 00251e52495e69252e9fa68eb6d71d83e407911128bd3cc173104fb075aab1a7
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/statistics/income-tax-personal-allowances-and-reliefs
+- path: raw/2026-11-15/nics_stats_landing.html
+  retrieved_at: '2026-11-15T15:12:46.859018+00:00'
+  checksum_sha256: bf40453fee3da029b22cfd7d210da80033956f3b1f3d3c2768ab35f5ab616a4b
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/statistics/main-features-of-national-insurance-contributions
+- path: raw/2026-11-15/sco_2017_18_govscot.html
+  retrieved_at: '2026-11-15T15:12:46.995760+00:00'
+  checksum_sha256: ece5b76b606a79e6ef6134aa4023af0078916872647b927040045009e12b393a
+  content_type: text/html;charset=UTF-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.scot/news/scottish-income-tax/
+- path: raw/2026-11-15/sco_2018_19_govscot.html
+  retrieved_at: '2026-11-15T15:12:47.173974+00:00'
+  checksum_sha256: acf55c924c063a5965fbddcdb5ee087b35ae55dab5e3bd04b88ce77ea3cc01b6
+  content_type: text/html;charset=UTF-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.scot/publications/scottish-income-tax-2018-2019/
+- path: raw/2026-11-15/sco_hmrc_sit_2019.html
+  retrieved_at: '2026-11-15T15:12:47.284089+00:00'
+  checksum_sha256: 06472d93a52a875103cce05f8c239383ee92b6693a5ab1f86e69f8d76ee7c6d8
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/scottish-income-tax-hmrc-annual-report-2019/scottish-income-tax-hmrc-annual-report-2019
+- path: raw/2026-11-15/sco_hmrc_sit_2020.html
+  retrieved_at: '2026-11-15T15:12:47.406204+00:00'
+  checksum_sha256: 2c15d31c6019c3ff28f4c49e1ac7a70ee240c7d77a57da842db7289e0bd712f9
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/scottish-income-tax-hmrc-annual-report-2020/scottish-income-tax-hmrc-annual-report-2020
+- path: raw/2026-11-15/sco_hmrc_sit_2021.html
+  retrieved_at: '2026-11-15T15:12:47.541590+00:00'
+  checksum_sha256: b25933b88b362f3380cb4e5c5697f089d2521b1761db0942dd79d5d72a8b6863
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/scottish-income-tax-hmrc-annual-report-2021/scottish-income-tax-hmrc-annual-report-2021
+- path: raw/2026-11-15/sco_2020_21_govscot.html
+  retrieved_at: '2026-11-15T15:12:47.671527+00:00'
+  checksum_sha256: dab38505afd7ecee57fcc74778403a8f5f2da9173db914269d921a96ff1f0024
+  content_type: text/html;charset=UTF-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.scot/publications/scotland-act-2012-2016-annual-implementation-report-2021/pages/3/
+- path: raw/2026-11-15/sco_2021_22_budget.html
+  retrieved_at: '2026-11-15T15:12:47.846435+00:00'
+  checksum_sha256: d363f7cc624b0a4eae6180fb7a3ad6d0d13337690ba2961f458fa4dec913c0d9
+  content_type: text/html;charset=UTF-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.scot/publications/scottish-budget-2021-22/pages/3/
+- path: raw/2026-11-15/sco_2022_23_govscot.html
+  retrieved_at: '2026-11-15T15:12:47.995609+00:00'
+  checksum_sha256: b4afd8309b1e443970f9ad1d73285c33d4604bbf85278ea34aa84f8040f6b642
+  content_type: text/html;charset=UTF-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.scot/publications/scottish-income-tax-rates-and-bands/pages/rates-and-bands-2022-to-2023/
+- path: raw/2026-11-15/sco_hmrc_sit_2023.html
+  retrieved_at: '2026-11-15T15:12:48.116307+00:00'
+  checksum_sha256: cf019c201aa4a702c95eda262929e9987304961be73f64e7c5c8ee4d75251319
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/government/publications/scottish-income-tax-hmrc-annual-report-2023/scottish-income-tax-hmrc-annual-report-2023
+- path: raw/2026-11-15/employers_2018_19.html
+  retrieved_at: '2026-11-15T15:12:48.225583+00:00'
+  checksum_sha256: 00ca04d6d4f9d6eaf5d098a0b09f33aa999dc33c81835819722914dd9e47b9d0
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2018-to-2019
+- path: raw/2026-11-15/employers_2020_21.html
+  retrieved_at: '2026-11-15T15:12:48.329109+00:00'
+  checksum_sha256: 4cbdf3bf61d76ec3f8a7c20cf203fce5b3f932c20e154ac974f158b688e4b991
+  content_type: text/html; charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2020-to-2021
+- path: raw/2026-11-15/kai7_emp.json
+  retrieved_at: '2026-11-15T15:37:02.934332+00:00'
+  checksum_sha256: c23b05e8873d568c7cab0dd7779b442e9370bb477b1705c544bf34d1634c7c98
+  content_type: application/json;charset=utf-8
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai7/emp/data
+transformations: >-
+  Download HMRC ODS (Tables A.1, A.2, A.4), GOV.UK HTML landings, and
+  gov.scot / HMRC Scottish Income Tax HTML. Parse ODS with stdlib zip/XML. Map HMRC
+  taxable-income windows to after-allowance bands (1→N as 0→N; Over X as lower X+1).
+  Scotland 2017–22 from gov.scot/HMRC SIT gross tables mapped to after-allowance (PA-relative
+  lower bands; £150,000 absolute higher/top per employers/SRR convention); never copy
+  E/W/NI. Scotland 2023–27 from GOV.UK after-allowance table; 2010–16 mirrors E/W/NI.
+  NICs weekly figures retained; weekly×52 documented as educational annual equivalent
+  only. Intra-year NICs rate cells kept as published text without inventing a single
+  annual rate. Fiscal-drag examples pin ONS AWE KAI7 JSON; tax-year mean×52 path;
+  ≤3 hypothetical profiles vs curated statutory bands (Scotland separate).
+revision_notes: '2026-11-15: filled Scotland 2017–18…2022–23 from gov.scot / HMRC
+  SIT. Do not invent freezes or mid-year blends. 2026-11-15b: fiscal-drag examples
+  from ONS KAI7 (EMP release 2026-10-19); Scotland 2017–22 band rows unchanged.'
+caveats: 'Educational illustration of dated statutory income-tax and employee Class
+  1 NICs rules — not tax advice and not a substitute for HMRC guidance or a personal
+  tax calculation. Hypothetical taxable employment income only; Scotland uses a labelled
+  alternate band table. Statutory incidence (who the law charges) is not the same
+  as economic incidence (who ultimately bears the cost). Modelled liabilities are
+  not observed population tax paid. Exclusions: savings starting-rate band (out of
+  NSND employment focus); dividend rates / dividend allowance; marriage / blind person''s
+  / age-related allowances as modelled reliefs; employer Class 1 NICs; non-A NICs
+  category letters; interactive fiscal-drag calculator UI; corporation tax, VAT, CGT,
+  council tax. Fiscal drag examples pinned (educational KAI7 path); Validation ask
+  EC-VAL-06E-DRAG — not a Ready flip by itself. Scotland Personal Allowance remains
+  the reserved UK PA (HMRC Table A.1) — gov.scot tables state this. AWE KAI7 is GB
+  only (excludes Northern Ireland) and is regular pay, not take-home pay.'
+status_note: Time Machine history (+ Scotland 2017–22 + fiscal-drag examples). Fiscal
+  drag Validation ask EC-VAL-06E-DRAG. No fiscal-drag UI this pass.
+related_indicator_ids:
+- tax-machine-income-tax-rules
+- tax-receipts
+- nominal-earnings
+open_questions:
+- Overlay Ready-pin annual NICs PT/UEL (£12,570 / £50,270) vs weekly×52?
+notion_registry_url: https://app.notion.com/p/4196547176858177bf79d15680c0c264
+schema_version: '1.0'

@@ -1,0 +1,6 @@
+table_id,title,years,geography,units,direct_indirect,denominators,licence,notes
+Table 8,Taxes as % of gross income / disposable income / expenditure by equivalised disposable-income quintile,FYE 2024 (2023/24),UK,percent,direct + indirect + all (gross); indirect only (disposable + expenditure),"gross_income (direct/indirect/all); disposable_income (indirect only); expenditure (indirect only)",OGL v3.0,Primary denominator instrument for Burden
+Table 2a,Average household incomes taxes and benefits £/year by quintile — totals only,FYE 2024 (2023/24),UK,£ per year household average,total direct; total indirect,n/a (levels not shares),OGL v3.0,Absolute £ context; unequivalised means; ranking by equivalised disposable income
+Table 1,Summary equivalised incomes and effects of taxes and benefits,FYE 2024,UK,£ per year equivalised,direct and indirect as stages,n/a (levels),OGL v3.0,Not curated this pin — available in raw workbook for Validation cross-check
+Table 9,Same as Table 8 for non-retired,FYE 2024,UK,percent,same pattern as Table 8,same as Table 8,OGL v3.0,Inventory only — not curated
+Historical editions,ETB reference tables FYE 2014–2023 on landing page,FYE 2014–2023,UK,varies,varies,varies,OGL v3.0,Not pinned this pass; person-level vs household-level breaks pre-FYE 2018

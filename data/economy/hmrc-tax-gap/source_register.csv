@@ -1,0 +1,5 @@
+table,title,years,categories,unit,uncertainty,licence
+1.1,Percentage tax gap by type of tax,2005-06 to 2024-25,VAT; Excise; IT/NICs/CGT; Corporation Tax; Other; Total,percent of theoretical liabilities,Projections for 2023-24/2024-25; component notes in workbook,OGL v3.0
+1.2,Tax gap (£ billion) by type of tax,2005-06 to 2024-25,Same tax types + total theoretical liability,£ billion,Rounded to £0.1bn; <0.1 suppressed,OGL v3.0
+1.3,Tax gap by customer group,2005-06 to 2024-25,Small businesses; Criminals; Mid-sized; Large; Individuals; Wealthy,£ billion and % of gap,Illustrative grouping; rounding,OGL v3.0
+7.1,Illustrative tax gap by behaviour,2019-20 to 2024-25 only,Avoidance; Criminal attacks; Error; Evasion; Failure to take reasonable care; Hidden economy; Legal interpretation; Non-payment,£ billion and % of gap,Illustrative; MTG 2023 method update; not incident counts; gap ≠ fraud,OGL v3.0

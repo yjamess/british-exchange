@@ -26,13 +26,13 @@ Britain as a living system. Every public number, connected. The site is printed 
 
 | Token | Name | Hex | Role | Contrast |
 |-------|------|-----|------|----------|
-| `--bo-sage` | Sage | `#D5DCCB` | Green ground: flat section or panel backgrounds (`.bo-on-sage`) | Union 10.5:1 · Electric 6.1:1 |
+| `--bo-sage` | Sage | `#E9F0D9` | Electric spectrum companion ground (`.bo-on-sage`) | Union/electric reading inks |
 | `--bo-straw` | Straw | `#E9DCB0` | Mustard ground: flat section or panel backgrounds (`.bo-on-straw`) | Union 10.8:1 · Electric 6.2:1 |
-| `--bo-green` | Green | `#56755A` | Chart series and dot fills (`.bo-tint-green`) | 5.1:1 on paper |
-| `--bo-mustard` | Mustard | `#A8852C` | Chart series and dot fills (`.bo-tint-mustard`) | 3.4:1 on paper (marks only) |
+| `--bo-green` | Fern | `#4E9168` | Legacy chart series and dot fills (`.bo-tint-green`), aliases chart 11 | Marks only |
+| `--bo-mustard` | Gold | `#A78508` | Legacy chart series and dot fills (`.bo-tint-mustard`), aliases chart 9 | Marks only |
 
 - Grounds are backgrounds, not inks: type on sage/straw is Union (or Electric for headings), rules and marks stay Electric.
-- Categorical line comparisons use distinct chart-only colours: Electric, Ochre, Union, Verdigris and Plum (`--bo-chart-1…5`). These colours apply to traces, marks and matching legend/readout swatches only; page chrome and text retain the brand inks. Green and mustard remain available for existing statistical fills. Line charts have no decorative fill. Supplied statistical range bands are identified separately (see Charts).
+- **Electric spectrum**, adopted 15 November 2026: categorical comparisons use twelve distinct chart-only colours (`--bo-chart-1…12`). These colours apply to traces, marks and matching legend/readout swatches only; page chrome and text retain the brand inks. Green and mustard remain available for existing statistical fills. Line charts have no decorative fill. Supplied statistical range bands are identified separately (see Charts).
 - Decorative motion may use mustard (e.g. the Housing explorer's corner cloud), behind content on solid paper, never inside a plot.
 
 - **One ink per surface:** electric on paper, paper on flat electric, paper/lavender on Union, or Union/electric on a sage or straw ground.
@@ -65,7 +65,7 @@ One mask PNG per plate (ink as alpha), printed in token colours by `<Plate>`:
 
 Treatments are imagery treatments, **not reading themes**. Copy over a plate always sits on a solid panel (`.bo-panel`, or flat electric/union) at full contrast.
 
-Catalogue (`PLATES` in `Plate.tsx`): globe (the Exchange), cooling towers, offshore wind, terrace, land plots (cadastral), tower block, pylons, regional house prices (data-generated). Wide (`l-`, 2400×1350) and portrait (`p-`, 1060×1768) cuts. Dwelling-type specimens (`DWELLING_PLATES`: detached, semi-detached, terraced, purpose-built flat, other) are one matched set — same camera, light, ground and scale — so buildings compare at true relative size; drawn by `dwelling-types.py`. Tenure specimens (`TENURE_PLATES`: owner = sealed deed, private = door key, social = letterbox bank) are tenure instruments, not building form; drawn by `tenure-types.py`.
+Catalogue (`PLATES` in `Plate.tsx`): globe (the Exchange), cooling towers, offshore wind, terrace, land plots (cadastral), tower block, pylons, regional house prices (data-generated). Wide (`l-`, 2400×1350) and portrait (`p-`, 1060×1768) cuts. Dwelling-type specimens (`DWELLING_PLATES`: detached, semi-detached, terraced, purpose-built flat, other) are one matched set — same camera, light, ground and scale — so buildings compare at true relative size; drawn by `dwelling-types.py`. Tenure specimens (`TENURE_PLATES`: owner = sealed deed, private = door key, social = letterbox bank) are tenure instruments, not building form; drawn by `tenure-types.py`. Manufacturing branch specimens (`MANUFACTURING_PLATES`, SIC CA–CM, `manufacturing-types.py`) and work-section specimens (`WORK_PLATES`, SIC sections A–T, `work-sections.py`) share one camera, floor and light so they can sit on the same specimen wall; they are illustrative forms of the kit each kind of work is done with, and plate size is never output, jobs or share.
 
 Uses: hero, full-bleed section background (monumental), card header, card fill with a solid label tag.
 
@@ -106,11 +106,13 @@ Twelve columns (`.bo-grid`, max 1320px, 8px rhythm, square corners). Each sectio
 - **Quiet** — wide margins, one text column, one small figure. Most of the site.
 - **Monumental** — full-bleed plate or one huge figure, at a threshold. At most one per page.
 - **Index** — dense condensed two-tone capitals on Union with dotted dividers, for sector menus.
+- **Site shell** — every route gets the same mast and footer from the root layout (`web/src/brand/shell/`, `web/src/brand/footer/`). The mast is paper with one rule: wordmark · Index · Data · About · Contribution; hover and the current page are the solid ink block. *Index* opens the site index, a panel from the left edge in Index mode (sectors `01…08` with Ready / In preparation, then pages); the current sector is printed in reverse. Sector pages keep a crumb (`Sectors / {label}`) under the mast; the hero plate and loud name stay in `SectorPage`. Pages that are neither a sector nor the catalogue use `PlainPage` (label · one Caslon title · one text column). The mast never carries a plate, a mark or motion.
 - **Explorer** — the sector data canvas, canonical in `web/src/brand/template/` (`SectorPage` + `Explorer`, imported from `@/brand`; lab: `/design-lab/housing-canvas`):
   - *Index rail* on paper: one photo-reference plate per research domain (`REF_ICON_PLATES`), numbered `01…`, grouped Ready / In preparation, fixed 4.5rem rows. Current = negative plate + 3px ink bar on the rail edge. Condenses to plates only (GSAP width tween; reduced motion instant).
   - *Instrument frame* for every domain, in this order: crumb · question (Caslon, sentence case) · view tabs → figures strip → labelled controls (Place / Measure / Period, one row) → stage (figure bar “Fig. n” + title + span/geography · plot · **one** Notes foot). No separate Coverage facts strip under the stage (Housing does not use it).
   - *One Notes foot:* `FigureRecord` or `SourceLine` on `<Stage foot={…}>`. Definition, method, derived totals and caveats live there. Never a second Notes under the stage, and never patent detail callouts inside the plot. Housing is the reference.
   - *Source line grammar (every sector):* `Publisher · series · [Boundaries: …] · geography · [period / as at / release]`. Separate publisher from series with a middle dot (`MHCLG · Live Table 104`, never `MHCLG Live Table 104`). Drop empty parts (`formatSource` in `web/src/brand/template/Explorer.tsx`). Multi-publisher Data tabs list each publisher once, then the series. Full academic citations are for Data provenance desks only — not chart feet.
+  - *Terms:* an acronym or term of art carries a `<Term>` marker — a small mono "i" after the word that opens a paper popover with the registry definition (short form, full name, one sentence, "More" to `/glossary`). Stage titles, section titles, meta and the Notes foot only; never inside a plot; first occurrence per stage; at most three on a stage, otherwise rewrite the copy in words. The Notes foot lists the stage's terms under **Terms**. Registry: `data/glossary/terms.yaml` → Postgres → `/glossary`; the catalogue search returns matching terms above datasets.
   - *Under the frame:* Notes foot first, then Next reading (`<Stage follow={…}>`) below a hairline. Both start level with the stage border. The hairline draws once from the left edge the first time it scrolls into view; type never moves; reduced motion shows it drawn. Lab: `/design-lab/under-stage` (B).
   - *Multi-chart stages:* separate plots with `<section>` + `explorerClasses.stageTitle` (sentence case, weight 400), as in Housing supply Pipeline. Prefer `<h3 className={stageTitle}>` (or `<p>`); do not use a bare heading level without the class — browser bold on `h4`/`h5` is not a brand face. Do not title charts with `.bo-label` “FIG. 1 · …” caps.
   - *View tabs* are joined square rectangles: selected and hover are the same solid ink block, with paper type. No underline tabs, no rounded cards.
@@ -128,9 +130,10 @@ Housing & Land is the reference page, not a second design. The next sector copie
 
 | Piece | Where | What it is |
 |-------|--------|------------|
-| Page | `SectorPage` | Mast, hero plate, sector name on a solid ink strip under the plate. The sector name is the one loud line. |
+| Page | `SectorPage` | Mast, hero plate, sector name on a solid ink strip under the plate. The sector name is the one loud line. Full hero (sector landing) prints the plate in `print`; once a domain is open the hero shrinks to a band in `night` (set in the template, all sectors). |
 | Canvas | `Explorer` | Left rail of domains, then crumb, Caslon question, view tabs, figures, controls, stage, source line (`formatSource` grammar above). |
 | Charts | `TimeChart`, `RankBars`, `ChangeRows` | Pass data and a form. Ranked bars are solid ink, the same ink as the first line on a time chart. |
+| Geography | `RegionMap`, `AreaMap`, `StationPointMap`, `WorldChoropleth` | Place-based series use the map stage. Ranked lists may sit beside the map; they do not replace it. |
 | Data | `tableGroup` / Land Data / Generation Data | Observation tables. Catalogue links live in Notes, not as the Data body. |
 | Policy | `DecisionLedger`, `CatalogueDossier`, `ExactRegister` | Electric slab + catalogue card. One shared module for every event domain. |
 | State | The URL | `domain`, `view`, and the controls. A shared link opens the same picture. |
@@ -154,33 +157,42 @@ Lab: `/design-lab/housing-canvas`, toggle 5 → **Carriage**. One ink. Hover of 
 
 ## Charts (template for every sector)
 
-One component draws every time series: `TimeChart` in `web/src/brand/instrument/TimeChart.tsx` (snapshots: `RankBars`; geography: the map stage). Sector pages pass data and a form; they do not restyle charts.
+One component draws every time series: `TimeChart` in `web/src/brand/instrument/TimeChart.tsx`. Snapshots use `RankBars`. **Geographical data uses the map stage** — never a ranked list alone. Sector pages pass data and a form; they do not restyle charts.
 
 **Pick the form from the data**
 
-| Data | Form | `TimeChart` props |
+| Data | Form | Component / props |
 |------|------|-------------------|
-| Any level or rate over time — one place or several (price, rent, ratio, annual change) | Clean line; extra places/variants add lines with end labels | default (`zero` when zero is meaningful, e.g. change) |
-| Counts per period (completions, decisions, sales) | Columns | `kind="bars"` |
-| Shares of a whole over time | Stacked share | `kind="stack"` |
-| Sparse annual series (≤60 points) | Line with rings at observations | `marks` |
-| One period across places or categories | Ranked bars, solid ink | `RankBars` |
-| One headline series and how far places spread around it | Line within a lavender screened range band (e.g. 10th–90th percentile of local authorities); band edges named in the margin, derivation in the source line | `band={{ lo, hi, loLabel, hiLabel }}` |
+| Any level or rate over time — one place or several (price, rent, ratio, annual change) | Clean line; extra places/variants add lines with end labels | `TimeChart` default (`zero` when zero is meaningful, e.g. change) |
+| Counts per period (completions, decisions, sales) | Columns | `TimeChart` `kind="bars"` |
+| Shares of a whole over time | Stacked share | `TimeChart` `kind="stack"` |
+| Sparse annual series (≤60 points) | Line with rings at observations | `TimeChart` `marks` |
+| One period across **categories** (industry, tenure, reason, fuel…) | Ranked bars, solid ink | `RankBars` |
+| One period across **places** (nations, regions, local authorities, sites) | **Map** — choropleth or points; a ranked list may sit beside it as a secondary reading | `RegionMap` · `AreaMap` · `StationPointMap` · `WorldChoropleth` (`web/src/brand/map/`, Housing `AreaMap`, Generation `StationPointMap`) |
+| One headline series and how far places spread around it | Line within a lavender screened range band (e.g. 10th–90th percentile of local authorities); band edges named in the margin, derivation in the source line | `TimeChart` `band={{ lo, hi, loLabel, hiLabel }}` |
 | How far each place moved between two periods | Start → latest rows: open ring = first period, ink dot = latest, reference row (e.g. England) on top | `ChangeRows` |
 | A two-way table (e.g. income percentile × price percentile) | Grid in five stepped solid tones with a key; dark steps carry paper type; one highlighted reference cell | — (see `WhoCanAfford`) |
+
+**Geography (locked)**
+
+- If the series is about **where** — nations, regions, local authorities, stations, licence blocks, countries of origin — the stage instrument is a **map**.
+- Do not substitute `RankBars` (or a plain table) for a Geography / Places / Map view. A clickable rank list next to the map is fine; the map is the primary reading.
+- Reuse the shared map kit (`RegionMap`, `AreaMap`, `StationPointMap`, `WorldChoropleth`); do not invent a parallel choropleth or pin style per sector.
+- Boundaries and coverage honesty stay in the source line / Notes foot (`Boundaries: …`), never as a separate map chrome system.
 
 **Marks**
 
 - **Cohesion:** a chart keeps its form when the reader adds a place, measure or period. Adding a series adds a line; it never switches the fill, the form or the grid.
 - **Clean line (direction A):** no decorative contours or baseline fill. Every trace represents observations. Statistical range bands may remain only when supplied with named bounds; they are not decoration. Solid = observed, dotted = provisional, missing periods remain gaps.
+- **Readout cards:** use `ReadoutCard` from `@/brand` for chart inspection, following the Tax Machine card: paper ground, ink rule, mono period heading, then labelled value rows. A single series keeps its label. Extra rows describe available data only; missing and provisional values stay explicit. Chart series may carry matching swatches. Keep interaction and placement in the owning chart. Use `placement="inline"` for selected-place records and scenario summaries in normal page flow; preserve map controls, legends and source notes outside the card.
 - **Inspection:** shared period guide by pointer, touch or keyboard; unavailable values are explicit. All charts expose an exact-value table for the plotted series and period. Series selection belongs to the explorer controls above the chart. The chart displays all selected series together with labels; it does not add a second selector or layout toggle.
 - **Comparisons:** never plot applications and dwellings on the same axis. Label units and reporting periods; use separate panels for incompatible measures. Headline figures outside a filtered period must say latest available.
 
-- **Series order:** Electric (#0618F5), Ochre (#B45F06), Union (#012169), Verdigris (#00796B), Plum (#8E2C74). Prefer four series; a fifth is supported. Assign colours by series identity and retain assignments while the reader adds/removes places. Use equal 2px lines and direct end labels for up to five series on wide plots; narrow screens use a labelled legend. More than five retain all observations but disclose colour reuse.
+- **Series order — Electric spectrum:** Electric `#0618F5`, Tangerine `#D66B16`, Teal `#00968B`, Rose `#D94E98`, Leaf `#748F12`, Violet `#9061DB`, Cyan `#258DB5`, Coral `#C94E3F`, Gold `#A78508`, Cornflower `#607DAD`, Fern `#4E9168`, Orchid `#AF5488`. The same sequence serves lines, stacks, legends and readout swatches. Assign colours by series identity and retain assignments while the reader adds/removes places. Twelve categories fit before reuse; use a readable legend for dense charts, with full names wrapping. Keep equal 2px lines; end labels remain opt-in for up to five series. All twelve inks have at least 3.4:1 contrast on paper for graphical marks. Use Union/electric for text, never categorical colours. Labels and inspection remain necessary where lines overlap or colours are hard to distinguish.
 - **References:** Slate (#5A6072), dashed, only for series explicitly marked as references. An ordinary third series uses Union; national totals are not automatically classified as references.
 - **Range bands:** Lavender (#9C9EFF) dot screen only between supplied, matched lower/upper observations. Break bands at missing periods; never fabricate a confidence interval. Lavender is not a line or reading-text colour on paper. Reference and provisional conventions are labelled.
 
-- **Columns:** solid ink; provisional periods in 45° pen hatching. Stack layers: Electric, Green, Mustard, then hatching, separated by paper hairlines, labelled with paper tags.
+- **Columns:** solid ink; provisional periods in 45° pen hatching. Stack layers follow Electric spectrum, separated by paper hairlines; names and values sit in the open legend and shared readout.
 - **Rings:** small open rings at observations only for sparse series (≤60 points); dense series stay a clean line.
 - **Latest point:** an open ink ring on the first series' last observation. Latest value and series names live in `SeriesLegend` under the plot so the plot fills the stage. End-of-line leaders (right gutter) are opt-in only — `leaders={true}` — never the default; a reserved empty gutter is what makes charts look shorter than the frame. Labels never sit on the line or the engraving. No Signal red in charts: every mark explains itself.
 - **Series key:** line and stack charts use `SeriesLegend` under the plot for names and latest values. Never a bordered card; never in-plot stack tags. Do not patch empty right strips view-by-view — fix `leaders` / `chartMargins` at the instrument.
@@ -203,7 +215,8 @@ One component draws every time series: `TimeChart` in `web/src/brand/instrument/
 4. Quiet type, one loud line.
 5. Marks are measurements; gaps stay visible.
 6. Data can draw the art — and then it carries a source line.
-7. Wrap pages in `BrandRoot`; no parallel palettes. Change the identity only by updating this doc and `brand.css` together.
+7. Geographical data uses the map; ranked bars are for categories, not a substitute for place.
+8. Wrap pages in `BrandRoot`; no parallel palettes. Change the identity only by updating this doc and `brand.css` together.
 
 ## Migration from v0.2
 

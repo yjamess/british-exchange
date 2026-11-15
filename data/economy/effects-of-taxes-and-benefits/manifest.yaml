@@ -1,0 +1,57 @@
+indicator_id: effects-of-taxes-and-benefits
+title: Effects of taxes and benefits (direct/indirect tax burden)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/theeffectsoftaxesandbenefitsonhouseholdincomefinancialyearending2014
+series_id: ETB reference tables · Table 8 + Table 2a totals · FYE 2024
+geography: United Kingdom (K02000001); private households (HFS/LCF)
+frequency: annual (financial year)
+unit: percent of denominator | £ per year (household average)
+definition: ONS Effects of taxes and benefits on household income (ETB), financial
+  year ending 2024. Curates (1) Table 8 — direct, indirect and all taxes as a percentage
+  of gross income; indirect taxes also as a percentage of disposable income and of
+  expenditure (only where ONS publishes those denominators); (2) Table 2a — average
+  household £/year total direct and total indirect taxes by equivalised disposable-income
+  quintile. Survey-derived group averages for private households — not what any specific
+  household pays; legal liability ≠ economic incidence; no fairness claims. Ranking
+  uses modified-OECD equivalised disposable income; Table 2a £ averages are unequivalised
+  household means.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.effects_of_taxes_and_benefits
+curated_path: curated/observations.csv
+update_cadence: annual (ETB release)
+raw_evidence:
+- path: raw/2026-11-15/etbreferencetablesfye202324final.xlsx
+  retrieved_at: '2026-11-15T14:45:09.440202+00:00'
+  checksum_sha256: 2e38c1694d922427509879b9553a4c3473b8ba1174898c2dd414668ecbb2bf73
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-09-25'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/theeffectsoftaxesandbenefitsonhouseholdincomefinancialyearending2014/financialyearending2024/etbreferencetablesfye202324final.xlsx
+transformations: Download ETB FYE 2024 reference tables xlsx (https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/theeffectsoftaxesandbenefitsonhouseholdincomefinancialyearending2014/financialyearending2024/etbreferencetablesfye202324final.xlsx).
+  Parse Table 8 headline Direct/Indirect/All taxes rows under each published percentage
+  section; parse Table 2a 'Total direct taxes' and 'Total indirect taxes' rows. Emit
+  one observation per tax × band (× denominator for Table 8). Skip component tax rows
+  (Income Tax, VAT, …). Do not invent direct-tax shares of disposable income or expenditure.
+revision_notes: ETB revises prior years when processing errors are found (see dataset
+  corrections). Re-pin the edition workbook; compare checksums. Sample sizes fell
+  in FYE 2024 (HFS −21%).
+caveats: HFS/LCF sample of private households only — excludes institutions and people
+  experiencing homelessness. Indirect-tax / final-income path uses the smaller LCF
+  expenditure sample. Quintile averages are not individual liabilities. Deferred lump-sum
+  direct tax payments can distort bottom-quintile direct-tax estimates (ONS notes
+  5–6). Expenditure denominator available from 1995/96 (note 13). Domain 04 owns household
+  income/HBAI series — link, do not fork. Not comparable to AHHY public-sector tax
+  receipts.
+status_note: Ready after Validation PASS 2026-11-15 (30/0/0). Burden UI may use Table 8
+  + Table 2a only — no invented denominators.
+related_indicator_ids:
+- tax-receipts
+- tax-receipts-composition
+- tax-machine-income-tax-rules
+open_questions:
+- Pin additional FYE editions for a multi-year burden timeseries?
+- Add Table 9 (non-retired) as a labelled alternate population?
+notion_registry_url: https://app.notion.com/41965471768581f5a6d8f652ce533d8c
+schema_version: '1.0'

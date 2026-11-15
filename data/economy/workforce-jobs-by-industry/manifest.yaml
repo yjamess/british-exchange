@@ -1,0 +1,61 @@
+indicator_id: workforce-jobs-by-industry
+title: Workforce jobs by industry (SIC 2007 sections)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/workforcejobsbyindustryjobs02
+series_id: JOBS02 WFJ SA · SIC A–T
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: Thousands of jobs, SA
+definition: UK workforce jobs by SIC 2007 section, seasonally adjusted, thousands
+  of jobs. ONS table JOBS02, sheet 'WFJ SA'. Includes sections A–T and the published
+  all-jobs total (A–T column). Does not store shares of that total. Jobs (employer
+  surveys plus LFS components) are not LFS employed people. Section C is the same
+  published series as Energy manufacturing-employment (JWR7); this pack is not a second
+  manufacturing indicator.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.workforce_jobs_by_industry
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS workforce jobs / JOBS02)
+raw_evidence:
+- path: raw/2026-11-15/jobs02.xls
+  retrieved_at: '2026-11-15T10:05:05.628005+00:00'
+  checksum_sha256: dff121c784203fbd2de2dda8a0298b4bc47da72f883ff2ade9a8cfffae04ec70
+  content_type: application/vnd.ms-excel;charset=utf-8
+  official_release_date: '2026-09-15'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/workforcejobsbyindustryjobs02/current/jobs02sep2026.xls
+transformations: 'Download JOBS02 xls. Keep sheet WFJ SA. Map Mar/Jun/Sep/Dec YY to
+  calendar quarters (Mar=Q1 … Dec=Q4). Two-digit years: 70–99 → 19xx, 00–69 → 20xx.
+  Keep SIC letters A–T (kind=section) and the A–T all-jobs column (series=total, kind=total).
+  Skip the G–T services aggregate. Notes carry series, section_name, kind, component=workforce_jobs,
+  adjustment=SA, release_marker. Section C notes linked_indicator=manufacturing-employment.
+  No share of DYDC is calculated. Workbook typos ''Mar 193'' and ''Mar 204'' are mapped
+  to 2019 Q1 and 2020 Q1 (neighbours and the all-jobs total); notes keep source_label.
+  Latest quarter per series is provisional. Fail if a quarter is missing or section
+  levels miss the published total by more than 5 thousand.'
+revision_notes: 'Workforce jobs revise with quarterly sources and the annual December
+  benchmark. JOBS02 file name changes each edition (this pin: jobs02sep2026.xls, release
+  2026-09-15). (p) on a quarter is the ONS provisional marker; (r) means revised and
+  is still stored as final once a later quarter exists.'
+caveats: Jobs ≠ people. Do not add these levels to LFS employment (LF2G). Do not invent
+  industry shares of workforce-jobs (DYDC) — the total is already in series=total.
+  Section sum can differ from that total by rounding (about 1 thousand). Section C
+  links Energy manufacturing-employment (JWR7). Do not fork BRES (bres-manufacturing-employee-jobs-by-region)
+  — that is regional employee jobs, not this national workforce jobs series. March
+  2019 onwards has an LFS-reweighting step change (JOBS02 footnote). The Sep 2026
+  file labels 2019 Q1 as 'Mar 193' and 2020 Q1 as 'Mar 204'; those two labels are
+  corrected from their neighbours and stored in source_label. Sheet unit is thousands.
+status_note: 'Validated 2026-11-15 (qa_report_economy_03_gaps_2026-11-15.md). Ready for cloud load.'
+related_indicator_ids:
+- workforce-jobs
+- manufacturing-employment
+- bres-manufacturing-employee-jobs-by-region
+- employment-level
+open_questions:
+- Occupation (EMP04, LFS people by SOC) is a different concept and is not in this
+  pack.
+- Employee-jobs and self-employment sheets in JOBS02 are not curated.
+notion_registry_url: https://app.notion.com/p/419654717685811bb08ce13159830438
+schema_version: '1.0'

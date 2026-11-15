@@ -1,0 +1,27 @@
+[
+  {
+    "id": "ct-step-2019-20",
+    "label": "Corporation Tax step change 2019\u201320",
+    "detail": "HMRC Summary: CT gap broadly stable to 2018\u201319; step change in 2019\u201320 partly reflecting improvements in data collection. Emerging evidence that small-business CT gap may be understated before 2019\u201320 \u2014 not directly comparable to later years without Notes."
+  },
+  {
+    "id": "behaviour-series-start",
+    "label": "Illustrative behaviour series (Table 7.1)",
+    "detail": "Table 7.1 starts at 2019\u201320. MTG 2023 methodological updates to behaviour assumptions do not extend the comparable series back to 2005\u201306. Do not splice older editions without Notes."
+  },
+  {
+    "id": "projection-years",
+    "label": "Two most recent years are projections",
+    "detail": "Cover note / Summary: 2023\u201324 and 2024\u201325 are projections due to data lags (see Methodological annex). Curated status=provisional for those years."
+  },
+  {
+    "id": "note-comparability",
+    "label": "Workbook notes on non-comparability",
+    "detail": "Notes sheet flags components that are 'not directly comparable' across years (e.g. notes 30, 54, 55, 57 and related). Treat as vintage-specific; revisions each MTG edition rewrite prior years (note 1)."
+  },
+  {
+    "id": "gap-not-fraud",
+    "label": "Gap \u2260 fraud",
+    "detail": "Evasion is only one illustrative behaviour (12% of the gap in 2024\u201325). Largest share is failure to take reasonable care (35%). Never label the whole gap as deliberate evasion."
+  }
+]

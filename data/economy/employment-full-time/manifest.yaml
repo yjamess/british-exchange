@@ -1,0 +1,64 @@
+indicator_id: employment-full-time
+title: Full-time employment level (16+)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ycbe/lms
+series_id: YCBE
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: Thousands of people in full-time employment, SA (16+)
+definition: UK number of people in full-time employment, all ages 16 and over, seasonally
+  adjusted, thousands. ONS CDID YCBE in LMS (EMP01 SA family). Companion to employment-part-time
+  (YCBH).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.employment_full_time
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-14/ycbe_lms.json
+  retrieved_at: '2026-11-14T22:59:42.681889+00:00'
+  checksum_sha256: e8b68981c90f7c665946f540366fa63ecf4cc5e1c9383764f1bcca48c5c853a6
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/ycbe/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS levels revise with reweighting and seasonal-adjustment updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Aged 16+ (not 16–64
+  LF2G). Do not mix into The British Workforce composition without an age-break chip.
+  YCBE + YCBH ≈ headline 16+ employment, not LF2G.
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-rate
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- inactivity-reason-students
+- inactivity-reason-family-home
+- inactivity-reason-temp-sick
+- inactivity-reason-long-term-sick
+- inactivity-reason-retired
+- inactivity-reason-other
+- uk-vacancies
+- average-actual-weekly-hours
+- employment-part-time
+- workforce-jobs
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/41865471768581eaaaf9edcb2290a45e
+schema_version: '1.0'

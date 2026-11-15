@@ -46,3 +46,4 @@ open_questions:
 - Thermal constraint costs (NESO) remain a separate Gate 3 candidate.
 notion_registry_url: ''
 schema_version: '1.0'
+status_note: "Includes planned connections, so its dates run into the 2030s."

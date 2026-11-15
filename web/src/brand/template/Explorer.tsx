@@ -17,6 +17,7 @@ import { DualScramble, DUAL_DIGITS } from "../motion/DualScramble";
 import { PrintMultiSelect, PrintSelect, type PrintMultiOption, type PrintOption } from "../PrintSelect";
 import type { ChartSeries, Cadence } from "../instrument/TimeChart";
 import { fmtT } from "../data";
+import { TermScopeProvider, useGlossary, useTermScope } from "../term/GlossaryProvider";
 import s from "./explorer.module.css";
 
 /**
@@ -94,6 +95,7 @@ export function Explorer({
   onCondensedChange,
   ground = "paper",
   decor,
+  busy = null,
   children,
 }: {
   /** Crumb + rail aria label, e.g. "Housing & Land". */
@@ -110,6 +112,8 @@ export function Explorer({
   ground?: "paper" | "field";
   /** Sector decoration drawn behind the canvas content (content sits on paper patches above it). */
   decor?: ReactNode;
+  /** Title of the domain being fetched during a rail hop; the canvas shows a paper veil with that line. */
+  busy?: string | null;
   children: ReactNode;
 }) {
   const uid = useId().replace(/:/g, "");
@@ -163,7 +167,13 @@ export function Explorer({
           data-ground={ground}
           data-patches={patches ? "" : undefined}
           aria-labelledby={`${uid}-q`}
+          aria-busy={busy ? true : undefined}
         >
+          {busy && (
+            <div className={s.busy} role="status" aria-live="polite">
+              <span className="bo-label">Loading {busy}…</span>
+            </div>
+          )}
           {ground === "field" && (
             <div className={s.ground} aria-hidden="true">
               <DitherField field={GROUND} mark="dots" pitch={6} lens={false} fps={12} />
@@ -688,6 +698,7 @@ export function Stage({
       role="tabpanel"
       aria-label={typeof title === "string" ? title : undefined}
     >
+      <TermScopeProvider>
       <figure className={s.stage} data-bar={bar} data-size={size === "normal" ? undefined : size} data-framed={framed ? undefined : "false"}>
       {framed && <figcaption className={s.stageBar}>
         <span className={s.stageTitle}>{title}</span>
@@ -709,6 +720,7 @@ export function Stage({
       <div className={s.stageBody}>{children}</div>
       </figure>
       {foot != null && <div className={s.stageFoot}>{foot}</div>}
+      </TermScopeProvider>
       {follow != null && <StageFollow>{follow}</StageFollow>}
     </div>
   );
@@ -801,6 +813,7 @@ export function FigureRecord({
   definition,
   method,
   dataHref = "/data",
+  terms,
 }: {
   source?: string;
   /** What the number is. One sentence, or a few, always under the same label. */
@@ -808,18 +821,26 @@ export function FigureRecord({
   /** How it was counted, and what not to infer. */
   method?: string | string[];
   dataHref?: string;
+  /** Glossary slugs to list under Terms, besides those marked with <Term> on the stage. */
+  terms?: string[];
 }) {
   const define = noteParts(definition);
   const counted = noteParts(method);
-  const hasNotes = define.length > 0 || counted.length > 0;
+  // Terms marked on this stage (Term markers register with the stage scope) plus any named here.
+  const glossary = useGlossary();
+  const scope = useTermScope();
+  const slugs = [...new Set([...(scope?.slugs ?? []), ...(terms ?? [])])];
+  const marked = slugs.map((slug) => glossary.get(slug)).filter((x): x is NonNullable<typeof x> => x != null);
+  const hasNotes = define.length > 0 || counted.length > 0 || marked.length > 0;
   if (!source && !hasNotes && !dataHref) return null;
   return (
     <div className={s.record} data-notes={hasNotes ? "true" : "false"}>
-      {hasNotes && (
+      {(hasNotes || source) && (
         <details className={s.recordDetails}>
           <summary className={s.recordSummary}>
             <span className={s.recordMark} aria-hidden="true" />
-            Notes
+            <span>Sources &amp; notes</span>
+            {source && <span className={s.recordSource}>{source}</span>}
           </summary>
           <div className={s.recordPanel}>
             {define.length > 0 && (
@@ -838,13 +859,27 @@ export function FigureRecord({
                 ))}
               </div>
             )}
+            {marked.length > 0 && (
+              <div>
+                <p className="bo-label">Terms</p>
+                <dl className={s.recordTerms}>
+                  {marked.map((t) => (
+                    <div key={t.slug}>
+                      <dt>
+                        <a href={`/glossary#${t.slug}`}>{t.short}</a>
+                      </dt>
+                      <dd>{t.definition}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
           </div>
         </details>
       )}
-      {source ? <p className={s.recordSource}>{source}</p> : <span />}
       {dataHref ? (
         <a className={s.recordData} href={dataHref}>
-          Data <span aria-hidden="true">→</span>
+          View data <span aria-hidden="true">→</span>
         </a>
       ) : null}
     </div>
@@ -867,6 +902,7 @@ export function SourceLine({
   sources = [],
   rows = [],
   derived,
+  terms,
 }: {
   sources?: ExplorerSource[];
   /** Free rows (a map's geography, a statute, a reading). */
@@ -876,6 +912,8 @@ export function SourceLine({
   hrefFor?: (src: ExplorerSource) => string | undefined;
   /** Unused. The foot links to /data. */
   dataHref?: string;
+  /** Glossary slugs to list under Terms. */
+  terms?: string[];
 }) {
   if (sources.length === 0 && rows.length === 0 && !derived) {
     return <p className={s.recordEmpty}>No Ready series behind this view yet. The Exchange does not show estimates.</p>;
@@ -893,7 +931,7 @@ export function SourceLine({
     if (named && row === named) return row.linkLabel ? [row.linkLabel] : [];
     return [row.text];
   });
-  return <FigureRecord source={source} definition={definition} method={derived} />;
+  return <FigureRecord source={source} definition={definition} method={derived} terms={terms} />;
 }
 
 /** Latest periods as a table (the Table view of any series). */

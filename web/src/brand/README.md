@@ -11,7 +11,9 @@
 | `fonts.ts` | Libre Caslon Display, Geist, Geist Mono, Archivo (condensed) via `next/font` |
 | `BrandRoot.tsx` | Wraps a page: applies `.bo` + fonts |
 | `Plate.tsx` | Halftone plate component + `PLATES`, `REF_ICON_PLATES` (rail photos), `ICON_PLATES`, `SCENE_ICON_PLATES` |
-| **`template/`** | **The canonical sector page.** `SectorPage` (mast · hero plate · name on an ink strip · optional stats · threshold slot) and `Explorer` (photo-plate rail + instrument-frame canvas), plus `PlateBand` / `FieldBand` |
+| `shell/` | `SiteHeader` (mast: wordmark · Index · Data · About · Contribution) and `SiteIndex` (the site index panel, Index mode) — rendered once by the root layout |
+| `footer/` | `SiteFooter` — rendered once by the root layout |
+| **`template/`** | **The canonical sector page.** `SectorPage` (mast · hero plate · name on an ink strip · optional stats · threshold slot) and `Explorer` (photo-plate rail + instrument-frame canvas), plus `PlateBand` / `FieldBand`; `PlainPage` for About, Contribution and other quiet pages |
 | `PrintSelect.tsx` | Brand menu on Base UI (`@base-ui/react`); used through `MenuControl` / `PeriodControl` |
 | `motion/` | `DualScramble` (+ `ScrambleGroup`), `HalftoneMotion`, `DitherField` (+ fields), `DensityStrip`, `groundField` — see the exchange-motion skill |
 | `instrument/` | `TimeChart` (line, bars, stack; keyboard inspection; empty frame when no points) and `RankBars` |

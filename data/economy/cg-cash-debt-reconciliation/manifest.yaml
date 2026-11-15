@@ -1,0 +1,142 @@
+indicator_id: cg-cash-debt-reconciliation
+title: Central government cash requirement to change in net debt (REC3)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110/current
+series_id: REC3
+geography: United Kingdom (K02000001); central government (ex NRAM/B&B, Network Rail)
+frequency: monthly
+unit: £ million, NSA
+definition: 'ONS Public Sector Finances Appendix A table REC3: central government
+  net cash requirement excluding NRAM/B&B and Network Rail (M98R), plus named reconciliation
+  adjustments, equals changes in central government net debt with the same exclusions
+  (MW4W). Not public-sector net borrowing (DZLS) and not public-sector net debt (HF6W).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.cg_cash_debt_reconciliation
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS Public Sector Finances)
+raw_evidence:
+- path: raw/2026-11-14/appendix_a_rec3_source.xlsx
+  retrieved_at: '2026-11-14T15:33:32.712130+00:00'
+  checksum_sha256: 394cd4617f3e9f2f2e8e65e4ffb8b18321f1c5d1ee8b67ebbf5538721b792c43
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: ''
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110/current/publicsectorfinancessummarytablesappendixafinal.xlsx
+- path: raw/2026-11-14/m98r_pusf.json
+  retrieved_at: '2026-11-14T15:33:32.909934+00:00'
+  checksum_sha256: e9ec0bf30b5d505b42069fd6d12db09387f2db1925a8f7992db905c8e0fc0e9b
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/m98r/pusf/data
+- path: raw/2026-11-14/lsiw_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.002329+00:00'
+  checksum_sha256: 1afbd317bc1385ccab6ee238fd3fd8f1f31282133cb2d740069573a6e4f9595c
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/lsiw/pusf/data
+- path: raw/2026-11-14/mw7l_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.093351+00:00'
+  checksum_sha256: b61b97cc564e950e3585c36fa28b3c3f8f6768e8d7e2b2feb50276d08cca6e42
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/mw7l/pusf/data
+- path: raw/2026-11-14/e3vl_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.192990+00:00'
+  checksum_sha256: 5071088fc104ca8d30fe8dc74940e67f06ad24edbca917031c57b79d093ef7e8
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/e3vl/pusf/data
+- path: raw/2026-11-14/e3vm_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.292444+00:00'
+  checksum_sha256: 6dbb34a0405dd3a29eb18b23b201b78a858c13e71916362f4a47d21945514612
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/e3vm/pusf/data
+- path: raw/2026-11-14/n42a_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.367266+00:00'
+  checksum_sha256: 4f128576fda23a7870c5fa10e638580704a3c9b28837da710ebeaaf8efa2a94f
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/n42a/pusf/data
+- path: raw/2026-11-14/e3vx_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.451924+00:00'
+  checksum_sha256: e66673f129f8008e95a1e4d8ffd794c1687e3647b0ed842b587fc877368afcf6
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/e3vx/pusf/data
+- path: raw/2026-11-14/n42c_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.542450+00:00'
+  checksum_sha256: f2b2aa2dd7b0bf379ca314cdb4525c6fd3ff466b67c7ee92abf4cd581f155331
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/n42c/pusf/data
+- path: raw/2026-11-14/n42e_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.628193+00:00'
+  checksum_sha256: ce5bac7b7fcc5ca7fe72b8e7bac9ffbe7d358556d63483165d55c25f414f70d9
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/n42e/pusf/data
+- path: raw/2026-11-14/n42f_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.712936+00:00'
+  checksum_sha256: 8941f9b111b971bd0f626745266276591b809756493f57655a2552850ed90b7e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/n42f/pusf/data
+- path: raw/2026-11-14/e3vy_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.795977+00:00'
+  checksum_sha256: e6a5932500323120c1783bf70b97a51cdd0c4f36a81d07064021b23839de8df3
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/e3vy/pusf/data
+- path: raw/2026-11-14/e3vz_pusf.json
+  retrieved_at: '2026-11-14T15:33:33.926840+00:00'
+  checksum_sha256: dd583b6261403a3a1dc9bcc23dd10a5d86c8147d7bc3ce2c4b82b8f6f0387a2a
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/e3vz/pusf/data
+- path: raw/2026-11-14/n42h_pusf.json
+  retrieved_at: '2026-11-14T15:33:34.016998+00:00'
+  checksum_sha256: 4fc11a1a0bd38102cca4a939c4de26c26d1d7bf96dbf472244fe79354c5f425c
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/n42h/pusf/data
+- path: raw/2026-11-14/mw4w_pusf.json
+  retrieved_at: '2026-11-14T15:33:34.115644+00:00'
+  checksum_sha256: f5708fccfed9833d289ab0e62508e05042200a973f421142b84018eb7b36a907
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/timeseries/mw4w/pusf/data
+transformations: 'Download Appendix A xlsx + each REC3 CDID /data JSON. Keep months
+  only. Notes: series=<CDID>; role=lhs|adj|rhs. Latest valued month per CDID marked
+  provisional.'
+revision_notes: PSF release pin 2026-10-20; re-pin after next bulletin. Re-check REC3
+  identity from curated (rec3_identity_check.json).
+caveats: Central government only. Cash requirement ≠ accruals borrowing. Do not present
+  as a public-sector Borrowing Machine or invent a balancing item for HF6W−sum(DZLS).
+status_note: ''
+related_indicator_ids:
+- public-sector-net-debt
+- public-sector-net-borrowing
+- public-sector-debt-interest
+- public-sector-net-debt-percent-gdp
+open_questions:
+- 'Orchestrator: approve stable indicator_id cg-cash-debt-reconciliation?'
+- Separate CG cash/debt explorer vs keep evidence-only?
+notion_registry_url: ''
+schema_version: '1.0'

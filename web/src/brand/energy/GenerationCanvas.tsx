@@ -6,6 +6,7 @@
  * Multi-chart titles use explorer `stageTitle` (Housing pipeline pattern).
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -1003,40 +1004,15 @@ function AtlasStage({
             <button type="button" className={t.textButton} onClick={() => onSelect(null)}>
               Back to matching stations
             </button>
-            <p className="bo-label">
-              {selection.technology}
-              {selection.group === "storage" ? " · storage" : " · capacity"}
-              {selection.geography.regionLabel
-                ? ` · ${selection.geography.regionLabel}${
-                    selection.geography.countryLabel ? ` · ${selection.geography.countryLabel}` : ""
-                  }`
-                : ""}
-            </p>
-            <h3 className={s.stationName}>{selection.name}</h3>
-            <p className={s.stationValue}>
-              <span className="bo-fig">
-                {selection.capacityMw.toLocaleString("en-GB", { maximumFractionDigits: 1 })}
-              </span>
-              <span className="bo-label">MW</span>
-            </p>
-            <dl className={s.stationMeta}>
-              {selection.opened && (
-                <div>
-                  <dt className="bo-label">{selection.ref.register === "repd" ? "Operational" : "Commissioned"}</dt>
-                  <dd className="bo-fig">{selection.opened}</dd>
-                </div>
-              )}
-              {selection.operator && (
-                <div>
-                  <dt className="bo-label">Operator</dt>
-                  <dd>{selection.operator}</dd>
-                </div>
-              )}
-              <div>
-                <dt className="bo-label">Register</dt>
-                <dd>{selection.ref.register === "repd" ? "Planning register" : "Power producers register"}</dd>
-              </div>
-            </dl>
+            <ReadoutCard placement="inline" head={selection.name} rows={[
+              { label: "Technology", value: selection.technology },
+              { label: selection.group === "storage" ? "Storage capacity" : "Installed capacity", value: `${selection.capacityMw.toLocaleString("en-GB", { maximumFractionDigits: 1 })} MW` },
+              ...(selection.geography.regionLabel ? [{ label: "Region", value: selection.geography.regionLabel }] : []),
+              ...(selection.geography.countryLabel ? [{ label: "Country", value: selection.geography.countryLabel }] : []),
+              ...(selection.opened ? [{ label: selection.ref.register === "repd" ? "Operational" : "Commissioned", value: selection.opened }] : []),
+              ...(selection.operator ? [{ label: "Operator", value: selection.operator }] : []),
+              { label: "Register", value: selection.ref.register === "repd" ? "Planning register" : "Power producers register" },
+            ]} />
             {peerMw > 0 && (
               <p className={s.links}>
                 {((selection.capacityMw / peerMw) * 100).toFixed(1)}% of mapped {selection.technology.toLowerCase()}{" "}
@@ -1045,19 +1021,10 @@ function AtlasStage({
             )}
             {selection.nationalGeneration ? (
               <div className={s.stationContext}>
-                <p className="bo-label">
-                  National {fuelById(selection.nationalGeneration.fuel)?.label.toLowerCase()} generation ·{" "}
-                  {selection.nationalGeneration.year}
-                </p>
-                <p className={s.stationContextValue}>
-                  <span className="bo-fig">{fmtTwh(selection.nationalGeneration.twh)}</span>
-                  <span className="bo-label">
-                    TWh
-                    {selection.nationalGeneration.share != null
-                      ? ` · ${selection.nationalGeneration.share.toFixed(1)}%`
-                      : ""}
-                  </span>
-                </p>
+                <ReadoutCard placement="inline" head={`National ${fuelById(selection.nationalGeneration.fuel)?.label.toLowerCase()} generation · ${selection.nationalGeneration.year}`} rows={[
+                  { label: "Generation", value: `${fmtTwh(selection.nationalGeneration.twh)} TWh` },
+                  ...(selection.nationalGeneration.share != null ? [{ label: "Share of generation", value: `${selection.nationalGeneration.share.toFixed(1)}%` }] : []),
+                ]} />
                 {(() => {
                   const conn = energyConnectionById("gen.station→gen.data");
                   if (!conn) return null;

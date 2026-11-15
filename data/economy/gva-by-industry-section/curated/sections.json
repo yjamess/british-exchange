@@ -1,0 +1,270 @@
+{
+  "source": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/ukgdpolowlevelaggregates/current",
+  "release_date": "2026-11-12",
+  "measures": {
+    "current_price": {
+      "sheet": "1",
+      "unit": "\u00a3 million current prices, SA",
+      "sections": [
+        {
+          "section": "total",
+          "label": "Total GVA",
+          "cdid": "KKP5",
+          "kind": "current_price"
+        },
+        {
+          "section": "A",
+          "label": "Agriculture",
+          "cdid": "KKD5",
+          "kind": "current_price"
+        },
+        {
+          "section": "B",
+          "label": "Mining and quarrying",
+          "cdid": "KKD7",
+          "kind": "current_price"
+        },
+        {
+          "section": "C",
+          "label": "Manufacturing",
+          "cdid": "KKE3",
+          "kind": "current_price"
+        },
+        {
+          "section": "D",
+          "label": "Electricity, gas, steam and air conditioning supply",
+          "cdid": "KKH7",
+          "kind": "current_price"
+        },
+        {
+          "section": "E",
+          "label": "Water supply; sewerage, waste management and remediation activities",
+          "cdid": "KKH9",
+          "kind": "current_price"
+        },
+        {
+          "section": "F",
+          "label": "Construction",
+          "cdid": "KKI3",
+          "kind": "current_price"
+        },
+        {
+          "section": "G",
+          "label": "Wholesale and retail trade and repair of motor vehicles and motorcycles",
+          "cdid": "KKI5",
+          "kind": "current_price"
+        },
+        {
+          "section": "H",
+          "label": "Transportation and storage",
+          "cdid": "KKI9",
+          "kind": "current_price"
+        },
+        {
+          "section": "I",
+          "label": "Accommodation and food service activities",
+          "cdid": "KKJ3",
+          "kind": "current_price"
+        },
+        {
+          "section": "J",
+          "label": "Information and communication",
+          "cdid": "KKJ9",
+          "kind": "current_price"
+        },
+        {
+          "section": "K",
+          "label": "Financial and insurance activities",
+          "cdid": "KKK9",
+          "kind": "current_price"
+        },
+        {
+          "section": "L",
+          "label": "Real estate activities",
+          "cdid": "KKL3",
+          "kind": "current_price"
+        },
+        {
+          "section": "M",
+          "label": "Professional, scientific and technical activities",
+          "cdid": "KKL5",
+          "kind": "current_price"
+        },
+        {
+          "section": "N",
+          "label": "Administrative and support service activities",
+          "cdid": "KKM7",
+          "kind": "current_price"
+        },
+        {
+          "section": "O",
+          "label": "Public administration and defence; compulsory social security",
+          "cdid": "KKM9",
+          "kind": "current_price"
+        },
+        {
+          "section": "P",
+          "label": "Education",
+          "cdid": "KKN5",
+          "kind": "current_price"
+        },
+        {
+          "section": "Q",
+          "label": "Human health and social work activities",
+          "cdid": "KKN7",
+          "kind": "current_price"
+        },
+        {
+          "section": "R",
+          "label": "Arts, entrainment and recreation",
+          "cdid": "KKO5",
+          "kind": "current_price"
+        },
+        {
+          "section": "S",
+          "label": "Other service activities",
+          "cdid": "KKO9",
+          "kind": "current_price"
+        },
+        {
+          "section": "T",
+          "label": "Activities of households as employers",
+          "cdid": "KKP3",
+          "kind": "current_price"
+        }
+      ]
+    },
+    "chained_volume": {
+      "sheet": "2a",
+      "unit": "\u00a3 million chained volume, SA",
+      "sections": [
+        {
+          "section": "total",
+          "label": "Total GVA",
+          "cdid": "KLA8",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "A",
+          "label": "Agriculture",
+          "cdid": "KL8S",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "B",
+          "label": "Mining and quarrying",
+          "cdid": "KL8T",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "C",
+          "label": "Manufacturing",
+          "cdid": "KL8V",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "D",
+          "label": "Electricity, gas, steam and air conditioning supply",
+          "cdid": "KL9B",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "E",
+          "label": "Water supply; sewerage, waste management and remediation activities",
+          "cdid": "KL9C",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "F",
+          "label": "Construction",
+          "cdid": "KL9D",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "G",
+          "label": "Wholesale and retail trade and repair of motor vehicles and motorcycles",
+          "cdid": "KL9E",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "H",
+          "label": "Transportation and storage",
+          "cdid": "KL9G",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "I",
+          "label": "Accommodation and food service activities",
+          "cdid": "KL9H",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "J",
+          "label": "Information and communication",
+          "cdid": "KL9K",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "K",
+          "label": "Financial and insurance activities",
+          "cdid": "KL9O",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "L",
+          "label": "Real estate activities",
+          "cdid": "KL9P",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "M",
+          "label": "Professional, scientific and technical activities",
+          "cdid": "KL9Q",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "N",
+          "label": "Administrative and support service activities",
+          "cdid": "KL9V",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "O",
+          "label": "Public administration and defence; compulsory social security",
+          "cdid": "KL9W",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "P",
+          "label": "Education",
+          "cdid": "KL9Y",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "Q",
+          "label": "Human health and social work activities",
+          "cdid": "KL9Z",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "R",
+          "label": "Arts, entrainment and recreation",
+          "cdid": "KLA4",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "S",
+          "label": "Other service activities",
+          "cdid": "KLA6",
+          "kind": "chained_volume"
+        },
+        {
+          "section": "T",
+          "label": "Activities of households as employers",
+          "cdid": "KLA7",
+          "kind": "chained_volume"
+        }
+      ]
+    }
+  }
+}

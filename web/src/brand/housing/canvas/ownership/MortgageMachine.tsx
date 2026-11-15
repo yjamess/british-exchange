@@ -8,6 +8,7 @@
 
 import { useMemo } from "react";
 import { EmptyStage, explorerClasses as t } from "../../..";
+import { Term } from "../../../term";
 import { fmt, fmtT, type Pt } from "../../../data";
 import { RankBars, TimeChart } from "../../../instrument/TimeChart";
 import type { HousingV1 } from "../../load";
@@ -139,7 +140,7 @@ export function MortgageMachine({ ownership, mortgageRate }: Props) {
     [o.housePurchaseApprovals, o.remortgageApprovals],
   );
   const rateSeries = useMemo(
-    () => [{ id: "rate", label: "2-year fixed, 75% LTV", points: mortgageRate }],
+    () => [{ id: "rate", label: "2-year fixed, 75% loan-to-value", points: mortgageRate }],
     [mortgageRate],
   );
 
@@ -291,7 +292,9 @@ export function MortgageMachine({ ownership, mortgageRate }: Props) {
 
       {mortgageRate.length > 0 && (
         <section className={gen.panel}>
-          <h3 className={t.stageTitle}>Quoted rate · 2-year fixed, 75% LTV</h3>
+          <h3 className={t.stageTitle}>
+            Quoted rate · 2-year fixed, 75% <Term slug="ltv">loan-to-value</Term>
+          </h3>
           <TimeChart
             series={rateSeries}
             cadence="monthly"

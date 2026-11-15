@@ -21,17 +21,24 @@
   /* ——— Muted grounds and chart tones (green, mustard) ———
      Grounds are flat backgrounds; type on them is union or electric, never faded.
      Chart tones are marks in plots only — never type, never behind type. */
-  --bo-sage: #d5dccb; /* green ground — union 10.5:1, electric 6.1:1 */
-  --bo-straw: #e9dcb0; /* mustard ground — union 10.8:1, electric 6.2:1 */
-  --bo-green: #56755a; /* chart series / dot fill — 5.1:1 on paper */
-  --bo-mustard: #a8852c; /* chart series / dot fill — 3.4:1 on paper */
+  --bo-sage: #e9f0d9; /* Electric spectrum companion ground */
+  --bo-straw: #e9dcb0; /* existing warm ground */
+  --bo-green: var(--bo-chart-11); /* Fern; legacy statistical fills */
+  --bo-mustard: var(--bo-chart-9); /* Gold; legacy statistical fills */
 
-  /* Categorical comparison marks: distinct hues, never used for page chrome or text. */
+  /* Electric spectrum — twelve categorical inks, marks and matching swatches only. */
   --bo-chart-1: var(--bo-electric);
-  --bo-chart-2: #b45f06; /* Ochre */
-  --bo-chart-3: var(--bo-union); /* Union */
-  --bo-chart-4: #00796b; /* Verdigris */
-  --bo-chart-5: #8e2c74; /* Plum: fifth series, sparingly */
+  --bo-chart-2: #d66b16; /* Tangerine */
+  --bo-chart-3: #00968b; /* Teal */
+  --bo-chart-4: #d94e98; /* Rose */
+  --bo-chart-5: #748f12; /* Leaf */
+  --bo-chart-6: #9061db; /* Violet */
+  --bo-chart-7: #258db5; /* Cyan */
+  --bo-chart-8: #c94e3f; /* Coral */
+  --bo-chart-9: #a78508; /* Gold */
+  --bo-chart-10: #607dad; /* Cornflower */
+  --bo-chart-11: #4e9168; /* Fern */
+  --bo-chart-12: #af5488; /* Orchid */
   --bo-chart-reference: #5a6072; /* Slate: explicit reference series only */
   --bo-chart-band: var(--bo-lavender); /* range areas only */
 

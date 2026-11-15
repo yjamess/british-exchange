@@ -1,0 +1,27 @@
+/* Brand template — PlainPage: label, one Caslon title, one text column. */
+
+.page {
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  min-height: 60vh;
+}
+.head {
+  display: grid;
+  gap: var(--bo-s4);
+  padding-block: var(--bo-s8) var(--bo-s6);
+  border-bottom: var(--bo-rule);
+}
+.body {
+  max-width: calc(var(--bo-max) * 0.56 + 2 * var(--bo-gutter));
+  margin-inline: 0;
+  padding-block: var(--bo-s6) var(--bo-s10);
+  color: var(--bo-text);
+}
+.body :global(.bo-wrap) {
+  padding-inline: 0;
+}
+.pending {
+  display: grid;
+  gap: var(--bo-s2);
+  margin: 0;
+}

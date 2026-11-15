@@ -8,6 +8,7 @@
  * Measure control lives in HousingExplorer.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useMemo, useState } from "react";
 import { RegionMap, type RegionDatum } from "@/brand/map";
 import { EmptyStage, MapLegend, explorerClasses as t } from "../../..";
@@ -185,9 +186,6 @@ export function SupplyGeography({ geography, measure, area, onArea }: Props) {
 
   const selected = geography.mapPlaces.find((p) => p.code === area) ?? null;
   const rank = selected ? rankedPlaces.findIndex((r) => r.id === selected.code) + 1 : 0;
-  const selectedValue = selected
-    ? placeValue(selected, measure === "share" ? "count" : measure)
-    : null;
   const districtMeasure: GeographyMeasure = measure === "share" ? "count" : measure;
   const districtLabel = measureLabel(districtMeasure);
 
@@ -259,29 +257,11 @@ export function SupplyGeography({ geography, measure, area, onArea }: Props) {
               <p className="bo-label">In focus</p>
               {selected ? (
                 <>
-                  <p className={insecurity.placeName}>{selected.name}</p>
-                  <p className={`bo-fig ${insecurity.readoutValue}`}>
-                    {selectedValue != null ? formatMeasure(selectedValue, districtMeasure) : "—"}
-                  </p>
-                  <p className={insecurity.readoutMeta}>
-                    {districtLabel.toLowerCase()}
-                    {rank > 0 ? ` · ${ordinal(rank)} of ${rankedPlaces.length}` : ""}
-                    {yearLabel ? ` · ${yearLabel}` : ""}
-                  </p>
-                  <dl className={insecurity.facts}>
-                    <div>
-                      <dt>Net additions</dt>
-                      <dd>{fmt.count(selected.v)}</dd>
-                    </div>
-                    <div>
-                      <dt>Per 1,000 dwellings</dt>
-                      <dd>
-                        {selected.ratePerThousand != null
-                          ? selected.ratePerThousand.toFixed(1)
-                          : "Unavailable"}
-                      </dd>
-                    </div>
-                  </dl>
+                  <ReadoutCard placement="inline" head={`${selected.name}${yearLabel ? ` · ${yearLabel}` : ""}`} rows={[
+                    ...(rank > 0 ? [{ label: "Rank", value: `${ordinal(rank)} of ${rankedPlaces.length}` }] : []),
+                    { label: "Net additions", value: fmt.count(selected.v) },
+                    { label: "Per 1,000 dwellings", value: selected.ratePerThousand != null ? selected.ratePerThousand.toFixed(1) : "Not available" },
+                  ]} />
                 </>
               ) : (
                 <>
@@ -290,16 +270,10 @@ export function SupplyGeography({ geography, measure, area, onArea }: Props) {
                     you do.
                   </p>
                   {geography.england != null && (
-                    <p className={insecurity.big}>
-                      <span className="bo-fig">{fmt.count(geography.england)}</span>
-                      <span>
-                        net additions · England
-                        {yearLabel ? ` · ${yearLabel}` : ""}
-                        {geography.englandRate != null
-                          ? ` · ${geography.englandRate.toFixed(1)} per 1,000`
-                          : ""}
-                      </span>
-                    </p>
+                    <ReadoutCard placement="inline" head={`England${yearLabel ? ` · ${yearLabel}` : ""}`} rows={[
+                      { label: "Net additions", value: fmt.count(geography.england) },
+                      ...(geography.englandRate != null ? [{ label: "Per 1,000 dwellings", value: geography.englandRate.toFixed(1) }] : []),
+                    ]} />
                   )}
                 </>
               )}

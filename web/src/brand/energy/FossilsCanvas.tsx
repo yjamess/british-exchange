@@ -6,6 +6,7 @@
  * Supporting: Extraction Century · Production Gap · Reserves glossary.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEnergyNavigation } from "./navigation";
@@ -881,60 +882,18 @@ export function FossilsCanvas({ pack }: { pack: FossilsPack }) {
                             <button type="button" className={t.textButton} onClick={() => sync({ field: "" })}>
                               All fields
                             </button>
-                            <p className="bo-label">
-                              {fieldTypeLabel(selectedField.fieldType)}
-                              {selectedField.status
-                                ? ` · ${sentence(selectedField.status.replace(/^PRODUCTION\s+/i, ""))}`
-                                : ""}
-                            </p>
-                            <h3 className={s.stationName}>{sentence(selectedField.name)}</h3>
-                            {selectedState === "reported" && selectedRow ? (
-                              <p className={s.stationValue}>
-                                {fuel !== "gas" ? (
-                                  <>
-                                    <span className="bo-fig">{fmtKt(selectedRow.oilTonnes / 1000)}</span>
-                                    <span className="bo-label">oil · {ay}</span>
-                                  </>
-                                ) : null}
-                                {fuel !== "oil" ? (
-                                  <>
-                                    {fuel !== "gas" ? <span className="bo-label">·</span> : null}
-                                    <span className="bo-fig">{gasCell(selectedRow)}</span>
-                                    <span className="bo-label">gas · {ay}</span>
-                                  </>
-                                ) : null}
-                              </p>
-                            ) : (
-                              <p className={s.stationValue}>
-                                <span className="bo-label">
-                                  {selectedState ? fieldYearStateLabel(selectedState, ay) : `Not started by ${ay}`}
-                                </span>
-                              </p>
-                            )}
-                            <dl className={s.stationMeta}>
-                              <div>
-                                <dt className="bo-label">Discovered</dt>
-                                <dd className="bo-fig">{selectedField.discYear ?? "—"}</dd>
-                              </div>
-                              <div>
-                                <dt className="bo-label">Started</dt>
-                                <dd className="bo-fig">{selectedField.prodYear ?? "—"}</dd>
-                              </div>
-                              <div>
-                                <dt className="bo-label">In the records</dt>
-                                <dd className="bo-fig">
-                                  {selectedTimeline?.first != null
-                                    ? `${selectedTimeline.first}–${selectedTimeline.last}`
-                                    : "—"}
-                                </dd>
-                              </div>
-                              {selectedField.operator ? (
-                                <div>
-                                  <dt className="bo-label">Operator</dt>
-                                  <dd>{selectedField.operator}</dd>
-                                </div>
-                              ) : null}
-                            </dl>
+                            <ReadoutCard placement="inline" head={sentence(selectedField.name)} rows={[
+                              { label: "Field type", value: fieldTypeLabel(selectedField.fieldType) },
+                              ...(selectedField.status ? [{ label: "Status", value: sentence(selectedField.status.replace(/^PRODUCTION\s+/i, "")) }] : []),
+                              ...(selectedState === "reported" && selectedRow ? [
+                                ...(fuel !== "gas" ? [{ label: `Oil · ${ay}`, value: fmtKt(selectedRow.oilTonnes / 1000) }] : []),
+                                ...(fuel !== "oil" ? [{ label: `Gas · ${ay}`, value: gasCell(selectedRow) }] : []),
+                              ] : [{ label: `Production · ${ay}`, value: selectedState ? fieldYearStateLabel(selectedState, ay) : `Not started by ${ay}` }]),
+                              { label: "Discovered", value: selectedField.discYear ?? "—" },
+                              { label: "Started", value: selectedField.prodYear ?? "—" },
+                              { label: "In the records", value: selectedTimeline?.first != null ? `${selectedTimeline.first}–${selectedTimeline.last}` : "—" },
+                              ...(selectedField.operator ? [{ label: "Operator", value: selectedField.operator }] : []),
+                            ]} />
                           </>
                         ) : (
                           <>

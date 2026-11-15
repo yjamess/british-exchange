@@ -8,31 +8,46 @@ geography: United Kingdom (K02000001); excl. Crown dependencies
 frequency: monthly
 unit: '% of population aged 16–64, SA'
 definition: UK employment rate for people aged 16 to 64, seasonally adjusted. ONS
-  CDID LF24 in LMS (Labour Force Survey).
+  CDID LF24 in LMS (Labour Force Survey). Numerator companion is employment-level
+  (LF2G); denominator is working-age population.
 licence: Open Government Licence v3.0
 agent_owner: economy
 connector_module: economy.connectors.employment_rate
 curated_path: curated/observations.csv
 update_cadence: monthly (ONS labour market)
 raw_evidence:
-- path: raw/2026-11-03/lf24_lms.json
-  retrieved_at: '2026-11-03T18:38:14.421809+00:00'
+- path: raw/2026-11-14/lf24_lms.json
+  retrieved_at: '2026-11-14T21:07:42.708610+00:00'
   checksum_sha256: b68f87c2ed598965d0169b5b3de8bf88b07af0cbbad867260b23a4fc31ae04ed
   content_type: application/json;charset=utf-8
   official_release_date: '2026-10-19'
   http_status: 200
   source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf24/lms/data
 transformations: Download ONS timeseries JSON (/data). Keep only the months array.
-  Map year+month → ISO month bounds. Geography K02000001. observation_status=provisional
-  (ONS revises).
-revision_notes: LFS estimates revise; note reweighting episodes in release notes.
-caveats: Rolling three-month average shown as mid-month in LMS convention. Aged 16–64
-  rate, not 16+.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS estimates revise with reweighting and seasonal-adjustment updates;
+  check the labour-market bulletin notes on every re-pin.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Aged 16–64 rate of
+  population, not 16+. Do not add to inactivity rate and unemployment rate as a population
+  composition — unemployment uses the economically active denominator. Flagship composition
+  needs matched counts (LF2G / LF2I / LF2M).
+status_note: ''
 related_indicator_ids:
 - cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
 - real-gdp-per-head
 - labour-productivity
+- labour-productivity-hours
+- employment-level
+- unemployment-rate
+- unemployment-level
 - economic-inactivity-rate
+- economic-inactivity-level
 - real-earnings
 - real-gdp
 open_questions: []

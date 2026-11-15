@@ -1,6 +1,6 @@
 {
   "pack_id": "economy.gdp-vintage-band",
-  "built_at": "2026-11-11T18:04:32.107249+00:00",
+  "built_at": "2026-11-14T15:09:13.245539+00:00",
   "ref_period": "2019-10-01",
   "ref_label": "2019 Q4",
   "unit_index": "index 2019 Q4 = 100 (each vintage separately)",
@@ -8,8 +8,8 @@
   "series": {
     "real-gdp": [
       {
-        "id": "pn2",
-        "label": "PN2 \u00b7 2026-08-12",
+        "id": "first",
+        "label": "first \u00b7 2026-08-12",
         "dataset": "PN2",
         "release_date": "2026-08-12",
         "reference_year": 2023,
@@ -1594,21 +1594,21 @@
         ]
       },
       {
-        "id": "qna",
-        "label": "QNA \u00b7 2026-09-29",
-        "dataset": "QNA",
-        "release_date": "2026-09-29",
+        "id": "latest",
+        "label": "latest \u00b7 2026-11-12",
+        "dataset": "PN2",
+        "release_date": "2026-11-12",
         "reference_year": 2024,
-        "source_file": "data/economy/real-gdp/raw/2026-11-11/abmi_qna.json",
-        "checksum_sha256": "6ce4b868fc86af44653ae0ae864e587d15a849c54f347b22830cddaa92ad7693",
-        "n": 286,
+        "source_file": "data/economy/real-gdp/raw/2026-11-14/abmi_pn2.json",
+        "checksum_sha256": "e6644cfbad115ce36bd2de0bf5c01b0ebfe275b908d980a116b18f87db62503f",
+        "n": 287,
         "range": [
           "1955-01-01",
-          "2026-04-01"
+          "2026-07-01"
         ],
-        "latest_level": 744453.0,
+        "latest_level": 749999.0,
         "ref_level": 700898.0,
-        "since_ref_pct": 6.2142,
+        "since_ref_pct": 7.0054,
         "levels": [
           {
             "period_start": "1955-01-01",
@@ -3039,6 +3039,11 @@
             "period_start": "2026-04-01",
             "t": 2026.25,
             "v": 744453.0
+          },
+          {
+            "period_start": "2026-07-01",
+            "t": 2026.5,
+            "v": 749999.0
           }
         ],
         "index": [
@@ -3176,14 +3181,19 @@
             "period_start": "2026-04-01",
             "t": 2026.25,
             "v": 106.21417096353537
+          },
+          {
+            "period_start": "2026-07-01",
+            "t": 2026.5,
+            "v": 107.00544159064513
           }
         ]
       }
     ],
     "real-gdp-per-head": [
       {
-        "id": "pn2",
-        "label": "PN2 \u00b7 2026-08-12",
+        "id": "first",
+        "label": "first \u00b7 2026-08-12",
         "dataset": "PN2",
         "release_date": "2026-08-12",
         "reference_year": 2023,
@@ -4768,21 +4778,21 @@
         ]
       },
       {
-        "id": "qna",
-        "label": "QNA \u00b7 2026-09-29",
-        "dataset": "QNA",
-        "release_date": "2026-09-29",
+        "id": "latest",
+        "label": "latest \u00b7 2026-11-12",
+        "dataset": "PN2",
+        "release_date": "2026-11-12",
         "reference_year": 2024,
-        "source_file": "data/economy/real-gdp-per-head/raw/2026-11-11/ihxw_qna.json",
-        "checksum_sha256": "7a03fd267fefc5fcc7e66bc9ac05bf3b42d24806696c4ef7530ac3dcf29fb7ba",
-        "n": 286,
+        "source_file": "data/economy/real-gdp-per-head/raw/2026-11-14/ihxw_pn2.json",
+        "checksum_sha256": "fda097e8d1fce6d752e4542f5844a855b2f92d79c4a4b79c7cdb7b17d823f2b5",
+        "n": 287,
         "range": [
           "1955-01-01",
-          "2026-04-01"
+          "2026-07-01"
         ],
-        "latest_level": 10692.0,
+        "latest_level": 10763.0,
         "ref_level": 10511.0,
-        "since_ref_pct": 1.722,
+        "since_ref_pct": 2.3975,
         "levels": [
           {
             "period_start": "1955-01-01",
@@ -6192,12 +6202,12 @@
           {
             "period_start": "2025-04-01",
             "t": 2025.25,
-            "v": 10568.0
+            "v": 10569.0
           },
           {
             "period_start": "2025-07-01",
             "t": 2025.5,
-            "v": 10582.0
+            "v": 10583.0
           },
           {
             "period_start": "2025-10-01",
@@ -6213,6 +6223,11 @@
             "period_start": "2026-04-01",
             "t": 2026.25,
             "v": 10692.0
+          },
+          {
+            "period_start": "2026-07-01",
+            "t": 2026.5,
+            "v": 10763.0
           }
         ],
         "index": [
@@ -6329,12 +6344,12 @@
           {
             "period_start": "2025-04-01",
             "t": 2025.25,
-            "v": 100.54228903053944
+            "v": 100.55180287318049
           },
           {
             "period_start": "2025-07-01",
             "t": 2025.5,
-            "v": 100.67548282751405
+            "v": 100.68499667015507
           },
           {
             "period_start": "2025-10-01",
@@ -6350,6 +6365,11 @@
             "period_start": "2026-04-01",
             "t": 2026.25,
             "v": 101.72200551802872
+          },
+          {
+            "period_start": "2026-07-01",
+            "t": 2026.5,
+            "v": 102.39748834554277
           }
         ]
       }
@@ -6358,23 +6378,23 @@
   "spot": {
     "real-gdp": {
       "latest_period": "2026-04-01",
-      "pn2_level": 712545.0,
-      "qna_level": 744453.0,
+      "first_level": 712545.0,
+      "latest_level": 744453.0,
       "level_ratio": 1.0448,
-      "pn2_since_ref_pct": 6.2569,
-      "qna_since_ref_pct": 6.2142,
-      "pn2_reference_year": 2023,
-      "qna_reference_year": 2024
+      "first_since_ref_pct": 6.2569,
+      "latest_since_ref_pct": 6.2142,
+      "first_reference_year": 2023,
+      "latest_reference_year": 2024
     },
     "real-gdp-per-head": {
       "latest_period": "2026-04-01",
-      "pn2_level": 10234.0,
-      "qna_level": 10692.0,
+      "first_level": 10234.0,
+      "latest_level": 10692.0,
       "level_ratio": 1.0448,
-      "pn2_since_ref_pct": 1.7701,
-      "qna_since_ref_pct": 1.722,
-      "pn2_reference_year": 2023,
-      "qna_reference_year": 2024
+      "first_since_ref_pct": 1.7701,
+      "latest_since_ref_pct": 1.722,
+      "first_reference_year": 2023,
+      "latest_reference_year": 2024
     }
   }
 }

@@ -1,0 +1,66 @@
+indicator_id: tes-by-function
+title: Public sector expenditure on services by function (TES / COFOG)
+sector: economy-public-finance
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-spending-statistics-release-july-2026
+series_id: PSS July 2026 Table 5.4
+geography: 'United Kingdom public sector (K02000001): central government, local government
+  and public corporations, including devolved administrations inside the functions'
+frequency: annual
+unit: £ million, nominal, financial year
+definition: HM Treasury Total Expenditure on Services (TES) by UN COFOG level 1, from
+  PSS July 2026 Table 5.4. Financial-year outturn, £ million, nominal. Ten functions
+  each have current and capital rows. EU transactions keep the published sign and
+  sit inside TES but outside the ten functions. The published TES total is stored
+  because level-1 leaves can miss it by £0–2 million. Accounting adjustments are the
+  bridge from TES to this table's Total Managed Expenditure. They are not a function.
+  This table's TME is not monthly ONS EBFT and is not 'services people receive'.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tes_by_function
+curated_path: curated/observations.csv
+update_cadence: PSS key series are updated in the November, February and April cycle.
+  Re-pin on a new edition; do not overwrite this checksum.
+raw_evidence:
+- path: raw/2026-11-15/July_PSS_2026_Chapter_5.xlsx
+  retrieved_at: '2026-11-15T20:10:35.884511+00:00'
+  checksum_sha256: d61db8cad4f4333b192022e63979237d24dbdace7b354a846af2f4ac18b37436
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a574acd2cbe5d1c179a64fd/July_PSS_2026_Chapter_5.xlsx
+transformations: Download PSS July 2026 Chapter 5. Read sheet 5_4 only. Keep financial
+  years 2021-22 to 2025-26. Curate ten COFOG level-1 functions (current and capital),
+  EU transactions, published TES totals (current, capital, total), accounting adjustments
+  (current, capital, total), and table TME. Skip of-which lines. Do not curate public-sector
+  current or capital expenditure as extra slices; those published bridges are checked
+  in self-QA. 2025-26 observation_status=estimated (first estimate). Notes use series,
+  classification, role, fy, cofog, label, table=5.4. Table TME notes set denominator=hmt-table-tme.
+revision_notes: PSS July 2026, file updated 2026-07-29. 2025-26 is the first outturn
+  estimate because not every department had published its annual report. Later PSS
+  editions can revise these years. Compare sha256 before replacing the raw workbook.
+caveats: 'Label this TES / COFOG, not a split of monthly EBFT and not services equal
+  to TME. In 2024-25, TES is 1,166,452 and table TME is 1,290,012; the gap is accounting
+  adjustments of 123,560. EU transactions in 2024-25 are -1,412 on the current side,
+  so the ten functions are not TES on their own. Defence is the UN COFOG definition,
+  not the NATO definition. Public-sector debt interest sits inside General public
+  services and is not a separate curated function. No Tax−Spend=Borrow identity. No
+  OSCAR rows. No PESA plan years. No invented residual for the £0–2 million leaf gap.
+  These totals are HMT financial-year table TME / TES, not monthly ONS EBFT (total-managed-expenditure,
+  PSF 2026-10-20). Derived April–March sums of that Ready pin: 2023-24 summed EBFT
+  1,258,195 vs HMT table TME 1,230,807 (difference 27,388); 2024-25 summed EBFT 1,294,828
+  vs HMT table TME 1,290,012 (difference 4,816). Different vintage, the HMT footnote
+  excluding temporary effects of banks classified to the public sector, and a derived
+  monthly sum rather than an official financial-year series. Do not rescale COFOG
+  or DEL shares onto EBFT.'
+status_note: Financial-year outturn for 2021-22 to 2025-26 from PSS July 2026. 2025-26
+  is a first estimate and can still be revised.
+related_indicator_ids:
+- tme-del-ame
+- total-managed-expenditure
+open_questions:
+- Table 4.2 long-run (£ billion) and Table 4.3 real terms are not in this pin.
+- ESA Table 11 and OSCAR are intentionally absent.
+- Do not rescale these financial-year rows onto monthly EBFT.
+notion_registry_url: https://app.notion.com/p/41965471768581c5a15bea3cca34d474
+schema_version: '1.0'

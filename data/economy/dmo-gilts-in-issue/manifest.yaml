@@ -1,0 +1,53 @@
+indicator_id: dmo-gilts-in-issue
+title: Gilts in issue by gilt (DMO D1A)
+sector: economy-public-finance
+publisher: UK Debt Management Office (DMO)
+source_url: https://www.dmo.gov.uk/data/pdfdatareport?reportCode=D1A
+series_id: D1A
+geography: United Kingdom (K02000001); UK central government gilts
+frequency: ad_hoc
+unit: '£ million nominal; uplifted series: £ million nominal (including index-linked
+  uplift)'
+definition: 'DMO report D1A: every gilt in issue on one working day, with amount in
+  issue (£ million nominal) and, for index-linked gilts, the amount including index-linked
+  uplift. period_start = period_end = as-of date. Notes carry series=nominal|uplifted_nominal;
+  kind=conventional|index_linked; isin=; name=; maturity=; bucket= (conventional);
+  lag_months=3|8 and base_rpi= (index-linked).'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.dmo_gilts_in_issue
+curated_path: curated/observations.csv
+update_cadence: updated by DMO after each gilt operation, redemption and monthly RPI;
+  re-pin the browser-downloaded .xls for a fresh snapshot
+raw_evidence:
+- path: raw/Gilts in Issue Nov 14 2026.xls
+  retrieved_at: '2026-11-14T00:00:00+00:00'
+  checksum_sha256: 1d765a6f84d093a9f12569fc4b443a6a9c267ac8c83d6afd3d5306b2752a90f1
+  content_type: application/vnd.ms-excel
+  official_release_date: '2026-11-14'
+  http_status: null
+  source_url: https://www.dmo.gov.uk/data/pdfdatareport?reportCode=D1A
+transformations: Read Sheet1 of the pinned .xls with xlrd. Locate the conventional
+  and index-linked header rows by text; rows whose 2nd cell is an ISIN are gilts.
+  One series=nominal row per gilt; index-linked gilts also get series=uplifted_nominal.
+  Self-check vs headline £2,939.04bn written to curated/headline_check.json. No aggregates
+  are curated.
+revision_notes: As-of 2026-11-13 (data-date 2026-11-14). Amounts change with every
+  operation; the index-linked uplift changes monthly with RPI. The 3-month lag uplift
+  uses the index ratio for the business day after the report day.
+caveats: Nominal (face) and uplifted-nominal amounts — not market value and not who
+  owns gilts. A single working-day snapshot, not a time series. Not PSND (HF6W); gilts
+  only (no Treasury bills, NS&I, or other public-sector debt). Includes gilts held
+  by official holders (DMO/CRND) — gross, unlike D8B redemptions which are net of
+  government holdings. Conventional gilts have no uplifted figure. Do not sum nominal
+  across kinds as a debt total.
+status_note: ''
+related_indicator_ids:
+- dmo-gilt-future-redemptions
+- cg-cash-debt-reconciliation
+- public-sector-net-debt
+open_questions:
+- 'Validation: spot-check gilt count and headline vs DMO D1A PDF/XML export.'
+- Raw is a browser pin (captcha); agree re-pin cadence with Orchestrator.
+notion_registry_url: ''
+schema_version: '1.0'

@@ -61,6 +61,13 @@ uv run $B /tmp/preview --res 0.3 --only types --preview    # quick two-colour ch
 # Writes e-<id>.png (still = frame 0) and e-<id>-atlas-4x5-500.jpg (seamless loop for HalftoneMotion).
 # Wind rotors re-render per frame (~25 min total); --no-atlas for stills only.
 uv run .claude/skills/observatory-imprint/scripts/energy-tech-types.py $OUT --size 1000x1000   # e-offshore … e-nuclear
+
+# Manufacturing branch specimens (Energy Domain 08 anatomy): one per SIC broad branch CA–CM
+uv run .claude/skills/observatory-imprint/scripts/manufacturing-types.py $OUT --size 1000x1000   # m-food … m-furniture
+
+# Work-section specimens (Economy › Employment › What Britain Does for Work): one per SIC section A–T,
+# same camera and floor as the manufacturing set; ~20 s each
+uv run .claude/skills/observatory-imprint/scripts/work-sections.py $OUT --size 1000x1000   # w-farming … w-household
 ```
 
 | Flag | Meaning |

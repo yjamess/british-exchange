@@ -9,6 +9,7 @@
  * One ink: groups are told apart by print (solid, stipple, hatch, cross, open), never by colour.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import {
   fieldStatusGroup,
@@ -196,22 +197,19 @@ export function FieldPointMap({
 
   const showLocator = Boolean(outline) && view.z >= LOCATOR_AFTER_Z;
   const focus = hovered ?? selected;
-  const caption = hovered
-    ? describe
-      ? describe(hovered)
-      : `${hovered.name} · ${hovered.status}${hovered.fieldType ? ` · ${hovered.fieldType}` : ""}`
-    : selected
-      ? `${selected.name} · selected`
-      : null;
   const placeLine = focus ? shelfPlace(focus.lat, focus.lon) : null;
 
   return (
     <div className={s.wrap}>
       <div className={s.surface}>
-        {caption && (
+        {focus && (
           <div className={s.caption}>
-            <span>{caption}</span>
-            {placeLine ? <span>{placeLine}</span> : null}
+            <ReadoutCard placement="inline" head={focus.name} style={{ maxWidth: 340, pointerEvents: "none" }} rows={[
+              { label: "Status", value: focus.status },
+              ...(focus.fieldType ? [{ label: "Field type", value: focus.fieldType }] : []),
+              ...(describe ? [{ label: "Production record", value: describe(focus) }] : []),
+              ...(placeLine ? [{ label: "Place", value: placeLine }] : []),
+            ]} />
           </div>
         )}
 

@@ -93,6 +93,10 @@ PACK_REGISTRY: dict[str, str] = {
     "housing.policy-plates": "housing/policy-events/plates.json",
     # Economy Growth Revisions — PN2 vs QNA rebased indexes (not absolute £ overlay).
     "economy.gdp-vintage-band": "economy/gdp-vintage-band/curated/band.json",
+    # Economy Tax Time Machine — educational fiscal-drag worked examples (KAI7 path).
+    "economy.tax-fiscal-drag": (
+        "economy/tax-machine-income-tax-history/curated/fiscal_drag_examples.json"
+    ),
 }
 
 # Relative paths allowed via GET /packs/rel/{path} (planning-layer districts, live cache).

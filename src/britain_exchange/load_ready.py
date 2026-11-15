@@ -53,12 +53,13 @@ def upsert_indicator(conn, manifest: Manifest) -> None:
         INSERT INTO indicator (
             indicator_id, title, sector, publisher, source_url, series_id,
             geography, frequency, unit, definition, licence, caveats,
-            revision_notes, notion_registry_url, agent_owner, updated_at
+            revision_notes, notion_registry_url, agent_owner, update_cadence,
+            status_note, updated_at
         ) VALUES (
             %(indicator_id)s, %(title)s, %(sector)s, %(publisher)s, %(source_url)s,
             %(series_id)s, %(geography)s, %(frequency)s, %(unit)s, %(definition)s,
             %(licence)s, %(caveats)s, %(revision_notes)s, %(notion_registry_url)s,
-            %(agent_owner)s, NOW()
+            %(agent_owner)s, %(update_cadence)s, %(status_note)s, NOW()
         )
         ON CONFLICT (indicator_id) DO UPDATE SET
             title = EXCLUDED.title,
@@ -75,6 +76,8 @@ def upsert_indicator(conn, manifest: Manifest) -> None:
             revision_notes = EXCLUDED.revision_notes,
             notion_registry_url = EXCLUDED.notion_registry_url,
             agent_owner = EXCLUDED.agent_owner,
+            update_cadence = EXCLUDED.update_cadence,
+            status_note = EXCLUDED.status_note,
             updated_at = NOW()
         """,
         {
@@ -93,7 +96,64 @@ def upsert_indicator(conn, manifest: Manifest) -> None:
             "revision_notes": manifest.revision_notes,
             "notion_registry_url": manifest.notion_registry_url,
             "agent_owner": manifest.agent_owner,
+            "update_cadence": manifest.update_cadence,
+            "status_note": manifest.status_note,
         },
+    )
+
+
+METADATA_FIELDS = (
+    "title", "publisher", "source_url", "series_id", "geography", "frequency", "unit",
+    "definition", "licence", "caveats", "revision_notes", "update_cadence", "status_note",
+)
+
+
+def load_metadata(*, only: set[str] | None = None, dry_run: bool = False) -> None:
+    """Refresh indicator metadata from every manifest.yaml, without touching releases or observations.
+
+    Curated CSVs live in Storage, so this reads manifests only. It UPDATEs indicators that are
+    already in Postgres (never inserts): a manifest without loaded observations must not appear
+    in the catalogue.
+    """
+    from britain_exchange.manifest import load_manifest
+    from britain_exchange.paths import DATA_ROOT
+
+    manifests = {}
+    for path in sorted(DATA_ROOT.glob("*/*/manifest.yaml")):
+        try:
+            m = load_manifest(path)
+        except Exception as exc:  # a broken manifest must not stop the rest
+            print(f"skip {path}: {exc}", flush=True)
+            continue
+        if only and m.indicator_id not in only:
+            continue
+        manifests[m.indicator_id] = m
+    with connect() as conn:
+        applied = apply_migrations(conn)
+        print(f"migrations: {', '.join(applied) or 'none'}", flush=True)
+        existing = {r["indicator_id"] for r in conn.execute("SELECT indicator_id FROM indicator").fetchall()}
+        updated = 0
+        for indicator_id, m in manifests.items():
+            if indicator_id not in existing:
+                continue
+            values = {f: getattr(m, f) for f in METADATA_FIELDS}
+            if not dry_run:
+                conn.execute(
+                    "UPDATE indicator SET "
+                    + ", ".join(f"{f} = %({f})s" for f in METADATA_FIELDS)
+                    + ", updated_at = NOW() WHERE indicator_id = %(indicator_id)s",
+                    {**values, "indicator_id": indicator_id},
+                )
+            updated += 1
+        if dry_run:
+            conn.rollback()
+        else:
+            conn.commit()
+    missing = sorted(existing - set(manifests)) if not only else []
+    print(
+        f"{'would update' if dry_run else 'updated'} {updated} indicators from manifests;"
+        f" {len(missing)} in Postgres without a local manifest",
+        flush=True,
     )
 
 
@@ -662,8 +722,17 @@ def main(argv: list[str] | None = None) -> None:
         metavar="INDICATOR_ID",
         help="Load only this indicator_id (repeatable). Needs the curated CSV on disk.",
     )
+    parser.add_argument(
+        "--metadata",
+        action="store_true",
+        help="Only refresh indicator metadata from manifests (no releases, no observations)",
+    )
+    parser.add_argument("--dry-run", action="store_true", help="With --metadata, report without writing")
     args = parser.parse_args(argv)
     only = set(args.only) or None
+    if args.metadata:
+        load_metadata(only=only, dry_run=args.dry_run)
+        return
     if args.via_rest:
         max_bytes = None if args.max_kb is None else args.max_kb * 1024
         load_all_via_rest(max_bytes=max_bytes, only=only)

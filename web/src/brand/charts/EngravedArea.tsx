@@ -95,13 +95,8 @@ export function EngravedArea({ points, height = 420, format, tickFormat, cadence
         />
       </svg>
       {hover ? (
-        <Readout x={x(hover.t)} f={{ ...f, t: f.t + 24 }}>
-          <b>{fmtT(hover.t, cadence)}</b>
-          <span>
-            {format(hover.v)}
-            {hover.provisional ? " · provisional" : ""}
-          </span>
-        </Readout>
+        <Readout x={x(hover.t)} f={{ ...f, t: f.t + 24 }} head={fmtT(hover.t, cadence)}
+          rows={[{ label, value: `${format(hover.v)}${hover.provisional ? " · provisional" : ""}` }]} />
       ) : null}
     </div>
   );

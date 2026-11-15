@@ -1,0 +1,82 @@
+{
+  "indicator_id": "hmrc-tax-gap",
+  "source_version": "MTG-2026",
+  "edition": "Measuring tax gaps 2026 edition (estimates for tax year 2024 to 2025)",
+  "retrieved_checks": [
+    {
+      "name": "xlsx_checksum",
+      "pass": true,
+      "detail": "disk=8af0e2c7722eee3dd4330ae552b0b0f35f0b6601c608558069d96d664ed19dda manifest=8af0e2c7722eee3dd4330ae552b0b0f35f0b6601c608558069d96d664ed19dda"
+    },
+    {
+      "name": "total_gap_gbp_bn_2024_25",
+      "pass": true,
+      "detail": "expected=59.2 got=59.2 tokens=['table=1.2', 'tax=total-tax-gap', 'component=total-tax-gap', 'measure=gap-gbp-bn']"
+    },
+    {
+      "name": "total_gap_pct_2024_25",
+      "pass": true,
+      "detail": "expected=6.4 got=6.4 tokens=['table=1.1', 'tax=total-tax-gap', 'component=total-tax-gap', 'measure=gap-percent']"
+    },
+    {
+      "name": "theoretical_liability_gbp_bn_2024_25",
+      "pass": true,
+      "detail": "expected=924.4 got=924.4 tokens=['table=1.2', 'tax=total-theoretical-tax-liability', 'measure=gap-gbp-bn']"
+    },
+    {
+      "name": "vat_gap_gbp_bn_2024_25",
+      "pass": true,
+      "detail": "expected=12.1 got=12.1 tokens=['table=1.2', 'tax=vat', 'component=total-vat', 'measure=gap-gbp-bn']"
+    },
+    {
+      "name": "vat_gap_pct_2024_25",
+      "pass": true,
+      "detail": "expected=6.6 got=6.6 tokens=['table=1.1', 'tax=vat', 'component=total-vat', 'measure=gap-percent']"
+    },
+    {
+      "name": "ct_gap_pct_2024_25",
+      "pass": true,
+      "detail": "expected=18.1 got=18.1 tokens=['table=1.1', 'tax=corporation-tax', 'component=total-corporation-tax', 'measure=gap-percent']"
+    },
+    {
+      "name": "failure_reasonable_care_share_pct_2024_25",
+      "pass": true,
+      "detail": "expected=35.0 got=35.0 tokens=['table=7.1', 'behaviour=failure-to-take-reasonable-care', 'measure=share-of-gap-percent']"
+    },
+    {
+      "name": "evasion_share_pct_2024_25",
+      "pass": true,
+      "detail": "expected=12.0 got=12.0 tokens=['table=7.1', 'behaviour=evasion', 'measure=share-of-gap-percent']"
+    },
+    {
+      "name": "small_business_share_pct_2024_25",
+      "pass": true,
+      "detail": "expected=62.0 got=62.0 tokens=['table=1.3', 'customer_group=small-businesses', 'measure=share-of-gap-percent']"
+    },
+    {
+      "name": "gap_not_equated_with_evasion",
+      "pass": true,
+      "detail": "evasion=12.0 failure_to_take_reasonable_care=35.0"
+    },
+    {
+      "name": "behaviour_no_pre_2019_splice",
+      "pass": true,
+      "detail": "early_rows=0"
+    },
+    {
+      "name": "projection_years_provisional",
+      "pass": true,
+      "detail": "provisional_2024_25_rows=94"
+    },
+    {
+      "name": "summary_html_headline",
+      "pass": true,
+      "detail": "summary contains 6.4% and \u00a359.2 billion"
+    }
+  ],
+  "passed": 14,
+  "failed": 0,
+  "overall": "pass",
+  "observation_count": 1682,
+  "safety": "HMRC Measuring tax gaps estimate of the difference between theoretical tax liabilities and tax paid. The gap is **not** the same as deliberate fraud: published behaviour categories include avoidance, criminal attacks, error, evasion, failure to take reasonable care, hidden economy, legal interpretation, and non-payment. Estimates are modelled/administrative \u2014 not observed incidents."
+}

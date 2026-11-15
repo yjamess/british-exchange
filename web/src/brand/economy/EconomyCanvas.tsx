@@ -2,21 +2,26 @@
 
 /**
  * Economy & Public Finance explorer — shared SectorPage + Explorer shell.
- * Rail: ten domains (01–10). Wave A canvases: Inflation · Wages · Growth · Debt (Review Gate
- * 2026-11-11); the rest show the shared In-preparation stage until their own G2+G3.
+ * Rail: ten domains (01–10). Ready canvases: Inflation · Wages · Employment · Growth · Tax · Spending · Debt;
+ * the rest show the shared In-preparation stage until their own G2+G3.
  */
 
-import { useCallback } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { ArrivalFrom, readArrival } from "../connections";
 import { REF_ICON_PLATES } from "../Plate";
 import type { SectorConfig } from "../sector-pages";
 import { EmptyStage, Explorer, ExplorerHead, SourceLine, Stage, type ExplorerDomain } from "../template";
 import { SectorPage } from "../template/SectorPage";
+import { useDomainData } from "../template/useDomainData";
+import { unpackTree, type Wire } from "@/lib/wire";
 import { useHeroSize } from "../template/useHeroSize";
 import { DebtCanvas } from "./DebtCanvas";
+import { EmploymentCanvas } from "./EmploymentCanvas";
 import { GrowthCanvas } from "./GrowthCanvas";
 import { InflationCanvas } from "./InflationCanvas";
+import { SpendingCanvas } from "./SpendingCanvas";
+import { TaxCanvas } from "./TaxCanvas";
 import { WagesCanvas } from "./WagesCanvas";
 import {
   ECONOMY_DOMAIN_IDS,
@@ -25,10 +30,23 @@ import {
   LEGACY_ECONOMY_DOMAIN,
   type DebtPack,
   type EconomyDomainId,
+  type EmploymentPack,
   type GrowthPack,
   type InflationPack,
+  type SpendingPack,
+  type TaxPack,
   type WagesPack,
 } from "./types";
+
+type EconomyPacks = {
+  inflation: InflationPack;
+  wages: WagesPack;
+  employment: EmploymentPack;
+  tax: TaxPack;
+  spending: SpendingPack;
+  debt: DebtPack;
+  growth: GrowthPack;
+};
 
 function resolveActive(raw: string | null): EconomyDomainId {
   if (!raw) return "inflation";
@@ -38,19 +56,24 @@ function resolveActive(raw: string | null): EconomyDomainId {
 
 export function EconomyView({
   config,
-  inflation,
-  wages,
-  debt,
-  growth,
+  data,
 }: {
   config: SectorConfig;
   titles: Record<string, string>;
-  inflation: InflationPack;
-  wages: WagesPack;
-  debt: DebtPack;
-  growth: GrowthPack;
+  /** Packed by column on the server (`packTree`). */
+  data: Wire<EconomyPacks>;
 }) {
+  const initialData = useMemo(() => unpackTree(data), [data]);
   const hero = useHeroSize("inflation");
+  const urlDomain = resolveActive(useSearchParams().get("domain"));
+  // Rail hops fetch the next domain's packs and push the URL; the page never unmounts.
+  const hop = useDomainData<EconomyDomainId, EconomyPacks>({
+    endpoint: "/api/economy/domain",
+    initialDomain: urlDomain,
+    initialData,
+    urlDomain,
+    decode: (json) => unpackTree(json as Wire<EconomyPacks>),
+  });
   return (
     <SectorPage
       name={config.name}
@@ -60,10 +83,14 @@ export function EconomyView({
     >
       <EconomyCanvas
         config={config}
-        inflation={inflation}
-        wages={wages}
-        debt={debt}
-        growth={growth}
+        inflation={hop.data.inflation}
+        wages={hop.data.wages}
+        employment={hop.data.employment}
+        tax={hop.data.tax}
+        spending={hop.data.spending}
+        debt={hop.data.debt}
+        growth={hop.data.growth}
+        hop={hop}
       />
     </SectorPage>
   );
@@ -73,33 +100,39 @@ function EconomyCanvas({
   config,
   inflation,
   wages,
+  employment,
+  tax,
+  spending,
   debt,
   growth,
+  hop,
 }: {
   config: SectorConfig;
+  hop: { pending: EconomyDomainId | null; go: (next: EconomyDomainId, href: string) => void };
   inflation: InflationPack;
   wages: WagesPack;
+  employment: EmploymentPack;
+  tax: TaxPack;
+  spending: SpendingPack;
   debt: DebtPack;
   growth: GrowthPack;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const params = useSearchParams();
   // URL is the source of truth (Energy / Housing pattern): the bare address opens Inflation.
   const active = resolveActive(params.get("domain"));
 
-  // Domain hops must router.push so the server reloads that domain's packs
-  // (loadEconomy is scoped). replaceState leaves empty wages/debt/growth packs — blank stages.
-  // Same contract as Energy: docs/performance.md.
+  // Domain hops fetch that domain's packs (loadEconomy is scoped) through `useDomainData`,
+  // then push the URL. A plain replaceState would leave empty packs — blank stages.
   const select = useCallback(
     (id: string) => {
       const next = resolveActive(id);
       if (next === active) return;
       const u = new URLSearchParams();
       u.set("domain", next);
-      router.push(`${pathname}?${u}`, { scroll: false });
+      hop.go(next, `${pathname}?${u}`);
     },
-    [pathname, router, active],
+    [pathname, hop, active],
   );
 
   const domains: ExplorerDomain[] = config.domains.map((d) => ({
@@ -119,8 +152,9 @@ function EconomyCanvas({
       sector={config.label}
       indexLabel={config.indexLabel}
       domains={domains}
-      active={active}
+      active={hop.pending ?? active}
       onSelectDomain={select}
+      busy={hop.pending ? (config.domains.find((d) => d.id === hop.pending)?.title ?? hop.pending) : null}
     >
       {arrival ? (
         <ArrivalFrom from={arrival.from} returnHref={arrival.returnHref} />
@@ -154,6 +188,12 @@ function EconomyCanvas({
         <InflationCanvas pack={inflation} />
       ) : active === "wages" ? (
         <WagesCanvas pack={wages} />
+      ) : active === "employment" ? (
+        <EmploymentCanvas pack={employment} />
+      ) : active === "tax" ? (
+        <TaxCanvas pack={tax} />
+      ) : active === "spending" ? (
+        <SpendingCanvas pack={spending} />
       ) : active === "debt" ? (
         <DebtCanvas pack={debt} />
       ) : (

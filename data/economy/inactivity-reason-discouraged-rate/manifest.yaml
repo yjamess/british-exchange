@@ -1,0 +1,45 @@
+indicator_id: inactivity-reason-discouraged-rate
+title: Discouraged workers as a share of inactive people (aged 16–64)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf77/lms
+series_id: LF77
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% of economically inactive people aged 16–64, SA'
+definition: Percentage of UK economically inactive people aged 16–64 whose main reason
+  is being a discouraged worker, seasonally adjusted. ONS CDID LF77 in LMS (INAC01
+  SA percent block). This is not a level in thousands. Do not multiply by LF2M to
+  make a count — the level is inactivity-reason-discouraged (LFL8).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.inactivity_reason_discouraged_rate
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-15/lf77_lms.json
+  retrieved_at: '2026-11-15T10:05:06.333573+00:00'
+  checksum_sha256: dec9dfa667c401027dd993e179f80e2431c9cb7702ea296c9cd73e6c96dd5c0e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/economicinactivity/timeseries/lf77/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS reason percentages revise with reweighting and seasonal-adjustment
+  updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. NOT A LEVEL. Percent
+  of inactive people (denominator = economically inactive aged 16–64), not a count
+  and not a share of the whole population. Do not multiply LF77 by LF2M. Published
+  to one decimal place on the LMS timeseries (INAC01 workbook holds a fuller percentage).
+status_note: 'Validated 2026-11-15 (qa_report_economy_03_gaps_2026-11-15.md). Ready for cloud load.'
+related_indicator_ids:
+- inactivity-reason-discouraged
+- economic-inactivity-level
+- economic-inactivity-rate
+open_questions: []
+notion_registry_url: https://app.notion.com/p/419654717685814bbe94f304fdbe1daf
+schema_version: '1.0'

@@ -9,7 +9,8 @@
  * mode marks the published useful cut with a dashed rule (RankBars reference).
  */
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { setOf, useDrawOn } from "../instrument/motion";
 import i from "../instrument/instrument.module.css";
 import type { FlowItem } from "./useful-model";
@@ -32,6 +33,7 @@ export function SplitFlow({
   scenario: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
+  const [inspect, setInspect] = useState<string | null>(null);
   const k = useDrawOn(ref, {
     ms: 1100,
     replayKey: items.map((r) => `${r.id}:${r.useful.toFixed(0)}:${r.rejected.toFixed(0)}`).join("|"),
@@ -51,10 +53,15 @@ export function SplitFlow({
         return (
           <div
             key={r.id}
-            className={i.rankRow}
-            title={`${r.label}: ${fig(r.useful)} useful, ${fig(r.rejected)} lost (${lostShare.toFixed(0)}%)${
-              r.ambient > 0 ? `; ${fig(r.ambient)} from surroundings` : ""
-            }`}
+            className={`${i.rankRow} ${s.inspectRow}`}
+            tabIndex={0}
+            aria-label={`${r.label}. Energy values in thousand tonnes of oil equivalent.`}
+            onPointerEnter={() => setInspect(r.id)}
+            onPointerLeave={() => setInspect(null)}
+            onPointerDown={() => setInspect(r.id)}
+            onFocus={() => setInspect(r.id)}
+            onBlur={() => setInspect(null)}
+            onKeyDown={(e) => { if (e.key === "Escape") setInspect(null); }}
           >
             <span>{r.label}</span>
             <span className={i.rankTrack}>
@@ -68,6 +75,12 @@ export function SplitFlow({
               {pubAt != null && <em style={{ left: pct(pubAt) }} aria-hidden="true" />}
             </span>
             <b className="bo-fig">{fig(total)}</b>
+            {inspect === r.id && <ReadoutCard head={`${r.label} · thousand tonnes of oil equivalent`} style={{ top: "100%", right: 0 }} rows={[
+              { label: "Useful energy", value: fig(r.useful) },
+              { label: "Lost energy", value: fig(r.rejected) },
+              { label: "Share lost", value: `${lostShare.toFixed(0)}%` },
+              ...(r.ambient > 0 ? [{ label: "Heat from surroundings", value: fig(r.ambient) }] : []),
+            ]} />}
           </div>
         );
       })}

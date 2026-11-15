@@ -58,3 +58,4 @@ related_indicator_ids:
 open_questions: []
 notion_registry_url: ''
 schema_version: '1.0'
+status_note: "The English Housing Survey last published these tables in 2021. No later edition exists."

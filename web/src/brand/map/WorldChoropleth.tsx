@@ -6,6 +6,7 @@
  * empty; valued partners get labels.
  */
 
+import { ReadoutCard } from "../instrument/ReadoutCard";
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { BandScreenDefs } from "./BandScreen";
 import { MapLegend } from "./MapLegend";
@@ -333,8 +334,12 @@ export function WorldChoropleth({
       className={`${s.mapSurfaceRegion} ${s.mapSurfaceWorld} ${size === "stage" ? s.mapSurfaceStage : ""}`}
     >
       <div className={s.mapCaption}>
-        <span className={s.worldCaptionPrimary}>{captionPrimary}</span>
-        <span className={s.worldCaptionSecondary}>{captionSecondary}</span>
+        {hoverShape || selectShape ? <ReadoutCard placement="inline" head={captionPrimary} rows={[
+          { label: legendUnit ?? "Value", value: captionSecondary },
+        ]} /> : <>
+          <span className={s.worldCaptionPrimary}>{captionPrimary}</span>
+          <span className={s.worldCaptionSecondary}>{captionSecondary}</span>
+        </>}
       </div>
 
       <div className={s.mapTools} role="group" aria-label="Map controls">

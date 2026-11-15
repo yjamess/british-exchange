@@ -1,0 +1,53 @@
+indicator_id: unemployment-rate
+title: Unemployment rate (aged 16–64)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/lf2q/lms
+series_id: LF2Q
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: '% of economically active aged 16–64, SA'
+definition: UK ILO unemployment rate for people aged 16 to 64, seasonally adjusted.
+  ONS CDID LF2Q in LMS. Share of the economically active (employed + unemployed),
+  not of the whole working-age population. Distinct from headline 16+ rate MGSX.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.unemployment_rate
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS labour market)
+raw_evidence:
+- path: raw/2026-11-14/lf2q_lms.json
+  retrieved_at: '2026-11-14T21:07:44.068133+00:00'
+  checksum_sha256: 371e47deb6d82a5239531f310cf86caad1cd0f15c110d5a4f16460be7d521014
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-10-19'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/lf2q/lms/data
+transformations: Download ONS timeseries JSON (/data). Keep only the months array.
+  Map year+month → ISO month bounds. Geography K02000001. Latest month provisional;
+  older months final (LFS revises with reweighting and seasonal-adjustment updates).
+revision_notes: LFS estimates revise with reweighting and seasonal-adjustment updates.
+caveats: LFS rolling three-month average shown as mid-month in LMS convention (e.g.
+  Jun–Aug → July). LFS has known response-rate and reweighting issues — do not overinterpret
+  small monthly moves. Claimant counts are not ILO unemployment. Never add LF2Q to
+  LF24 and LF2S as a population composition. Prefer LF2Q (16–64) with Domain 03 counts;
+  do not silently substitute MGSX (16+).
+status_note: ''
+related_indicator_ids:
+- cpi-inflation
+- cpi-index
+- cpih-index
+- cpih-inflation
+- real-gdp-per-head
+- labour-productivity
+- labour-productivity-hours
+- employment-rate
+- employment-level
+- unemployment-level
+- economic-inactivity-rate
+- economic-inactivity-level
+- real-earnings
+- real-gdp
+open_questions: []
+notion_registry_url: https://app.notion.com/p/418654717685813b8a61fc0b21d78f00
+schema_version: '1.0'

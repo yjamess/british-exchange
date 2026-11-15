@@ -81,6 +81,10 @@ class Manifest:
     transformations: str = ""
     revision_notes: str = ""
     caveats: str = ""
+    # One plain sentence when a series is finished, a one-off, pinned to a period, or dated into
+    # the future (e.g. "Counted at the 2021 Census. The next census is due in 2031.").
+    # Shown beside the dates on the data page so an old date is not read as out of date.
+    status_note: str = ""
     related_indicator_ids: list[str] = field(default_factory=list)
     open_questions: list[str] = field(default_factory=list)
     notion_registry_url: str = ""

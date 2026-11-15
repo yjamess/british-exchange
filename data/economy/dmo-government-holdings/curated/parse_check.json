@@ -1,0 +1,12 @@
+{
+  "data_date": "2026-11-14",
+  "latest_month_end": "2026-10-31",
+  "months": 259,
+  "gilt_month_cells": 20151,
+  "snapshot_gilts_held": 103,
+  "latest_totals_gbp_mn": {
+    "conventional": 164871.91271746994,
+    "index-linked": 2102.32976587,
+    "total": 166974.24248333994
+  }
+}

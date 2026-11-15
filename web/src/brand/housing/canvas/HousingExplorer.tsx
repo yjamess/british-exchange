@@ -184,6 +184,7 @@ import {
   type Controls,
   type DomainId,
 } from "./model";
+import { housingTerms } from "./terms";
 import gen from "../../energy/generation.module.css";
 import s from "./explorer.module.css";
 
@@ -210,7 +211,7 @@ const SEGMENT_OPTIONS: PrintOption<Controls["segment"]>[] = [
 
 /* ——— Explorer ——— */
 
-const DOMAIN_IDS = new Set<string>(DOMAINS.map((d) => d.id));
+export const DOMAIN_IDS = new Set<string>(DOMAINS.map((d) => d.id));
 /** Housing domains in the template's shape: question + rail photo plate. */
 const EXPLORER_DOMAINS: ExplorerDomain[] = DOMAINS.map((d) => ({
   id: d.id,
@@ -247,6 +248,7 @@ function placesParam(places: string[]): string | null {
 export function HousingExplorer({
   data,
   initialDomain = "prices",
+  hop,
   stageBar = "hairline",
   ground = "paper",
   pricesMap = null,
@@ -255,6 +257,8 @@ export function HousingExplorer({
 }: {
   data: HousingV1;
   initialDomain?: DomainId;
+  /** Client domain hops (see `useDomainData`). Without it a hop is a Next navigation. */
+  hop?: { pending: DomainId | null; go: (next: DomainId, href: string) => void };
   /** Stage title bar: hairline on paper, or a solid ink block (the current thing is solid). */
   stageBar?: "hairline" | "solid";
   /** Canvas ground: plain paper, or a light dot field behind paper patches (light by density). */
@@ -447,7 +451,8 @@ export function HousingExplorer({
     const packKey = nextDomain === "prices" ? "prices" : nextDomain === "renting" ? "rent" : nextDomain === "affordability" ? "afford" : null;
     const pack = packKey ? clientMaps[packKey] : null;
     if (nextDomain !== active) {
-      router.push(url, { scroll: false });
+      if (hop) hop.go(nextDomain, url);
+      else router.push(url, { scroll: false });
       return;
     }
     window.history.replaceState(null, "", url);
@@ -1017,6 +1022,8 @@ export function HousingExplorer({
   const isRentMap = active === "renting" && view === "map";
   const isAffordMap = active === "affordability" && view === "map";
   const isMap = isPricesMap || isRentMap || isAffordMap;
+  // Terms for this stage's Notes foot (markers on the stage add themselves).
+  const footTerms = housingTerms(active, view);
   const activeMap = isAffordMap ? clientMaps.afford : isRentMap ? clientMaps.rent : isPricesMap ? clientMaps.prices : null;
 
   // Deep-link / first paint on Map with no SSR pack yet — kick a client fetch.
@@ -1223,8 +1230,9 @@ export function HousingExplorer({
       sector="Housing & Land"
       indexLabel="Housing index"
       domains={EXPLORER_DOMAINS}
-      active={active}
+      active={hop?.pending ?? active}
       onSelectDomain={(id) => selectDomain(id as DomainId)}
+      busy={hop?.pending ? (DOMAINS.find((d) => d.id === hop.pending)?.title ?? hop.pending) : null}
       condensed={condensed}
       onCondensedChange={setCondensed}
       ground={ground}
@@ -1941,6 +1949,7 @@ export function HousingExplorer({
         foot={
           domain.status === "preparation" ? undefined : insecurityFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={insecurityFoot.source}
               dataHref={
                 "dataHref" in insecurityFoot && typeof insecurityFoot.dataHref === "string"
@@ -1952,6 +1961,7 @@ export function HousingExplorer({
             />
           ) : ownershipMortgageFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={ownershipMortgageFoot.source}
               dataHref={ownershipMortgageFoot.dataHref}
               definition={ownershipMortgageFoot.definition}
@@ -1959,6 +1969,7 @@ export function HousingExplorer({
             />
           ) : ownershipWhoOwnsFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={ownershipWhoOwnsFoot.source}
               dataHref={ownershipWhoOwnsFoot.dataHref}
               definition={ownershipWhoOwnsFoot.definition}
@@ -1966,6 +1977,7 @@ export function HousingExplorer({
             />
           ) : ownershipWealthFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={ownershipWealthFoot.source}
               dataHref={ownershipWealthFoot.dataHref}
               definition={ownershipWealthFoot.definition}
@@ -1973,6 +1985,7 @@ export function HousingExplorer({
             />
           ) : ownershipDataNotes ? (
             <FigureRecord
+              terms={footTerms}
               source={ownershipDataNotes.source}
               dataHref={ownershipDataNotes.dataHref}
               definition={ownershipDataNotes.definition}
@@ -1980,6 +1993,7 @@ export function HousingExplorer({
             />
           ) : pricesFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={pricesFoot.source}
               dataHref={pricesFoot.dataHref}
               definition={pricesFoot.definition}
@@ -1987,6 +2001,7 @@ export function HousingExplorer({
             />
           ) : supplyFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={supplyFoot.source}
               dataHref={supplyFoot.dataHref}
               definition={supplyFoot.definition}
@@ -1994,6 +2009,7 @@ export function HousingExplorer({
             />
           ) : qualityFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={qualityFoot.source}
               dataHref={qualityFoot.dataHref}
               definition={qualityFoot.definition}
@@ -2001,6 +2017,7 @@ export function HousingExplorer({
             />
           ) : stockFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={stockFoot.source}
               dataHref={stockFoot.dataHref}
               definition={stockFoot.definition}
@@ -2008,6 +2025,7 @@ export function HousingExplorer({
             />
           ) : affordFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={affordFoot.source}
               dataHref={affordFoot.dataHref}
               definition={affordFoot.definition}
@@ -2015,6 +2033,7 @@ export function HousingExplorer({
             />
           ) : rentFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={rentFoot.source}
               dataHref={rentFoot.dataHref}
               definition={rentFoot.definition}
@@ -2022,6 +2041,7 @@ export function HousingExplorer({
             />
           ) : landFoot ? (
             <FigureRecord
+              terms={footTerms}
               source={landFoot.source}
               dataHref={"dataHref" in landFoot ? (landFoot.dataHref as string | undefined) : undefined}
               definition={landFoot.definition}
@@ -2029,6 +2049,7 @@ export function HousingExplorer({
             />
           ) : (
             <SourceLine
+              terms={footTerms}
               sources={catalogueFoot ? sources : []}
               rows={recordRows}
               derived={stage?.derived}

@@ -6,9 +6,13 @@
  */
 
 import { EMPTY_POLICY_PLEDGES_PACK, type PolicyPledgesPack } from "./policy-pledges";
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrivalFrom, readArrival } from "../connections";
-import { primaryPackLoaded, type EnergyDomainId } from "./domain-sources";
+import { primaryPackLoaded, resolveEnergyDomain, type EnergyDomainId } from "./domain-sources";
+import type { EnergySectorData } from "./load";
+import { useDomainData } from "../template/useDomainData";
+import { unpackTree, type Wire } from "@/lib/wire";
 import { useEnergyNavigation } from "./navigation";
 import {
   ENERGY_DOMAIN_VIEWS,
@@ -27,6 +31,7 @@ import {
   type ExplorerDomain,
 } from "../template";
 import { SectorPage } from "../template/SectorPage";
+import { useHeroSize } from "../template/useHeroSize";
 import c from "../template/sectorCanvas.module.css";
 import { GenerationCanvas } from "./GenerationCanvas";
 import { ConsumptionCanvas } from "./ConsumptionCanvas";
@@ -54,123 +59,27 @@ import { EMPTY_SHOCK_EVENTS_PACK, type ShockEventsPack } from "./imports-shock-e
 export function EnergyView({
   config,
   titles,
-  generation,
-  capacity,
-  longRun = null,
-  yearMix = null,
-  atlas = null,
-  consumption = {
-    final: null,
-    flow: null,
-    endUse: null,
-    crossEndUse: null,
-    geography: null,
-    efficiencies: null,
-  },
-  prices = {
-    domestic: null,
-    gas: null,
-    economy7: null,
-    layers: null,
-    gasLayers: null,
-    industrial: null,
-    ofgem: null,
-    ofgemRegional: null,
-    wholesale: null,
-    cpih: null,
-    earnings: null,
-  },
-  fossils = {
-    crude: null,
-    gas: null,
-    primary: null,
-    coal: null,
-    fields: [],
-    fieldProduction: [],
-    fieldProductionNational: null,
-    reserves: null,
-    oilImports: null,
-    trade: null,
-    dependency: null,
-    attribution: "",
-  },
-  imports = {
-    dependency: null,
-    trade: null,
-    interconnectors: null,
-    interconnectorCapacity: null,
-    oilPartners: null,
-    gasPartners: null,
-    lngTerminals: null,
-    fossilDependency: null,
-    lowCarbonShare: null,
-    gasStorage: null,
-  },
-  manufacturing = {
-    output: null,
-    share: null,
-    employment: null,
-    productivity: null,
-    iopByDivision: null,
-    iopWeights: null,
-    outputPerJob: null,
-    productivityHours: null,
-    asheEarnings: null,
-    bresByRegion: null,
-    bresByDivisionRegion: null,
-  },
-  renewables = { loadFactors: null, pipeline: null, plantLoadFactors: null },
-  networks = {
-    interconnectors: null,
-    interconnectorCapacity: null,
-    tec: null,
-    ssenAtlas: null,
-    ssenCounts: null,
-  },
-  policyEvents = EMPTY_POLICY_EVENTS_PACK,
-  policyPledges = EMPTY_POLICY_PLEDGES_PACK,
-  shockEvents = EMPTY_SHOCK_EVENTS_PACK,
+  data,
 }: {
   config: SectorConfig;
   titles: Record<string, string>;
-  generation: GenerationPack | null;
-  capacity: CapacityPack | null;
-  longRun?: LongRunPack | null;
-  yearMix?: YearPack | null;
-  atlas?: AtlasPack | null;
-  consumption?: ConsumptionPack;
-  prices?: PricesPack;
-  fossils?: FossilsPack;
-  imports?: ImportsPack;
-  manufacturing?: ManufacturingPack;
-  renewables?: RenewablesPack;
-  networks?: NetworksPack;
-  policyEvents?: PolicyEventsPack;
-  policyPledges?: PolicyPledgesPack;
-  shockEvents?: ShockEventsPack;
+  /** Packed by column on the server (`packTree`). */
+  data: Wire<EnergySectorData>;
 }) {
-  const hero = useSearchParams().get("domain") ? "band" : "full";
+  const initialData = useMemo(() => unpackTree(data), [data]);
+  const hero = useHeroSize("generation");
+  const urlDomain = resolveEnergyDomain(useSearchParams().get("domain") ?? undefined);
+  // Rail hops fetch the next domain's packs and push the URL; the page never unmounts.
+  const hop = useDomainData<EnergyDomainId, EnergySectorData>({
+    endpoint: "/api/energy/domain",
+    initialDomain: urlDomain,
+    initialData,
+    urlDomain,
+    decode: (json) => unpackTree(json as Wire<EnergySectorData>),
+  });
   return (
     <SectorPage name={config.name} label={config.label} hero={hero} plate={{ ...config.plate, treatment: "print" }}>
-      <EnergyCanvas
-        config={config}
-        titles={titles}
-        generation={generation}
-        capacity={capacity}
-        longRun={longRun}
-        yearMix={yearMix}
-        atlas={atlas}
-        consumption={consumption}
-        prices={prices}
-        fossils={fossils}
-        imports={imports}
-        manufacturing={manufacturing}
-        renewables={renewables}
-        networks={networks}
-        policyEvents={policyEvents}
-        policyPledges={policyPledges}
-        shockEvents={shockEvents}
-      />
+      <EnergyCanvas config={config} titles={titles} {...hop.data} hop={hop} />
     </SectorPage>
   );
 }
@@ -254,9 +163,11 @@ function EnergyCanvas({
   policyEvents = EMPTY_POLICY_EVENTS_PACK,
   policyPledges = EMPTY_POLICY_PLEDGES_PACK,
   shockEvents = EMPTY_SHOCK_EVENTS_PACK,
+  hop,
 }: {
   config: SectorConfig;
   titles: Record<string, string>;
+  hop: { pending: EnergyDomainId | null; go: (next: EnergyDomainId, href: string) => void };
   generation: GenerationPack | null;
   capacity: CapacityPack | null;
   longRun?: LongRunPack | null;
@@ -282,7 +193,7 @@ function EnergyCanvas({
   const activeDomain = (ENERGY_DOMAIN_VIEWS[active as EnergyDomainId]
     ? (active as EnergyDomainId)
     : "generation") satisfies EnergyDomainId;
-  const { goDomain } = useEnergyNavigation(activeDomain);
+  const { goDomain } = useEnergyNavigation(activeDomain, hop);
 
   const select = (id: string) => {
     if (id === active) return;
@@ -321,7 +232,14 @@ function EnergyCanvas({
   const arrival = readArrival(params);
 
   return (
-    <Explorer sector={config.label} indexLabel={config.indexLabel} domains={domains} active={active} onSelectDomain={select}>
+    <Explorer
+      sector={config.label}
+      indexLabel={config.indexLabel}
+      domains={domains}
+      active={hop.pending ?? active}
+      onSelectDomain={select}
+      busy={hop.pending ? (config.domains.find((d) => d.id === hop.pending)?.title ?? hop.pending) : null}
+    >
       <ArrivalFrom from={arrival.from} returnHref={arrival.returnHref} />
       {stageState === "preparation" ? (
         <>

@@ -1,4 +1,4 @@
-/* Brand template — SectorPage: mast, hero plate, sector name on an ink strip, optional stats strip. */
+/* Brand template — SectorPage: crumb, hero plate, sector name on an ink strip, optional stats strip. */
 
 .page {
   position: relative;
@@ -8,27 +8,19 @@
 }
 
 /* ——— Mast ——— */
-.mast {
-  background: var(--bo-paper);
-  border-bottom: var(--bo-rule);
-}
-.mastInner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--bo-s4);
-  padding-block: var(--bo-s4);
-  flex-wrap: wrap;
-}
-.wordmark {
-  font-size: 22px;
-  color: var(--bo-ink);
-  text-decoration: none;
-}
-.mastInner nav {
+.crumb {
+  display: block;
+  padding-block: var(--bo-s3);
   color: var(--bo-text);
 }
-.mastInner nav [aria-current] {
+.crumb a {
+  color: inherit;
+  text-decoration: none;
+}
+.crumb a:hover {
+  text-decoration: underline;
+}
+.crumb [aria-current] {
   color: var(--bo-ink);
 }
 
@@ -163,4 +155,9 @@
   .sectorName {
     font-size: clamp(2.4rem, 12vw, 3.25rem);
   }
+}
+
+/* ——— Loading skeleton: the plate's place is solid ink until the page arrives. ——— */
+.skeletonPlate {
+  background: var(--bo-ink);
 }

@@ -8,9 +8,10 @@
  * The full measure × group matrix stays available as a table.
  */
 
+import { ReadoutCard } from "../../../instrument/ReadoutCard";
 import { useMemo } from "react";
 import { ControlRow, EmptyStage, MenuControl, RankBars, ResetButton, TimeChart, explorerClasses as tc } from "../../..";
-import { ENGLAND, caveatsOf, prettyCat, type Breakdown, type Cell } from "./cutaway/evidence";
+import { ENGLAND, caveatsOf, prettyCat, type Cell } from "./cutaway/evidence";
 import { BASIS, TENURES, type Basis } from "./cutaway/features";
 import type { Evidence } from "./cutaway/useEvidence";
 import { BasisTag, UnavailableControl } from "./parts";
@@ -381,13 +382,10 @@ export function StateOfRepair({ state, onChange, evidence, failed }: ConditionSh
           <p className="bo-label">
             {row.label} · {col?.label ?? "—"}
           </p>
-          <p className={q.big}>
-            <span className="bo-fig">{cell?.v != null ? pct(cell.v) : cell?.status === "suppressed" ? "u" : "—"}</span>
-            <span>
-              of dwellings · {y ?? "—"}
-              {kind !== "tenure" ? ` · ${tenureLabel}` : ""}
-            </span>
-          </p>
+          <ReadoutCard placement="inline" head={`${row.label} · ${col?.label ?? "Group"} · ${y ?? "Not available"}`} rows={[
+            { label: "Share of dwellings", value: cell?.v != null ? pct(cell.v) : cell?.status === "suppressed" ? "Suppressed" : "Not available" },
+            ...(kind !== "tenure" ? [{ label: "Tenure", value: tenureLabel }] : []),
+          ]} />
           <p className={q.body}>{row.definition}</p>
           {cell?.status === "suppressed" && <p className={q.note}>Suppressed in the source: fewer than five surveyed dwellings.</p>}
           <BasisTag
