@@ -403,3 +403,30 @@ test("Economy Wages deep-brief Follows resolve Ready destinations", () => {
     "economy.wages.ladder→energy.jobs.pay",
   );
 });
+
+test("Economy Household Ready views each have a primary Follow", () => {
+  const views = ["better-off", "saving", "ledger", "cost", "buffer", "debt", "data"];
+  for (const view of views) {
+    const primary = conn.primaryEconomyConnection({ domain: "household", view });
+    assert.ok(primary, `missing primary Follow for household/${view}`);
+    assert.equal(primary.readiness, "ready", `${primary.id} not ready`);
+    assert.ok(primary.honesty?.trim(), `${primary.id} missing honesty`);
+    assert.ok(conn.resolveEconomyConnectionHref(primary), `${primary.id} missing href`);
+  }
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "household", view: "ledger" })?.id,
+    "economy.household.ledger→tax.burden",
+  );
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "household", view: "cost" })?.id,
+    "economy.household.cost→inflation.rate",
+  );
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "household", view: "buffer" })?.id,
+    "economy.household.buffer→housing.ownership.wealth",
+  );
+  assert.equal(
+    conn.primaryEconomyConnection({ domain: "household", view: "debt" })?.id,
+    "economy.household.debt→housing.ownership.mortgages",
+  );
+});

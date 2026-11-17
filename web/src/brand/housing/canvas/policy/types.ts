@@ -36,6 +36,38 @@ export type PolicyEvent = {
   status_note: string;
   sources: PolicySource[];
   linked_indicators: LinkedIndicator[];
+  /** Economy Domain 10 evidence record (optional on Housing / Energy files). */
+  policy_area?: PolicyArea | null;
+  repealed_date?: string | null;
+  dossier?: PolicyDossier | null;
+};
+
+export type PolicyArea =
+  | "fiscal"
+  | "monetary"
+  | "institutions"
+  | "trade"
+  | "industrial"
+  | "labour-market"
+  | "welfare"
+  | "housing-land"
+  | "financial-regulation"
+  | "crisis-response";
+
+export type PolicyMeasure = { label: string; value: string; source?: PolicySource | null };
+export type PolicyEvaluation = { label: string; url: string; publisher: string; date?: string | null; finding: string };
+export type RelatedRecord = { registry: "housing" | "energy" | "economy"; id: string; note: string };
+
+/** Three kinds of evidence kept apart: what was said, what was done, what others concluded. */
+export type PolicyDossier = {
+  background: string;
+  objectives: string;
+  mechanism: string;
+  implementation: string;
+  measures: PolicyMeasure[];
+  financial: PolicyMeasure[];
+  evaluations: PolicyEvaluation[];
+  related: RelatedRecord[];
 };
 
 export type Era = { id: string; label: string; from: number | null; to: number | null; focus: string };

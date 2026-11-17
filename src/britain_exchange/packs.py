@@ -43,6 +43,8 @@ PACK_REGISTRY: dict[str, str] = {
     "energy.industrial-policy-events": "energy/industrial-policy/events.json",
     "energy.industrial-policy-pledges": "energy/industrial-policy/pledges.json",
     "energy.imports-shock-events": "energy/energy-imports-security/shock-events.json",
+    "economy.policy-events": "economy/economic-policy/events.json",
+    "economy.policy-pledges": "economy/economic-policy/pledges.json",
     "people.population": "people/subnational-population-estimate/curated/population.json",
     "regions.gb-boundaries": "regions/housing-boundaries/curated/boundaries.geojson",
     "regions.gb-boundaries-source": "regions/housing-boundaries/curated/source.json",
@@ -96,6 +98,14 @@ PACK_REGISTRY: dict[str, str] = {
     # Economy Tax Time Machine — educational fiscal-drag worked examples (KAI7 path).
     "economy.tax-fiscal-drag": (
         "economy/tax-machine-income-tax-history/curated/fiscal_drag_examples.json"
+    ),
+    # Economy Domain 09 — Trading World annual ISO2 partner rollups (map + ranks).
+    "economy.goods-trade-partners-annual": (
+        "economy/goods-trade-partner-commodity/curated/partners_annual.json"
+    ),
+    # Economy Domain 09 — Trading World partner × SITC1 product mix (HMRC OTS).
+    "economy.goods-trade-partner-commodity": (
+        "economy/goods-trade-partner-commodity/curated/partner_commodity_annual.json"
     ),
 }
 

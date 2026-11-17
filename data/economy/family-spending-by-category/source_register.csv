@@ -1,0 +1,5 @@
+table_id,title,years,geography,units,equivalisation,licence,notes
+Table 4.1,Household expenditure COICOP headline groups at FYE 2025 prices,FYE 2002–FYE 2025 (calendar 2006–2014),UK,£/week household mean real,n/a (all households),OGL v3.0,Curated — Cost of Living history
+Table 4.2,Headline groups as % of total at FYE 2025 prices,same,UK,percent of total,n/a,OGL v3.0,Inventory — shares also on 3.2E5 for quintiles
+Table 4.3,Headline groups at current prices,same,UK,£/week current,n/a,OGL v3.0,Not curated this pin (would duplicate 4.1 latest)
+Table A1,Detailed expenditure with SEs,FYE 2025,UK,£/week current,n/a,OGL v3.0,Inventory; SE correction 11 Jun 2026 on prior editions

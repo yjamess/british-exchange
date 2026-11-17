@@ -1,0 +1,53 @@
+indicator_id: real-household-disposable-income-per-head
+title: Real household disposable income per head
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/crxx/ukea
+series_id: CRXX
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: £ chained volume per head, SA
+definition: UK real households' disposable income per head, chained volume measures,
+  seasonally adjusted, £. ONS CDID CRXX in UKEA. Companion to DG2R (aggregate RHDI).
+  Reference year 2024 at the 2026-09-30 vintage. Per-head national accounts, not equivalised
+  median income (HBAI) and not GDP per head (IHXW).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.real_household_disposable_income_per_head
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS UK Economic Accounts / sector accounts)
+raw_evidence:
+- path: raw/2026-11-15/crxx_ukea.json
+  retrieved_at: '2026-11-15T22:16:21.217778+00:00'
+  checksum_sha256: 172d03bff5669c51b75881fb2a718bf7d110e302277ea59d95f1324219fd24b5
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-09-29'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/crxx/ukea/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array
+  (annual aggregates omitted). Map year+Q → ISO quarter bounds. Geography K02000001.
+  Latest quarter provisional; older quarters final (UKEA revises history at each quarterly
+  sector-accounts release).
+revision_notes: 'UKEA revises: (1) each quarterly sector-accounts release; (2) Blue
+  Book supply-and-use balancing and CVM rebasing. The 2026-09-30 vintage is on CVM
+  reference year 2024 for DG2R/CRXX. Do not mix levels across vintages; growth rates
+  or a fixed-quarter index are comparable. Next UKEA listed as 22 December 2026. Per-head
+  also revises when ONS population denominators change.'
+caveats: Mean resources per person in the household sector, not a median household
+  and not equivalised. Do not splice with IHXW (GDP per head) as if they were the
+  same concept.
+status_note: ''
+related_indicator_ids:
+- real-household-disposable-income
+- household-saving-ratio
+- real-gdp
+- real-gdp-per-head
+- real-earnings
+- cpi-inflation
+- cpih-inflation
+- mortgage-rate-2yr-fixed
+- effects-of-taxes-and-benefits
+open_questions:
+- Confirm CRXX universe is S.14 (title omits ESA code; DG2R is S.14).
+notion_registry_url: https://app.notion.com/p/41965471768581998f42e024b57683fa
+schema_version: '1.0'

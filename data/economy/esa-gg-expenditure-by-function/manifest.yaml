@@ -1,0 +1,82 @@
+indicator_id: esa-gg-expenditure-by-function
+title: General government expenditure by function (ESA Table 11, OTE)
+sector: economy-public-finance
+publisher: Office for National Statistics
+source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicspending/datasets/esatable11annualexpenditureofgeneralgovernment/current
+series_id: ONS ESA Table 11 general government, column OTE
+geography: United Kingdom general government (ESA 2010 sector S.13, geography K02000001).
+  Central government plus local government plus social security funds, after consolidation.
+  Excludes public corporations. Not the UK public sector used by TES.
+frequency: annual
+unit: £ million, nominal, calendar year
+definition: 'ONS ESA 2010 Table 11, general government annual expenditure by UN COFOG,
+  column OTE (total government expenditure). Calendar years 1995 to 2024, £ million,
+  nominal. Ten level-1 functions plus the published total. Sub-functions are not curated.
+  This is not HM Treasury Total Expenditure on Services, not a financial year, and
+  not monthly EBFT. Health in calendar 2024 is 253,191. TES Health in financial year
+  2024-25 is 242,429. Different year, different sector, different expenditure concept.
+  The workbook coversheet says local government only. That sentence is a bad copy:
+  year sheets say general government, and the 2024 OTE total 1,330,532 is not the
+  local-government total 268,424 or the central-government total 1,227,604. Sibling
+  files are archived for that check and are not curated.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.esa_gg_expenditure_by_function
+curated_path: curated/observations.csv
+update_cadence: ONS publishes ESA Table 11 about once a year. Re-pin on a new edition;
+  do not overwrite these checksums.
+raw_evidence:
+- path: raw/2026-11-15/esatable11generalgovernment.xlsx
+  retrieved_at: '2026-11-15T21:47:44.707438+00:00'
+  checksum_sha256: 545236391260ca77580cff5d8dba243b35f1e588d48067ed0f02287c7c3afa09
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-04-23'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicspending/datasets/esatable11annualexpenditureofgeneralgovernment/current/esatable11generalgovernment.xlsx
+- path: raw/2026-11-15/esatable11centralgovernment.xlsx
+  retrieved_at: '2026-11-15T21:47:44.824345+00:00'
+  checksum_sha256: 1de1e5d91531bea990826cf7ed28ff16db7ac7c876621fc264ab2e1930306105
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-04-23'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicspending/datasets/esatable11annualexpenditureofcentralgovernment/current/esatable11centralgovernment.xlsx
+- path: raw/2026-11-15/esatable11localgovernment.xlsx
+  retrieved_at: '2026-11-15T21:47:44.935789+00:00'
+  checksum_sha256: d1d033a590e32132828375a401cebf260ea774e24664af3285ec5203ddef1f04
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-04-23'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicspending/datasets/esatable11annualexpenditurelocalgovernment/current/esatable11localgovernment.xlsx
+transformations: Download the 23 April 2026 general, central, and local government
+  ESA Table 11 workbooks. Curate the general-government file only. Read calendar-year
+  sheets 1995 to 2024. Keep rows _T and GF01 to GF10, column OTE only. Skip sub-function
+  rows (GF0101 and below). Do not keep other transaction columns. Do not rescale onto
+  TES or EBFT. Do not add central plus local to rebuild the total. Notes use series,
+  classification=ote, role, calendar_year, cofog, label, table=esa-11, column=OTE,
+  sector=general-government, framework=esa2010, year_basis=calendar. observation_status=final
+  on this vintage. The sheet does not mark 2024 as estimated.
+revision_notes: Spreadsheet published 07:00 on 23 April 2026. ONS can revise these
+  calendar years in the next annual ESA Table 11. Compare sha256 before replacing
+  the raw workbooks. The general-government coversheet sentence that says local government
+  only is retained as evidence of the bad copy. It is not the sector of this pin.
+caveats: Calendar year. General government (S.13). £ million. Column OTE. Not TES.
+  Not EBFT. Not financial-year PESA. Health ESA calendar 2024 is 253,191. TES Health
+  financial year 2024-25 is 242,429. Do not draw them on one axis and do not rescale
+  one onto the other. Level-1 rows sum exactly to the published total in every pinned
+  year. No residual function. Central government 2024 OTE total is 1,227,604 and local
+  government is 268,424. Their sum is not 1,330,532, because general government consolidates
+  transfers between subsectors. The coversheet says local government only. Treat that
+  as a bad copy. No OSCAR rows. No Tax−Spend=Borrow identity.
+status_note: Calendar years 1995 to 2024 from ONS ESA Table 11 general government,
+  published 23 April 2026. Column OTE, £ million. Not a financial-year TES series.
+  Later ONS editions can revise these years.
+related_indicator_ids:
+- tes-by-function
+- tes-by-function-long-run
+- total-managed-expenditure
+open_questions:
+- Do not rescale ESA Table 11 onto tes-by-function or onto monthly EBFT.
+- Central and local sibling workbooks are evidence for the coversheet check only.
+- A chart of this series needs its own calendar-year, general-government label.
+notion_registry_url: https://app.notion.com/p/41965471768581f88f08d3b6a730dc52
+schema_version: '1.0'

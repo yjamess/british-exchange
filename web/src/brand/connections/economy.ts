@@ -421,6 +421,192 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     primary: true,
   },
 
+  // —— Household · Are we better off? → Growth produce ——
+  {
+    id: "economy.household.better-off→growth.produce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "better-off" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "produce",
+      retain: [],
+    },
+    label: "What Britain produces",
+    why: "Household disposable income is not GDP — Growth holds the output reading on the same accounts vintage.",
+    learn: "Open Growth › What Britain produces. Compare the shape of growth, not pound levels, with household income.",
+    readiness: "ready",
+    honesty:
+      "Output and household disposable income are different national-accounts questions. Moving together is not cause and effect, and neither is a typical household.",
+    destinationLabel: "Growth · What Britain produces",
+    primary: true,
+  },
+
+  // —— Household · Saving → Inflation changing price ——
+  {
+    id: "economy.household.saving→inflation.rate",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "saving" },
+    to: {
+      pathname: ECONOMY,
+      domain: "inflation",
+      view: "rate",
+      params: { measure: "cpih" },
+      retain: [],
+    },
+    label: "How fast prices are rising",
+    why: "The saving ratio is a leftover in the accounts — Inflation holds the price change that sits beside household costs.",
+    learn: "Open Inflation › Changing price with CPIH selected. Do not treat the saving ratio as a typical household buffer.",
+    readiness: "ready",
+    honesty: "The national saving ratio is not a typical rainy-day fund. Prices and that leftover are different publications.",
+    destinationLabel: "Inflation · Changing price",
+    primary: true,
+  },
+
+  // —— Household · Ledger → Tax burden (adjacent, not a budget) ——
+  {
+    id: "economy.household.ledger→tax.burden",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "ledger" },
+    to: {
+      pathname: ECONOMY,
+      domain: "tax",
+      view: "burden",
+      retain: [],
+    },
+    label: "Who bears the tax",
+    why: "Family spending and taxes-and-benefits are adjacent readings — they do not add up to one household budget.",
+    learn: "Open Tax › Who Bears the Tax Burden? for income-group tax shares from a different survey and year.",
+    readiness: "ready",
+    honesty:
+      "Spending is the Living Costs and Food Survey (year to March 2025). Taxes are Effects of taxes and benefits (year to March 2024). Do not add them together.",
+    destinationLabel: "Tax · Who Bears the Tax Burden?",
+    primary: true,
+  },
+
+  // —— Household · Cost of living → Inflation ——
+  {
+    id: "economy.household.cost→inflation.rate",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "cost" },
+    to: {
+      pathname: ECONOMY,
+      domain: "inflation",
+      view: "rate",
+      params: { measure: "cpih" },
+      retain: [],
+    },
+    label: "How fast prices are rising",
+    why: "Spending shares show how private households spent — Inflation holds how prices moved, not the share of a budget.",
+    learn: "Open Inflation › Changing price. That basket is not this spending survey.",
+    readiness: "ready",
+    honesty: "Price change is not the share of household spending. This page is the spending survey, not the consumer-price basket.",
+    destinationLabel: "Inflation · Changing price",
+    primary: true,
+  },
+
+  // —— Household · Buffer → Housing property wealth ——
+  {
+    id: "economy.household.buffer→housing.ownership.wealth",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "buffer" },
+    to: {
+      pathname: HOUSING,
+      domain: "ownership",
+      view: "wealth",
+      retain: [],
+    },
+    label: "Property wealth",
+    why: "Financial wealth here is not property wealth — Housing holds the property-wealth reading from the same survey family.",
+    learn: "Open Housing › Ownership › Wealth. Do not add the two stocks together on this page.",
+    readiness: "ready",
+    honesty:
+      "Great Britain financial wealth is not UK property wealth. The national saving ratio on Saving is a leftover in the accounts, not this buffer.",
+    destinationLabel: "Housing · Ownership · Wealth",
+    primary: true,
+  },
+
+  // —— Household · Buffer → Saving (honest leftover, not a substitute) ——
+  {
+    id: "economy.household.buffer→household.saving",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "buffer" },
+    to: {
+      pathname: ECONOMY,
+      domain: "household",
+      view: "saving",
+      retain: [],
+    },
+    label: "National saving ratio",
+    why: "The accounts leftover is not a survey of rainy-day savings — keep the two apart.",
+    learn: "Open Saving. That ratio is not Britain's Financial Buffer.",
+    readiness: "ready",
+    honesty: "The saving ratio is a national-accounts residual, not a typical household's rainy-day money.",
+    destinationLabel: "Households · Saving",
+    primary: false,
+  },
+
+  // —— Household · Weight of debt → Housing mortgages ——
+  {
+    id: "economy.household.debt→housing.ownership.mortgages",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "debt" },
+    to: {
+      pathname: HOUSING,
+      domain: "ownership",
+      view: "mortgages",
+      retain: [],
+    },
+    label: "Mortgages",
+    why: "Unsecured consumer credit is not the residential mortgage book — Housing holds mortgage stock, arrears and the quoted rate.",
+    learn: "Open Housing › Ownership › Mortgages. A quoted mortgage rate is not a repayment burden.",
+    readiness: "ready",
+    honesty:
+      "Bank of England consumer credit is lender stocks excluding student loans. It is not a household repayment, and it does not add to Housing mortgage figures.",
+    destinationLabel: "Housing · Ownership · Mortgages",
+    primary: true,
+  },
+
+  // —— Household · Weight of debt → Wages (secondary) ——
+  {
+    id: "economy.household.debt→wages.value",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "debt" },
+    to: {
+      pathname: ECONOMY,
+      domain: "wages",
+      view: "value",
+      retain: [],
+    },
+    label: "What pay is worth",
+    why: "Outstanding credit is a stock of lending — pay after prices is a different reading.",
+    learn: "Open Wages › The Value of Work. Pay is not a repayment.",
+    readiness: "ready",
+    honesty: "Pay is not a repayment. A quoted mortgage rate is not a household debt burden.",
+    destinationLabel: "Wages · The Value of Work",
+    primary: false,
+  },
+
+  // —— Household · Data → Growth produce ——
+  {
+    id: "economy.household.data→growth.produce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "household", view: "data" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "produce",
+      retain: [],
+    },
+    label: "What Britain produces",
+    why: "Household income tables are not GDP tables — Growth holds the output series on the same accounts family.",
+    learn: "Open Growth › What Britain produces. Do not splice household income levels onto GDP levels.",
+    readiness: "ready",
+    honesty: "Household disposable income and GDP are different questions in the national accounts.",
+    destinationLabel: "Growth · What Britain produces",
+    primary: true,
+  },
+
   // —— Tax · What Britain Raises → Debt borrowing ——
   {
     id: "economy.tax.raises→debt.borrowing",
@@ -519,6 +705,66 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     honesty: "Managed expenditure and borrowing are different publications. Moving together is not cause and effect.",
     destinationLabel: "Debt · Borrowing",
     primary: false,
+  },
+
+  // —— Policy · Decision ledger → Debt borrowing (primary Follow) ——
+  {
+    id: "economy.policy.ledger→debt.borrowing",
+    kind: "contextual",
+    from: { sector: "economy", domain: "policy", view: "ledger" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "borrowing",
+      retain: [],
+    },
+    label: "What the state borrows",
+    why: "Fiscal rules and the OBR are judged on borrowing — Debt holds the published series.",
+    learn: "Open Debt › Borrowing. A decision and a series moving together is context, not an effect.",
+    readiness: "ready",
+    honesty: "Linked series are context. The register never claims a decision caused a change in borrowing.",
+    destinationLabel: "Debt · Borrowing",
+    primary: true,
+  },
+
+  // —— Policy · Promises → Debt borrowing ——
+  {
+    id: "economy.policy.promise→debt.borrowing",
+    kind: "contextual",
+    from: { sector: "economy", domain: "policy", view: "promise" },
+    to: {
+      pathname: ECONOMY,
+      domain: "debt",
+      view: "borrowing",
+      retain: [],
+    },
+    label: "What the state borrows",
+    why: "The Charter's fiscal mandate is about the current budget — net borrowing is the nearest published series, and it is not the same measure.",
+    learn: "Open Debt › Borrowing. Net borrowing is not the current budget and net debt is not PSNFL.",
+    readiness: "ready",
+    honesty: "Nothing in the pledge register is scored against borrowing. The series is shown as context only.",
+    destinationLabel: "Debt · Borrowing",
+    primary: true,
+  },
+
+  // —— Policy · Evidence → Inflation rate ——
+  {
+    id: "economy.policy.evidence→inflation.rate",
+    kind: "contextual",
+    from: { sector: "economy", domain: "policy", view: "evidence" },
+    to: {
+      pathname: ECONOMY,
+      domain: "inflation",
+      view: "rate",
+      retain: [],
+    },
+    label: "Changing price",
+    why: "The Bank of England's inflation target is the measured side of monetary-policy decisions.",
+    learn: "Open Inflation › Changing price. Inflation after 1998 is context for operational independence, not its effect.",
+    readiness: "ready",
+    honesty: "Overlap between a decision and a series is not evidence of cause.",
+    destinationLabel: "Inflation · Changing price",
+    primary: true,
   },
 
   // —— Spending · Data → Debt dial ——
@@ -817,6 +1063,186 @@ export const ECONOMY_CONNECTIONS: readonly Connection[] = [
     learn: "Open Growth › Data for GDP and productivity rows.",
     readiness: "ready",
     honesty: "Public-finance and output tables are published separately and are not joined here.",
+    destinationLabel: "Growth · Data",
+    primary: true,
+  },
+
+  // —— Growth · What Britain produces → Trade capital (NPEL primary home) ——
+  {
+    id: "economy.growth.produce→investment.capital",
+    kind: "contextual",
+    from: { sector: "economy", domain: "growth", view: "produce" },
+    to: {
+      pathname: ECONOMY,
+      domain: "investment",
+      view: "capital",
+      retain: [],
+    },
+    label: "Business investment",
+    why: "Business investment (NPEL) is owned on Trade › Capital — Growth only Follows that reading.",
+    learn: "Open Trade › Capital for NPEL and asset / industry splits.",
+    readiness: "ready",
+    honesty: "NPEL is not GDP. Do not treat investment growth as the same as output growth.",
+    destinationLabel: "Trade · Capital",
+    primary: false,
+  },
+
+  // —— Trade · Products → Trading world ——
+  {
+    id: "economy.investment.products→investment.world",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "products" },
+    to: {
+      pathname: ECONOMY,
+      domain: "investment",
+      view: "world",
+      retain: [],
+    },
+    label: "Trading world",
+    why: "Composition ranks are SITC/EBOPS totals — Trading World holds partner geography and the commodity lens.",
+    learn: "Open Trade › Trading world. Goods and services stay separate.",
+    readiness: "ready",
+    honesty: "Composition shares are not partner maps, and goods are never mixed with services.",
+    destinationLabel: "Trade · Trading world",
+    primary: true,
+  },
+
+  // —— Trade · Ledger → Energy imports ——
+  {
+    id: "economy.investment.trade→energy.imports",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "trade" },
+    to: {
+      pathname: ENERGY,
+      domain: "imports",
+      view: "lifelines",
+      retain: [],
+    },
+    label: "Energy import lifelines",
+    why: "The trade ledger is whole-economy BoP — Energy holds fuel-by-partner lifelines.",
+    learn: "Open Energy › Imports for oil and gas partner geography.",
+    readiness: "ready",
+    honesty: "Fuel tonnes and GWh are not the same as BoP £ trade balances.",
+    destinationLabel: "Energy · Imports",
+    primary: true,
+  },
+
+  // —— Trade · Trading world → Energy imports ——
+  {
+    id: "economy.investment.world→energy.imports",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "world" },
+    to: {
+      pathname: ENERGY,
+      domain: "imports",
+      view: "lifelines",
+      retain: [],
+    },
+    label: "Energy import lifelines",
+    why: "Goods partner maps are BoP country totals — Energy draws fuel lifelines on a different basis.",
+    learn: "Open Energy › Imports for oil and gas partner geography.",
+    readiness: "ready",
+    honesty: "Do not treat goods £ partners as fuel volumes.",
+    destinationLabel: "Energy · Imports",
+    primary: true,
+  },
+
+  // —— Trade · Capital → Growth produce ——
+  {
+    id: "economy.investment.capital→growth.produce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "capital" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "produce",
+      retain: [],
+    },
+    label: "What Britain produces",
+    why: "Business investment is a national-accounts sibling of GDP — Growth holds the output reading.",
+    learn: "Open Growth › What Britain produces. Compare shapes, not levels across price bases.",
+    readiness: "ready",
+    honesty: "NPEL and GDP are different questions in the accounts.",
+    destinationLabel: "Growth · What Britain produces",
+    primary: true,
+  },
+
+  // —— Trade · Landscape → Employment industry ——
+  {
+    id: "economy.investment.landscape→employment.industry",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "landscape" },
+    to: {
+      pathname: ECONOMY,
+      domain: "employment",
+      view: "industry",
+      retain: [],
+    },
+    label: "What Britain does for work",
+    why: "Enterprise counts are VAT/PAYE registered businesses — Employment holds workforce jobs by industry.",
+    learn: "Open Employment › What Britain Does for Work.",
+    readiness: "ready",
+    honesty: "Enterprises are not jobs. Do not equate firm counts with people in work.",
+    destinationLabel: "Employment · Industry",
+    primary: true,
+  },
+
+  // —— Trade · Births & deaths → Employment workforce ——
+  {
+    id: "economy.investment.births→employment.workforce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "births" },
+    to: {
+      pathname: ECONOMY,
+      domain: "employment",
+      view: "workforce",
+      retain: [],
+    },
+    label: "The British workforce",
+    why: "Business demography tracks firm births and deaths — Employment tracks people of working age.",
+    learn: "Open Employment › The British Workforce.",
+    readiness: "ready",
+    honesty: "Firm births are not hiring, and demography deaths are not the same as insolvencies.",
+    destinationLabel: "Employment · Workforce",
+    primary: true,
+  },
+
+  // —— Trade · FDI → Growth produce ——
+  {
+    id: "economy.investment.fdi→growth.produce",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "fdi" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "produce",
+      retain: [],
+    },
+    label: "What Britain produces",
+    why: "FDI is ownership of enterprises — Growth holds domestic output.",
+    learn: "Open Growth › What Britain produces. FDI is not greenfield jobs or plant openings.",
+    readiness: "ready",
+    honesty: "FDI flows and positions are not GDP contributions.",
+    destinationLabel: "Growth · What Britain produces",
+    primary: true,
+  },
+
+  // —— Trade · Data → Growth data ——
+  {
+    id: "economy.investment.data→growth.data",
+    kind: "contextual",
+    from: { sector: "economy", domain: "investment", view: "data" },
+    to: {
+      pathname: ECONOMY,
+      domain: "growth",
+      view: "data",
+      retain: [],
+    },
+    label: "Growth observation tables",
+    why: "Trade and investment pins sit beside national-accounts tables — keep the Data tabs separate.",
+    learn: "Open Growth › Data for GDP and productivity rows.",
+    readiness: "ready",
+    honesty: "Trade BoP tables and GDP tables are published separately.",
     destinationLabel: "Growth · Data",
     primary: true,
   },

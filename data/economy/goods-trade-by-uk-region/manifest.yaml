@@ -1,0 +1,55 @@
+indicator_id: goods-trade-by-uk-region
+title: Goods trade by UK nation/region
+sector: economy-public-finance
+publisher: HMRC
+source_url: https://www.gov.uk/government/statistics/uk-regional-trade-in-goods-statistics-fourth-quarter-october-to-december-2025
+series_id: RTS-ITL1-nations
+geography: England / Wales / Scotland / Northern Ireland
+frequency: quarterly
+unit: £ billion (RTS attribution)
+definition: HMRC Regional Trade Statistics quarterly goods trade for UK nations. Employment-based
+  / RTS attribution — not physical shipment origin proof.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.goods_trade_by_uk_region
+curated_path: curated/observations.csv
+update_cadence: quarterly (HMRC RTS)
+raw_evidence:
+- path: raw/2026-11-16/england.ods
+  retrieved_at: '2026-11-16T01:20:01.095081+00:00'
+  checksum_sha256: d6eb0b66100997e6b52fb726df8546901cab6695e508ea835dcf9b4898e59e6b
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-03-19'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/69b91786b84f01b2be53a318/Figure_1_Englands_trade_in_goods_first_quarter_January_to_March_2021_onwards.ods
+- path: raw/2026-11-16/wales.ods
+  retrieved_at: '2026-11-16T01:20:01.266110+00:00'
+  checksum_sha256: f142130b4ce27e3d50b76325e8167d9747f44b393056a3f6dbaf04d72975defa
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-03-19'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/69b91790e2719934bb53a315/Figure_2_Wales_trade_in_goods_first_quarter_January_to_March_2021_onwards.ods
+- path: raw/2026-11-16/scotland.ods
+  retrieved_at: '2026-11-16T01:20:01.303220+00:00'
+  checksum_sha256: dd61bdf8747e78a92bc70d76354f641a3f4e571608670a415c0bdd3ff926b942
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-03-19'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/69b9179be2719934bb53a316/Figure_3_Scotlands_trade_in_goods_first_quarter_January_to_March_2021_onwards.ods
+- path: raw/2026-11-16/northern-ireland.ods
+  retrieved_at: '2026-11-16T01:20:01.436944+00:00'
+  checksum_sha256: 09edd0c13688988073056e5dcf61b991a8bd039834dd4fb0f38cf1049100e796
+  content_type: application/vnd.oasis.opendocument.spreadsheet
+  official_release_date: '2026-03-19'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/69b917a59d8b52961a62b517/Figure_4_Northern_Irelands_trade_in_goods_first_quarter_January_to_March_2021_onwards.ods
+transformations: Parse nation ODS figure tables; £bn → observations.
+revision_notes: RTS Q4 2025 release 2026-03-19.
+caveats: RTS ≠ OTS/BoP. Attribution methodology labelled in Notes.
+status_note: ''
+related_indicator_ids:
+- goods-trade-by-partner
+- uk-trade-mret
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

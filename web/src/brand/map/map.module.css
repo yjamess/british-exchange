@@ -68,10 +68,20 @@
   aspect-ratio: 960 / 480;
 }
 
-/* Sit on the map frame, below the two-line caption. */
-.mapSurfaceWorld .mapTools {
-  top: 3.25rem;
-  right: 0;
+/*
+ * Pin zoom/home to the SVG frame, not the caption/readout above it.
+ * (Absolute tools on the outer surface sat on the wrong corner once the
+ * caption grew past two lines.)
+ */
+.mapFrame {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.mapSurfaceWorld .mapFrame .mapTools {
+  top: 8px;
+  right: 8px;
 }
 
 .mapSurfaceRegion .mapSvg:active {

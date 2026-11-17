@@ -1,0 +1,34 @@
+indicator_id: services-trade-by-partner
+title: Services trade by partner
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/businessindustryandtrade/internationaltrade/datasets/uktradeinservicesservicetypebypartnercountrynonseasonallyadjusted
+series_id: services-type-by-partner
+geography: United Kingdom / partner countries
+frequency: annual
+unit: £ million current prices, NSA
+definition: UK total services exports/imports by partner country, current prices NSA.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.services_trade
+curated_path: curated/observations.csv
+update_cadence: quarterly bulletin / annual columns in time series
+raw_evidence:
+- path: raw/2026-11-16/servicetypebycountry2026q2.xlsx
+  retrieved_at: '2026-11-16T01:17:12.599334+00:00'
+  checksum_sha256: 00672f7f128e0117cc63d0de74bb7380bc232546711fdbe72bdbee6858ebf968
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-10-01'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/uktradeinservicesservicetypebypartnercountrynonseasonallyadjusted/current/servicetypebycountry2026q2.xlsx
+transformations: Parse Sheet 1 Time Series; sparse cells stay missing.
+revision_notes: Service type by partner Q2 2026 workbook (2026-10-01).
+caveats: NSA. Services partner coverage is thinner than goods. Not comparable to HMRC
+  customs goods.
+status_note: ''
+related_indicator_ids:
+- uk-trade-mret
+- goods-trade-by-partner
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

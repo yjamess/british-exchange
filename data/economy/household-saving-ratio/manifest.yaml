@@ -1,0 +1,51 @@
+indicator_id: household-saving-ratio
+title: Household saving ratio
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dgd8/ukea
+series_id: DGD8
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: quarterly
+unit: '% of household total resources, SA (current prices)'
+definition: 'UK household saving ratio for households (ESA S.14): saving as a percentage
+  of household total resources, current prices, seasonally adjusted. ONS CDID DGD8
+  in UKEA. National-accounts residual — not a typical household''s liquid savings.
+  Not S.14+S.15 (NRJS) and not experimental cash-basis CSJ8.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.household_saving_ratio
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS UK Economic Accounts / sector accounts)
+raw_evidence:
+- path: raw/2026-11-15/dgd8_ukea.json
+  retrieved_at: '2026-11-15T22:16:21.422133+00:00'
+  checksum_sha256: aa05f3a111fc2d8117ae4006809b83fde19d460b57131d3296ed015a886cd6ee
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-09-29'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dgd8/ukea/data
+transformations: Download ONS timeseries JSON (/data). Keep only the quarters array
+  (annual aggregates omitted). Map year+Q → ISO quarter bounds. Geography K02000001.
+  Latest quarter provisional; older quarters final (UKEA revises history at each quarterly
+  sector-accounts release).
+revision_notes: Revises with UKEA income and consumption. Current-price ratio; not
+  CVM. Do not treat as Britain's Financial Buffer (needs WAS / survey distributions).
+caveats: Aggregate ratio, not the share of households that can save. Includes pension
+  saving in the headline S.14 residual. Cannot be joined to LCF expenditure or HBAI
+  income as one household record.
+status_note: ''
+related_indicator_ids:
+- real-household-disposable-income
+- real-household-disposable-income-per-head
+- real-gdp
+- real-gdp-per-head
+- real-earnings
+- cpi-inflation
+- cpih-inflation
+- mortgage-rate-2yr-fixed
+- effects-of-taxes-and-benefits
+open_questions:
+- Financial Buffer remains planned-not-ready until WAS liquid-asset distributions
+  are ingested.
+notion_registry_url: https://app.notion.com/p/419654717685813cba9cd97e70409fb3
+schema_version: '1.0'

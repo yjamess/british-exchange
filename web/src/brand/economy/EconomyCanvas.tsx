@@ -2,8 +2,8 @@
 
 /**
  * Economy & Public Finance explorer — shared SectorPage + Explorer shell.
- * Rail: ten domains (01–10). Ready canvases: Inflation · Wages · Employment · Growth · Tax · Spending · Debt;
- * the rest show the shared In-preparation stage until their own G2+G3.
+ * Rail: ten domains (01–10). Ready canvases: Inflation · Wages · Employment · Household ·
+ * Growth · Tax · Spending · Debt · Trade · Policy; prep domains use the shared empty stage.
  */
 
 import { useCallback, useMemo } from "react";
@@ -19,7 +19,10 @@ import { useHeroSize } from "../template/useHeroSize";
 import { DebtCanvas } from "./DebtCanvas";
 import { EmploymentCanvas } from "./EmploymentCanvas";
 import { GrowthCanvas } from "./GrowthCanvas";
+import { HouseholdCanvas } from "./HouseholdCanvas";
 import { InflationCanvas } from "./InflationCanvas";
+import { InvestmentCanvas } from "./InvestmentCanvas";
+import { PolicyCanvas } from "./PolicyCanvas";
 import { SpendingCanvas } from "./SpendingCanvas";
 import { TaxCanvas } from "./TaxCanvas";
 import { WagesCanvas } from "./WagesCanvas";
@@ -32,7 +35,10 @@ import {
   type EconomyDomainId,
   type EmploymentPack,
   type GrowthPack,
+  type HouseholdPack,
   type InflationPack,
+  type InvestmentPack,
+  type PolicyPack,
   type SpendingPack,
   type TaxPack,
   type WagesPack,
@@ -42,10 +48,13 @@ type EconomyPacks = {
   inflation: InflationPack;
   wages: WagesPack;
   employment: EmploymentPack;
+  household: HouseholdPack;
   tax: TaxPack;
   spending: SpendingPack;
   debt: DebtPack;
   growth: GrowthPack;
+  investment: InvestmentPack;
+  policy: PolicyPack;
 };
 
 function resolveActive(raw: string | null): EconomyDomainId {
@@ -86,10 +95,13 @@ export function EconomyView({
         inflation={hop.data.inflation}
         wages={hop.data.wages}
         employment={hop.data.employment}
+        household={hop.data.household}
         tax={hop.data.tax}
         spending={hop.data.spending}
         debt={hop.data.debt}
         growth={hop.data.growth}
+        investment={hop.data.investment}
+        policy={hop.data.policy}
         hop={hop}
       />
     </SectorPage>
@@ -101,10 +113,13 @@ function EconomyCanvas({
   inflation,
   wages,
   employment,
+  household,
   tax,
   spending,
   debt,
   growth,
+  investment,
+  policy,
   hop,
 }: {
   config: SectorConfig;
@@ -112,10 +127,13 @@ function EconomyCanvas({
   inflation: InflationPack;
   wages: WagesPack;
   employment: EmploymentPack;
+  household: HouseholdPack;
   tax: TaxPack;
   spending: SpendingPack;
   debt: DebtPack;
   growth: GrowthPack;
+  investment: InvestmentPack;
+  policy: PolicyPack;
 }) {
   const pathname = usePathname();
   const params = useSearchParams();
@@ -190,12 +208,18 @@ function EconomyCanvas({
         <WagesCanvas pack={wages} />
       ) : active === "employment" ? (
         <EmploymentCanvas pack={employment} />
+      ) : active === "household" ? (
+        <HouseholdCanvas pack={household} />
       ) : active === "tax" ? (
         <TaxCanvas pack={tax} />
       ) : active === "spending" ? (
         <SpendingCanvas pack={spending} />
       ) : active === "debt" ? (
         <DebtCanvas pack={debt} />
+      ) : active === "investment" ? (
+        <InvestmentCanvas pack={investment} />
+      ) : active === "policy" ? (
+        <PolicyCanvas pack={policy} />
       ) : (
         <GrowthCanvas pack={growth} />
       )}

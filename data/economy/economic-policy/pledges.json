@@ -1,0 +1,184 @@
+{
+ "registry_id": "economy-pledges",
+ "retrieved_at": "2026-11-15",
+ "status": "draft — owner review before Ready",
+ "note": "Promise vs delivery register for Economy Domain 10, same shape as the Energy and Housing pledge files. A pledge is scored only when a published series counts the same thing, in the same unit and period, for the same place. Every other pledge is listed with the reason it is not scored, and its match is null or marked not scorable. Delivered values are never stored here. Overlap between a pledge and a series is not evidence that the policy caused the result.",
+ "pledges": [
+  {
+   "id": "charter-2025-current-budget-surplus-2029-30",
+   "title": "Current budget in surplus in 2029-30 (Charter, Autumn 2025)",
+   "made_by": "HM Treasury, Charter for Budget Responsibility (Autumn 2025)",
+   "made_date": "2026-02-23",
+   "made_date_precision": "day",
+   "made_date_note": "Date the OBR's legislation page lists for the Charter; the document itself is dated February 2026.",
+   "nations": [
+    "England",
+    "Wales",
+    "Scotland",
+    "Northern Ireland"
+   ],
+   "statement": "\"the current budget must be in surplus in 2029-30, until 2029-30 becomes the third year of the forecast period\"",
+   "sources": [
+    {
+     "label": "Charter for Budget Responsibility, Autumn 2025, para 3.6 (OBR copy)",
+     "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+     "role": "official"
+    }
+   ],
+   "target": {
+    "value": 0,
+    "unit": "GBP-million-current-budget-balance",
+    "geography_code": "K02000001",
+    "period_start": "2029-04-01",
+    "period_end": "2030-03-31",
+    "period_note": "Financial year 2029-30, assessed by the OBR on its forecast at each fiscal event."
+   },
+   "match": null,
+   "scorable": false,
+   "measure_definition": "Public sector current budget deficit (ONS public sector finances) for financial year 2029-30. No outturn exists yet, and the Charter judges the rule on the OBR's forecast, not outturn.",
+   "not_scored_reason": "The target year has not happened. The Exchange holds no current-budget outturn series yet, and the rule is assessed on forecasts. Listed until outturn for 2029-30 is published.",
+   "linked_event_ids": [
+    "charter-for-budget-responsibility-autumn-2025",
+    "budget-responsibility-and-national-audit-act-2011"
+   ],
+   "context_indicator_ids": [
+    "public-sector-net-borrowing"
+   ],
+   "status_note": "Listed, not scored. Net borrowing is shown nearby as context; it is not the current budget."
+  },
+  {
+   "id": "charter-2025-psnfl-falling-2029-30",
+   "title": "Debt (PSNFL) falling as a share of the economy by 2029-30 (Charter, Autumn 2025)",
+   "made_by": "HM Treasury, Charter for Budget Responsibility (Autumn 2025)",
+   "made_date": "2026-02-23",
+   "made_date_precision": "day",
+   "made_date_note": "As above.",
+   "nations": [
+    "England",
+    "Wales",
+    "Scotland",
+    "Northern Ireland"
+   ],
+   "statement": "\"a target to ensure debt, defined as Public Sector Net Financial Liabilities (PSNFL), is falling as a share of the economy by 2029-30\"",
+   "sources": [
+    {
+     "label": "Charter for Budget Responsibility, Autumn 2025, para 3.7 (OBR copy)",
+     "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+     "role": "official"
+    }
+   ],
+   "target": {
+    "value": null,
+    "unit": "percent-of-GDP-change",
+    "geography_code": "K02000001",
+    "period_start": "2029-04-01",
+    "period_end": "2030-03-31",
+    "period_note": "PSNFL as a share of GDP must be lower in 2029-30 than in 2028-29, on the OBR forecast."
+   },
+   "match": null,
+   "scorable": false,
+   "measure_definition": "Public sector net financial liabilities as a percentage of GDP, ONS public sector finances. The Exchange's Ready debt series is public sector net debt, a different measure.",
+   "not_scored_reason": "The Exchange has no Ready PSNFL series, and the target year has not happened. Public sector net debt as a share of GDP is a different measure and must not stand in for it.",
+   "linked_event_ids": [
+    "charter-for-budget-responsibility-autumn-2025"
+   ],
+   "context_indicator_ids": [
+    "public-sector-net-debt-percent-gdp"
+   ],
+   "status_note": "Listed, not scored."
+  },
+  {
+   "id": "charter-2025-welfare-cap",
+   "title": "Welfare spending within a cap and margin (Charter, Autumn 2025)",
+   "made_by": "HM Treasury, Charter for Budget Responsibility (Autumn 2025)",
+   "made_date": "2026-02-23",
+   "made_date_precision": "day",
+   "made_date_note": "As above.",
+   "nations": [
+    "England",
+    "Wales",
+    "Scotland",
+    "Northern Ireland"
+   ],
+   "statement": "\"a target to ensure that expenditure on welfare is contained within a predetermined cap and margin set by the Treasury\"",
+   "sources": [
+    {
+     "label": "Charter for Budget Responsibility, Autumn 2025, para 3.8 (OBR copy)",
+     "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+     "role": "official"
+    }
+   ],
+   "target": {
+    "value": null,
+    "unit": "GBP-million-welfare-cap",
+    "geography_code": "K02000001",
+    "period_start": null,
+    "period_end": null,
+    "period_note": "The cap level and pathway are set by the Treasury at the Budget and monitored by the OBR; the figure is not in the Charter."
+   },
+   "match": null,
+   "scorable": false,
+   "measure_definition": "Spending within the welfare cap, as defined by the Treasury, against the cap and margin.",
+   "not_scored_reason": "No single figure is stated in the Charter, and the Exchange holds no welfare-cap series.",
+   "linked_event_ids": [
+    "charter-for-budget-responsibility-autumn-2025"
+   ],
+   "context_indicator_ids": [
+    "tes-by-function"
+   ],
+   "status_note": "Listed, not scored. Social protection spending by function is context, not the welfare-cap measure."
+  },
+  {
+   "id": "inflation-target-2-percent",
+   "title": "Inflation target of 2% set by the Government for the Bank of England",
+   "made_by": "HM Treasury (remit to the Monetary Policy Committee), as stated by the Bank of England",
+   "made_date": "2026-10-21",
+   "made_date_precision": "day",
+   "made_date_note": "Date the Bank's inflation page was last updated. The target is restated in each year's remit letter; the date it was first set at 2% CPI is not pinned here.",
+   "nations": [
+    "England",
+    "Wales",
+    "Scotland",
+    "Northern Ireland"
+   ],
+   "statement": "\"The Government sets us a 2% inflation target\"",
+   "sources": [
+    {
+     "label": "Bank of England — inflation",
+     "url": "https://www.bankofengland.co.uk/monetary-policy/inflation",
+     "role": "official"
+    },
+    {
+     "label": "HC Deb 20 May 1997 vol 294 col 508",
+     "url": "https://api.parliament.uk/historic-hansard/commons/1997/may/20/bank-of-england-and-financial-regulation",
+     "role": "primary"
+    }
+   ],
+   "target": {
+    "value": 2,
+    "unit": "percent-12-month-CPI",
+    "geography_code": "K02000001",
+    "period_start": null,
+    "period_end": null,
+    "period_note": "A standing target for every month, symmetric: above and below are treated alike."
+   },
+   "match": {
+    "indicator_id": "cpi-inflation",
+    "series": "cpi-inflation",
+    "geography_code": "K02000001",
+    "unit": "percent",
+    "aggregation": "per-period"
+   },
+   "scorable": false,
+   "measure_definition": "CPI 12-month inflation rate, United Kingdom, monthly (ONS). The target is symmetric, so a month counts as met only when inflation is at the target within the remit's tolerance, and the remit's 1 percentage point letter-writing band is a reporting trigger, not a pass mark.",
+   "not_scored_reason": "The Exchange scorer counts periods at or above (or at or below) a target. A symmetric target needs a two-sided rule with the remit's tolerance written down first. Listed until that rule is agreed.",
+   "linked_event_ids": [
+    "bank-of-england-act-1998"
+   ],
+   "context_indicator_ids": [
+    "cpi-inflation"
+   ],
+   "status_note": "Listed, not scored. CPI inflation is shown nearby as context."
+  }
+ ]
+}

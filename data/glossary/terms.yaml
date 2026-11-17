@@ -786,3 +786,23 @@ terms:
     seen_on: "Tax · Who bears the tax burden"
     related_indicator_ids: [effects-of-taxes-and-benefits]
     source_url: "https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/theeffectsoftaxesandbenefitsonhouseholdincome/latest"
+
+  - slug: lcf
+    short: "LCF"
+    full_name: "Living Costs and Food Survey"
+    definition: "The ONS survey of how private households in the UK spend, published as Family spending; its figures are group averages, not a typical household budget."
+    sector: economy-public-finance
+    group: publisher
+    seen_on: "Households · Cost of Living, Household Ledger"
+    related_indicator_ids: [family-spending-by-category, family-spending-by-income]
+    source_url: "https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/bulletins/familyspendingintheuk/latest"
+
+  - slug: was
+    short: "WAS"
+    full_name: "Wealth and Assets Survey"
+    definition: "The ONS survey of household wealth in Great Britain; later rounds have suspended accreditation, so treat the latest figures with extra caution."
+    sector: economy-public-finance
+    group: publisher
+    seen_on: "Households · Britain's Financial Buffer"
+    related_indicator_ids: [household-financial-wealth]
+    source_url: "https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/totalwealthingreatbritain/latest"

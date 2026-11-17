@@ -1,11 +1,12 @@
 """Shared helpers for the PSS July 2026 outturn pins.
 
-Four Economy indicators share one accredited HM Treasury release:
+Five Economy indicators share one accredited HM Treasury release:
 
 - ``tes-by-function`` — Chapter 5, Table 5.4 (TES / COFOG, nominal £ million)
 - ``tme-del-ame`` — Chapter 1, Table 1.1 (Total DEL, Departmental AME, Other AME)
 - ``tme-del-ame-real`` — Chapter 1, Table 1.2 (those control totals in 2025-26 prices)
 - ``tes-by-function-real`` — Chapter 4, Table 4.3 (functions in 2025-26 prices, £ billion)
+- ``tes-by-function-long-run`` — Chapter 4, Table 4.2 (nominal £ billion, 2003-04 to 2025-26)
 
 Real-terms helpers live here. They do not deflate monthly EBFT.
 

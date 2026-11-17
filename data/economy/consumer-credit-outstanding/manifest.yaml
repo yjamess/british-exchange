@@ -1,0 +1,48 @@
+indicator_id: consumer-credit-outstanding
+title: Consumer credit outstanding (excl. Student Loans Company)
+sector: economy-public-finance
+publisher: Bank of England
+source_url: https://www.bankofengland.co.uk/boeapps/database/
+series_id: LPMBI2O, LPMVZRJ, LPMB4TS
+geography: United Kingdom (K02000001); lending to individuals
+frequency: monthly
+unit: £ million, SA
+definition: Monthly amounts outstanding of sterling consumer credit lending to individuals,
+  excluding the Student Loans Company, seasonally adjusted £ million. LPMBI2O is the
+  headline total; LPMVZRJ is credit cards; LPMB4TS is other unsecured consumer credit
+  (overdrafts and other loans/advances). Bankstats Table A5.6 / Money and Credit.
+  Lender stocks, not a survey of household debt, not mortgage rates, not the FCA MLAR
+  book.
+licence: Open Government Licence / BoE terms of use
+agent_owner: economy
+connector_module: economy.connectors.consumer_credit_outstanding
+curated_path: curated/observations.csv
+update_cadence: monthly (Money and Credit)
+raw_evidence:
+- path: raw/2026-11-15/lpmbi2o_lpmvzrj_lpmb4ts.csv
+  retrieved_at: '2026-11-15T22:39:15.630428+00:00'
+  checksum_sha256: ab8c026ad4caca0c158655d82a0b49a25425643dccc3d5784702df85d78545da
+  content_type: text/csv
+  official_release_date: '2026-10-29'
+  http_status: 200
+  source_url: https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&Datefrom=01/Jan/1993&Dateto=01/Dec/2026&SeriesCodes=LPMBI2O,LPMVZRJ,LPMB4TS&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N
+transformations: Parse BoE IADB CSV DATE + LPMBI2O/LPMVZRJ/LPMB4TS. Monthly period
+  bounds. Latest month marked provisional. Empty cells (e.g. LPMBI2O Mar 1993) skipped.
+revision_notes: Domain 04 Weight of Debt ingest 2026-11-15. Pin is the 29 Oct 2026
+  Money and Credit vintage (September 2026 data).
+caveats: Excludes Student Loans Company. Credit-card vs other split is not comparable
+  before January 1999 (BoE further-details note). April 2024 reporting-population
+  transfer from ONS may affect levels. Seasonally adjusted stocks. Do not add to Housing
+  residential-mortgage-book (MLAR, NSA, different reporters). mortgage-rate-2yr-fixed
+  is a quoted rate, not a burden. BoE secured-on-dwellings stock LPMVTXK is not ingested
+  here.
+status_note: ''
+related_indicator_ids:
+- mortgage-rate-2yr-fixed
+- residential-mortgage-book
+- household-financial-wealth
+open_questions:
+- Ingest BoE LPMVTXK (secured on dwellings outstanding, SA) as a labelled companion,
+  or keep Housing MLAR as the only stock?
+notion_registry_url: https://app.notion.com/p/41965471768581ac9b18dd18aa199030
+schema_version: '1.0'

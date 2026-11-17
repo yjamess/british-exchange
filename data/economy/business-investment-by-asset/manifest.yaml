@@ -1,0 +1,37 @@
+indicator_id: business-investment-by-asset
+title: Business investment by asset
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/businessinvestmentbyasset
+series_id: NPEL/EDOH/EDOP/EDQZ/EDRA
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: £ million chained volume, SA (ref year 2024)
+definition: 'UK business investment CVM SA by asset: transport, ICT & other machinery,
+  other buildings & structures, intellectual property products, plus the NPEL total.
+  Excludes dwellings and government capital expenditure.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.business_investment_by_asset
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS Business investment)
+raw_evidence:
+- path: raw/2026-11-16/businessinvestmentbyasset.xlsx
+  retrieved_at: '2026-11-16T01:13:59.719390+00:00'
+  checksum_sha256: f206fa785e4b1f1f04fef31dbcafd4b8b480af4029a20b5f438383fa7c521c2c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-09-30'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/grossdomesticproductgdp/datasets/businessinvestmentbyasset/current/businessinvestmentbyasset.xlsx
+transformations: Download businessinvestmentbyasset.xlsx; read CVM_SA_(Quarterly)
+  levels table; series=<CDID>; category=<asset-slug>.
+revision_notes: Workbook 2026-09-30; CVM ref year 2024.
+caveats: CVM asset components need not sum to NPEL outside the reference year. Headline
+  total should match Ready business-investment when same vintage.
+status_note: ''
+related_indicator_ids:
+- business-investment
+- business-investment-by-industry
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

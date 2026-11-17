@@ -1,0 +1,4 @@
+source_id,publisher,table,landing_url,role,status
+was-financial-wealth-r8,ONS,5.1 5.10 5.11 5.12 5.13,https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/financialwealthwealthingreatbritain,GB household financial wealth distributions,ingested-validation
+dgd8-ukea,ONS,DGD8,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dgd8/ukea,national-accounts saving ratio — not the Buffer,link-only
+household-net-property-wealth,ONS WAS / Housing,3.8 3.9 3.19,https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/propertywealthwealthingreatbritain,property wealth — Housing owned,link-only

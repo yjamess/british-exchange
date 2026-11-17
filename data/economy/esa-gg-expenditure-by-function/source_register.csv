@@ -1,0 +1,12 @@
+series,classification,role,cofog,label,table,sector,curated
+esa-total,ote,total,_T,Total,esa-11,general-government,true
+esa-gf01-general-public-services,ote,function,GF01,General Public Services,esa-11,general-government,true
+esa-gf02-defence,ote,function,GF02,Defence,esa-11,general-government,true
+esa-gf03-public-order-and-safety,ote,function,GF03,General Public Order & Safety,esa-11,general-government,true
+esa-gf04-economic-affairs,ote,function,GF04,Economic Affairs,esa-11,general-government,true
+esa-gf05-environmental-protection,ote,function,GF05,Environmental Protection,esa-11,general-government,true
+esa-gf06-housing-and-community,ote,function,GF06,Housing & Community Development,esa-11,general-government,true
+esa-gf07-health,ote,function,GF07,Health,esa-11,general-government,true
+esa-gf08-recreation,ote,function,GF08,Recreation,esa-11,general-government,true
+esa-gf09-education,ote,function,GF09,Education,esa-11,general-government,true
+esa-gf10-social-protection,ote,function,GF10,Social Protection,esa-11,general-government,true

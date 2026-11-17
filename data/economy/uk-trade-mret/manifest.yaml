@@ -1,0 +1,161 @@
+indicator_id: uk-trade-mret
+title: UK trade — balance of payments (MRET)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/datasets/tradeingoodsmretsallbopeu2013timeseriesspreadsheet/current
+series_id: MRET multi-CDID
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, SA (CP and CVM series)
+definition: 'UK Balance of Payments trade in goods and services: exports, imports
+  and balance for total / goods / services, current prices and chained-volume measures,
+  seasonally adjusted. Eighteen MRET CDIDs (IKBH–IKBG family). Precious-metals treatment:
+  headlines include non-monetary gold; use sibling uk-trade-ex-precious-metals for
+  underlying balances.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.uk_trade_mret
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS UK Trade / MRET)
+raw_evidence:
+- path: raw/2026-11-16/ikbh_mret.json
+  retrieved_at: '2026-11-16T01:22:44.352536+00:00'
+  checksum_sha256: 0bea61c519c95fb870605f7f84b76cc8a094869edc360343ee5e5464ef81a5ee
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbh/mret/data
+- path: raw/2026-11-16/ikbi_mret.json
+  retrieved_at: '2026-11-16T01:22:44.424181+00:00'
+  checksum_sha256: cedb1dd15baa4a4749a4f079d950211deecec19d14d9edda59e450d170ac1192
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbi/mret/data
+- path: raw/2026-11-16/ikbj_mret.json
+  retrieved_at: '2026-11-16T01:22:44.507006+00:00'
+  checksum_sha256: fd1c1f19a322b7b85b33d49ba7c58f1733def15c1951c8d90cf70e5b644252c8
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbj/mret/data
+- path: raw/2026-11-16/ikbk_mret.json
+  retrieved_at: '2026-11-16T01:22:44.591468+00:00'
+  checksum_sha256: 4a43173ae043e9502b51b2440019b7c6e596f00ce971fe0208b17e77dc552dbf
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ikbk/mret/data
+- path: raw/2026-11-16/ikbl_mret.json
+  retrieved_at: '2026-11-16T01:22:44.660388+00:00'
+  checksum_sha256: a8e4eef26183424623f3e6237aa08747060fcf3b763c88fb300831e6d447792f
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ikbl/mret/data
+- path: raw/2026-11-16/ikbm_mret.json
+  retrieved_at: '2026-11-16T01:22:44.727977+00:00'
+  checksum_sha256: 669631ac60ebca0e79ae18d7564a9033eab70e346fece1135a233f60e854db29
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ikbm/mret/data
+- path: raw/2026-11-16/bokg_mret.json
+  retrieved_at: '2026-11-16T01:22:44.812326+00:00'
+  checksum_sha256: 48fb6a1ca8b970b738c268fcd6762b88dba39b172de35949311781a33f7a82c8
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/bokg/mret/data
+- path: raw/2026-11-16/bokh_mret.json
+  retrieved_at: '2026-11-16T01:22:44.886592+00:00'
+  checksum_sha256: d78a4f2a2ee558d900786f720b34256cbdf3172bcc399a3e078645bda26da019
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/bokh/mret/data
+- path: raw/2026-11-16/boki_mret.json
+  retrieved_at: '2026-11-16T01:22:44.959768+00:00'
+  checksum_sha256: d298ee57a73b494a39a104d417930c373182b452af8c5833e4b7838c7c3d7385
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/boki/mret/data
+- path: raw/2026-11-16/bqkq_mret.json
+  retrieved_at: '2026-11-16T01:22:45.042466+00:00'
+  checksum_sha256: e3537c7ed89922faa1cbe6814d1352a88c7a16fb2df0312c604cb0fd21a0f662
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/bqkq/mret/data
+- path: raw/2026-11-16/bqko_mret.json
+  retrieved_at: '2026-11-16T01:22:45.110879+00:00'
+  checksum_sha256: 12724efd124d2d449f9aba70362d00b743e2f672b40ba9fd8da60d6c3affb116
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/bqko/mret/data
+- path: raw/2026-11-16/ctvs_mret.json
+  retrieved_at: '2026-11-16T01:22:45.178030+00:00'
+  checksum_sha256: 53482311a33aa5360af8cb47ce9e725808652e832c3cf10bc393a5377bdb9e02
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ctvs/mret/data
+- path: raw/2026-11-16/ikbb_mret.json
+  retrieved_at: '2026-11-16T01:22:45.262785+00:00'
+  checksum_sha256: 07955cd146d75feb996ddfdf11bea6f3854439f331971a38f54365bc065445f1
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbb/mret/data
+- path: raw/2026-11-16/ikbc_mret.json
+  retrieved_at: '2026-11-16T01:22:45.348555+00:00'
+  checksum_sha256: ad0297e845c5bcc8dca08ff0041f256d6c2c1e6381d9c84ed19d3bb28fcd3633
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbc/mret/data
+- path: raw/2026-11-16/ikbd_mret.json
+  retrieved_at: '2026-11-16T01:22:45.433898+00:00'
+  checksum_sha256: 4d27e579d2b083cbedc6c42975f8e88051e2967ac579463f6a7c01815a446bbe
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbd/mret/data
+- path: raw/2026-11-16/ikbe_mret.json
+  retrieved_at: '2026-11-16T01:22:45.510827+00:00'
+  checksum_sha256: 316f2f0b3b45d1c3bd033c3f8f40fbe640d192310ed7eed7041d51d8b83abf2b
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ikbe/mret/data
+- path: raw/2026-11-16/ikbf_mret.json
+  retrieved_at: '2026-11-16T01:22:45.599541+00:00'
+  checksum_sha256: 47da6c53ce3c9674d00e6c1d4083a2bc0df99a3df7a548375d5292a5d215ba7e
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ikbf/mret/data
+- path: raw/2026-11-16/ikbg_mret.json
+  retrieved_at: '2026-11-16T01:22:45.668313+00:00'
+  checksum_sha256: fc0dc833a199167b6ee0b442d77856033cca11943d30a080f1c16be698399745
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/ikbg/mret/data
+transformations: 'Download each CDID /data JSON. Keep months only. Map year+month
+  → ISO bounds. Notes: series=<CDID>; category=<flow>-<component>-<basis>. Latest
+  month provisional.'
+revision_notes: MRET revises with UK Trade releases. Pin date 2026-11-12. Never splice
+  HMRC customs figures into this BoP series.
+caveats: BoP change-of-ownership basis. Monthly services partly interpolated from
+  quarterly. CVM components need not sum outside the reference year. Headlines include
+  precious metals.
+status_note: ''
+related_indicator_ids:
+- uk-trade-ex-precious-metals
+- business-investment
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

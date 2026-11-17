@@ -1,0 +1,258 @@
+{
+  "pass": true,
+  "indicator_id": "tes-by-function-long-run",
+  "unit": "\u00a3 billion, nominal, financial year",
+  "terms": "nominal",
+  "years": "2003-04 to 2025-26",
+  "year_count": 23,
+  "gaps": [
+    {
+      "fy": "2003-04",
+      "leaf_sum": 449.0,
+      "tes": 449.0,
+      "leaf_gap": 0.0,
+      "adjustments": 45.4,
+      "table_tme": 494.4,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2004-05",
+      "leaf_sum": 482.1,
+      "tes": 482.1,
+      "leaf_gap": 0.0,
+      "adjustments": 52.8,
+      "table_tme": 534.9,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2005-06",
+      "leaf_sum": 513.6,
+      "tes": 513.6,
+      "leaf_gap": 0.0,
+      "adjustments": 51.5,
+      "table_tme": 565.1,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2006-07",
+      "leaf_sum": 536.9,
+      "tes": 536.9,
+      "leaf_gap": 0.0,
+      "adjustments": 55.5,
+      "table_tme": 592.4,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2007-08",
+      "leaf_sum": 569.8,
+      "tes": 569.8,
+      "leaf_gap": 0.0,
+      "adjustments": 59.4,
+      "table_tme": 629.2,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2008-09",
+      "leaf_sum": 618.7,
+      "tes": 618.7,
+      "leaf_gap": 0.0,
+      "adjustments": 67.1,
+      "table_tme": 685.8,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2009-10",
+      "leaf_sum": 654.9,
+      "tes": 654.9,
+      "leaf_gap": 0.0,
+      "adjustments": 65.5,
+      "table_tme": 720.3,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2010-11",
+      "leaf_sum": 675.2,
+      "tes": 675.2,
+      "leaf_gap": 0.0,
+      "adjustments": 67.8,
+      "table_tme": 743.0,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2011-12",
+      "leaf_sum": 678.0,
+      "tes": 678.0,
+      "leaf_gap": 0.0,
+      "adjustments": 67.5,
+      "table_tme": 745.5,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2012-13",
+      "leaf_sum": 681.0,
+      "tes": 681.0,
+      "leaf_gap": 0.0,
+      "adjustments": 78.1,
+      "table_tme": 759.2,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2013-14",
+      "leaf_sum": 692.0,
+      "tes": 692.0,
+      "leaf_gap": 0.0,
+      "adjustments": 72.6,
+      "table_tme": 764.6,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2014-15",
+      "leaf_sum": 704.5,
+      "tes": 704.5,
+      "leaf_gap": 0.0,
+      "adjustments": 81.6,
+      "table_tme": 786.2,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2015-16",
+      "leaf_sum": 719.0,
+      "tes": 719.0,
+      "leaf_gap": 0.0,
+      "adjustments": 74.7,
+      "table_tme": 793.7,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2016-17",
+      "leaf_sum": 727.2,
+      "tes": 727.2,
+      "leaf_gap": 0.0,
+      "adjustments": 84.3,
+      "table_tme": 811.4,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2017-18",
+      "leaf_sum": 749.9,
+      "tes": 749.9,
+      "leaf_gap": 0.0,
+      "adjustments": 88.9,
+      "table_tme": 838.8,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2018-19",
+      "leaf_sum": 772.5,
+      "tes": 772.5,
+      "leaf_gap": 0.0,
+      "adjustments": 83.5,
+      "table_tme": 856.1,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2019-20",
+      "leaf_sum": 799.4,
+      "tes": 799.4,
+      "leaf_gap": 0.0,
+      "adjustments": 85.5,
+      "table_tme": 884.9,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2020-21",
+      "leaf_sum": 1011.5,
+      "tes": 1011.4,
+      "leaf_gap": 0.1,
+      "adjustments": 91.5,
+      "table_tme": 1102.9,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2021-22",
+      "leaf_sum": 952.0,
+      "tes": 951.9,
+      "leaf_gap": 0.1,
+      "adjustments": 88.9,
+      "table_tme": 1040.9,
+      "bridge_gap": -0.1
+    },
+    {
+      "fy": "2022-23",
+      "leaf_sum": 1076.8,
+      "tes": 1077.0,
+      "leaf_gap": -0.2,
+      "adjustments": 83.7,
+      "table_tme": 1160.7,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2023-24",
+      "leaf_sum": 1115.0,
+      "tes": 1115.0,
+      "leaf_gap": 0.0,
+      "adjustments": 115.8,
+      "table_tme": 1230.8,
+      "bridge_gap": 0.0
+    },
+    {
+      "fy": "2024-25",
+      "leaf_sum": 1166.6,
+      "tes": 1166.5,
+      "leaf_gap": 0.1,
+      "adjustments": 123.6,
+      "table_tme": 1290.0,
+      "bridge_gap": 0.1
+    },
+    {
+      "fy": "2025-26",
+      "leaf_sum": 1227.7,
+      "tes": 1227.6,
+      "leaf_gap": 0.1,
+      "adjustments": 132.5,
+      "table_tme": 1360.1,
+      "bridge_gap": 0.0
+    }
+  ],
+  "nonzero_gap_years": 10,
+  "max_abs_leaf_gap": 0.2,
+  "max_abs_bridge_gap": 0.1,
+  "spot_2024_25": {
+    "health": 242.4,
+    "social_protection": 386.3,
+    "eu_transactions": -1.4,
+    "tes": 1166.5,
+    "accounting_adjustments": 123.6,
+    "table_tme": 1290.0,
+    "leaf_gap": 0.1,
+    "bridge_gap": 0.1
+  },
+  "table_4_3_not_curated": {
+    "health_2024_25": 250.8,
+    "mixed_into_this_pin": false,
+    "price_base_year_equals_table_4_2": true
+  },
+  "table_5_4_rounding_check": {
+    "present": true,
+    "million": {
+      "health_current": 228613.0,
+      "social_current": 384457.0,
+      "health_capital": 13816.0,
+      "social_capital": 1810.0,
+      "tes": 1166452.0,
+      "adjustments": 123560.0,
+      "table_tme": 1290012.0
+    },
+    "health_sum": 242429.0,
+    "rounded_billion": {
+      "health": 242.4,
+      "social_protection": 386.3,
+      "tes": 1166.5,
+      "adjustments": 123.6,
+      "table_tme": 1290.0
+    }
+  },
+  "of_which_skipped": 8,
+  "residual_function_rows": 0,
+  "row_count": 322
+}

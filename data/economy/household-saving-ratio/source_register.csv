@@ -1,0 +1,4 @@
+source_id,publisher,cdid,dataset,landing_url,role,status
+dgd8-ukea,ONS,DGD8,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dgd8/ukea,S.14 saving ratio % SA,ingested-validation
+nrjs-ukea,ONS,NRJS,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/nrjs/ukea,S.14+S.15 saving ratio — do not substitute,link-only
+csj8-ukea,ONS,CSJ8,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/csj8/ukea,experimental cash-basis ratio,out-of-scope

@@ -1,0 +1,54 @@
+indicator_id: family-spending-by-category
+title: Family spending by category (LCF weekly £, all households)
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook1detailedexpenditureandtrends
+series_id: Family Spending workbook 1 · Table 4.1 · FYE 2025
+geography: United Kingdom (K02000001); private households (LCF)
+frequency: annual (financial year; calendar years 2006–2014)
+unit: £ per week (household average, FYE 2025 prices)
+definition: ONS Family Spending / Living Costs and Food Survey. Table 4.1 average
+  weekly household expenditure on sequential headline groups 1–13 (food through other
+  items), the 1–12 subtotal, and total expenditure, all households, UK. Values are
+  deflated to FYE 2025 prices using COICOP-specific CPI deflators (publisher note
+  1). Housing (net), fuel and power excludes mortgage interest, Council Tax and Northern
+  Ireland rates (those sit in group 13 / other items). Survey means — not a median
+  household and not a CPI inflation basket.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.family_spending_by_category
+curated_path: curated/observations.csv
+update_cadence: annual (Family Spending release)
+raw_evidence:
+- path: raw/2026-11-15/workbook1detailedexpenditureandtrends.xlsx
+  retrieved_at: '2026-11-15T22:44:07.526691+00:00'
+  checksum_sha256: af8d4a4464c0cc0a49195495a6e665667234379ac08293037a69e065d8931076
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-11'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook1detailedexpenditureandtrends/fye2025/workbook1detailedexpenditureandtrends.xlsx
+transformations: Download workbook 1 FYE 2025 (https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook1detailedexpenditureandtrends/fye2025/workbook1detailedexpenditureandtrends.xlsx).
+  Parse Table 4.1 headline rows only. Emit one observation per group × published year
+  column. Keep both 2006 weighting versions as separate year_variant values. Skip
+  the per-person total row.
+revision_notes: Workbook 1 FYE 2023/FYE 2024 Table A1 standard errors were corrected
+  on 11 Jun 2026; Table 4.1 levels in this pin are the FYE 2025 edition. Re-pin the
+  edition workbook and compare checksums.
+caveats: LCF private households only. Small samples; lower-level items are noisier
+  than headline groups. Categories are not comparable with publications before 2001-02.
+  Communication changes from FYE 2019. COVID collection/weighting in 2020-21. HFS
+  weighting from 2022-23; Census 2021 weights from FYE 2024. Two 2006 columns use
+  different census bases. Not ETB, not UKEA RHDI, not CPI/CPIH. Domain 01 owns inflation;
+  Housing/Energy own bills.
+status_note: ''
+related_indicator_ids:
+- family-spending-by-income
+- effects-of-taxes-and-benefits
+- real-household-disposable-income
+- cpi-inflation
+- cpih-inflation
+open_questions:
+- Pin Table 4.3 current-price companion as a labelled alternate?
+- Add Table A1 standard errors as a quality companion?
+notion_registry_url: https://app.notion.com/41965471768581afbe16d4cdb396d7de
+schema_version: '1.0'

@@ -1,0 +1,35 @@
+indicator_id: goods-trade-by-commodity
+title: Goods trade by SITC section
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/datasets/tradeingoodsmretsallbopeu2013timeseriesspreadsheet
+series_id: MRET-SITC-0-9-WW
+geography: United Kingdom (world partner WW)
+frequency: monthly
+unit: £ million current prices, SA
+definition: UK trade in goods by SITC one-digit section, world total, Balance of Payments
+  current prices seasonally adjusted.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.goods_trade_by_commodity
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS MRET)
+raw_evidence:
+- path: raw/2026-11-16/mret.csv
+  retrieved_at: '2026-11-16T01:18:36.092542+00:00'
+  checksum_sha256: ac80f3d10a09af38d2dae199e5c61aa9278b76e03eb65bfb72e3cebe347f2a6d
+  content_type: text/csv
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/balanceofpayments/datasets/tradeingoodsmretsallbopeu2013timeseriesspreadsheet/current/mret.csv
+transformations: Parse MRET CSV titles for SITC (0)–(9) WW Exports/Imports CP SA;
+  emit series=<section>; category=<sitc-n>.
+revision_notes: MRET release 2026-11-12.
+caveats: SITC sections only — do not mix with HS/CN overlapping levels.
+status_note: ''
+related_indicator_ids:
+- uk-trade-mret
+- goods-trade-by-partner
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -1,0 +1,35 @@
+indicator_id: company-insolvencies
+title: Company insolvencies
+sector: economy-public-finance
+publisher: Insolvency Service
+source_url: https://www.gov.uk/government/collections/company-insolvency-statistics-releases
+series_id: company-insolvency-long-run
+geography: England and Wales / Scotland / Northern Ireland (separate)
+frequency: monthly
+unit: company insolvency count
+definition: Formal company insolvencies by nation and procedure. England and Wales
+  is not the United Kingdom. Distinct from ONS business demography deaths.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.company_insolvencies
+curated_path: curated/observations.csv
+update_cadence: monthly (Insolvency Service)
+raw_evidence:
+- path: raw/2026-11-16/company-insolvencies-long-run.csv
+  retrieved_at: '2026-11-16T01:15:37.138027+00:00'
+  checksum_sha256: 2f4f08f721499de7bf119fa37332ba2236dda185b8584a3ac49908b726b0e943
+  content_type: text/csv
+  official_release_date: '2026-10-20'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6ad0e2bb67af5c09d0479675/Long-Run_Series_in_CSV_Format_-_Company_Insolvency_Statistics_September_2026.csv
+transformations: Melt long-run wide CSV columns into observations; series=<procedure-adjustment>;
+  geography per nation.
+revision_notes: Long-run CSV September 2026 release (2026-10-20).
+caveats: Do not equate insolvencies with enterprise deaths. Do not invent a UK total
+  by summing nations/procedures.
+status_note: ''
+related_indicator_ids:
+- business-demography
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

@@ -25,6 +25,25 @@ export const REAL_INSTRUMENT_OPTIONS: { value: "delame" | "function"; label: str
   { value: "function", label: "Services by function" },
 ];
 
+/** Where spending goes — short Table 5.4 vs long-run Table 4.2. */
+export const FUNCTION_SPAN_OPTIONS: { value: "recent" | "long"; label: string }[] = [
+  { value: "recent", label: "Recent years" },
+  { value: "long", label: "Long run" },
+];
+
+const ESA_ORDER = [
+  "esa-gf01-general-public-services",
+  "esa-gf02-defence",
+  "esa-gf03-public-order-and-safety",
+  "esa-gf04-economic-affairs",
+  "esa-gf05-environmental-protection",
+  "esa-gf06-housing-and-community",
+  "esa-gf07-health",
+  "esa-gf08-recreation",
+  "esa-gf09-education",
+  "esa-gf10-social-protection",
+] as const;
+
 export type FunctionRank = { id: string; label: string; v: number };
 
 function toChartBn(raw: number, unit: SpendingValueUnit): number {
@@ -295,4 +314,77 @@ export function fmtSpendingShare(v: number): string {
   if (!Number.isFinite(v)) return "—";
   const sign = v < 0 ? "−" : "";
   return `${sign}${Math.abs(v).toFixed(1)}%`;
+}
+
+/** ESA Table 11 — calendar year key as "2024". */
+function esaByYear(
+  rows: Observation[],
+): Map<string, Map<string, { v: number; label: string }>> {
+  const out = new Map<string, Map<string, { v: number; label: string }>>();
+  for (const row of valuedRows(rows)) {
+    const n = parseNotes(row.notes);
+    const year = n.calendar_year || row.period_start.slice(0, 4);
+    const series = n.series;
+    if (!year || !series || row.value == null) continue;
+    let yearMap = out.get(year);
+    if (!yearMap) {
+      yearMap = new Map();
+      out.set(year, yearMap);
+    }
+    yearMap.set(series, { v: row.value as number, label: n.label || series });
+  }
+  return out;
+}
+
+export function esaCalendarYears(rows: Observation[]): string[] {
+  return [...esaByYear(rows).keys()].sort();
+}
+
+export function esaLatestYear(rows: Observation[]): string | null {
+  return esaCalendarYears(rows).at(-1) ?? null;
+}
+
+export function esaFunctionRanks(
+  rows: Observation[],
+  year: string,
+  measure: SpendingMeasure,
+): { ranks: FunctionRank[]; totalM: number } | null {
+  const yearMap = esaByYear(rows).get(year);
+  if (!yearMap) return null;
+  const totalM = yearMap.get("esa-total")?.v ?? 0;
+  if (!totalM) return null;
+  const ranks: FunctionRank[] = ESA_ORDER.map((id) => {
+    const cell = yearMap.get(id);
+    const raw = cell?.v ?? 0;
+    return {
+      id,
+      label: cell?.label ?? id,
+      v: measure === "share" ? (raw / totalM) * 100 : raw / 1000,
+    };
+  }).sort((a, b) => b.v - a.v);
+  return { ranks, totalM };
+}
+
+export function esaFunctionStack(rows: Observation[], measure: SpendingMeasure): ChartSeries[] {
+  const byYear = esaByYear(rows);
+  const years = [...byYear.keys()].sort();
+  return ESA_ORDER.map((id) => {
+    const points: Pt[] = [];
+    for (const year of years) {
+      const yearMap = byYear.get(year)!;
+      const cell = yearMap.get(id);
+      const total = yearMap.get("esa-total")?.v ?? 0;
+      if (!cell || !total) continue;
+      points.push({
+        t: toT(`${year}-07-01`),
+        v: measure === "share" ? (cell.v / total) * 100 : cell.v / 1000,
+      });
+    }
+    const label = byYear.get(years[0]!)?.get(id)?.label ?? id;
+    return { id, label, points };
+  }).filter((s) => s.points.length > 0);
+}
+
+export function calendarYearLabel(tt: number): string {
+  return String(Math.floor(tt));
 }

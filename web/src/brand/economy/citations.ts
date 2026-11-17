@@ -72,6 +72,16 @@ export const ECONOMY_SOURCE = {
   industryGva: "ONS · Gross value added by industry",
   growth: "ONS · National accounts and productivity",
 
+  rhdi: "ONS · Real household disposable income",
+  rhdiPerHead: "ONS · Real household disposable income per person",
+  householdSavingRatio: "ONS · Households' saving ratio",
+  householdFinances: "ONS · Household sector accounts",
+  familySpending: "ONS · Family spending",
+  familySpendingByCategory: "ONS · Family spending by category",
+  familySpendingByIncome: "ONS · Family spending by income group",
+  householdFinancialWealth: "ONS · Wealth and Assets Survey financial wealth",
+  consumerCredit: "Bank of England · Consumer credit outstanding",
+
   labourForce: "ONS · Labour Force Survey working-age levels",
   labourForceRates: "ONS · Labour Force Survey working-age rates",
   inactivityReasons: "ONS · Economic inactivity by reason",
@@ -109,6 +119,28 @@ export const ECONOMY_SOURCE = {
   tmeDelAmeReal: "HM Treasury · Public Spending Statistics Table 1.2",
   /** Real TES/COFOG — HMT PSS Table 4.3, 2025-26 prices. */
   tesByFunctionReal: "HM Treasury · Public Spending Statistics Table 4.3",
+  /** Long-run TES/COFOG — HMT PSS Table 4.2, £ billion. */
+  tesByFunctionLongRun: "HM Treasury · Public Spending Statistics Table 4.2",
+  /** ESA Table 11 — general government COFOG (calendar year). */
+  esaGgByFunction: "ONS · ESA Table 11 general government expenditure",
+
+  /** Economic policy register — legislation.gov.uk, Hansard, GOV.UK, OBR, Bank of England. */
+  policy: "UK legislation · Hansard · HM Treasury · OBR",
+  policyPledges: "HM Treasury Charter for Budget Responsibility · Bank of England",
+
+  /** Domain 09 — Trade, Investment & Business. */
+  tradeMret: "ONS · Monthly Review of External Trade (balance of payments)",
+  tradeExPm: "ONS · UK trade excluding precious metals",
+  goodsPartners: "ONS · UK trade all countries (goods partners)",
+  goodsCommodity: "ONS · UK trade by SITC commodity",
+  goodsByRegion: "HMRC · Regional trade statistics",
+  servicesPartners: "ONS · UK trade in services by partner country",
+  servicesTrade: "ONS · UK trade in services",
+  businessInvestment: "ONS · Business investment",
+  fdi: "ONS · Foreign direct investment",
+  ukBusiness: "ONS · UK business activity, size and location",
+  businessDemography: "ONS · Business demography",
+  insolvencies: "Insolvency Service · Company insolvencies",
 
   netDebt: "ONS · Public sector net debt",
   netBorrowing: "ONS · Public sector net borrowing",

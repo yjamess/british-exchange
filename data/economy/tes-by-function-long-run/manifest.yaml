@@ -1,0 +1,72 @@
+indicator_id: tes-by-function-long-run
+title: Public sector expenditure on services by function, long run (PSS Table 4.2)
+sector: economy-public-finance
+publisher: HM Treasury
+source_url: https://www.gov.uk/government/statistics/public-spending-statistics-release-july-2026
+series_id: PSS July 2026 Table 4.2
+geography: 'United Kingdom public sector (K02000001): central government, local government
+  and public corporations, including devolved administrations inside the functions'
+frequency: annual
+unit: £ billion, nominal, financial year
+definition: HM Treasury Total Expenditure on Services (TES) by UN COFOG level 1, from
+  PSS July 2026 Table 4.2. Financial-year outturn from 2003-04 to 2025-26, £ billion,
+  one decimal place, nominal. Each function is the published total (current and capital
+  already summed). EU transactions keep the published sign and sit inside TES but
+  outside the ten functions. The published TES total is stored because level-1 leaves
+  can miss it by up to £0.2 billion. Accounting adjustments are the bridge from TES
+  to this table's Total Managed Expenditure. They are not a function. This is the
+  long-run companion of £ million Table 5.4 (tes-by-function) and of real £ billion
+  Table 4.3 (tes-by-function-real). Do not mix the units. Health in 2024-25 is 242.4
+  nominal, against Table 4.3 Health 250.8 in 2025-26 prices. Table 4.3 is not curated.
+  This table's TME is not monthly ONS EBFT.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.tes_by_function_long_run
+curated_path: curated/observations.csv
+update_cadence: PSS key series are updated in the November, February and April cycle.
+  Re-pin on a new edition; do not overwrite this checksum.
+raw_evidence:
+- path: raw/2026-11-15/July_PSS_2026_Chapter_4.xlsx
+  retrieved_at: '2026-11-15T21:47:44.615767+00:00'
+  checksum_sha256: 573625f73c0e311ff68c5635691801be955fd466cd9b5b4a0e00b8173852195c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-29'
+  http_status: 200
+  source_url: https://assets.publishing.service.gov.uk/media/6a574aac822fbe6b8245c955/July_PSS_2026_Chapter_4.xlsx
+transformations: Download PSS July 2026 Chapter 4. Read sheet 4_2 for curated rows.
+  Keep financial years 2003-04 to 2025-26. Curate ten COFOG level-1 functions, EU
+  transactions, published TES, accounting adjustments, and table TME. All rows are
+  classification=total because the sheet does not split current and capital. Skip
+  of-which lines. Do not invent a residual for the £ billion rounding gap. Read sheet
+  4_3 only to prove Health 2024-25 is 250.8 there and 242.4 here, and that 2025-26
+  nominal equals real. Do not write Table 4.3. Do not write £ million Table 5.4 into
+  this folder. 2025-26 observation_status=estimated. Notes use series, classification,
+  role, fy, cofog, label, table=4.2, terms=nominal. Table TME notes set denominator=hmt-table-tme.
+revision_notes: PSS July 2026, file updated 2026-07-29. 2025-26 is the first outturn
+  estimate. Later PSS editions can revise these years. Compare sha256 before replacing
+  the raw workbook. Table 4.2 Health 2024-25 (242.4) is Table 5.4 Health 242,429 £
+  million rounded to 0.1 billion. The £ million series stays in tes-by-function.
+caveats: Unit is £ billion, nominal, one decimal place. Do not mix these rows with
+  £ million tes-by-function or with £ billion tes-by-function-real (2025-26 prices).
+  In 2024-25, Health is 242.4, Social protection is 386.3, TES is 1,166.5, accounting
+  adjustments are 123.6, and table TME is 1,290.0. Level-1 leaves plus EU are 0.1
+  above TES that year, and TES plus adjustments are 0.1 above table TME. The largest
+  leaf gap in this workbook is £0.2 billion, in 2022-23. Published cells are stored.
+  No residual function. EU transactions in 2024-25 are -1.4, so the ten functions
+  are not TES on their own. Defence is the UN COFOG definition, not the NATO definition.
+  Public-sector debt interest is an of-which line inside General public services and
+  is not a separate curated function. No Tax−Spend=Borrow identity. No OSCAR rows.
+  No PESA plan years. No ESA Table 11 rows. This table's TME is not monthly EBFT.
+status_note: Financial-year outturn for 2003-04 to 2025-26 from PSS July 2026 Table
+  4.2, nominal £ billion. 2025-26 is a first estimate and can still be revised. Not
+  the real-terms Table 4.3 series.
+related_indicator_ids:
+- tes-by-function
+- tes-by-function-real
+- total-managed-expenditure
+open_questions:
+- Do not append these £ billion rows onto tes-by-function.
+- Do not treat Table 4.3 as this series. Real terms stay on tes-by-function-real.
+- Do not rescale Table 4.2 onto monthly total-managed-expenditure.
+notion_registry_url: https://app.notion.com/p/4196547176858108be4bd40a2251cd7b
+schema_version: '1.0'

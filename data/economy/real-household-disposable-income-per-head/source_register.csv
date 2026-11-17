@@ -1,0 +1,3 @@
+source_id,publisher,cdid,dataset,landing_url,role,status
+crxx-ukea,ONS,CRXX,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/crxx/ukea,RHDI per head CVM SA,ingested-validation
+crxw-ukea,ONS,CRXW,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/crxw/ukea,NSA companion — not ingested,out-of-scope

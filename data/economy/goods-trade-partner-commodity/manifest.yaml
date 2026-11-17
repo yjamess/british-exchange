@@ -1,0 +1,111 @@
+indicator_id: goods-trade-partner-commodity
+title: Goods trade by partner and SITC section
+sector: economy-public-finance
+publisher: HMRC
+source_url: https://www.uktradeinfo.com/api-documentation/
+series_id: OTS-Country-SITC1
+geography: United Kingdom · partner countries (ISO 3166-1 alpha-2)
+frequency: annual
+unit: £ million current prices (customs / OTS)
+definition: UK overseas trade in goods by partner country and SITC one-digit section,
+  imports and exports. Values are HMRC Overseas Trade Statistics (physical movement
+  / customs declarations), aggregated from monthly OTS via the UK Trade Info API.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.goods_trade_partner_commodity
+curated_path: curated/observations.csv
+update_cadence: monthly (after HMRC OTS release)
+raw_evidence:
+- path: raw/2026-11-16/run_meta.json
+  retrieved_at: '2026-11-16T02:21:25.506684+00:00'
+  checksum_sha256: f87dfd0f653af49c57cac354c26c748940486a97f54b289b11ce3672e4a4830c
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com
+- path: raw/2026-11-16/countries.json
+  retrieved_at: '2026-11-16T02:21:25.506787+00:00'
+  checksum_sha256: 4a77814fe5371253074193836f22d7517f27525cf976c5e972304e608a1d6a0e
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com
+- path: raw/2026-11-16/sitc.json
+  retrieved_at: '2026-11-16T02:21:25.506912+00:00'
+  checksum_sha256: 470b9cfbdd72e154dbb7b43932b5962998381fb192c2ed3370f4beefc20951c3
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com
+- path: raw/2026-11-16/ots/2023_exports.json
+  retrieved_at: '2026-11-16T02:21:28.048425+00:00'
+  checksum_sha256: e939153b0909b2e0bf68f7ed1a21a11370d5139fca74c81c1479a4b9235651a2
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2023_imports.json
+  retrieved_at: '2026-11-16T02:21:29.641448+00:00'
+  checksum_sha256: 4bd3e6efce749c68f5bf72c23010df14eb71c2748a0de5259eba8e73e0af09c6
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2024_exports.json
+  retrieved_at: '2026-11-16T02:21:31.886134+00:00'
+  checksum_sha256: 34a2e1ec0f8400d386e677e116ad5990136dc81c2bd50e94b12100dc44b5ccd0
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2024_imports.json
+  retrieved_at: '2026-11-16T02:21:33.638287+00:00'
+  checksum_sha256: 837a96bbecd0cfaf1ea964615f1c18f370c286d8328f62f70ffd70b399abf85a
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2025_exports.json
+  retrieved_at: '2026-11-16T02:21:35.353766+00:00'
+  checksum_sha256: 8f4471cd50a937a1d53bcd8b93cb19498ff6c0b3f0fbb9f8be59347dc044936c
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2025_imports.json
+  retrieved_at: '2026-11-16T02:21:37.501825+00:00'
+  checksum_sha256: 9882554550034bb3cbf77f2fa97c32cddb7e0a25ac47eeef734515b5c8b00276
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2026_exports.json
+  retrieved_at: '2026-11-16T02:21:39.251122+00:00'
+  checksum_sha256: 2998d6ee836783dbd2262165590f8708cb7bc454e06ca196e770b676bc5b79f5
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+- path: raw/2026-11-16/ots/2026_imports.json
+  retrieved_at: '2026-11-16T02:21:40.839439+00:00'
+  checksum_sha256: 551127db0af6d5fff4f327ab67f7968d5d2b1516845bbee742651a1318927aee
+  content_type: application/json
+  official_release_date: 2026-09
+  http_status: 200
+  source_url: https://api.uktradeinfo.com/OTS
+transformations: OData $apply groupby CountryId × SITC/Sitc1Code with sum(Value);
+  map CountryId→ISO2; Value GBP→£m; write annual observations + Storage pack partner_commodity_annual.json.
+revision_notes: HMRC revises recent months. Re-run after each OTS release. See also
+  https://www.uktradeinfo.com/trade-data/help-with-using-our-data/.
+caveats: OTS ≠ ONS BoP SA partner totals (goods-trade-by-partner). SITC section only
+  — not CN8×country. Suppressions remain in the underlying microdata; section totals
+  can still move with revisions.
+status_note: ''
+related_indicator_ids:
+- goods-trade-by-partner
+- goods-trade-by-commodity
+- goods-trade-by-uk-region
+open_questions:
+- Whether Trading World plates should use SITC1 or finer SITC2.
+notion_registry_url: ''
+schema_version: '1.0'

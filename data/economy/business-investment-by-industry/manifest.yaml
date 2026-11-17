@@ -1,0 +1,35 @@
+indicator_id: business-investment-by-industry
+title: Business investment by industry
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/businessinvestmentbyindustryandasset
+series_id: BI-by-industry-CVM-SA
+geography: United Kingdom (K02000001)
+frequency: quarterly
+unit: £ million chained volume, SA
+definition: UK business investment by industry section/group, chained volume measures,
+  seasonally adjusted. From ONS Business investment by industry and asset Table 4.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.business_investment_by_industry
+curated_path: curated/observations.csv
+update_cadence: quarterly (ONS Business investment)
+raw_evidence:
+- path: raw/2026-11-16/businessinvestmentbyindustryandasset.xlsx
+  retrieved_at: '2026-11-16T01:14:00.036100+00:00'
+  checksum_sha256: 39daa5e4f08a8a692331c8109e1a2d405c4ec49f1e665046160b56176a1da1c9
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-09-30'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/grossdomesticproductgdp/datasets/businessinvestmentbyindustryandasset/current/businessinvestmentbyindustryandasset.xlsx
+transformations: Download industry×asset workbook; parse Table_4_CVM_SA industry columns;
+  notes series=industry; category=<slug>.
+revision_notes: Workbook 2026-09-30.
+caveats: CVM industry components are not additive to the headline total.
+status_note: ''
+related_indicator_ids:
+- business-investment
+- business-investment-by-asset
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

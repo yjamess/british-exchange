@@ -41,6 +41,23 @@ EventStatus = Literal[
     "closed",
     "dissolved",
     "succeeded",
+    # Economy Domain 10: a decision can be recorded before it is law, or after it is undone.
+    "announced",
+    "proposed",
+    "expired",
+    "reversed",
+]
+PolicyArea = Literal[
+    "fiscal",
+    "monetary",
+    "institutions",
+    "trade",
+    "industrial",
+    "labour-market",
+    "welfare",
+    "housing-land",
+    "financial-regulation",
+    "crisis-response",
 ]
 SourceRole = Literal["primary", "explanatory_notes", "official"]
 LinkRelationship = Literal["context"]
@@ -62,8 +79,28 @@ _STATUSES: frozenset[str] = frozenset(
         "closed",
         "dissolved",
         "succeeded",
+        "announced",
+        "proposed",
+        "expired",
+        "reversed",
     }
 )
+# The ten policy areas of the Economy Domain 10 brief. Optional on other sectors' files.
+_POLICY_AREAS: frozenset[str] = frozenset(
+    {
+        "fiscal",
+        "monetary",
+        "institutions",
+        "trade",
+        "industrial",
+        "labour-market",
+        "welfare",
+        "housing-land",
+        "financial-regulation",
+        "crisis-response",
+    }
+)
+_REGISTRIES: frozenset[str] = frozenset({"housing", "energy", "economy"})
 _ROLES: frozenset[str] = frozenset({"primary", "explanatory_notes", "official"})
 _TOPICS: frozenset[str] = frozenset(
     {
@@ -90,6 +127,17 @@ _TOPICS: frozenset[str] = frozenset(
         "regulation",
         "manufacturing",
         "renewables",
+        # Economy Domain 10
+        "fiscal",
+        "monetary",
+        "institutions",
+        "trade",
+        "labour-market",
+        "pensions",
+        "financial-regulation",
+        "crisis-response",
+        "tax",
+        "spending",
     }
 )
 _NATIONS: frozenset[str] = frozenset({"england", "wales", "scotland", "northern-ireland"})
@@ -135,6 +183,55 @@ class LinkedIndicator:
 
 
 @dataclass(frozen=True, slots=True)
+class Measure:
+    """One stated figure from the decision: a rate, threshold, allocation or rule, as published."""
+
+    label: str
+    value: str
+    source: PolicySource | None
+
+
+@dataclass(frozen=True, slots=True)
+class Evaluation:
+    """A published assessment of the decision. Separate from intentions and from observed series."""
+
+    label: str
+    url: str
+    publisher: str
+    when: date | None
+    finding: str
+
+
+@dataclass(frozen=True, slots=True)
+class RelatedRecord:
+    """A pointer to a record in this or another sector's register. Never a copy."""
+
+    registry: str
+    event_id: str
+    note: str
+
+
+@dataclass(frozen=True, slots=True)
+class Dossier:
+    """The evidence record behind a decision (Economy Domain 10 brief).
+
+    Three kinds of evidence stay apart: what policymakers said (background,
+    objectives, mechanism, measures), what was done (implementation, financial),
+    and what others concluded (evaluations). Observed series live on
+    ``linked_indicators`` and are context, never effects.
+    """
+
+    background: str
+    objectives: str
+    mechanism: str
+    implementation: str
+    measures: tuple[Measure, ...]
+    financial: tuple[Measure, ...]
+    evaluations: tuple[Evaluation, ...]
+    related: tuple[RelatedRecord, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class PolicyEvent:
     """One Act, instrument, programme or institution, with dates kept apart."""
 
@@ -159,6 +256,10 @@ class PolicyEvent:
     status_note: str
     sources: tuple[PolicySource, ...]
     linked_indicators: tuple[LinkedIndicator, ...]
+    # Optional evidence-record fields (Economy Domain 10). Other sectors may leave them out.
+    policy_area: PolicyArea | None = None
+    repealed_date: date | None = None
+    dossier: Dossier | None = None
 
     @property
     def mark_date(self) -> date:
@@ -303,6 +404,19 @@ def _event(item: Any, path: Path) -> PolicyEvent:
         if row.when is not None and mark is not None and row.when < mark:
             raise ValueError(f"{event_id}: commencement {row.citation} is before the mark date")
 
+    policy_area = item.get("policy_area")
+    if policy_area is not None and policy_area not in _POLICY_AREAS:
+        raise ValueError(f"{event_id}: policy_area must be one of {sorted(_POLICY_AREAS)} or null")
+    repealed = _optional_date(item.get("repealed_date"), "repealed_date", event_id)
+    if repealed is not None:
+        if event_type not in _LEGAL_TYPES:
+            raise ValueError(f"{event_id}: repealed_date applies to acts and instruments only")
+        if mark is not None and repealed < mark:
+            raise ValueError(f"{event_id}: repealed_date is before the mark date")
+        if status not in {"repealed", "reversed", "expired"}:
+            raise ValueError(f"{event_id}: repealed_date needs status repealed, reversed or expired")
+    dossier = _dossier(item.get("dossier"), event_id)
+
     return PolicyEvent(
         id=event_id,
         title=_text(item, "title", path),
@@ -325,7 +439,65 @@ def _event(item: Any, path: Path) -> PolicyEvent:
         status_note=_text(item, "status_note", path),
         sources=sources,
         linked_indicators=tuple(_link(row, event_id) for row in _list(item, "linked_indicators", event_id)),
+        policy_area=policy_area,
+        repealed_date=repealed,
+        dossier=dossier,
     )
+
+
+def _dossier(value: Any, event_id: str) -> Dossier | None:
+    """Optional evidence record. When present, the four prose fields are required."""
+
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ValueError(f"{event_id}: dossier must be an object or null")
+    where = f"{event_id} dossier"
+    return Dossier(
+        background=_text(value, "background", where),
+        objectives=_text(value, "objectives", where),
+        mechanism=_text(value, "mechanism", where),
+        implementation=_text(value, "implementation", where),
+        measures=tuple(_measure(row, where, "measure") for row in _list(value, "measures", where)),
+        financial=tuple(_measure(row, where, "financial") for row in _list(value, "financial", where)),
+        evaluations=tuple(_evaluation(row, where) for row in _list(value, "evaluations", where)),
+        related=tuple(_related(row, where) for row in _list(value, "related", where)),
+    )
+
+
+def _measure(item: Any, where: str, kind: str) -> Measure:
+    if not isinstance(item, dict):
+        raise ValueError(f"{where}: {kind} must be an object")
+    source = item.get("source")
+    return Measure(
+        label=_text(item, "label", where),
+        value=_text(item, "value", where),
+        source=None if source is None else _source(source, where),
+    )
+
+
+def _evaluation(item: Any, where: str) -> Evaluation:
+    if not isinstance(item, dict):
+        raise ValueError(f"{where}: evaluation must be an object")
+    url = _text(item, "url", where)
+    if not url.startswith("https://"):
+        raise ValueError(f"{where}: evaluation url must be https")
+    return Evaluation(
+        label=_text(item, "label", where),
+        url=url,
+        publisher=_text(item, "publisher", where),
+        when=_optional_date(item.get("date"), "evaluation date", where),
+        finding=_text(item, "finding", where),
+    )
+
+
+def _related(item: Any, where: str) -> RelatedRecord:
+    if not isinstance(item, dict):
+        raise ValueError(f"{where}: related must be an object")
+    registry = item.get("registry")
+    if registry not in _REGISTRIES:
+        raise ValueError(f"{where}: related registry must be one of {sorted(_REGISTRIES)}")
+    return RelatedRecord(registry=registry, event_id=_text(item, "id", where), note=_text(item, "note", where))
 
 
 def _check_sources(event_id: str, event_type: str, sources: tuple[PolicySource, ...]) -> None:

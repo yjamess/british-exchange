@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-15T15:50:53.097128+00:00",
+  "updated_at": "2026-11-16T02:21:57.592290+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -377,6 +377,28 @@
       "stored_checksum_sha256": "4fc11a1a0bd38102cca4a939c4de26c26d1d7bf96dbf472244fe79354c5f425c"
     },
     {
+      "path": "data/economy/economic-policy/events.json",
+      "size": 90724,
+      "checksum_sha256": "2c450f681ce332bdd30f0208295ba6aade82defad0bc2c6e26203af00e6411da",
+      "storage_key": "economy/economic-policy/events.json",
+      "uploaded_at": "2026-11-15T23:18:03.782406+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 90724,
+      "stored_checksum_sha256": "2c450f681ce332bdd30f0208295ba6aade82defad0bc2c6e26203af00e6411da"
+    },
+    {
+      "path": "data/economy/economic-policy/pledges.json",
+      "size": 8135,
+      "checksum_sha256": "f3f182ec98ffccfdfcc9dd84c9df7ef2ccb292a80518b84fe5b3e8e5b5c4ec09",
+      "storage_key": "economy/economic-policy/pledges.json",
+      "uploaded_at": "2026-11-15T22:47:22.844854+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 8135,
+      "stored_checksum_sha256": "f3f182ec98ffccfdfcc9dd84c9df7ef2ccb292a80518b84fe5b3e8e5b5c4ec09"
+    },
+    {
       "path": "data/economy/employment-by-occupation/curated/observations.csv",
       "size": 107413,
       "checksum_sha256": "c0354635fca470300a1fbc1db6edf4ef8e8dc373ce8793ca134471e11301c221",
@@ -408,6 +430,28 @@
       "compression": null,
       "stored_size": 152278,
       "stored_checksum_sha256": "3893c72eb0e3eb35dd25b7ad69661ebac80165789885e019de4f7b27db3ac531"
+    },
+    {
+      "path": "data/economy/goods-trade-partner-commodity/curated/partner_commodity_annual.json",
+      "size": 2081488,
+      "checksum_sha256": "5019f7d5921b334a5f41af9839b4b7299be09cb94a193c11d4165dddd8c55d32",
+      "storage_key": "economy/goods-trade-partner-commodity/curated/partner_commodity_annual.json",
+      "uploaded_at": "2026-11-16T02:21:57.592191+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 2081488,
+      "stored_checksum_sha256": "5019f7d5921b334a5f41af9839b4b7299be09cb94a193c11d4165dddd8c55d32"
+    },
+    {
+      "path": "data/economy/goods-trade-partner-commodity/curated/partners_annual.json",
+      "size": 613821,
+      "checksum_sha256": "ab0f950249a948248c0702652f1008ab48dc6cb4ca36610aee6c2959b427000b",
+      "storage_key": "economy/goods-trade-partner-commodity/curated/partners_annual.json",
+      "uploaded_at": "2026-11-16T02:20:15.734937+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 613821,
+      "stored_checksum_sha256": "ab0f950249a948248c0702652f1008ab48dc6cb4ca36610aee6c2959b427000b"
     },
     {
       "path": "data/economy/gva-by-industry-section/curated/observations.csv",
@@ -562,6 +606,292 @@
       "compression": null,
       "stored_size": 33345,
       "stored_checksum_sha256": "a9863817f3ce4674b95914d34f4b0a78d41754525f2506ea8b109991067027b0"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/curated/observations.csv",
+      "size": 558577,
+      "checksum_sha256": "1a95086735452b7e5212adcdd0efb3462bfadec7589e6648fbe49e8444e92949",
+      "storage_key": "economy/uk-trade-ex-precious-metals/curated/observations.csv",
+      "uploaded_at": "2026-11-16T01:11:52.302930+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 558577,
+      "stored_checksum_sha256": "1a95086735452b7e5212adcdd0efb3462bfadec7589e6648fbe49e8444e92949"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsic_mret.json",
+      "size": 94337,
+      "checksum_sha256": "cbedb24178e8ad554503dbbb3c661bdf7d40d4a70f592163690e6e9ec95ab77a",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsic_mret.json",
+      "uploaded_at": "2026-11-16T01:11:52.640715+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 94337,
+      "stored_checksum_sha256": "cbedb24178e8ad554503dbbb3c661bdf7d40d4a70f592163690e6e9ec95ab77a"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsid_mret.json",
+      "size": 95233,
+      "checksum_sha256": "fbc70e4ce4e1bef1d5668dce24fdd4bbd839f465b638efa62506bc89695ae9bc",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsid_mret.json",
+      "uploaded_at": "2026-11-16T01:11:52.994964+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 95233,
+      "stored_checksum_sha256": "fbc70e4ce4e1bef1d5668dce24fdd4bbd839f465b638efa62506bc89695ae9bc"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsie_mret.json",
+      "size": 95216,
+      "checksum_sha256": "7080546f3e7c2b3cfc0e5d77e88f56d85f0234584ae5784cf322b140d9fca077",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/fsie_mret.json",
+      "uploaded_at": "2026-11-16T01:11:53.474292+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 95216,
+      "stored_checksum_sha256": "7080546f3e7c2b3cfc0e5d77e88f56d85f0234584ae5784cf322b140d9fca077"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/jil2_mret.json",
+      "size": 89643,
+      "checksum_sha256": "f93b664ff0882a832a3678177483a1e77db3870d365be7c00de2d844397aa0b6",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/jil2_mret.json",
+      "uploaded_at": "2026-11-16T01:11:53.811430+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 89643,
+      "stored_checksum_sha256": "f93b664ff0882a832a3678177483a1e77db3870d365be7c00de2d844397aa0b6"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/jim3_mret.json",
+      "size": 90306,
+      "checksum_sha256": "326ab20b9e985145d68058881845fd8ad2edeca86ee198af4e49a62499067726",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/jim3_mret.json",
+      "uploaded_at": "2026-11-16T01:11:54.138556+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 90306,
+      "stored_checksum_sha256": "326ab20b9e985145d68058881845fd8ad2edeca86ee198af4e49a62499067726"
+    },
+    {
+      "path": "data/economy/uk-trade-ex-precious-metals/raw/2026-11-16/jin4_mret.json",
+      "size": 88749,
+      "checksum_sha256": "e29cb00e1d2cf6b4103a65cf71bab4057c65008d2af7e21b4f5c587e694d86fb",
+      "storage_key": "economy/uk-trade-ex-precious-metals/raw/2026-11-16/jin4_mret.json",
+      "uploaded_at": "2026-11-16T01:11:54.485613+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 88749,
+      "stored_checksum_sha256": "e29cb00e1d2cf6b4103a65cf71bab4057c65008d2af7e21b4f5c587e694d86fb"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/curated/observations.csv",
+      "size": 1698043,
+      "checksum_sha256": "be652d4dda8dfe7fee63cb1efdb7204954eafbdcbeb8c2cc569db0beae93ea8a",
+      "storage_key": "economy/uk-trade-mret/curated/observations.csv",
+      "uploaded_at": "2026-11-16T01:11:43.167574+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 1698043,
+      "stored_checksum_sha256": "be652d4dda8dfe7fee63cb1efdb7204954eafbdcbeb8c2cc569db0beae93ea8a"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/bokg_mret.json",
+      "size": 151459,
+      "checksum_sha256": "48fb6a1ca8b970b738c268fcd6762b88dba39b172de35949311781a33f7a82c8",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/bokg_mret.json",
+      "uploaded_at": "2026-11-16T01:11:43.667292+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 151459,
+      "stored_checksum_sha256": "48fb6a1ca8b970b738c268fcd6762b88dba39b172de35949311781a33f7a82c8"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/bokh_mret.json",
+      "size": 152109,
+      "checksum_sha256": "d78a4f2a2ee558d900786f720b34256cbdf3172bcc399a3e078645bda26da019",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/bokh_mret.json",
+      "uploaded_at": "2026-11-16T01:11:44.175840+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 152109,
+      "stored_checksum_sha256": "d78a4f2a2ee558d900786f720b34256cbdf3172bcc399a3e078645bda26da019"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/boki_mret.json",
+      "size": 151693,
+      "checksum_sha256": "d298ee57a73b494a39a104d417930c373182b452af8c5833e4b7838c7c3d7385",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/boki_mret.json",
+      "uploaded_at": "2026-11-16T01:11:44.604380+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 151693,
+      "stored_checksum_sha256": "d298ee57a73b494a39a104d417930c373182b452af8c5833e4b7838c7c3d7385"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/bqko_mret.json",
+      "size": 97011,
+      "checksum_sha256": "12724efd124d2d449f9aba70362d00b743e2f672b40ba9fd8da60d6c3affb116",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/bqko_mret.json",
+      "uploaded_at": "2026-11-16T01:11:45.208301+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 97011,
+      "stored_checksum_sha256": "12724efd124d2d449f9aba70362d00b743e2f672b40ba9fd8da60d6c3affb116"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/bqkq_mret.json",
+      "size": 138161,
+      "checksum_sha256": "e3537c7ed89922faa1cbe6814d1352a88c7a16fb2df0312c604cb0fd21a0f662",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/bqkq_mret.json",
+      "uploaded_at": "2026-11-16T01:11:45.579720+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 138161,
+      "stored_checksum_sha256": "e3537c7ed89922faa1cbe6814d1352a88c7a16fb2df0312c604cb0fd21a0f662"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ctvs_mret.json",
+      "size": 98294,
+      "checksum_sha256": "53482311a33aa5360af8cb47ce9e725808652e832c3cf10bc393a5377bdb9e02",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ctvs_mret.json",
+      "uploaded_at": "2026-11-16T01:11:46.000935+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 98294,
+      "stored_checksum_sha256": "53482311a33aa5360af8cb47ce9e725808652e832c3cf10bc393a5377bdb9e02"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbb_mret.json",
+      "size": 161413,
+      "checksum_sha256": "07955cd146d75feb996ddfdf11bea6f3854439f331971a38f54365bc065445f1",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbb_mret.json",
+      "uploaded_at": "2026-11-16T01:11:46.410771+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 161413,
+      "stored_checksum_sha256": "07955cd146d75feb996ddfdf11bea6f3854439f331971a38f54365bc065445f1"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbc_mret.json",
+      "size": 161318,
+      "checksum_sha256": "ad0297e845c5bcc8dca08ff0041f256d6c2c1e6381d9c84ed19d3bb28fcd3633",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbc_mret.json",
+      "uploaded_at": "2026-11-16T01:11:46.904432+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 161318,
+      "stored_checksum_sha256": "ad0297e845c5bcc8dca08ff0041f256d6c2c1e6381d9c84ed19d3bb28fcd3633"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbd_mret.json",
+      "size": 151726,
+      "checksum_sha256": "4d27e579d2b083cbedc6c42975f8e88051e2967ac579463f6a7c01815a446bbe",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbd_mret.json",
+      "uploaded_at": "2026-11-16T01:11:47.264069+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 151726,
+      "stored_checksum_sha256": "4d27e579d2b083cbedc6c42975f8e88051e2967ac579463f6a7c01815a446bbe"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbe_mret.json",
+      "size": 138163,
+      "checksum_sha256": "316f2f0b3b45d1c3bd033c3f8f40fbe640d192310ed7eed7041d51d8b83abf2b",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbe_mret.json",
+      "uploaded_at": "2026-11-16T01:11:47.616891+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 138163,
+      "stored_checksum_sha256": "316f2f0b3b45d1c3bd033c3f8f40fbe640d192310ed7eed7041d51d8b83abf2b"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbf_mret.json",
+      "size": 138111,
+      "checksum_sha256": "47da6c53ce3c9674d00e6c1d4083a2bc0df99a3df7a548375d5292a5d215ba7e",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbf_mret.json",
+      "uploaded_at": "2026-11-16T01:11:47.951445+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 138111,
+      "stored_checksum_sha256": "47da6c53ce3c9674d00e6c1d4083a2bc0df99a3df7a548375d5292a5d215ba7e"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbg_mret.json",
+      "size": 98761,
+      "checksum_sha256": "fc0dc833a199167b6ee0b442d77856033cca11943d30a080f1c16be698399745",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbg_mret.json",
+      "uploaded_at": "2026-11-16T01:11:48.251057+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 98761,
+      "stored_checksum_sha256": "fc0dc833a199167b6ee0b442d77856033cca11943d30a080f1c16be698399745"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbh_mret.json",
+      "size": 152125,
+      "checksum_sha256": "0bea61c519c95fb870605f7f84b76cc8a094869edc360343ee5e5464ef81a5ee",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbh_mret.json",
+      "uploaded_at": "2026-11-16T01:11:48.766554+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 152125,
+      "stored_checksum_sha256": "0bea61c519c95fb870605f7f84b76cc8a094869edc360343ee5e5464ef81a5ee"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbi_mret.json",
+      "size": 152131,
+      "checksum_sha256": "cedb1dd15baa4a4749a4f079d950211deecec19d14d9edda59e450d170ac1192",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbi_mret.json",
+      "uploaded_at": "2026-11-16T01:11:49.137507+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 152131,
+      "stored_checksum_sha256": "cedb1dd15baa4a4749a4f079d950211deecec19d14d9edda59e450d170ac1192"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbj_mret.json",
+      "size": 151902,
+      "checksum_sha256": "fd1c1f19a322b7b85b33d49ba7c58f1733def15c1951c8d90cf70e5b644252c8",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbj_mret.json",
+      "uploaded_at": "2026-11-16T01:11:50.004383+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 151902,
+      "stored_checksum_sha256": "fd1c1f19a322b7b85b33d49ba7c58f1733def15c1951c8d90cf70e5b644252c8"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbk_mret.json",
+      "size": 98662,
+      "checksum_sha256": "4a43173ae043e9502b51b2440019b7c6e596f00ce971fe0208b17e77dc552dbf",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbk_mret.json",
+      "uploaded_at": "2026-11-16T01:11:50.399412+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 98662,
+      "stored_checksum_sha256": "4a43173ae043e9502b51b2440019b7c6e596f00ce971fe0208b17e77dc552dbf"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbl_mret.json",
+      "size": 98222,
+      "checksum_sha256": "a8e4eef26183424623f3e6237aa08747060fcf3b763c88fb300831e6d447792f",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbl_mret.json",
+      "uploaded_at": "2026-11-16T01:11:50.692064+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 98222,
+      "stored_checksum_sha256": "a8e4eef26183424623f3e6237aa08747060fcf3b763c88fb300831e6d447792f"
+    },
+    {
+      "path": "data/economy/uk-trade-mret/raw/2026-11-16/ikbm_mret.json",
+      "size": 98185,
+      "checksum_sha256": "669631ac60ebca0e79ae18d7564a9033eab70e346fece1135a233f60e854db29",
+      "storage_key": "economy/uk-trade-mret/raw/2026-11-16/ikbm_mret.json",
+      "uploaded_at": "2026-11-16T01:11:51.068264+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 98185,
+      "stored_checksum_sha256": "669631ac60ebca0e79ae18d7564a9033eab70e346fece1135a233f60e854db29"
     },
     {
       "path": "data/energy/domestic-economy7-electricity-bills/.DS_Store",

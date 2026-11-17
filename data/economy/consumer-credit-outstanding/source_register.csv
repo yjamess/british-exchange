@@ -1,0 +1,7 @@
+source_id,publisher,cdid,landing_url,role,status
+lpmbi2o,BoE,LPMBI2O,https://www.bankofengland.co.uk/boeapps/database/,consumer credit outstanding excl SLC total SA £m,ingested-validation
+lpmvzrj,BoE,LPMVZRJ,https://www.bankofengland.co.uk/boeapps/database/,credit cards outstanding SA £m,ingested-validation
+lpmb4ts,BoE,LPMB4TS,https://www.bankofengland.co.uk/boeapps/database/,other consumer credit outstanding SA £m,ingested-validation
+lpmvtxk,BoE,LPMVTXK,https://www.bankofengland.co.uk/boeapps/database/,secured on dwellings outstanding SA — not ingested (Housing MLAR),gap-link-housing
+iumbv34,BoE,IUMBV34,https://www.bankofengland.co.uk/boeapps/database/,2yr fixed quoted mortgage rate,link-only
+residential-mortgage-book,FCA/PRA MLAR,MLAR,https://www.fca.org.uk/data/mortgage-lending-statistics,Housing-owned mortgage stock and arrears,link-only

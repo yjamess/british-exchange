@@ -17,10 +17,13 @@ export type EconomyPackKey =
   | "inflation"
   | "wages"
   | "employment"
+  | "household"
   | "tax"
   | "spending"
   | "debt"
-  | "growth";
+  | "growth"
+  | "investment"
+  | "policy";
 
 /**
  * Packs required to render each domain canvas.
@@ -30,13 +33,13 @@ export const DOMAIN_PACKS = {
   inflation: ["inflation"],
   wages: ["wages"],
   employment: ["employment"],
-  household: [],
+  household: ["household"],
   growth: ["growth"],
   tax: ["tax"],
   spending: ["spending"],
   debt: ["debt"],
-  investment: [],
-  policy: [],
+  investment: ["investment"],
+  policy: ["policy"],
 } as const satisfies Record<EconomyDomainId, readonly EconomyPackKey[]>;
 
 export type EconomyScope = EconomyDomainId | "all";
@@ -53,7 +56,18 @@ export function resolveEconomyDomain(raw: string | string[] | undefined): Econom
 
 export function packsFor(scope: EconomyScope): readonly EconomyPackKey[] {
   if (scope === "all") {
-    return ["inflation", "wages", "employment", "tax", "spending", "debt", "growth"];
+    return [
+      "inflation",
+      "wages",
+      "employment",
+      "household",
+      "tax",
+      "spending",
+      "debt",
+      "growth",
+      "investment",
+      "policy",
+    ];
   }
   return DOMAIN_PACKS[scope];
 }

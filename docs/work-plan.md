@@ -1,5 +1,67 @@
 # British Exchange — Work plan
 
+## Economy · Domain 09 restructure → Trade & Investment · 2026-11-16
+
+Owner decision (2026-11-16): rename to **Trade & Investment**; five experiences — Trade ledger · Trading world · Products · Investment ledger · Capital across borders. Business views (Landscape, Births & deaths) stay in the rail until the owner picks a new home. Route id `investment` and view ids kept for saved links.
+
+1. **Orchestrator — done:** partner map pack rebuilt as calendar-year totals (it held December only) with a reproducible builder `src/economy/connectors/goods_trade_partners_annual.py`; partial year flagged; pushed to Storage. Reconciles to ONS world total (2024 and 2025, both flows).
+2. **Orchestrator — done:** Products takes the commodity lens (Goods/Services × Exports/Imports), latest complete calendar year + largest five over time. Investment ledger adds asset and industry lines over time. Capital across borders adds Into/From the UK partner ranks. EU vs rest of world goods trend (`TradeBlocTrend`) under the country map. UK region lens → UK nation, calendar-year totals; source corrected to HMRC. Plain figure-strip notes.
+3. **Economy — done (2026-11-16):** HMRC OTS partner × SITC1 product mix ingested — connector `src/economy/connectors/goods_trade_partner_commodity.py`; 14,508 rows (2023–2025 full + 2026 YTD to Sep); Storage pack `economy.goods-trade-partner-commodity` pushed. Awaiting Validation before Ready / dossier wiring.
+4. **Owner — in progress:** Trading world country dossier (exports/imports totals live; product frames wait on Validation Ready for the new pack).
+5. **Open:** wire dossier to OTS SITC1 pack after Validation; services on the Trading world map; FDI partner map; UK nation map; where business views live; Gate 4 re-run; Notion title/question.
+
+## Economy & Public Finance · Domain 09 Trade, Investment & Business · 2026-11-16
+
+Kickoff: [agent-kickoff-economy-09-trade.md](agent-kickoff-economy-09-trade.md). Notion: [09 · Trade, Investment & Business](https://app.notion.com/p/4146547176858138a339d24221b5bda0).
+
+**Domain 09 question (locked):** What does Britain buy and sell internationally, where does investment come from, and how is British business changing?
+
+**Status:** **complete** (2026-11-16) — Gates 2–4; no EmptyStage deferrals on the seven experiences + Data. Route `/economy?domain=investment`. NPEL primary home; Growth Follows. Audit: [gate4-audit-economy-09-trade.md](gate4-audit-economy-09-trade.md) · QA `data/qa/qa_economy_domain09_gate4_2026-11-16.md`.
+
+**Views:** trade · world · products · capital · fdi · landscape · births · data
+
+### EC-G2-09-00 — Kickoff + Phase 0 reconcile
+- Owner: Orchestrator
+- Status: **done** (2026-11-16)
+- Output: kickoff; work-plan; Notion Ingesting
+
+### EC-G2-09A — Trade Ledger MRET + ex-PM
+- Owner: Economy → Validation
+- Status: **done**
+- Output: `uk-trade-mret` · `uk-trade-ex-precious-metals` · cloud Ready
+
+### EC-G2-09B — Trading World + Products
+- Owner: Economy → Validation
+- Status: **done**
+- Output: goods partner/commodity/regional · services · `economy.goods-trade-partners-annual` Storage pack
+
+### EC-G2-09C — Investment deepen
+- Owner: Economy → Validation
+- Status: **done**
+- Output: `business-investment-by-asset` · `business-investment-by-industry` (+ NPEL)
+
+### EC-G2-09D — FDI
+- Owner: Economy → Validation
+- Status: **done**
+- Output: `uk-fdi`
+
+### EC-G2-09E — Business population + demography
+- Owner: Economy → Validation
+- Status: **done**
+- Output: `uk-business-enterprises` · `business-demography` · `company-insolvencies`
+
+### EC-G3-09 — InvestmentCanvas
+- Owner: Orchestrator
+- Status: **done**
+- Output: eight views live; `ECONOMY_READY_DOMAINS` includes investment; Follows wired
+
+### EC-G4-09 — Gate 4
+- Owner: Orchestrator + Validation
+- Status: **done**
+- Output: gate4 audit incl. 390px; Notion Control → complete
+
+---
+
 ## Adopt Electric spectrum · 2026-11-15
 
 1. **Orchestrator — in progress:** user selected Electric spectrum. Promote twelve chart inks and companion sage ground to shared brand tokens; use one sequence for lines/stacks/legend/readout; let dense legends wrap full names; update visual identity and mark study adopted. Verify live ten-series spending chart, mobile and shared checks.
@@ -2236,12 +2298,12 @@ Follow [07 · Public Spending & Services](https://app.notion.com/p/4146547176858
 
 **Domain 07 question (provisional):** What does the state spend, and where does managed expenditure go?
 
-**Flagship (planned):** **What the state spends** — EBFT Total Managed Expenditure. Function breakdowns planned-not-ready until OSCAR/COFOG sourced.
+**Flagship:** **What the state spends** — EBFT Total Managed Expenditure. TES/COFOG, DEL/AME, real terms, long-run Table 4.2, ESA Table 11 live. OSCAR blocked-as-tme-composition.
 
-**Status:** Wave B **G3 live** (2026-11-14) — `/economy?domain=spending` · What the state spends + Function/DEL·AME EmptyStages + Data.  
-**Updated:** 2026-11-14  
+**Status:** Wave B **Gates 2–4 closed** (2026-11-15) — `/economy?domain=spending` · Gate 4 [gate4-audit-economy-07-spending.md](gate4-audit-economy-07-spending.md).  
+**Updated:** 2026-11-15  
 **Orchestrator:** this chat  
-**Rule:** No invented function shares. No residual identity with Tax or Debt. TME ≠ services delivered without a labelled gap.
+**Rule:** No invented function shares. No residual identity with Tax or Debt. TME ≠ TES ≠ ESA without labelled Notes.
 
 ### EC-G2-07 — Spending Phase 0 evidence gate
 - Owner: Economy → Validation → Orchestrator
@@ -2315,8 +2377,7 @@ Follow [07 · Public Spending & Services](https://app.notion.com/p/4146547176858
 - **Shipped:** EBFT flagship; `tes-by-function` + `tme-del-ame` Ready · cloud **267**/**268** · G3 Function + DEL·AME
 - **Warn:** 2023-24 £1m TES rounding (published cells kept)
 - **Calendar:** re-pin EBFT after **20 Nov 2026** PSF; next PSS cycle Nov/Feb/Apr
-- **Next:** none for real terms / services — see Review below
-- **Still deferred:** ESA Table 11; OSCAR; Table 4.2 as its own pin; Gate 4
+- **Superseded:** long-run / ESA / OSCAR / Gate 4 — see Review (complete) below
 
 ### EC-G2-07C-PIN — Real terms pin (Tables 1.2 + 4.3)
 - Owner: Economy
@@ -2347,9 +2408,209 @@ Follow [07 · Public Spending & Services](https://app.notion.com/p/4146547176858
 
 ### Review — Economy Domain 07 (real terms + services)
 - **Shipped:** Real terms Ready · cloud **269**/**270** · G3 Real + Services narrative
-- **Still deferred:** ESA Table 11; OSCAR; Table 4.2 nominal long-run companion; Gate 4
+- **Opened next:** Table 4.2 long-run + ESA Table 11 pins · OSCAR decision · Gate 4 after Ready
 - **Calendar:** re-pin EBFT after **20 Nov 2026** PSF
 
+### EC-G2-07D-PIN — Table 4.2 long-run + ESA Table 11
+- Owner: Economy ([Economy long-run ESA](cddf794a-48d1-4647-9196-df11c5ebbc6f))
+- Status: **done** (2026-11-15) — Ready after Validation PASS
+- Inputs: matrix §A/§C; kickoff [agent-kickoff-economy-07-longrun-esa.md](agent-kickoff-economy-07-longrun-esa.md)
+- Output: `tes-by-function-long-run` 322 rows · `esa-gg-expenditure-by-function` 330 rows · [handover-economy-07-longrun-esa.md](handover-economy-07-longrun-esa.md)
+- Spots: Health 4.2 **242.4** £bn · ESA 2024 Total **1,330,532** · Health **253,191**; coversheet = bad copy (GG confirmed)
+- Registry: [long-run](https://app.notion.com/p/4196547176858108be4bd40a2251cd7b) · [ESA](https://app.notion.com/p/41965471768581f88f08d3b6a730dc52) — **Ready**
+
+### EC-G2-07F-OSCAR — OSCAR decision (no ingest)
+- Owner: Economy (same pass)
+- Status: **done** (2026-11-15) — **`blocked-as-tme-composition`**
+- Output: [economy-07-oscar-decision-memo.md](economy-07-oscar-decision-memo.md) · Inbox draft id `oscar-control-budget` only
+- Do not: curated OSCAR package
+
+### EC-VAL-07D / EC-VAL-07E — Validation long-run + ESA
+- Owner: Validation
+- Status: **done · pass** (2026-11-15) — **11 pass / 0 warn / 0 fail** (`L1–L4` · `E1–E5` · `OSCAR` · `C-extra`)
+- Inputs: handover; kickoff [agent-kickoff-validation-economy-07-longrun-esa.md](agent-kickoff-validation-economy-07-longrun-esa.md)
+- Output: [qa_report_economy_07_longrun_esa_2026-11-15.md](../data/qa/qa_report_economy_07_longrun_esa_2026-11-15.md); script `validation.qa_economy_07_longrun_esa_2026_11_15` (reads workbooks + curated only; no connector import)
+- Notes: every curated cell re-read from the workbooks; ESA level-1 sums exact in all 30 years; Table 4.2 leaf gap ≤ 0.2, bridge ≤ 0.1; coversheet bad copy and CG/LG siblings documented
+
+### EC-07D-CLOUD — Cloud load long-run + ESA
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — releases **271** (`tes-by-function-long-run`) · **272** (`esa-gg-expenditure-by-function`)
+- Command: `uv run python -m britain_exchange.scripts.load_ready --via-rest --only tes-by-function-long-run --only esa-gg-expenditure-by-function`
+
+### EC-G3-07D — Long-run / ESA UI
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Notes: Function **Span** (Recent / Long run → Table 5.4 vs 4.2); separate **ESA functions** view (calendar year, never on TES axis); Data tables for both
+
+### EC-G4-07 — Gate 4 structural audit (Spending)
+- Owner: Orchestrator (+ Validation skill)
+- Status: **done** (2026-11-15) — **passed** (phone 390px deferred)
+- Output: [gate4-audit-economy-07-spending.md](gate4-audit-economy-07-spending.md) · Mode B structural-consistency-audit
+- Views: spends · function (+ Span long-run) · delame · real · services · esa · data
+- Cloud: 55 · 267–272 · OSCAR blocked-as-tme-composition (no UI fake)
+
+### Review — Economy Domain 07 (complete)
+- **Shipped:** TME · Function (Span recent/long) · DEL/AME · Real · Services · ESA · Data · Gate 4
+- **Cloud:** 55 · 267–272 · VAL-07D/E **11/0/0**
+- **Blocked kept:** OSCAR `blocked-as-tme-composition` (memo only)
+- **Deferred:** phone 390px; EBFT re-pin after **20 Nov 2026** PSF
+- **Next:** none for Domain 07 deepen — Orchestrator picks next Economy domain
+
+---
+
+## Economy & Public Finance · Domain 04 Household Finances & Living Standards · 2026-11-15
+
+Follow [04 · Household Finances & Living Standards](https://app.notion.com/p/4146547176858147ba12d76094388df9). Kickoff: [agent-kickoff-economy-04-household.md](agent-kickoff-economy-04-household.md).
+
+**Scope:** this domain only (Wave C). Not a sector-wide Economy close.
+
+**Domain 04 question (locked):** How much financial freedom do British households actually have after the costs of everyday life?
+
+**Flagship (Notion-locked):** **The Household Ledger**. Initial data-led view: **Are We Better Off?** Supporting (evidence-gated): Cost of Living · Financial Buffer · Weight of Debt.
+
+**Status:** **complete** (2026-11-15) — Phase 1 + deepen (Cost · Ledger · Buffer · Debt). Gate 4 deepen: [gate4-audit-household-deepen.md](gate4-audit-household-deepen.md).  
+**Updated:** 2026-11-15  
+**Orchestrator:** this chat  
+**Rule:** Link Inflation / Wages / Housing Affordability / Energy bills / Domain 06 ETB / Housing WAS property wealth / Housing mortgage book — never fork. No fabricated household budgets from mismatched averages.
+
+### EC-G2-04 — Household Finances Phase 0 + Phase 1 evidence gate
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (Economy Phase 1, 2026-11-15) — Validation open
+- Inputs: Notion Domain 04 expanded brief; kickoff; existing `mortgage-rate-2yr-fixed`; link-only `effects-of-taxes-and-benefits` (Domain 06)
+- Output:
+  1. Phase 0 inventory + planned-not-ready for Ledger / Cost of Living / Buffer / Debt
+  2. Phase 1: `real-household-disposable-income` (DG2R, 286) · `real-household-disposable-income-per-head` (CRXX, 286) · `household-saving-ratio` (DGD8, 254)
+  3. Handover [`handover-economy-04-household.md`](handover-economy-04-household.md); registry → Validation
+- Spots 2026 Q2: DG2R 457,927 £m · CRXX £6,577 · DGD8 8.8% · CVM ref 2024 · provisional = latest quarter only
+- Do not: frontend; fork Housing / Inflation / Wages / ETB / Energy bills; invent reconciled household budgets; Ready without Validation
+
+### VAL-EC-04-RHDI — Validation RHDI / living-standards set
+- Owner: Validation → Orchestrator
+- Status: **done · pass** (2026-11-15) — 61 pass / 2 warn / 0 fail
+- Kickoff: [agent-kickoff-validation-economy-04-rhdi.md](agent-kickoff-validation-economy-04-rhdi.md)
+- Series: DG2R · CRXX · DGD8
+- Output: [qa_report_economy_04_rhdi_2026-11-15.md](../data/qa/qa_report_economy_04_rhdi_2026-11-15.md) · script `validation.qa_economy_04_rhdi_2026_11_15`
+- Notes: Registry → Ready (three pins). Warns: CRXX title omits ESA S.14; DGD8 ONS title £m vs % residual (not Financial Buffer)
+
+### EC-04-CLOUD — Cloud load Domain 04 Ready packs
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Inputs: Ready packages under `data/economy/real-household-disposable-income{,-per-head}/` · `household-saving-ratio/`
+- Output: Supabase `load_ready --via-rest` — releases **273** (DGD8, 254) · **274** (DG2R, 286) · **275** (CRXX, 286)
+
+### EC-G3-04 — Household Finances explorer (Are We Better Off? + honest EmptyStages)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `/economy?domain=household` — better-off · saving · ledger/cost/buffer/debt EmptyStages · data
+- Files: `HouseholdCanvas.tsx` · `household-model.ts` · pack wiring · Follows
+- Notes: Cloud-only packs (273–275); Ledger UI only when Phase 2 evidence Ready; tsc + eslint pass
+
+### EC-G4-04 — Domain 04 Gate 4 structural + Validation roll-up
+- Owner: Orchestrator (+ Validation)
+- Status: **done** (2026-11-15) — **Ready with fixes**
+- Output: [gate4-audit-household.md](gate4-audit-household.md) · [qa_economy_domain04_gate4_2026-11-15.md](../data/qa/qa_economy_domain04_gate4_2026-11-15.md)
+- Fixes: catalogue series list (no mortgage as Ready) · Data source foot follows series · EmptyStage see-instead · saving QoQ as percentage points
+- Sweeps: 22 pass / 0 fail / 5 N/A
+
+### Review — Economy Domain 04 (Phase 1 complete)
+- **Shipped:** Gates 2–4 · Are we better off? · Saving · Data · Follows · cloud **273–275** · RHDI QA 61/2/0
+- **Empty by design (until deepen):** Ledger · Cost of Living · Financial Buffer · Weight of Debt
+- **Deferred:** phone 390px; UKEA re-pin after **22 Dec 2026**; CRXX ESA S.14 title warn
+
+### EC-G2-04b — Deepen evidence (Ledger · Cost · Buffer · Debt)
+- Owner: Economy → Validation → Orchestrator
+- Status: **done** (Economy evidence 2026-11-15) — Validation open on LCF; Buffer/Debt already Ready + cloud
+- Kickoff: [agent-kickoff-economy-04-deepen.md](agent-kickoff-economy-04-deepen.md)
+- **Buffer / Debt:** Ready · cloud **276–277**
+- **Cost / Ledger shipped (Validation next):**
+  - `family-spending-by-category` — 390 obs · Table 4.1 real £/week · FYE 2025 total £676.60
+  - `family-spending-by-income` — 180 obs · 3.1E5/3.2E5 two-adult OECD · Q1/Q5 £407.30 / £1,083.60
+  - Handover: [`handover-economy-04-household-deepen.md`](handover-economy-04-household-deepen.md)
+- Do not: React; fork ETB / Housing WAS property / Energy bills; invent reconciled budgets; Ready without Validation
+
+### VAL-EC-04-BUFFER-DEBT — Validation Buffer + Debt packs
+- Owner: Validation
+- Status: **done · pass** (2026-11-15) — 40/0/0
+- Series: `household-financial-wealth` · `consumer-credit-outstanding`
+- Output: [qa_report_economy_04_buffer_debt_2026-11-15.md](../data/qa/qa_report_economy_04_buffer_debt_2026-11-15.md)
+- Notes: Registry → Ready (two pins only). LCF / Housing links not flipped.
+
+### EC-04-CLOUD-B — Cloud load Buffer + Debt
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: releases **276** (`consumer-credit-outstanding`, 1,208) · **277** (`household-financial-wealth`, 447)
+
+### VAL-EC-04-LCF — Validation Cost/Ledger LCF packs
+- Owner: Validation
+- Status: **done · pass** (2026-11-15) — 38/0/0
+- Kickoff: [agent-kickoff-validation-economy-04-lcf.md](agent-kickoff-validation-economy-04-lcf.md)
+- Series: `family-spending-by-category` · `family-spending-by-income`
+- Output: [qa_report_economy_04_lcf_2026-11-15.md](../data/qa/qa_report_economy_04_lcf_2026-11-15.md)
+- Notes: Registry → Ready. Cloud releases **278** · **279**
+
+### EC-G3-04b — Draw Cost · Buffer · Debt · Ledger (honest adjacent)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Cloud Ready: 276–279 (+ Phase 1 273–275)
+- Output: `/economy?domain=household` — cost · ledger · buffer · debt live; `household-living-model.ts`
+- Notes: Ledger = adjacent LCF + ETB (different years), not a fake budget; Follows → Inflation / Tax burden / Housing wealth / Housing mortgages; tsc + eslint pass
+
+### EC-G4-04b — Gate 4 re-check after deepen
+- Owner: Orchestrator (+ Validation roll-up)
+- Status: **done** (2026-11-15) — **Ready with fixes**
+- Output: [gate4-audit-household-deepen.md](gate4-audit-household-deepen.md) · [qa_economy_domain04_gate4_deepen_2026-11-15.md](../data/qa/qa_economy_domain04_gate4_deepen_2026-11-15.md)
+- Fixes: source feet follow open table · Data method/status/ETB companion · WAS accreditation label · Cost share EmptyStage
+- Cloud: **273–279** (+ ETB companion **263**)
+
+### Review — Economy Domain 04 (complete)
+- **Shipped:** Are we better off? · Saving · Cost of Living · Household Ledger (adjacent) · Financial Buffer · Weight of Debt · Data · Follows · Gates 2–4
+- **Cloud:** 273–279 · RHDI 61/2/0 · Buffer/Debt 40/0/0 · LCF 38/0/0
+- **Honesty kept:** no fake household budget; Cost ≠ CPI basket; Buffer ≠ DGD8; Debt ≠ mortgage-rate burden; Housing property/MLAR link-only
+- **Deferred:** phone 390px; UKEA re-pin after **22 Dec 2026**; WAS Round 9 when published
+- **Next:** none for Domain 04 — Orchestrator picks next Economy domain
+
+
+## Economy & Public Finance · Domain 10 Economic policy · 2026-11-15
+
+Owner brief received 2026-11-15 (ten policy areas; one evidence record per decision; five sections; traceability). Kickoff: [agent-kickoff-economy-10-policy.md](agent-kickoff-economy-10-policy.md). Standards: [economy-10-policy-source-standards.md](economy-10-policy-source-standards.md). Peers: Energy Domain 10 (Decision Ledger), Housing Domain 10.
+
+**Domain 10 question (provisional):** Which decisions shaped Britain's economy, why were they introduced, what changed, and what evidence exists about their consequences?
+
+**Flagship:** The economic decision ledger.
+
+**Status:** Gate 2 **seed shipped** (2026-11-15) — `/economy?domain=policy` · Ledger · Institutions · Eras · Changes · Evidence · Promises. Domain **not** complete.  
+**Rule:** No causal arrows. Announcement ≠ assent ≠ commencement ≠ repeal. Housing / Energy records referenced by id, never copied. Net debt is not PSNFL; borrowing is not the current budget.
+
+### EP01 — Schema and source standards (brief priority 1)
+- Owner: Orchestrator
+- Status: **done** (2026-11-15)
+- Output: `policy_event.py` — optional `policy_area` (ten areas), `repealed_date`, `dossier` (background · objectives · mechanism · implementation · measures · financial · evaluations · related); statuses announced / proposed / expired / reversed; Economy topics. Housing and Energy files still load unchanged.
+- Docs: [economy-10-policy-source-standards.md](economy-10-policy-source-standards.md)
+
+### EP02 — Initial catalogue (brief priority 2)
+- Owner: Orchestrator (web-fetch verification against legislation.gov.uk, Hansard, GOV.UK, OBR, Bank of England)
+- Status: **done** (2026-11-15, three passes) — 19 records · 19 evidence records · 7 evaluations · 5 eras · 11 relationships
+- Output: `data/economy/economic-policy/events.json` · `pledges.json` (4 listed, 0 scored) · `GATE1_COMPOSITION.md` (Study C locked) · `source_register.csv` · `reuse_map.md` · `README.md`
+- Anchors: BoE Act 1946 (14 Feb 1946) · BoE Act 1998 (announced 6 May 1997 · assent 23 Apr 1998 · in force 1 Jun 1998, SI 1998/1120) · NMWA 1998 · FSMA 2000 · Pensions Act 2008 · Fiscal Responsibility Act 2010 (repealed 23 Mar 2011) · BRNAA 2011 (SI 2011/892: 23 Mar / 4 Apr 2011) · OBR (4 Apr 2011) · WRA 2012 · FSA 2012 · EU (Future Relationship) Act 2020 · CJRS (20 Mar 2020 → 30 Sep 2021) · Charter for Budget Responsibility, Autumn 2025 (mandate paras 3.6–3.8 quoted)
+- Second pass: commencement orders for NMWA / FSMA / Pensions 2008 / WRA 2012 / FSA 2012 / EU(FR)A; FRA 2010 duties; CJRS £70.0bn; TCA dates (Commission); evaluations NAO ×3, LPC, OBR reviews ×3
+- Third pass (institutions, brief priority 4): CRCA 2005 + HMRC (18 Apr 2005) · Monetary Policy Committee (1 Jun 1998) · FCA + PRA (1 Apr 2013) · Budget Responsibility Act 2024 (assent 10 Sep 2024; s.1 in force 15 Oct 2024)
+- Not pinned (honest): 1992 inflation objective (BoE 1993 PDF over fetch limit); interim OBR day (2014 review says "established in 2010", staff transferred May 2010); 1946 appointed day; UC national roll-out; Low Pay Commission founding date; HM Treasury as an institution record
+- Tests: `tests/test_economy_policy_events.py` (39 policy tests pass). Pre-existing failure in `test_industrial_policy_events.py` (stale `retrieved_at`), not touched.
+
+### EP03 — Cloud
+- Owner: Orchestrator
+- Status: **done** (2026-11-15) — packs `economy.policy-events` · `economy.policy-pledges` registered and pushed to Storage (`bx-data-archive/economy/economic-policy/`). Local files kept for tests.
+
+### EP04 — Gate 2 UI
+- Owner: Orchestrator
+- Status: **done (code)** (2026-11-15) — `PolicyCanvas.tsx` + `policy-model.ts`; shared `CatalogueDossier` extended with optional evidence sections (no fork); Energy pack loaders take a pack id; Follow edges policy → Debt borrowing / Inflation rate
+- Views: ledger (Policy area · Era menus) · institutions · eras · changes · evidence · promise
+- Verified: `tsc` clean; eslint no errors; **browser not inspected** (API not running in this session)
+
+### Review — Economy Domain 10 (Gate 2 seed)
+- **Shipped:** schema + standards; 19-record register (12 Acts · 6 institutions · 2 programmes) with evidence records and 7 evaluations; pledges listed; packs in Storage; six-view canvas (desktop + 390px captured)
+- **Next (brief priorities 3–6):** link Housing / Energy records from Economy dossiers (`dossier.related`) when sourced; Budget / Finance Act measures with OBR costings; Budget Responsibility Act 2024 record; more evaluations (committees, IFS); symmetric-target scoring rule before any pledge is scored; Notion plan page (connector 404 — pending)
+- **Gate 4:** after Validation files a QA report on the register (dates vs sources) and the browser pass
 
 ## Review — BX-BACK-001 Price Paid search · 2026-11-15
 

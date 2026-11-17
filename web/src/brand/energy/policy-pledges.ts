@@ -67,8 +67,8 @@ function matches(o: Observation, m: NonNullable<EnergyPledge["match"]>): boolean
   return Object.entries(m.dimensions ?? {}).every(([k, v]) => !v || (dims[k] ?? "") === v);
 }
 
-export async function loadPolicyPledgesPack(): Promise<PolicyPledgesPack> {
-  const registry = await fetchPackJson<PledgeRegistry>("energy.industrial-policy-pledges");
+export async function loadPolicyPledgesPack(packId = "energy.industrial-policy-pledges"): Promise<PolicyPledgesPack> {
+  const registry = await fetchPackJson<PledgeRegistry>(packId);
   const pledges = registry.pledges ?? [];
   const ids = [...new Set(pledges.flatMap((p) => (p.scorable && p.match ? [p.match.indicator_id] : [])))];
   const byId = new Map<string, { rows: Observation[]; source: DeliverySource } | null>();

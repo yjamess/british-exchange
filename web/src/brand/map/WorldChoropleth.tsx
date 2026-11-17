@@ -6,8 +6,7 @@
  * empty; valued partners get labels.
  */
 
-import { ReadoutCard } from "../instrument/ReadoutCard";
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { BandScreenDefs } from "./BandScreen";
 import { MapLegend } from "./MapLegend";
 import { band, equalBreaks } from "./model";
@@ -246,8 +245,11 @@ export function WorldChoropleth({
   const svg = useRef<SVGSVGElement>(null);
   const [view, setView] = useState(HOME);
   const [hover, setHover] = useState("");
-  const drag = useRef<{ x: number; y: number; origin: typeof HOME; moved: boolean } | null>(null);
+  /** Screen-pixel drag origin — avoids CTM drift while the SVG is letterboxed. */
+  const drag = useRef<{ cx: number; cy: number; origin: typeof HOME; moved: boolean } | null>(null);
   const panMoved = useRef(false);
+  const viewRef = useRef(view);
+  viewRef.current = view;
 
   const byId = useMemo(() => new Map(data.map((d) => [d.id, d])), [data]);
   const valuedShapes = useMemo(
@@ -263,6 +265,13 @@ export function WorldChoropleth({
     const bounds = unionBounds(valuedShapes);
     return bounds ? viewForBounds(bounds, { maxZ: 2.4, fill: 0.86 }) : HOME;
   }, [valuedShapes]);
+  const dataHomeRef = useRef(dataHome);
+  dataHomeRef.current = dataHome;
+  /** Stable key so year/flow remounts reframe without resetting mid-pan on new object identity. */
+  const partnerExtentKey = useMemo(
+    () => valuedShapes.map((sh) => sh.id).sort().join(","),
+    [valuedShapes],
+  );
 
   const thresholds = useMemo(
     () => equalBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
@@ -283,126 +292,141 @@ export function WorldChoropleth({
     return ids;
   }, [valuedShapes, byId, selected, hover]);
 
-  const point = (event: PointerEvent<SVGSVGElement>) => {
-    const p = svg.current!.createSVGPoint();
-    p.x = event.clientX;
-    p.y = event.clientY;
-    return p.matrixTransform(svg.current!.getScreenCTM()!.inverse());
+  /** viewBox units per CSS pixel, accounting for preserveAspectRatio meet letterboxing. */
+  const screenToVb = (svgEl: SVGSVGElement) => {
+    const rect = svgEl.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return 1;
+    const elAspect = rect.width / rect.height;
+    const vbAspect = VB_W / VB_H;
+    return elAspect > vbAspect ? VB_H / rect.height : VB_W / rect.width;
   };
 
   const zoom = (factor: number) =>
     setView((v) => {
       const z = Math.min(10, Math.max(1, v.z * factor));
-      if (z <= 1.02) return dataHome;
+      if (z <= 1.02) return dataHomeRef.current;
       return { x: CX - ((CX - v.x) * z) / v.z, y: CY - ((CY - v.y) * z) / v.z, z };
     });
 
-  // Frame valued partners on first paint / data change; zoom to selection.
+  const goHome = () => setView(dataHomeRef.current);
+
+  // Zoom to selection only when the selected country changes.
   useEffect(() => {
     if (!selected) {
-      setView(dataHome);
+      setView(dataHomeRef.current);
       return;
     }
     const shape = WORLD_COUNTRY_SHAPES.find((sh) => sh.id === selected);
     if (!shape) {
-      setView(dataHome);
+      setView(dataHomeRef.current);
       return;
     }
     setView(viewForBounds(focusBounds(shape), { maxZ: 5.5, fill: 0.55 }));
-  }, [selected, dataHome]);
+  }, [selected]);
+
+  // Reframe to partner extent when the valued set changes and nothing is selected.
+  useEffect(() => {
+    if (selected) return;
+    setView(dataHomeRef.current);
+  }, [partnerExtentKey, selected]);
 
   const hoverShape = hover ? WORLD_COUNTRY_SHAPES.find((sh) => sh.id === hover) : undefined;
   const selectShape = selected ? WORLD_COUNTRY_SHAPES.find((sh) => sh.id === selected) : undefined;
   const hoverData = hover ? byId.get(hover) : undefined;
   const selectData = selectShape ? byId.get(selectShape.id) : undefined;
 
-  const captionPrimary = hoverShape
-    ? shortName(hoverShape)
-    : selectShape
-      ? shortName(selectShape)
-      : valuedShapes.length
-        ? `${valuedShapes.length} partner countr${valuedShapes.length === 1 ? "y" : "ies"}`
-        : "Select a country";
-  const captionSecondary = hoverShape
-    ? (hoverData?.display ?? "no data")
-    : selectShape
-      ? (selectData?.display ?? "selected")
-      : "Click a filled country · drag to pan · scroll tools to zoom";
+  const focusShape = hoverShape ?? selectShape;
+  const focusData = hoverShape ? hoverData : selectData;
+  const caption = focusShape
+    ? `${shortName(focusShape)} · ${focusData?.display ?? "no data"}`
+    : valuedShapes.length
+      ? `${valuedShapes.length} partner countr${valuedShapes.length === 1 ? "y" : "ies"}`
+      : "Select a country";
 
   return (
     <div
       className={`${s.mapSurfaceRegion} ${s.mapSurfaceWorld} ${size === "stage" ? s.mapSurfaceStage : ""}`}
     >
       <div className={s.mapCaption}>
-        {hoverShape || selectShape ? <ReadoutCard placement="inline" head={captionPrimary} rows={[
-          { label: legendUnit ?? "Value", value: captionSecondary },
-        ]} /> : <>
-          <span className={s.worldCaptionPrimary}>{captionPrimary}</span>
-          <span className={s.worldCaptionSecondary}>{captionSecondary}</span>
-        </>}
+        <span className={s.worldCaptionPrimary}>{caption}</span>
+        {!focusShape ? (
+          <span className={s.worldCaptionSecondary}>
+            Click a filled country · drag to pan · use + / − / home to zoom
+          </span>
+        ) : null}
       </div>
 
-      <div className={s.mapTools} role="group" aria-label="Map controls">
-        <button type="button" className={s.toolBtn} onClick={() => zoom(1.35)} aria-label="Zoom in">
-          +
-        </button>
-        <button type="button" className={s.toolBtn} onClick={() => zoom(1 / 1.35)} aria-label="Zoom out">
-          −
-        </button>
-        <button type="button" className={s.toolBtn} onClick={() => setView(dataHome)} aria-label="Reset view">
-          ⌂
-        </button>
-      </div>
+      <div className={s.mapFrame}>
+        <div className={s.mapTools} role="group" aria-label="Map controls">
+          <button type="button" className={s.toolBtn} onClick={() => zoom(1.35)} aria-label="Zoom in">
+            +
+          </button>
+          <button type="button" className={s.toolBtn} onClick={() => zoom(1 / 1.35)} aria-label="Zoom out">
+            −
+          </button>
+          <button type="button" className={s.toolBtn} onClick={goHome} aria-label="Reset view">
+            ⌂
+          </button>
+        </div>
 
-      <svg
-        ref={svg}
-        className={`${s.mapSvg} ${s.worldSvg}`}
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
-        preserveAspectRatio="xMidYMid meet"
-        role="group"
-        aria-label={label}
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home"].includes(e.key)) {
-            e.preventDefault();
-          }
-          if (e.key === "+" || e.key === "=") zoom(1.35);
-          else if (e.key === "-") zoom(1 / 1.35);
-          else if (e.key === "Home") setView(dataHome);
-          else if (e.key.startsWith("Arrow"))
-            setView((v) => ({
-              ...v,
-              x: v.x + (e.key === "ArrowLeft" ? 36 : e.key === "ArrowRight" ? -36 : 0),
-              y: v.y + (e.key === "ArrowUp" ? 36 : e.key === "ArrowDown" ? -36 : 0),
-            }));
-        }}
-        onPointerDown={(e) => {
-          if (e.button !== 0) return;
-          const p = point(e);
-          drag.current = { x: p.x, y: p.y, origin: view, moved: false };
-          panMoved.current = false;
-        }}
-        onPointerMove={(e) => {
-          if (!drag.current) return;
-          const p = point(e);
-          const d = drag.current;
-          const dx = p.x - d.x;
-          const dy = p.y - d.y;
-          if (Math.hypot(dx, dy) > 6) {
-            d.moved = true;
-            panMoved.current = true;
-            svg.current?.setPointerCapture(e.pointerId);
-          }
-          if (d.moved) setView({ ...d.origin, x: d.origin.x + dx, y: d.origin.y + dy });
-        }}
-        onPointerUp={(e) => {
-          drag.current = null;
-          if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId);
-        }}
-        onPointerCancel={() => {
-          drag.current = null;
-        }}
-      >
+        <svg
+          ref={svg}
+          className={`${s.mapSvg} ${s.worldSvg}`}
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          preserveAspectRatio="xMidYMid meet"
+          role="group"
+          aria-label={label}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home"].includes(e.key)) {
+              e.preventDefault();
+            }
+            if (e.key === "+" || e.key === "=") zoom(1.35);
+            else if (e.key === "-") zoom(1 / 1.35);
+            else if (e.key === "Home") goHome();
+            else if (e.key.startsWith("Arrow"))
+              setView((v) => ({
+                ...v,
+                x: v.x + (e.key === "ArrowLeft" ? 36 : e.key === "ArrowRight" ? -36 : 0),
+                y: v.y + (e.key === "ArrowUp" ? 36 : e.key === "ArrowDown" ? -36 : 0),
+              }));
+          }}
+          onPointerDown={(e) => {
+            if (e.button !== 0) return;
+            drag.current = {
+              cx: e.clientX,
+              cy: e.clientY,
+              origin: viewRef.current,
+              moved: false,
+            };
+            panMoved.current = false;
+          }}
+          onPointerMove={(e) => {
+            if (!drag.current || !svg.current) return;
+            const d = drag.current;
+            const screenDx = e.clientX - d.cx;
+            const screenDy = e.clientY - d.cy;
+            if (Math.hypot(screenDx, screenDy) > 6) {
+              d.moved = true;
+              panMoved.current = true;
+              svg.current.setPointerCapture(e.pointerId);
+            }
+            if (!d.moved) return;
+            const scale = screenToVb(svg.current);
+            setView({
+              ...d.origin,
+              x: d.origin.x + screenDx * scale,
+              y: d.origin.y + screenDy * scale,
+            });
+          }}
+          onPointerUp={(e) => {
+            drag.current = null;
+            if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId);
+          }}
+          onPointerCancel={() => {
+            drag.current = null;
+          }}
+        >
         <rect x={0} y={0} width={VB_W} height={VB_H} fill="var(--bo-paper)" />
         <BandScreenDefs idPrefix={uid} zoom={view.z} />
         <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
@@ -484,6 +508,7 @@ export function WorldChoropleth({
           })}
         </g>
       </svg>
+      </div>
 
       <MapLegend
         className={s.worldLegend}

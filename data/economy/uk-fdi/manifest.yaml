@@ -1,0 +1,42 @@
+indicator_id: uk-fdi
+title: UK foreign direct investment
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/datasets/inwardforeigndirectinvestmentinvolvingukcompanieshistoricaldata
+series_id: FDI-historical-directional
+geography: United Kingdom + partner economies
+frequency: annual
+unit: £ million current prices
+definition: Directional FDI flows, positions (stocks) and earnings, inward and outward.
+  10% voting-power threshold. Acquisition ≠ new plant or jobs.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.uk_fdi
+curated_path: curated/observations.csv
+update_cadence: annual (ONS FDI)
+raw_evidence:
+- path: raw/2026-11-16/fdi_inward.xlsx
+  retrieved_at: '2026-11-16T01:36:24.249364+00:00'
+  checksum_sha256: e42d906d535ebe3cc0a00b96f8933f4de7575966ff3284dde244853515b7f570
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-01'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/balanceofpayments/datasets/inwardforeigndirectinvestmentinvolvingukcompanieshistoricaldata/current/inwardfdiinvolvingukcompanieshistoricaldata.xlsx
+- path: raw/2026-11-16/fdi_outward.xlsx
+  retrieved_at: '2026-11-16T01:36:24.257046+00:00'
+  checksum_sha256: 90f219fd5a4f86c0297e354a9cb3a87089bb70878d69b2ab5e447f7591d784e1
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-07-01'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/balanceofpayments/datasets/outwardforeigndirectinvestmentinvolvingukcompanieshistoricaldata/current/outwardfdiinvolvingukcompanieshistoricaldata.xlsx
+transformations: Pin inward+outward historical workbooks; extract total rows from
+  tables 1.1–1.3 and country flows from 2.1.
+revision_notes: Historical release 2026-07-01; structural breaks noted pre-2007/2020.
+caveats: Flows can be negative. Positions are stocks. Immediate vs ultimate ownership
+  not split in these totals.
+status_note: ''
+related_indicator_ids:
+- business-investment
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

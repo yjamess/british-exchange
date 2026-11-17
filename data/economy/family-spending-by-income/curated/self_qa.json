@@ -1,0 +1,104 @@
+{
+  "indicator_id": "family-spending-by-income",
+  "retrieved_pin_date": "2026-11-15",
+  "official_release_date": "2026-06-11",
+  "equivalisation": "modified OECD, two-adult reference (FYE 2025 left block)",
+  "tables": [
+    "3.1E5",
+    "3.2E5"
+  ],
+  "checks": [
+    {
+      "name": "total_lowest",
+      "actual": 407.3,
+      "expected": 407.3,
+      "pass": true
+    },
+    {
+      "name": "total_highest",
+      "actual": 1083.6,
+      "expected": 1083.6,
+      "pass": true
+    },
+    {
+      "name": "total_all",
+      "actual": 676.6,
+      "expected": 676.6,
+      "pass": true
+    },
+    {
+      "name": "food_all",
+      "actual": 73.7,
+      "expected": 73.7,
+      "pass": true
+    },
+    {
+      "name": "food_lowest",
+      "actual": 61.8,
+      "expected": 61.8,
+      "pass": true
+    },
+    {
+      "name": "housing_lowest",
+      "actual": 104.7,
+      "expected": 104.7,
+      "pass": true
+    },
+    {
+      "name": "housing_share_lowest",
+      "actual": 25.7,
+      "expected": 25.7,
+      "pass": true
+    },
+    {
+      "name": "housing_share_all",
+      "actual": 17.5,
+      "expected": 17.5,
+      "pass": true
+    },
+    {
+      "name": "food_share_lowest",
+      "actual": 15.2,
+      "expected": 15.2,
+      "pass": true
+    },
+    {
+      "name": "food_share_all",
+      "actual": 10.9,
+      "expected": 10.9,
+      "pass": true
+    },
+    {
+      "name": "highest_to_lowest_total_ratio_bulletin_2_7",
+      "actual": 2.66,
+      "expected": 2.66,
+      "pass": true
+    },
+    {
+      "name": "row_counts",
+      "actual": {
+        "gbp": 90,
+        "share": 90,
+        "total": 180
+      },
+      "expected": {
+        "gbp": 90,
+        "share": 90,
+        "total": 180
+      },
+      "pass": true
+    },
+    {
+      "name": "no_one_adult_reference_rows",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    }
+  ],
+  "summary": {
+    "pass": 13,
+    "fail": 0,
+    "failed_names": []
+  },
+  "n_observations": 180
+}

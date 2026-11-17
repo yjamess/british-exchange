@@ -1,0 +1,71 @@
+indicator_id: uk-trade-ex-precious-metals
+title: UK trade excluding precious metals
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/fsid/mret
+series_id: FSID/FSIE/FSIC + CVM
+geography: United Kingdom (K02000001); excl. Crown dependencies
+frequency: monthly
+unit: £ million, SA (CP and CVM)
+definition: Trade balances excluding non-monetary gold / precious metals, plus the
+  precious-metals balance itself. Use beside uk-trade-mret headlines — gold can swing
+  the headline balance.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.uk_trade_ex_precious_metals
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS UK Trade / MRET)
+raw_evidence:
+- path: raw/2026-11-16/fsid_mret.json
+  retrieved_at: '2026-11-16T01:22:45.951825+00:00'
+  checksum_sha256: fbc70e4ce4e1bef1d5668dce24fdd4bbd839f465b638efa62506bc89695ae9bc
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/fsid/mret/data
+- path: raw/2026-11-16/fsie_mret.json
+  retrieved_at: '2026-11-16T01:22:46.072282+00:00'
+  checksum_sha256: 7080546f3e7c2b3cfc0e5d77e88f56d85f0234584ae5784cf322b140d9fca077
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/fsie/mret/data
+- path: raw/2026-11-16/fsic_mret.json
+  retrieved_at: '2026-11-16T01:22:46.131092+00:00'
+  checksum_sha256: cbedb24178e8ad554503dbbb3c661bdf7d40d4a70f592163690e6e9ec95ab77a
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/fsic/mret/data
+- path: raw/2026-11-16/jil2_mret.json
+  retrieved_at: '2026-11-16T01:22:46.190904+00:00'
+  checksum_sha256: f93b664ff0882a832a3678177483a1e77db3870d365be7c00de2d844397aa0b6
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/jil2/mret/data
+- path: raw/2026-11-16/jim3_mret.json
+  retrieved_at: '2026-11-16T01:22:46.255343+00:00'
+  checksum_sha256: 326ab20b9e985145d68058881845fd8ad2edeca86ee198af4e49a62499067726
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/jim3/mret/data
+- path: raw/2026-11-16/jin4_mret.json
+  retrieved_at: '2026-11-16T01:22:46.323090+00:00'
+  checksum_sha256: e29cb00e1d2cf6b4103a65cf71bab4057c65008d2af7e21b4f5c587e694d86fb
+  content_type: application/json;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/timeseries/jin4/mret/data
+transformations: Download MRET /data JSON per CDID; months only; series=<CDID>; category=<slug>;
+  latest month provisional.
+revision_notes: Releases with MRET. Latest pin release 2026-11-12.
+caveats: Underlying (ex-PM) balances are preferred for narrative; headlines still
+  include precious metals. Not HMRC customs.
+status_note: ''
+related_indicator_ids:
+- uk-trade-mret
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

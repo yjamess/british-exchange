@@ -1,0 +1,158 @@
+{
+  "id": "economy.goods-trade-partner-commodity",
+  "title": "Goods trade partner rollups (latest month)",
+  "period": "2026-09-01",
+  "honesty": "Partner totals from ONS BoP all-countries SA. Full CN8\u00d7country intersections are HMRC OTS \u2014 not invented here. Commodity composition uses goods-trade-by-commodity (SITC WW) separately.",
+  "partners": [
+    {
+      "code": "W1",
+      "label": "Total",
+      "exports": 36755.0,
+      "imports": 59046.0
+    },
+    {
+      "code": "D5",
+      "label": "Total Non EU [note 3]",
+      "exports": 20084.0,
+      "imports": 29069.0
+    },
+    {
+      "code": "B5",
+      "label": "Total EU27 [note 2]",
+      "exports": 16671.0,
+      "imports": 29977.0
+    },
+    {
+      "code": "US",
+      "label": "United States incl. Puerto Rico",
+      "exports": 5973.0,
+      "imports": 5859.0
+    },
+    {
+      "code": "DE",
+      "label": "Germany",
+      "exports": 3418.0,
+      "imports": 6164.0
+    },
+    {
+      "code": "CN",
+      "label": "China",
+      "exports": 2006.0,
+      "imports": 6924.0
+    },
+    {
+      "code": "NL",
+      "label": "Netherlands",
+      "exports": 3043.0,
+      "imports": 5247.0
+    },
+    {
+      "code": "FR",
+      "label": "France",
+      "exports": 2124.0,
+      "imports": 3201.0
+    },
+    {
+      "code": "IE",
+      "label": "Ireland",
+      "exports": 2331.0,
+      "imports": 2103.0
+    },
+    {
+      "code": "BE",
+      "label": "Belgium",
+      "exports": 1490.0,
+      "imports": 2826.0
+    },
+    {
+      "code": "NO",
+      "label": "Norway",
+      "exports": 439.0,
+      "imports": 2757.0
+    },
+    {
+      "code": "IT",
+      "label": "Italy",
+      "exports": 782.0,
+      "imports": 2065.0
+    },
+    {
+      "code": "ES",
+      "label": "Spain",
+      "exports": 888.0,
+      "imports": 1935.0
+    },
+    {
+      "code": "PL",
+      "label": "Poland",
+      "exports": 705.0,
+      "imports": 1397.0
+    },
+    {
+      "code": "CH",
+      "label": "Switzerland",
+      "exports": 564.0,
+      "imports": 1522.0
+    },
+    {
+      "code": "HK",
+      "label": "Hong Kong",
+      "exports": 1297.0,
+      "imports": 568.0
+    },
+    {
+      "code": "TR",
+      "label": "Turkey",
+      "exports": 604.0,
+      "imports": 1182.0
+    },
+    {
+      "code": "IN",
+      "label": "India",
+      "exports": 569.0,
+      "imports": 958.0
+    },
+    {
+      "code": "JP",
+      "label": "Japan",
+      "exports": 623.0,
+      "imports": 900.0
+    },
+    {
+      "code": "SE",
+      "label": "Sweden",
+      "exports": 462.0,
+      "imports": 970.0
+    },
+    {
+      "code": "KR",
+      "label": "South Korea",
+      "exports": 323.0,
+      "imports": 964.0
+    },
+    {
+      "code": "AE",
+      "label": "United Arab Emirates",
+      "exports": 888.0,
+      "imports": 329.0
+    },
+    {
+      "code": "SG",
+      "label": "Singapore",
+      "exports": 884.0,
+      "imports": 327.0
+    },
+    {
+      "code": "CA",
+      "label": "Canada",
+      "exports": 555.0,
+      "imports": 631.0
+    },
+    {
+      "code": "VN",
+      "label": "Vietnam",
+      "exports": 91.0,
+      "imports": 891.0
+    }
+  ]
+}

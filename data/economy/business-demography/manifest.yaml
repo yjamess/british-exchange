@@ -1,0 +1,37 @@
+indicator_id: business-demography
+title: Business demography — births, deaths, active
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/datasets/businessdemographyreferencetable
+series_id: business-demography-2024
+geography: United Kingdom (K02000001) + regions in notes
+frequency: annual
+unit: enterprise counts (control rounded)
+definition: ONS Business Demography counts of enterprise births, deaths and active
+  enterprises. Active-in-year ≠ March UK Business stock. Not Companies House dissolutions
+  or formal insolvencies.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.business_demography
+curated_path: curated/observations.csv
+update_cadence: annual (ONS Business demography)
+raw_evidence:
+- path: raw/2026-11-16/businessdemography.xlsx
+  retrieved_at: '2026-11-16T01:14:00.834820+00:00'
+  checksum_sha256: d0687054646be98c0b7ba0f476888111523cc7ead380e07ecf609f0c5e2cde37
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2025-11-20'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/businessindustryandtrade/business/activitysizeandlocation/datasets/businessdemographyreferencetable/current/businessdemographyexceltables2024.xlsx
+transformations: Download reference workbook; extract UK K02000001 from births/deaths/active
+  geography tables for 2019–2024; series=births|deaths|active.
+revision_notes: Business Demography 2024 released 2025-11-20.
+caveats: Rounded counts. Excludes unregistered businesses. Enterprise death ≠ insolvency
+  ≠ Companies House dissolution.
+status_note: ''
+related_indicator_ids:
+- uk-business-enterprises
+- company-insolvencies
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

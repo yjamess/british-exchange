@@ -1,0 +1,51 @@
+indicator_id: household-financial-wealth
+title: Household financial wealth
+sector: economy-public-finance
+publisher: Office for National Statistics
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/financialwealthwealthingreatbritain
+series_id: WAS Tables 5.1, 5.10, 5.11, 5.12, 5.13
+geography: Great Britain (K03000001) — not United Kingdom
+frequency: ad_hoc
+unit: £, percent of households, or £ billion
+definition: ONS Wealth and Assets Survey financial wealth for Great Britain. Net financial
+  wealth is formal and informal financial assets minus financial liabilities (not
+  property, not pensions). Curates Table 5.10 percentiles (all households and households
+  with assets or liabilities), Table 5.11 band shares, Table 5.1 coverage of formal
+  financial assets, Table 5.12 aggregate £ billion stocks, and Table 5.13 percentiles
+  by equivalised income decile. Distribution of household financial buffers — not
+  the national-accounts saving ratio (DGD8).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.household_financial_wealth
+curated_path: curated/observations.csv
+update_cadence: When ONS publishes a new WAS financial-wealth table
+raw_evidence:
+- path: raw/2026-11-15/financialwealthtables.xlsx
+  retrieved_at: '2026-11-15T22:39:15.350348+00:00'
+  checksum_sha256: 7afee4fac3e3b3b0d1c970678bc10cd7e2711a774a13e4d2665c1b513c85013c
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2025-01-24'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/financialwealthwealthingreatbritain/july2006tojune2016andapril2014tomarch2022/financialwealthtables.xlsx
+transformations: Download the Apr 2020–Mar 2022 edition workbook. Parse published
+  cells only. Survey-round headers map to round start/end dates. Skip [x]/[u] cells
+  and within-band percentiles on Table 5.11.
+revision_notes: Domain 04 Buffer ingest 2026-11-15. Edition released 24 January 2025.
+caveats: WAS accreditation was suspended from Round 8 (April 2020 to March 2022; ONS
+  notice 13 June 2025). Great Britain, not UK. Nominal £, not CPIH-deflated bulletin
+  figures. Round 8 weights were recalibrated for tenure during COVID telephone fieldwork.
+  DGD8 household-saving-ratio is a national-accounts residual, not this survey buffer.
+  Do not fork Housing household-net-property-wealth. July 2006–June 2016 and April
+  2014–March 2022 round systems overlap — do not splice as one continuous series without
+  labelling the break.
+status_note: ''
+related_indicator_ids:
+- household-net-property-wealth
+- household-saving-ratio
+- real-household-disposable-income
+- consumer-credit-outstanding
+open_questions:
+- Pin Table 5.7 survey non-mortgage borrowing as a labelled companion, or keep Weight
+  of Debt on BoE lender stocks only?
+notion_registry_url: https://app.notion.com/p/41965471768581cd858ccf56a04a719e
+schema_version: '1.0'

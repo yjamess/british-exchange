@@ -1,0 +1,2067 @@
+{
+ "registry_id": "economy-policy-events",
+ "title": "Economic policy decisions",
+ "sector": "economy-public-finance",
+ "retrieved_at": "2026-11-15",
+ "note": "Economy Domain 10 register of economic-policy decisions: Acts, programmes and institutions, each checked against legislation.gov.uk, Hansard, GOV.UK or the publishing body on 15 November 2026. Announcement, Royal Assent, commencement and repeal dates are separate fields. A dossier, where present, keeps three kinds of evidence apart: what policymakers said, what was done, and what others concluded. Linked indicators are context only. Housing and Energy decisions live in their own registers and are referenced by id, never copied. Every record now carries an evidence record; lists left empty mean nothing was read, not that nothing exists.",
+ "eras": [
+  {
+   "id": "postwar-settlement",
+   "label": "Post-war settlement",
+   "from": null,
+   "to": 1978,
+   "focus": "Public ownership and the managed economy, from the Bank of England Act 1946."
+  },
+  {
+   "id": "liberalisation",
+   "label": "Liberalisation",
+   "from": 1979,
+   "to": 1996,
+   "focus": "Deregulation, privatisation and the move to an inflation objective in 1992."
+  },
+  {
+   "id": "independence-and-rules",
+   "label": "Independence and rules",
+   "from": 1997,
+   "to": 2009,
+   "focus": "Bank of England operational independence, a single financial regulator, the national minimum wage and auto-enrolment."
+  },
+  {
+   "id": "obr-and-reform",
+   "label": "Fiscal watchdog and reform",
+   "from": 2010,
+   "to": 2019,
+   "focus": "The OBR, the Charter for Budget Responsibility, universal credit and the twin-peaks regulators."
+  },
+  {
+   "id": "shocks",
+   "label": "Shocks and new mandates",
+   "from": 2020,
+   "to": null,
+   "focus": "Pandemic support, the end of the EU transition period and the current fiscal mandate."
+  }
+ ],
+ "events": [
+  {
+   "id": "bank-of-england-act-1946",
+   "title": "Bank of England Act 1946",
+   "citation": "1946 c. 27 (9 & 10 Geo. 6)",
+   "aliases": [
+    "Bank nationalisation"
+   ],
+   "type": "act",
+   "topics": [
+    "institutions",
+    "monetary"
+   ],
+   "policy_area": "institutions",
+   "summary": "Brought the capital stock of the Bank of England into public ownership and placed the Bank under public control, and made provision for the relations between the Treasury, the Bank and other banks. The date printed on the Act is 14 February 1946.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "No extent section is printed on the legislation.gov.uk introductory text. The Act concerns the Bank of England and the Treasury, which are United Kingdom institutions, so all four nations are listed here without a statutory extent clause to cite.",
+   "announcement_date": null,
+   "enactment_date": "1946-02-14",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [],
+   "status": "amended",
+   "status_note": "legislation.gov.uk lists one amendment to the introductory text, dated 1 February 1991, and no repeal. The amending Act is not shown on the page read.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Contents",
+     "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/contents",
+     "role": "primary"
+    },
+    {
+     "label": "Section 1 — Transfer of Bank stock to Treasury",
+     "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/section/1",
+     "role": "primary"
+    },
+    {
+     "label": "Section 4 — Treasury directions to the Bank",
+     "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/section/4",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Enacted in the first year of the post-war Labour government. The long title: \"An Act to bring the capital stock of the Bank of England into public ownership and bring the Bank under public control\".",
+    "objectives": "Public ownership and public control of the Bank, and provision \"with respect to the relations between the Treasury, the Bank of England and other banks\" (long title).",
+    "mechanism": "Section 1: on the appointed day \"the whole of the existing capital stock of the Bank\" was \"transferred, free of all trusts, liabilities and incumbrances\" to the Treasury, with Government stock bearing interest \"at the rate of three per cent. per annum\" issued in exchange. Section 4(1): \"The Treasury may from time to time give such directions to the Bank as\" they think necessary in the public interest, after consulting the Governor.",
+    "implementation": "The appointed day is not printed on the sections read. Section 4 has since been amended: the power of direction now excludes monetary policy (inserted by the Bank of England Act 1998) and, from 1 March 2017, the Bank's functions as the Prudential Regulation Authority.",
+    "measures": [
+     {
+      "label": "Compensation to stockholders",
+      "value": "Government stock at 3 per cent a year in exchange for Bank stock (s. 1(2)).",
+      "source": {
+       "label": "Section 1",
+       "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/section/1",
+       "role": "primary"
+      }
+     },
+     {
+      "label": "Treasury power of direction",
+      "value": "Directions to the Bank after consulting the Governor (s. 4(1)); monetary policy is excluded by later amendment.",
+      "source": {
+       "label": "Section 4",
+       "url": "https://www.legislation.gov.uk/ukpga/Geo6/9-10/27/section/4",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "bank-of-england-act-1998",
+      "note": "The 1998 Act later removed monetary policy from the Treasury's power of direction."
+     }
+    ]
+   }
+  },
+  {
+   "id": "bank-of-england-act-1998",
+   "title": "Bank of England Act 1998",
+   "citation": "1998 c. 11",
+   "aliases": [
+    "Bank of England independence",
+    "Operational independence"
+   ],
+   "type": "act",
+   "topics": [
+    "monetary",
+    "institutions",
+    "financial-regulation"
+   ],
+   "policy_area": "monetary",
+   "summary": "Made provision about the constitution, regulation, financial arrangements and functions of the Bank of England, including the transfer of banking supervision, and gave the Bank operational responsibility for monetary policy under a Government-set inflation target. Royal Assent printed as 23 April 1998; the whole Act came into force on 1 June 1998.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 44(1): \"This Act extends to Northern Ireland.\" Section 44(2) extends section 33 to the Channel Islands and the Isle of Man. The section does not name England, Wales or Scotland; the Act is a United Kingdom statute about a United Kingdom institution.",
+   "announcement_date": "1997-05-06",
+   "enactment_date": "1998-04-23",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "1998-06-01",
+     "instrument": "SI 1998/1120",
+     "citation": "s. 45; S.I. 1998/1120",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/45",
+     "scope": "Whole Act. legislation.gov.uk annotation: \"S. 45 power fully exercised (24.4.1998): 1.6.1998 for whole Act by S.I. 1998/1120.\""
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and amended. legislation.gov.uk lists outstanding changes, for example from 2016 c. 14. The Financial Services Act 2012 amends this Act (that Act's long title).",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 11 — Objectives",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/11",
+     "role": "primary"
+    },
+    {
+     "label": "Section 44 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/44",
+     "role": "primary"
+    },
+    {
+     "label": "Section 45 — Commencement",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/45",
+     "role": "primary"
+    },
+    {
+     "label": "HC Deb 20 May 1997 vol 294 cc507-24 — Bank of England and Financial Regulation",
+     "url": "https://api.parliament.uk/historic-hansard/commons/1997/may/20/bank-of-england-and-financial-regulation",
+     "role": "primary"
+    },
+    {
+     "label": "Bank of England — history",
+     "url": "https://www.bankofengland.co.uk/about/history",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "cpi-inflation",
+     "title": "Consumer price inflation (CPI)",
+     "domain": "inflation",
+     "view": "rate",
+     "relationship": "context",
+     "note": "Inflation after 1998 is context for the operational-independence era. It is not an effect of the Act on its own."
+    },
+    {
+     "id": "mortgage-rate-2yr-fixed",
+     "title": "Two-year fixed mortgage rate",
+     "domain": "inflation",
+     "view": "rate",
+     "relationship": "context",
+     "note": "A market rate alongside Bank Rate decisions. Context only."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "The Bank of England's history page records that in October 1992 the Chancellor invited the Bank \"to provide a regular report on the progress being made towards the Government's inflation objective\". On 20 May 1997 the Chancellor told the House: \"On 6 May, I announced the means by which we would achieve that promise: by giving the Bank operational responsibility for setting interest rates.\" (HC Deb 20 May 1997 col 508).",
+    "objectives": "Section 11: \"In relation to monetary policy, the objectives of the Bank of England shall be— (a) to maintain price stability, and (b) subject to that, to support the economic policy of Her Majesty's Government, including its objectives for growth and employment.\"",
+    "mechanism": "The Chancellor's statement (col 508): \"The Government will set the inflation target for the Bank.\" \"The target will be reviewed annually and announced in the Budget.\" \"The Bank will have operational responsibility to achieve the inflation target.\" The Bank's inflation page states the current target: \"The Government sets us a 2% inflation target.\"",
+    "implementation": "Royal Assent 23 April 1998. The Treasury exercised the section 45 power on 24 April 1998 and the whole Act came into force on 1 June 1998 (SI 1998/1120). Banking supervision functions were transferred as the long title provides. The Financial Services Act 2012 later amended the Act.",
+    "measures": [
+     {
+      "label": "Monetary policy objective",
+      "value": "Price stability first; subject to that, support for the Government's economic policy including growth and employment (s. 11).",
+      "source": {
+       "label": "Section 11",
+       "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/11",
+       "role": "primary"
+      }
+     },
+     {
+      "label": "Inflation target",
+      "value": "Set by the Government, reviewed annually and announced in the Budget (HC Deb 20 May 1997 col 508). Currently 2% (Bank of England).",
+      "source": {
+       "label": "Bank of England — inflation",
+       "url": "https://www.bankofengland.co.uk/monetary-policy/inflation",
+       "role": "official"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "financial-services-act-2012",
+      "note": "Amends this Act (long title of the 2012 Act)."
+     }
+    ]
+   }
+  },
+  {
+   "id": "national-minimum-wage-act-1998",
+   "title": "National Minimum Wage Act 1998",
+   "citation": "1998 c. 39",
+   "aliases": [
+    "NMWA 1998"
+   ],
+   "type": "act",
+   "topics": [
+    "labour-market"
+   ],
+   "policy_area": "labour-market",
+   "summary": "Made provision for a national minimum wage and for the amendment of enactments on the pay of persons employed in agriculture. The date printed on the Act is 31 July 1998.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 56(3): \"This Act extends to Northern Ireland.\" England, Wales and Scotland are not named in section 56; the Act is a United Kingdom statute.",
+   "announcement_date": null,
+   "enactment_date": "1998-07-31",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "1998-11-01",
+     "instrument": "SI 1998/2574 art. 2(1)",
+     "citation": "S.I. 1998/2574 Sch. 1",
+     "url": "https://www.legislation.gov.uk/uksi/1998/2574/made",
+     "scope": "Schedule 1 provisions, including section 8 (the Low Pay Commission). Order made 20 October 1998."
+    },
+    {
+     "date": "1999-04-01",
+     "instrument": "SI 1998/2574 art. 2(2)",
+     "citation": "S.I. 1998/2574 Sch. 2",
+     "url": "https://www.legislation.gov.uk/uksi/1998/2574/made",
+     "scope": "Schedule 2 provisions, including section 1 (workers to be paid at least the national minimum wage) so far as not already in force. The National Minimum Wage Regulations 1999 (SI 1999/584) came into force the same day."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and amended; legislation.gov.uk timeline shows amendments dated 31 July 1998 and 1 October 2020.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/39/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 56 — Short title, commencement and extent",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/39/section/56",
+     "role": "primary"
+    },
+    {
+     "label": "Section 1 — Workers to be paid at least the national minimum wage",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/39/section/1",
+     "role": "primary"
+    },
+    {
+     "label": "SI 1998/2574 (Commencement No. 1) Order",
+     "url": "https://www.legislation.gov.uk/uksi/1998/2574/made",
+     "role": "primary"
+    },
+    {
+     "label": "National Minimum Wage Regulations 1999 (SI 1999/584)",
+     "url": "https://www.legislation.gov.uk/uksi/1999/584/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "nominal-earnings",
+     "title": "Average weekly earnings",
+     "domain": "wages",
+     "view": "vs-prices",
+     "relationship": "context",
+     "note": "Whole-economy pay is context for the minimum-wage era. It is not a measure of the minimum wage."
+    },
+    {
+     "id": "real-earnings",
+     "title": "Real earnings",
+     "domain": "wages",
+     "view": "vs-prices",
+     "relationship": "context",
+     "note": "Context only."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Enacted in the first year of the 1997 Labour government alongside the Bank of England Act. The long title: \"An Act to make provision for and in connection with a national minimum wage\".",
+    "objectives": "Section 1(1): \"A person who qualifies for the national minimum wage shall be remunerated by his employer\" at a rate not less than the national minimum wage.",
+    "mechanism": "A statutory hourly floor set by regulations, with a Low Pay Commission (section 8) advising on the rate. The first rate took effect under the National Minimum Wage Regulations 1999 on 1 April 1999.",
+    "implementation": "Low Pay Commission provisions in force 1 November 1998; the right to the minimum wage in force 1 April 1999 (SI 1998/2574). Section 8(1) to (8) were repealed on 22 July 2004; the Commission continues under section 8(9). The Act was amended in 2020.",
+    "measures": [
+     {
+      "label": "First rates",
+      "value": "Set by the National Minimum Wage Regulations 1999 from 1 April 1999. The rate figures are not recorded here; they belong to a Ready series.",
+      "source": {
+       "label": "SI 1999/584",
+       "url": "https://www.legislation.gov.uk/uksi/1999/584/made",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [
+     {
+      "label": "20 years of the National Minimum Wage",
+      "url": "https://www.gov.uk/government/publications/20-years-of-the-national-minimum-wage",
+      "publisher": "Low Pay Commission",
+      "date": "2019-04-01",
+      "finding": "The report \"sets out the long-term effects of the National Minimum Wage and the National Living Wage\" (GOV.UK description). Its findings are not quoted here."
+     }
+    ],
+    "related": []
+   }
+  },
+  {
+   "id": "financial-services-and-markets-act-2000",
+   "title": "Financial Services and Markets Act 2000",
+   "citation": "2000 c. 8",
+   "aliases": [
+    "FSMA 2000"
+   ],
+   "type": "act",
+   "topics": [
+    "financial-regulation",
+    "institutions"
+   ],
+   "policy_area": "financial-regulation",
+   "summary": "Made provision about the regulation of financial services and markets and transferred certain statutory functions relating to building societies, friendly societies and other mutual societies. The date printed on the Act is 14 June 2000.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 430(1): \"This Act, except Chapter IV of Part XVII, extends to Northern Ireland.\" Section 430(3) allows extension to the Channel Islands and the Isle of Man by Order in Council. England, Wales and Scotland are not named in the section.",
+   "announcement_date": null,
+   "enactment_date": "2000-06-14",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2001-12-01",
+     "instrument": "SI 2001/3538 art. 2(1)",
+     "citation": "S.I. 2001/3538",
+     "url": "https://www.legislation.gov.uk/uksi/2001/3538/made",
+     "scope": "\"1st December 2001 (“the appointed day”) is the day appointed for the coming into force of all provisions of the Act\" so far as not already in force, with printed exceptions (section 416(3)(b) and (c) on 2 March 2002; Part V of Schedule 18 and Credit Unions Act amendments on 2 July 2002). Order made 31 October 2001."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and heavily amended; legislation.gov.uk timeline shows amendments to the introductory text from 14 June 2000 to 29 April 2026. The Financial Services Act 2012 amends this Act (that Act's long title).",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2000/8/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 430 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/2000/8/section/430",
+     "role": "primary"
+    },
+    {
+     "label": "Section 2 (as enacted) — The Authority's general duties",
+     "url": "https://www.legislation.gov.uk/ukpga/2000/8/section/2/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2001/3538 (Commencement No. 7) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2001/3538/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Created a single statutory regulator for financial services, the Financial Services Authority, replacing the self-regulatory bodies of the Financial Services Act 1986 era.",
+    "objectives": "Section 2(2) as enacted: \"The regulatory objectives are—\" market confidence; public awareness; the protection of consumers; the reduction of financial crime.",
+    "mechanism": "Section 2(1): \"In discharging its general functions the Authority must, so far as is reasonably possible, act in a way\" compatible with the regulatory objectives. The Act also transferred functions relating to building societies, friendly societies and other mutuals (long title).",
+    "implementation": "Main provisions in force on the appointed day, 1 December 2001 (SI 2001/3538). The Financial Services Act 2012 later substituted sections 1 to 18, renaming the Authority the Financial Conduct Authority and creating the Prudential Regulation Authority.",
+    "measures": [
+     {
+      "label": "Regulatory objectives (as enacted)",
+      "value": "Market confidence; public awareness; the protection of consumers; the reduction of financial crime (s. 2(2)).",
+      "source": {
+       "label": "Section 2 (as enacted)",
+       "url": "https://www.legislation.gov.uk/ukpga/2000/8/section/2/enacted",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "financial-services-act-2012",
+      "note": "Replaced the single regulator with the FCA and PRA by substituting sections 1 to 18."
+     }
+    ]
+   }
+  },
+  {
+   "id": "pensions-act-2008",
+   "title": "Pensions Act 2008",
+   "citation": "2008 c. 30",
+   "aliases": [
+    "Automatic enrolment Act"
+   ],
+   "type": "act",
+   "topics": [
+    "pensions",
+    "welfare"
+   ],
+   "policy_area": "welfare",
+   "summary": "\"An Act to make provision relating to pensions; and for connected purposes.\" The date printed on the Act is 26 November 2008.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "Great Britain, with listed provisions extending to Northern Ireland",
+   "nations": [
+    "england",
+    "wales",
+    "scotland"
+   ],
+   "extent": "Section 150(1): \"Subject to the following provisions, this Act extends to England and Wales and Scotland.\" Section 150(2) extends listed provisions (including Chapters 5 and 6 of Part 1 and sections 140, 141 and 143 to 146) also to Northern Ireland.",
+   "announcement_date": null,
+   "enactment_date": "2008-11-26",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2012-06-30",
+     "instrument": "SI 2012/1682 art. 2(1)",
+     "citation": "S.I. 2012/1682",
+     "url": "https://www.legislation.gov.uk/uksi/2012/1682/made",
+     "scope": "Section 1 (jobholders) and section 3 (automatic enrolment) among the listed provisions. Order made 28 June 2012."
+    },
+    {
+     "date": "2012-10-01",
+     "instrument": "SI 2012/2480 art. 2",
+     "citation": "S.I. 2012/2480",
+     "url": "https://www.legislation.gov.uk/ukpga/2008/30/section/149",
+     "scope": "Listed in the subordinate-legislation table under section 149. The SI 2012/1682 explanatory note: the duties \"will apply to employers in stages, starting with the largest employers first, from 1st October 2012 onwards.\" SI 2012/2480 itself was not read."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and amended; legislation.gov.uk lists outstanding insertions (for example sections 3(1A), 5(1C) and 13A).",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2008/30/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 150 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/2008/30/section/150",
+     "role": "primary"
+    },
+    {
+     "label": "Section 3 (as enacted) — Automatic enrolment",
+     "url": "https://www.legislation.gov.uk/ukpga/2008/30/section/3/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "Section 149 — Commencement",
+     "url": "https://www.legislation.gov.uk/ukpga/2008/30/section/149",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2012/1682 (Commencement No. 13) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2012/1682/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Introduced automatic enrolment of workers into workplace pensions, following the Pensions Commission's reports. The long title is general: \"An Act to make provision relating to pensions\".",
+    "objectives": "Section 3(1) as enacted applies to a jobholder \"aged at least 22\" who \"has not reached pensionable age\" and earns above the threshold.",
+    "mechanism": "Section 3(2): \"The employer must make prescribed arrangements by which the jobholder becomes an active member\" of an automatic enrolment scheme. Duties were staged by employer size.",
+    "implementation": "Sections 1 and 3 in force 30 June 2012 (SI 2012/1682); staging from 1 October 2012 with the largest employers first (SI 2012/1682 explanatory note; SI 2012/2480).",
+    "measures": [
+     {
+      "label": "Who is enrolled",
+      "value": "Jobholders aged at least 22 and under pensionable age (s. 3(1) as enacted); earnings thresholds are set by regulations and not recorded here.",
+      "source": {
+       "label": "Section 3 (as enacted)",
+       "url": "https://www.legislation.gov.uk/ukpga/2008/30/section/3/enacted",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [
+     {
+      "label": "Automatic enrolment to workplace pensions",
+      "url": "https://www.nao.org.uk/reports/automatic-enrolment-to-workplace-pensions/",
+      "publisher": "National Audit Office",
+      "date": "2015-11-04",
+      "finding": "The Department \"has successfully introduced automatic enrolment to workplace pensions for large and medium-sized employers\"."
+     }
+    ],
+    "related": []
+   }
+  },
+  {
+   "id": "fiscal-responsibility-act-2010",
+   "title": "Fiscal Responsibility Act 2010",
+   "citation": "2010 c. 3",
+   "aliases": [],
+   "type": "act",
+   "topics": [
+    "fiscal"
+   ],
+   "policy_area": "fiscal",
+   "summary": "A short Act on fiscal targets, printed with the date 10 February 2010 and repealed thirteen months later by the Budget Responsibility and National Audit Act 2011.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "No extent section is shown on the legislation.gov.uk introductory text for the repealed Act.",
+   "announcement_date": null,
+   "enactment_date": "2010-02-10",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [],
+   "status": "repealed",
+   "status_note": "legislation.gov.uk: \"Act repealed (23.3.2011) by Budget Responsibility and National Audit Act 2011 (c. 4), ss. 10(c), 29; S.I. 2011/892 Sch. 1.\"",
+   "sources": [
+    {
+     "label": "Introductory text (repealed)",
+     "url": "https://www.legislation.gov.uk/ukpga/2010/3/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 1 (as enacted) — Initial duties",
+     "url": "https://www.legislation.gov.uk/ukpga/2010/3/section/1/enacted",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "Borrowing around 2010 is context for the fiscal-rules story, not an effect of this Act."
+    }
+   ],
+   "repealed_date": "2011-03-23",
+   "dossier": {
+    "background": "Enacted in February 2010, before the May 2010 general election, during the fiscal consolidation that followed the 2008 financial crisis.",
+    "objectives": "Section 1(1): for each of the financial years ending in 2011 to 2016, public sector net borrowing \"is less than it was for the preceding financial year\". Section 1(2): for the financial year ending in 2014, borrowing \"is no more than half of what it was for the financial year ending in 2010\". Section 1(3)(a) adds a duty on public sector net debt \"as at the end of the financial year ending in 2016\".",
+    "mechanism": "Statutory duties on the Treasury to meet borrowing and debt paths, reported to Parliament. No independent forecaster was attached; that followed under the 2011 Act.",
+    "implementation": "Repealed on 23 March 2011 by sections 10(c) and 29 of the Budget Responsibility and National Audit Act 2011, brought into force by SI 2011/892 Schedule 1. Whether the 2014 duty would have been met is not assessed here.",
+    "measures": [
+     {
+      "label": "Borrowing duty",
+      "value": "Net borrowing falling each year 2010-11 to 2015-16, and no more than half its 2009-10 level by the year ending in 2014 (s. 1(1) and (2)).",
+      "source": {
+       "label": "Section 1 (as enacted)",
+       "url": "https://www.legislation.gov.uk/ukpga/2010/3/section/1/enacted",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "budget-responsibility-and-national-audit-act-2011",
+      "note": "Repealed this Act."
+     }
+    ]
+   }
+  },
+  {
+   "id": "budget-responsibility-and-national-audit-act-2011",
+   "title": "Budget Responsibility and National Audit Act 2011",
+   "citation": "2011 c. 4",
+   "aliases": [
+    "BRNAA 2011",
+    "OBR Act"
+   ],
+   "type": "act",
+   "topics": [
+    "fiscal",
+    "institutions"
+   ],
+   "policy_area": "fiscal",
+   "summary": "Provided for a Charter for Budget Responsibility and the publication of Budget Reports, established the Office for Budget Responsibility, and re-founded the National Audit Office as a body corporate. The date printed on the Act is 22 March 2011.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 30(1): \"Subject to subsection (2), this Act extends to England and Wales, Scotland and Northern Ireland.\"",
+   "announcement_date": null,
+   "enactment_date": "2011-03-22",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2011-03-22",
+     "instrument": "Act itself",
+     "citation": "s. 29(1)",
+     "url": "https://www.legislation.gov.uk/ukpga/2011/4/section/29",
+     "scope": "Part 3 (final provisions) on the day the Act was passed."
+    },
+    {
+     "date": "2011-03-23",
+     "instrument": "SI 2011/892 art. 2",
+     "citation": "S.I. 2011/892 Sch. 1",
+     "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+     "scope": "Section 1 (Charter for Budget Responsibility), section 2 (Annual Budget documents) and section 10 (Superseded statutory provisions)."
+    },
+    {
+     "date": "2011-04-04",
+     "instrument": "SI 2011/892 art. 3",
+     "citation": "S.I. 2011/892 Sch. 2",
+     "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+     "scope": "Section 3 and Schedule 1 (Office for Budget Responsibility) and sections 4 to 9 (main duty, guidance, efficiency, reports, right to information)."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and amended. Section 4A (fiscal lock) was inserted by the Budget Responsibility Act 2024 (2024 c. 24), in force 15 October 2024. Part 2 (National Audit Office) commencement is not pinned.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2011/4/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 29 — Commencement",
+     "url": "https://www.legislation.gov.uk/ukpga/2011/4/section/29",
+     "role": "primary"
+    },
+    {
+     "label": "Section 30 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/2011/4/section/30",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2011/892 (Commencement No. 1) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+     "role": "primary"
+    },
+    {
+     "label": "OBR — legislation and related material",
+     "url": "https://obr.uk/about-the-obr/legislation-and-related-material/",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "The series the OBR forecasts and the fiscal mandate is judged on. Context, not an effect of the Act."
+    },
+    {
+     "id": "public-sector-net-debt-percent-gdp",
+     "title": "Public sector net debt as a share of GDP",
+     "domain": "debt",
+     "view": "dial",
+     "relationship": "context",
+     "note": "Context for the debt targets in successive Charters."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Followed the Fiscal Responsibility Act 2010, which this Act repealed on 23 March 2011. The Charter for Budget Responsibility (Autumn 2025) describes the Act as the legislative basis for the Charter and for the OBR's duty.",
+    "objectives": "Long title: \"An Act to make provision for a Charter for Budget Responsibility and for the publication of Financial Statements and Budget Reports; to establish the Office for Budget Responsibility; to make provision about the Comptroller and Auditor General and to establish a body corporate called the National Audit Office; ... and for connected purposes.\"",
+    "mechanism": "Section 1 requires the Treasury to prepare a Charter for Budget Responsibility setting out its fiscal objective, fiscal mandate and the minimum contents of the Budget Report, and to lay it before Parliament (Charter, Autumn 2025, paras 1.1 to 1.4). Section 3 establishes the OBR as a statutory corporate body (SI 2011/892 explanatory note); section 4 sets its main duty.",
+    "implementation": "Part 3 in force on passing (s. 29(1)). Sections 1, 2 and 10 in force 23 March 2011 and sections 3 to 9 with Schedule 1 in force 4 April 2011 (SI 2011/892). The first Charter was published on 4 April 2011 (GOV.UK). The Act has since been amended to add section 4A (fiscal lock), cited in the Autumn 2025 Charter.",
+    "measures": [
+     {
+      "label": "Charter for Budget Responsibility",
+      "value": "Required by s. 1; must include the Treasury's fiscal objective, fiscal mandate and the minimum requirements of the Budget Report (Charter para 1.2).",
+      "source": {
+       "label": "Charter for Budget Responsibility, Autumn 2025 (OBR copy)",
+       "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+       "role": "official"
+      }
+     },
+     {
+      "label": "Office for Budget Responsibility",
+      "value": "Established as a statutory corporate body by s. 3 and Schedule 1, in force 4 April 2011.",
+      "source": {
+       "label": "SI 2011/892",
+       "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "fiscal-responsibility-act-2010",
+      "note": "Repealed by this Act."
+     },
+     {
+      "registry": "economy",
+      "id": "office-for-budget-responsibility",
+      "note": "Created by section 3."
+     },
+     {
+      "registry": "economy",
+      "id": "charter-for-budget-responsibility-autumn-2025",
+      "note": "The current Charter made under section 1."
+     }
+    ]
+   }
+  },
+  {
+   "id": "office-for-budget-responsibility",
+   "title": "Office for Budget Responsibility",
+   "citation": "Budget Responsibility and National Audit Act 2011, s. 3 and Sch. 1",
+   "aliases": [
+    "OBR"
+   ],
+   "type": "institution",
+   "topics": [
+    "institutions",
+    "fiscal"
+   ],
+   "policy_area": "institutions",
+   "summary": "The independent body that produces the official economic and fiscal forecasts and assesses the Government's performance against its fiscal mandate. Established as a statutory corporate body on 4 April 2011.",
+   "institution": "HM Treasury (sponsoring department); Office for Budget Responsibility",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "The establishing Act extends to England and Wales, Scotland and Northern Ireland (2011 c. 4, s. 30(1)).",
+   "announcement_date": null,
+   "enactment_date": null,
+   "start_date": "2011-04-04",
+   "end_date": null,
+   "date_note": "Statutory establishment: section 3 and Schedule 1 of the 2011 Act came into force on 4 April 2011 (SI 2011/892 art. 3). The 2014 external review says the OBR \"was established in 2010\" by the coalition government and that staff \"transferred to the Office in May 2010\"; the exact day of the interim OBR is not printed in the sources read.",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Active. The Charter (Autumn 2025) says the Government has adopted the OBR's forecasts as the official forecasts for the Budget Report (para 3.15).",
+   "sources": [
+    {
+     "label": "SI 2011/892 (Commencement No. 1) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+     "role": "primary"
+    },
+    {
+     "label": "OBR — what we do",
+     "url": "https://obr.uk/about-the-obr/what-we-do/",
+     "role": "official"
+    },
+    {
+     "label": "OBR — legislation and related material",
+     "url": "https://obr.uk/about-the-obr/legislation-and-related-material/",
+     "role": "official"
+    },
+    {
+     "label": "External review of the OBR (2014), executive summary",
+     "url": "https://obr.uk/docs/dlm_uploads/External_review_2014.pdf",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "The outturn the OBR's forecasts are later compared with. Context only."
+    },
+    {
+     "id": "real-gdp",
+     "title": "Real GDP",
+     "domain": "growth",
+     "view": "produce",
+     "relationship": "context",
+     "note": "Outturn GDP beside the OBR's economic forecasts. Context only."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Created by the 2011 Act after the repeal of the Fiscal Responsibility Act 2010. The Charter for Budget Responsibility calls the OBR's independent scrutiny the underpinning of the credibility of fiscal policy (para 2.2).",
+    "objectives": "Main duty under section 4 of the 2011 Act (section heading on the commencement order: \"Main duty of Office\"); the Charter describes the duty as to \"independently examine and report on the sustainability of the public finances\" (para 2.2).",
+    "mechanism": "Produces the economic and fiscal forecasts adopted by the Government as the official forecasts for the Budget Report (Charter para 3.15), assesses performance against the fiscal mandate (para 3.5), and at every medium-term forecast comments on fiscal sustainability against a stated set of metrics (para 3.4).",
+    "implementation": "Statutory establishment 4 April 2011 (SI 2011/892 art. 3). The OBR's legislation page lists a Memorandum of Understanding and Framework document from April 2011 and an advisory panel formed in 2011. External reviews: Page (2014), HM Treasury review (2015), OECD (2020), van Geest (2025) with a response and implementation plan (July 2025).",
+    "measures": [],
+    "financial": [],
+    "evaluations": [
+     {
+      "label": "External review of the Office for Budget Responsibility (Kevin Page)",
+      "url": "https://obr.uk/about-the-obr/external-reviews/",
+      "publisher": "Office for Budget Responsibility (external review)",
+      "date": "2014-09-03",
+      "finding": "First statutory external review; the 2011 Act requires a review at least once in every five-year period."
+     },
+     {
+      "label": "OECD external review of the Office for Budget Responsibility",
+      "url": "https://obr.uk/about-the-obr/external-reviews/",
+      "publisher": "OECD",
+      "date": "2020-09-24",
+      "finding": "Second external review, published September 2020."
+     },
+     {
+      "label": "External review of the Office for Budget Responsibility 2025 (Laura van Geest)",
+      "url": "https://obr.uk/about-the-obr/external-reviews/",
+      "publisher": "Office for Budget Responsibility (external review)",
+      "date": "2025-02-10",
+      "finding": "\"Over the last five years, the OBR has successfully navigated a series of unprecedented economic and fiscal challenges\"."
+     }
+    ],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "budget-responsibility-and-national-audit-act-2011",
+      "note": "Establishing Act."
+     },
+     {
+      "registry": "economy",
+      "id": "charter-for-budget-responsibility-autumn-2025",
+      "note": "Guidance to the OBR sits in Chapter 4 of the Charter."
+     }
+    ]
+   }
+  },
+  {
+   "id": "welfare-reform-act-2012",
+   "title": "Welfare Reform Act 2012",
+   "citation": "2012 c. 5",
+   "aliases": [
+    "Universal Credit Act"
+   ],
+   "type": "act",
+   "topics": [
+    "welfare"
+   ],
+   "policy_area": "welfare",
+   "summary": "Made provision for universal credit and personal independence payment, other provision about social security and tax credits, and established the Social Mobility and Child Poverty Commission. The date printed on the Act is 8 March 2012.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "England and Wales and Scotland, with listed provisions extending to Northern Ireland",
+   "nations": [
+    "england",
+    "wales",
+    "scotland"
+   ],
+   "extent": "Section 149(1): \"This Act extends to England and Wales and Scotland only, subject as follows.\" Section 149(2) extends listed provisions (including sections 32, 33, 76, 92 and the final Part) also to Northern Ireland; section 149(3) limits sections 128 and 129 to England and Wales.",
+   "announcement_date": null,
+   "enactment_date": "2012-03-08",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2013-04-29",
+     "instrument": "SI 2013/983 art. 3",
+     "citation": "S.I. 2013/983",
+     "url": "https://www.legislation.gov.uk/uksi/2013/983/made",
+     "scope": "\"29th April 2013 is the day appointed for the coming into force of\" the listed universal credit provisions (sections 29, 37, 38, 39 and parts of Schedules 2 and 5) for claims in the relevant districts (postcode areas M43, OL6, OL7 and SK16). Order made 24 April 2013. Later roll-out orders are not pinned."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force and amended; legislation.gov.uk timeline shows amendments dated 8 March 2012, 24 July 2020 and 21 February 2024. Commencement of universal credit was staged by order and is not pinned here.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/5/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 149 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/149",
+     "role": "primary"
+    },
+    {
+     "label": "Section 1 (as enacted) — Universal credit",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/1/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "Section 96 — Benefit cap",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/96",
+     "role": "primary"
+    },
+    {
+     "label": "Section 69 — Housing benefit: determination of appropriate maximum",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/69/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2013/983 (Commencement No. 9) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2013/983/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "employment-rate",
+     "title": "Employment rate",
+     "domain": "employment",
+     "view": "rates",
+     "relationship": "context",
+     "note": "Labour-market context for the welfare-reform era. Not an effect of the Act."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "The coalition government's welfare reform, replacing six means-tested benefits and tax credits with universal credit and introducing personal independence payment and a benefit cap.",
+    "objectives": "Section 1(1): \"A benefit known as universal credit is payable in accordance with this Part.\" The long title adds personal independence payment, other social security and tax credit provision, and the Social Mobility and Child Poverty Commission.",
+    "mechanism": "Universal credit as a single payment under Part 1; a benefit cap by regulations under section 96(1) (\"Regulations may provide for a benefit cap to be applied to the welfare benefits\"); housing benefit maximum amended by section 69 (amending section 130A of the Social Security Contributions and Benefits Act 1992).",
+    "implementation": "First universal credit commencement 29 April 2013 in four postcode districts (SI 2013/983). National roll-out followed under later orders, not pinned here. The Act was amended in 2020 and 2024.",
+    "measures": [
+     {
+      "label": "Universal credit",
+      "value": "Single means-tested benefit under Part 1 (s. 1).",
+      "source": {
+       "label": "Section 1 (as enacted)",
+       "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/1/enacted",
+       "role": "primary"
+      }
+     },
+     {
+      "label": "Benefit cap",
+      "value": "Cap on welfare benefits by regulations (s. 96(1)); the cap level is not recorded here.",
+      "source": {
+       "label": "Section 96",
+       "url": "https://www.legislation.gov.uk/ukpga/2012/5/section/96",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [
+     {
+      "label": "Rolling out Universal Credit",
+      "url": "https://www.nao.org.uk/reports/rolling-out-universal-credit/",
+      "publisher": "National Audit Office",
+      "date": "2018-06-15",
+      "finding": "\"the project is not value for money now, and that its future value for money is unproven\"."
+     }
+    ],
+    "related": []
+   }
+  },
+  {
+   "id": "financial-services-act-2012",
+   "title": "Financial Services Act 2012",
+   "citation": "2012 c. 21",
+   "aliases": [
+    "FSA 2012",
+    "Twin peaks reform"
+   ],
+   "type": "act",
+   "topics": [
+    "financial-regulation",
+    "institutions"
+   ],
+   "policy_area": "financial-regulation",
+   "summary": "Amended the Bank of England Act 1998, the Financial Services and Markets Act 2000 and the Banking Act 2009 and made other provision about financial services and markets. The date printed on the Act is 19 December 2012.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 121: \"This Act extends to England and Wales, Scotland and Northern Ireland.\"",
+   "announcement_date": null,
+   "enactment_date": "2012-12-19",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2013-04-01",
+     "instrument": "SI 2013/423 art. 3",
+     "citation": "S.I. 2013/423",
+     "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+     "scope": "\"1st April 2013 is the day appointed for the coming into force of the provisions of the Act listed in the Schedule\", including sections 1 to 6, 10 to 48, 53 to 56 and Schedules 1 to 19. Order made 26 February 2013; the second commencement order under the Act."
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force. legislation.gov.uk lists an outstanding temporary power conferred by 2014 c. 21 (sections 79(4) and 81(10)).",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/21/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 121 — Extent",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/21/section/121",
+     "role": "primary"
+    },
+    {
+     "label": "Section 6 (as enacted) — The new Regulators",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/21/section/6/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2013/423 (Commencement No. 2) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "The post-crisis redesign of financial regulation, replacing the single Financial Services Authority with two regulators and giving the Bank of England responsibility for prudential supervision and financial stability.",
+    "objectives": "The long title: to amend the Bank of England Act 1998, the Financial Services and Markets Act 2000 and the Banking Act 2009 and make other provision about financial services and markets.",
+    "mechanism": "Section 6(1): \"For sections 1 to 18 of the Financial Services and Markets Act 2000 ... substitute\" new provisions under which the Financial Services Authority \"is renamed as the Financial Conduct Authority\" (new s. 1A) and the Prudential Regulation Authority is established as a Bank of England subsidiary (new s. 2A).",
+    "implementation": "Sections 1 to 6 and the regulator provisions in force 1 April 2013 (SI 2013/423). The Bank of England and Financial Services Act 2016 later ended the PRA's subsidiary status; that Act is not in this register.",
+    "measures": [
+     {
+      "label": "Two regulators",
+      "value": "Financial Conduct Authority (renamed FSA) and Prudential Regulation Authority, from 1 April 2013.",
+      "source": {
+       "label": "Section 6 (as enacted)",
+       "url": "https://www.legislation.gov.uk/ukpga/2012/21/section/6/enacted",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "financial-services-and-markets-act-2000",
+      "note": "Amended: sections 1 to 18 substituted."
+     },
+     {
+      "registry": "economy",
+      "id": "bank-of-england-act-1998",
+      "note": "Amended to give the Bank prudential and financial-stability functions."
+     }
+    ]
+   }
+  },
+  {
+   "id": "european-union-future-relationship-act-2020",
+   "title": "European Union (Future Relationship) Act 2020",
+   "citation": "2020 c. 29",
+   "aliases": [
+    "EU (Future Relationship) Act",
+    "TCA implementation Act"
+   ],
+   "type": "act",
+   "topics": [
+    "trade"
+   ],
+   "policy_area": "trade",
+   "summary": "Implemented, and made other provision in connection with, the Trade and Cooperation Agreement with the EU, with related provision about passenger name record data, customs and privileges and immunities. The date printed on the Act is 31 December 2020.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Section 40(1): \"Subject to subsections (2) to (5), this Act extends to England and Wales, Scotland and Northern Ireland.\" Section 25(1) extends to England and Wales and Scotland only; section 25(2) to Northern Ireland only.",
+   "announcement_date": null,
+   "enactment_date": "2020-12-31",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2020-12-31",
+     "instrument": "Act itself",
+     "citation": "s. 40(6)",
+     "url": "https://www.legislation.gov.uk/ukpga/2020/29/section/40",
+     "scope": "Provisions listed in section 40(6) came into force on the day the Act was passed. The rest come into force by regulations under section 40(7); those dates are not pinned."
+    },
+    {
+     "date": "2020-12-31",
+     "instrument": "SI 2020/1662 reg. 2",
+     "citation": "S.I. 2020/1662",
+     "url": "https://www.legislation.gov.uk/uksi/2020/1662/made",
+     "scope": "Listed provisions (including sections 1 to 6, 7, 9 to 20, 22 to 29 and 39 and Schedules 1 to 4 and 6, so far as not already in force) \"come into force on IP completion day\", which the explanatory note defines as 31 December 2020 at 11 p.m. Regulations made at 2.36 p.m. on 31 December 2020. Sections 21, 27 and 34 came into force on 1 March 2021 (reg. 3)."
+    }
+   ],
+   "status": "in_force",
+   "status_note": "legislation.gov.uk: no known outstanding effects for the introductory text. The Trade and Cooperation Agreement itself \"was signed on 30 December 2020, was applied provisionally as of 1 January 2021 and entered into force on 1 May 2021\" (European Commission).",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2020/29/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 40 — Extent, commencement and short title",
+     "url": "https://www.legislation.gov.uk/ukpga/2020/29/section/40",
+     "role": "primary"
+    },
+    {
+     "label": "UK/EU Trade and Cooperation Agreement [TS No. 8/2021]",
+     "url": "https://www.gov.uk/government/publications/ukeu-and-eaec-trade-and-cooperation-agreement-ts-no82021",
+     "role": "official"
+    },
+    {
+     "label": "SI 2020/1662 (Commencement No. 1) Regulations",
+     "url": "https://www.legislation.gov.uk/uksi/2020/1662/made",
+     "role": "primary"
+    },
+    {
+     "label": "European Commission — EU-UK Trade and Cooperation Agreement",
+     "url": "https://commission.europa.eu/strategy-and-policy/relations-united-kingdom/eu-uk-trade-and-cooperation-agreement_en",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "real-gdp",
+     "title": "Real GDP",
+     "domain": "growth",
+     "view": "produce",
+     "relationship": "context",
+     "note": "Output after the end of the transition period is context, not an effect of this Act."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "The Trade and Cooperation Agreement text was agreed in December 2020 at the end of the transition period that followed the United Kingdom's withdrawal from the EU. The Act was passed and received Royal Assent on 31 December 2020.",
+    "objectives": "The long title: \"to implement, and make other provision in connection with, the Trade and Cooperation Agreement\" and \"the United Kingdom's future relationship with the EU and its member States\".",
+    "mechanism": "Domestic implementation of the Agreement, with related provision on passenger name record data, customs and privileges and immunities (long title). The Agreement was signed on 30 December 2020, applied provisionally from 1 January 2021 and entered into force on 1 May 2021 (European Commission).",
+    "implementation": "Provisions listed in section 40(6) in force on passing; the main body in force at IP completion day, 31 December 2020 at 11 p.m. (SI 2020/1662); sections 21, 27 and 34 on 1 March 2021.",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": []
+   }
+  },
+  {
+   "id": "coronavirus-job-retention-scheme",
+   "title": "Coronavirus Job Retention Scheme",
+   "citation": "HM Treasury / HMRC scheme, announced 20 March 2020",
+   "aliases": [
+    "Furlough scheme",
+    "CJRS"
+   ],
+   "type": "programme",
+   "topics": [
+    "crisis-response",
+    "labour-market",
+    "spending"
+   ],
+   "policy_area": "crisis-response",
+   "summary": "A grant scheme under which the Government paid a share of the wages of employees placed on furlough during the Covid-19 pandemic. Announced 20 March 2020, launched 20 April 2020 and closed on 30 September 2021.",
+   "institution": "HM Treasury; HM Revenue and Customs",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "A United Kingdom scheme administered by HMRC. No statutory extent clause; the scheme was made under Treasury directions, which are not read in this pass.",
+   "announcement_date": "2020-03-20",
+   "enactment_date": null,
+   "start_date": "2020-04-20",
+   "end_date": "2021-09-30",
+   "date_note": "start_date is the launch date stated in the HMRC statistics collection (\"The Coronavirus Job Retention Scheme was launched on 20 April 2020\"). announcement_date is the GOV.UK press release of 20 March 2020. end_date is from the withdrawn claim guidance: \"The Coronavirus Job Retention Scheme ended on 30 September 2021.\"",
+   "commencements": [],
+   "status": "closed",
+   "status_note": "Closed 30 September 2021. HMRC's final release (16 December 2021): £70.0 billion claimed and 11.7 million jobs supported.",
+   "sources": [
+    {
+     "label": "Chancellor announces workers' support package (GOV.UK, 20 March 2020)",
+     "url": "https://www.gov.uk/government/news/chancellor-announces-workers-support-package",
+     "role": "official"
+    },
+    {
+     "label": "HMRC coronavirus (COVID-19) statistics collection",
+     "url": "https://www.gov.uk/government/collections/hmrc-coronavirus-covid-19-statistics",
+     "role": "official"
+    },
+    {
+     "label": "Claim for wages through the CJRS (withdrawn guidance)",
+     "url": "https://www.gov.uk/guidance/claim-for-wages-through-the-coronavirus-job-retention-scheme",
+     "role": "official"
+    },
+    {
+     "label": "CJRS statistics: 16 December 2021",
+     "url": "https://www.gov.uk/government/statistics/coronavirus-job-retention-scheme-statistics-16-december-2021",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "unemployment-rate",
+     "title": "Unemployment rate",
+     "domain": "employment",
+     "view": "rates",
+     "relationship": "context",
+     "note": "Unemployment through 2020 and 2021 is context for the scheme period, not a measure of its effect."
+    },
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "Borrowing in 2020-21 is context for pandemic support as a whole, not this scheme alone."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Announced in the Chancellor's package of 20 March 2020, during the first Covid-19 lockdown. The press release: \"A new Coronavirus Job Retention Scheme will be set up to help pay people's wages.\"",
+    "objectives": "Stated purpose in the press release: to help pay people's wages so that employers could keep staff on rather than make them redundant.",
+    "mechanism": "The press release: \"the government paying up to 80% of a worker's wages, up to a total of £2,500 per worker each month. These will be backdated to 1st March and will be initially open for 3 months, to be extended if necessary.\" Employers claimed through HMRC.",
+    "implementation": "Launched 20 April 2020 (HMRC). Extended several times beyond the initial three months; the scheme ended on 30 September 2021 and the claim guidance was withdrawn on 29 October 2021. The extension dates and the tapering of the grant rate are not pinned in this pass.",
+    "measures": [
+     {
+      "label": "Grant rate at announcement",
+      "value": "Up to 80% of a worker's wages, capped at £2,500 per worker each month, backdated to 1 March 2020.",
+      "source": {
+       "label": "GOV.UK press release, 20 March 2020",
+       "url": "https://www.gov.uk/government/news/chancellor-announces-workers-support-package",
+       "role": "official"
+      }
+     }
+    ],
+    "financial": [
+     {
+      "label": "Total claimed",
+      "value": "£70.0 billion, claims submitted up to 21 November 2021 (HMRC Table 1; not net of voluntary repayments). 11.7 million unique jobs supported; 1.16 million jobs on furlough at 410,000 employers when the scheme closed.",
+      "source": {
+       "label": "CJRS statistics: 16 December 2021",
+       "url": "https://www.gov.uk/government/statistics/coronavirus-job-retention-scheme-statistics-16-december-2021/coronavirus-job-retention-scheme-statistics-16-december-2021",
+       "role": "official"
+      }
+     }
+    ],
+    "evaluations": [
+     {
+      "label": "Implementing employment support schemes in response to the COVID-19 pandemic",
+      "url": "https://www.nao.org.uk/reports/implementing-employment-support-schemes-in-response-to-the-covid-19-pandemic/",
+      "publisher": "National Audit Office",
+      "date": "2020-10-23",
+      "finding": "\"many other people have lost earnings and have not been able to access support\"."
+     }
+    ],
+    "related": []
+   }
+  },
+  {
+   "id": "charter-for-budget-responsibility-autumn-2025",
+   "title": "Charter for Budget Responsibility (Autumn 2025)",
+   "citation": "Presented to Parliament under s. 1 of the Budget Responsibility and National Audit Act 2011",
+   "aliases": [
+    "Fiscal rules",
+    "Fiscal mandate"
+   ],
+   "type": "programme",
+   "topics": [
+    "fiscal",
+    "institutions"
+   ],
+   "policy_area": "fiscal",
+   "summary": "HM Treasury's statement of the fiscal policy framework: the objective, principles and mandate for fiscal policy, the contents of the Budget Report, and guidance to the OBR. The document is dated February 2026.",
+   "institution": "HM Treasury",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "A United Kingdom framework document laid before Parliament; it has no statutory extent clause of its own.",
+   "announcement_date": null,
+   "enactment_date": null,
+   "start_date": "2026-02-23",
+   "end_date": null,
+   "date_note": "The OBR's legislation page lists this Charter as 23 February 2026; the document itself is dated February 2026 and says it was presented to Parliament pursuant to section 1 of the 2011 Act. The date of the House of Commons approval is not pinned.",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Current Charter. It replaced the January 2025 Charter listed on the OBR page; the replacement date is not stated in the document read.",
+   "sources": [
+    {
+     "label": "Charter for Budget Responsibility, Autumn 2025 (OBR copy, accessible PDF)",
+     "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+     "role": "official"
+    },
+    {
+     "label": "OBR — legislation and related material",
+     "url": "https://obr.uk/about-the-obr/legislation-and-related-material/",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "The outturn behind the current-budget rule. Context, not a verdict on the mandate."
+    },
+    {
+     "id": "public-sector-net-debt-percent-gdp",
+     "title": "Public sector net debt as a share of GDP",
+     "domain": "debt",
+     "view": "dial",
+     "relationship": "context",
+     "note": "The supplementary target uses public sector net financial liabilities, a different measure from this series. Context only."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Section 1 of the 2011 Act requires the Treasury to prepare a Charter relating to the formulation and implementation of fiscal policy and policy for the management of the national debt (Charter para 1.1). The OBR's what-we-do page says that in October 2024 the Government set itself a new mandate for fiscal policy.",
+    "objectives": "Para 3.1: \"The Treasury's objective for fiscal policy is to support sustainable economic growth and the provision of high-quality public services and investment across the UK, through the effective management of the public finances and sustainable taxes and borrowing.\" Para 3.2 principles: \"to move towards only borrowing for investment\" and \"to keep debt on a sustainable path\".",
+    "mechanism": "The fiscal mandate and supplementary targets are assessed by the OBR at each forecast (paras 3.5 and 3.15). Para 3.9: in an emergency or a significant negative economic shock the Chancellor may temporarily suspend the mandate and targets, after writing to the OBR (paras 3.10 and 3.11). Para 3.13 commits to one major fiscal event a year.",
+    "implementation": "Laid before Parliament under section 1(4) of the 2011 Act. The Government has adopted the OBR's forecasts as the official forecasts for the Budget Report (para 3.15).",
+    "measures": [
+     {
+      "label": "Fiscal mandate",
+      "value": "\"the current budget must be in surplus in 2029-30, until 2029-30 becomes the third year of the forecast period. From that point, the current budget must then remain in balance or in surplus from the third year of the rolling forecast periods\" (para 3.6).",
+      "source": null
+     },
+     {
+      "label": "Supplementary debt target",
+      "value": "\"a target to ensure debt, defined as Public Sector Net Financial Liabilities (PSNFL), is falling as a share of the economy by 2029-30, until 2029-30 becomes the third year of the forecast period. Debt should then fall by the third year of the rolling forecast period\" (para 3.7).",
+      "source": null
+     },
+     {
+      "label": "Welfare cap",
+      "value": "\"a target to ensure that expenditure on welfare is contained within a predetermined cap and margin set by the Treasury\" (para 3.8).",
+      "source": null
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "budget-responsibility-and-national-audit-act-2011",
+      "note": "The Act under which the Charter is made."
+     },
+     {
+      "registry": "economy",
+      "id": "office-for-budget-responsibility",
+      "note": "Assesses performance against the mandate; Chapter 4 of the Charter is guidance to the OBR."
+     }
+    ]
+   }
+  },
+  {
+   "id": "financial-conduct-authority",
+   "title": "Financial Conduct Authority",
+   "citation": "Financial Services Act 2012, s. 6; FSMA 2000 ss. 1A / 2A as substituted",
+   "aliases": [
+    "FCA"
+   ],
+   "type": "institution",
+   "topics": [
+    "financial-regulation",
+    "institutions"
+   ],
+   "policy_area": "institutions",
+   "summary": "The conduct regulator for financial services, created by renaming the Financial Services Authority under the Financial Services Act 2012. In being from 1 April 2013.",
+   "institution": "HM Treasury (sponsoring department)",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "The establishing Act extends to England and Wales, Scotland and Northern Ireland (2012 c. 21, s. 121).",
+   "announcement_date": null,
+   "enactment_date": null,
+   "start_date": "2013-04-01",
+   "end_date": null,
+   "date_note": "The FCA's own page: \"We were established on 1 April 2013, taking over conduct and relevant prudential regulation from the Financial Services Authority (FSA).\" Sections 1 to 6 of the 2012 Act came into force the same day (SI 2013/423).",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Active. Later changes to the regulator's status (for example the Bank of England and Financial Services Act 2016 for the PRA) are not in this register.",
+   "sources": [
+    {
+     "label": "Financial Services Act 2012, section 6 (as enacted) — The new Regulators",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/21/section/6/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2013/423 (Commencement No. 2) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+     "role": "primary"
+    },
+    {
+     "label": "FCA — About the FCA",
+     "url": "https://www.fca.org.uk/about/the-fca",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Part of the post-crisis redesign of financial regulation under the Financial Services Act 2012, which replaced the single Financial Services Authority created by FSMA 2000.",
+    "objectives": "New section 1A of FSMA 2000, substituted by section 6 of the 2012 Act: the Financial Services Authority \"is renamed as the Financial Conduct Authority\". Its statutory objectives sit in the substituted sections of FSMA 2000, which are not quoted here.",
+    "mechanism": "Section 6(1) of the 2012 Act substitutes sections 1 to 18 of FSMA 2000, splitting conduct regulation (FCA) from prudential regulation (PRA, within the Bank of England).",
+    "implementation": "In being from 1 April 2013 (SI 2013/423).",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "financial-services-act-2012",
+      "note": "Establishing Act."
+     },
+     {
+      "registry": "economy",
+      "id": "financial-services-and-markets-act-2000",
+      "note": "The Act whose sections 1 to 18 were substituted to create this regulator."
+     }
+    ]
+   }
+  },
+  {
+   "id": "prudential-regulation-authority",
+   "title": "Prudential Regulation Authority",
+   "citation": "Financial Services Act 2012, s. 6; FSMA 2000 ss. 1A / 2A as substituted",
+   "aliases": [
+    "PRA"
+   ],
+   "type": "institution",
+   "topics": [
+    "financial-regulation",
+    "institutions"
+   ],
+   "policy_area": "institutions",
+   "summary": "The prudential regulator of banks, insurers and major investment firms, established within the Bank of England group by the Financial Services Act 2012. In being from 1 April 2013.",
+   "institution": "Bank of England; HM Treasury",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "The establishing Act extends to England and Wales, Scotland and Northern Ireland (2012 c. 21, s. 121).",
+   "announcement_date": null,
+   "enactment_date": null,
+   "start_date": "2013-04-01",
+   "end_date": null,
+   "date_note": "Sections 1 to 6 of the Financial Services Act 2012, including the substituted FSMA 2000 sections that name the regulator, came into force on 1 April 2013 by SI 2013/423 article 3. The regulator's own founding statement is not read in this pass.",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Active. Later changes to the regulator's status (for example the Bank of England and Financial Services Act 2016 for the PRA) are not in this register.",
+   "sources": [
+    {
+     "label": "Financial Services Act 2012, section 6 (as enacted) — The new Regulators",
+     "url": "https://www.legislation.gov.uk/ukpga/2012/21/section/6/enacted",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2013/423 (Commencement No. 2) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Part of the post-crisis redesign of financial regulation under the Financial Services Act 2012, which replaced the single Financial Services Authority created by FSMA 2000.",
+    "objectives": "New section 2A of FSMA 2000, substituted by section 6 of the 2012 Act: the body \"originally incorporated as the Prudential Regulation Authority Limited\" is renamed the Prudential Regulation Authority. Its objectives sit in the substituted sections, not quoted here.",
+    "mechanism": "Section 6(1) of the 2012 Act substitutes sections 1 to 18 of FSMA 2000, splitting conduct regulation (FCA) from prudential regulation (PRA, within the Bank of England).",
+    "implementation": "In being from 1 April 2013 (SI 2013/423).",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "financial-services-act-2012",
+      "note": "Establishing Act."
+     },
+     {
+      "registry": "economy",
+      "id": "financial-services-and-markets-act-2000",
+      "note": "The Act whose sections 1 to 18 were substituted to create this regulator."
+     }
+    ]
+   }
+  },
+  {
+   "id": "commissioners-for-revenue-and-customs-act-2005",
+   "title": "Commissioners for Revenue and Customs Act 2005",
+   "citation": "2005 c. 11",
+   "aliases": [
+    "CRCA 2005"
+   ],
+   "type": "act",
+   "topics": [
+    "institutions",
+    "tax"
+   ],
+   "policy_area": "institutions",
+   "summary": "Merged the Inland Revenue and HM Customs and Excise into HM Revenue and Customs under Commissioners appointed by the Crown, and created the Revenue and Customs Prosecutions Office. The date printed on the Act is 7 April 2005.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Extent section not read in this pass. The Act concerns United Kingdom revenue departments.",
+   "announcement_date": null,
+   "enactment_date": "2005-04-07",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2005-04-07",
+     "instrument": "SI 2005/1126 art. 2(1)",
+     "citation": "S.I. 2005/1126",
+     "url": "https://www.legislation.gov.uk/uksi/2005/1126/made",
+     "scope": "\"the Act shall come into force immediately on the making of this order\" (made 7 April 2005 at 5.45 pm), except the provisions listed in article 2(2)."
+    },
+    {
+     "date": "2005-04-18",
+     "instrument": "SI 2005/1126 art. 2(2)",
+     "citation": "S.I. 2005/1126",
+     "url": "https://www.legislation.gov.uk/uksi/2005/1126/made",
+     "scope": "Sections 5, 6 and 7 among the listed provisions. The explanatory note: \"These sections transfer functions to Her Majesty's Revenue and Customs.\""
+    }
+   ],
+   "status": "amended",
+   "status_note": "In force. Amendments not reviewed in this pass.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2005/11/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 5 — Commissioners' initial functions",
+     "url": "https://www.legislation.gov.uk/ukpga/2005/11/section/5",
+     "role": "primary"
+    },
+    {
+     "label": "SI 2005/1126 (Commencement) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2005/1126/made",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "tax-receipts",
+     "title": "Public sector current receipts",
+     "domain": "tax",
+     "view": "raises",
+     "relationship": "context",
+     "note": "Receipts collected by the merged department are context, not an effect of the merger."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Followed the O'Donnell review of the revenue departments. The long title provides for the appointment of Commissioners and \"for the establishment of a Revenue and Customs Prosecutions Office\".",
+    "objectives": "Section 5(1)(a): the Commissioners take on \"the collection and management of revenue for which the Commissioners of Inland Revenue were responsible\", with the corresponding Customs and Excise functions in the following paragraphs.",
+    "mechanism": "Functions of the two former departments transferred to the Commissioners for Her Majesty's Revenue and Customs by sections 5 to 7.",
+    "implementation": "Act in force on the making of the commencement order, 7 April 2005; the transfer of functions (sections 5 to 7) on 18 April 2005 (SI 2005/1126).",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "hm-revenue-and-customs",
+      "note": "The department this Act created."
+     }
+    ]
+   }
+  },
+  {
+   "id": "hm-revenue-and-customs",
+   "title": "HM Revenue and Customs",
+   "citation": "Commissioners for Revenue and Customs Act 2005, ss. 5–7",
+   "aliases": [
+    "HMRC"
+   ],
+   "type": "institution",
+   "topics": [
+    "institutions",
+    "tax"
+   ],
+   "policy_area": "institutions",
+   "summary": "The United Kingdom's tax and customs authority, formed by merging the Inland Revenue and HM Customs and Excise. Its functions transferred on 18 April 2005.",
+   "institution": "Commissioners for Her Majesty's Revenue and Customs; HM Treasury (ministerial department)",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "A United Kingdom department; the establishing Act's extent section was not read in this pass.",
+   "announcement_date": null,
+   "enactment_date": null,
+   "start_date": "2005-04-18",
+   "end_date": null,
+   "date_note": "Sections 5, 6 and 7 of the 2005 Act, which transfer functions to HMRC, came into force on 18 April 2005 (SI 2005/1126 art. 2(2)); section 5 is annotated \"in force at 18.4.2005\" on legislation.gov.uk.",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Active.",
+   "sources": [
+    {
+     "label": "SI 2005/1126 (Commencement) Order",
+     "url": "https://www.legislation.gov.uk/uksi/2005/1126/made",
+     "role": "primary"
+    },
+    {
+     "label": "Section 5 — Commissioners' initial functions",
+     "url": "https://www.legislation.gov.uk/ukpga/2005/11/section/5",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "tax-receipts",
+     "title": "Public sector current receipts",
+     "domain": "tax",
+     "view": "raises",
+     "relationship": "context",
+     "note": "Context only."
+    },
+    {
+     "id": "hmrc-tax-gap",
+     "title": "Tax gap",
+     "domain": "tax",
+     "view": "gap",
+     "relationship": "context",
+     "note": "HMRC's own estimate of the tax gap. Context, not a measure of the merger."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Created by the Commissioners for Revenue and Customs Act 2005 from the two former revenue departments.",
+    "objectives": "Collection and management of the revenue formerly handled by the Inland Revenue and HM Customs and Excise (2005 Act, s. 5(1)).",
+    "mechanism": "Non-ministerial department under Commissioners appointed by the Crown; functions transferred by sections 5 to 7.",
+    "implementation": "Functions transferred 18 April 2005 (SI 2005/1126).",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "commissioners-for-revenue-and-customs-act-2005",
+      "note": "Establishing Act."
+     }
+    ]
+   }
+  },
+  {
+   "id": "monetary-policy-committee",
+   "title": "Monetary Policy Committee of the Bank of England",
+   "citation": "Bank of England Act 1998, s. 13",
+   "aliases": [
+    "MPC"
+   ],
+   "type": "institution",
+   "topics": [
+    "monetary",
+    "institutions"
+   ],
+   "policy_area": "monetary",
+   "summary": "The committee of the Bank with statutory responsibility for formulating monetary policy, created by section 13 of the Bank of England Act 1998 and in being from 1 June 1998.",
+   "institution": "Bank of England",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "The establishing Act extends to Northern Ireland (1998 c. 11, s. 44(1)); a United Kingdom institution.",
+   "announcement_date": "1997-05-06",
+   "enactment_date": null,
+   "start_date": "1998-06-01",
+   "end_date": null,
+   "date_note": "Section 13 came into force with the whole Act on 1 June 1998 (SI 1998/1120). The announcement date is the 6 May 1997 statement giving the Bank operational responsibility for interest rates (HC Deb 20 May 1997 col 508). The committee's first meeting is not pinned here.",
+   "commencements": [],
+   "status": "active",
+   "status_note": "Active. Composition has been amended since 1998; the current section 13 text was read.",
+   "sources": [
+    {
+     "label": "Section 13 — Monetary Policy Committee",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/13",
+     "role": "primary"
+    },
+    {
+     "label": "Section 45 — Commencement",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/45",
+     "role": "primary"
+    },
+    {
+     "label": "HC Deb 20 May 1997 vol 294 cc507-24",
+     "url": "https://api.parliament.uk/historic-hansard/commons/1997/may/20/bank-of-england-and-financial-regulation",
+     "role": "primary"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "cpi-inflation",
+     "title": "Consumer price inflation (CPI)",
+     "domain": "inflation",
+     "view": "rate",
+     "relationship": "context",
+     "note": "The measure the committee's target is set in. Context, not a verdict on the committee."
+    },
+    {
+     "id": "mortgage-rate-2yr-fixed",
+     "title": "Two-year fixed mortgage rate",
+     "domain": "inflation",
+     "view": "rate",
+     "relationship": "context",
+     "note": "A market rate alongside Bank Rate decisions. Context only."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "Created when the 1998 Act gave the Bank operational responsibility for monetary policy under a Government-set inflation target.",
+    "objectives": "Section 13(1): \"There shall be a committee of the Bank\" \"which shall have responsibility within the Bank for formulating monetary policy\", pursuing the objectives in section 11 (price stability first).",
+    "mechanism": "Section 13(2): the Governor, the Deputy Governors, a Chief Economist appointed by the Governor after consulting the Chancellor, and \"4 members appointed by the Chancellor of the Exchequer\". Bank Rate decisions are the committee's; the target is the Government's.",
+    "implementation": "In being from 1 June 1998. Bank Rate and asset-purchase decisions are not events in this register; they belong to a Ready series when one exists.",
+    "measures": [],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "bank-of-england-act-1998",
+      "note": "Establishing Act (s. 13)."
+     }
+    ]
+   }
+  },
+  {
+   "id": "budget-responsibility-act-2024",
+   "title": "Budget Responsibility Act 2024",
+   "citation": "2024 c. 24",
+   "aliases": [
+    "Fiscal lock Act"
+   ],
+   "type": "act",
+   "topics": [
+    "fiscal",
+    "institutions"
+   ],
+   "policy_area": "fiscal",
+   "summary": "Imposes duties on the Treasury and the Office for Budget Responsibility when fiscally significant measures are announced, by inserting section 4A into the Budget Responsibility and National Audit Act 2011. The date printed on the Act is 10 September 2024.",
+   "institution": "Parliament of the United Kingdom",
+   "jurisdiction": "United Kingdom",
+   "nations": [
+    "england",
+    "wales",
+    "scotland",
+    "northern-ireland"
+   ],
+   "extent": "Extent section not read in this pass; the Act amends a United Kingdom statute.",
+   "announcement_date": null,
+   "enactment_date": "2024-09-10",
+   "start_date": null,
+   "end_date": null,
+   "date_note": null,
+   "commencements": [
+    {
+     "date": "2024-10-15",
+     "instrument": "SI 2024/1026",
+     "citation": "s. 2(2); S.I. 2024/1026",
+     "url": "https://www.legislation.gov.uk/ukpga/2024/24/section/1",
+     "scope": "Section 1 (announcement of fiscally significant measures). legislation.gov.uk: \"S. 1 not in force at Royal Assent, see s. 2(2)\" and \"in force at 15.10.2024 by S.I. 2024/1026\"."
+    }
+   ],
+   "status": "in_force",
+   "status_note": "In force from 15 October 2024.",
+   "sources": [
+    {
+     "label": "Introductory text",
+     "url": "https://www.legislation.gov.uk/ukpga/2024/24/introduction",
+     "role": "primary"
+    },
+    {
+     "label": "Section 1 — Announcement of fiscally significant measures",
+     "url": "https://www.legislation.gov.uk/ukpga/2024/24/section/1",
+     "role": "primary"
+    },
+    {
+     "label": "OBR — legislation and related material",
+     "url": "https://obr.uk/about-the-obr/legislation-and-related-material/",
+     "role": "official"
+    }
+   ],
+   "linked_indicators": [
+    {
+     "id": "public-sector-net-borrowing",
+     "title": "Public sector net borrowing",
+     "domain": "debt",
+     "view": "borrowing",
+     "relationship": "context",
+     "note": "Context for the costing threshold the lock applies to. Not an effect of the Act."
+    }
+   ],
+   "repealed_date": null,
+   "dossier": {
+    "background": "The first Act of the 2024 Parliament on fiscal policy, after the autumn 2022 fiscal event that was announced without an OBR forecast.",
+    "objectives": "Long title (partial): \"to impose duties on the Treasury and the Office for Budget Responsibility in respect of the announcement of fiscally significant measures\".",
+    "mechanism": "Section 1 inserts section 4A into the 2011 Act. New s. 4A(3): \"A measure or combination of measures is 'fiscally significant' if the measure, or combination of measures, has a costing for a specified period that exceeds a specified percentage of the gross domestic product\". The Charter (Autumn 2025, para 1.5) specifies the definition.",
+    "implementation": "Section 1 in force 15 October 2024 (SI 2024/1026). The Charter for Budget Responsibility now carries the technical detail of the fiscal lock (Charter para 2.3).",
+    "measures": [
+     {
+      "label": "Fiscal lock",
+      "value": "Duties on the Treasury and the OBR when fiscally significant measures are announced; threshold set as a percentage of GDP in the Charter.",
+      "source": {
+       "label": "Section 1",
+       "url": "https://www.legislation.gov.uk/ukpga/2024/24/section/1",
+       "role": "primary"
+      }
+     }
+    ],
+    "financial": [],
+    "evaluations": [],
+    "related": [
+     {
+      "registry": "economy",
+      "id": "budget-responsibility-and-national-audit-act-2011",
+      "note": "Amended: inserts section 4A."
+     },
+     {
+      "registry": "economy",
+      "id": "charter-for-budget-responsibility-autumn-2025",
+      "note": "Specifies the fiscally significant threshold."
+     }
+    ]
+   }
+  }
+ ],
+ "relationships": [
+  {
+   "from": "budget-responsibility-and-national-audit-act-2011",
+   "to": "fiscal-responsibility-act-2010",
+   "kind": "repealed",
+   "date": "2011-03-23",
+   "note": "Repealed by sections 10(c) and 29, in force 23 March 2011 by SI 2011/892.",
+   "source": {
+    "label": "Fiscal Responsibility Act 2010 (repealed) — introductory text",
+    "url": "https://www.legislation.gov.uk/ukpga/2010/3/introduction",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "budget-responsibility-and-national-audit-act-2011",
+   "to": "office-for-budget-responsibility",
+   "kind": "created",
+   "date": "2011-04-04",
+   "note": "Section 3 and Schedule 1 establish the OBR as a statutory corporate body; in force 4 April 2011.",
+   "source": {
+    "label": "SI 2011/892 (Commencement No. 1) Order",
+    "url": "https://www.legislation.gov.uk/uksi/2011/892/made",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "financial-services-act-2012",
+   "to": "bank-of-england-act-1998",
+   "kind": "amended",
+   "date": null,
+   "note": "The 2012 Act's long title: \"An Act to amend the Bank of England Act 1998, the Financial Services and Markets Act 2000 and the Banking Act 2009\". Commencement of the amendments is not pinned.",
+   "source": {
+    "label": "Financial Services Act 2012 — introductory text",
+    "url": "https://www.legislation.gov.uk/ukpga/2012/21/introduction",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "financial-services-act-2012",
+   "to": "financial-services-and-markets-act-2000",
+   "kind": "amended",
+   "date": null,
+   "note": "Same long title. Commencement of the amendments is not pinned.",
+   "source": {
+    "label": "Financial Services Act 2012 — introductory text",
+    "url": "https://www.legislation.gov.uk/ukpga/2012/21/introduction",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "charter-for-budget-responsibility-autumn-2025",
+   "to": "budget-responsibility-and-national-audit-act-2011",
+   "kind": "implemented",
+   "date": null,
+   "note": "The Charter is the document section 1 of the Act requires the Treasury to prepare and lay before Parliament.",
+   "source": {
+    "label": "Charter for Budget Responsibility, Autumn 2025 (OBR copy)",
+    "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+    "role": "official"
+   }
+  },
+  {
+   "from": "office-for-budget-responsibility",
+   "to": "charter-for-budget-responsibility-autumn-2025",
+   "kind": "administered",
+   "date": null,
+   "note": "The OBR assesses the Government's performance against the fiscal mandate the Charter sets (para 3.5).",
+   "source": {
+    "label": "Charter for Budget Responsibility, Autumn 2025 (OBR copy)",
+    "url": "https://obr.uk/docs/dlm_uploads/Charter_for_Budget_Responsibility_Autumn_2025_Accessible.pdf",
+    "role": "official"
+   }
+  },
+  {
+   "from": "financial-services-act-2012",
+   "to": "financial-conduct-authority",
+   "kind": "created",
+   "date": "2013-04-01",
+   "note": "Section 6 renames the Financial Services Authority as the Financial Conduct Authority; in force 1 April 2013.",
+   "source": {
+    "label": "SI 2013/423 (Commencement No. 2) Order",
+    "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "financial-services-act-2012",
+   "to": "prudential-regulation-authority",
+   "kind": "created",
+   "date": "2013-04-01",
+   "note": "Section 6 establishes the Prudential Regulation Authority under new section 2A of FSMA 2000; in force 1 April 2013.",
+   "source": {
+    "label": "SI 2013/423 (Commencement No. 2) Order",
+    "url": "https://www.legislation.gov.uk/uksi/2013/423/made",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "commissioners-for-revenue-and-customs-act-2005",
+   "to": "hm-revenue-and-customs",
+   "kind": "created",
+   "date": "2005-04-18",
+   "note": "Sections 5 to 7 transfer functions to HMRC from 18 April 2005.",
+   "source": {
+    "label": "SI 2005/1126 (Commencement) Order",
+    "url": "https://www.legislation.gov.uk/uksi/2005/1126/made",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "bank-of-england-act-1998",
+   "to": "monetary-policy-committee",
+   "kind": "created",
+   "date": "1998-06-01",
+   "note": "Section 13 creates the committee; in force 1 June 1998.",
+   "source": {
+    "label": "Section 13",
+    "url": "https://www.legislation.gov.uk/ukpga/1998/11/section/13",
+    "role": "primary"
+   }
+  },
+  {
+   "from": "budget-responsibility-act-2024",
+   "to": "budget-responsibility-and-national-audit-act-2011",
+   "kind": "amended",
+   "date": "2024-10-15",
+   "note": "Section 1 inserts section 4A (fiscally significant measures); in force 15 October 2024.",
+   "source": {
+    "label": "Section 1",
+    "url": "https://www.legislation.gov.uk/ukpga/2024/24/section/1",
+    "role": "primary"
+   }
+  }
+ ]
+}

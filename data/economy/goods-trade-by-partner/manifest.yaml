@@ -1,0 +1,37 @@
+indicator_id: goods-trade-by-partner
+title: Goods trade by partner country
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments/datasets/uktradeallcountriesseasonallyadjusted
+series_id: all-countries-sa-goods
+geography: Partner countries / areas (BoP goods)
+frequency: monthly
+unit: £ million current prices, SA
+definition: UK trade in goods exports and imports by partner country, Balance of Payments
+  basis, current prices, seasonally adjusted. Not HMRC Overseas Trade Statistics (customs
+  / physical movement).
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.goods_trade_by_partner
+curated_path: curated/observations.csv
+update_cadence: monthly (ONS UK Trade all-countries SA)
+raw_evidence:
+- path: raw/2026-11-16/allcountriesseptember2026.xlsx
+  retrieved_at: '2026-11-16T01:13:57.366599+00:00'
+  checksum_sha256: 64dfaea29f819bccfcf056a458d403d6b8ae2f0547477a725114c1bc2d8a1fbf
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8
+  official_release_date: '2026-11-12'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/economy/nationalaccounts/balanceofpayments/datasets/uktradeallcountriesseasonallyadjusted/current/allcountriesseptember2026.xlsx
+transformations: Download all-countries SA xlsx. Parse monthly exports/imports sheets;
+  country code → geography; period labels YYYYMon → ISO months. Latest month provisional.
+revision_notes: Workbook release 2026-11-12.
+caveats: BoP bilateral estimates; partners' own stats may differ. Goods only — services
+  partner tables are a separate package.
+status_note: ''
+related_indicator_ids:
+- uk-trade-mret
+- goods-trade-by-commodity
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

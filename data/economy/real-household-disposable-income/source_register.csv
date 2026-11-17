@@ -1,0 +1,3 @@
+source_id,publisher,cdid,dataset,landing_url,role,status
+dg2r-ukea,ONS,DG2R,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dg2r/ukea,aggregate RHDI CVM SA S.14,ingested-validation
+nrjr-ukea,ONS,NRJR,UKEA,https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/nrjr/ukea,S.14+S.15 RHDI — do not substitute for DG2R,link-only

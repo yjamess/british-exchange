@@ -55,6 +55,14 @@
   width: 100%;
   display: block;
 }
+/* Empty plate frame — awaiting observatory-imprint mask. */
+.specimenPlate[data-plate-frame] {
+  border: var(--bo-hair);
+  background:
+    linear-gradient(var(--bo-ink-20), var(--bo-ink-20)) center / 1px 28% no-repeat,
+    linear-gradient(var(--bo-ink-20), var(--bo-ink-20)) center / 28% 1px no-repeat,
+    var(--bo-paper);
+}
 .specimenName {
   color: var(--bo-text);
   min-height: 2.8em;

@@ -1,0 +1,60 @@
+indicator_id: family-spending-by-income
+title: Family spending by equivalised disposable-income quintile
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook2expenditurebyincome
+series_id: Family Spending workbook 1 Tables 3.1E5 + 3.2E5 (2-adult OECD)
+geography: United Kingdom (K02000001); private households (LCF)
+frequency: annual (financial year)
+unit: £ per week (household average) | percent of total expenditure
+definition: ONS Family Spending FYE 2025. Curates Workbook 1 Table 3.1E5 (average
+  weekly £) and Table 3.2E5 (percent of total expenditure) for sequential headline
+  groups 1–13, the 1–12 subtotal, and total, by equivalised disposable-income quintile
+  for all households. Ranking uses the modified OECD scale with a two-adult reference
+  household (FYE 2025 methodology update; left-hand published block). £ figures are
+  unequivalised household means. Workbook 2 is the income-landing pin; all-households
+  equivalised quintiles live in workbook 1, not workbook 2.
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.family_spending_by_income
+curated_path: curated/observations.csv
+update_cadence: annual (Family Spending release)
+raw_evidence:
+- path: raw/2026-11-15/workbook2expenditurebyincome.xlsx
+  retrieved_at: '2026-11-15T22:44:08.265655+00:00'
+  checksum_sha256: 2c5d57c9b1afb97533105a83fbc0b92627154ccf62a8ef15fb483e1cb8aa2978
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-11'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook2expenditurebyincome/fye2025/workbook2expenditurebyincome.xlsx
+- path: raw/2026-11-15/workbook1detailedexpenditureandtrends.xlsx
+  retrieved_at: '2026-11-15T22:44:08.266262+00:00'
+  checksum_sha256: af8d4a4464c0cc0a49195495a6e665667234379ac08293037a69e065d8931076
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-06-11'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook1detailedexpenditureandtrends/fye2025/workbook1detailedexpenditureandtrends.xlsx
+transformations: Download workbook 2 (https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook2expenditurebyincome/fye2025/workbook2expenditurebyincome.xlsx)
+  and workbook 1 (https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/expenditure/datasets/familyspendingworkbook1detailedexpenditureandtrends/fye2025/workbook1detailedexpenditureandtrends.xlsx).
+  Parse Table 3.1E5 and 3.2E5 left blocks (columns Lowest…All). Headline rows only.
+  Skip the right-hand 1-adult-reference comparison block. Do not curate WB2 Tables
+  3.3E/3.7E (non-retired 1-adult / 2-adult subsets).
+revision_notes: FYE 2025 changed equivalisation from a one-adult to a two-adult OECD
+  reference. Do not splice pre-FYE 2025 equivalised tables without a labelled break.
+  Workbook 1 SEs for FYE 2023–24 Table A1 were corrected 11 Jun 2026; this pin is
+  the FYE 2025 edition.
+caveats: LCF private households; sample 5,000 households in FYE 2025. Quintile averages
+  are not any household’s budget. Housing (net) excludes mortgage interest, Council
+  Tax and NI rates. Do not reconcile these £ with Domain 06 ETB incomes/taxes or UKEA
+  RHDI / DGD8 into one ledger. ETB may be shown adjacent only.
+status_note: ''
+related_indicator_ids:
+- family-spending-by-category
+- effects-of-taxes-and-benefits
+- real-household-disposable-income
+- household-saving-ratio
+open_questions:
+- Add Workbook 2 Tables 3.3E/3.7E as labelled household-type slices?
+- Pin the 1-adult-reference right block as a methodology companion?
+notion_registry_url: https://app.notion.com/41965471768581c39c5cf435f88e080a
+schema_version: '1.0'

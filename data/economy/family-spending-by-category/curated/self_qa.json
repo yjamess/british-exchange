@@ -1,0 +1,84 @@
+{
+  "indicator_id": "family-spending-by-category",
+  "retrieved_pin_date": "2026-11-15",
+  "official_release_date": "2026-06-11",
+  "table": "Workbook 1 Table 4.1",
+  "checks": [
+    {
+      "name": "total_2024_25",
+      "actual": 676.6,
+      "expected": 676.6,
+      "pass": true
+    },
+    {
+      "name": "food_2024_25",
+      "actual": 73.7,
+      "expected": 73.7,
+      "pass": true
+    },
+    {
+      "name": "housing_2024_25",
+      "actual": 118.4,
+      "expected": 118.4,
+      "pass": true
+    },
+    {
+      "name": "transport_2024_25",
+      "actual": 96.4,
+      "expected": 96.4,
+      "pass": true
+    },
+    {
+      "name": "food_2001_02",
+      "actual": 82.7,
+      "expected": 82.7,
+      "pass": true
+    },
+    {
+      "name": "total_2001_02",
+      "actual": 756.2,
+      "expected": 756.2,
+      "pass": true
+    },
+    {
+      "name": "two_calendar_2006_totals",
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    {
+      "name": "latest_year_headline_count",
+      "actual": 15,
+      "expected": 15,
+      "pass": true
+    },
+    {
+      "name": "uniform_year_coverage",
+      "actual": {
+        "1": 26,
+        "2": 26,
+        "3": 26,
+        "4": 26,
+        "5": 26,
+        "6": 26,
+        "7": 26,
+        "8": 26,
+        "9": 26,
+        "10": 26,
+        "11": 26,
+        "12": 26,
+        "1-12": 26,
+        "13": 26,
+        "total": 26
+      },
+      "expected": "same year count for every headline code",
+      "pass": true
+    }
+  ],
+  "summary": {
+    "pass": 9,
+    "fail": 0,
+    "failed_names": []
+  },
+  "n_observations": 390
+}

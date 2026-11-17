@@ -30,8 +30,8 @@ export const EMPTY_POLICY_EVENTS_PACK: PolicyEventsPack = {
   relationships: [],
 };
 
-export async function loadPolicyEventsPack(): Promise<PolicyEventsPack> {
-  const registry = await fetchPackJson<EventRegistry>("energy.industrial-policy-events");
+export async function loadPolicyEventsPack(packId = "energy.industrial-policy-events"): Promise<PolicyEventsPack> {
+  const registry = await fetchPackJson<EventRegistry>(packId);
   return {
     events: registry.events.map((e) => ({
       ...e,

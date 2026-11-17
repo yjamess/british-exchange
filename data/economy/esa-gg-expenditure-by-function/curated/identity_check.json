@@ -1,0 +1,196 @@
+{
+  "pass": true,
+  "indicator_id": "esa-gg-expenditure-by-function",
+  "unit": "\u00a3 million, nominal, calendar year",
+  "sector": "general-government",
+  "year_basis": "calendar",
+  "column": "OTE",
+  "years": "1995 to 2024",
+  "year_count": 30,
+  "coversheet_check": {
+    "verdict": "general-government-file",
+    "coversheet_conflict": true,
+    "gg_coversheet_says": "local government only",
+    "gg_year_sheets_say": "general government only",
+    "cg_coversheet_says": "central government only",
+    "lg_coversheet_says": "local government only",
+    "ote_2024": {
+      "general_government": 1330532.0,
+      "central_government": 1227604.0,
+      "local_government": 268424.0,
+      "central_plus_local": 1496028.0,
+      "central_plus_local_minus_general": 165496.0
+    },
+    "siblings_curated": false,
+    "note": "The general-government coversheet copies the local-government sentence. Year sheets, the table of contents, the filename, and the OTE total identify general government. Central plus local is larger than general government because transfers between subsectors are consolidated. Do not add the siblings to rebuild this total."
+  },
+  "spot_2024_ote": {
+    "total": 1330532.0,
+    "health_gf07": 253191.0,
+    "education_gf09": 141118.0,
+    "social_protection_gf10": 458500.0,
+    "tes_health_fy_2024_25_million": 242429.0,
+    "equal_to_tes_health": false
+  },
+  "level1_identity": [
+    {
+      "calendar_year": 1995,
+      "ote_total": 326262.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 1996,
+      "ote_total": 334157.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 1997,
+      "ote_total": 341776.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 1998,
+      "ote_total": 353573.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 1999,
+      "ote_total": 364712.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2000,
+      "ote_total": 386659.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2001,
+      "ote_total": 414039.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2002,
+      "ote_total": 447236.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2003,
+      "ote_total": 488220.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2004,
+      "ote_total": 529773.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2005,
+      "ote_total": 576622.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2006,
+      "ote_total": 601477.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2007,
+      "ote_total": 634877.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2008,
+      "ote_total": 706148.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2009,
+      "ote_total": 732024.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2010,
+      "ote_total": 761564.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2011,
+      "ote_total": 761359.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2012,
+      "ote_total": 780841.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2013,
+      "ote_total": 780328.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2014,
+      "ote_total": 802979.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2015,
+      "ote_total": 812551.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2016,
+      "ote_total": 828849.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2017,
+      "ote_total": 857549.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2018,
+      "ote_total": 880552.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2019,
+      "ote_total": 912643.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2020,
+      "ote_total": 1099820.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2021,
+      "ote_total": 1101057.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2022,
+      "ote_total": 1175557.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2023,
+      "ote_total": 1280597.0,
+      "leaf_minus_total": 0.0
+    },
+    {
+      "calendar_year": 2024,
+      "ote_total": 1330532.0,
+      "leaf_minus_total": 0.0
+    }
+  ],
+  "years_with_a_negative_ote_cell": 0,
+  "subfunctions_skipped": {
+    "general_government": 2070,
+    "central_government_not_curated": 2070,
+    "local_government_not_curated": 2070
+  },
+  "residual_function_rows": 0,
+  "rescaled_onto_tes_or_ebft": false,
+  "row_count": 330
+}

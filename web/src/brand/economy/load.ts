@@ -13,6 +13,7 @@ import {
 } from "@/lib/api";
 import { loadBasketPack } from "./basket-load";
 import { packsFor } from "./domain-sources";
+import { loadEconomyPolicyEvents, loadEconomyPolicyPledges } from "./policy-model";
 import { createDomainCache } from "@/lib/domain-cache";
 import { CPIH_COICOP_DIVISIONS, CPIH_CONTRIBUTION_DIVISIONS } from "./inflation-model";
 import type {
@@ -22,11 +23,15 @@ import type {
   FiscalDragPack,
   GdpVintageBandPack,
   GrowthPack,
+  HouseholdPack,
   InflationPack,
+  InvestmentPack,
+  PartnersAnnualPack,
   SeriesPack,
   SpendingPack,
   TaxPack,
   WagesPack,
+  PolicyPack,
 } from "./types";
 
 const FALLBACK: IndicatorMeta = {
@@ -46,11 +51,14 @@ const FALLBACK: IndicatorMeta = {
   notion_registry_url: "",
 };
 
-async function loadSeriesPack(id: string): Promise<SeriesPack | null> {
+async function loadSeriesPack(
+  id: string,
+  params: Record<string, string> = {},
+): Promise<SeriesPack | null> {
   const attempt = async (): Promise<SeriesPack> => {
     const [meta, obs] = await Promise.all([
       fetchIndicator(id),
-      fetchObservations(id, { limit: "10000" }),
+      fetchObservations(id, { limit: "10000", ...params }),
     ]);
     const sourceVersion = obs.observations.find((r) => r.source_version)?.source_version ?? "";
     return { meta, observations: obs.observations, sourceVersion };
@@ -181,6 +189,38 @@ async function loadIndustryGva(): Promise<SeriesPack | null> {
   }
 }
 
+export async function loadHousehold(): Promise<HouseholdPack> {
+  const [
+    rhdi,
+    rhdiPerHead,
+    savingRatio,
+    familySpendingByCategory,
+    familySpendingByIncome,
+    householdFinancialWealth,
+    consumerCredit,
+    taxBenefits,
+  ] = await Promise.all([
+    loadSeriesPack("real-household-disposable-income"),
+    loadSeriesPack("real-household-disposable-income-per-head"),
+    loadSeriesPack("household-saving-ratio"),
+    loadSeriesPack("family-spending-by-category"),
+    loadSeriesPack("family-spending-by-income"),
+    loadSeriesPack("household-financial-wealth"),
+    loadSeriesPack("consumer-credit-outstanding"),
+    loadSeriesPack("effects-of-taxes-and-benefits"),
+  ]);
+  return {
+    rhdi,
+    rhdiPerHead,
+    savingRatio,
+    familySpendingByCategory,
+    familySpendingByIncome,
+    householdFinancialWealth,
+    consumerCredit,
+    taxBenefits,
+  };
+}
+
 export async function loadGrowth(): Promise<GrowthPack> {
   const [gdp, gdpPerHead, productivity, productivityHours, industryGva, vintageBand] =
     await Promise.all([
@@ -192,6 +232,72 @@ export async function loadGrowth(): Promise<GrowthPack> {
       loadGdpVintageBand(),
     ]);
   return { gdp, gdpPerHead, productivity, productivityHours, industryGva, vintageBand };
+}
+
+async function loadPartnersAnnual(): Promise<PartnersAnnualPack | null> {
+  try {
+    return await fetchPackJson<PartnersAnnualPack>("economy.goods-trade-partners-annual");
+  } catch (err) {
+    console.error("economy loadPartnersAnnual failed", err);
+    return null;
+  }
+}
+
+export async function loadInvestment(): Promise<InvestmentPack> {
+  const [
+    tradeMret,
+    tradeExPm,
+    partnersAnnual,
+    goodsCommodity,
+    goodsByRegion,
+    servicesCategory,
+    servicesPartner,
+    goodsEu,
+    goodsNonEu,
+    businessInvestment,
+    investmentByAsset,
+    investmentByIndustry,
+    fdi,
+    enterprises,
+    demography,
+    insolvencies,
+  ] = await Promise.all([
+    loadSeriesPack("uk-trade-mret"),
+    loadSeriesPack("uk-trade-ex-precious-metals"),
+    loadPartnersAnnual(),
+    loadSeriesPack("goods-trade-by-commodity"),
+    loadSeriesPack("goods-trade-by-uk-region"),
+    loadSeriesPack("services-trade-by-category"),
+    loadSeriesPack("services-trade-by-partner"),
+    // EU27 / Non-EU aggregates only — the full partner series is 170k rows.
+    loadSeriesPack("goods-trade-by-partner", { geography_code: "B5" }),
+    loadSeriesPack("goods-trade-by-partner", { geography_code: "D5" }),
+    loadSeriesPack("business-investment"),
+    loadSeriesPack("business-investment-by-asset"),
+    loadSeriesPack("business-investment-by-industry"),
+    loadSeriesPack("uk-fdi"),
+    loadSeriesPack("uk-business-enterprises"),
+    loadSeriesPack("business-demography"),
+    loadSeriesPack("company-insolvencies"),
+  ]);
+  return {
+    tradeMret,
+    tradeExPm,
+    partnersAnnual,
+    goodsCommodity,
+    goodsByRegion,
+    servicesCategory,
+    servicesPartner,
+    goodsEu,
+    goodsNonEu,
+    businessInvestment,
+    investmentByAsset,
+    investmentByIndustry,
+    fdi,
+    enterprises,
+    demography,
+    insolvencies,
+  };
 }
 
 export async function loadEmployment(): Promise<EmploymentPack> {
@@ -326,17 +432,30 @@ export async function loadSpending(): Promise<SpendingPack> {
     tmeDelAme: await loadSeriesPack("tme-del-ame"),
     tmeDelAmeReal: await loadSeriesPack("tme-del-ame-real"),
     tesByFunctionReal: await loadSeriesPack("tes-by-function-real"),
+    tesByFunctionLongRun: await loadSeriesPack("tes-by-function-long-run"),
+    esaGgByFunction: await loadSeriesPack("esa-gg-expenditure-by-function"),
   };
+}
+
+export async function loadPolicy(): Promise<PolicyPack> {
+  const [policyEvents, policyPledges] = await Promise.all([
+    loadEconomyPolicyEvents().catch(() => null),
+    loadEconomyPolicyPledges().catch(() => null),
+  ]);
+  return { policyEvents, policyPledges };
 }
 
 export type EconomyData = {
   inflation: InflationPack;
   wages: WagesPack;
   employment: EmploymentPack;
+  household: HouseholdPack;
   tax: TaxPack;
   spending: SpendingPack;
   debt: DebtPack;
   growth: GrowthPack;
+  investment: InvestmentPack;
+  policy: PolicyPack;
 };
 
 const EMPTY_INFLATION: InflationPack = {
@@ -373,6 +492,17 @@ const EMPTY_DEBT: DebtPack = {
   cashBridge: null,
 };
 
+const EMPTY_HOUSEHOLD: HouseholdPack = {
+  rhdi: null,
+  rhdiPerHead: null,
+  savingRatio: null,
+  familySpendingByCategory: null,
+  familySpendingByIncome: null,
+  householdFinancialWealth: null,
+  consumerCredit: null,
+  taxBenefits: null,
+};
+
 const EMPTY_GROWTH: GrowthPack = {
   gdp: null,
   gdpPerHead: null,
@@ -380,6 +510,25 @@ const EMPTY_GROWTH: GrowthPack = {
   productivityHours: null,
   industryGva: null,
   vintageBand: null,
+};
+
+const EMPTY_INVESTMENT: InvestmentPack = {
+  tradeMret: null,
+  tradeExPm: null,
+  partnersAnnual: null,
+  goodsCommodity: null,
+  goodsByRegion: null,
+  servicesCategory: null,
+  servicesPartner: null,
+  goodsEu: null,
+  goodsNonEu: null,
+  businessInvestment: null,
+  investmentByAsset: null,
+  investmentByIndustry: null,
+  fdi: null,
+  enterprises: null,
+  demography: null,
+  insolvencies: null,
 };
 
 const EMPTY_EMPLOYMENT: EmploymentPack = {
@@ -427,16 +576,21 @@ const EMPTY_SPENDING: SpendingPack = {
   tmeDelAme: null,
   tmeDelAmeReal: null,
   tesByFunctionReal: null,
+  tesByFunctionLongRun: null,
+  esaGgByFunction: null,
 };
 
 const EMPTY: EconomyData = {
   inflation: EMPTY_INFLATION,
   wages: EMPTY_WAGES,
   employment: EMPTY_EMPLOYMENT,
+  household: EMPTY_HOUSEHOLD,
   tax: EMPTY_TAX,
   spending: EMPTY_SPENDING,
   debt: EMPTY_DEBT,
   growth: EMPTY_GROWTH,
+  investment: EMPTY_INVESTMENT,
+  policy: { policyEvents: null, policyPledges: null },
 };
 
 /** Hydrate only the selected domain's packs (Housing / Energy pattern). */
@@ -458,10 +612,13 @@ async function buildEconomy(domain: EconomyDomainId): Promise<EconomyData> {
   if (needed.has("inflation")) return { ...EMPTY, inflation: await loadInflation() };
   if (needed.has("wages")) return { ...EMPTY, wages: await loadWages() };
   if (needed.has("employment")) return { ...EMPTY, employment: await loadEmployment() };
+  if (needed.has("household")) return { ...EMPTY, household: await loadHousehold() };
   if (needed.has("tax")) return { ...EMPTY, tax: await loadTax() };
   if (needed.has("spending")) return { ...EMPTY, spending: await loadSpending() };
   if (needed.has("debt")) return { ...EMPTY, debt: await loadDebt() };
   if (needed.has("growth")) return { ...EMPTY, growth: await loadGrowth() };
+  if (needed.has("investment")) return { ...EMPTY, investment: await loadInvestment() };
+  if (needed.has("policy")) return { ...EMPTY, policy: await loadPolicy() };
   return EMPTY;
 }
 

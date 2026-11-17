@@ -1,0 +1,19 @@
+indicator_id,period_start,period_end,geography_code,geography_label,value,unit,observation_status,source_version,notes
+business-demography,2019-01-01,2019-12-31,K02000001,United Kingdom,2889115.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2020-01-01,2020-12-31,K02000001,United Kingdom,2897115.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2021-01-01,2021-12-31,K02000001,United Kingdom,2939675.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2022-01-01,2022-12-31,K02000001,United Kingdom,2924685.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2023-01-01,2023-12-31,K02000001,United Kingdom,2870295.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2024-01-01,2024-12-31,K02000001,United Kingdom,2859535.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=active; category=active; annual; measure=active
+business-demography,2019-01-01,2019-12-31,K02000001,United Kingdom,363825.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2020-01-01,2020-12-31,K02000001,United Kingdom,333020.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2021-01-01,2021-12-31,K02000001,United Kingdom,363995.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2022-01-01,2022-12-31,K02000001,United Kingdom,336925.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2023-01-01,2023-12-31,K02000001,United Kingdom,316025.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2024-01-01,2024-12-31,K02000001,United Kingdom,317440.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=births; category=births; annual; measure=births
+business-demography,2019-01-01,2019-12-31,K02000001,United Kingdom,303495.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths
+business-demography,2020-01-01,2020-12-31,K02000001,United Kingdom,300475.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths
+business-demography,2021-01-01,2021-12-31,K02000001,United Kingdom,328495.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths
+business-demography,2022-01-01,2022-12-31,K02000001,United Kingdom,348675.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths
+business-demography,2023-01-01,2023-12-31,K02000001,United Kingdom,309680.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths
+business-demography,2024-01-01,2024-12-31,K02000001,United Kingdom,280370.0,enterprise count,final,ONS Business Demography 2024 (2025-11-20),series=deaths; category=deaths; annual; measure=deaths

@@ -234,7 +234,65 @@ export type TaxPack = {
   taxGap: SeriesPack | null;
 };
 
+/** Domain 04 — RHDI living standards + LCF / WAS / BoE household deepen pins. */
+export type HouseholdPack = {
+  rhdi: SeriesPack | null;
+  rhdiPerHead: SeriesPack | null;
+  savingRatio: SeriesPack | null;
+  familySpendingByCategory: SeriesPack | null;
+  familySpendingByIncome: SeriesPack | null;
+  householdFinancialWealth: SeriesPack | null;
+  consumerCredit: SeriesPack | null;
+  /** Domain 06 ETB — adjacent tax context on the Ledger only; never summed with LCF. */
+  taxBenefits: SeriesPack | null;
+};
+
+/** Domain 09 — Trade & Investment (route id `investment`). */
+export type PartnersAnnualPack = {
+  id: string;
+  title: string;
+  honesty: string;
+  years: string[];
+  /** Months published per calendar year; `partial` = year to date. Absent on pre-2026-11-16 packs. */
+  coverage?: Record<string, { months: number; first: string; last: string; partial: boolean }>;
+  by_year: Record<
+    string,
+    {
+      exports: { code: string; label: string; value: number; period: string }[];
+      imports: { code: string; label: string; value: number; period: string }[];
+    }
+  >;
+};
+
+export type InvestmentPack = {
+  tradeMret: SeriesPack | null;
+  tradeExPm: SeriesPack | null;
+  /** Annual ISO2 partner rollups (Storage pack) — Trading World map + ranks. */
+  partnersAnnual: PartnersAnnualPack | null;
+  goodsCommodity: SeriesPack | null;
+  goodsByRegion: SeriesPack | null;
+  servicesCategory: SeriesPack | null;
+  /** ONS services trade by partner — annual, ISO2 countries + EU27 (B5) / Non-EU (D5). */
+  servicesPartner: SeriesPack | null;
+  /** Goods trade with the EU27 (B5) and with non-EU partners (D5) — monthly, from goods-trade-by-partner. */
+  goodsEu: SeriesPack | null;
+  goodsNonEu: SeriesPack | null;
+  businessInvestment: SeriesPack | null;
+  investmentByAsset: SeriesPack | null;
+  investmentByIndustry: SeriesPack | null;
+  fdi: SeriesPack | null;
+  enterprises: SeriesPack | null;
+  demography: SeriesPack | null;
+  insolvencies: SeriesPack | null;
+};
+
 /** Domain 07 — TME flagship + TES/COFOG + DEL/AME (+ real-terms). */
+/** Economy Domain 10 — event + pledge registers (packs from the API; not observation series). */
+export type PolicyPack = {
+  policyEvents: import("./policy-model").PolicyEventsPack | null;
+  policyPledges: import("./policy-model").PolicyPledgesPack | null;
+};
+
 export type SpendingPack = {
   totalManagedExpenditure: SeriesPack | null;
   /** Ready HMT PSS Table 5.4 — TES by COFOG (not monthly EBFT). */
@@ -245,6 +303,10 @@ export type SpendingPack = {
   tmeDelAmeReal: SeriesPack | null;
   /** Ready HMT PSS Table 4.3 — real TES/COFOG, 2025-26 prices, £ billion. */
   tesByFunctionReal: SeriesPack | null;
+  /** Ready HMT PSS Table 4.2 — nominal TES/COFOG long-run, £ billion. */
+  tesByFunctionLongRun: SeriesPack | null;
+  /** Ready ONS ESA Table 11 — general government COFOG, calendar year, £ million. */
+  esaGgByFunction: SeriesPack | null;
 };
 
 export type EconomyDomainId =
@@ -278,10 +340,13 @@ export const ECONOMY_READY_DOMAINS: ReadonlySet<EconomyDomainId> = new Set<Econo
   "inflation",
   "wages",
   "employment",
+  "household",
   "growth",
   "tax",
   "spending",
   "debt",
+  "investment",
+  "policy",
 ]);
 
 /** Stage copy for domains without a canvas yet (same words as Energy). */

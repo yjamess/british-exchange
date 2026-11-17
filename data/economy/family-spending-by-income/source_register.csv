@@ -1,0 +1,7 @@
+table_id,workbook,title,years,geography,units,equivalisation,licence,notes
+3.1E5,WB1,Headline weekly £ by equivalised disposable-income quintile,FYE 2025,UK,£/week household mean,modified OECD two-adult (left block),OGL v3.0,Curated
+3.2E5,WB1,Headline % of total expenditure by equivalised disposable-income quintile,FYE 2025,UK,percent of total,modified OECD two-adult (left block),OGL v3.0,Curated published shares — not a derived essentials basket
+3.1E5 right,WB1,Same table one-adult OECD reference,FYE 2025,UK,£/week,modified OECD one-adult,OGL v3.0,Not curated — methodology comparison only
+A7,WB2,High-level £ by disposable income decile (not equivalised),FYE 2025,UK,£/week,none,OGL v3.0,Inventory — unequivalised deciles
+3.3E,WB2,1 adult non-retired by equivalised quintile,FYE 2025,UK,£/week,modified OECD two-adult,OGL v3.0,Subset population — not this series
+3.7E,WB2,2 adult non-retired by equivalised quintile,FYE 2025,UK,£/week,modified OECD two-adult,OGL v3.0,Subset population — not this series

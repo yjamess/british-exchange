@@ -1,0 +1,36 @@
+indicator_id: uk-business-enterprises
+title: UK business enterprises
+sector: economy-public-finance
+publisher: ONS
+source_url: https://www.ons.gov.uk/businessindustryandtrade/business/activitysizeandlocation/datasets/ukbusinessactivitysizeandlocation
+series_id: UK-business-2026
+geography: United Kingdom + nations/regions
+frequency: annual
+unit: VAT and/or PAYE enterprise count
+definition: 'Count of VAT and/or PAYE registered enterprises from the IDBR snapshot
+  (UK Business: activity, size and location 2026). Not the full unregistered business
+  population.'
+licence: Open Government Licence v3.0
+agent_owner: economy
+connector_module: economy.connectors.uk_business_enterprises
+curated_path: curated/observations.csv
+update_cadence: annual (ONS UK Business)
+raw_evidence:
+- path: raw/2026-11-16/ukbusinessworkbook2026.xlsx
+  retrieved_at: '2026-11-16T01:18:36.529384+00:00'
+  checksum_sha256: f9816fb1fcbe1019ab70b3f5fab7604d6c7d4fbce34b4b1aeb34e9969d3f6d0a
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  official_release_date: '2026-09-24'
+  http_status: 200
+  source_url: https://www.ons.gov.uk/file?uri=/businessindustryandtrade/business/activitysizeandlocation/datasets/ukbusinessactivitysizeandlocation/2026/ukbusinessworkbook2026.xlsx
+transformations: Parse Table 1 (broad industry × geography) UK and region rows; series=industry
+  slug; category=industry.
+revision_notes: UK Business 2026 published 2026-09-24.
+caveats: Registered enterprises only. Enterprise location is head office / main site
+  — not local units.
+status_note: ''
+related_indicator_ids:
+- business-demography
+open_questions: []
+notion_registry_url: ''
+schema_version: '1.0'

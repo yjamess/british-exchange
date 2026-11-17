@@ -7,6 +7,8 @@
  * DEL and AME — HMT Table 1.1 control totals.
  * Real terms — Tables 1.2 / 4.3 at 2025-26 prices (not monthly EBFT).
  * Services — TES vs accounting adjustments vs table TME (nominal bridge).
+ * Long run — Table 4.2 £bn span on Where spending goes.
+ * ESA — ONS Table 11 general government (calendar year; not TES).
  */
 
 import { useCallback, useMemo, useState } from "react";
@@ -31,12 +33,18 @@ import s from "../energy/generation.module.css";
 import { ECONOMY_SOURCE, economyPeriod, economySource } from "./citations";
 import { finalObs, fmtFlowBn, periodPoints, rolling12mSum } from "./debt-model";
 import {
+  calendarYearLabel,
   delAmeFinancialYears,
   delAmeLatestFinalYear,
   delAmeRanks,
   delAmeStack,
+  esaCalendarYears,
+  esaFunctionRanks,
+  esaFunctionStack,
+  esaLatestYear,
   fmtSpendingBn,
   fmtSpendingShare,
+  FUNCTION_SPAN_OPTIONS,
   REAL_INSTRUMENT_OPTIONS,
   SPENDING_MEASURE_OPTIONS,
   tesFinancialYears,
@@ -54,13 +62,19 @@ const VIEWS: ExplorerView[] = [
   { id: "delame", label: "DEL and AME" },
   { id: "real", label: "Real terms" },
   { id: "services", label: "Services and the total" },
+  { id: "esa", label: "ESA functions" },
   { id: "data", label: "Data" },
 ];
 
 type RealInstrument = "delame" | "function";
+type FunctionSpan = "recent" | "long";
 
 function asRealInstrument(raw: string | null): RealInstrument {
   return raw === "function" ? "function" : "delame";
+}
+
+function asFunctionSpan(raw: string | null): FunctionSpan {
+  return raw === "long" ? "long" : "recent";
 }
 
 function fyLabel(tt: number): string {
@@ -93,6 +107,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
   const [realInst, setRealInst] = useState<RealInstrument>(() =>
     asRealInstrument(searchParams.get("ri")),
   );
+  const [span, setSpan] = useState<FunctionSpan>(() => asFunctionSpan(searchParams.get("span")));
 
   const sync = useCallback(
     (next: {
@@ -100,40 +115,54 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
       measure?: SpendingMeasure;
       fy?: string | null;
       ri?: RealInstrument;
+      span?: FunctionSpan;
     }) => {
       const v = next.view ?? view;
       const m = next.measure ?? measure;
       const year = next.fy !== undefined ? next.fy : fy;
       const ri = next.ri ?? realInst;
+      const sp = next.span ?? span;
       const u = new URLSearchParams(window.location.search);
       u.set("domain", "spending");
       u.set("view", v);
-      if (v === "function" || v === "delame" || v === "real" || v === "services") {
+      if (
+        v === "function" ||
+        v === "delame" ||
+        v === "real" ||
+        v === "services" ||
+        v === "esa"
+      ) {
         if (v !== "services") u.set("measure", m);
         else u.delete("measure");
         if (year) u.set("fy", year);
         else u.delete("fy");
         if (v === "real") u.set("ri", ri);
         else u.delete("ri");
+        if (v === "function") u.set("span", sp);
+        else u.delete("span");
       } else {
         u.delete("measure");
         u.delete("fy");
         u.delete("ri");
+        u.delete("span");
       }
       window.history.replaceState(null, "", `${pathname}?${u}`);
       if (next.view != null) setView(next.view);
       if (next.measure != null) setMeasure(next.measure);
       if (next.fy !== undefined) setFy(next.fy);
       if (next.ri != null) setRealInst(next.ri);
+      if (next.span != null) setSpan(next.span);
     },
-    [pathname, view, measure, fy, realInst],
+    [pathname, view, measure, fy, realInst, span],
   );
 
   const rows = pack.totalManagedExpenditure?.observations ?? [];
   const tesRows = pack.tesByFunction?.observations ?? [];
+  const tesLongRows = pack.tesByFunctionLongRun?.observations ?? [];
   const delRows = pack.tmeDelAme?.observations ?? [];
   const delRealRows = pack.tmeDelAmeReal?.observations ?? [];
   const tesRealRows = pack.tesByFunctionReal?.observations ?? [];
+  const esaRows = pack.esaGgByFunction?.observations ?? [];
 
   const monthPts = useMemo(() => periodPoints(rows), [rows]);
   const rollPts = useMemo(() => rolling12mSum(rows), [rows]);
@@ -150,11 +179,22 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         })()
       : null;
 
+  const functionLong = span === "long" && tesLongRows.length > 0;
+  const functionRows = functionLong ? tesLongRows : tesRows;
+  const functionUnit = functionLong ? "billion" : "million";
+
   const tesYears = useMemo(() => tesFinancialYears(tesRows), [tesRows]);
+  const tesLongYears = useMemo(() => tesFinancialYears(tesLongRows), [tesLongRows]);
+  const functionYears = functionLong ? tesLongYears : tesYears;
   const delYears = useMemo(() => delAmeFinancialYears(delRows), [delRows]);
   const tesRealYears = useMemo(() => tesFinancialYears(tesRealRows), [tesRealRows]);
   const delRealYears = useMemo(() => delAmeFinancialYears(delRealRows), [delRealRows]);
+  const esaYears = useMemo(() => esaCalendarYears(esaRows), [esaRows]);
   const tesFy =
+    fy && functionYears.includes(fy)
+      ? fy
+      : (tesLatestFinalYear(functionRows) ?? functionYears.at(-1) ?? null);
+  const servicesFy =
     fy && tesYears.includes(fy) ? fy : (tesLatestFinalYear(tesRows) ?? tesYears.at(-1) ?? null);
   const delFy =
     fy && delYears.includes(fy) ? fy : (delAmeLatestFinalYear(delRows) ?? delYears.at(-1) ?? null);
@@ -166,12 +206,17 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     fy && delRealYears.includes(fy)
       ? fy
       : (delAmeLatestFinalYear(delRealRows) ?? delRealYears.at(-1) ?? null);
+  const esaYear =
+    fy && esaYears.includes(fy) ? fy : (esaLatestYear(esaRows) ?? esaYears.at(-1) ?? null);
 
   const tesLatest = useMemo(
-    () => (tesFy ? tesFunctionRanks(tesRows, tesFy, measure) : null),
-    [tesRows, tesFy, measure],
+    () => (tesFy ? tesFunctionRanks(functionRows, tesFy, measure, functionUnit) : null),
+    [functionRows, tesFy, measure, functionUnit],
   );
-  const tesStack = useMemo(() => tesFunctionStack(tesRows, measure), [tesRows, measure]);
+  const tesStack = useMemo(
+    () => tesFunctionStack(functionRows, measure, functionUnit),
+    [functionRows, measure, functionUnit],
+  );
   const delLatest = useMemo(
     () => (delFy ? delAmeRanks(delRows, delFy, measure) : null),
     [delRows, delFy, measure],
@@ -191,9 +236,14 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
   );
   const delRealStack = useMemo(() => delAmeStack(delRealRows, measure), [delRealRows, measure]);
   const servicesBridge = useMemo(
-    () => (tesFy ? tesServicesBridge(tesRows, tesFy) : null),
-    [tesRows, tesFy],
+    () => (servicesFy ? tesServicesBridge(tesRows, servicesFy) : null),
+    [tesRows, servicesFy],
   );
+  const esaLatest = useMemo(
+    () => (esaYear ? esaFunctionRanks(esaRows, esaYear, measure) : null),
+    [esaRows, esaYear, measure],
+  );
+  const esaStack = useMemo(() => esaFunctionStack(esaRows, measure), [esaRows, measure]);
 
   const figures: ExplorerFigure[] = useMemo(() => {
     if (view === "spends") {
@@ -218,11 +268,13 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     }
     if (view === "function" && tesLatest && tesFy) {
       const top = tesLatest.ranks[0];
+      const fmtAbs = (rawPublished: number, chartBn: number) =>
+        functionLong ? fmtSpendingBn(chartBn) : fmtFlowBn(rawPublished);
       return [
         {
           label: "Services total",
-          value: fmtFlowBn(tesLatest.tesM),
-          note: `${tesFy} · total expenditure on services`,
+          value: functionLong ? fmtSpendingBn(tesLatest.tesM) : fmtFlowBn(tesLatest.tesM),
+          note: `${tesFy} · ${functionLong ? "Table 4.2 · £ billion" : "total expenditure on services"}`,
         },
         {
           label: top ? top.label : "Largest function",
@@ -230,13 +282,15 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
             measure === "share"
               ? fmtSpendingShare(top?.v ?? NaN)
               : top
-                ? fmtFlowBn(top.v * 1000)
+                ? fmtAbs(top.v * (functionLong ? 1 : 1000), top.v)
                 : "—",
           note: measure === "share" ? "Share of services total" : "Largest function that year",
         },
         {
           label: "To managed expenditure",
-          value: fmtFlowBn(tesLatest.adjustmentsM),
+          value: functionLong
+            ? fmtSpendingBn(tesLatest.adjustmentsM)
+            : fmtFlowBn(tesLatest.adjustmentsM),
           note: "Accounting adjustments bridge (not a function)",
         },
       ];
@@ -316,12 +370,12 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         },
       ];
     }
-    if (view === "services" && servicesBridge && tesFy) {
+    if (view === "services" && servicesBridge && servicesFy) {
       return [
         {
           label: "Services",
           value: fmtFlowBn(servicesBridge.tesM),
-          note: `${tesFy} · expenditure on services`,
+          note: `${servicesFy} · expenditure on services`,
         },
         {
           label: "Adjustments",
@@ -335,6 +389,31 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         },
       ];
     }
+    if (view === "esa" && esaLatest && esaYear) {
+      const top = esaLatest.ranks[0];
+      return [
+        {
+          label: "General government",
+          value: fmtFlowBn(esaLatest.totalM),
+          note: `${esaYear} calendar year · ESA total expenditure`,
+        },
+        {
+          label: top ? top.label : "Largest function",
+          value:
+            measure === "share"
+              ? fmtSpendingShare(top?.v ?? NaN)
+              : top
+                ? fmtFlowBn(top.v * 1000)
+                : "—",
+          note: "Not TES · not public-sector managed expenditure",
+        },
+        {
+          label: "Years",
+          value: String(esaYears.length),
+          note: "Calendar years · United Kingdom general government",
+        },
+      ];
+    }
     return [];
   }, [
     view,
@@ -343,6 +422,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     yoy,
     tesLatest,
     tesFy,
+    functionLong,
     delLatest,
     delFy,
     delRealLatest,
@@ -350,6 +430,10 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     tesRealLatest,
     tesRealFy,
     servicesBridge,
+    servicesFy,
+    esaLatest,
+    esaYear,
+    esaYears.length,
     measure,
     realInst,
   ]);
@@ -418,7 +502,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     foot = (
       <FigureRecord
         source={economySource(
-          ECONOMY_SOURCE.tesByFunction,
+          functionLong ? ECONOMY_SOURCE.tesByFunctionLongRun : ECONOMY_SOURCE.tesByFunction,
           "United Kingdom public sector",
           economyPeriod("annual", tesFy),
         )}
@@ -426,12 +510,20 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
           "Where public-sector spending on services goes, by United Nations function of government — health, education, social protection and others.",
           "This is Treasury Total Expenditure on Services (TES / COFOG), not a split of the monthly managed-expenditure line on What the state spends.",
         ]}
-        method={[
-          "HM Treasury Public Spending Statistics Table 5.4, £ million, financial year. Each function is current plus capital. Charts use the published services total as the share denominator.",
-          "Level-1 functions can miss the published services total by up to about £2 million; the published total is used. EU transactions sit inside services but outside the ten functions and are not drawn as a bar.",
-          "Accounting adjustments bridge services to this table’s managed-expenditure total — they are not a function. That table total is not the same as the monthly ONS series.",
-          "2025-26 is a first outturn estimate. Do not treat receipts minus spending as borrowing on this page.",
-        ]}
+        method={
+          functionLong
+            ? [
+                "HM Treasury Public Spending Statistics Table 4.2, £ billion, financial year from 2003-04. Published function totals (current and capital already summed).",
+                "Rounding can leave gaps of about £0.1–0.2 billion versus the published services total. The published total is used. EU transactions sit outside the ten function bars.",
+                "Long run is a companion to the recent £ million table — not a rescaled monthly managed-expenditure series.",
+              ]
+            : [
+                "HM Treasury Public Spending Statistics Table 5.4, £ million, financial year. Each function is current plus capital. Charts use the published services total as the share denominator.",
+                "Level-1 functions can miss the published services total by up to about £2 million; the published total is used. EU transactions sit inside services but outside the ten functions and are not drawn as a bar.",
+                "Accounting adjustments bridge services to this table’s managed-expenditure total — they are not a function. That table total is not the same as the monthly ONS series.",
+                "2025-26 is a first outturn estimate. Do not treat receipts minus spending as borrowing on this page.",
+              ]
+        }
       />
     );
     body = !tesLatest || !tesStack.length || !tesFy ? (
@@ -444,9 +536,10 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
           <h3 className={t.stageTitle}>
             Expenditure on services by function · {tesFy} ·{" "}
             {share ? "share of services total" : "£bn"}
+            {functionLong ? " · long run" : ""}
           </h3>
           <RankBars
-            key={`tes-ranks-${tesFy}-${measure}`}
+            key={`tes-ranks-${span}-${tesFy}-${measure}`}
             label="TES by COFOG function"
             rows={tesLatest.ranks.map((r) => ({
               id: r.id,
@@ -459,10 +552,10 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
             {share ? "Share of services total · " : "Each function · "}
-            {tesYears[0]}–{tesYears[tesYears.length - 1]} · {share ? "%" : "£bn"}
+            {functionYears[0]}–{functionYears[functionYears.length - 1]} · {share ? "%" : "£bn"}
           </h3>
           <TimeChart
-            key={`tes-stack-${measure}`}
+            key={`tes-stack-${span}-${measure}`}
             label="TES by function over time"
             series={tesStack}
             cadence="annual"
@@ -470,10 +563,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
             zero
             showTable={false}
             format={fmt}
-            periodLabel={(tt) => {
-              const y = Math.floor(tt);
-              return `${y}-${String((y + 1) % 100).padStart(2, "0")}`;
-            }}
+            periodLabel={fyLabel}
           />
         </section>
       </div>
@@ -618,7 +708,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         source={economySource(
           ECONOMY_SOURCE.tesByFunction,
           "United Kingdom public sector",
-          economyPeriod("annual", tesFy),
+          economyPeriod("annual", servicesFy),
         )}
         definition={[
           "How expenditure on services relates to this table’s managed-expenditure total — services, then the published accounting adjustments, then the table total.",
@@ -630,7 +720,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
         ]}
       />
     );
-    body = !servicesBridge || !tesFy ? (
+    body = !servicesBridge || !servicesFy ? (
       <EmptyStage label="Not available">
         The services-to-total bridge is not loaded from the Exchange API right now.
       </EmptyStage>
@@ -638,10 +728,10 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
       <div className={s.stack}>
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Services, adjustments, and this table’s total · {tesFy} · £bn
+            Services, adjustments, and this table’s total · {servicesFy} · £bn
           </h3>
           <RankBars
-            key={`services-bridge-${tesFy}`}
+            key={`services-bridge-${servicesFy}`}
             label="TES to table TME bridge"
             rows={servicesBridge.ranks.map((r) => ({
               id: r.id,
@@ -649,6 +739,65 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
               v: r.v,
             }))}
             format={fmtSpendingBn}
+          />
+        </section>
+      </div>
+    );
+  } else if (view === "esa") {
+    foot = (
+      <FigureRecord
+        source={economySource(
+          ECONOMY_SOURCE.esaGgByFunction,
+          "United Kingdom general government",
+          economyPeriod("annual", esaYear),
+        )}
+        definition={[
+          "How general government spent, by United Nations function of government — calendar-year ESA Table 11.",
+          "This is not Treasury Total Expenditure on Services, and it is not public-sector managed expenditure on What the state spends.",
+        ]}
+        method={[
+          "Office for National Statistics ESA Table 11, £ million, calendar year. Charts use the published general-government total as the share denominator.",
+          "General government is narrower than the public sector. Do not stack these bars against TES or monthly managed expenditure.",
+        ]}
+      />
+    );
+    body = !esaLatest || !esaStack.length || !esaYear ? (
+      <EmptyStage label="Not available">
+        ESA general-government function series are not loaded from the Exchange API right now.
+      </EmptyStage>
+    ) : (
+      <div className={s.stack}>
+        <section className={s.panel}>
+          <h3 className={t.stageTitle}>
+            General government by function · {esaYear} ·{" "}
+            {share ? "share of ESA total" : "£bn"}
+          </h3>
+          <RankBars
+            key={`esa-ranks-${esaYear}-${measure}`}
+            label="ESA Table 11 by function"
+            rows={esaLatest.ranks.map((r) => ({
+              id: r.id,
+              label: r.label,
+              v: r.v,
+            }))}
+            format={fmt}
+          />
+        </section>
+        <section className={s.panel}>
+          <h3 className={t.stageTitle}>
+            {share ? "Share of ESA total · " : "Each function · "}
+            {esaYears[0]}–{esaYears[esaYears.length - 1]} · {share ? "%" : "£bn"}
+          </h3>
+          <TimeChart
+            key={`esa-stack-${measure}`}
+            label="ESA Table 11 over time"
+            series={esaStack}
+            cadence="annual"
+            kind={share ? "stack" : "line"}
+            zero
+            showTable={false}
+            format={fmt}
+            periodLabel={calendarYearLabel}
           />
         </section>
       </div>
@@ -662,11 +811,11 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
           economyPeriod("monthly", latest ? labelMonth(latest.period_start) : null),
         )}
         definition={[
-          "Observation tables for monthly managed expenditure, TES by function, DEL / AME, and real-terms companions.",
+          "Observation tables for monthly managed expenditure, TES by function (recent and long-run), DEL / AME, real-terms companions, and ESA Table 11.",
         ]}
         method={[
-          "Latest month on the monthly series is provisional. Function and DEL tables are financial-year outturn; 2025-26 is estimated.",
-          "TES / COFOG, DEL / AME, and real-terms HMT tables are not slices of the monthly managed-expenditure total.",
+          "Latest month on the monthly series is provisional. Function and DEL tables are financial-year outturn; 2025-26 is estimated. ESA is calendar year.",
+          "TES / COFOG, DEL / AME, real-terms HMT tables, and ESA general government are not slices of the monthly managed-expenditure total.",
         ]}
       />
     );
@@ -674,34 +823,55 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
   }
 
   const yearOptions =
-    view === "function" || view === "services"
-      ? tesYears.map((y) => ({ value: y, label: y }))
-      : view === "delame"
-        ? delYears.map((y) => ({ value: y, label: y }))
-        : view === "real"
-          ? (realInst === "delame" ? delRealYears : tesRealYears).map((y) => ({
-              value: y,
-              label: y,
-            }))
-          : [];
+    view === "function"
+      ? functionYears.map((y) => ({ value: y, label: y }))
+      : view === "services"
+        ? tesYears.map((y) => ({ value: y, label: y }))
+        : view === "delame"
+          ? delYears.map((y) => ({ value: y, label: y }))
+          : view === "real"
+            ? (realInst === "delame" ? delRealYears : tesRealYears).map((y) => ({
+                value: y,
+                label: y,
+              }))
+            : view === "esa"
+              ? esaYears.map((y) => ({ value: y, label: y }))
+              : [];
   const activeFy =
-    view === "function" || view === "services"
+    view === "function"
       ? tesFy
-      : view === "delame"
-        ? delFy
-        : view === "real"
-          ? realInst === "delame"
-            ? delRealFy
-            : tesRealFy
-          : null;
+      : view === "services"
+        ? servicesFy
+        : view === "delame"
+          ? delFy
+          : view === "real"
+            ? realInst === "delame"
+              ? delRealFy
+              : tesRealFy
+            : view === "esa"
+              ? esaYear
+              : null;
+  const yearControlLabel = view === "esa" ? "Calendar year" : "Financial year";
 
   return (
     <>
       <ExplorerHead views={VIEWS} view={view} onView={(id) => sync({ view: id })} />
       {figures.length ? <FigureStrip figures={figures} /> : null}
       <ControlRow>
-        {view === "function" || view === "delame" || view === "real" || view === "services" ? (
+        {view === "function" ||
+        view === "delame" ||
+        view === "real" ||
+        view === "services" ||
+        view === "esa" ? (
           <>
+            {view === "function" && tesLongRows.length > 0 ? (
+              <MenuControl
+                label="Span"
+                value={span}
+                options={FUNCTION_SPAN_OPTIONS}
+                onChange={(v) => sync({ span: asFunctionSpan(v), fy: null })}
+              />
+            ) : null}
             {view === "real" ? (
               <MenuControl
                 label="Instrument"
@@ -720,7 +890,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
             ) : null}
             {yearOptions.length && activeFy ? (
               <MenuControl
-                label="Financial year"
+                label={yearControlLabel}
                 value={activeFy}
                 options={[...yearOptions].reverse()}
                 onChange={(v) => sync({ fy: v })}
@@ -733,6 +903,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
                   measure: "absolute",
                   fy: null,
                   ri: "delame",
+                  span: "recent",
                 })
               }
             />
@@ -767,12 +938,25 @@ function SpendingData({ pack }: { pack: SpendingPack }) {
   const tes = tesFy
     ? tesFunctionRanks(pack.tesByFunction?.observations ?? [], tesFy, "absolute")
     : null;
+  const tesLongFy = tesLatestFinalYear(pack.tesByFunctionLongRun?.observations ?? []);
+  const tesLong = tesLongFy
+    ? tesFunctionRanks(
+        pack.tesByFunctionLongRun?.observations ?? [],
+        tesLongFy,
+        "absolute",
+        "billion",
+      )
+    : null;
   const delFy = delAmeLatestFinalYear(pack.tmeDelAme?.observations ?? []);
   const del = delFy
     ? delAmeRanks(pack.tmeDelAme?.observations ?? [], delFy, "absolute")
     : null;
+  const esaY = esaLatestYear(pack.esaGgByFunction?.observations ?? []);
+  const esa = esaY
+    ? esaFunctionRanks(pack.esaGgByFunction?.observations ?? [], esaY, "absolute")
+    : null;
 
-  if (!rows.length && !tes && !del) {
+  if (!rows.length && !tes && !tesLong && !del && !esa) {
     return (
       <EmptyStage label="In preparation">
         Spending series are not loaded yet. No estimated figures.
@@ -829,6 +1013,31 @@ function SpendingData({ pack }: { pack: SpendingPack }) {
           </div>
         </div>
       ) : null}
+      {tesLong && tesLongFy ? (
+        <div className={t.tableGroup}>
+          <p className={t.stageTitle}>
+            Long-run services by function · {tesLongFy} · £ billion
+          </p>
+          <div className={t.tableWrap}>
+            <table className={t.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Function</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tesLong.ranks.map((r) => (
+                  <tr key={r.id}>
+                    <td>{r.label}</td>
+                    <td>{fmtSpendingBn(r.v)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
       {del && delFy ? (
         <div className={t.tableGroup}>
           <p className={t.stageTitle}>DEL and AME · {delFy} · £ billion</p>
@@ -851,6 +1060,31 @@ function SpendingData({ pack }: { pack: SpendingPack }) {
                   <td>This table’s total</td>
                   <td>{fmtFlowBn(del.tableTmeM)}</td>
                 </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null}
+      {esa && esaY ? (
+        <div className={t.tableGroup}>
+          <p className={t.stageTitle}>
+            ESA general government by function · {esaY} · £ billion
+          </p>
+          <div className={t.tableWrap}>
+            <table className={t.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Function</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {esa.ranks.map((r) => (
+                  <tr key={r.id}>
+                    <td>{r.label}</td>
+                    <td>{fmtFlowBn(r.v * 1000)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
