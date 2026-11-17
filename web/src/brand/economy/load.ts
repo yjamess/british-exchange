@@ -26,6 +26,7 @@ import type {
   HouseholdPack,
   InflationPack,
   InvestmentPack,
+  PartnerCommodityPack,
   PartnersAnnualPack,
   SeriesPack,
   SpendingPack,
@@ -243,11 +244,21 @@ async function loadPartnersAnnual(): Promise<PartnersAnnualPack | null> {
   }
 }
 
+async function loadPartnerCommodity(): Promise<PartnerCommodityPack | null> {
+  try {
+    return await fetchPackJson<PartnerCommodityPack>("economy.goods-trade-partner-commodity");
+  } catch (err) {
+    console.error("economy loadPartnerCommodity failed", err);
+    return null;
+  }
+}
+
 export async function loadInvestment(): Promise<InvestmentPack> {
   const [
     tradeMret,
     tradeExPm,
     partnersAnnual,
+    partnerCommodity,
     goodsCommodity,
     goodsByRegion,
     servicesCategory,
@@ -265,6 +276,7 @@ export async function loadInvestment(): Promise<InvestmentPack> {
     loadSeriesPack("uk-trade-mret"),
     loadSeriesPack("uk-trade-ex-precious-metals"),
     loadPartnersAnnual(),
+    loadPartnerCommodity(),
     loadSeriesPack("goods-trade-by-commodity"),
     loadSeriesPack("goods-trade-by-uk-region"),
     loadSeriesPack("services-trade-by-category"),
@@ -284,6 +296,7 @@ export async function loadInvestment(): Promise<InvestmentPack> {
     tradeMret,
     tradeExPm,
     partnersAnnual,
+    partnerCommodity,
     goodsCommodity,
     goodsByRegion,
     servicesCategory,
@@ -516,6 +529,7 @@ const EMPTY_INVESTMENT: InvestmentPack = {
   tradeMret: null,
   tradeExPm: null,
   partnersAnnual: null,
+  partnerCommodity: null,
   goodsCommodity: null,
   goodsByRegion: null,
   servicesCategory: null,

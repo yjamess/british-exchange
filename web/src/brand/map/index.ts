@@ -6,6 +6,7 @@
 export {
   RegionMap,
   REGION_SHAPES,
+  UK_NATION_SHAPES,
   type RegionDatum,
   type RegionShape,
 } from "./RegionMap";

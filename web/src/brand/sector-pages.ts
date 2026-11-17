@@ -46,8 +46,7 @@ export const SECTOR_PAGES: Record<string, SectorConfig> = {
     headline: ["What the country makes.", "What the state spends."],
     plate: { name: "containerPort", position: "50% 16%" },
     indexLabel: "Economy index",
-    // Ten research domains (01–10, Economy Sector Control). Wave A (01·02·05·08) are Ready
-    // canvases; the rest sit in the rail as In preparation until their own G2+G3.
+    // Ten research domains (01–10). All Ready canvases — rail status from ECONOMY_READY_DOMAINS.
     domains: [
       {
         id: "inflation",
@@ -178,6 +177,7 @@ export const SECTOR_PAGES: Record<string, SectorConfig> = {
           "uk-trade-ex-precious-metals",
           "goods-trade-by-partner",
           "goods-trade-by-commodity",
+          "goods-trade-partner-commodity",
           "goods-trade-by-uk-region",
           "services-trade-by-category",
           "services-trade-by-partner",

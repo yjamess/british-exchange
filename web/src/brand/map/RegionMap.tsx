@@ -1,8 +1,9 @@
 "use client";
 
 /**
- * English regions choropleth — Housing atlas instrument language (halftone bands,
- * pan/zoom, ink selection), reusable across sectors.
+ * Region / nation choropleth — Housing atlas instrument language (halftone bands,
+ * pan/zoom, ink selection). Default shapes are English regions; pass `shapes` for
+ * UK nations or other ONS GSS layers that share the same display contract.
  */
 
 import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
@@ -11,6 +12,7 @@ import { MapLegend } from "./MapLegend";
 import { band, equalBreaks } from "./model";
 import s from "./map.module.css";
 import display from "./english-regions-display.json";
+import ukNationsDisplay from "./uk-nations-display.json";
 
 export type RegionShape = {
   code: string;
@@ -23,6 +25,8 @@ export type RegionShape = {
 export type RegionDatum = { code: string; value: number | null; display: string };
 
 export const REGION_SHAPES = display.shapes as RegionShape[];
+/** Four UK nations (ONS Countries December 2025 BUC) for Trade UK-nation lens. */
+export const UK_NATION_SHAPES = ukNationsDisplay.shapes as RegionShape[];
 
 const HOME = { x: 0, y: 0, z: 1 };
 /** Map viewport centre in viewBox units (matches viewBox 760×880). */
@@ -36,7 +40,7 @@ const CY = 440;
 const LABEL_PX = 13;
 
 /** Official names, wrapped so the line fits the region. Sentence case. */
-const LABEL_LINES: Record<string, string[]> = {
+const ENGLISH_LABEL_LINES: Record<string, string[]> = {
   E12000001: ["North East"],
   E12000002: ["North West"],
   E12000003: ["Yorkshire &", "the Humber"],
@@ -48,8 +52,15 @@ const LABEL_LINES: Record<string, string[]> = {
   E12000009: ["South West"],
 };
 
+const UK_NATION_LABEL_LINES: Record<string, string[]> = {
+  E92000001: ["England"],
+  S92000003: ["Scotland"],
+  W92000004: ["Wales"],
+  N92000002: ["Northern", "Ireland"],
+};
+
 /** Centroids that land on a neighbour. These stay on the region they name. */
-const LABEL_AT: Record<string, [number, number]> = {
+const ENGLISH_LABEL_AT: Record<string, [number, number]> = {
   E12000004: [530, 400],
   E12000005: [365, 520],
   E12000007: [560, 634],
@@ -110,6 +121,10 @@ export function RegionMap({
   legendFormat,
   legendUnit,
   size = "panel",
+  shapes = REGION_SHAPES,
+  labelLines,
+  labelAt,
+  emptyCaption = "Select a region",
 }: {
   data: RegionDatum[];
   selected: string | null;
@@ -123,6 +138,11 @@ export function RegionMap({
    * `stage` — fills the parent (Energy Geography / wider splits).
    */
   size?: "panel" | "stage";
+  /** Default: English regions. Pass `UK_NATION_SHAPES` for the four nations. */
+  shapes?: RegionShape[];
+  labelLines?: Record<string, string[]>;
+  labelAt?: Record<string, [number, number]>;
+  emptyCaption?: string;
 }) {
   const uid = useId().replace(/:/g, "");
   const svg = useRef<SVGSVGElement>(null);
@@ -131,14 +151,19 @@ export function RegionMap({
   const drag = useRef<{ x: number; y: number; origin: typeof HOME; moved: boolean } | null>(null);
   const panMoved = useRef(false);
 
+  const lines =
+    labelLines ??
+    (shapes === UK_NATION_SHAPES ? UK_NATION_LABEL_LINES : ENGLISH_LABEL_LINES);
+  const anchors = labelAt ?? (shapes === UK_NATION_SHAPES ? {} : ENGLISH_LABEL_AT);
+
   const byCode = useMemo(() => new Map(data.map((d) => [d.code, d])), [data]);
   const thresholds = useMemo(
     () => equalBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
     [data],
   );
   const bands = useMemo(
-    () => REGION_SHAPES.map((sh) => band(byCode.get(sh.code)?.value ?? null, thresholds)),
-    [byCode, thresholds],
+    () => shapes.map((sh) => band(byCode.get(sh.code)?.value ?? null, thresholds)),
+    [shapes, byCode, thresholds],
   );
 
   const point = (event: PointerEvent<SVGSVGElement>) => {
@@ -154,18 +179,18 @@ export function RegionMap({
       return z === 1 ? HOME : { x: CX - ((CX - v.x) * z) / v.z, y: CY - ((CY - v.y) * z) / v.z, z };
     });
 
-  /** Zoom the map to the selected English region (Housing-style focus). */
+  /** Zoom the map to the selected region / nation (Housing-style focus). */
   useEffect(() => {
     if (!selected) {
       setView(HOME);
       return;
     }
-    const shape = REGION_SHAPES.find((sh) => sh.code === selected);
+    const shape = shapes.find((sh) => sh.code === selected);
     if (shape) setView(viewForBounds(shape.bounds));
-  }, [selected]);
+  }, [selected, shapes]);
 
-  const hoverShape = hover ? REGION_SHAPES.find((sh) => sh.code === hover) : undefined;
-  const selectShape = selected ? REGION_SHAPES.find((sh) => sh.code === selected) : undefined;
+  const hoverShape = hover ? shapes.find((sh) => sh.code === hover) : undefined;
+  const selectShape = selected ? shapes.find((sh) => sh.code === selected) : undefined;
   const hoverData = hover ? byCode.get(hover) : undefined;
 
   return (
@@ -176,7 +201,7 @@ export function RegionMap({
             ? `${hoverShape.name} · ${hoverData?.display ?? "no data"}`
             : selectShape
               ? `${selectShape.name} · ${byCode.get(selectShape.code)?.display ?? "selected"}`
-              : "Select a region"}
+              : emptyCaption}
         </span>
       </div>
 
@@ -242,7 +267,7 @@ export function RegionMap({
       >
         <BandScreenDefs idPrefix={uid} zoom={view.z} />
         <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
-          {REGION_SHAPES.map((shape, i) => {
+          {shapes.map((shape, i) => {
             const bucket = bands[i]!;
             const d = byCode.get(shape.code);
             return (
@@ -296,12 +321,12 @@ export function RegionMap({
           )}
 
           {/* Names sit on a paper tag at a fixed reading size, not in the map's shrunk coordinates. */}
-          {REGION_SHAPES.map((shape) => {
-            const [lx, ly] = LABEL_AT[shape.code] ?? shape.label;
-            const lines = LABEL_LINES[shape.code] ?? [shape.name];
+          {shapes.map((shape) => {
+            const [lx, ly] = anchors[shape.code] ?? shape.label;
+            const nameLines = lines[shape.code] ?? [shape.name];
             return (
               <g key={`label-${shape.code}`} transform={`translate(${lx} ${ly}) scale(${1 / view.z})`}>
-                <RegionName lines={lines} fontSize={LABEL_PX} />
+                <RegionName lines={nameLines} fontSize={LABEL_PX} />
               </g>
             );
           })}

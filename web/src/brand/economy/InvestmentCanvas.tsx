@@ -3,7 +3,7 @@
 /**
  * Economy Domain 09 — Trade & Investment.
  * Views: trade ledger · trading world · products · investment ledger · capital across borders
- * (+ landscape · births, pending a new home) · data. Route ids kept for saved links.
+ * (+ landscape · births on rail) · data. Route ids kept for saved links.
  * Shell matches Employment / Household: ExplorerHead → FigureStrip → ControlRow → Stage.
  */
 
@@ -12,7 +12,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { EconomyStageFollow } from "../connections";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { ReadoutCard } from "../instrument/ReadoutCard";
-import { WorldChoropleth } from "../map";
+import { RegionMap, UK_NATION_SHAPES, WorldChoropleth } from "../map";
 import type { PrintOption } from "../PrintSelect";
 import {
   ControlRow,
@@ -44,6 +44,7 @@ import {
   isTopLevelService,
   isUkEnterpriseGeo,
   iso2ToA3,
+  fdiPartnerToA3,
   latestPeriod,
   latestValue,
   notePart,
@@ -56,6 +57,18 @@ import {
   type Ranked,
   yearLabel,
 } from "./investment-model";
+
+type WorldLens = "country" | "services" | "region";
+
+function asWorldLens(raw: string | null): WorldLens {
+  if (raw === "services" || raw === "region") return raw;
+  // Legacy "commodity" lens moved to Products.
+  return "country";
+}
+
+function isIso2Partner(code: string): boolean {
+  return /^[A-Z]{2}$/i.test(code.trim());
+}
 
 const VIEWS: ExplorerView[] = [
   { id: "trade", label: "Trade ledger" },
@@ -74,8 +87,9 @@ const BASIS_OPTIONS: PrintOption<"cp" | "cvm">[] = [
   { value: "cp", label: "Current prices" },
   { value: "cvm", label: "Chained volume" },
 ];
-const WORLD_LENS: PrintOption<"country" | "commodity" | "region">[] = [
-  { value: "country", label: "Country" },
+const WORLD_LENS: PrintOption<WorldLens>[] = [
+  { value: "country", label: "Goods countries" },
+  { value: "services", label: "Services countries" },
   { value: "region", label: "UK nation" },
 ];
 const FLOW_OPTIONS: PrintOption<"exports" | "imports">[] = [
@@ -128,12 +142,8 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
   const [basis, setBasis] = useState<"cp" | "cvm">(
     () => (searchParams.get("basis") === "cvm" ? "cvm" : "cp"),
   );
-  const [worldLens, setWorldLens] = useState<"country" | "commodity" | "region">(
-    () => {
-      const v = searchParams.get("lens");
-      // Commodity lens moved to Products (2026-11-16); old links fall back to Country.
-      return v === "region" ? v : "country";
-    },
+  const [worldLens, setWorldLens] = useState<WorldLens>(() =>
+    asWorldLens(searchParams.get("lens")),
   );
   const [worldFlow, setWorldFlow] = useState<"exports" | "imports">(
     () => (searchParams.get("flow") === "imports" ? "imports" : "exports"),
@@ -161,6 +171,8 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     () => (searchParams.get("dir") === "outward" ? "outward" : "inward"),
   );
   const [selectedIso, setSelectedIso] = useState<string | null>(null);
+  const [selectedNation, setSelectedNation] = useState<string | null>(null);
+  const [selectedFdiIso, setSelectedFdiIso] = useState<string | null>(null);
   const [dataSeries, setDataSeries] = useState(() => searchParams.get("series") ?? "");
 
   const sync = useCallback(
@@ -211,19 +223,22 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
       if (next.view != null) setView(asView(next.view));
       if (next.basis != null) setBasis(next.basis === "cvm" ? "cvm" : "cp");
       if (next.lens != null) {
-        setWorldLens(
-          next.lens === "region" ? "region" : "country",
-        );
+        setWorldLens(asWorldLens(next.lens));
         setSelectedIso(null);
+        setSelectedNation(null);
       }
       if (next.flow != null) {
         setWorldFlow(next.flow === "imports" ? "imports" : "exports");
         setSelectedIso(null);
+        setSelectedNation(null);
       }
       if (next.year != null) {
         setWorldYear(next.year);
         setSelectedIso(null);
+        setSelectedNation(null);
       }
+      if (next.dir != null) setSelectedFdiIso(null);
+      if (next.measure != null) setSelectedFdiIso(null);
       if (next.kind != null) setProductKind(next.kind === "services" ? "services" : "goods");
       if (next.split != null)
         setCapitalSplit(
@@ -311,17 +326,15 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     () => [...new Set(obs(pack.goodsByRegion).map((r) => r.period_start.slice(0, 4)))].sort(),
     [pack.goodsByRegion],
   );
-  const commodityYears = useMemo(
-    () => [...new Set(obs(pack.goodsCommodity).map((r) => r.period_start.slice(0, 4)))].sort(),
-    [pack.goodsCommodity],
+  const servicesPartnerYears = useMemo(
+    () => [...new Set(obs(pack.servicesPartner).map((r) => r.period_start.slice(0, 4)))].sort(),
+    [pack.servicesPartner],
   );
   const worldYearOptions =
     worldLens === "region"
       ? regionYears
-      : worldLens === "commodity"
-        ? commodityYears.length
-          ? commodityYears
-          : partnerYears
+      : worldLens === "services"
+        ? servicesPartnerYears
         : partnerYears;
   const activeWorldYear =
     worldYear && worldYearOptions.includes(worldYear)
@@ -361,7 +374,7 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
 
   /**
    * Selected country with both flows from the same year block.
-   * Partner totals are Ready; partner × product mix is not.
+   * Partner totals are ONS BoP; product mix comes from HMRC OTS when Ready.
    */
   const selectedPartner = useMemo(() => {
     if (!selectedIso || !yearPartnerBlock) return null;
@@ -373,9 +386,11 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     if (!primary && !exports && !imports) return null;
     const label = primary?.label ?? exports?.label ?? imports?.label ?? "Partner";
     const period = primary?.period ?? exports?.period ?? imports?.period ?? "";
+    const code = (primary?.code ?? exports?.code ?? imports?.code ?? "").toUpperCase();
     const expV = exports?.value ?? null;
     const impV = imports?.value ?? null;
     return {
+      code,
       label,
       period,
       exports: expV,
@@ -384,45 +399,25 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     };
   }, [selectedIso, yearPartnerBlock, activeFlow]);
 
-  const commodityRanks = useMemo(() => {
-    const rows = obs(pack.goodsCommodity);
-    const years = [...new Set(rows.map((r) => r.period_start.slice(0, 4)))].sort();
-    const y = activeWorldYear || years[years.length - 1] || "";
-    const inYear = rows.filter((r) => r.period_start.startsWith(y));
-    const period = latestPeriod(inYear);
-    const ranked: { id: string; label: string; v: number }[] = [];
-    for (const r of inYear) {
-      if (r.period_start !== period) continue;
-      if (!dim(r.notes ?? "", "flow", activeFlow)) continue;
-      if (r.value == null || !Number.isFinite(r.value)) continue;
-      const id = notePart(r.notes ?? "", "category") || "—";
-      ranked.push({ id, label: displayLabel(r.notes ?? "", id), v: r.value });
-    }
-    ranked.sort((a, b) => b.v - a.v);
-    return ranked.slice(0, 15);
-  }, [pack.goodsCommodity, activeWorldYear, activeFlow]);
-
   /**
-   * UK-wide SITC frames for plate design — follow the Flow control, but they are
-   * all-partners totals, not this country's product mix (needs HMRC OTS).
+   * Partner × SITC1 product frames for the selected country (HMRC OTS).
+   * Empty when the pack is missing or this ISO2 has no rows for the year/flow.
    */
-  const flowPlateFrames = useMemo(() => {
-    const rows = obs(pack.goodsCommodity);
-    const years = [...new Set(rows.map((r) => r.period_start.slice(0, 4)))].sort();
-    const y = activeWorldYear || years[years.length - 1] || "";
-    const inYear = rows.filter((r) => r.period_start.startsWith(y));
-    const period = latestPeriod(inYear);
-    const ranked: { id: string; label: string; v: number }[] = [];
-    for (const r of inYear) {
-      if (r.period_start !== period) continue;
-      if (!dim(r.notes ?? "", "flow", activeFlow)) continue;
-      if (r.value == null || !Number.isFinite(r.value)) continue;
-      const id = notePart(r.notes ?? "", "category") || "—";
-      ranked.push({ id, label: displayLabel(r.notes ?? "", id), v: r.value });
-    }
-    ranked.sort((a, b) => b.v - a.v);
-    return ranked.slice(0, 6);
-  }, [pack.goodsCommodity, activeWorldYear, activeFlow]);
+  const partnerProductFrames = useMemo(() => {
+    const iso2 = selectedPartner?.code;
+    if (!iso2 || !pack.partnerCommodity) return [];
+    const block = pack.partnerCommodity.by_year?.[activeWorldYear]?.[activeFlow];
+    const rows = block?.[iso2] ?? [];
+    return rows
+      .filter((r) => Number.isFinite(r.value) && r.value > 0)
+      .map((r) => ({
+        id: `sitc1-${r.sitc1}`,
+        label: r.label || pack.partnerCommodity?.sitc1_labels?.[r.sitc1] || `SITC ${r.sitc1}`,
+        v: r.value,
+      }))
+      .sort((a, b) => b.v - a.v)
+      .slice(0, 6);
+  }, [pack.partnerCommodity, selectedPartner?.code, activeWorldYear, activeFlow]);
 
   const regionRanks = useMemo(() => {
     const rows = obs(pack.goodsByRegion);
@@ -443,6 +438,50 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     }
     return [...byGeo.values()].sort((a, b) => b.v - a.v);
   }, [pack.goodsByRegion, activeWorldYear, activeFlow]);
+
+  const nationMapRows = useMemo(
+    () =>
+      regionRanks.map((r) => ({
+        code: r.id,
+        value: r.v,
+        display: fmtGbpM(r.v),
+      })),
+    [regionRanks],
+  );
+
+  /** Services partners — ISO2 countries only on the map; aggregates stay RankBars. */
+  const servicesPartnerRows = useMemo(() => {
+    const rows = obs(pack.servicesPartner).filter(
+      (r) =>
+        dim(r.notes ?? "", "flow", activeFlow) &&
+        r.period_start.startsWith(activeWorldYear) &&
+        r.value != null &&
+        Number.isFinite(r.value),
+    );
+    const ranked: { code: string; label: string; value: number }[] = [];
+    for (const r of rows) {
+      const code = (r.geography_code || "").toUpperCase();
+      if (!code) continue;
+      ranked.push({
+        code,
+        label: r.geography_label || code,
+        value: r.value as number,
+      });
+    }
+    ranked.sort((a, b) => b.value - a.value);
+    return ranked;
+  }, [pack.servicesPartner, activeWorldYear, activeFlow]);
+
+  const servicesMapRows = useMemo(() => {
+    const out: { id: string; value: number | null; display: string }[] = [];
+    for (const r of servicesPartnerRows) {
+      if (!isIso2Partner(r.code)) continue;
+      const a3 = iso2ToA3(r.code);
+      if (!a3) continue;
+      out.push({ id: a3, value: r.value, display: fmtGbpM(r.value) });
+    }
+    return out;
+  }, [servicesPartnerRows]);
 
   /** Products — goods (SITC sections, monthly) or services (top-level types, annual). */
   const productRows = useMemo(() => {
@@ -576,8 +615,23 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
       ranked.push({ id, label: fdiPartnerLabel(r.geography_code, r.geography_label), v: r.value });
     }
     ranked.sort((a, b) => Math.abs(b.v) - Math.abs(a.v));
-    return ranked.slice(0, 15);
+    return ranked;
   }, [pack.fdi, fdiMeasure, fdiDirection]);
+
+  const fdiMapRows = useMemo(() => {
+    const out: { id: string; value: number | null; display: string }[] = [];
+    for (const r of fdiPartnerRanks) {
+      const a3 = fdiPartnerToA3(r.id);
+      if (!a3) continue;
+      out.push({ id: a3, value: r.v, display: fmtGbpM(r.v) });
+    }
+    return out;
+  }, [fdiPartnerRanks]);
+
+  const fdiUnmappedRanks = useMemo(
+    () => fdiPartnerRanks.filter((r) => fdiPartnerToA3(r.id) == null).slice(0, 10),
+    [fdiPartnerRanks],
+  );
 
   const enterpriseRanks = useMemo(() => {
     const rows = obs(pack.enterprises).filter(isUkEnterpriseGeo);
@@ -711,9 +765,11 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
       : view === "world"
         ? worldLens === "region"
           ? ECONOMY_SOURCE.goodsByRegion
-          : worldLens === "commodity"
-            ? ECONOMY_SOURCE.goodsCommodity
-            : ECONOMY_SOURCE.goodsPartners
+          : worldLens === "services"
+            ? ECONOMY_SOURCE.servicesPartners
+            : pack.partnerCommodity
+              ? ECONOMY_SOURCE.goodsPartnersWithOts
+              : ECONOMY_SOURCE.goodsPartners
         : view === "products"
           ? productKind === "goods"
             ? ECONOMY_SOURCE.goodsCommodity
@@ -741,6 +797,7 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
     "Company insolvencies are a different register from ONS business demography deaths.",
     "Precious metals can swing the headline goods balance; the ex-precious-metals companion sits beside the ledger.",
     pack.partnersAnnual?.honesty,
+    pack.partnerCommodity?.honesty,
   ].filter(Boolean) as string[];
 
   let body: ReactNode = null;
@@ -878,22 +935,26 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                   ]}
                 />
                 <p className={t.tableNote}>
-                  Partner totals are ONS BoP all-countries SA. Partner × product mix is
-                  not Ready yet (HMRC OTS). Frames below are Britain&apos;s top{" "}
-                  {activeFlow} goods overall (SITC WW) for plate design — not this
-                  country&apos;s mix.
+                  Partner totals are ONS Balance of Payments (all-countries, seasonally
+                  adjusted). Product mix below is HMRC Overseas Trade Statistics
+                  (customs) by SITC section — a different basis; do not add the two.
                 </p>
-                {flowPlateFrames.length === 0 ? (
-                  <EmptyStage label={`No ${activeFlow} goods frames`}>
-                    No UK-wide SITC {activeFlow} ranks for this period.
+                {!pack.partnerCommodity ? (
+                  <EmptyStage label="Product mix unavailable">
+                    Partner × SITC section pack is not loaded. Totals above still stand.
+                  </EmptyStage>
+                ) : partnerProductFrames.length === 0 ? (
+                  <EmptyStage label={`No ${activeFlow} product mix`}>
+                    No HMRC OTS SITC sections published for {selectedPartner.label} ·{" "}
+                    {activeFlow} · {activeWorldYear}.
                   </EmptyStage>
                 ) : (
                   <ul
                     className={s.specimens}
-                    aria-label={`${activeFlow} goods plate frames · UK-wide SITC`}
+                    aria-label={`${selectedPartner.label} · ${activeFlow} · SITC sections`}
                   >
-                    {flowPlateFrames.map((row, i) => {
-                      const max = flowPlateFrames[0]?.v || 1;
+                    {partnerProductFrames.map((row, i) => {
+                      const max = partnerProductFrames[0]?.v || 1;
                       const bar = row.v > 0 ? (row.v / max) * 100 : 0;
                       return (
                         <li key={row.id}>
@@ -915,7 +976,7 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                               <i style={{ width: `${bar}%` }} />
                             </span>
                             <span className={s.specimenCount}>
-                              UK goods {activeFlow} · all partners · SITC
+                              {selectedPartner.label} · {activeFlow} · SITC section
                             </span>
                           </div>
                         </li>
@@ -952,36 +1013,117 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
             </section>
             <TradeBlocTrend pack={pack} trade="goods" flow={activeFlow} />
           </>
-        ) : worldLens === "commodity" ? (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Commodity composition · {activeFlow} · {activeWorldYear} · SITC WW
-            </h3>
-            {commodityRanks.length === 0 ? (
-              <EmptyStage label="No commodity ranks">
-                No SITC aggregates for this selection.
-              </EmptyStage>
-            ) : (
-              <RankBars
-                label={`SITC · ${activeFlow}`}
-                format={fmtGbpM}
-                rows={commodityRanks}
-              />
-            )}
-          </section>
+        ) : worldLens === "services" ? (
+          <>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Services partners · {activeFlow} · {activeWorldYear} · £m
+              </h3>
+              <p className={t.tableNote}>
+                Services trade by partner is a separate ONS series from goods. It is not
+                drawn on the goods map and is not added to goods totals.
+              </p>
+              {servicesMapRows.length === 0 ? (
+                <EmptyStage label="No mappable services partners">
+                  ISO country codes for this period could not be placed on the world map.
+                  Rank bars still list published partners below, including aggregates.
+                </EmptyStage>
+              ) : (
+                <WorldChoropleth
+                  key={`services-${activeFlow}-${activeWorldYear}`}
+                  label={`Services partners · ${activeFlow} · ${activeWorldYear}`}
+                  data={servicesMapRows}
+                  selected={selectedIso}
+                  onSelect={(id) => setSelectedIso((prev) => (prev === id ? null : id))}
+                  legendFormat={fmtGbpM}
+                  legendUnit="£m"
+                  size="stage"
+                />
+              )}
+            </section>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Services partner ranks · {activeFlow} · {activeWorldYear || "—"}
+              </h3>
+              {servicesPartnerRows.length === 0 ? (
+                <EmptyStage label="No services partner ranks">
+                  No services partner totals for this flow and period.
+                </EmptyStage>
+              ) : (
+                <RankBars
+                  label={`Services partners · ${activeFlow}`}
+                  format={fmtGbpM}
+                  rows={servicesPartnerRows.slice(0, 20).map((r) => ({
+                    id: r.code,
+                    label: r.label,
+                    v: r.value,
+                    active: selectedIso === iso2ToA3(r.code),
+                  }))}
+                  onSelect={(id) => {
+                    const a3 = iso2ToA3(id);
+                    if (!a3) return;
+                    setSelectedIso((prev) => (prev === a3 ? null : a3));
+                  }}
+                />
+              )}
+            </section>
+            <TradeBlocTrend pack={pack} trade="services" flow={activeFlow} />
+          </>
         ) : (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Goods {activeFlow} by UK nation · {activeWorldYear} · £m
-            </h3>
-            {regionRanks.length === 0 ? (
-              <EmptyStage label="No regional ranks">
-                No UK-region goods rows for this period.
-              </EmptyStage>
-            ) : (
-              <RankBars label="UK region goods" format={fmtGbpM} rows={regionRanks} />
-            )}
-          </section>
+          <>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Goods {activeFlow} by UK nation · {activeWorldYear} · £m
+              </h3>
+              <p className={t.tableNote}>
+                HMRC regional trade attributes each company&apos;s trade to nations by where
+                its staff work — not where goods were shipped from. Totals do not match
+                Balance of Payments.
+              </p>
+              {nationMapRows.length === 0 ? (
+                <EmptyStage label="No UK nation values">
+                  No UK-nation goods rows for this period.
+                </EmptyStage>
+              ) : (
+                <RegionMap
+                  key={`nation-${activeFlow}-${activeWorldYear}`}
+                  shapes={UK_NATION_SHAPES}
+                  label={`UK nations · goods ${activeFlow} · ${activeWorldYear}`}
+                  data={nationMapRows}
+                  selected={selectedNation}
+                  onSelect={(code) =>
+                    setSelectedNation((prev) => (prev === code ? null : code))
+                  }
+                  legendFormat={fmtGbpM}
+                  legendUnit="£m"
+                  size="stage"
+                  emptyCaption="Select a nation"
+                />
+              )}
+            </section>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Nation ranks · {activeFlow} · {activeWorldYear || "—"}
+              </h3>
+              {regionRanks.length === 0 ? (
+                <EmptyStage label="No regional ranks">
+                  No UK-nation goods rows for this period.
+                </EmptyStage>
+              ) : (
+                <RankBars
+                  label="UK nation goods"
+                  format={fmtGbpM}
+                  rows={regionRanks.map((r) => ({
+                    ...r,
+                    active: selectedNation === r.id,
+                  }))}
+                  onSelect={(id) =>
+                    setSelectedNation((prev) => (prev === id ? null : id))
+                  }
+                />
+              )}
+            </section>
+          </>
         )}
       </div>
     );
@@ -1136,23 +1278,76 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
           )}
         </section>
         {fdiMeasure === "flows" ? (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Investment flows {fdiDirection === "inward" ? "into the UK by investor country" : "from the UK by destination"}{" "}
-              · {fdiPartnerYear} · £m
-            </h3>
-            {fdiPartnerRanks.length === 0 ? (
-              <EmptyStage label="No partner ranks">
-                No partner flow rows for the latest year.
-              </EmptyStage>
-            ) : (
-              <RankBars
-                label={fdiDirection === "inward" ? "Investor countries" : "Destination countries"}
-                format={fmtGbpM}
-                rows={fdiPartnerRanks}
-              />
-            )}
-          </section>
+          <>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Investment flows{" "}
+                {fdiDirection === "inward"
+                  ? "into the UK by investor country"
+                  : "from the UK by destination"}{" "}
+                · {fdiPartnerYear} · £m
+              </h3>
+              {fdiMapRows.length === 0 ? (
+                <EmptyStage label="No mappable FDI partners">
+                  Partner codes for this year could not be placed on the world map.
+                  Rank bars still list published partners below.
+                </EmptyStage>
+              ) : (
+                <WorldChoropleth
+                  key={`fdi-${fdiDirection}-${fdiPartnerYear}`}
+                  label={`FDI flows · ${fdiDirection} · ${fdiPartnerYear}`}
+                  data={fdiMapRows}
+                  selected={selectedFdiIso}
+                  onSelect={(id) => setSelectedFdiIso((prev) => (prev === id ? null : id))}
+                  legendFormat={fmtGbpM}
+                  legendUnit="£m"
+                  size="stage"
+                />
+              )}
+            </section>
+            <section className={s.panel}>
+              <h3 className={t.stageTitle}>
+                Partner ranks · {fdiDirection} flows · {fdiPartnerYear || "—"}
+              </h3>
+              {fdiPartnerRanks.length === 0 ? (
+                <EmptyStage label="No partner ranks">
+                  No partner flow rows for the latest year.
+                </EmptyStage>
+              ) : (
+                <RankBars
+                  label={
+                    fdiDirection === "inward" ? "Investor countries" : "Destination countries"
+                  }
+                  format={fmtGbpM}
+                  rows={fdiPartnerRanks.slice(0, 20).map((r) => ({
+                    ...r,
+                    active: selectedFdiIso === fdiPartnerToA3(r.id),
+                  }))}
+                  onSelect={(id) => {
+                    const a3 = fdiPartnerToA3(id);
+                    if (!a3) return;
+                    setSelectedFdiIso((prev) => (prev === a3 ? null : a3));
+                  }}
+                />
+              )}
+            </section>
+            {fdiUnmappedRanks.length > 0 ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  Partners without a country fill · {fdiPartnerYear}
+                </h3>
+                <p className={t.tableNote}>
+                  Aggregates and territories absent from the world outline stay here —
+                  never painted onto another country.
+                </p>
+                <RankBars
+                  label="Unmapped FDI partners"
+                  format={fmtGbpM}
+                  rows={fdiUnmappedRanks}
+                />
+              </section>
+            ) : null}
+          </>
         ) : null}
       </div>
     );

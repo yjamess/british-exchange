@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-16T02:21:57.592290+00:00",
+  "updated_at": "2026-11-17T10:37:14.539072+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -378,25 +378,25 @@
     },
     {
       "path": "data/economy/economic-policy/events.json",
-      "size": 90724,
-      "checksum_sha256": "2c450f681ce332bdd30f0208295ba6aade82defad0bc2c6e26203af00e6411da",
+      "size": 127523,
+      "checksum_sha256": "a6c41613b46277dbb621810dc3ca1669366b99ba5f99db52eaf7805249ba12c6",
       "storage_key": "economy/economic-policy/events.json",
-      "uploaded_at": "2026-11-15T23:18:03.782406+00:00",
+      "uploaded_at": "2026-11-17T10:37:11.080613+00:00",
       "local_deleted": false,
       "compression": null,
-      "stored_size": 90724,
-      "stored_checksum_sha256": "2c450f681ce332bdd30f0208295ba6aade82defad0bc2c6e26203af00e6411da"
+      "stored_size": 127523,
+      "stored_checksum_sha256": "a6c41613b46277dbb621810dc3ca1669366b99ba5f99db52eaf7805249ba12c6"
     },
     {
       "path": "data/economy/economic-policy/pledges.json",
-      "size": 8135,
-      "checksum_sha256": "f3f182ec98ffccfdfcc9dd84c9df7ef2ccb292a80518b84fe5b3e8e5b5c4ec09",
+      "size": 8334,
+      "checksum_sha256": "fa47ad7e46253ed4ff113cb9bf1c112f4450c3bf3f421c52ca7f4471144b8394",
       "storage_key": "economy/economic-policy/pledges.json",
-      "uploaded_at": "2026-11-15T22:47:22.844854+00:00",
+      "uploaded_at": "2026-11-17T10:37:14.538876+00:00",
       "local_deleted": false,
       "compression": null,
-      "stored_size": 8135,
-      "stored_checksum_sha256": "f3f182ec98ffccfdfcc9dd84c9df7ef2ccb292a80518b84fe5b3e8e5b5c4ec09"
+      "stored_size": 8334,
+      "stored_checksum_sha256": "fa47ad7e46253ed4ff113cb9bf1c112f4450c3bf3f421c52ca7f4471144b8394"
     },
     {
       "path": "data/economy/employment-by-occupation/curated/observations.csv",

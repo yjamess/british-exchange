@@ -264,11 +264,35 @@ export type PartnersAnnualPack = {
   >;
 };
 
+/** HMRC OTS partner × SITC1 product mix (Storage pack) — Trading World dossier frames. */
+export type PartnerCommodityPack = {
+  id: string;
+  title: string;
+  honesty: string;
+  source: string;
+  source_version: string;
+  unit: string;
+  classification: string;
+  sitc1_labels: Record<string, string>;
+  years: string[];
+  coverage: Record<string, { months: number; first: string; last: string; partial: boolean }>;
+  by_year: Record<
+    string,
+    {
+      exports: Record<string, { sitc1: string; label: string; value: number }[]>;
+      imports: Record<string, { sitc1: string; label: string; value: number }[]>;
+    }
+  >;
+  built_at?: string;
+};
+
 export type InvestmentPack = {
   tradeMret: SeriesPack | null;
   tradeExPm: SeriesPack | null;
   /** Annual ISO2 partner rollups (Storage pack) — Trading World map + ranks. */
   partnersAnnual: PartnersAnnualPack | null;
+  /** Partner × SITC1 mix (HMRC OTS) — dossier product frames. */
+  partnerCommodity: PartnerCommodityPack | null;
   goodsCommodity: SeriesPack | null;
   goodsByRegion: SeriesPack | null;
   servicesCategory: SeriesPack | null;

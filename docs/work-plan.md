@@ -1,5 +1,59 @@
 # British Exchange — Work plan
 
+## Economy & Public Finance · Dual orchestrators → sector Gate 4 · 2026-11-17
+
+**Owner decision:** Run **two Domain Orchestrators in parallel**, then one **sector-wide structural audit**.
+
+| Track | Kickoff | Scope | Exit |
+|-------|---------|-------|------|
+| **Orchestrator 09** | [agent-kickoff-orchestrator-economy-09.md](agent-kickoff-orchestrator-economy-09.md) | Trade & Investment restructure closeout + Gate 4 re-run | Domain 09 ready for sector audit |
+| **Orchestrator 10** | [agent-kickoff-orchestrator-economy-10.md](agent-kickoff-orchestrator-economy-10.md) | Economic Policy deepen Gate 2 → Gate 4 | Domain 10 complete |
+| **Sector Orchestrator** | *(after both exit)* | Mode B structural-consistency-audit across `/economy` domains 01–10 | Economy sector Gate 4 roll-up |
+
+**Anti-overlap:** 09 owns `InvestmentCanvas` + trade/FDI/business packs; 10 owns `PolicyCanvas` + `data/economy/economic-policy/`. Neither starts the sector audit. Validation only after each track’s evidence is Ready for QA.
+
+### EC-ORCH-09 — Domain 09 restructure closeout
+- Owner: Orchestrator (Domain 09 track)
+- Status: **done** (2026-11-17) — exit to Sector Orchestrator
+- Inputs: restructure open list below; pack `economy.goods-trade-partner-commodity`
+- Output: Validation Ready · dossier products · maps · business-home decision · Notion · Gate 4 re-run
+- Notes: Detail in kickoff; do not edit Policy paths
+
+#### EC-ORCH-09 backlog
+| ID | Owner | Status | Notes |
+|----|-------|--------|-------|
+| VAL-EC-09-OTS | Validation | **done** | PASS → Ready · `data/qa/qa_report_economy_goods_trade_partner_commodity_2026-11-17.md` |
+| EC-09-DOSSIER | Orchestrator | **done** | Trading world dossier uses OTS SITC1 pack; BoP totals kept separate in copy/sources |
+| EC-09-MAPS | Orchestrator | **done** (2026-11-17) | Services lens + FDI partner WorldChoropleth + UK nation RegionMap (ONS Countries BUC) |
+| EC-09-BUSINESS-HOME | Owner | **done** | Keep Landscape / Births & deaths on rail |
+| EC-G4-09R | Orchestrator + Validation | **done** | [gate4-audit-economy-09-trade-2026-11-17.md](gate4-audit-economy-09-trade-2026-11-17.md) · QA `data/qa/qa_economy_domain09_gate4_2026-11-17.md` |
+
+### Review — Domain 09 closeout (2026-11-17)
+- **Shipped:** OTS Ready + dossier; services lens; FDI partner map; UK nation RegionMap; business rails kept; Gate 4 re-run PASS
+- **Blocked:** none
+- **Next:** Hand back to **Sector Orchestrator** for EC-G4-SECTOR (Domain 10 already exited). Do not start sector audit from this chat.
+
+### EC-ORCH-10 — Domain 10 deepen to Gate 4
+- Owner: Orchestrator (Domain 10 track)
+- Status: **done** (2026-11-17) — exit to Sector Orchestrator
+- Inputs: Gate 2 seed; [agent-kickoff-economy-10-policy.md](agent-kickoff-economy-10-policy.md) · [agent-kickoff-orchestrator-economy-10.md](agent-kickoff-orchestrator-economy-10.md)
+- Output: cross-links · budgets/measures · Validation QA · Gate 4 audit · Notion
+- Notes: Domain 10 complete. Do not edit Investment / trade paths.
+
+### EC-G4-SECTOR — Economy sector structural audit
+- Owner: Sector Orchestrator + Validation roll-up
+- Status: **done** (2026-11-17) — Ready; P1 Follow closed same day
+- Inputs: live `/economy` domains 01–10; prior domain Gate 4 audits; `.cursor/skills/structural-consistency-audit`
+- Output: [gate4-audit-economy-sector-2026-11-17.md](gate4-audit-economy-sector-2026-11-17.md)
+- Notes: Follow edges added for Tax machine/burden/gap · Spending deepen · Policy institutions/eras/changes; `sector-pages` catalogue comment + OTS series id
+
+### Review — Dual-orchestrator plan
+- **Shipped:** Orchestrator 09 and 10 exited; sector Gate 4 audit + Follow fixes
+- **Blocked:** none
+- **Next:** Notion Control → Economy sector Gate 4 closed; optional Domain 06 audit doc refresh + phone sweep
+
+---
+
 ## Economy · Domain 09 restructure → Trade & Investment · 2026-11-16
 
 Owner decision (2026-11-16): rename to **Trade & Investment**; five experiences — Trade ledger · Trading world · Products · Investment ledger · Capital across borders. Business views (Landscape, Births & deaths) stay in the rail until the owner picks a new home. Route id `investment` and view ids kept for saved links.
@@ -7,8 +61,8 @@ Owner decision (2026-11-16): rename to **Trade & Investment**; five experiences 
 1. **Orchestrator — done:** partner map pack rebuilt as calendar-year totals (it held December only) with a reproducible builder `src/economy/connectors/goods_trade_partners_annual.py`; partial year flagged; pushed to Storage. Reconciles to ONS world total (2024 and 2025, both flows).
 2. **Orchestrator — done:** Products takes the commodity lens (Goods/Services × Exports/Imports), latest complete calendar year + largest five over time. Investment ledger adds asset and industry lines over time. Capital across borders adds Into/From the UK partner ranks. EU vs rest of world goods trend (`TradeBlocTrend`) under the country map. UK region lens → UK nation, calendar-year totals; source corrected to HMRC. Plain figure-strip notes.
 3. **Economy — done (2026-11-16):** HMRC OTS partner × SITC1 product mix ingested — connector `src/economy/connectors/goods_trade_partner_commodity.py`; 14,508 rows (2023–2025 full + 2026 YTD to Sep); Storage pack `economy.goods-trade-partner-commodity` pushed. Awaiting Validation before Ready / dossier wiring.
-4. **Owner — in progress:** Trading world country dossier (exports/imports totals live; product frames wait on Validation Ready for the new pack).
-5. **Open:** wire dossier to OTS SITC1 pack after Validation; services on the Trading world map; FDI partner map; UK nation map; where business views live; Gate 4 re-run; Notion title/question.
+4. **Orchestrator — done (2026-11-17):** OTS SITC1 Validation PASS → Ready; Trading world dossier product frames wired to pack (BoP totals ≠ OTS mix labelled in Notes).
+5. **Orchestrator — done (2026-11-17):** services countries lens; FDI partner map; UK nation RegionMap; business rails kept; Gate 4 re-run PASS; handed to Sector Orchestrator.
 
 ## Economy & Public Finance · Domain 09 Trade, Investment & Business · 2026-11-16
 
@@ -2578,8 +2632,9 @@ Owner brief received 2026-11-15 (ten policy areas; one evidence record per decis
 
 **Flagship:** The economic decision ledger.
 
-**Status:** Gate 2 **seed shipped** (2026-11-15) — `/economy?domain=policy` · Ledger · Institutions · Eras · Changes · Evidence · Promises. Domain **not** complete.  
-**Rule:** No causal arrows. Announcement ≠ assent ≠ commencement ≠ repeal. Housing / Energy records referenced by id, never copied. Net debt is not PSNFL; borrowing is not the current budget.
+**Status:** **complete** (2026-11-17) — Gates 2–4; `/economy?domain=policy` · 26 records · Storage packs · Validation PASS · Gate 4 Ready.  
+**Rule:** No causal arrows. Announcement ≠ assent ≠ commencement ≠ repeal. Housing / Energy records referenced by id, never copied. Net debt is not PSNFL; borrowing is not the current budget.  
+**Audit:** [gate4-audit-economy-10-policy.md](gate4-audit-economy-10-policy.md) · QA `data/qa/qa_economy_domain10_policy_2026-11-17.md`.
 
 ### EP01 — Schema and source standards (brief priority 1)
 - Owner: Orchestrator
@@ -2607,10 +2662,35 @@ Owner brief received 2026-11-15 (ten policy areas; one evidence record per decis
 - Views: ledger (Policy area · Era menus) · institutions · eras · changes · evidence · promise
 - Verified: `tsc` clean; eslint no errors; **browser not inspected** (API not running in this session)
 
-### Review — Economy Domain 10 (Gate 2 seed)
-- **Shipped:** schema + standards; 19-record register (12 Acts · 6 institutions · 2 programmes) with evidence records and 7 evaluations; pledges listed; packs in Storage; six-view canvas (desktop + 390px captured)
-- **Next (brief priorities 3–6):** link Housing / Energy records from Economy dossiers (`dossier.related`) when sourced; Budget / Finance Act measures with OBR costings; Budget Responsibility Act 2024 record; more evaluations (committees, IFS); symmetric-target scoring rule before any pledge is scored; Notion plan page (connector 404 — pending)
-- **Gate 4:** after Validation files a QA report on the register (dates vs sources) and the browser pass
+### EP-CROSS / EP-BUDGETS / EP-PIN-GAPS / EP-EVAL / EP-PLEDGE — Catalogue deepen
+- Owner: Orchestrator (Domain 10)
+- Status: **done** (2026-11-17) — 26 events; Housing/Energy `dossier.related`; Budgets Jun 2010 · Autumn 2024 · Autumn 2025 with OBR `financial[]`; pins for 1992 objective, interim OBR 17 May 2010, 1946 appointed day, UC GB full-service 12 Dec 2018, LPC, HMT; IFS UC eval; symmetric rule filed (`docs/economy-10-symmetric-target-scoring-rule.md`); 0 pledges scored
+- Output: `events.json` · deepen script · standards docs · Validation kickoff
+- Notes: Managed-migration UC completion deliberately not collapsed into one day; Storage packs re-pushed `--keep-local` 2026-11-17
+
+### EP-NOTION — Domain 10 + Control
+- Owner: Orchestrator (Domain 10)
+- Status: **done** (2026-11-17) — Notion plan page updated; Control already showed Orchestrator 10 deepen
+
+### VAL-EC-10 — Independent Validation
+- Owner: Validation
+- Status: **done** (2026-11-17) — **PASS** (warns)
+- Output: `data/qa/qa_economy_domain10_policy_2026-11-17.md`
+- Notes: No silent rewrites; optional later SR&O 1946/237 URL if found
+
+### EC-G3-10 — Gate 3 polish
+- Owner: Orchestrator (Domain 10)
+- Status: **done** (2026-11-17) — no UI code change required; menus/EmptyStage/Follow already honest for deepen depth
+
+### EC-G4-10 — Gate 4
+- Owner: Orchestrator (Domain 10)
+- Status: **done** (2026-11-17)
+- Output: [gate4-audit-economy-10-policy.md](gate4-audit-economy-10-policy.md) Mode B + 390px browser
+
+### Review — Economy Domain 10 (Orchestrator 10 exit)
+- **Shipped:** catalogue deepen 19→26; cross-links; Budgets+OBR; gap pins; pledge rule filed (0 scored); Notion; Validation PASS; Storage; Gate 4 Ready
+- **Blocked:** none on Domain 10
+- **Next:** Sector Orchestrator after Domain 09 track exits — **do not** start sector audit from this chat
 
 ## Review — BX-BACK-001 Price Paid search · 2026-11-15
 

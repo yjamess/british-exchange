@@ -1,8 +1,8 @@
 {
  "registry_id": "economy-pledges",
- "retrieved_at": "2026-11-15",
+ "retrieved_at": "2026-11-17",
  "status": "draft — owner review before Ready",
- "note": "Promise vs delivery register for Economy Domain 10, same shape as the Energy and Housing pledge files. A pledge is scored only when a published series counts the same thing, in the same unit and period, for the same place. Every other pledge is listed with the reason it is not scored, and its match is null or marked not scorable. Delivered values are never stored here. Overlap between a pledge and a series is not evidence that the policy caused the result.",
+ "note": "Promise vs delivery register for Economy Domain 10, same shape as the Energy and Housing pledge files. A pledge is scored only when a published series counts the same thing, in the same unit and period, for the same place. Every other pledge is listed with the reason it is not scored, and its match is null or marked not scorable. Delivered values are never stored here. Overlap between a pledge and a series is not evidence that the policy caused the result. Symmetric targets (inflation): scoring rule filed at docs/economy-10-symmetric-target-scoring-rule.md — still 0 scored until the owner accepts the rule and the scorer implements a two-sided path.",
  "pledges": [
   {
    "id": "charter-2025-current-budget-surplus-2029-30",
@@ -171,7 +171,7 @@
    },
    "scorable": false,
    "measure_definition": "CPI 12-month inflation rate, United Kingdom, monthly (ONS). The target is symmetric, so a month counts as met only when inflation is at the target within the remit's tolerance, and the remit's 1 percentage point letter-writing band is a reporting trigger, not a pass mark.",
-   "not_scored_reason": "The Exchange scorer counts periods at or above (or at or below) a target. A symmetric target needs a two-sided rule with the remit's tolerance written down first. Listed until that rule is agreed.",
+   "not_scored_reason": "Symmetric target. Rule filed in docs/economy-10-symmetric-target-scoring-rule.md; the Exchange scorer still has only one-sided paths. Listed until the owner accepts τ and the two-sided path ships.",
    "linked_event_ids": [
     "bank-of-england-act-1998"
    ],

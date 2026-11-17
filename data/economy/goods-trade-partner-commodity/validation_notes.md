@@ -1,6 +1,6 @@
 # Validation notes — goods-trade-partner-commodity
 
-**Status:** Ingested · awaiting Validation agent QA before Ready.
+**Status:** **Ready** (Validation PASS 2026-11-17 — `data/qa/qa_report_economy_goods_trade_partner_commodity_2026-11-17.md`).
 
 ## Checks for Validation
 

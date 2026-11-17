@@ -3,7 +3,7 @@
 **Domain:** Economy & Public Finance · 10 Economic policy  
 **Question (provisional):** Which decisions shaped Britain's economy, why were they introduced, what changed, and what evidence exists about their consequences?  
 **Flagship:** The economic decision ledger  
-**Status:** Gate 2 seed (2026-11-15, two research passes). Nineteen checked records (twelve Acts, six institutions, two programmes), each with an evidence record; seven published evaluations attached. Domain **not** complete.
+**Status:** Gate 2 deepen in progress (2026-11-17). Twenty-six checked records with evidence dossiers; Housing/Energy cross-links; Budget measures with OBR costings; gap pins for 1992 objective, interim OBR, 1946 appointed day, UC GB full-service availability, LPC and HM Treasury. Domain **not** complete until Validation + Gate 4.
 
 Register for Acts, instruments, programmes and institutions. None of them is a statistical observation, so there is no `observations.csv`. The shared shape is `britain_exchange.policy_event`; this file is the first to use its optional evidence record (`policy_area`, `repealed_date`, `dossier`).
 
@@ -49,12 +49,14 @@ uv run python -m pytest tests/test_economy_policy_events.py -q
 
 Packs `economy.policy-events` and `economy.policy-pledges` (`britain_exchange.packs`), pushed to Storage with `archive_data push --keep-local data/economy/economic-policy/events.json` (and `pledges.json`). The local files stay in git because the tests and the validator read them; the UI never reads this folder.
 
-## Not yet in this register
+## Still open / deferred
 
-- Budgets and Finance Acts as measures (rates, thresholds, costings) — Gate 3 with OBR costings pinned
-- 1992 inflation objective; the interim OBR's day in May 2010; the 1946 Act's appointed day; universal credit national roll-out orders; the Low Pay Commission's founding; HM Treasury as an institution — not pinned from a primary source yet
+- More Budget / Finance Act measure rows (small set shipped: emergency Budget June 2010 · Autumn Budget 2024 · Autumn Budget 2025)
+- Managed-migration UC orders beyond GB full-service availability (12 Dec 2018 DWP update) — not collapsed into one “national roll-out” day
+- Symmetric-target scoring rule filed at `docs/economy-10-symmetric-target-scoring-rule.md` — pledges still unscored
 - Monetary decisions (Bank Rate, QE) as a series — belongs to a Ready indicator, not this register
-- Evaluations beyond the seven attached (committees, IFS, academic)
+- Further committee / academic evaluations
+- Independent Validation QA on dates vs sources → `data/qa/`
 
 ## Forbidden
 

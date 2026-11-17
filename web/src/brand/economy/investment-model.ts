@@ -77,7 +77,82 @@ const ISO2_TO_A3: Record<string, string> = {
   IQ: "IRQ",
   DZ: "DZA",
   MA: "MAR",
+  AL: "ALB",
+  BY: "BLR",
+  IR: "IRN",
+  IS: "ISL",
+  ME: "MNE",
+  RS: "SRB",
+  UY: "URY",
+  VE: "VEN",
 };
+
+/**
+ * ONS FDI partner geography_code (upper-case slug) → Natural Earth ADM0_A3.
+ * Aggregates and territories without a 110m country fill stay off the map.
+ */
+const FDI_CODE_TO_A3: Record<string, string> = {
+  AUSTRALIA: "AUS",
+  AUSTRIA: "AUT",
+  BELGIUM: "BEL",
+  BRAZIL: "BRA",
+  BULGARIA: "BGR",
+  CANADA: "CAN",
+  CHILE: "CHL",
+  CHINA: "CHN",
+  COLOMBIA: "COL",
+  CROATIA: "HRV",
+  CYPRUS: "CYP",
+  "CZECH-REPUBL": "CZE",
+  DENMARK: "DNK",
+  ESTONIA: "EST",
+  FINLAND: "FIN",
+  FRANCE: "FRA",
+  GERMANY: "DEU",
+  GREECE: "GRC",
+  HUNGARY: "HUN",
+  INDIA: "IND",
+  INDONESIA: "IDN",
+  "IRISH-REPUBL": "IRL",
+  ITALY: "ITA",
+  JAPAN: "JPN",
+  KENYA: "KEN",
+  LATVIA: "LVA",
+  LITHUANIA: "LTU",
+  LUXEMBOURG: "LUX",
+  MALAYSIA: "MYS",
+  MEXICO: "MEX",
+  NETHERLANDS: "NLD",
+  "NEW-ZEALAND": "NZL",
+  NIGERIA: "NGA",
+  NORWAY: "NOR",
+  PANAMA: "PAN",
+  POLAND: "POL",
+  PORTUGAL: "PRT",
+  ROMANIA: "ROU",
+  RUSSIA: "RUS",
+  SLOVAKIA: "SVK",
+  SLOVENIA: "SVN",
+  "SOUTH-AFRICA": "ZAF",
+  "SOUTH-KOREA": "KOR",
+  SPAIN: "ESP",
+  SWEDEN: "SWE",
+  SWITZERLAND: "CHE",
+  THAILAND: "THA",
+  USA: "USA",
+  ZIMBABWE: "ZWE",
+};
+
+/** FDI aggregates / territories absent from Natural Earth 110m — RankBars only. */
+const FDI_OFF_MAP = new Set([
+  "BELGIUM-LUXE",
+  "BERMUDA",
+  "GULF-ARABIAN",
+  "HONG-KONG",
+  "MALTA",
+  "SINGAPORE",
+  "UK-OFFSHORE-",
+]);
 
 const SERVICE_LABELS: Record<string, string> = {
   manufacturing: "Manufacturing services on physical inputs",
@@ -100,6 +175,16 @@ export function iso2ToA3(code: string): string | null {
   const c = code.trim().toUpperCase();
   if (c.length === 3) return c;
   return ISO2_TO_A3[c] ?? null;
+}
+
+/**
+ * Map an ONS FDI partner code to Natural Earth ADM0_A3.
+ * Returns null for aggregates and unknown codes — never invent a country fill.
+ */
+export function fdiPartnerToA3(code: string): string | null {
+  const c = code.trim().toUpperCase();
+  if (!c || FDI_OFF_MAP.has(c)) return null;
+  return FDI_CODE_TO_A3[c] ?? null;
 }
 
 export function notePart(notes: string, key: string): string {

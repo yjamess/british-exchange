@@ -49,6 +49,8 @@ PACK_REGISTRY: dict[str, str] = {
     "regions.gb-boundaries": "regions/housing-boundaries/curated/boundaries.geojson",
     "regions.gb-boundaries-source": "regions/housing-boundaries/curated/source.json",
     "regions.english-regions-display": "regions/housing-boundaries/curated/english-regions-display.json",
+    # Four UK nations (Countries Dec 2025 BUC) — Economy Trading World UK-nation lens.
+    "regions.uk-nations-display": "regions/housing-boundaries/curated/uk-nations-display.json",
     "regions.boundaries-display": "regions/housing-boundaries/curated/boundaries-display.json",
     # Housing atlas / maps
     "housing.atlas": "housing/housing-atlas/curated/atlas.json",

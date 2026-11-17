@@ -132,6 +132,9 @@ export const ECONOMY_SOURCE = {
   tradeMret: "ONS · Monthly Review of External Trade (balance of payments)",
   tradeExPm: "ONS · UK trade excluding precious metals",
   goodsPartners: "ONS · UK trade all countries (goods partners)",
+  /** Partner map totals (ONS BoP) + dossier product mix (HMRC OTS) — keep separate. */
+  goodsPartnersWithOts:
+    "ONS · UK trade all countries (goods partners) · HMRC · Overseas Trade Statistics (partner × SITC)",
   goodsCommodity: "ONS · UK trade by SITC commodity",
   goodsByRegion: "HMRC · Regional trade statistics",
   servicesPartners: "ONS · UK trade in services by partner country",
