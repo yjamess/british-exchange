@@ -39,3 +39,5 @@ data/regions/**/curated/**
 !data/**/raw/.gitkeep
 !data/**/curated/.gitkeep
 .vercel
+web/public/lab-tiles/
+web/public/vendor/

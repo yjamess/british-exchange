@@ -121,3 +121,38 @@ Fix landed in `web/src/brand/connections/economy.ts` (2026-11-17) after owner au
 - **Shipped:** Sector Mode B audit + Follow/catalogue fixes
 - **Blocked:** none
 - **Next:** Mark Economy sector Gate 4 closed in Notion Control; optional Domain 06 audit doc refresh + phone sweep
+
+## Independent re-audit · 2026-11-18
+
+Run separately from the 2026-11-17 pass. It tested the live pages instead of relying on domain audits and code reading, then fixed what it found (authorised by the owner).
+
+### Method
+
+- **Build:** `next build` (production) in a copy of `web/`: compiled, 34/34 static pages. `tsc --noEmit` clean; ESLint 0 errors (67 hook-dependency warnings, pre-existing).
+- **Tests:** `pytest tests` 112 passed after two test fixes below; `npm run test:url` passes.
+- **Live sweep:** headless Chromium against the dev server and API, **all 63 views × 1400px and 390px = 126 pages**. Each page checked for console/page errors, HTTP failures, document overflow, visible EmptyStage, stuck loading text, NaN/undefined text, the Notes foot and the Follow step.
+- **Numbers:** headline figures on the page compared with `/indicators/{id}/observations`: CPIH 3.3% (Aug 2026), employment rate 75.1% and unemployment rate 5.0% (Jun 2026), public sector net debt £2,981bn and 93.6% of GDP (Aug 2026). All match the latest **final** observation.
+
+### Findings
+
+| ID | Finding | Pri | Status |
+|----|---------|-----|--------|
+| RA-01 | Tax › Machine / Burden / Gap showed **no Follow**. Edges were added 2026-11-17 (SEC-01) but `TaxCanvas` rendered `follow` only for `raises` / `data`. SEC-01 above was closed on the connections file, not the live page | **P1** | **fixed** — `Stage follow` always renders `EconomyStageFollow`; verified live at both widths |
+| RA-02 | Thirteen visible Follow lines used survey codes (AWE, LFS, ASHE, ETB, NPEL, BoP, ESA, PSF); two read as team instructions ("Link only — never fork…") | P2 | **fixed** — rewritten in plain words in `connections/economy.ts` |
+| RA-03 | Employment › Workforce tile "Unemployed 4.0%" (share of all 16–64s) sits one tab from the official "Unemployment rate 5.0%" (share of the economically active). Both correct; easy to misread | P2 | **fixed** — share tiles now say "Share of people aged 16 to 64 · {month}" |
+| RA-04 | `test_economy_figure_terms_resolve` failed: Inflation passes named term lists (`[...RATE_TERMS]`); all 16 slugs resolve | P2 (test) | **fixed** — test resolves `*_TERMS` constants in the same file |
+| RA-05 | `test_industrial_policy_seed_loads_and_assent_dates` (Energy) pinned `retrieved_at` 2026-11-07; committed registry says 2026-11-10 | P2 (test) | **fixed** — pin updated |
+| RA-06 | SEC-07 phone 390px | — | **closed** — all 63 views measured; no document overflow |
+| RA-07 | This audit's Follow table names Policy `institutions` / `eras`; Policy's views are `ledger` · `changes` · `promise`, and each has an edge | P2 (doc) | noted here; code is correct |
+| RA-08 | Headlines show the latest final value and drop the newest provisional month (e.g. CPIH Sep 2026 3.6%, PSND Sep 2026 £3,005bn are served but not headlined) | — | **owner decision** — consistent across the sector via `finalObs`; confirm it is intended |
+| RA-09 | Hydration warning on Inflation › Basket and a blank selected tab on Inflation › What's driving it during the sweep | — | **not reproduced** on fresh loads; transient under build load |
+
+### Not inspected
+
+- Full menu × served-data matrix for every control option (S18–S27) — still relies on domain Gate 4s.
+- Keyboard / screen-reader tour.
+- Publisher re-QA against official releases beyond the five headline figures (Validation owns).
+
+### Verdict
+
+**Ready to close**, once the working tree is committed and Notion Control is updated. No open P0/P1.

@@ -804,7 +804,11 @@ export function formatSource(...parts: Array<string | null | undefined | false>)
 /**
  * The one foot under a stage.
  *
- * Notes holds the definition, then the method, and stays closed.
+ * Three roles, no overlap:
+ * - What this shows (`definition`) — the measure on this stage, in plain words
+ * - How it is counted (`method`) — counting rules, caveats, what not to infer
+ * - Terms — glossary only (acronyms / terms of art); never a second explanation of the chart
+ *
  * The source stays on the row: publisher · series · geography · period (`formatSource`).
  * Data always goes to the catalogue. Release, indicator id and the file live there.
  */
@@ -816,7 +820,7 @@ export function FigureRecord({
   terms,
 }: {
   source?: string;
-  /** What the number is. One sentence, or a few, always under the same label. */
+  /** What this stage shows. Chart-specific — not a glossary of CPI, GDP, etc. */
   definition?: string | string[];
   /** How it was counted, and what not to infer. */
   method?: string | string[];
@@ -844,35 +848,49 @@ export function FigureRecord({
           </summary>
           <div className={s.recordPanel}>
             {define.length > 0 && (
-              <div>
-                <p className="bo-label">Definition</p>
-                {define.map((text, i) => (
-                  <p key={`definition-${i}`}>{text}</p>
-                ))}
-              </div>
+              <section className={s.recordSection}>
+                <p className="bo-label">What this shows</p>
+                <div className={s.recordProse}>
+                  {define.map((text, i) => (
+                    <p key={`definition-${i}`}>{text}</p>
+                  ))}
+                </div>
+              </section>
             )}
             {counted.length > 0 && (
-              <div>
-                <p className="bo-label">Method</p>
-                {counted.map((text, i) => (
-                  <p key={`method-${i}`}>{text}</p>
-                ))}
-              </div>
+              <section className={s.recordSection}>
+                <p className="bo-label">How it is counted</p>
+                <div className={s.recordProse}>
+                  {counted.map((text, i) => (
+                    <p key={`method-${i}`}>{text}</p>
+                  ))}
+                </div>
+              </section>
             )}
             {marked.length > 0 && (
-              <div>
+              <section className={s.recordSection}>
                 <p className="bo-label">Terms</p>
-                <dl className={s.recordTerms}>
-                  {marked.map((t) => (
-                    <div key={t.slug}>
-                      <dt>
-                        <a href={`/glossary#${t.slug}`}>{t.short}</a>
-                      </dt>
-                      <dd>{t.definition}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+                <table className={s.recordTerms}>
+                  <thead>
+                    <tr>
+                      <th scope="col">Term</th>
+                      <th scope="col">Meaning</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {marked.map((t) => (
+                      <tr key={t.slug}>
+                        <th scope="row">
+                          <a className={s.recordTermLink} href={`/glossary#${t.slug}`}>
+                            {t.short}
+                          </a>
+                        </th>
+                        <td>{t.definition}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
             )}
           </div>
         </details>

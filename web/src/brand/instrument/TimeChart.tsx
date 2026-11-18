@@ -355,10 +355,13 @@ export function TimeChart({
     } else if (e.key === "Escape") setCursor(null);
   };
 
+  /* Stacks paint series[0] at the baseline and the last series on top. Readout + legend
+     list top→bottom so swatch order matches the colours you see on the chart. */
   const readout =
     tc !== undefined
-      ? series.map((sr, i) => ({ id: sr.id, label: sr.label, p: lookup[i]!.get(tc) }))
+      ? series.map((sr, i) => ({ id: sr.id, label: sr.label, p: lookup[i]!.get(tc), i }))
       : [];
+  const readoutRows = kind === "stack" ? [...readout].reverse() : readout;
 
   const slot = W / Math.max(1, times.length);
   // Bars: capped width + paper gap so dense monthly volumes read as a clean strip, not a solid block.
@@ -619,15 +622,20 @@ export function TimeChart({
           )}
         </svg>
 
-        {tc !== undefined && readout.length > 0 && (
+        {tc !== undefined && readoutRows.length > 0 && (
           <ReadoutCard
             head={period(tc)}
             style={{ left: Math.max(0, Math.min(x(tc) + 12, width - 340)) }}
             rows={[
-              ...readout.map((r, i) => ({
+              ...readoutRows.map((r) => ({
                 id: r.id,
                 label: r.label,
-                tone: series.length > 1 ? kind === "stack" ? layers[i % layers.length] : toneFor(r.id) : undefined,
+                tone:
+                  series.length > 1
+                    ? kind === "stack"
+                      ? layers[r.i % layers.length]
+                      : toneFor(r.id)
+                    : undefined,
                 value: `${!r.p ? "Not available" : kind === "stack" ? `${format(r.p.v)} · ${((r.p.v / (stackTotals[idx!] || 1)) * 100).toFixed(1)}%` : format(r.p.v)}${!inspect && r.p?.provisional ? " · provisional" : ""}`,
               })),
               ...(inspect?.(tc) ?? []).map((row, i) => ({ ...row, id: `inspect-${i}` })),
@@ -639,16 +647,18 @@ export function TimeChart({
       {showLegend && (
         <SeriesLegend
           dense={manySeries || series.length > 4}
-          items={series.map((sr, i) => {
-            const last = sr.points.at(-1);
-            const tone = kind === "stack" ? layers[i % layers.length]! : toneFor(sr.id);
-            return {
-              id: sr.id,
-              label: sr.label,
-              tone,
-              value: last ? format(last.v) : undefined,
-            };
-          })}
+          items={(kind === "stack" ? [...series].map((sr, i) => ({ sr, i })).reverse() : series.map((sr, i) => ({ sr, i }))).map(
+            ({ sr, i }) => {
+              const last = sr.points.at(-1);
+              const tone = kind === "stack" ? layers[i % layers.length]! : toneFor(sr.id);
+              return {
+                id: sr.id,
+                label: sr.label,
+                tone,
+                value: last ? format(last.v) : undefined,
+              };
+            },
+          )}
         />
       )}
 

@@ -231,19 +231,21 @@ const SPECIMENS = [
   },
   {
     id: "4",
-    name: "Arrival chip",
+    name: "Arrival tab",
     mark: "Locked · brand ArrivalFrom",
-    why: "On the destination stage: show where the reader came from. Back already works; this makes the hop feel intentional. Not a Follow list — arrival only.",
+    why: "On the destination: small electric tab on the right under the sector strip — From / origin / Return. Paper on ink. Not a Follow list.",
     Stage: function Arrival() {
       return (
         <SampleStage
           title="UK primary production beside imports · Production gap"
           from={
-            <p className={s.fromChip}>
-              From <strong>Generation · gas</strong>
-              <span>· {YEAR}</span>
-              <Link href="/energy?domain=generation&view=current&fuel=gas&year=2024">Return</Link>
-            </p>
+            <aside className={`bo-on-ink ${s.fromTab}`}>
+              <p className={`bo-label ${s.fromKicker}`}>From</p>
+              <p className={s.fromOrigin}>Generation · gas · {YEAR}</p>
+              <Link className={s.fromReturn} href="/energy?domain=generation&view=current&fuel=gas&year=2024">
+                Return
+              </Link>
+            </aside>
           }
         >
           <p className={s.note}>

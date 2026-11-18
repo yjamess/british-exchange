@@ -1,18 +1,12 @@
 /**
  * Britain Exchange — design tokens
- *
- * Luxury frame: cream · navy/blue · deep red
- * Technical accent: Orator-style all-caps monospace + ASCII brand moments
- * References: Hermes/Nous (ASCII banners, skinable mono craft) +
- *             Studio Freight Dragonfly (monochrome character fields as atmosphere)
- * Charts: technical-drawing line-work — never green-phosphor / CRT hacker
- *
+ 
  * Load via globals.css. Fonts are bound in app/layout.tsx
  * (--font-display, --font-body, --font-mono).
  */
 
 :root {
-  /* ——— Colour: identity sheet 03 + observatory field ——— */
+  /* ——— Colour palette ——— */
   --bx-admiralty: #00002D; /* near-black navy field / homepage */
   --bx-navy-700: #1f3266;
   --bx-slate: #5b6380;

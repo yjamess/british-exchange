@@ -628,7 +628,7 @@ export function PricesMapStage({
             <p className="bo-label">
               {mapMode === "change" ? "Annual change · %" : legendLevel}
             </p>
-            {/* Same 45° electric screen as the map — density only, one ink */}
+            {/* Same stepped tones as the map — one ink */}
             <svg className={s.legendDefs} width="0" height="0" aria-hidden="true">
               <LegendBandDefs idPrefix={legendId} />
             </svg>

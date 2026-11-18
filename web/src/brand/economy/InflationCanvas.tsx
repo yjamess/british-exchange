@@ -15,6 +15,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { EconomyStageFollow } from "../connections";
 import { RankBars, TimeChart } from "../instrument/TimeChart";
 import { fmtT } from "../data";
+import { Term } from "../term";
 import type { PrintOption } from "../PrintSelect";
 import {
   ControlRow,
@@ -89,10 +90,12 @@ const CATEGORY_LENS_OPTIONS: PrintOption<CategoryLens>[] = [
 
 const DEFAULT_YEAR = 1990;
 
-const MEASURE_DEFINITION = [
-  "CPI (Consumer Prices Index) tracks the prices of the goods and services households buy. It is the measure the Bank of England is asked to keep at 2%.",
-  "CPIH is CPI plus the costs of owning a home and council tax. ONS treats it as its lead measure of household prices.",
-];
+/** Glossary for this domain — listed under Terms, not repeated in “What this shows”. */
+const INFLATION_TERMS = ["cpi", "inflation", "cpih", "core-inflation"] as const;
+const RATE_TERMS = [...INFLATION_TERMS] as const;
+const CATEGORY_TERMS = ["cpih", "inflation", "coicop", "percentage-point"] as const;
+const BASKET_TERMS = ["inflation", "cpi"] as const;
+const DATA_TERMS = ["cpi", "inflation", "cpih", "core-inflation", "percentage-point", "coicop"] as const;
 
 function asView(raw: string | null): string {
   return VIEWS.some((v) => v.id === raw) ? (raw as string) : "rate";
@@ -406,15 +409,13 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   if (view === "index") {
     foot = (
       <FigureRecord
+        terms={[...RATE_TERMS]}
         source={economySource(
           measure === "cpih" ? ECONOMY_SOURCE.cpihIndex : ECONOMY_SOURCE.cpiIndex,
           "United Kingdom",
           economyPeriod("monthly", latestIdxLabel),
         )}
-        definition={[
-          `Worked out from the ONS ${measureLabel} all-items price index. ONS does not publish these pound figures; they are calculated here.`,
-          ...MEASURE_DEFINITION,
-        ]}
+        definition={`What £1 of spending in a chosen year costs today, worked out from the ONS ${measureLabel} all-items price index. ONS does not publish these pound figures; they are calculated here.`}
         method={[
           `£1 in a chosen year = the index in the latest month ÷ the average index across that year.`,
           "This is the average for everything households buy. Single items, such as bread or petrol, rose by more or less.",
@@ -431,7 +432,7 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
         <PoundBuys worth={worth} measure={measureLabel} />
         <section className={s.panel}>
           <h3 className={t.stageTitle}>
-            Cost of £1 of {worth.year} spending · {worth.year}–{fmtT(worth.latestT)} · £
+            Cost of £1 of {worth.year} spending · <Term slug={measure}>{measureLabel}</Term> · {worth.year}–{fmtT(worth.latestT)} · £
           </h3>
           <TimeChart
             key={`pound-${measure}-${worth.year}`}
@@ -449,8 +450,9 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   } else if (view === "data") {
     foot = (
       <FigureRecord
+        terms={[...DATA_TERMS]}
         source={economySource(ECONOMY_SOURCE.consumerPrices, "United Kingdom", economyPeriod("monthly"))}
-        definition={MEASURE_DEFINITION}
+        definition="One Ready ONS consumer-price series at a time — pick it from the Series menu."
         method="The Series menu shows one Ready table in full. Charts on the other tabs use final months only."
       />
     );
@@ -459,6 +461,7 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
     const isContrib = catLens === "contributions";
     foot = (
       <FigureRecord
+        terms={[...CATEGORY_TERMS]}
         source={economySource(
           isContrib ? ECONOMY_SOURCE.contributions : ECONOMY_SOURCE.coicop,
           "United Kingdom",
@@ -466,19 +469,13 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
         )}
         definition={
           isContrib
-            ? [
-                "How many percentage points each broad group of goods and services added to the CPIH all-items annual rate.",
-                "A group's contribution depends on both its price change and its weight in the basket.",
-              ]
-            : [
-                "How fast prices rose in each broad group of goods and services, measured by CPIH.",
-                "These are annual rates for each group — not how many percentage points each group added to the headline.",
-              ]
+            ? "How many percentage points each broad group of goods and services added to the CPIH all-items annual rate in the chosen month."
+            : "How fast prices rose in each broad group of goods and services in the chosen month, measured by CPIH — not how many points each group added to the headline."
         }
         method={
           isContrib
             ? [
-                "Twelve broad groups of goods and services, as ONS publishes them. Together they add up to the all-items rate, give or take rounding.",
+                "A group's contribution depends on both its price change and its weight in the basket. Twelve groups, as ONS publishes them; together they add up to the all-items rate, give or take rounding.",
                 "Charts use final months only; the newest ONS month is held back until it is final.",
               ]
             : [
@@ -521,15 +518,13 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   } else if (view === "basket") {
     foot = (
       <FigureRecord
+        terms={[...BASKET_TERMS]}
         source={economySource(
           ECONOMY_SOURCE.averagePrices,
           "United Kingdom",
           economyPeriod("monthly", basketLabel),
         )}
-        definition={[
-          "Official average prices of everyday goods from the ONS shopping prices comparison tool.",
-          "These are official statistics in development. They show how average prices moved — not a shop's shelf price.",
-        ]}
+        definition="Official average prices of everyday goods from the ONS shopping prices comparison tool — how average prices moved, not a shop's shelf price. Official statistics in development."
         method={[
           "Prices run from January 2018 to January 2025. Years compare January prices; Play the months steps through every month. ONS changed how it measures average prices after January 2025, so later months are not joined on. Eggs start in January 2022.",
           "Featured shows ten everyday items drawn for this page. Search covers 326 items from the same ONS release; clothing and recreation are not included yet.",
@@ -560,16 +555,14 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
   } else {
     foot = (
       <FigureRecord
+        terms={[...RATE_TERMS]}
         source={economySource(
           measure === "cpih" ? ECONOMY_SOURCE.cpihRate : ECONOMY_SOURCE.cpiRate,
           "United Kingdom",
           economyPeriod("monthly", latestRateLabel),
         )}
-        definition={[
-          `The annual rate is how much prices rose compared with the same month a year earlier, for all items.`,
-          ...MEASURE_DEFINITION,
-        ]}
-        method="CPI and CPIH usually move together. They part when home-owning costs rise faster or slower than other prices. Charts use final months only."
+        definition="The annual rate is how much prices rose compared with the same month a year earlier, for all items in the chosen measure."
+        method="CPI and CPIH usually move together. They part when home-owning costs rise faster or slower than other prices. Charts use final months only; the newest ONS month is held back until it is final."
       />
     );
     if (!ratePts.length) {
@@ -585,7 +578,7 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
         <div className={s.stack}>
           <section className={s.panel}>
             <h3 className={t.stageTitle}>
-              {measureLabel} annual rate · {fmtT(first.t)}–{fmtT(last.t)} · %
+              <Term slug={measure}>{measureLabel}</Term> annual rate · {fmtT(first.t)}–{fmtT(last.t)} · %
             </h3>
             <TimeChart
               key={`rate-${measure}-${rateFromYear}`}
@@ -678,9 +671,9 @@ export function InflationCanvas({ pack }: { pack: InflationPack }) {
         ) : null}
         <ResetButton
           onClick={() => {
-            basket.reset();
+            // Keep the active view tab — Reset clears this page's filters only.
+            if (view === "basket") basket.reset();
             sync({
-              view: "rate",
               measure: "cpi",
               year: String(DEFAULT_YEAR),
               cat: "contributions",

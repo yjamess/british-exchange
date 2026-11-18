@@ -17,6 +17,13 @@
   border-top: var(--bo-rule);
   border-left: var(--bo-hair);
 }
+/* Isolated industry: only the chosen tile remains; charts slide up below. */
+.specimens[data-isolated="true"] {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+}
 .specimens li {
   display: grid;
   min-width: 0;
@@ -31,6 +38,7 @@
   gap: var(--bo-s2);
   align-content: start;
   min-width: 0;
+  width: 100%;
   padding: var(--bo-s3) var(--bo-s3) var(--bo-s4);
   background: var(--bo-paper);
   color: var(--bo-ink);
@@ -38,13 +46,72 @@
   border-right: var(--bo-hair);
   border-bottom: var(--bo-hair);
   box-shadow: inset 0 0 0 0 var(--bo-ink);
-  transition: box-shadow var(--bo-fast) var(--bo-ease);
+  transition:
+    box-shadow var(--bo-med) var(--bo-ease),
+    grid-template-columns var(--bo-med) var(--bo-ease);
 }
-.specimen:hover {
+.specimen:hover:not([data-selected="true"]) {
   box-shadow: inset 0 -3px 0 0 var(--bo-ink);
 }
-.specimen[data-selected="true"] {
-  box-shadow: inset 0 0 0 2px var(--bo-ink);
+/* Isolated: larger plate left; denser name / figure / share beside it. No hair borders. */
+.specimens[data-isolated="true"] .specimen[data-selected="true"] {
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas:
+    "plate name"
+    "plate share"
+    "plate bar"
+    "plate count";
+  column-gap: var(--bo-s5);
+  row-gap: 0.35rem;
+  align-content: center;
+  align-items: center;
+  padding: 0 0 var(--bo-s4);
+  border: 0;
+  box-shadow: none;
+}
+.specimens[data-isolated="true"] .specimenPlate {
+  grid-area: plate;
+  width: 100%;
+  max-width: 18rem;
+  justify-self: stretch;
+}
+.specimens[data-isolated="true"] .specimenName {
+  grid-area: name;
+  min-height: 0;
+  align-self: end;
+  margin: 0;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bo-ink);
+}
+.specimens[data-isolated="true"] .specimenShare {
+  grid-area: share;
+  align-self: start;
+  margin: 0;
+  font-size: var(--bo-t-readout);
+  line-height: 0.9;
+}
+.specimens[data-isolated="true"] .specimenBar {
+  grid-area: bar;
+  max-width: 20rem;
+  height: 6px;
+  margin: 0.15rem 0;
+}
+.specimens[data-isolated="true"] .specimenCount {
+  grid-area: count;
+  align-self: start;
+  margin: 0;
+  font-size: var(--bo-t-small);
+  line-height: 1.2;
+  color: var(--bo-text);
+}
+@media (prefers-reduced-motion: reduce) {
+  .specimen {
+    transition: none;
+  }
 }
 .specimen:focus-visible {
   outline: 2px solid var(--bo-signal);
@@ -86,6 +153,16 @@
   font-size: var(--bo-t-note);
   color: var(--bo-text);
   font-variant-numeric: tabular-nums;
+}
+@media (max-width: 520px) {
+  .specimens[data-isolated="true"] .specimen[data-selected="true"] {
+    grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
+    column-gap: var(--bo-s4);
+    padding: var(--bo-s2) 0 var(--bo-s4);
+  }
+  .specimens[data-isolated="true"] .specimenShare {
+    font-size: var(--bo-t-stat);
+  }
 }
 .metrics {
   display: grid;
@@ -129,15 +206,12 @@
   }
 }
 
-/* Economy › What Britain Does for Work — small plate mark above a selected industry chart. */
-.industryLead {
-  width: min(7.5rem, 28%);
-  margin: 0 0 var(--bo-s3);
-}
-.industryLeadPlate {
-  aspect-ratio: 1;
+/* Economy › What Britain Does for Work — change + chart rise under the specimen wall. */
+.industryDetail {
+  display: grid;
+  gap: var(--bo-s5);
   width: 100%;
-  display: block;
+  min-width: 0;
 }
 
 /* Housing-style map + ranks split (Energy Geography). */

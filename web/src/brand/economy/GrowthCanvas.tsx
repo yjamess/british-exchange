@@ -583,7 +583,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
 
   if (view === "data") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(ECONOMY_SOURCE.growth, "United Kingdom", economyPeriod("quarterly"))}
         definition="The published quarterly figures behind this domain, latest first."
         method={[
@@ -602,7 +602,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
     const firstLabel = vintageFirst ? `First estimate · ${labelDate(vintageFirst.release_date)}` : "First estimate";
     const latestLabel = vintageLatest ? `Latest estimate · ${labelDate(vintageLatest.release_date)}` : "Latest estimate";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(
           vintageMeasure === "per-head" ? ECONOMY_SOURCE.gdpPerHead : ECONOMY_SOURCE.realGdp,
           "United Kingdom",
@@ -655,7 +655,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
     );
   } else if (view === "ledger") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(
           ECONOMY_SOURCE.realGdp,
           "United Kingdom",
@@ -744,7 +744,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
     const periodLabel = anatomyPeriod ? labelQuarter(anatomyPeriod) : "";
     const fromLabel = anatomyFrom ? labelQuarter(anatomyFrom) : "";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(
           ECONOMY_SOURCE.industryGva,
           "United Kingdom",
@@ -797,7 +797,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
     );
   } else if (view === "productivity") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(
           ECONOMY_SOURCE.labourProductivityHours,
           "United Kingdom",
@@ -902,7 +902,7 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
     );
   } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["gdp", "gdp-per-head", "cvm", "productivity", "seasonally-adjusted"]}
         source={economySource(
           sourceLine,
           "United Kingdom",
@@ -1073,7 +1073,6 @@ export function GrowthCanvas({ pack }: { pack: GrowthPack }) {
         <ResetButton
           onClick={() =>
             sync({
-              view: "produce",
               measure: "gdp",
               vintageMeasure: "gdp",
               ledgerBase: PRE_PANDEMIC_Q4,

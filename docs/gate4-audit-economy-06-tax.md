@@ -6,6 +6,21 @@
 **Skill:** `.cursor/skills/structural-consistency-audit/SKILL.md`  
 **Fixes in this pass:** EmptyStage + Notes honesty aligned with deepen handovers (authorised as EC-G4-06 polish).
 
+## Refresh · 2026-11-18 (supersedes the view list below)
+
+The 2026-11-15 text below is kept as the record of that pass. The domain has since moved on:
+
+| Then (2026-11-15) | Now (2026-11-18) |
+|---|---|
+| Views: raises · anatomy · machine · data | Views: **raises · machine · burden · gap · data**. Anatomy folded into Raises; Time Machine folded into Tax Machine focus |
+| Anatomy / Machine were honest EmptyStages | Machine, Burden and Gap are **live canvases**; no EmptyStage on a Ready view |
+| Follow on Raises + Data only | Follow on **every** view: Machine → Wages value · Burden → Household ledger · Gap → Debt borrowing · Raises → Debt borrowing · Data → Debt dial |
+
+- **Defect found and fixed 2026-11-18:** the Machine / Burden / Gap edges existed in `connections/economy.ts` from 2026-11-17, but `TaxCanvas` only rendered `follow` for `raises` and `data`, so they never showed. The `Stage` now always renders `EconomyStageFollow`. Verified live at 1400px and 390px.
+- Follow honesty lines on Machine and Burden rewritten without survey codes (AWE, ETB).
+- Sweep at 1400 / 390 px: no document overflow, no console errors, Notes on every view.
+- Evidence: independent sector re-audit in [gate4-audit-economy-sector-2026-11-17.md](gate4-audit-economy-sector-2026-11-17.md) › Independent re-audit.
+
 ## Verdict
 
 **Domain 06 flagship is structurally ready for Gate 4 close** on What Britain Raises + Data. Anatomy and Tax Machine remain honest EmptyStages with updated labelled-gap copy. No P0 vs Spending / Consumption frame.

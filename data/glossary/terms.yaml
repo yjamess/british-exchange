@@ -806,3 +806,348 @@ terms:
     seen_on: "Households · Britain's Financial Buffer"
     related_indicator_ids: [household-financial-wealth]
     source_url: "https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/totalwealthingreatbritain/latest"
+
+  # Economy glossary: ten instrument domains, 2026-11-17.
+  - slug: inflation
+    short: Inflation
+    full_name: Inflation
+    definition: The rate at which prices rise over time; a lower positive rate means prices are still rising, just more slowly.
+    sector: economy-public-finance
+    group: inflation
+    source_url: https://www.ons.gov.uk/economy/inflationandpriceindices
+  - slug: cpih
+    short: CPIH
+    full_name: Consumer Prices Index including owner occupiers’ housing costs
+    definition: A consumer price index that adds estimated owner occupiers’ housing costs and Council Tax to CPI coverage.
+    sector: economy-public-finance
+    group: inflation
+    source_url: https://www.ons.gov.uk/economy/inflationandpriceindices
+  - slug: core-inflation
+    short: Core inflation
+    full_name: Core inflation
+    definition: Consumer price inflation excluding energy, food, alcohol and tobacco, whose prices can move sharply.
+    sector: economy-public-finance
+    group: inflation
+    source_url: https://www.ons.gov.uk/economy/inflationandpriceindices
+  - slug: percentage-point
+    short: Percentage point
+    full_name: Percentage point
+    definition: 'The difference between two percentages: a rise from 3% to 4% is one percentage point.'
+    sector: economy-public-finance
+    group: inflation
+    source_url: https://www.ons.gov.uk/economy/inflationandpriceindices
+  - slug: coicop
+    short: COICOP
+    full_name: Classification of Individual Consumption According to Purpose
+    definition: The classification used to group household purchases by their purpose, such as food, transport or recreation.
+    sector: economy-public-finance
+    group: inflation
+    source_url: https://www.ons.gov.uk/economy/inflationandpriceindices
+  - slug: awe
+    short: AWE
+    full_name: Average Weekly Earnings
+    definition: An estimate of mean weekly employee pay in Great Britain, published with and without bonuses.
+    sector: economy-public-finance
+    group: wages
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours
+  - slug: ashe
+    short: ASHE
+    full_name: Annual Survey of Hours and Earnings
+    definition: An annual survey of employee jobs used to estimate pay levels and their distribution across occupations, industries and places.
+    sector: economy-public-finance
+    group: wages
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours
+  - slug: real-pay
+    short: Real pay
+    full_name: Real earnings
+    definition: Pay adjusted for changes in prices, showing how its purchasing power has changed.
+    sector: economy-public-finance
+    group: wages
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours
+  - slug: percentile
+    short: Percentile
+    full_name: Percentile
+    definition: 'A dividing point in an ordered distribution: the 90th percentile is the value at or below which 90% of observations fall.'
+    sector: economy-public-finance
+    group: wages
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours
+  - slug: gross-pay
+    short: Gross pay
+    full_name: Gross earnings
+    definition: Employee pay before Income Tax, National Insurance and other deductions.
+    sector: economy-public-finance
+    group: wages
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours
+  - slug: lfs
+    short: LFS
+    full_name: Labour Force Survey
+    definition: The household survey used to estimate employment, unemployment and economic inactivity in the UK.
+    sector: economy-public-finance
+    group: employment
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment
+  - slug: unemployment
+    short: Unemployment
+    full_name: Unemployment
+    definition: People without a job who have actively sought work in the past four weeks and can start within two weeks, or are waiting to start a job already obtained.
+    sector: economy-public-finance
+    group: employment
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment
+  - slug: economic-inactivity
+    short: Economic inactivity
+    full_name: Economic inactivity
+    definition: People outside employment who do not meet the definition of unemployment, including some students, carers, retired people and people with long-term sickness.
+    sector: economy-public-finance
+    group: employment
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment
+  - slug: employment-rate
+    short: Employment rate
+    full_name: Employment rate
+    definition: The share of a specified population who are in paid work or temporarily away from a job; the headline UK measure covers ages 16 to 64.
+    sector: economy-public-finance
+    group: employment
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment
+  - slug: unemployment-rate
+    short: Unemployment rate
+    full_name: Unemployment rate
+    definition: 'Unemployed people as a share of the economically active population: those employed plus those unemployed.'
+    sector: economy-public-finance
+    group: employment
+    source_url: https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment
+  - slug: disposable-income
+    short: Disposable income
+    full_name: Household disposable income
+    definition: Household income after taxes on income and social contributions, including cash benefits; it is available for spending or saving.
+    sector: economy-public-finance
+    group: household
+    source_url: https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts
+  - slug: rhdi
+    short: RHDI
+    full_name: Real household disposable income
+    definition: Household disposable income adjusted for price changes using the household spending deflator.
+    sector: economy-public-finance
+    group: household
+    source_url: https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts
+  - slug: saving-ratio
+    short: Saving ratio
+    full_name: Household saving ratio
+    definition: The share of household resources left as saving rather than consumption in the national accounts, including an adjustment for pension entitlements.
+    sector: economy-public-finance
+    group: household
+    source_url: https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts
+  - slug: consumer-credit
+    short: Consumer credit
+    full_name: Consumer credit
+    definition: Borrowing by individuals for consumption, such as credit cards and personal loans, excluding loans secured on homes.
+    sector: economy-public-finance
+    group: household
+    source_url: https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts
+  - slug: net-financial-wealth
+    short: Net financial wealth
+    full_name: Net financial wealth
+    definition: Financial assets such as savings and investments minus financial debts; property and physical possessions are excluded.
+    sector: economy-public-finance
+    group: household
+    source_url: https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts
+  - slug: gdp
+    short: GDP
+    full_name: Gross domestic product
+    definition: The value of goods and services produced within an economy during a period, measured without double-counting intermediate inputs.
+    sector: economy-public-finance
+    group: growth
+    source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp
+  - slug: gdp-per-head
+    short: GDP per head
+    full_name: Gross domestic product per head
+    definition: GDP divided by the population; it describes output per person, not the income received by a typical person.
+    sector: economy-public-finance
+    group: growth
+    source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp
+  - slug: cvm
+    short: CVM
+    full_name: Chained volume measure
+    definition: A measure that removes price changes by linking growth rates using regularly updated price weights.
+    sector: economy-public-finance
+    group: growth
+    source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp
+  - slug: productivity
+    short: Productivity
+    full_name: Labour productivity
+    definition: Economic output per unit of labour input, commonly measured per hour worked or per worker.
+    sector: economy-public-finance
+    group: growth
+    source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp
+  - slug: seasonally-adjusted
+    short: Seasonally adjusted
+    full_name: Seasonal adjustment
+    definition: Figures adjusted to remove regular seasonal and calendar patterns so that underlying movements are easier to compare.
+    sector: economy-public-finance
+    group: growth
+    source_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp
+  - slug: fiscal-drag
+    short: Fiscal drag
+    full_name: Fiscal drag
+    definition: The increase in tax paid when incomes rise against tax thresholds or allowances that do not rise as quickly.
+    sector: economy-public-finance
+    group: tax
+    source_url: https://www.gov.uk/government/statistics/measuring-tax-gaps
+  - slug: marginal-tax-rate
+    short: Marginal tax rate
+    full_name: Marginal tax rate
+    definition: The share of an additional pound of income paid in tax; it differs from the average share of total income paid.
+    sector: economy-public-finance
+    group: tax
+    source_url: https://www.gov.uk/government/statistics/measuring-tax-gaps
+  - slug: effective-tax-rate
+    short: Effective tax rate
+    full_name: Effective tax rate
+    definition: Total tax paid divided by the income or other tax base being measured; coverage depends on which taxes are included.
+    sector: economy-public-finance
+    group: tax
+    source_url: https://www.gov.uk/government/statistics/measuring-tax-gaps
+  - slug: tax-gap
+    short: Tax gap
+    full_name: Tax gap
+    definition: HMRC’s estimate of the difference between tax theoretically due under the law and tax actually paid.
+    sector: economy-public-finance
+    group: tax
+    source_url: https://www.gov.uk/government/statistics/measuring-tax-gaps
+  - slug: nics
+    short: NICs
+    full_name: National Insurance contributions
+    definition: Contributions paid by employees, employers and self-employed people under National Insurance rules.
+    sector: economy-public-finance
+    group: tax
+    source_url: https://www.gov.uk/government/statistics/measuring-tax-gaps
+  - slug: tme
+    short: TME
+    full_name: Total managed expenditure
+    definition: The broad measure of total UK public sector spending, including current and capital expenditure.
+    sector: economy-public-finance
+    group: spending
+    source_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  - slug: del
+    short: DEL
+    full_name: Departmental expenditure limits
+    definition: Spending controlled through departmental budgets, usually set for several years in spending reviews.
+    sector: economy-public-finance
+    group: spending
+    source_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  - slug: ame
+    short: AME
+    full_name: Annually managed expenditure
+    definition: Spending managed outside departmental limits, often because it is demand-led or difficult to fix in advance, such as benefits and debt interest.
+    sector: economy-public-finance
+    group: spending
+    source_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  - slug: current-spending
+    short: Current spending
+    full_name: Current expenditure
+    definition: Spending on day-to-day services, wages, benefits and other running costs rather than investment in assets.
+    sector: economy-public-finance
+    group: spending
+    source_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  - slug: capital-spending
+    short: Capital spending
+    full_name: Capital expenditure
+    definition: Spending on assets such as buildings and infrastructure, and capital transfers; it is distinct from day-to-day running costs.
+    sector: economy-public-finance
+    group: spending
+    source_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  - slug: psnb
+    short: PSNB
+    full_name: Public sector net borrowing
+    definition: Public sector expenditure minus income over a period, on an accrued basis; a positive figure is a deficit.
+    sector: economy-public-finance
+    group: debt
+    source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  - slug: psnd
+    short: PSND
+    full_name: Public sector net debt
+    definition: Public sector debt liabilities minus liquid financial assets at a point in time; the headline measure excludes public sector banks.
+    sector: economy-public-finance
+    group: debt
+    source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  - slug: gilt
+    short: Gilt
+    full_name: UK government gilt
+    definition: A bond issued by the UK government to borrow money, with payments set by its terms.
+    sector: economy-public-finance
+    group: debt
+    source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  - slug: index-linked-gilt
+    short: Index-linked gilt
+    full_name: Index-linked gilt
+    definition: A UK government bond whose principal and interest payments are linked to the Retail Prices Index.
+    sector: economy-public-finance
+    group: debt
+    source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  - slug: debt-interest
+    short: Debt interest
+    full_name: Debt interest
+    definition: The cost of servicing debt over a period; it is separate from repaying the principal borrowed.
+    sector: economy-public-finance
+    group: debt
+    source_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  - slug: trade-balance
+    short: Trade balance
+    full_name: Trade balance
+    definition: Exports minus imports over a period; a negative balance is a trade deficit.
+    sector: economy-public-finance
+    group: trade
+    source_url: https://www.ons.gov.uk/businessindustryandtrade/internationaltrade
+  - slug: balance-of-payments
+    short: BoP
+    full_name: Balance of payments
+    definition: The accounts recording transactions between UK residents and the rest of the world, including trade, income and financial flows.
+    sector: economy-public-finance
+    group: trade
+    source_url: https://www.ons.gov.uk/businessindustryandtrade/internationaltrade
+  - slug: fdi
+    short: FDI
+    full_name: Foreign direct investment
+    definition: Cross-border investment giving an investor lasting influence in an enterprise, conventionally at least 10% of its voting power.
+    sector: economy-public-finance
+    group: trade
+    source_url: https://www.ons.gov.uk/businessindustryandtrade/internationaltrade
+  - slug: sitc
+    short: SITC
+    full_name: Standard International Trade Classification
+    definition: A classification grouping internationally traded goods by their material and stage of processing.
+    sector: economy-public-finance
+    group: trade
+    source_url: https://www.ons.gov.uk/businessindustryandtrade/internationaltrade
+  - slug: bank-rate
+    short: Bank Rate
+    full_name: Bank Rate
+    definition: The Bank of England’s policy interest rate, paid on eligible firms’ overnight deposits and used to influence wider borrowing and saving rates.
+    sector: economy-public-finance
+    group: policy
+    source_url: https://www.bankofengland.co.uk/monetary-policy
+  - slug: mpc
+    short: MPC
+    full_name: Monetary Policy Committee
+    definition: The Bank of England committee that decides monetary policy, including Bank Rate.
+    sector: economy-public-finance
+    group: policy
+    source_url: https://www.bankofengland.co.uk/monetary-policy
+  - slug: qe
+    short: QE
+    full_name: Quantitative easing
+    definition: Central bank purchases of bonds financed by newly created reserves, intended to lower longer-term interest rates and support spending.
+    sector: economy-public-finance
+    group: policy
+    source_url: https://www.bankofengland.co.uk/monetary-policy
+  - slug: fiscal-policy
+    short: Fiscal policy
+    full_name: Fiscal policy
+    definition: Government decisions about taxation and public spending that affect the economy and the public finances.
+    sector: economy-public-finance
+    group: policy
+    source_url: https://www.bankofengland.co.uk/monetary-policy
+  - slug: obr
+    short: OBR
+    full_name: Office for Budget Responsibility
+    definition: The independent body that produces UK economic and fiscal forecasts and assesses the government’s fiscal targets.
+    sector: economy-public-finance
+    group: policy
+    source_url: https://www.bankofengland.co.uk/monetary-policy

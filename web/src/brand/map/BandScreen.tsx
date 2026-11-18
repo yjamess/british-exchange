@@ -1,13 +1,26 @@
 /**
- * Shared 45° electric halftone defs for choropleth maps + legends.
- * One ink; density steps only — never lavender/union colour ramps.
+ * Shared band fills for SVG choropleths + legends (WorldChoropleth, legend swatches).
+ * v1.1 maps: each band is a stepped solid tone of the one ink (`toneColor`), not a dot screen.
+ * Ids are unchanged (`{prefix}-band-{i}`, `{prefix}-missing`) so existing `url(#…)` fills keep working.
  */
 
-import { BAND_CELL, BAND_RADII } from "./model";
+import { TONE_STEPS, toneColor } from "./model";
+
+function ToneDefs({ idPrefix }: { idPrefix: string }) {
+  return (
+    <>
+      {TONE_STEPS.map((_, i) => (
+        <pattern key={i} id={`${idPrefix}-band-${i}`} width={8} height={8} patternUnits="userSpaceOnUse">
+          <rect width={8} height={8} fill={toneColor(i)} />
+        </pattern>
+      ))}
+    </>
+  );
+}
 
 export function BandScreenDefs({
   idPrefix,
-  /** Keep screen pitch constant on screen while the map zooms. */
+  /** Keeps the not-observed slash at a fixed screen pitch while the map zooms. */
   zoom = 1,
 }: {
   idPrefix: string;
@@ -16,60 +29,27 @@ export function BandScreenDefs({
   const scale = 1 / Math.max(0.001, zoom);
   return (
     <defs>
-      {BAND_RADII.map((radius, i) => (
-        <pattern
-          key={i}
-          id={`${idPrefix}-band-${i}`}
-          width={BAND_CELL}
-          height={BAND_CELL}
-          patternUnits="userSpaceOnUse"
-          patternTransform={`rotate(45) scale(${scale})`}
-        >
-          <circle cx={BAND_CELL / 2} cy={BAND_CELL / 2} r={radius} fill="var(--bo-ink)" />
-        </pattern>
-      ))}
+      <ToneDefs idPrefix={idPrefix} />
       <pattern
         id={`${idPrefix}-missing`}
-        width={BAND_CELL}
-        height={BAND_CELL}
+        width={6}
+        height={6}
         patternUnits="userSpaceOnUse"
         patternTransform={`rotate(45) scale(${scale})`}
       >
-        {/* Dashed gap language: not observed — hairline slash, not a faded fill. */}
-        <path
-          d={`M0 ${BAND_CELL}L${BAND_CELL} 0`}
-          stroke="var(--bo-ink-20)"
-          strokeWidth="1"
-          vectorEffect="non-scaling-stroke"
-        />
+        {/* Not observed: paper with a hairline slash, never a faded fill. */}
+        <rect width={6} height={6} fill="var(--bo-paper)" />
+        <path d="M0 0V6" stroke="var(--bo-ink-40)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
       </pattern>
     </defs>
   );
 }
 
-/**
- * Legend swatches are ~36×14 CSS px. The map cell (6) reads as a few giant dots
- * at that size — use a finer pitch with the same radius/cell ratios so density
- * steps match the map without looking sparse.
- */
-const LEGEND_CELL = 2.5;
-const LEGEND_RADII = BAND_RADII.map((r) => (r / BAND_CELL) * LEGEND_CELL);
-
+/** Legend swatches — same tones as the map. */
 export function LegendBandDefs({ idPrefix }: { idPrefix: string }) {
   return (
     <defs>
-      {LEGEND_RADII.map((radius, i) => (
-        <pattern
-          key={i}
-          id={`${idPrefix}-band-${i}`}
-          width={LEGEND_CELL}
-          height={LEGEND_CELL}
-          patternUnits="userSpaceOnUse"
-          patternTransform="rotate(45)"
-        >
-          <circle cx={LEGEND_CELL / 2} cy={LEGEND_CELL / 2} r={radius} fill="var(--bo-ink)" />
-        </pattern>
-      ))}
+      <ToneDefs idPrefix={idPrefix} />
     </defs>
   );
 }

@@ -445,7 +445,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
 
   if (view === "spends") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           ECONOMY_SOURCE.totalManagedExpenditure,
           "United Kingdom",
@@ -500,7 +500,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     );
   } else if (view === "function") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           functionLong ? ECONOMY_SOURCE.tesByFunctionLongRun : ECONOMY_SOURCE.tesByFunction,
           "United Kingdom public sector",
@@ -570,7 +570,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     );
   } else if (view === "delame") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           ECONOMY_SOURCE.tmeDelAme,
           "United Kingdom",
@@ -634,7 +634,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     const realLatest = realDel ? delRealLatest : tesRealLatest;
     const realStack = realDel ? delRealStack : tesRealStack;
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           realDel ? ECONOMY_SOURCE.tmeDelAmeReal : ECONOMY_SOURCE.tesByFunctionReal,
           realDel ? "United Kingdom" : "United Kingdom public sector",
@@ -704,7 +704,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     );
   } else if (view === "services") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           ECONOMY_SOURCE.tesByFunction,
           "United Kingdom public sector",
@@ -745,7 +745,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     );
   } else if (view === "esa") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           ECONOMY_SOURCE.esaGgByFunction,
           "United Kingdom general government",
@@ -804,7 +804,7 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
     );
   } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["tme", "del", "ame", "current-spending", "capital-spending"]}
         source={economySource(
           ECONOMY_SOURCE.totalManagedExpenditure,
           "United Kingdom",
@@ -899,7 +899,6 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
             <ResetButton
               onClick={() =>
                 sync({
-                  view,
                   measure: "absolute",
                   fy: null,
                   ri: "delame",
@@ -908,8 +907,6 @@ export function SpendingCanvas({ pack }: { pack: SpendingPack }) {
               }
             />
           </>
-        ) : view === "spends" ? (
-          <ResetButton onClick={() => sync({ view: "spends" })} />
         ) : null}
       </ControlRow>
       <Stage

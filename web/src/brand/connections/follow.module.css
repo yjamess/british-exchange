@@ -1,4 +1,4 @@
-/* Locked Follow chrome: Primary step (lab 1) + Arrival chip (lab 4). */
+/* Locked Follow chrome: Primary step (lab 1) + Arrival tab (lab 4). */
 
 /* Lives under the Stage frame (stageFollow), not inside the bordered body. */
 .followStep {
@@ -58,27 +58,51 @@
   color: var(--bo-union);
 }
 
+/*
+ * Right-hand electric tab under the sector name strip.
+ * Canvas is a grid — justify-self pins it to the annotation slot on the right.
+ * Net gap to the domain head stays tight (parent gap is --bo-s6).
+ */
 .arrival {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  margin: 0 0 var(--bo-s4);
-  padding: 0.35rem 0.65rem;
-  border: var(--bo-hair);
-  font-size: var(--bo-t-note);
-  color: var(--bo-union);
-  background: var(--bo-paper);
+  justify-self: end;
+  display: grid;
+  gap: 0.2rem;
+  box-sizing: border-box;
+  max-width: min(18rem, 100%);
+  margin: 0 0 calc(var(--bo-s3) - var(--bo-s6));
+  padding: var(--bo-s3) var(--bo-s4);
 }
 
-.arrival strong {
-  font-family: var(--bo-f-head);
+.arrivalKicker {
+  margin: 0;
+  color: var(--bo-paper);
+}
+
+.arrivalOrigin {
+  margin: 0;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
   font-weight: 400;
-  color: var(--bo-ink);
+  line-height: 1.25;
+  color: var(--bo-paper);
+  text-wrap: pretty;
 }
 
-.arrival a {
-  color: var(--bo-ink);
+.arrivalReturn {
+  margin-top: 0.15rem;
+  width: fit-content;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--bo-paper);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
+}
+
+.arrivalReturn:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: 3px;
 }

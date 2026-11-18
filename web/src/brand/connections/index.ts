@@ -1,7 +1,7 @@
 /**
  * British Exchange connections — typed Explorer edges.
  * Contract: docs/connections-contract.md
- * Chrome: FollowStep + ArrivalFrom (design-lab/follow · options 1 + 4).
+ * Chrome: FollowStep + ArrivalFrom electric tab (design-lab/follow · options 1 + 4).
  */
 
 export type {

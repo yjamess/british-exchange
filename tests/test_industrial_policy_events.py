@@ -20,7 +20,7 @@ def test_industrial_policy_seed_loads_and_assent_dates() -> None:
     registry = load_policy_registry(EVENTS)
     by_id = {event.id: event for event in registry.events}
     assert registry.registry_id == "energy-industrial-policy-events"
-    assert registry.retrieved_at == date(2026, 11, 7)
+    assert registry.retrieved_at == date(2026, 11, 10)
     assert set(ANCHORS) <= set(by_id)
     for event_id, assent in ANCHORS.items():
         assert by_id[event_id].type == "act"

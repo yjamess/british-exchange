@@ -43,7 +43,7 @@ Read `docs/visual-identity.md` › Explorer. **Energy & Industry** is the locked
 ## Briefs do not override the shell
 
 - A Notion brief ("signature design", "woven ribbons", "split flow") changes **content**, not the frame. Build the tab as Consumption Metabolism / Appetite do: outer `ControlRow`, then Stage body as `s.stack` of `s.panel` sections, `stageTitle`, shared `TimeChart` / `RankBars` / `ChangeRows` (and the **map** when the data is geographical).
-- **Geography → map.** Regions, local authorities, stations and other place series use `RegionMap` / `AreaMap` / `StationPointMap` / `WorldChoropleth`. Do not ship a Geography / Places / Map view as `RankBars` alone. See `docs/visual-identity.md` › Charts › Geography.
+- **Geography → map.** Regions, local authorities, stations and other place series use `AreaMap` / `RegionMap` / `StationPointMap` / `FieldPointMap` (all on `InkMap`: MapLibre + PMTiles, stepped tones, names on paper tabs) or `WorldChoropleth`. Never build a new map on raw SVG. Do not ship a Geography / Places / Map view as `RankBars` alone. See `docs/visual-identity.md` › Charts › Geography.
 - At most one custom instrument per tab, one ink (stipple / sparse dots / hatch / cross / engrave). Never chart colours, gutter end labels, axis markers, value legends or "exact values" drawers in a custom view.
 - Claude Code: use the `exchange-domain-view` skill (`.claude/skills/exchange-domain-view/SKILL.md`) for any domain-tab change.
 

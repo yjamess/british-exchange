@@ -1,23 +1,30 @@
 .root {
   display: grid;
-  gap: var(--bo-s3);
+  gap: var(--bo-s4);
   min-width: 0;
 }
 
 .reading {
   display: flex;
   flex-wrap: wrap;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--bo-s2) var(--bo-s4);
+  padding-bottom: var(--bo-s3);
   border-bottom: var(--bo-hair);
-  padding-bottom: var(--bo-s2);
+}
+
+.period {
+  margin: 0;
 }
 
 .output {
-  margin-top: var(--bo-s1);
+  margin: var(--bo-s1) 0 0;
   font-family: var(--bo-f-head);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 400;
+  color: var(--bo-ink);
+  line-height: 1.1;
 }
 
 .total,
@@ -30,7 +37,7 @@
 }
 
 .total {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   line-height: 1;
 }
 
@@ -38,19 +45,27 @@
   display: block;
   width: 100%;
   max-width: 100%;
+  overflow: visible;
 }
 
 .ink {
   fill: var(--bo-ink);
 }
 
-.mark,
-.net {
+.mark {
   stroke: var(--bo-ink);
+  stroke-width: 1;
+  fill: none;
+}
+
+.axis {
+  stroke: var(--bo-ink);
+  stroke-width: 1.25;
 }
 
 .net {
   fill: var(--bo-paper);
+  stroke: var(--bo-ink);
   stroke-width: 2;
 }
 
@@ -58,19 +73,39 @@
   stroke: var(--bo-ink-20);
 }
 
-.zero {
-  fill: var(--bo-text);
-  font: var(--bo-t-label) var(--bo-f-data);
+.zero,
+.netLabel,
+.segValue {
+  fill: var(--bo-ink);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-/* Key: mirrors instrument.module.css .legend (SeriesLegend) — mark · name · value. */
+.segValue {
+  font-family: var(--bo-f-fig);
+  font-stretch: var(--bo-fig-wdth);
+  font-size: var(--bo-t-ui);
+  letter-spacing: 0;
+  text-transform: none;
+  paint-order: stroke;
+  stroke: var(--bo-paper);
+  stroke-width: 3px;
+}
+
+.netLabel {
+  font-size: var(--bo-t-label);
+}
+
+/* Key: mark · name · value (SeriesLegend grammar). CSS swatches so patterns always show. */
 .key {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 16px;
+  gap: 6px 18px;
   font-family: var(--bo-f-data);
   font-size: var(--bo-t-micro);
   text-transform: uppercase;
@@ -85,10 +120,6 @@
   min-width: 0;
 }
 
-.key svg {
-  flex: 0 0 auto;
-}
-
 .key b {
   font-family: var(--bo-f-fig);
   font-stretch: var(--bo-fig-wdth);
@@ -100,31 +131,101 @@
   letter-spacing: 0;
 }
 
+.swatch {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--bo-ink);
+  background: var(--bo-paper);
+}
+
+.swatch[data-pattern="dots"] {
+  background-image: radial-gradient(var(--bo-ink) 0.7px, var(--bo-paper) 0.8px);
+  background-size: 3px 3px;
+}
+
+.swatch[data-pattern="hatch"] {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--bo-ink),
+    var(--bo-ink) 1px,
+    var(--bo-paper) 1px,
+    var(--bo-paper) 3px
+  );
+}
+
+.swatch[data-pattern="net"] {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bo-paper);
+  border-width: 2px;
+}
+
 .factors {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  gap: var(--bo-s3) var(--bo-s5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
   margin: 0;
+  border-top: var(--bo-rule);
 }
 
 .factor {
-  border-top: var(--bo-hair);
-  padding-top: var(--bo-s2);
+  display: grid;
+  gap: var(--bo-s2);
+  min-width: 0;
+  padding: var(--bo-s3) var(--bo-s4) var(--bo-s3) 0;
+}
+
+.factor + .factor {
+  border-left: var(--bo-hair);
+  padding-left: var(--bo-s4);
+  padding-right: 0;
 }
 
 .factor dt {
   display: flex;
   align-items: center;
   gap: var(--bo-s2);
+  margin: 0;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-ui);
   font-weight: 500;
+  color: var(--bo-ink);
 }
 
 .factor dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.55rem;
   margin: 0;
   font-size: var(--bo-t-ui);
+  line-height: 1.35;
+  color: var(--bo-text);
 }
 
 .factor strong {
   font-size: var(--bo-t-fig);
+  line-height: 1;
 }
 
+.factorNote {
+  font-size: var(--bo-t-note);
+  color: var(--bo-text);
+}
+
+@media (max-width: 560px) {
+  .factors {
+    grid-template-columns: 1fr;
+  }
+
+  .factor + .factor {
+    border-left: 0;
+    border-top: var(--bo-hair);
+    padding-left: 0;
+    padding-top: var(--bo-s3);
+  }
+}

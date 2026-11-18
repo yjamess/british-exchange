@@ -265,27 +265,41 @@
   color: var(--bo-union);
 }
 
-/* ——— Arrival chip ——— */
-.fromChip {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  padding: 0.35rem 0.65rem;
-  border: var(--bo-hair);
-  font-size: var(--bo-t-note);
-  color: var(--bo-union);
-  background: var(--bo-paper);
+/* ——— Arrival tab (matches brand ArrivalFrom) ——— */
+.fromTab {
+  display: grid;
+  gap: 0.2rem;
+  justify-self: end;
+  max-width: min(18rem, 100%);
+  margin: 0 0 var(--bo-s3);
+  margin-left: auto;
+  padding: var(--bo-s3) var(--bo-s4);
 }
 
-.fromChip strong {
-  font-family: var(--bo-f-head);
+.fromKicker {
+  margin: 0;
+  color: var(--bo-paper);
+}
+
+.fromOrigin {
+  margin: 0;
+  font-family: var(--bo-f-body);
+  font-size: var(--bo-t-small);
   font-weight: 400;
-  color: var(--bo-ink);
+  line-height: 1.25;
+  color: var(--bo-paper);
 }
 
-.fromChip a {
-  color: var(--bo-ink);
+.fromReturn {
+  margin-top: 0.15rem;
+  width: fit-content;
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--bo-paper);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }

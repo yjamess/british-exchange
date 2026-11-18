@@ -577,7 +577,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
 
   if (view === "raises" && revenueMeasure === "total") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
         source={economySource(
           ECONOMY_SOURCE.taxReceipts,
           "United Kingdom",
@@ -634,7 +634,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
     const cg = anatomyLevel === "cg";
     const share = revenueMeasure === "share";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
         source={economySource(
           cg
             ? ECONOMY_SOURCE.taxReceiptsCgComposition
@@ -716,7 +716,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
     const fromPin = activeRules?.basis === "pin";
     if (focus === "drag") {
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
           source={economySource(
             ECONOMY_SOURCE.taxFiscalDrag,
             "Great Britain (earnings path) · England, Wales & NI or Scotland (tax rules)",
@@ -735,7 +735,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
       );
     } else if (focus === "history") {
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
           source={economySource(
             ECONOMY_SOURCE.taxTimeMachine,
             jurisLabel,
@@ -754,7 +754,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
       );
     } else {
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
           source={economySource(
             fromPin ? ECONOMY_SOURCE.taxMachineRules : ECONOMY_SOURCE.taxTimeMachine,
             jurisLabel,
@@ -944,7 +944,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
     const viewLabel =
       BURDEN_VIEW_OPTIONS.find((m) => m.value === burdenView)?.label ?? "Tax burden";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
         source={economySource(
           ECONOMY_SOURCE.taxBurden,
           "United Kingdom",
@@ -992,7 +992,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
         )
       : economyPeriod("annual");
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
         source={economySource(ECONOMY_SOURCE.taxGap, "United Kingdom", gapPeriod)}
         definition={[
           "HMRC’s estimate of the difference between tax theoretically due and tax actually collected — by tax type and published reason categories.",
@@ -1084,7 +1084,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
     }
   } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["fiscal-drag", "marginal-tax-rate", "effective-tax-rate", "tax-gap", "nics"]}
         source={economySource(
           ECONOMY_SOURCE.taxReceipts,
           "United Kingdom",
@@ -1122,7 +1122,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
               />
             ) : null}
             <ResetButton
-              onClick={() => sync({ view: "raises", measure: "total", al: "ahhy" })}
+              onClick={() => sync({ measure: "total", al: "ahhy" })}
             />
           </>
         ) : null}
@@ -1134,7 +1134,7 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
               options={BURDEN_VIEW_OPTIONS}
               onChange={(id) => sync({ bm: id as BurdenView })}
             />
-            <ResetButton onClick={() => sync({ view: "burden", bm: "gross" })} />
+            <ResetButton onClick={() => sync({ bm: "gross" })} />
           </>
         ) : null}
         {view === "machine" ? (
@@ -1184,7 +1184,6 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
             <ResetButton
               onClick={() =>
                 sync({
-                  view: "machine",
                   tf: "rules",
                   ty: yearOptions[yearOptions.length - 1]?.value ?? "",
                   juris: DEFAULT_JURIS,
@@ -1212,18 +1211,14 @@ export function TaxCanvas({ pack }: { pack: TaxPack }) {
               />
             ) : null}
             <ResetButton
-              onClick={() => sync({ view: "gap", gm: "by_tax", gh: "gbp" })}
+              onClick={() => sync({ gm: "by_tax", gh: "gbp" })}
             />
           </>
         ) : null}
       </ControlRow>
       <Stage
         title={viewLabel(view)}
-        follow={
-          view === "raises" || view === "data" ? (
-            <EconomyStageFollow domain="tax" view={view} label={`Tax · ${viewLabel(view)}`} />
-          ) : undefined
-        }
+        follow={<EconomyStageFollow domain="tax" view={view} label={`Tax · ${viewLabel(view)}`} />}
         foot={foot}
       >
         {body}

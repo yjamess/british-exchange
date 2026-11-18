@@ -312,3 +312,11 @@
   border: 1px solid var(--bo-ink);
   box-sizing: border-box;
 }
+
+/* Station atlas on InkMap: the well takes the old drawing's proportions. */
+.inkPlot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 540 / 660;
+  max-height: 82vh;
+}

@@ -1,15 +1,19 @@
 "use client";
 
 /**
- * Region / nation choropleth — Housing atlas instrument language (halftone bands,
- * pan/zoom, ink selection). Default shapes are English regions; pass `shapes` for
- * UK nations or other ONS GSS layers that share the same display contract.
+ * Region / nation choropleth on InkMap — ONS December 2025 boundaries, stepped solid tones,
+ * borders knocked out in paper, names on paper tabs, ink selection. Default shapes are English
+ * regions; pass `UK_NATION_SHAPES` for the four nations. Shapes supply codes and names; geometry
+ * comes from the shared tiles.
  */
 
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
-import { BandScreenDefs } from "./BandScreen";
+import type * as MapLibre from "maplibre-gl";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { InkMap, type InkMapHandle } from "./InkMap";
+import { BEFORE_DATA, ENGLAND_BOUNDS, UK_BOUNDS, areaNames, toneMatch, type Ink } from "./ink";
 import { MapLegend } from "./MapLegend";
 import { band, equalBreaks } from "./model";
+import { PLACES } from "./places";
 import s from "./map.module.css";
 import display from "./english-regions-display.json";
 import ukNationsDisplay from "./uk-nations-display.json";
@@ -28,18 +32,6 @@ export const REGION_SHAPES = display.shapes as RegionShape[];
 /** Four UK nations (ONS Countries December 2025 BUC) for Trade UK-nation lens. */
 export const UK_NATION_SHAPES = ukNationsDisplay.shapes as RegionShape[];
 
-const HOME = { x: 0, y: 0, z: 1 };
-/** Map viewport centre in viewBox units (matches viewBox 760×880). */
-const CX = 380;
-const CY = 440;
-
-/**
- * Reading size on screen. Labels sit under `scale(1/z)` so this is CSS px,
- * not viewBox units — keep them large enough over the halftone.
- */
-const LABEL_PX = 13;
-
-/** Official names, wrapped so the line fits the region. Sentence case. */
 const ENGLISH_LABEL_LINES: Record<string, string[]> = {
   E12000001: ["North East"],
   E12000002: ["North West"],
@@ -59,59 +51,7 @@ const UK_NATION_LABEL_LINES: Record<string, string[]> = {
   N92000002: ["Northern", "Ireland"],
 };
 
-/** Centroids that land on a neighbour. These stay on the region they name. */
-const ENGLISH_LABEL_AT: Record<string, [number, number]> = {
-  E12000004: [530, 400],
-  E12000005: [365, 520],
-  E12000007: [560, 634],
-  E12000008: [590, 710],
-};
-
-/** Fit a region bbox into the viewport with a little margin. */
-function viewForBounds(bounds: [number, number, number, number]): typeof HOME {
-  const [x0, y0, x1, y1] = bounds;
-  const w = Math.max(40, x1 - x0);
-  const h = Math.max(40, y1 - y0);
-  const z = Math.min(3.2, Math.max(1.35, Math.min((760 * 0.72) / w, (880 * 0.72) / h)));
-  const cx = (x0 + x1) / 2;
-  const cy = (y0 + y1) / 2;
-  return { x: CX - cx * z, y: CY - cy * z, z };
-}
-
-function RegionName({ lines, fontSize }: { lines: string[]; fontSize: number }) {
-  const lineHeight = fontSize * 1.15;
-  const longest = Math.max(...lines.map((l) => l.length), 1);
-  // Approximate advance width for Geist/body at this size — paper tag under the name.
-  const tagW = longest * fontSize * 0.58 + 16;
-  const tagH = lines.length * lineHeight + 10;
-  return (
-    <g pointerEvents="none">
-      <rect
-        x={-tagW / 2}
-        y={-tagH / 2}
-        width={tagW}
-        height={tagH}
-        rx={0}
-        fill="var(--bo-paper)"
-        stroke="var(--bo-ink-20)"
-        strokeWidth={1}
-      />
-      {lines.map((line, i) => (
-        <text
-          key={line}
-          x={0}
-          y={(i - (lines.length - 1) / 2) * lineHeight + fontSize * 0.35}
-          textAnchor="middle"
-          fill="var(--bo-ink)"
-          className={s.regionLabel}
-          style={{ fontSize }}
-        >
-          {line}
-        </text>
-      ))}
-    </g>
-  );
-}
+const one = (code: string) => ["==", ["get", "code"], code] as unknown as MapLibre.FilterSpecification;
 
 export function RegionMap({
   data,
@@ -123,7 +63,6 @@ export function RegionMap({
   size = "panel",
   shapes = REGION_SHAPES,
   labelLines,
-  labelAt,
   emptyCaption = "Select a region",
 }: {
   data: RegionDatum[];
@@ -141,53 +80,103 @@ export function RegionMap({
   /** Default: English regions. Pass `UK_NATION_SHAPES` for the four nations. */
   shapes?: RegionShape[];
   labelLines?: Record<string, string[]>;
+  /** @deprecated SVG-era label offsets; names now sit on the ONS internal point. */
   labelAt?: Record<string, [number, number]>;
   emptyCaption?: string;
 }) {
-  const uid = useId().replace(/:/g, "");
-  const svg = useRef<SVGSVGElement>(null);
-  const [view, setView] = useState(HOME);
+  const handle = useRef<InkMapHandle>(null);
+  const inkRef = useRef<Ink | null>(null);
+  const [ready, setReady] = useState(false);
   const [hover, setHover] = useState("");
-  const drag = useRef<{ x: number; y: number; origin: typeof HOME; moved: boolean } | null>(null);
-  const panMoved = useRef(false);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
 
-  const lines =
-    labelLines ??
-    (shapes === UK_NATION_SHAPES ? UK_NATION_LABEL_LINES : ENGLISH_LABEL_LINES);
-  const anchors = labelAt ?? (shapes === UK_NATION_SHAPES ? {} : ENGLISH_LABEL_AT);
+  const nations = shapes.some((sh) => /^[ESWN]92/.test(sh.code));
+  const sourceLayer = nations ? "ctry" : "rgn";
+  const home = nations ? UK_BOUNDS : ENGLAND_BOUNDS;
+  const lines = labelLines ?? (nations ? UK_NATION_LABEL_LINES : ENGLISH_LABEL_LINES);
+  const codes = useMemo(() => shapes.map((sh) => sh.code), [shapes]);
 
   const byCode = useMemo(() => new Map(data.map((d) => [d.code, d])), [data]);
   const thresholds = useMemo(
     () => equalBreaks(data.map((d) => d.value).filter((v): v is number => v != null && Number.isFinite(v))),
     [data],
   );
-  const bands = useMemo(
-    () => shapes.map((sh) => band(byCode.get(sh.code)?.value ?? null, thresholds)),
-    [shapes, byCode, thresholds],
-  );
+  const bands = useMemo(() => {
+    const out: Record<string, number | null> = {};
+    for (const code of codes) out[code] = band(byCode.get(code)?.value ?? null, thresholds);
+    return out;
+  }, [codes, byCode, thresholds]);
 
-  const point = (event: PointerEvent<SVGSVGElement>) => {
-    const p = svg.current!.createSVGPoint();
-    p.x = event.clientX;
-    p.y = event.clientY;
-    return p.matrixTransform(svg.current!.getScreenCTM()!.inverse());
+  const onLoad = (map: MapLibre.Map, ink: Ink) => {
+    inkRef.current = ink;
+    const layer = { source: "areas", "source-layer": sourceLayer } as const;
+    const inSet = ["in", ["get", "code"], ["literal", codes]] as unknown as MapLibre.FilterSpecification;
+    map.addLayer({ id: "region-fill", type: "fill", ...layer, filter: inSet, paint: { "fill-color": ink.paper } }, BEFORE_DATA);
+    map.addLayer({ id: "region-missing", type: "fill", ...layer, filter: one(""), paint: { "fill-pattern": "missing" } }, BEFORE_DATA);
+    map.addLayer(
+      { id: "region-line", type: "line", ...layer, filter: inSet, paint: { "line-color": ink.paper, "line-width": 1.2 } },
+      BEFORE_DATA,
+    );
+    map.addLayer({ id: "region-hover", type: "line", ...layer, filter: one(""), paint: { "line-color": ink.ink, "line-width": 1.5 } });
+    map.addLayer({ id: "region-select-halo", type: "line", ...layer, filter: one(""), paint: { "line-color": ink.paper, "line-width": 4 } });
+    map.addLayer({ id: "region-select", type: "line", ...layer, filter: one(""), paint: { "line-color": ink.ink, "line-width": 2 } });
+    map.addSource("region-labels", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: shapes
+          .filter((sh) => PLACES[sh.code])
+          .map((sh) => ({
+            type: "Feature" as const,
+            properties: { code: sh.code, label: (lines[sh.code] ?? [sh.name]).join("\n") },
+            geometry: { type: "Point" as const, coordinates: PLACES[sh.code]!.label },
+          })),
+      },
+    });
+    map.addLayer(areaNames(ink, "region-labels"));
+    map.on("mousemove", "region-fill", (e) => {
+      const code = String(e.features?.[0]?.properties?.code ?? "");
+      map.getCanvas().style.cursor = code ? "pointer" : "";
+      setHover(code);
+    });
+    map.on("mouseleave", "region-fill", () => {
+      map.getCanvas().style.cursor = "";
+      setHover("");
+    });
+    map.on("click", "region-fill", (e) => {
+      const code = String(e.features?.[0]?.properties?.code ?? "");
+      if (code) onSelectRef.current(code);
+    });
+    setReady(true);
   };
 
-  const zoom = (factor: number) =>
-    setView((v) => {
-      const z = Math.min(8, Math.max(1, v.z * factor));
-      return z === 1 ? HOME : { x: CX - ((CX - v.x) * z) / v.z, y: CY - ((CY - v.y) * z) / v.z, z };
-    });
-
-  /** Zoom the map to the selected region / nation (Housing-style focus). */
   useEffect(() => {
-    if (!selected) {
-      setView(HOME);
-      return;
-    }
-    const shape = shapes.find((sh) => sh.code === selected);
-    if (shape) setView(viewForBounds(shape.bounds));
-  }, [selected, shapes]);
+    const map = handle.current?.map();
+    const ink = inkRef.current;
+    if (!ready || !map || !ink) return;
+    map.setPaintProperty("region-fill", "fill-color", toneMatch(bands, ink));
+    const missing = Object.entries(bands)
+      .filter(([, b]) => b == null)
+      .map(([c]) => c);
+    map.setFilter("region-missing", ["in", ["get", "code"], ["literal", missing]] as unknown as MapLibre.FilterSpecification);
+  }, [ready, bands]);
+
+  useEffect(() => {
+    const map = handle.current?.map();
+    if (!ready || !map) return;
+    map.setFilter("region-hover", one(hover && hover !== selected ? hover : ""));
+    map.setFilter("region-select-halo", one(selected ?? ""));
+    map.setFilter("region-select", one(selected ?? ""));
+  }, [ready, hover, selected]);
+
+  /** Zoom to the selected region / nation; back home when cleared. */
+  useEffect(() => {
+    if (!ready) return;
+    const p = selected ? PLACES[selected] : undefined;
+    if (p) handle.current?.fit([[p.bounds[0], p.bounds[1]], [p.bounds[2], p.bounds[3]]], 8);
+    else handle.current?.home();
+  }, [ready, selected]);
 
   const hoverShape = hover ? shapes.find((sh) => sh.code === hover) : undefined;
   const selectShape = selected ? shapes.find((sh) => sh.code === selected) : undefined;
@@ -206,132 +195,18 @@ export function RegionMap({
       </div>
 
       <div className={s.mapTools} role="group" aria-label="Map controls">
-        <button type="button" className={s.toolBtn} onClick={() => zoom(1.4)} aria-label="Zoom in">
+        <button type="button" className={s.toolBtn} onClick={() => handle.current?.zoomBy(1.4)} aria-label="Zoom in">
           +
         </button>
-        <button type="button" className={s.toolBtn} onClick={() => zoom(1 / 1.4)} aria-label="Zoom out">
+        <button type="button" className={s.toolBtn} onClick={() => handle.current?.zoomBy(1 / 1.4)} aria-label="Zoom out">
           −
         </button>
-        <button type="button" className={s.toolBtn} onClick={() => setView(HOME)} aria-label="Reset view">
+        <button type="button" className={s.toolBtn} onClick={() => handle.current?.home()} aria-label="Reset view">
           ⌂
         </button>
       </div>
 
-      <svg
-        ref={svg}
-        className={s.mapSvg}
-        viewBox="0 0 760 880"
-        role="group"
-        aria-label={label}
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home"].includes(e.key)) {
-            e.preventDefault();
-          }
-          if (e.key === "+" || e.key === "=") zoom(1.4);
-          else if (e.key === "-") zoom(1 / 1.4);
-          else if (e.key === "Home") setView(HOME);
-          else if (e.key.startsWith("Arrow"))
-            setView((v) => ({
-              ...v,
-              x: v.x + (e.key === "ArrowLeft" ? 40 : e.key === "ArrowRight" ? -40 : 0),
-              y: v.y + (e.key === "ArrowUp" ? 40 : e.key === "ArrowDown" ? -40 : 0),
-            }));
-        }}
-        onPointerDown={(e) => {
-          if (e.button !== 0) return;
-          const p = point(e);
-          drag.current = { x: p.x, y: p.y, origin: view, moved: false };
-          panMoved.current = false;
-        }}
-        onPointerMove={(e) => {
-          if (!drag.current) return;
-          const p = point(e);
-          const d = drag.current;
-          const dx = p.x - d.x;
-          const dy = p.y - d.y;
-          if (Math.hypot(dx, dy) > 6) {
-            d.moved = true;
-            panMoved.current = true;
-            svg.current?.setPointerCapture(e.pointerId);
-          }
-          if (d.moved) setView({ ...d.origin, x: d.origin.x + dx, y: d.origin.y + dy });
-        }}
-        onPointerUp={(e) => {
-          drag.current = null;
-          if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId);
-        }}
-        onPointerCancel={() => {
-          drag.current = null;
-        }}
-      >
-        <BandScreenDefs idPrefix={uid} zoom={view.z} />
-        <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
-          {shapes.map((shape, i) => {
-            const bucket = bands[i]!;
-            const d = byCode.get(shape.code);
-            return (
-              <path
-                key={shape.code}
-                d={shape.path}
-                fill={`url(#${uid}-${bucket === null ? "missing" : `band-${bucket}`})`}
-                fillRule="evenodd"
-                stroke="var(--bo-ink-20)"
-                strokeWidth={0.75}
-                vectorEffect="non-scaling-stroke"
-                className={s.area}
-                onMouseEnter={() => setHover(shape.code)}
-                onMouseLeave={() => setHover("")}
-                onClick={() => {
-                  if (!panMoved.current) onSelect(shape.code);
-                }}
-              >
-                <title>{`${shape.name}: ${d?.display ?? "no data"}`}</title>
-              </path>
-            );
-          })}
-
-          {hoverShape && (
-            <path
-              d={hoverShape.path}
-              fill="none"
-              stroke="var(--bo-ink)"
-              strokeWidth="1.5"
-              vectorEffect="non-scaling-stroke"
-              pointerEvents="none"
-            />
-          )}
-          {selectShape && (
-            <g pointerEvents="none">
-              <path
-                d={selectShape.path}
-                fill="none"
-                stroke="var(--bo-paper)"
-                strokeWidth="4"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d={selectShape.path}
-                fill="none"
-                stroke="var(--bo-ink)"
-                strokeWidth="2"
-                vectorEffect="non-scaling-stroke"
-              />
-            </g>
-          )}
-
-          {/* Names sit on a paper tag at a fixed reading size, not in the map's shrunk coordinates. */}
-          {shapes.map((shape) => {
-            const [lx, ly] = anchors[shape.code] ?? shape.label;
-            const nameLines = lines[shape.code] ?? [shape.name];
-            return (
-              <g key={`label-${shape.code}`} transform={`translate(${lx} ${ly}) scale(${1 / view.z})`}>
-                <RegionName lines={nameLines} fontSize={LABEL_PX} />
-              </g>
-            );
-          })}
-        </g>
-      </svg>
+      <InkMap ref={handle} label={label} className={s.mapSvg} bounds={home} onLoad={onLoad} />
 
       <MapLegend title={legendUnit} thresholds={thresholds} format={legendFormat} />
     </div>

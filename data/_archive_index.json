@@ -1,6 +1,6 @@
 {
   "bucket": "bx-data-archive",
-  "updated_at": "2026-11-17T10:37:14.539072+00:00",
+  "updated_at": "2026-11-17T21:29:18.802137+00:00",
   "entries": [
     {
       "path": "data/_archive_smoke/hello.txt",
@@ -2531,6 +2531,50 @@
       "compression": null,
       "stored_size": 1184,
       "stored_checksum_sha256": "ae42b9b7638a97161c2ffe81b51ac7ac45c44d6dbb06d0be60d3300986c7c3eb"
+    },
+    {
+      "path": "data/regions/map-tiles/curated/boundaries.pmtiles",
+      "size": 18222424,
+      "checksum_sha256": "8feed0def25aafaa0cadde43992d17658a27ae974255a7b45271d880d22d713f",
+      "storage_key": "regions/map-tiles/curated/boundaries.pmtiles",
+      "uploaded_at": "2026-11-17T21:28:37.047422+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 18222424,
+      "stored_checksum_sha256": "8feed0def25aafaa0cadde43992d17658a27ae974255a7b45271d880d22d713f"
+    },
+    {
+      "path": "data/regions/map-tiles/curated/gb-basemap.pmtiles",
+      "size": 18966643,
+      "checksum_sha256": "846d8505f6886b71de8d35a7f134b4113373d10c05cb068b75f626eba4e892bf",
+      "storage_key": "regions/map-tiles/curated/gb-basemap.pmtiles",
+      "uploaded_at": "2026-11-17T21:29:05.502307+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 18966643,
+      "stored_checksum_sha256": "846d8505f6886b71de8d35a7f134b4113373d10c05cb068b75f626eba4e892bf"
+    },
+    {
+      "path": "data/regions/map-tiles/curated/places.json",
+      "size": 46912,
+      "checksum_sha256": "6241da1c584c287ab1c13110ae5de11a3096b6128b44d89da442c976722fab4c",
+      "storage_key": "regions/map-tiles/curated/places.json",
+      "uploaded_at": "2026-11-17T21:29:06.626234+00:00",
+      "local_deleted": false,
+      "compression": null,
+      "stored_size": 46912,
+      "stored_checksum_sha256": "6241da1c584c287ab1c13110ae5de11a3096b6128b44d89da442c976722fab4c"
+    },
+    {
+      "path": "data/regions/map-tiles/curated/source.json",
+      "size": 4353,
+      "checksum_sha256": "f1aa3808fa0c751a94f05e7163b8031a15d3e61af67522c7ebdc04a7e3f11a9c",
+      "storage_key": "regions/map-tiles/curated/source.json",
+      "uploaded_at": "2026-11-17T21:29:07.027437+00:00",
+      "local_deleted": true,
+      "compression": null,
+      "stored_size": 4353,
+      "stored_checksum_sha256": "f1aa3808fa0c751a94f05e7163b8031a15d3e61af67522c7ebdc04a7e3f11a9c"
     }
   ]
 }

@@ -227,3 +227,58 @@
   width: 100%;
   max-width: 18rem;
 }
+
+/* ── InkMap (MapLibre) ─────────────────────────────────────────────────────────── */
+
+.inkWell {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bo-paper);
+}
+
+.inkCanvas {
+  position: absolute;
+  inset: 0;
+}
+
+.inkCanvas:focus-visible {
+  outline: 2px solid var(--bo-signal);
+  outline-offset: -2px;
+}
+
+/* OpenStreetMap credit: a caption on a paper strip, bottom-right, no box chrome. */
+.inkCredit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 3px 8px;
+  font-family: var(--bo-f-data, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  text-decoration: none;
+}
+
+.inkCredit:hover,
+.inkCredit:focus-visible {
+  text-decoration: underline;
+}
+
+/* Cooperative-gesture hint in house type: paper type on solid ink, no fade. */
+.inkWell :global(.maplibregl-cooperative-gesture-screen) {
+  background: var(--bo-ink);
+  color: var(--bo-paper);
+  font-family: var(--bo-f-data, ui-monospace, monospace);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* Floating readouts inside an InkMap well. */
+.inkWell > [data-placement="floating"] {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}

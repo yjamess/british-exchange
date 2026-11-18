@@ -1,11 +1,17 @@
-/* Wages 03 — Britain's wage ladder. A vertical pay scale with one rung per published
-   percentile. One ink on paper; rung spacing is measured, labels name what each rung is. */
+/* Wages 03 — Britain's wage ladder. Quiet pay scale: five named rungs, other marks
+   inspected via ReadoutCard. One ink on paper; rung spacing is measured. */
 
 .root {
   container-type: inline-size;
   container-name: ladder;
   display: grid;
   gap: var(--bo-s3);
+  width: 100%;
+  min-width: 0;
+}
+
+.plot {
+  position: relative;
   width: 100%;
   min-width: 0;
 }
@@ -77,16 +83,6 @@
   fill: var(--bo-ink);
   font-variant-numeric: tabular-nums;
 }
-.share {
-  font-size: var(--bo-t-label);
-  letter-spacing: 0.06em;
-  fill: var(--bo-ink);
-  text-transform: uppercase;
-}
-.shareBar {
-  stroke: var(--bo-ink-20);
-  stroke-width: 6;
-}
 .tagBox {
   fill: var(--bo-ink);
 }
@@ -106,35 +102,4 @@
 .hit:focus-visible rect {
   stroke: var(--bo-signal);
   stroke-width: 2;
-}
-
-.readout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--bo-s1) var(--bo-s5);
-  align-items: baseline;
-  min-height: 2.5rem;
-  padding-top: var(--bo-s2);
-  border-top: var(--bo-hair);
-  font-size: var(--bo-t-note);
-  line-height: 1.45;
-  color: var(--bo-text);
-}
-@container ladder (min-width: 40rem) {
-  .readout {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-}
-.readoutFig {
-  font-family: var(--bo-f-fig);
-  font-stretch: var(--bo-fig-wdth);
-  font-size: var(--bo-t-fig);
-  font-weight: 300;
-  font-variant-numeric: tabular-nums;
-  color: var(--bo-ink);
-  white-space: nowrap;
-}
-.readoutText b {
-  font-weight: 500;
-  color: var(--bo-ink);
 }

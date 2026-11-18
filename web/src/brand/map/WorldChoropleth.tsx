@@ -2,8 +2,8 @@
 
 /**
  * World-country choropleth — Natural Earth 110m paths, Housing map grammar
- * (halftone bands, paper name tags, ink selection). Missing countries stay
- * empty; valued partners get labels.
+ * (stepped solid tones, paper borders, paper name tags, ink selection). Countries with no
+ * value stay plain paper; valued partners get labels. Stays SVG: the InkMap basemap is UK-only.
  */
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -349,11 +349,12 @@ export function WorldChoropleth({
     >
       <div className={s.mapCaption}>
         <span className={s.worldCaptionPrimary}>{caption}</span>
-        {!focusShape ? (
-          <span className={s.worldCaptionSecondary}>
-            Click a filled country · drag to pan · use + / − / home to zoom
-          </span>
-        ) : null}
+        {/* Always reserve the second line so hover does not jump the map frame. */}
+        <span className={s.worldCaptionSecondary} aria-hidden={focusShape ? true : undefined}>
+          {focusShape
+            ? "\u00a0"
+            : "Click a filled country · drag to pan · use + / − / home to zoom"}
+        </span>
       </div>
 
       <div className={s.mapFrame}>
@@ -426,6 +427,11 @@ export function WorldChoropleth({
           onPointerCancel={() => {
             drag.current = null;
           }}
+          onPointerLeave={() => {
+            // Clear only when leaving the SVG. Clearing on each path's mouseLeave
+            // blanked hover for a frame between neighbours and made the outline flicker.
+            setHover("");
+          }}
         >
         <rect x={0} y={0} width={VB_W} height={VB_H} fill="var(--bo-paper)" />
         <BandScreenDefs idPrefix={uid} zoom={view.z} />
@@ -438,17 +444,17 @@ export function WorldChoropleth({
               <path
                 key={shape.id}
                 d={shape.path}
-                fill={`url(#${uid}-${bucket === null ? "missing" : `band-${bucket}`})`}
+                // Tones for countries with data (paper borders); others are plain paper context.
+                fill={bucket === null ? "var(--bo-paper)" : `url(#${uid}-band-${bucket})`}
                 fillRule="evenodd"
-                stroke={hasData ? "var(--bo-ink-40)" : "var(--bo-ink-20)"}
-                strokeWidth={hasData ? 0.55 : 0.35}
+                stroke={hasData ? "var(--bo-paper)" : "var(--bo-ink-20)"}
+                strokeWidth={hasData ? 0.8 : 0.35}
                 vectorEffect="non-scaling-stroke"
                 className={hasData ? s.area : undefined}
                 style={hasData ? undefined : { cursor: "default", pointerEvents: "none" }}
-                onMouseEnter={() => {
+                onPointerEnter={() => {
                   if (hasData) setHover(shape.id);
                 }}
-                onMouseLeave={() => setHover("")}
                 onClick={() => {
                   if (!panMoved.current && hasData) onSelect(shape.id);
                 }}

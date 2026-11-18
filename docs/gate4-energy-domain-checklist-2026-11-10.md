@@ -33,7 +33,7 @@ Shared across canvases. Codex already landed most of this locally; you only re-v
 | Desktop deep-link / history / empty states | **done** (Session C, 2026-11-10) | Headless Playwright, local dev. Cold `?domain=&view=` loads draw data on all 51 views. Tab/control = replace, domain = push, Back returns to previous domain (matches `explorer-url-contract.md`). Unknown `view=` falls back to default. Empty panels seen under 3 parallel loads were local API saturation (`loadSeriesPack … failed after retry`), not missing data — all fill when loaded one at a time |
 | Phone 390px (all live domains) | **done, 2 bugs open** (Session C) | Device emulation (`is_mobile`, 390×844). All 51 views: no horizontal scroll, data drawn, Notes foot present. Pay overflow (504px layout) fixed by RankBars wrap — re-measured 390. **Open:** Imports Connectors + Trade show Reset at defaults (see 05). Prices loader 404s (see 03) |
 | Dev console warnings | **open** (P2) | Hydration attribute mismatch (`style={{cursor:"pointer"}}`) on Fossils › North Sea and Networks › Invisible grid. SSEN duplicate-key warnings gone after Cursor fix |
-| Railway / production UI without laptop files | **partial** | **Session A local cloud PASS** 2026-11-10: Afford · Wholesale · Reserves · Resilience · Anatomy weights all showed data from Supabase Postgres/Storage via FastAPI (`store=postgres`; weights Storage SHA `aec8c614…` matches disk pin). Resilience EmptyStage was **pool exhaustion** (`EMAXCONNSESSION` / session pool_size 15) — fixed with `psycopg_pool.ConnectionPool` in `britain_exchange.db` (max 8). Deploy that pool to Railway before treating production as proven; local pin delete still waits on Railway. |
+| Railway / production UI without laptop files | **done (API) 2026-11-17** — see "Railway proof" at foot; public domain 404 open (owner) | **Session A local cloud PASS** 2026-11-10: Afford · Wholesale · Reserves · Resilience · Anatomy weights all showed data from Supabase Postgres/Storage via FastAPI (`store=postgres`; weights Storage SHA `aec8c614…` matches disk pin). Resilience EmptyStage was **pool exhaustion** (`EMAXCONNSESSION` / session pool_size 15) — fixed with `psycopg_pool.ConnectionPool` in `britain_exchange.db` (max 8). Deploy that pool to Railway before treating production as proven; local pin delete still waits on Railway. |
 | Notion domain brief gate boxes / sector “Not started” | **open** | Hygiene after product close — work-plan is ship SoT for now |
 | Plate streak touch-ups | **deferred** | Imagery skill — not shell Gate 4 |
 
@@ -149,7 +149,7 @@ Shared across canvases. Codex already landed most of this locally; you only re-v
 | | |
 |--|--|
 | **Already done** | IoP annual pack; Places + Nomis; weights Storage pack + Notion registry; Gate 4 audit earlier; Anatomy year pool capped to complete IoP year; Data branch wrap at 390px (code) |
-| **Open now** | Local `weights.json` pin delete **after Railway proof**. **Done** (Session C): desktop + 390px all four views; Data + Anatomy re-measured after wrap / year-cap fix — fit 390. **Cloud verify done (Session A):** Anatomy shares (CA 16.9% etc.); Storage has matching SHA `aec8c614…` (1,110 obs); API prefers disk when pin present |
+| **Open now** | None for shell. Local `weights.json` pin — **gone**, Railway serves the Storage pack (2026-11-17). **Done** (Session C): desktop + 390px all four views; Data + Anatomy re-measured after wrap / year-cap fix — fit 390. **Cloud verify done (Session A):** Anatomy shares (CA 16.9% etc.); Storage has matching SHA `aec8c614…` (1,110 obs); API prefers disk when pin present |
 | **Deferred / owner** | **Anatomy redesign** (you). British Product Ledger. Full regional GVA atlas |
 
 **Close for shell:** weights cloud-only; no 404 for anything the UI claims. Anatomy redesign is separate from Gate 4 shell close.
@@ -205,7 +205,8 @@ Copy and tick as you go:
 
 ```text
 [x] §0 cloud spot-check (Afford, Wholesale, Reserves, Resilience, weights) — local→Supabase 2026-11-10
-[ ] §0 Railway production re-check after ConnectionPool deploy + pin delete
+[x] §0 Railway production re-check after ConnectionPool deploy + pin delete — 2026-11-17 (API side; see below)
+[ ] §0 Public web URL — british.exchange returns DEPLOYMENT_NOT_FOUND (owner decision)
 [x] §0 desktop deep-link / history — Session C 2026-11-10
 [x] §0 phone 390px sector sweep — closed
 [x] §0 hydration / P2 shell bugs — closed (owner 2026-11-10)
@@ -222,10 +223,21 @@ Copy and tick as you go:
 
 | # | Item | Status |
 |---|------|--------|
-| 1 | **Railway:** deploy ConnectionPool, re-check five cloud views, delete local pins | **Open** — only Gate 4 production closer |
+| 1 | **Railway:** deploy ConnectionPool, re-check five cloud views, delete local pins | **Done 2026-11-17** — see "Railway proof" below |
+| 1b | **Public web domain:** `british.exchange` / `www` answer `x-vercel-error: DEPLOYMENT_NOT_FOUND` | **Open (owner)** — domain is the project's production URL but has no alias record (`vercel alias ls` lists only the `*.vercel.app` aliases, which sit behind Vercel SSO). Fix = re-assign domain to the latest production deployment, if it should be public |
 | 2 | **Network maps** (N07 / national DNO · NGET · Connections 360) | **Held** — [BX-BACK-004](https://app.notion.com/p/41465471768581a5bef6d539d77dad53) |
 | 3 | **Jobs Industrial Lives** | **Deferred** — waiting on owner register |
 | 4 | **Imports deepen** (DUKES 4.4b sites · 4.5b facility capacity · LNG map pins) | **Optional backlog** — not Gate 4; see Imports note below |
-| 5 | Energy Promise UI wire | **Wired locally** — Promises tab live on dev; needs owner review of `pledges.json`, Storage push, Railway redeploy |
+| 5 | Energy Promise UI wire | **Storage + Railway done** — production `/packs/energy.industrial-policy-pledges` is byte-identical to local `pledges.json` (SHA `503a1aa6…`); Promises renders 9 listed · 3 scored against Railway. Still open: owner review of the draft content, registry rows |
 
-**Sector Gate 4 final (production):** Railway proof + pin delete. Held/deferred rows stay held — do not fake-done them.
+**Sector Gate 4 final (production):** Railway proof + pin delete — **done 2026-11-17** on the API side. Public URL (1b) is the remaining production item. Held/deferred rows stay held — do not fake-done them.
+
+### Railway proof (2026-11-17, Claude)
+
+- **Pool deployed.** `ConnectionPool` landed in `21d3f22`; Railway (`tranquil-caring / production`) auto-deployed it 2026-11-10 23:49 UTC and every main commit since; latest `a4c8959` deploy = success.
+- **`/health`:** `status ok · store postgres · require_postgres true`.
+- **Pool under load.** 12 series fetched concurrently from `british-exchange-production.up.railway.app` (bills ×3, Economy 7, regional cap, nominal earnings, MPP, reserves, import / fossil / low-carbon ratios, gas storage, NSTA field production): all HTTP 200, `store=postgres`, 2.7–3.9 s. No `EMAXCONNSESSION`.
+- **Figures match Session A:** reserves 2024 oil 2P 261 Mt · gas 2P 148 bcm · extracted 30.4 Mt; 2024 import 43.7% · fossil 75.1% · low carbon 21.8%; gas stock 2025 23.3 TWh · capacity 35.5 TWh; MPP gas latest quarter (2026 Q2) 3.82 p/kWh.
+- **Packs:** `energy.manufacturing-iop-weights` SHA `aec8c614…` (matches Session A pin); `energy.industrial-policy-pledges` = local file.
+- **UI cloud-only.** Web dev server run with `NEXT_PUBLIC_API_URL` = Railway (compiled `[sector]/page.js` carries the Railway URL, no `127.0.0.1:8000`). Afford (£1,069 · £35,312 · 3.0%), Wholesale, Reserves, Resilience (2025: 43.3% · 75.1% · 22.0%), Anatomy and Promises all render data, no HTTP errors, no console errors, no empty-stage markers. The web app has no `node:fs` path, so this is the same data path as Vercel.
+- **Local pin:** `data/energy/manufacturing-iop-weights/` already holds only `manifest.yaml` + empty `raw/` — weights pin is gone.

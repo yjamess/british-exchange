@@ -4,7 +4,7 @@ import s from "./follow.module.css";
 
 /**
  * Locked Follow chrome (design-lab/follow · options 1 + 4).
- * Primary step under a stage; Arrival chip on the destination.
+ * Primary step under a stage; Arrival tab on the destination.
  */
 
 export type FollowStepProps = {
@@ -55,14 +55,23 @@ export type ArrivalFromProps = {
   returnHref?: string | null;
 };
 
-/** Destination chip — pair with FollowStep. Clear with domain hop or Return. */
+/**
+ * Destination tab — pair with FollowStep.
+ * Right-aligned electric strip under the sector name: From · origin · Return.
+ * Paper on ink (same surface as the sector bar). No Caslon — that face is the question.
+ */
 export function ArrivalFrom({ from, returnHref }: ArrivalFromProps) {
   if (!from) return null;
   return (
-    <p className={s.arrival}>
-      From <strong>{from}</strong>
-      {returnHref ? <a href={returnHref}>Return</a> : null}
-    </p>
+    <aside className={`bo-on-ink ${s.arrival}`} role="status" aria-label={`Arrived from ${from}`}>
+      <p className={`bo-label ${s.arrivalKicker}`}>From</p>
+      <p className={s.arrivalOrigin}>{from}</p>
+      {returnHref ? (
+        <a className={s.arrivalReturn} href={returnHref}>
+          Return
+        </a>
+      ) : null}
+    </aside>
   );
 }
 

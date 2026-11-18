@@ -13,12 +13,18 @@
     "test:evidence": "node --test scripts/energy-evidence.test.mjs",
     "test:url": "node --test scripts/explorer-url.test.mjs",
     "test:station": "node --test scripts/station-selection.test.mjs",
-    "test:connections": "node --test scripts/connections.test.mjs"
+    "test:connections": "node --test scripts/connections.test.mjs",
+    "postinstall": "mkdir -p public/vendor && cp node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs public/vendor/"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
+    "@deck.gl/core": "9.3.2",
+    "@deck.gl/layers": "9.3.2",
+    "@deck.gl/mapbox": "9.3.2",
     "gsap": "3.15.1",
+    "maplibre-gl": "^6.19.0",
     "next": "^15.5.9",
+    "pmtiles": "^4.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "recharts": "^3.10.1",
@@ -33,5 +39,18 @@
     "eslint": "^9",
     "eslint-config-next": "^15.5.9",
     "typescript": "5.9.3"
+  },
+  "overrides": {
+    "@math.gl/core": "4.1.0",
+    "@math.gl/types": "4.1.0",
+    "@math.gl/web-mercator": "4.1.0",
+    "@math.gl/sun": "4.1.0",
+    "@math.gl/polygon": "4.1.0",
+    "@math.gl/culling": "4.1.0",
+    "@luma.gl/core": "9.3.6",
+    "@luma.gl/engine": "9.3.6",
+    "@luma.gl/webgl": "9.3.6",
+    "@luma.gl/shadertools": "9.3.6",
+    "@luma.gl/constants": "9.3.6"
   }
 }

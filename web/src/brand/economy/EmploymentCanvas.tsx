@@ -30,9 +30,35 @@ import {
 } from "../template";
 import s from "../energy/generation.module.css";
 import { Plate, WORK_PLATES } from "../Plate";
+import { HalftoneMotion, type MotionAtlas } from "../motion";
 import { ECONOMY_SOURCE, economyPeriod, economySource } from "./citations";
+import { IndustryDetailRise } from "./IndustryDetailRise";
 import type { EmploymentPack, SeriesPack } from "./types";
 import type { Observation } from "@/lib/api";
+
+/** work-sections.py atlases: 20 frames, 4×5, 500px square. Frame 0 = the still plate. */
+const workAtlas = (file: string): MotionAtlas => ({
+  src: `/brand/plates/w-${file}-atlas-4x5-500.jpg`,
+  cols: 4,
+  rows: 5,
+  frames: 20,
+  frameWidth: 500,
+  frameHeight: 500,
+});
+
+/** Sections whose kit moves (SIC letter → loop). The rest stay still plates. */
+const WORK_MOTION: Partial<Record<keyof typeof WORK_PLATES, { atlas: MotionAtlas; fps: number }>> = {
+  A: { atlas: workAtlas("farming"), fps: 8 },
+  B: { atlas: workAtlas("mining"), fps: 6 },
+  C: { atlas: workAtlas("factory"), fps: 6 },
+  F: { atlas: workAtlas("construction"), fps: 5 },
+  H: { atlas: workAtlas("transport"), fps: 8 },
+  I: { atlas: workAtlas("hospitality"), fps: 6 },
+  K: { atlas: workAtlas("finance"), fps: 5 },
+  N: { atlas: workAtlas("admin"), fps: 5 },
+  Q: { atlas: workAtlas("health"), fps: 4 },
+  S: { atlas: workAtlas("services"), fps: 8 },
+};
 import {
   asRegionalLabourMeasure,
   asWorkforceShow,
@@ -122,6 +148,8 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
   );
   const [compareRaw, setCompare] = useState(() => searchParams.get("compare") ?? "");
   const [industryRaw, setIndustry] = useState(() => searchParams.get("industry") ?? "all");
+  /** Specimen under the pointer or keyboard focus: its plate plays its loop (one at a time). */
+  const [hoverIndustry, setHoverIndustry] = useState<string | null>(null);
   const [geoMeasure, setGeoMeasure] = useState<RegionalLabourMeasure>(() =>
     asRegionalLabourMeasure(searchParams.get("measure")),
   );
@@ -384,7 +412,8 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
       return shares.map((row) => ({
         label: row.label,
         value: fmtSharePct(row.v),
-        note: latestLabel ?? "—",
+        // Shares of everyone aged 16 to 64, so "Unemployed" here is not the unemployment rate.
+        note: latestLabel ? `Share of people aged 16 to 64 · ${latestLabel}` : "Share of people aged 16 to 64",
       }));
     }
     if (view === "inactive") {
@@ -526,7 +555,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
         ? shareChange(compareSlice, slice)
         : [];
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.labourForce,
           "United Kingdom",
@@ -597,7 +626,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
     );
   } else if (view === "rates") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.labourForceRates,
           "United Kingdom",
@@ -657,7 +686,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
     }));
     const reasonLabel = reasonSlice ? labelMonth(reasonSlice.periodStart) : null;
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.inactivityReasons,
           "United Kingdom",
@@ -723,12 +752,9 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
     const maxJobs = Math.max(...ranks.map((r) => r.v), 1e-6);
     const total = industryRanks?.total ?? null;
     const facts = selectedIndustry ? industryJobsFacts(sectionPts) : null;
-    const selectedPlate = selectedIndustry
-      ? WORK_PLATES[selectedIndustry.id as keyof typeof WORK_PLATES]
-      : null;
     const occupation = latestOccupationSlice(pack.employmentByOccupation?.observations ?? []);
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.workforceJobsByIndustry,
           "United Kingdom",
@@ -755,11 +781,25 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
         {ranks.length ? (
           <section className={s.panel}>
             <h3 className={t.stageTitle}>
-              Workforce jobs by industry · United Kingdom · {industryLabel} · thousands of jobs
+              {selectedIndustry
+                ? `${selectedIndustry.label} · United Kingdom · ${industryLabel} · thousands of jobs`
+                : `Workforce jobs by industry · United Kingdom · ${industryLabel} · thousands of jobs`}
             </h3>
-            <ul className={s.specimens} aria-label={`Workforce jobs by industry · ${industryLabel}`}>
-              {ranks.map((r) => {
+            <ul
+              className={s.specimens}
+              data-isolated={selectedIndustry ? "true" : undefined}
+              aria-label={
+                selectedIndustry
+                  ? `${selectedIndustry.label} · click again to show every industry`
+                  : `Workforce jobs by industry · ${industryLabel}`
+              }
+            >
+              {(selectedIndustry
+                ? ranks.filter((r) => r.id === selectedIndustry.id)
+                : ranks
+              ).map((r) => {
                 const plate = WORK_PLATES[r.id as keyof typeof WORK_PLATES];
+                const motion = WORK_MOTION[r.id as keyof typeof WORK_PLATES];
                 const share = total ? (r.v / total) * 100 : null;
                 const on = selectedIndustry?.id === r.id;
                 return (
@@ -771,10 +811,23 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
                       aria-pressed={on}
                       aria-label={`${r.label}: ${fmtPeopleThousands(r.v)} jobs in ${industryLabel}${
                         share != null ? `, ${share.toFixed(1)}% of all jobs` : ""
-                      }`}
+                      }${on ? ". Click again to show every industry." : ""}`}
                       onClick={() => chooseIndustry(r.id)}
+                      onPointerEnter={() => setHoverIndustry(r.id)}
+                      onPointerLeave={() => setHoverIndustry((h) => (h === r.id ? null : h))}
+                      onFocus={() => setHoverIndustry(r.id)}
+                      onBlur={() => setHoverIndustry((h) => (h === r.id ? null : h))}
                     >
-                      {plate ? (
+                      {plate && motion && (on || hoverIndustry === r.id) ? (
+                        <span className={s.specimenPlate} aria-hidden="true">
+                          <HalftoneMotion
+                            atlas={motion.atlas}
+                            fps={motion.fps}
+                            cell={2.4}
+                            fallbackSrc={plate.src}
+                          />
+                        </span>
+                      ) : plate ? (
                         <Plate src={plate.src} fit="contain" className={s.specimenPlate} />
                       ) : (
                         <span className={s.specimenPlate} aria-hidden="true" />
@@ -794,95 +847,122 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
             </ul>
           </section>
         ) : null}
-        {selectedIndustry && facts ? (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              {selectedIndustry.label} · change · thousands of jobs
-            </h3>
-            <ChangeRows
-              key={`industry-change-${selectedIndustry.id}`}
-              label={`${selectedIndustry.label} jobs change`}
-              rows={[
-                ...(facts.tenYears
-                  ? [
-                      {
-                        id: "ten-years",
-                        label: "Ten years",
-                        from: facts.tenYears.v,
-                        to: facts.latest.v,
-                      },
-                    ]
-                  : []),
-                {
-                  id: "since-start",
-                  label: `Since ${fmtT(facts.first.t, "quarterly")}`,
-                  from: facts.first.v,
-                  to: facts.latest.v,
-                },
-                ...(facts.peak.t !== facts.latest.t
-                  ? [
-                      {
-                        id: "from-peak",
-                        label: `From peak · ${fmtT(facts.peak.t, "quarterly")}`,
-                        from: facts.peak.v,
-                        to: facts.latest.v,
-                      },
-                    ]
-                  : []),
-              ]}
-              fromLabel="Then"
-              toLabel={fmtT(facts.latest.t, "quarterly")}
-              format={fmtPeopleThousands}
-            />
-          </section>
-        ) : null}
-        {jobsPts.length ? (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              {selectedIndustry ? selectedIndustry.label : "All workforce jobs"} ·{" "}
-              {fmtT(jobsPts[0]!.t, "quarterly")}–{fmtT(jobsPts[jobsPts.length - 1]!.t, "quarterly")} ·
-              thousands
-            </h3>
-            {selectedPlate ? (
-              <div className={s.industryLead} aria-hidden="true">
-                <Plate src={selectedPlate.src} fit="contain" className={s.industryLeadPlate} />
-              </div>
+        {selectedIndustry ? (
+          <IndustryDetailRise industryId={selectedIndustry.id}>
+            {facts ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  {selectedIndustry.label} · change · thousands of jobs
+                </h3>
+                <ChangeRows
+                  key={`industry-change-${selectedIndustry.id}`}
+                  label={`${selectedIndustry.label} jobs change`}
+                  rows={[
+                    ...(facts.tenYears
+                      ? [
+                          {
+                            id: "ten-years",
+                            label: "Ten years",
+                            from: facts.tenYears.v,
+                            to: facts.latest.v,
+                          },
+                        ]
+                      : []),
+                    {
+                      id: "since-start",
+                      label: `Since ${fmtT(facts.first.t, "quarterly")}`,
+                      from: facts.first.v,
+                      to: facts.latest.v,
+                    },
+                    ...(facts.peak.t !== facts.latest.t
+                      ? [
+                          {
+                            id: "from-peak",
+                            label: `From peak · ${fmtT(facts.peak.t, "quarterly")}`,
+                            from: facts.peak.v,
+                            to: facts.latest.v,
+                          },
+                        ]
+                      : []),
+                  ]}
+                  fromLabel="Then"
+                  toLabel={fmtT(facts.latest.t, "quarterly")}
+                  format={fmtPeopleThousands}
+                />
+              </section>
             ) : null}
-            <TimeChart
-              key={`workforce-jobs-${selectedIndustry?.id ?? "all"}`}
-              label={selectedIndustry ? `${selectedIndustry.label} jobs` : "Workforce jobs"}
-              series={[
-                {
-                  id: selectedIndustry ? `jobs-${selectedIndustry.id}` : "workforce-jobs",
-                  label: selectedIndustry ? selectedIndustry.label : "Workforce jobs",
-                  points: jobsPts,
-                },
-              ]}
-              cadence="quarterly"
-              kind="line"
-              showTable={false}
-              format={fmtPeopleThousands}
-              periodLabel={(tt) => fmtT(tt, "quarterly")}
-            />
-          </section>
-        ) : selectedIndustry ? (
-          <EmptyStage label="Not available">
-            The quarterly series for this industry is not loaded right now.
-          </EmptyStage>
-        ) : null}
-        {occupation && !selectedIndustry ? (
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Employment by occupation · United Kingdom · {windowLabel(occupation.window)} · % of
-              people in employment
-            </h3>
-            <RankBars
-              label={`Employment by occupation · ${windowLabel(occupation.window)}`}
-              rows={occupation.ranks.map((r) => ({ id: r.id, label: r.label, v: r.v }))}
-              format={(v) => `${v.toFixed(1)}%`}
-            />
-          </section>
-        ) : null}
+            {jobsPts.length ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  {selectedIndustry.label} · {fmtT(jobsPts[0]!.t, "quarterly")}–
+                  {fmtT(jobsPts[jobsPts.length - 1]!.t, "quarterly")} · thousands
+                </h3>
+                <TimeChart
+                  key={`workforce-jobs-${selectedIndustry.id}`}
+                  label={`${selectedIndustry.label} jobs`}
+                  series={[
+                    {
+                      id: `jobs-${selectedIndustry.id}`,
+                      label: selectedIndustry.label,
+                      points: jobsPts,
+                    },
+                  ]}
+                  cadence="quarterly"
+                  kind="line"
+                  showTable={false}
+                  format={fmtPeopleThousands}
+                  axisFormat={fmtPeopleShort}
+                  periodLabel={(tt) => fmtT(tt, "quarterly")}
+                />
+              </section>
+            ) : (
+              <EmptyStage label="Not available">
+                The quarterly series for this industry is not loaded right now.
+              </EmptyStage>
+            )}
+          </IndustryDetailRise>
+        ) : (
+          <>
+            {jobsPts.length ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  All workforce jobs · {fmtT(jobsPts[0]!.t, "quarterly")}–
+                  {fmtT(jobsPts[jobsPts.length - 1]!.t, "quarterly")} · thousands
+                </h3>
+                <TimeChart
+                  key="workforce-jobs-all"
+                  label="Workforce jobs"
+                  series={[
+                    {
+                      id: "workforce-jobs",
+                      label: "Workforce jobs",
+                      points: jobsPts,
+                    },
+                  ]}
+                  cadence="quarterly"
+                  kind="line"
+                  showTable={false}
+                  format={fmtPeopleThousands}
+                  axisFormat={fmtPeopleShort}
+                  periodLabel={(tt) => fmtT(tt, "quarterly")}
+                />
+              </section>
+            ) : null}
+            {occupation ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  Employment by occupation · United Kingdom · {windowLabel(occupation.window)} · % of
+                  people in employment
+                </h3>
+                <RankBars
+                  label={`Employment by occupation · ${windowLabel(occupation.window)}`}
+                  rows={occupation.ranks.map((r) => ({ id: r.id, label: r.label, v: r.v }))}
+                  format={(v) => `${v.toFixed(1)}%`}
+                />
+              </section>
+            ) : null}
+          </>
+        )}
       </div>
     );
   } else if (view === "hours") {
@@ -899,7 +979,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
       fromYear,
     );
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.averageHours,
           "United Kingdom",
@@ -1012,7 +1092,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
     const vacPts = pointsFrom(monthlyPoints(pack.vacancies?.observations ?? []), fromYear);
     const vacLatest = finalObs(pack.vacancies?.observations ?? []).at(-1);
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.vacancies,
           "United Kingdom",
@@ -1075,7 +1155,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
         ? "% of people aged 16 and over who are economically active"
         : "% of people aged 16 to 64";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.regionalLabour,
           "UK countries and English regions",
@@ -1168,7 +1248,7 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
     );
   } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["lfs", "unemployment", "economic-inactivity", "employment-rate", "unemployment-rate"]}
         source={economySource(
           ECONOMY_SOURCE.labourForce,
           "United Kingdom",
@@ -1245,7 +1325,6 @@ export function EmploymentCanvas({ pack }: { pack: EmploymentPack }) {
           onClick={() => {
             setSelectedRegion(null);
             sync({
-              view: "workforce",
               show: "share",
               compare: "",
               industry: "all",

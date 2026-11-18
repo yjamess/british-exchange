@@ -552,7 +552,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
 
   if (view === "data") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.publicFinances,
           "United Kingdom",
@@ -582,7 +582,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
           })
         : [];
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.debtPortfolio,
           "United Kingdom",
@@ -651,7 +651,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
     const qTag = `${q}${ownerProvisional ? " · provisional" : ""}`;
     const showValue = ownerShow === "value";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.giltOwnership,
           "United Kingdom",
@@ -710,7 +710,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
     const lastFy = redTotal.length ? fyLabel(redTotal[redTotal.length - 1]!.t) : null;
     const nearTerm = redTotal.slice(0, 10);
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.giltRedemptions,
           "United Kingdom",
@@ -771,7 +771,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
     );
   } else if (view === "borrowing") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.netBorrowing,
           "United Kingdom",
@@ -833,7 +833,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
     );
   } else if (view === "machine") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.cashBridge,
           "United Kingdom · central government",
@@ -902,7 +902,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
     );
   } else if (view === "interest") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           ECONOMY_SOURCE.debtInterest,
           "United Kingdom",
@@ -1010,7 +1010,7 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
             : latestDebt?.period_start;
 
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["psnb", "psnd", "gilt", "index-linked-gilt", "debt-interest"]}
         source={economySource(
           sourceLine,
           "United Kingdom",
@@ -1170,7 +1170,6 @@ export function DebtCanvas({ pack }: { pack: DebtPack }) {
           <ResetButton
             onClick={() =>
               sync({
-                view: "dial",
                 measure: "debt",
                 anatomyPeriod: "",
                 basis: "net",

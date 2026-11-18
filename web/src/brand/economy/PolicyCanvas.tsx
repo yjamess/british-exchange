@@ -3,8 +3,8 @@
 /**
  * Economy Domain 10 — Economic policy.
  * Flagship: the economic decision ledger (Energy Domain 10 pattern: brand DecisionLedger +
- * CatalogueDossier + ExactRegister), with the brief's five sections as views:
- * Ledger · Institutions · Eras · Changes · Evidence · Promises.
+ * CatalogueDossier + ExactRegister), with views:
+ * Ledger · Changes and reversals · Promises.
  * Events are not Observations. Linked series are context, never effects.
  */
 
@@ -63,15 +63,11 @@ import type { PolicyPack } from "./types";
 
 const VIEWS: ExplorerView[] = [
   { id: "ledger", label: "Decision ledger" },
-  { id: "institutions", label: "Institutions" },
-  { id: "eras", label: "Eras" },
   { id: "changes", label: "Changes and reversals" },
-  { id: "evidence", label: "Policy and evidence" },
   { id: "promise", label: "Promises" },
 ];
 
-type View =
-  "ledger" | "institutions" | "eras" | "changes" | "evidence" | "promise";
+type View = "ledger" | "changes" | "promise";
 
 function asView(raw: string | null): View {
   return VIEWS.some((v) => v.id === raw) ? (raw as View) : "ledger";
@@ -137,13 +133,13 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
       const u = new URLSearchParams(window.location.search);
       u.set("domain", "policy");
       u.set("view", v);
-      if (v === "ledger" || v === "institutions" || v === "evidence") {
+      if (v === "ledger") {
         if (a !== "all") u.set("area", a);
         else u.delete("area");
       } else u.delete("area");
       if (v === "ledger" && e !== "all") u.set("era", e);
       else u.delete("era");
-      if ((v === "ledger" || v === "institutions") && ev) u.set("event", ev);
+      if (v === "ledger" && ev) u.set("event", ev);
       else u.delete("event");
       if (v === "promise" && pl) u.set("pledge", pl);
       else u.delete("pledge");
@@ -169,12 +165,6 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
   const filtered = useMemo(
     () =>
       ordered.filter((e) => {
-        if (
-          view === "institutions" &&
-          e.type !== "institution" &&
-          e.policy_area !== "institutions"
-        )
-          return false;
         if (area !== "all" && e.policy_area !== area) return false;
         if (
           view === "ledger" &&
@@ -192,15 +182,6 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
   );
   const open = eventById(events.events, openId);
   const pledges = useMemo(() => pledgesOf(pledgesPack), [pledgesPack]);
-  const dossiers = ordered.filter((e) => e.dossier).length;
-  const evaluations = ordered.reduce(
-    (n, e) => n + (e.dossier?.evaluations.length ?? 0),
-    0,
-  );
-  const contextLinks = ordered.reduce(
-    (n, e) => n + e.linked_indicators.length,
-    0,
-  );
 
   const figures: ExplorerFigure[] = useMemo(() => {
     if (view === "promise") {
@@ -227,27 +208,6 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
         },
       ];
     }
-    if (view === "eras") {
-      return [
-        {
-          label: "Eras",
-          value: String(events.eras.length),
-          note: "Browsing ranges, not claims about the period",
-        },
-        {
-          label: "Decisions",
-          value: String(ordered.length),
-          note: "Across all eras",
-        },
-        {
-          label: "Span",
-          value: ordered.length
-            ? `${markYear(ordered[0]!) ?? "—"}–${markYear(ordered.at(-1)!) ?? "—"}`
-            : "—",
-          note: "First and latest decision",
-        },
-      ];
-    }
     if (view === "changes") {
       return [
         {
@@ -268,27 +228,6 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
             events.relationships.filter((r) => r.kind === "amended").length,
           ),
           note: "Decisions changed by a later Act",
-        },
-      ];
-    }
-    if (view === "evidence") {
-      return [
-        {
-          label: "Context series",
-          value: String(contextLinks),
-          note: "Exchange series linked as context",
-        },
-        {
-          label: "Evidence records",
-          value: String(dossiers),
-          note: `of ${ordered.length} decisions`,
-        },
-        {
-          label: "Evaluations",
-          value: String(evaluations),
-          note: evaluations
-            ? "Published assessments attached"
-            : "None attached yet",
         },
       ];
     }
@@ -314,26 +253,13 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
         note: `First and latest decision · checked ${formatIsoShort(events.retrieved_at)}`,
       },
     ];
-  }, [
-    view,
-    pledges,
-    pledgesPack,
-    events,
-    ordered,
-    filtered,
-    open,
-    area,
-    dossiers,
-    evaluations,
-    contextLinks,
-  ]);
+  }, [view, pledges, pledgesPack, events, filtered, open, area]);
 
   const eraOptions = [
     { value: "all", label: "All eras" },
     ...events.eras.map((e) => ({ value: e.id, label: e.label })),
   ];
-  const showArea =
-    view === "ledger" || view === "institutions" || view === "evidence";
+  const showArea = view === "ledger";
   const showEra = view === "ledger";
 
   let body: React.ReactNode;
@@ -341,7 +267,7 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
 
   if (view === "promise") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["bank-rate", "mpc", "qe", "fiscal-policy", "obr"]}
         source={economySource(
           ECONOMY_SOURCE.policyPledges,
           "United Kingdom",
@@ -380,92 +306,9 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
           />
         </div>
       );
-  } else if (view === "eras") {
-    foot = (
-      <FigureRecord
-        source={economySource(
-          ECONOMY_SOURCE.policy,
-          "United Kingdom",
-          "Register",
-        )}
-        definition={[
-          "The register's eras: browsing ranges in whole years, each listing the decisions whose mark date falls inside it.",
-        ]}
-        method={[
-          "An era is a range, not a claim about the period. An empty range is an empty range.",
-        ]}
-      />
-    );
-    body =
-      events.eras.length === 0 ? (
-        <EmptyStage label="No eras">The register has no eras yet.</EmptyStage>
-      ) : (
-        <div className={s.stack}>
-          {events.eras.map((era) => {
-            const inside = ordered.filter(
-              (e) => eraOf(e, events.eras)?.id === era.id,
-            );
-            return (
-              <section key={era.id} className={s.panel}>
-                <h3 className={t.stageTitle}>
-                  {era.label} · {era.from ?? "…"}–{era.to ?? "today"} ·{" "}
-                  {inside.length}{" "}
-                  {inside.length === 1 ? "decision" : "decisions"}
-                </h3>
-                <p className={ledger.body}>{era.focus}</p>
-                {inside.length ? (
-                  <div className={t.tableWrap}>
-                    <table className={t.table}>
-                      <thead>
-                        <tr>
-                          <th scope="col">Year</th>
-                          <th scope="col">Decision</th>
-                          <th scope="col">Area</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {inside.map((e) => (
-                          <tr key={e.id}>
-                            <td>{markYear(e) ?? "—"}</td>
-                            <th scope="row">
-                              <button
-                                type="button"
-                                style={tableLinkStyle}
-                                onClick={() =>
-                                  sync({
-                                    view: "ledger",
-                                    era: "all",
-                                    area: "all",
-                                    event: e.id,
-                                  })
-                                }
-                              >
-                                {e.title}
-                              </button>
-                            </th>
-                            <td>
-                              {e.policy_area
-                                ? POLICY_AREA_LABEL[e.policy_area]
-                                : "—"}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <p className={ledger.ledgerEmpty}>
-                    No decisions in this range yet.
-                  </p>
-                )}
-              </section>
-            );
-          })}
-        </div>
-      );
   } else if (view === "changes") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["bank-rate", "mpc", "qe", "fiscal-policy", "obr"]}
         source={economySource(
           ECONOMY_SOURCE.policy,
           "United Kingdom",
@@ -544,140 +387,18 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
           </section>
         </div>
       );
-  } else if (view === "evidence") {
-    const rows = filtered.flatMap((e) =>
-      e.linked_indicators.map((link) => ({ event: e, link })),
-    );
+  } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["bank-rate", "mpc", "qe", "fiscal-policy", "obr"]}
         source={economySource(
           ECONOMY_SOURCE.policy,
           "United Kingdom",
           "Register",
         )}
         definition={[
-          "Where each decision meets the Exchange's measured series, and which published evaluations are attached.",
-          "Three kinds of evidence stay apart: what policymakers said, what the series show, and what evaluations conclude.",
+          "A chronological list of checked economic decisions: Acts, programmes and institutions.",
+          "Closed rows are solid electric. Open a row for the catalogue card: the story on the left, the register on the right, and the evidence record where one has been compiled.",
         ]}
-        method={[
-          "A linked series is context. Overlap between a decision and a series is not an effect.",
-          "Evaluations are published assessments only. A record with none attached says so.",
-        ]}
-      />
-    );
-    body =
-      rows.length === 0 ? (
-        <EmptyStage label="No linked series">
-          No decision in this selection links to a series yet.
-        </EmptyStage>
-      ) : (
-        <div className={s.stack}>
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Decisions and the series shown beside them · {rows.length}
-            </h3>
-            <div className={t.tableWrap}>
-              <table className={t.table}>
-                <thead>
-                  <tr>
-                    <th scope="col">Decision</th>
-                    <th scope="col">Series</th>
-                    <th scope="col">Why it is shown</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map(({ event, link }) => (
-                    <tr key={`${event.id}-${link.id}`}>
-                      <th scope="row">
-                        <button
-                          type="button"
-                          style={tableLinkStyle}
-                          onClick={() =>
-                            sync({
-                              view: "ledger",
-                              era: "all",
-                              area: "all",
-                              event: event.id,
-                            })
-                          }
-                        >
-                          {event.title}
-                        </button>
-                      </th>
-                      <td>
-                        <a
-                          href={`/economy?domain=${link.domain}&view=${link.view}`}
-                        >
-                          {link.title}
-                        </a>
-                      </td>
-                      <td>{link.note}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <section className={s.panel}>
-            <h3 className={t.stageTitle}>
-              Published evaluations · {evaluations}
-            </h3>
-            {evaluations === 0 ? (
-              <p className={ledger.ledgerEmpty}>
-                None attached to any record yet.
-              </p>
-            ) : (
-              <div className={t.tableWrap}>
-                <table className={t.table}>
-                  <thead>
-                    <tr>
-                      <th scope="col">Decision</th>
-                      <th scope="col">Evaluation</th>
-                      <th scope="col">Finding</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ordered.flatMap((e) =>
-                      (e.dossier?.evaluations ?? []).map((ev) => (
-                        <tr key={`${e.id}-${ev.url}`}>
-                          <th scope="row">{e.title}</th>
-                          <td>
-                            <a href={ev.url} target="_blank" rel="noreferrer">
-                              {ev.label}
-                            </a>{" "}
-                            · {ev.publisher}
-                          </td>
-                          <td>{ev.finding}</td>
-                        </tr>
-                      )),
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
-        </div>
-      );
-  } else {
-    const institutions = view === "institutions";
-    foot = (
-      <FigureRecord
-        source={economySource(
-          ECONOMY_SOURCE.policy,
-          "United Kingdom",
-          "Register",
-        )}
-        definition={
-          institutions
-            ? [
-                "Britain's economic institutions and the Acts that made or changed them: the Treasury, the Bank of England, the Office for Budget Responsibility and the regulators.",
-                "Open a record for the catalogue card: the story on the left, the register on the right.",
-              ]
-            : [
-                "A chronological list of checked economic decisions: Acts, programmes and institutions.",
-                "Closed rows are solid electric. Open a row for the catalogue card: the story on the left, the register on the right, and the evidence record where one has been compiled.",
-              ]
-        }
         method={[
           events.note,
           "Announcement, Royal Assent, commencement and repeal dates stay separate fields. Linked indicators are context only.",
@@ -695,7 +416,7 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
             events={ledgerEvents}
             openId={openId}
             onSelect={(id) => sync({ event: id })}
-            idPrefix={institutions ? "economy-institutions" : "economy-policy"}
+            idPrefix="economy-policy"
           />
           <ExactRegister>
             <table className={t.table} aria-label="Economic policy decisions">
@@ -779,7 +500,7 @@ export function PolicyCanvas({ pack }: { pack: PolicyPack }) {
         meta={
           view === "promise"
             ? "Open a pledge to read its verdict"
-            : view === "ledger" || view === "institutions"
+            : view === "ledger"
               ? "Open a decision to read its catalogue card"
               : undefined
         }

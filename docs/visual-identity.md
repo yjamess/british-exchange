@@ -37,6 +37,7 @@ Britain as a living system. Every public number, connected. The site is printed 
 
 - **One ink per surface:** electric on paper, paper on flat electric, paper/lavender on Union, or Union/electric on a sage or straw ground.
 - **Tints are dots, never opacity.** Area shading in charts and UI uses the halftone screen (`.bo-tint-30`, `.bo-tint-60`, SVG dot patterns at 45°). Solid ink mixes (`--bo-ink-20` etc.) are for hairlines and chrome only. Type is never faded.
+- **Exception — maps and two-way grids (v1.1, 2026-11-17):** fills are **stepped solid tones** (`--bo-tone-0…6`, solid mixes of the one ink toward paper), because a dot screen under place names and boundaries does not read. Still one ink, still never opacity. See Charts › Geography › Maps.
 - Sector pigments are retired. `--bo-sector` now resolves to ink.
 
 ## Type (Caslon + Geist)
@@ -133,7 +134,7 @@ Housing & Land is the reference page, not a second design. The next sector copie
 | Page | `SectorPage` | Mast, hero plate, sector name on a solid ink strip under the plate. The sector name is the one loud line. Full hero (sector landing) prints the plate in `print`; once a domain is open the hero shrinks to a band in `night` (set in the template, all sectors). |
 | Canvas | `Explorer` | Left rail of domains, then crumb, Caslon question, view tabs, figures, controls, stage, source line (`formatSource` grammar above). |
 | Charts | `TimeChart`, `RankBars`, `ChangeRows` | Pass data and a form. Ranked bars are solid ink, the same ink as the first line on a time chart. |
-| Geography | `RegionMap`, `AreaMap`, `StationPointMap`, `WorldChoropleth` | Place-based series use the map stage. Ranked lists may sit beside the map; they do not replace it. |
+| Geography | `InkMap` → `AreaMap`, `RegionMap`, `StationPointMap`, `FieldPointMap`; `WorldChoropleth` | Place-based series use the map stage. Ranked lists may sit beside the map; they do not replace it. See Charts › Geography › Maps. |
 | Data | `tableGroup` / Land Data / Generation Data | Observation tables. Catalogue links live in Notes, not as the Data body. |
 | Policy | `DecisionLedger`, `CatalogueDossier`, `ExactRegister` | Electric slab + catalogue card. One shared module for every event domain. |
 | State | The URL | `domain`, `view`, and the controls. A shared link opens the same picture. |
@@ -168,7 +169,7 @@ One component draws every time series: `TimeChart` in `web/src/brand/instrument/
 | Shares of a whole over time | Stacked share | `TimeChart` `kind="stack"` |
 | Sparse annual series (≤60 points) | Line with rings at observations | `TimeChart` `marks` |
 | One period across **categories** (industry, tenure, reason, fuel…) | Ranked bars, solid ink | `RankBars` |
-| One period across **places** (nations, regions, local authorities, sites) | **Map** — choropleth or points; a ranked list may sit beside it as a secondary reading | `RegionMap` · `AreaMap` · `StationPointMap` · `WorldChoropleth` (`web/src/brand/map/`, Housing `AreaMap`, Generation `StationPointMap`) |
+| One period across **places** (nations, regions, local authorities, sites) | **Map** — choropleth or points; a ranked list may sit beside it as a secondary reading | `AreaMap` · `RegionMap` · `StationPointMap` · `FieldPointMap` (all on `InkMap`, `web/src/brand/map/`) · `WorldChoropleth` (SVG, world) |
 | One headline series and how far places spread around it | Line within a lavender screened range band (e.g. 10th–90th percentile of local authorities); band edges named in the margin, derivation in the source line | `TimeChart` `band={{ lo, hi, loLabel, hiLabel }}` |
 | How far each place moved between two periods | Start → latest rows: open ring = first period, ink dot = latest, reference row (e.g. England) on top | `ChangeRows` |
 | A two-way table (e.g. income percentile × price percentile) | Grid in five stepped solid tones with a key; dark steps carry paper type; one highlighted reference cell | — (see `WhoCanAfford`) |
@@ -177,8 +178,22 @@ One component draws every time series: `TimeChart` in `web/src/brand/instrument/
 
 - If the series is about **where** — nations, regions, local authorities, stations, licence blocks, countries of origin — the stage instrument is a **map**.
 - Do not substitute `RankBars` (or a plain table) for a Geography / Places / Map view. A clickable rank list next to the map is fine; the map is the primary reading.
-- Reuse the shared map kit (`RegionMap`, `AreaMap`, `StationPointMap`, `WorldChoropleth`); do not invent a parallel choropleth or pin style per sector.
+- Reuse the shared map kit (`InkMap` and the instruments built on it, plus `WorldChoropleth`); do not invent a parallel choropleth or pin style per sector.
 - Boundaries and coverage honesty stay in the source line / Notes foot (`Boundaries: …`), never as a separate map chrome system.
+
+**Maps (v1.1, owner-approved 2026-11-17)**
+
+One map surface for place data: `InkMap` (`web/src/brand/map/InkMap.tsx`) — MapLibre over PMTiles. Every UK map draws real geography: coast, rivers, roads and towns, with full-resolution ONS boundaries that stay crisp when zoomed.
+
+- **Tiles.** `boundaries` (ONS December 2025: local authorities BFC, English regions BFC, UK countries BGC; layers `lad` · `rgn` · `ctry`, each feature `code` + `name`) and `gb-basemap` (OpenStreetMap via Protomaps, GB + North Sea, zoom ≤ 10, only earth · water · roads · boundaries · places). Built by `regions.connectors.map_tiles`, stored in Supabase Storage, served by the API at `/tiles/{name}.pmtiles` with byte ranges. Values are joined in the browser by code — tiles never carry statistics.
+- **Ground.** Land is paper. Sea is engraved horizontal hairlines (print, not a tint). Coast ink 70 %. Nation borders dashed ink. Rivers and roads only as you zoom.
+- **Areas (choropleth).** Seven stepped solid tones `--bo-tone-0…6`, paper → ink, one band per break, with the legend swatches in the same tones. Borders between areas are knocked out in paper. Roads print in paper through the tones. No data = paper with a hairline slash, never a pale tone.
+- **Places (points).** deck.gl over the same map (`web/src/brand/map/sites.ts`). Square marks, area ∝ the published value on one fixed scale. Groups are told apart by print — dots, hatch, cross-hatch, open — never by colour. Marks too small to hold a print print solid.
+- **Names.** Geist Mono on a paper tab with an ink hairline (`placeNames`, `areaNames`), never floating on a fill. Town names thin out by zoom.
+- **Selection and inspection.** Hover = ink outline. Selected = ink outline over a paper halo (reads on the darkest tone). Compare = Union dash. Readouts use `ReadoutCard`. Tools are the shared + / − / ⌂ / Find set.
+- **Gestures.** The page keeps scroll: two fingers (touch) or Ctrl/⌘ + scroll move the map. No rotation, no pitch.
+- **Credit.** "© OpenStreetMap contributors" in mono on a paper strip, bottom-right, linked to openstreetmap.org/copyright — the only chrome inside the map. ONS boundaries go in the source line (`Boundaries: ONS December 2025`).
+- **World.** `WorldChoropleth` stays SVG (the basemap is UK-only) but follows the same rules: tones, paper borders, no-data countries plain paper.
 
 **Marks**
 
@@ -210,7 +225,7 @@ One component draws every time series: `TimeChart` in `web/src/brand/instrument/
 ## Rules
 
 1. One ink per surface.
-2. Tints are dots, never opacity; type is never faded.
+2. Tints are dots, never opacity; maps and two-way grids use stepped solid tones; type is never faded.
 3. Text on solid ground; plate treatments are imagery, not themes.
 4. Quiet type, one loud line.
 5. Marks are measurements; gaps stay visible.

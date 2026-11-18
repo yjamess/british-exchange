@@ -568,7 +568,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
   if (view === "data") {
     const dataSource = dataSourceLine(activeDataSeries);
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth"]}
         source={economySource(dataSource, "United Kingdom", economyPeriod("annual"))}
         definition="The published figures behind this domain, latest first."
         method={dataMethod(activeDataSeries)}
@@ -577,7 +577,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
     body = <HouseholdData pack={pack} seriesId={activeDataSeries} />;
   } else if (view === "saving") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth"]}
         source={economySource(
           ECONOMY_SOURCE.householdSavingRatio,
           "United Kingdom",
@@ -627,7 +627,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
   } else if (view === "cost") {
     const when = spendPeriod ? labelSpendPeriod(spendPeriod) : "";
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth", "lcf", "income-fifths"]}
         source={economySource(
           costMeasure === "share"
             ? ECONOMY_SOURCE.familySpendingByIncome
@@ -640,7 +640,6 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
           "Living Costs and Food Survey, Family spending, year to March 2025. Housing (net), fuel and power excludes mortgage interest and Council Tax; those sit in other expenditure items.",
           "Shares by income group use the published two-adult ranking. No extras basket is built here. Pounds a week are in year-to-March-2025 prices.",
         ]}
-        terms={["lcf", "income-fifths"]}
       />
     );
     const costEmpty =
@@ -704,7 +703,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
     );
   } else if (view === "ledger") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth", "lcf", "income-fifths"]}
         source={economySource(
           ledgerSourceLine(ledgerMeasure, Boolean(burdenSlice)),
           "United Kingdom",
@@ -715,7 +714,6 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
           "Spending is year to March 2025, private households, two-adult ranking. Taxes are Effects of taxes and benefits, year to March 2024. Different years, different groups, different pounds.",
           "Do not add these figures to household disposable income or to the national saving ratio. They are adjacent statistics, not one ledger.",
         ]}
-        terms={["lcf", "income-fifths"]}
       />
     );
     const spendBody =
@@ -800,7 +798,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
     );
   } else if (view === "buffer") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth", "was"]}
         source={economySource(
           ECONOMY_SOURCE.householdFinancialWealth,
           "Great Britain",
@@ -811,7 +809,6 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
           "Wealth and Assets Survey, April 2020 to March 2022. Accreditation for this round is suspended. Figures are pounds of the day, Great Britain, not the United Kingdom.",
           "This is not the national saving ratio. Property wealth lives on Housing. Do not add the two.",
         ]}
-        terms={["was"]}
       />
     );
     body = !bandRanks.length && !coverageRanks.length ? (
@@ -864,7 +861,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
   } else if (view === "debt") {
     const through = creditPts.length ? fmtT(creditPts[creditPts.length - 1]!.t, "monthly") : null;
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth"]}
         source={economySource(
           ECONOMY_SOURCE.consumerCredit,
           "United Kingdom",
@@ -912,7 +909,7 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
     );
   } else {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["disposable-income", "rhdi", "saving-ratio", "consumer-credit", "net-financial-wealth"]}
         source={economySource(
           sourceLine,
           "United Kingdom",
@@ -1032,7 +1029,6 @@ export function HouseholdCanvas({ pack }: { pack: HouseholdPack }) {
         <ResetButton
           onClick={() =>
             sync({
-              view: "better-off",
               measure: "total",
               costMeasure: "weekly",
               ledgerMeasure: "category",

@@ -648,7 +648,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
 
   if (view === "value") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
         source={economySource(
           ECONOMY_SOURCE.realEarnings,
           "Great Britain",
@@ -738,7 +738,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
   } else if (view === "ladder") {
     const sheetWord = asheSheetLabel(asheSheet);
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
         source={economySource(
           ECONOMY_SOURCE.asheNational,
           "United Kingdom",
@@ -842,7 +842,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
         ...changeFor(localPoints.slice(-5)).filter((r) => r.id !== placeRaw),
       ];
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
           source={economySource(
             ECONOMY_SOURCE.asheRegional,
             "Great Britain local authorities · workplace",
@@ -934,7 +934,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
         ? (industryPlaces.find((r) => r.code === selectedRegion)?.label ?? regionalRegions.find((r) => r.code === selectedRegion)?.label ?? "Selected place")
         : "United Kingdom";
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
           source={economySource(
             `${ECONOMY_SOURCE.asheRegional} and industry`,
             "United Kingdom · workplace",
@@ -1020,7 +1020,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
       );
     } else {
       foot = (
-        <FigureRecord
+        <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
           source={economySource(
             ECONOMY_SOURCE.asheRegional,
             "United Kingdom · workplace",
@@ -1119,7 +1119,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
     }
   } else if (view === "vs-prices") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
         source={economySource(
           ECONOMY_SOURCE.payVsPrices,
           "Great Britain / United Kingdom",
@@ -1208,7 +1208,7 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
     }
   } else if (view === "data") {
     foot = (
-      <FigureRecord
+      <FigureRecord terms={["awe", "ashe", "real-pay", "percentile", "gross-pay"]}
         source={economySource(ECONOMY_SOURCE.earnings, "Great Britain", economyPeriod("monthly"))}
         definition="Observation tables for Ready earnings series on this domain."
         method={[
@@ -1315,7 +1315,6 @@ export function WagesCanvas({ pack }: { pack: WagesPack }) {
           onClick={() => {
             setSelectedRegion(null);
             sync({
-              view: DEFAULT_VIEW,
               year: String(DEFAULT_COMPARE_YEAR),
               to: "",
               from: "",

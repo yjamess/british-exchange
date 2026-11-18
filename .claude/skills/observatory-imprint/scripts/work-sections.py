@@ -31,9 +31,15 @@ is done with, on the same floor, camera and light as the manufacturing set (manu
 Illustrative specimens only — plate area is NOT jobs or share. Numbers live in the UI.
 No people, no logos, no crowns, no real brands.
 
+Motion loops (seamless, frame 0 = the still) for the kit that moves:
+  mining cage winds up and down · crane slews and lifts · safe handle turns · drawer slides ·
+  bed head rises · washing tumbles · chimney smoke · tractor and lorry exhaust · teapot steam.
+The rest stay still plates.
+
 Usage:
-  uv run work-sections.py OUT_DIR [--only tractor,health] [--size 1000x1000] [--preview]
-Writes OUT_DIR/w-<id>.png (mask for <Plate>).
+  uv run work-sections.py OUT_DIR [--only farming,health] [--size 1000x1000] [--frames 20] [--no-atlas] [--preview]
+Writes OUT_DIR/w-<id>.png (mask for <Plate>) and, for moving scenes,
+       OUT_DIR/w-<id>-atlas-4x5-500.jpg (grayscale tone atlas for <HalftoneMotion>).
 """
 
 from __future__ import annotations
@@ -162,9 +168,11 @@ def scene_farming():
     return sdf, albedo
 
 
-def scene_mining():
-    """A pithead headframe: two A-frame legs, a sheave wheel at the top and the winding house."""
-    top = (0.0, 9.0, 0.0)
+def scene_mining(t: float = 0.0):
+    """A pithead headframe: two A-frame legs, a sheave wheel at the top and the winding house.
+    Motion: the cage winds up and back down; the sheave wheel turns with the rope."""
+    lift = 2.2 * 0.5 * (1 - math.cos(TAU * t))
+    turn = lift / 1.15
 
     def sdf(p):
         x, y, z = p[:, 0], p[:, 1], p[:, 2]
@@ -196,12 +204,12 @@ def scene_mining():
         hub = cyl_z(p, 0.0, 10.2, 0.28, -0.3, 0.3)
         spokes = np.full(len(p), 1e9)
         for k in range(6):
-            a = k * TAU / 12
+            a = k * TAU / 12 + turn
             spokes = np.minimum(spokes, cap((1.1 * math.cos(a), 10.2 + 1.1 * math.sin(a), 0), (-1.1 * math.cos(a), 10.2 - 1.1 * math.sin(a), 0), 0.07)(p))
-        rope = np.minimum(cap((0.0, 11.3, 0.0), (-4.7, 0.6, 0.0), 0.05)(p), cap((1.15, 10.2, 0.0), (1.15, 0.0, 0.0), 0.05)(p))
+        rope = np.minimum(cap((0.0, 11.3, 0.0), (-4.7, 0.6, 0.0), 0.05)(p), cap((1.15, 10.2, 0.0), (1.15, 2.3 + lift, 0.0), 0.05)(p))
         house = box(p, (-4.6, 1.3, 0.0), (1.4, 1.3, 1.9))
         house_roof = gable(p, -4.6, 2.6, 1.6, 0.9, 2.1)
-        cage = box(p, (1.15, 1.2, 0.0), (0.55, 1.1, 0.55))
+        cage = box(p, (1.15, 1.2 + lift, 0.0), (0.55, 1.1, 0.55))
         return np.minimum.reduce([floor, legs, back, braces, deck, wheel, hub, spokes, rope, house, house_roof, cage])
 
     def albedo(p, n, t):
@@ -213,7 +221,7 @@ def scene_mining():
         a = np.where(house, 0.86 - 0.18 * stripes(y, 0.32, 0.18), a)
         a = np.where(house & (n[:, 1] > 0.5), 0.6 - 0.2 * stripes(x, 0.3, 0.3), a)
         a = np.where(up & (np.hypot(x, y - 10.2) < 1.3), 0.42, a)
-        a = np.where(up & (np.abs(x - 1.15) < 0.6) & (y < 2.35), 0.6 - 0.3 * stripes(y, 0.3, 0.25), a)
+        a = np.where(up & (np.abs(x - 1.15) < 0.6) & (y < 2.35 + lift) & (y > lift), 0.6 - 0.3 * stripes(y - lift, 0.3, 0.25), a)
         return a
 
     return sdf, albedo
@@ -350,12 +358,17 @@ def scene_water():
     return sdf, albedo
 
 
-def scene_construction():
-    """A tower crane: base block, mast, cab, jib with trolley, counter-jib with weights, hook."""
+def scene_construction(t: float = 0.0):
+    """A tower crane: base block, mast, cab, jib with trolley, counter-jib with weights, hook.
+    Motion: the jib slews, the trolley runs along it and the hook lifts."""
     ang = -0.35
+    slew = 0.32 * math.sin(TAU * t)
+    tx = 4.8 - 1.4 * math.sin(TAU * t)
+    hl = 0.9 * 0.5 * (1 - math.cos(TAU * t))
 
     def sdf(p0):
         p = rot_y(p0, ang)
+        pu = rot_y(p0, ang + slew)
         floor = p0[:, 1]
         base = box(p, (0.0, 0.45, 0.0), (1.9, 0.45, 1.9))
         mast = np.full(len(p), 1e9)
@@ -368,25 +381,25 @@ def scene_construction():
                 mast = np.minimum(mast, cap((-0.55, y, sx * 0.55), (0.55, y, sx * 0.55), 0.05)(p))
                 mast = np.minimum(mast, cap((sx * 0.55, y, -0.55), (-sx * 0.55, y + 0.9, -0.55), 0.045)(p))
                 mast = np.minimum(mast, cap((-0.55, y, sx * 0.55), (0.55, y + 0.9, sx * 0.55), 0.045)(p))
-        slew = cyl(p, (0, 0), 0.75, 9.0, 9.4)
-        cab = box(p, (0.3, 10.0, -1.0), (0.6, 0.55, 0.45))
-        jib = np.full(len(p), 1e9)
+        ring = cyl(pu, (0, 0), 0.75, 9.0, 9.4)
+        cab = box(pu, (0.3, 10.0, -1.0), (0.6, 0.55, 0.45))
+        jib = np.full(len(pu), 1e9)
         for sz in (1, -1):
-            jib = np.minimum(jib, cap((-3.6, 9.5, sz * 0.32), (7.2, 9.5, sz * 0.32), 0.07)(p))
-        jib = np.minimum(jib, cap((-3.6, 10.2, 0), (7.2, 10.2, 0), 0.07)(p))
+            jib = np.minimum(jib, cap((-3.6, 9.5, sz * 0.32), (7.2, 9.5, sz * 0.32), 0.07)(pu))
+        jib = np.minimum(jib, cap((-3.6, 10.2, 0), (7.2, 10.2, 0), 0.07)(pu))
         for k in range(14):
             x = -3.4 + k * 0.78
-            jib = np.minimum(jib, cap((x, 9.5, -0.32), (x + 0.39, 10.2, 0), 0.04)(p))
-            jib = np.minimum(jib, cap((x + 0.39, 10.2, 0), (x + 0.78, 9.5, 0.32), 0.04)(p))
-            jib = np.minimum(jib, cap((x, 9.5, -0.32), (x, 9.5, 0.32), 0.04)(p))
-        apex = cap((0, 9.4, 0), (0, 12.6, 0), 0.08)(p)
-        ties = np.minimum(cap((0, 12.6, 0), (7.0, 10.2, 0), 0.04)(p), cap((0, 12.6, 0), (-3.4, 10.2, 0), 0.04)(p))
-        weights = box(p, (-3.0, 9.0, 0.0), (0.7, 0.42, 0.55))
-        trolley = box(p, (4.8, 9.3, 0.0), (0.35, 0.18, 0.4))
-        cable = cap((4.8, 9.1, 0), (4.8, 4.6, 0), 0.03)(p)
-        block = box(p, (4.8, 4.4, 0), (0.25, 0.3, 0.12))
-        hook = np.maximum(ring_z(p, 4.8, 3.6, 0.5, 0.32, -0.08, 0.08), p[:, 0] - 5.0)
-        return np.minimum.reduce([floor, base, mast, slew, cab, jib, apex, ties, weights, trolley, cable, block, hook])
+            jib = np.minimum(jib, cap((x, 9.5, -0.32), (x + 0.39, 10.2, 0), 0.04)(pu))
+            jib = np.minimum(jib, cap((x + 0.39, 10.2, 0), (x + 0.78, 9.5, 0.32), 0.04)(pu))
+            jib = np.minimum(jib, cap((x, 9.5, -0.32), (x, 9.5, 0.32), 0.04)(pu))
+        apex = cap((0, 9.4, 0), (0, 12.6, 0), 0.08)(pu)
+        ties = np.minimum(cap((0, 12.6, 0), (7.0, 10.2, 0), 0.04)(pu), cap((0, 12.6, 0), (-3.4, 10.2, 0), 0.04)(pu))
+        weights = box(pu, (-3.0, 9.0, 0.0), (0.7, 0.42, 0.55))
+        trolley = box(pu, (tx, 9.3, 0.0), (0.35, 0.18, 0.4))
+        cable = cap((tx, 9.1, 0), (tx, 4.6 + hl, 0), 0.03)(pu)
+        block = box(pu, (tx, 4.4 + hl, 0), (0.25, 0.3, 0.12))
+        hook = np.maximum(ring_z(pu, tx, 3.6 + hl, 0.5, 0.32, -0.08, 0.08), pu[:, 0] - (tx + 0.2))
+        return np.minimum.reduce([floor, base, mast, ring, cab, jib, apex, ties, weights, trolley, cable, block, hook])
 
     def albedo(p0, n, t):
         a = floor_albedo(p0)
@@ -394,6 +407,7 @@ def scene_construction():
         up = up_of(p0)
         a = np.where(up, 0.5, a)
         a = np.where(up & (p[:, 1] < 0.95), 0.85, a)
+        p = rot_y(p0, ang + slew)
         a = np.where(up & (np.abs(p[:, 0] + 3.0) < 0.75) & (np.abs(p[:, 1] - 9.0) < 0.45), 0.8 - 0.3 * stripes(p[:, 0], 0.35, 0.15), a)
         a = np.where(up & (np.abs(p[:, 0] - 0.3) < 0.65) & (p[:, 1] > 9.4) & (p[:, 1] < 10.6) & (p[:, 2] < -0.5), 0.9, a)
         return a
@@ -595,9 +609,11 @@ def scene_telecoms():
     return sdf, albedo
 
 
-def scene_finance():
-    """A safe on feet with a dial and a three-spoke handle, beside a small strongbox."""
+def scene_finance(t: float = 0.0):
+    """A safe on feet with a dial and a three-spoke handle, beside a small strongbox.
+    Motion: the handle turns a third of a revolution (seamless: three spokes)."""
     ang = 0.35
+    turn = TAU / 3 * t
 
     def sdf(p0):
         p = rot_y(p0, ang)
@@ -609,7 +625,7 @@ def scene_finance():
         dial_knob = cyl_z(p, -0.75, 3.3, 0.2, -2.15, -2.0)
         hub = cyl_z(p, 0.65, 2.4, 0.22, -2.0, -1.74)
         spokes = np.full(len(p), 1e9)
-        for a in (TAU / 4, TAU / 4 + TAU / 3, TAU / 4 + 2 * TAU / 3):
+        for a in (TAU / 4 + turn, TAU / 4 + TAU / 3 + turn, TAU / 4 + 2 * TAU / 3 + turn):
             spokes = np.minimum(spokes, cap((0.65, 2.4, -1.9), (0.65 + 0.7 * math.cos(a), 2.4 + 0.7 * math.sin(a), -1.9), 0.07)(p))
             spokes = np.minimum(spokes, P.sd_sphere(p, np.array([0.65 + 0.7 * math.cos(a), 2.4 + 0.7 * math.sin(a), -1.9]), 0.12))
         feet = np.full(len(p), 1e9)
@@ -722,9 +738,11 @@ def scene_science():
     return sdf, albedo
 
 
-def scene_admin():
-    """A four-drawer filing cabinet with the second drawer pulled out and folders in it, beside an archive box."""
+def scene_admin(t: float = 0.0):
+    """A four-drawer filing cabinet with the second drawer pulled out and folders in it, beside an archive box.
+    Motion: the open drawer slides most of the way in and back out."""
     ang = 0.3
+    dz = 1.0 * 0.5 * (1 - math.cos(TAU * t))
 
     def sdf(p0):
         p = rot_y(p0, ang)
@@ -739,7 +757,7 @@ def scene_admin():
             fronts = np.minimum(fronts, box(p, (0.0, fy, -1.1), (1.2, 0.62, 0.08)))
             fronts = np.minimum(fronts, box(p, (0.0, fy + 0.35, -1.2), (0.45, 0.05, 0.06)))
             fronts = np.minimum(fronts, cap((-0.35, fy - 0.1, -1.22), (0.35, fy - 0.1, -1.22), 0.07)(p))
-        drawer_z = -2.9
+        drawer_z = -2.9 + dz
         drawer = box(p, (0.0, 4.45, drawer_z + 1.3), (1.18, 0.55, 1.3))
         drawer = np.maximum(drawer, -box(p, (0.0, 4.6, drawer_z + 1.3), (1.05, 0.55, 1.2)))
         front = box(p, (0.0, 4.55, drawer_z - 0.05), (1.2, 0.62, 0.08))
@@ -765,8 +783,8 @@ def scene_admin():
         up = up_of(p0)
         a = np.where(up, 0.66, a)
         a = np.where(up & (z < -1.0) & (np.abs(x) < 1.25) & (np.abs(n[:, 2]) > 0.6), 0.76, a)
-        a = np.where(up & (y > 3.95) & (y < 5.5) & (z > -2.8) & (z < -0.4) & (np.abs(x) < 1.05), 0.9 - 0.1 * stripes(z, 0.23, 0.5), a)
-        a = np.where(up & (y > 5.2) & (y < 5.5) & (z > -2.9) & (z < -0.4) & (np.abs(x) < 1.0), 0.95, a)
+        a = np.where(up & (y > 3.95) & (y < 5.5) & (z > -2.8 + dz) & (z < -0.4 + dz) & (np.abs(x) < 1.05), 0.9 - 0.1 * stripes(z - dz, 0.23, 0.5), a)
+        a = np.where(up & (y > 5.2) & (y < 5.5) & (z > -2.9 + dz) & (z < -0.4 + dz) & (np.abs(x) < 1.0), 0.95, a)
         a = np.where(up & (x > 2.2) & (y < 1.7), 0.8 - 0.25 * (np.abs(y - 1.1) < 0.18) * (np.abs(n[:, 1]) < 0.5), a)
         a = np.where(up & (x > 2.2) & (y > 1.45), 0.7, a)
         return a
@@ -866,9 +884,11 @@ def scene_education():
     return sdf, albedo
 
 
-def scene_health():
-    """A hospital bed: frame on castors, mattress with a raised head section, side rails, drip stand."""
+def scene_health(t: float = 0.0):
+    """A hospital bed: frame on castors, mattress with a raised head section, side rails, drip stand.
+    Motion: the head section rises further and settles back."""
     ang = 0.3
+    tilt = -0.55 - 0.5 * 0.5 * (1 - math.cos(TAU * t))
 
     def sdf(p0):
         p = rot_y(p0, ang)
@@ -880,7 +900,7 @@ def scene_health():
             legs = np.minimum(legs, P.sd_sphere(p, np.array([sx * 2.9, 0.25, sz * 1.25]), 0.25))
         under = box(p, (0.0, 0.9, 0.0), (2.6, 0.2, 1.1))
         foot_sec = box(p, (0.9, 1.78, 0.0), (2.4, 0.22, 1.35))
-        hq = rot_z(p, -0.55, -1.5, 1.57)
+        hq = rot_z(p, tilt, -1.5, 1.57)
         head_sec = box(hq, (-2.6, 1.78, 0.0), (1.1, 0.22, 1.35))
         pillow = box(hq, (-3.1, 2.1, 0.0), (0.5, 0.14, 0.9))
         head_board = box(p, (-3.7, 2.3, 0.0), (0.1, 0.9, 1.5))
@@ -994,8 +1014,11 @@ def scene_services():
         up = up_of(p0)
         a = np.where(up, 0.9, a)
         port = up & (np.hypot(x, y - 1.75) < 0.86) & (z < -1.0)
-        a = np.where(port, 0.5, a)
-        a = np.where(up & (np.hypot(x, y - 1.75) < 0.72) & (z > -1.3) & (z < -0.3), 0.62 - 0.2 * stripes(z, 0.2, 0.4), a)
+        # Laundry seen through the glass: a dark load that tumbles one full turn per loop.
+        r = np.hypot(x, y - 1.75)
+        load = (np.cos(np.arctan2(y - 1.75, x) - (TAU * t - TAU / 4)) > 0.2) & (r > 0.18)
+        a = np.where(port, np.where(load & (r < 0.74), 0.22, 0.62), a)
+        a = np.where(up & (r < 0.72) & (z > -1.3) & (z < -0.3), 0.62 - 0.2 * stripes(z, 0.2, 0.4), a)
         a = np.where(up & (np.hypot(x, y - 1.75) > 0.85) & (np.hypot(x, y - 1.75) < 1.06) & (z < -1.2), 0.42, a)
         a = np.where(up & (np.abs(y - 3.25) < 0.22) & (z < -1.2) & (np.abs(x) < 1.3), 0.72, a)
         a = np.where(up & (x > 2.1) & (y < 2.05), 0.78 - 0.22 * (stripes(y, 0.28, 0.5) ^ stripes(np.arctan2(z + 1.4, x - 3.4), TAU / 36, 0.5)), a)
@@ -1116,26 +1139,69 @@ def fit_scale(sdf) -> float:
     return float(np.clip(min(FIT_HEIGHT / height, FIT_RADIUS / radius), 0.55, 1.5))
 
 
-def build(name: str, out: Path, seed: int, scale: float | None = None) -> None:
-    sdf0, albedo0 = SCENES[name]()
-    k = scale if scale else fit_scale(sdf0)
+# ───────────────────────── motion ─────────────────────────
+# Scenes whose geometry moves take t in [0, 1) and re-march every frame; t = 0 is the still plate.
+MOVING = {"mining", "construction", "finance", "admin", "health"}
+# Albedo-only motion (geometry cached, albedo reads t).
+ALBEDO_MOTION = {"services"}
+
+
+def inv_rot_y(pt, ang):
+    """World point for a scene-local point q = rot_y(p, ang)."""
+    c, s_ = math.cos(ang), math.sin(ang)
+    x, y, z = pt
+    return (c * x + s_ * z, y, -s_ * x + c * z)
+
+
+# Screen-space wisps (smoke, exhaust, steam) from a source point in unscaled scene coordinates:
+# direction on screen (x right, y down), length and widths as fractions of frame width,
+# shade = tone the wisp screens to (darker for smoke, pale for steam).
+WISPS = {
+    "factory": dict(top=(-3.6, 8.45, 2.4), d=(0.55, -1.0), length=0.36, w0=0.01, w1=0.07, shade=0.5, strength=0.85),
+    "farming": dict(top=inv_rot_y((-0.6, 6.05, 0.7), -0.55), d=(0.45, -1.0), length=0.2, w0=0.005, w1=0.04, shade=0.55, strength=0.7),
+    "transport": dict(top=inv_rot_y((-3.6, 4.95, 1.25), -0.42), d=(0.45, -1.0), length=0.2, w0=0.005, w1=0.04, shade=0.55, strength=0.7),
+    "hospitality": dict(top=(0.72, 2.7 + 1.95, -0.32), d=(0.15, -1.0), length=0.17, w0=0.006, w1=0.035, shade=0.72, strength=0.75),
+}
+
+
+def wisp(tone, cam, top, t, d, length, w0, w1, shade, strength):
+    """A rising wisp that meanders and thins; noise and sway are periodic in t, so it loops."""
+    h, w = tone.shape
+    xy, _ = cam.project([top], w, h)
+    sx, sy = xy[0]
+    d = np.array(d, float)
+    d /= np.linalg.norm(d)
+    nrm_ = np.array([-d[1], d[0]])
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    rx, ry = xx - sx, yy - sy
+    s = (rx * d[0] + ry * d[1]) / (length * w)
+    sc = np.clip(s, 0, 1)
+    lat = rx * nrm_[0] + ry * nrm_[1] - 0.05 * w * sc * np.sin(TAU * (1.3 * s - t))
+    u = lat / ((w0 + w1 * sc) * w)
+    th = TAU * (s * 1.5 - t)
+    R = 1.4
+    nz = P.fbm((R * np.cos(th)).ravel() + 3, (R * np.sin(th)).ravel(), (u * 0.45).ravel(), 4).reshape(h, w)
+    dens = np.exp(-(u**2) * 0.9) * (1 - sc) ** 1.3 * sstep(-0.01, 0.04, s) * (s < 1)
+    dens = dens * sstep(0.36, 0.7, nz) * 1.3
+    k = np.clip(dens, 0, 1) * strength
+    return tone * (1 - k) + shade * k
+
+
+def has_motion(name: str) -> bool:
+    return name in MOVING or name in ALBEDO_MOTION or name in WISPS
+
+
+def build(name: str, out: Path, seed: int, scale: float | None = None, frames: int = 20, atlas: bool = True, cols: int = 4) -> None:
+    from PIL import Image
+
+    def scene(t):
+        return SCENES[name](t) if name in MOVING else SCENES[name]()
+
+    k = scale if scale else fit_scale(scene(0.0)[0])
     print(f"{name}: scale {k:.2f}", flush=True)
-
-    def sdf(p):
-        return sdf0(p / k) * k
-
-    def albedo(p, n, t):
-        # Hits settle a hair above the floor; divided by the scale that hair would clear the scenes'
-        # "above the floor" tests and paint the far floor in the specimen's own tone. Snap it down.
-        q = p / k
-        q[:, 1] = np.where(p[:, 1] < 0.06, 0.0, q[:, 1])
-        return albedo0(q, n, t)
 
     w, h = P.W // 2, P.H // 2
     cam = P.Cam(M.CAM[0], M.CAM[1], M.CAM[2], w, h)
-    geo = ScaledGeo(sdf, cam, k)
-    tone = geo.shade(albedo, 0.0)
-    tone = np.nan_to_num(tone, nan=1.0)
     # The floor patch shrinks with the specimen so the ground reads the same in every plate.
     r0, r1 = M.FLOOR_R0 * k, M.FLOOR_R1 * k
 
@@ -1143,8 +1209,45 @@ def build(name: str, out: Path, seed: int, scale: float | None = None) -> None:
         d = np.hypot(p[:, 0], p[:, 2] - 0.5 * k)
         return np.maximum(sstep(r0, r1, d) * (p[:, 1] < 0.2), sstep(r1, r1 + 1.0, d))
 
-    tone = geo.to_paper(tone, to_paper)
-    E.write_plate(tone, out / f"w-{name}.png", seed)
+    cached = {}
+
+    def tone_at(t):
+        sdf0, albedo0 = scene(t)
+
+        def sdf(p):
+            return sdf0(p / k) * k
+
+        def albedo(p, n, tt):
+            # Hits settle a hair above the floor; divided by the scale that hair would clear the scenes'
+            # "above the floor" tests and paint the far floor in the specimen's own tone. Snap it down.
+            q = p / k
+            q[:, 1] = np.where(p[:, 1] < 0.06, 0.0, q[:, 1])
+            return albedo0(q, n, tt)
+
+        if name in MOVING or "geo" not in cached:
+            cached["geo"] = ScaledGeo(sdf, cam, k)
+        geo = cached["geo"]
+        tone = np.nan_to_num(geo.shade(albedo, t), nan=1.0)
+        tone = geo.to_paper(tone, to_paper)
+        if name in WISPS:
+            wp = dict(WISPS[name])
+            top = np.array(wp.pop("top"), float) * k
+            tone = wisp(tone, cam, top, t, **wp)
+        return tone
+
+    t0 = tone_at(0.0)
+    E.write_plate(t0, out / f"w-{name}.png", seed)
+    if not (atlas and has_motion(name)):
+        return
+    tones = [t0] + [tone_at(i / frames) for i in range(1, frames)]
+    rows = math.ceil(frames / cols)
+    sheet = np.ones((rows * h, cols * w), np.float32)
+    for i, tn in enumerate(tones):
+        r_, c_ = divmod(i, cols)
+        sheet[r_ * h : (r_ + 1) * h, c_ * w : (c_ + 1) * w] = E.frame_with_crosses(tn)
+    path = out / f"w-{name}-atlas-{cols}x{rows}-{w}.jpg"
+    Image.fromarray((sheet * 255).astype(np.uint8), "L").save(path, quality=86, optimize=True)
+    print(f"saved {path}", flush=True)
 
 
 def main() -> None:
@@ -1153,6 +1256,8 @@ def main() -> None:
     ap.add_argument("--only", default=",".join(SCENES))
     ap.add_argument("--size", default="1000x1000")
     ap.add_argument("--seed", type=int, default=11)
+    ap.add_argument("--frames", type=int, default=20)
+    ap.add_argument("--no-atlas", action="store_true")
     ap.add_argument("--preview", action="store_true", help="two-colour PNG instead of a mask")
     ap.add_argument("--scale", type=float, default=None, help="override the fitted scale (tests only)")
     a = ap.parse_args()
@@ -1160,7 +1265,7 @@ def main() -> None:
     P.BARE, P.MASK, P.PREFIX = True, not a.preview, ""
     P.W, P.H = (int(v) for v in a.size.lower().split("x"))
     for name in a.only.split(","):
-        build(name.strip(), a.out, a.seed, a.scale)
+        build(name.strip(), a.out, a.seed, a.scale, a.frames, not a.no_atlas)
 
 
 if __name__ == "__main__":

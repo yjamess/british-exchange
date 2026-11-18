@@ -49,13 +49,25 @@
   --bo-paper-lift: #ffffff;
   --bo-paper-sink: color-mix(in srgb, var(--bo-ink) 6%, var(--bo-paper));
 
-  /* Solid ink mixes — for hairlines and chrome only. Area shading uses the dot screen. */
+  /* Solid ink mixes — for hairlines and chrome only. Area shading uses the dot screen,
+     except maps and two-way grids, which use the stepped tones below. */
   --bo-ink-80: color-mix(in srgb, var(--bo-ink) 80%, var(--bo-paper));
   --bo-ink-60: color-mix(in srgb, var(--bo-ink) 60%, var(--bo-paper));
   --bo-ink-40: color-mix(in srgb, var(--bo-ink) 40%, var(--bo-paper));
   --bo-ink-20: color-mix(in srgb, var(--bo-ink) 20%, var(--bo-paper));
   --bo-ink-10: color-mix(in srgb, var(--bo-ink) 10%, var(--bo-paper));
   --bo-paper-on-ink-70: color-mix(in srgb, var(--bo-paper) 70%, var(--bo-ink));
+
+  /* Stepped tones (v1.1) — choropleth bands 0–6, paper → ink. Solid mixes of the one ink,
+     never opacity. Dark steps (4–6) carry paper type. Mirrored by TONE_STEPS in
+     web/src/brand/map/model.ts (MapLibre needs the numbers). */
+  --bo-tone-0: color-mix(in srgb, var(--bo-ink) 7%, var(--bo-paper));
+  --bo-tone-1: color-mix(in srgb, var(--bo-ink) 17%, var(--bo-paper));
+  --bo-tone-2: color-mix(in srgb, var(--bo-ink) 30%, var(--bo-paper));
+  --bo-tone-3: color-mix(in srgb, var(--bo-ink) 45%, var(--bo-paper));
+  --bo-tone-4: color-mix(in srgb, var(--bo-ink) 60%, var(--bo-paper));
+  --bo-tone-5: color-mix(in srgb, var(--bo-ink) 78%, var(--bo-paper));
+  --bo-tone-6: var(--bo-ink);
 
   /* Deprecated: sector pigments are retired (one ink). Kept so old components render. */
   --bo-sector: var(--bo-ink);

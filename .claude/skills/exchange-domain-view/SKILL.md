@@ -75,8 +75,9 @@ inside the stage, drawn in the house style. Everything around it is the template
 ```
 
 Pick the form from the identity doc's table: lines/stack → `TimeChart`; one period across
-categories → `RankBars`; **places / geography → map** (`RegionMap` / `AreaMap` /
-`StationPointMap` / `WorldChoropleth` — never RankBars alone for a Geography view);
+categories → `RankBars`; **places / geography → map** (`AreaMap` / `RegionMap` /
+`StationPointMap` / `FieldPointMap`, all on `InkMap`, or `WorldChoropleth` — stepped tones,
+names on paper tabs; never raw SVG for a new map; never RankBars alone for a Geography view);
 two periods → `ChangeRows`; tables → `s.table` or `DataTable`.
 Line charts use `SeriesLegend` under the plot for names and latest values so the plot fills
 the stage. End-of-line leaders default **off** — pass `leaders={true}` only when deliberate.

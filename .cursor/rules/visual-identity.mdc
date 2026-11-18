@@ -16,14 +16,14 @@ Read `docs/visual-identity.md` before changing sector UI, charts, imagery or bra
 
 - Source of truth: `web/src/brand/` + `web/src/brand/brand.css` (`.bo` tokens), wrapped by `BrandRoot`.
 - Colours (locked): Electric `#0618F5` (the one ink), Paper `#FDFDFF`, Union `#012169` (text, index, depth), Signal `#FF3347` (live marks only, never text), Lavender `#9C9EFF` (film, muted index type).
-- Tints are dots (halftone screen), never opacity. Type is never faded.
+- Tints are dots (halftone screen), never opacity — except maps and two-way grids, which use stepped solid tones (`--bo-tone-0…6`). Type is never faded.
 - Imagery: `<Plate>` masks in `web/public/brand/plates/`. Treatments print / night / negative are for imagery only; copy over a plate sits on a solid panel. Never inside a chart plot.
 - Data-generated plates carry a source line (publisher, series, period, release, indicator id).
 - Type: Libre Caslon Display headlines (sentence case), Geist body, Geist Mono labels, condensed Archivo figures and index. Heavy capitals only for the wordmark and one statement per page.
 - Instrument marks (ticks, coordinates, contours, points) are plotted from real values. Line language: solid observed, dotted provisional, dashed gap/not observed.
 - Composition: 12-col grid; sections are Quiet, Monumental (max one per page) or Index.
 - Data chooses the chart form. Do not fork a second design system. Changing identity requires updating `docs/visual-identity.md` and `brand.css` together.
-- **Geography → map.** Place-based series (regions, LAs, stations, countries) use `RegionMap` / `AreaMap` / `StationPointMap` / `WorldChoropleth`. `RankBars` is for categories, not a Geography view substitute. See `docs/visual-identity.md` › Charts › Geography.
+- **Geography → map.** Place-based series (regions, LAs, stations, countries) use `AreaMap` / `RegionMap` / `StationPointMap` / `FieldPointMap` (on `InkMap`) or `WorldChoropleth`; see › Maps for tones, tabs, credit. `RankBars` is for categories, not a Geography view substitute. See `docs/visual-identity.md` › Charts › Geography.
 - Explorer stages: **one Notes foot** (`FigureRecord` or `SourceLine` on `<Stage foot>`). Definition/method stay out of the plot. No `<Coverage>` strip under the stage. Multi-chart titles use `explorerClasses.stageTitle` (Housing pipeline), not `.bo-label` “FIG.” caps. See `.cursor/rules/explorer-stage.mdc`.
 
 Reference page: British Exchange Identity artifact (linked in the doc).

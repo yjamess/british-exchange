@@ -412,7 +412,10 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
       .filter((r) => Number.isFinite(r.value) && r.value > 0)
       .map((r) => ({
         id: `sitc1-${r.sitc1}`,
-        label: r.label || pack.partnerCommodity?.sitc1_labels?.[r.sitc1] || `SITC ${r.sitc1}`,
+        label:
+          r.label ||
+          pack.partnerCommodity?.sitc1_labels?.[r.sitc1] ||
+          "Other goods",
         v: r.value,
       }))
       .sort((a, b) => b.v - a.v)
@@ -786,19 +789,17 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
   const source = economySource(sourceLine, "United Kingdom", economyPeriod("monthly"));
 
   const method = [
-    "ONS Balance of Payments (MRET) is not the same basis as HMRC customs or all-countries partner packs — compare with care.",
-    "Goods and services composition stay on separate charts; they are never mixed.",
+    "Country totals and the product groups under a selected country come from different official books — do not add them together.",
+    "Goods and services stay on separate charts; they are never mixed.",
     "Annual product and partner totals add up the months or quarters of each calendar year. A year still being published is shown as year to date, and composition lines stop at the last complete year.",
-    "Business investment is in chained volume terms, so the asset and industry lines are not additive and do not sum to the total.",
-    "Foreign direct investment flows can be negative when investors withdraw more than they put in.",
-    "Goods trade by UK nation comes from HMRC, which assigns each company's trade to nations by where its staff work. It is not where goods were shipped from, and it does not match the balance of payments totals.",
-    "FDI measures ownership links, not new plant or jobs.",
-    "UK business counts are VAT/PAYE registered enterprises — not every Companies House filing.",
-    "Company insolvencies are a different register from ONS business demography deaths.",
-    "Precious metals can swing the headline goods balance; the ex-precious-metals companion sits beside the ledger.",
-    pack.partnersAnnual?.honesty,
-    pack.partnerCommodity?.honesty,
-  ].filter(Boolean) as string[];
+    "Business investment is adjusted for inflation; the asset and industry lines do not add up to the total.",
+    "Foreign investment flows can be negative when investors withdraw more than they put in.",
+    "Goods trade by UK nation is assigned by where a company's staff work — not where goods were shipped from — and does not match the national trade totals.",
+    "Foreign investment measures ownership links, not new plant or jobs.",
+    "UK business counts are registered enterprises — not every company filing.",
+    "Company insolvencies are a different register from business births and deaths.",
+    "Precious metals can swing the headline goods balance; the companion line without them sits beside the ledger.",
+  ];
 
   let body: ReactNode = null;
 
@@ -876,12 +877,12 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
           <>
             <section className={s.panel}>
               <h3 className={t.stageTitle}>
-                Trading partners · {activeFlow} · {activeWorldYear} · £m
+                Trading partners · {activeFlow === "exports" ? "exports" : "imports"} ·{" "}
+                {activeWorldYear} · £m
               </h3>
               {mapRows.length === 0 ? (
                 <EmptyStage label="No mappable partners">
-                  Partner codes in this period could not be placed on the world map.
-                  Rank bars still list totals below.
+                  Countries for this period could not be placed on the world map.
                 </EmptyStage>
               ) : (
                 <WorldChoropleth
@@ -897,61 +898,65 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
               )}
             </section>
             {selectedPartner ? (
-              <section className={s.panel} aria-label={`Partner dossier · ${selectedPartner.label}`}>
+              <section className={s.panel} aria-label={`${selectedPartner.label} · goods`}>
                 <h3 className={t.stageTitle}>
-                  {selectedPartner.label} · goods trade · {activeWorldYear}
+                  {selectedPartner.label} · {activeWorldYear}
                 </h3>
                 <ReadoutCard
                   placement="inline"
                   head={selectedPartner.label}
                   rows={[
                     {
-                      label: "Goods exports · £m",
+                      label: "Britain sells · £m",
                       value:
                         selectedPartner.exports != null
                           ? fmtGbpM(selectedPartner.exports)
                           : "—",
                     },
                     {
-                      label: "Goods imports · £m",
+                      label: "Britain buys · £m",
                       value:
                         selectedPartner.imports != null
                           ? fmtGbpM(selectedPartner.imports)
                           : "—",
                     },
                     {
-                      label: "Goods balance · £m",
+                      label: "Balance · £m",
                       value:
                         selectedPartner.balance != null
                           ? fmtGbpM(selectedPartner.balance)
                           : "—",
                     },
                     {
-                      label: "Period",
-                      value: selectedPartner.period
-                        ? formatPeriod(selectedPartner.period, "monthly")
-                        : activeWorldYear || "—",
+                      label: "Year",
+                      value: activeWorldYear || "—",
                     },
                   ]}
                 />
-                <p className={t.tableNote}>
-                  Partner totals are ONS Balance of Payments (all-countries, seasonally
-                  adjusted). Product mix below is HMRC Overseas Trade Statistics
-                  (customs) by SITC section — a different basis; do not add the two.
-                </p>
+                <h3 className={t.stageTitle}>
+                  {activeFlow === "exports"
+                    ? "What Britain sells them"
+                    : "What Britain buys from them"}{" "}
+                  · £m
+                </h3>
                 {!pack.partnerCommodity ? (
                   <EmptyStage label="Product mix unavailable">
-                    Partner × SITC section pack is not loaded. Totals above still stand.
+                    The product breakdown for this country is not loaded yet. Totals above
+                    still stand.
                   </EmptyStage>
                 ) : partnerProductFrames.length === 0 ? (
-                  <EmptyStage label={`No ${activeFlow} product mix`}>
-                    No HMRC OTS SITC sections published for {selectedPartner.label} ·{" "}
-                    {activeFlow} · {activeWorldYear}.
+                  <EmptyStage label="No product mix">
+                    No product groups published for {selectedPartner.label} in{" "}
+                    {activeWorldYear}.
                   </EmptyStage>
                 ) : (
                   <ul
                     className={s.specimens}
-                    aria-label={`${selectedPartner.label} · ${activeFlow} · SITC sections`}
+                    aria-label={
+                      activeFlow === "exports"
+                        ? `What Britain sells to ${selectedPartner.label}`
+                        : `What Britain buys from ${selectedPartner.label}`
+                    }
                   >
                     {partnerProductFrames.map((row, i) => {
                       const max = partnerProductFrames[0]?.v || 1;
@@ -975,9 +980,6 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                             <span className={s.specimenBar} aria-hidden="true">
                               <i style={{ width: `${bar}%` }} />
                             </span>
-                            <span className={s.specimenCount}>
-                              {selectedPartner.label} · {activeFlow} · SITC section
-                            </span>
                           </div>
                         </li>
                       );
@@ -985,33 +987,36 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                   </ul>
                 )}
               </section>
-            ) : null}
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>
-                Partner ranks · {activeFlow} · {activeWorldYear || "—"}
-              </h3>
-              {worldPartnerRows.length === 0 ? (
-                <EmptyStage label="No partner ranks">
-                  No country totals for this flow and period.
-                </EmptyStage>
-              ) : (
-                <RankBars
-                  label={`Partner ranks · ${activeFlow}`}
-                  format={fmtGbpM}
-                  rows={worldPartnerRows.slice(0, 20).map((r) => ({
-                    id: r.code,
-                    label: r.label,
-                    v: r.value,
-                    active: selectedIso === iso2ToA3(r.code),
-                  }))}
-                  onSelect={(id) => {
-                    const a3 = iso2ToA3(id);
-                    setSelectedIso((prev) => (prev === a3 ? null : a3));
-                  }}
-                />
-              )}
-            </section>
-            <TradeBlocTrend pack={pack} trade="goods" flow={activeFlow} />
+            ) : (
+              <>
+                <section className={s.panel}>
+                  <h3 className={t.stageTitle}>
+                    Partner ranks · {activeFlow} · {activeWorldYear || "—"}
+                  </h3>
+                  {worldPartnerRows.length === 0 ? (
+                    <EmptyStage label="No partner ranks">
+                      No country totals for this flow and period.
+                    </EmptyStage>
+                  ) : (
+                    <RankBars
+                      label={`Partner ranks · ${activeFlow}`}
+                      format={fmtGbpM}
+                      rows={worldPartnerRows.slice(0, 20).map((r) => ({
+                        id: r.code,
+                        label: r.label,
+                        v: r.value,
+                        active: selectedIso === iso2ToA3(r.code),
+                      }))}
+                      onSelect={(id) => {
+                        const a3 = iso2ToA3(id);
+                        setSelectedIso((prev) => (prev === a3 ? null : a3));
+                      }}
+                    />
+                  )}
+                </section>
+                <TradeBlocTrend pack={pack} trade="goods" flow={activeFlow} />
+              </>
+            )}
           </>
         ) : worldLens === "services" ? (
           <>
@@ -1019,14 +1024,9 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
               <h3 className={t.stageTitle}>
                 Services partners · {activeFlow} · {activeWorldYear} · £m
               </h3>
-              <p className={t.tableNote}>
-                Services trade by partner is a separate ONS series from goods. It is not
-                drawn on the goods map and is not added to goods totals.
-              </p>
               {servicesMapRows.length === 0 ? (
                 <EmptyStage label="No mappable services partners">
-                  ISO country codes for this period could not be placed on the world map.
-                  Rank bars still list published partners below, including aggregates.
+                  Countries for this period could not be placed on the world map.
                 </EmptyStage>
               ) : (
                 <WorldChoropleth
@@ -1041,33 +1041,37 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                 />
               )}
             </section>
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>
-                Services partner ranks · {activeFlow} · {activeWorldYear || "—"}
-              </h3>
-              {servicesPartnerRows.length === 0 ? (
-                <EmptyStage label="No services partner ranks">
-                  No services partner totals for this flow and period.
-                </EmptyStage>
-              ) : (
-                <RankBars
-                  label={`Services partners · ${activeFlow}`}
-                  format={fmtGbpM}
-                  rows={servicesPartnerRows.slice(0, 20).map((r) => ({
-                    id: r.code,
-                    label: r.label,
-                    v: r.value,
-                    active: selectedIso === iso2ToA3(r.code),
-                  }))}
-                  onSelect={(id) => {
-                    const a3 = iso2ToA3(id);
-                    if (!a3) return;
-                    setSelectedIso((prev) => (prev === a3 ? null : a3));
-                  }}
-                />
-              )}
-            </section>
-            <TradeBlocTrend pack={pack} trade="services" flow={activeFlow} />
+            {!selectedIso ? (
+              <>
+                <section className={s.panel}>
+                  <h3 className={t.stageTitle}>
+                    Services partner ranks · {activeFlow} · {activeWorldYear || "—"}
+                  </h3>
+                  {servicesPartnerRows.length === 0 ? (
+                    <EmptyStage label="No services partner ranks">
+                      No services partner totals for this flow and period.
+                    </EmptyStage>
+                  ) : (
+                    <RankBars
+                      label={`Services partners · ${activeFlow}`}
+                      format={fmtGbpM}
+                      rows={servicesPartnerRows.slice(0, 20).map((r) => ({
+                        id: r.code,
+                        label: r.label,
+                        v: r.value,
+                        active: selectedIso === iso2ToA3(r.code),
+                      }))}
+                      onSelect={(id) => {
+                        const a3 = iso2ToA3(id);
+                        if (!a3) return;
+                        setSelectedIso((prev) => (prev === a3 ? null : a3));
+                      }}
+                    />
+                  )}
+                </section>
+                <TradeBlocTrend pack={pack} trade="services" flow={activeFlow} />
+              </>
+            ) : null}
           </>
         ) : (
           <>
@@ -1075,11 +1079,6 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
               <h3 className={t.stageTitle}>
                 Goods {activeFlow} by UK nation · {activeWorldYear} · £m
               </h3>
-              <p className={t.tableNote}>
-                HMRC regional trade attributes each company&apos;s trade to nations by where
-                its staff work — not where goods were shipped from. Totals do not match
-                Balance of Payments.
-              </p>
               {nationMapRows.length === 0 ? (
                 <EmptyStage label="No UK nation values">
                   No UK-nation goods rows for this period.
@@ -1101,28 +1100,30 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
                 />
               )}
             </section>
-            <section className={s.panel}>
-              <h3 className={t.stageTitle}>
-                Nation ranks · {activeFlow} · {activeWorldYear || "—"}
-              </h3>
-              {regionRanks.length === 0 ? (
-                <EmptyStage label="No regional ranks">
-                  No UK-nation goods rows for this period.
-                </EmptyStage>
-              ) : (
-                <RankBars
-                  label="UK nation goods"
-                  format={fmtGbpM}
-                  rows={regionRanks.map((r) => ({
-                    ...r,
-                    active: selectedNation === r.id,
-                  }))}
-                  onSelect={(id) =>
-                    setSelectedNation((prev) => (prev === id ? null : id))
-                  }
-                />
-              )}
-            </section>
+            {!selectedNation ? (
+              <section className={s.panel}>
+                <h3 className={t.stageTitle}>
+                  Nation ranks · {activeFlow} · {activeWorldYear || "—"}
+                </h3>
+                {regionRanks.length === 0 ? (
+                  <EmptyStage label="No regional ranks">
+                    No UK-nation goods rows for this period.
+                  </EmptyStage>
+                ) : (
+                  <RankBars
+                    label="UK nation goods"
+                    format={fmtGbpM}
+                    rows={regionRanks.map((r) => ({
+                      ...r,
+                      active: selectedNation === r.id,
+                    }))}
+                    onSelect={(id) =>
+                      setSelectedNation((prev) => (prev === id ? null : id))
+                    }
+                  />
+                )}
+              </section>
+            ) : null}
           </>
         )}
       </div>
@@ -1544,7 +1545,7 @@ export function InvestmentCanvas({ pack }: { pack: InvestmentPack }) {
             label={`Trade · ${viewLabel(view)}`}
           />
         }
-        foot={<FigureRecord source={source} method={method} />}
+        foot={<FigureRecord terms={["trade-balance", "balance-of-payments", "fdi", "sitc"]} source={source} method={method} />}
       >
         {body}
       </Stage>

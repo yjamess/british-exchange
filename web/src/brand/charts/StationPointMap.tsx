@@ -1,41 +1,28 @@
 "use client";
 
 /**
- * UK power-station atlas — square capacity marks on a fixed GB extent.
- * Housing map grammar: drag to pan, +/−/Home tools, Find selected, keyboard arrows.
- * Brand: square marks (never circles). One ink. A mark is a printed tint: a hairline square filled with
- * a screen of that ink (tints are dots and lines, never opacity), so overlapping stations stay
- * legible. Renewables are a dot screen, fossil a hatch, nuclear a cross-hatch, storage an open
- * square. Marks too small to hold a screen print solid.
- * Selection is ink: a frame with registration ticks and a coordinate mark, drawn above every
- * station. Focus is a Signal ring. Hover is an ink hairline.
+ * UK power-station atlas on InkMap — square capacity marks drawn by a deck.gl IconLayer over the
+ * shared MapLibre basemap (faint road hairlines, place names on paper tabs).
+ * Brand: square marks (never circles), area ∝ capacity on one fixed scale. One ink; families are
+ * told apart by print — renewables a dot screen, fossil a hatch, nuclear a cross-hatch, storage an
+ * open square. Marks too small to hold a print print solid (storage stays open).
+ * Larger stations are drawn first so small ones sit on top. Selection is ink: the station reprinted
+ * with a heavy frame, drawn above every other station.
  */
 
+import type * as MapLibre from "maplibre-gl";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ReadoutCard } from "../instrument/ReadoutCard";
-import { useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
-import {
-  MAP_HEIGHT,
-  MAP_WIDTH,
-  isMapped,
-  stationGroup,
-  stationKey,
-  stationPlace,
-  stationPosition,
-  type StationGroup,
-} from "../energy/station-model";
+import { InkMap, type InkMapHandle } from "../map/InkMap";
+import { placeNames, type Ink } from "../map/ink";
+import { SOLID_BELOW_PX, loadDeck, siteIcons, squareSide, type Deck, type SiteIcons, type SitePrint } from "../map/sites";
+import { isMapped, stationGroup, stationKey, stationPlace, type StationGroup } from "../energy/station-model";
 import type { AtlasPoint } from "../energy/packs";
 import s from "./station-map.module.css";
 
 export type StationPoint = AtlasPoint;
 
-/** One ink for every family; families are told apart by print (stipple, hatch, cross, open), never by colour. */
-const INK = "var(--bo-ink)";
-const FILLS: Record<StationGroup, string> = {
-  renewable: INK,
-  storage: INK,
-  fossil: INK,
-  nuclear: INK,
-};
+type Overlay = InstanceType<Deck["MapboxOverlay"]>;
 
 const FAMILY_LABEL: Record<StationGroup, string> = {
   renewable: "Renewables",
@@ -44,327 +31,207 @@ const FAMILY_LABEL: Record<StationGroup, string> = {
   nuclear: "Nuclear",
 };
 
-const CX = MAP_WIDTH / 2;
-const CY = MAP_HEIGHT / 2;
-const HOME = { x: 0, y: 0, z: 1 };
-const MAX_Z = 14;
+const GROUP_PRINT: Record<StationGroup, SitePrint> = {
+  renewable: "dots",
+  fossil: "hatch",
+  nuclear: "cross",
+  storage: "open",
+};
 
-/** Half-side of the square in viewBox units. sqrt(MW) keeps area ∝ capacity; hard caps stop blotting. */
-function halfSide(mw: number): number {
-  const raw = Math.sqrt(Math.max(0, mw)) * 0.11;
-  return Math.min(7.5, Math.max(1.15, raw));
+/** Side in CSS px: area ∝ installed capacity (100 MW ≈ 6 px, 1 GW ≈ 19 px), capped so the coast still reads. */
+const side = (mw: number) => squareSide(mw, 0.6, 4, 26);
+
+function printOf(p: StationPoint): SitePrint {
+  const group = stationGroup(p);
+  if (group === "storage") return "open";
+  return side(p.mw) < SOLID_BELOW_PX ? "solid" : GROUP_PRINT[group];
 }
 
-/** Screen pitch and dot radius in screen px (constant at every zoom). */
-const SCREEN = { pitch: 3.2, r: 0.85 };
-/** Below this half-side in screen px a screen cannot read; the mark prints solid. */
-const SOLID_BELOW = 3.2;
+const SIZE_KEY = [100, 1000].map((mw) => ({ mw, px: Math.round(side(mw)) }));
 
-function coord(lat: number, lon: number): string {
-  return `${Math.abs(lat).toFixed(2)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(2)}°${lon >= 0 ? "E" : "W"}`;
+/** Keep the floating readout inside the map: flip to the pointer's other side past the middle. */
+function cardAt(el: HTMLElement | null, x: number, y: number) {
+  const w = el?.clientWidth ?? 0;
+  const h = el?.clientHeight ?? 0;
+  const dx = x > w / 2 ? "calc(-100% - 14px)" : "14px";
+  const dy = y > h / 2 ? "calc(-100% - 14px)" : "14px";
+  return {
+    left: x,
+    top: y,
+    right: "auto",
+    bottom: "auto",
+    transform: `translate(${dx}, ${dy})`,
+    maxWidth: 300,
+  };
 }
 
-const SIZE_KEY = [
-  { mw: 100, px: 8 },
-  { mw: 1000, px: 14 },
-] as const;
+/** Bounds a little way around one station, for Find / selection. */
+function around(p: StationPoint): [[number, number], [number, number]] {
+  const d = 0.25;
+  return [
+    [p.lon - d, p.lat - d],
+    [p.lon + d, p.lat + d],
+  ];
+}
 
 export function StationPointMap({
   points,
   label,
   selectedId,
   onSelect,
-  outline,
 }: {
   points: StationPoint[];
   label: string;
   selectedId?: string | null;
   onSelect?: (id: string) => void;
+  /** @deprecated SVG-era coastline path; the coast now comes from the shared map tiles. Ignored. */
   outline?: string;
 }) {
-  const uid = useId().replace(/:/g, "");
-  const svg = useRef<SVGSVGElement>(null);
-  const [view, setView] = useState(HOME);
-  const [hoverId, setHoverId] = useState<string | null>(null);
-  const drag = useRef<{ x: number; y: number; origin: typeof HOME; moved: boolean } | null>(null);
-  const panMoved = useRef(false);
+  const handle = useRef<InkMapHandle>(null);
+  const overlay = useRef<Overlay | null>(null);
+  const deck = useRef<Deck | null>(null);
+  const icons = useRef<SiteIcons | null>(null);
+  const [ready, setReady] = useState(false);
+  const [hover, setHover] = useState<{
+    point: StationPoint;
+    x: number;
+    y: number;
+  } | null>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
 
-  // Small first, large last — capacity still reads, dense solar does not bury the coast.
-  const drawn = useMemo(() => points.filter(isMapped).toSorted((a, b) => a.mw - b.mw), [points]);
+  // Large first, small last — capacity still reads and small stations are not buried.
+  const drawn = useMemo(() => points.filter(isMapped).toSorted((a, b) => b.mw - a.mw), [points]);
   const byId = useMemo(() => new Map(drawn.map((p) => [stationKey(p), p])), [drawn]);
   const families = (["renewable", "fossil", "nuclear", "storage"] as StationGroup[]).filter((g) =>
     drawn.some((p) => stationGroup(p) === g),
   );
   const selected = selectedId ? byId.get(selectedId) : undefined;
-  const hovered = hoverId ? byId.get(hoverId) : undefined;
 
-  const zoom = (factor: number) =>
-    setView((v) => {
-      const z = Math.min(MAX_Z, Math.max(1, v.z * factor));
-      return z === 1 ? HOME : { x: CX - ((CX - v.x) * z) / v.z, y: CY - ((CY - v.y) * z) / v.z, z };
+  const onLoad = (map: MapLibre.Map, ink: Ink) => {
+    map.addLayer(placeNames(ink));
+    icons.current = siteIcons(ink.ink, ink.paper);
+    loadDeck().then((d) => {
+      // The map may have been removed while deck loaded.
+      if (handle.current?.map() !== map) return;
+      deck.current = d;
+      overlay.current = new d.MapboxOverlay({ interleaved: false, layers: [] });
+      map.addControl(overlay.current as unknown as MapLibre.IControl);
+      setReady(true);
     });
-
-  const focusStation = (p: StationPoint, z = 6) => {
-    const [px, py] = stationPosition(p.lon, p.lat);
-    const next = Math.min(MAX_Z, Math.max(4, z));
-    setView({ x: CX - px * next, y: CY - py * next, z: next });
   };
 
-  // Selecting from search / list flies the map to the site (Housing "Find", automatic).
-  // Depend on byId so a late-hydrated pack still focuses once points exist.
   useEffect(() => {
-    if (!selectedId) return;
-    const p = byId.get(selectedId);
-    if (!p) return;
-    focusStation(p);
-  }, [selectedId, byId]);
-
-  // Wheel zoom needs a non-passive listener so the page does not scroll instead.
-  useEffect(() => {
-    const el = svg.current;
-    if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
-      setView((v) => {
-        const z = Math.min(MAX_Z, Math.max(1, v.z * factor));
-        return z === 1 ? HOME : { x: CX - ((CX - v.x) * z) / v.z, y: CY - ((CY - v.y) * z) / v.z, z };
-      });
+    const d = deck.current;
+    const o = overlay.current;
+    const ic = icons.current;
+    if (!ready || !d || !o || !ic) return;
+    const common = {
+      iconAtlas: ic.atlas as unknown as string,
+      iconMapping: ic.mapping,
+      getPosition: (p: StationPoint) => [p.lon, p.lat] as [number, number],
+      sizeUnits: "pixels" as const,
     };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, []);
+    const cursor = (on: boolean) => {
+      const canvas = handle.current?.map()?.getCanvas();
+      if (canvas) canvas.style.cursor = on ? "pointer" : "";
+    };
+    o.setProps({
+      layers: [
+        new d.IconLayer<StationPoint>({
+          ...common,
+          id: "stations",
+          data: drawn,
+          getIcon: printOf,
+          getSize: (p) => side(p.mw),
+          pickable: true,
+          onHover: (info) => {
+            cursor(Boolean(info.object));
+            setHover(info.object ? { point: info.object, x: info.x, y: info.y } : null);
+          },
+          onClick: (info) => {
+            if (info.object) onSelectRef.current?.(stationKey(info.object));
+          },
+        }),
+        // Selection above every station: reprinted (solid unless storage), then a heavy ink frame.
+        new d.IconLayer<StationPoint>({
+          ...common,
+          id: "station-selected",
+          data: selected ? [selected] : [],
+          getIcon: (p) => (stationGroup(p) === "storage" ? "open" : "solid"),
+          getSize: (p) => side(p.mw),
+        }),
+        new d.IconLayer<StationPoint>({
+          ...common,
+          id: "station-frame",
+          data: selected ? [selected] : [],
+          getIcon: () => "frame",
+          getSize: (p) => side(p.mw) + 12,
+        }),
+      ],
+    });
+  }, [ready, drawn, selected]);
 
-  // ViewBox units per screen pixel at the current zoom, so screens, frames and labels keep a fixed printed size.
-  const [plotWidth, setPlotWidth] = useState(MAP_WIDTH * 2);
+  // Selecting from search / list flies the map to the site, once per selection.
+  const flown = useRef<string | null>(null);
   useEffect(() => {
-    const el = svg.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([e]) => e && setPlotWidth(e.contentRect.width || MAP_WIDTH * 2));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  const unit = MAP_WIDTH / plotWidth / view.z;
+    if (!ready || !selected || !selectedId) return;
+    if (flown.current === selectedId) return;
+    flown.current = selectedId;
+    handle.current?.fit(around(selected), 9);
+  }, [ready, selected, selectedId]);
+  useEffect(() => {
+    if (!selectedId) flown.current = null;
+  }, [selectedId]);
 
-  /** One station mark: screened square with a hairline in the family ink, solid when too small to screen. */
-  const mark = (group: StationGroup, cx: number, cy: number, half: number, solid = false) => {
-    const kind = group === "storage" ? "open" : solid || half / unit < SOLID_BELOW ? "solid" : "screen";
-    return (
-      <rect
-        className={s.mark}
-        data-kind={group}
-        data-print={kind}
-        x={cx - half}
-        y={cy - half}
-        width={half * 2}
-        height={half * 2}
-        fill={kind === "open" ? undefined : kind === "solid" ? FILLS[group] : `url(#${uid}-screen-${group})`}
-        stroke={FILLS[group]}
-      />
-    );
-  };
-
-  const point = (event: PointerEvent<SVGSVGElement>) => {
-    const p = svg.current!.createSVGPoint();
-    p.x = event.clientX;
-    p.y = event.clientY;
-    return p.matrixTransform(svg.current!.getScreenCTM()!.inverse());
-  };
-
-  const focus = hovered ?? selected;
+  const focus = hover?.point;
 
   return (
     <div className={s.wrap}>
       <div className={s.surface}>
         <div className={s.caption}>
           <span className="bo-label">Great Britain · installed capacity</span>
-          {focus && <ReadoutCard placement="inline" head={focus.name} style={{ maxWidth: 340, pointerEvents: "none" }} rows={[
-            { label: "Installed capacity", value: `${focus.mw.toLocaleString("en-GB")} MW` },
-            { label: "Technology group", value: FAMILY_LABEL[stationGroup(focus)] },
-            ...(stationPlace(focus) ? [{ label: "Place", value: stationPlace(focus) }] : []),
-          ]} />}
         </div>
 
         <div className={s.tools} role="group" aria-label="Map controls">
-          <button type="button" className={s.toolBtn} onClick={() => zoom(1.5)} aria-label="Zoom in">
+          <button type="button" className={s.toolBtn} onClick={() => handle.current?.zoomBy(1.5)} aria-label="Zoom in">
             +
           </button>
-          <button type="button" className={s.toolBtn} onClick={() => zoom(1 / 1.5)} aria-label="Zoom out">
+          <button type="button" className={s.toolBtn} onClick={() => handle.current?.zoomBy(1 / 1.5)} aria-label="Zoom out">
             −
           </button>
-          <button type="button" className={s.toolBtn} onClick={() => setView(HOME)} aria-label="Reset view">
+          <button type="button" className={s.toolBtn} onClick={() => handle.current?.home()} aria-label="Reset view">
             ⌂
           </button>
           <button
             type="button"
             className={s.toolBtnWide}
-            onClick={() => selected && focusStation(selected, 7)}
+            onClick={() => selected && handle.current?.fit(around(selected), 10)}
             disabled={!selected}
           >
             Find
           </button>
         </div>
 
-        <svg
-          ref={svg}
-          className={s.plot}
-          viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
-          role="group"
-          aria-label={`${label}. Drag to pan, plus and minus to zoom, Home to reset, Find to centre the selected station.`}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home"].includes(e.key)) {
-              e.preventDefault();
-            }
-            if (e.key === "+" || e.key === "=") zoom(1.5);
-            else if (e.key === "-") zoom(1 / 1.5);
-            else if (e.key === "Home") setView(HOME);
-            else if (e.key.startsWith("Arrow"))
-              setView((v) => ({
-                ...v,
-                x: v.x + (e.key === "ArrowLeft" ? 40 : e.key === "ArrowRight" ? -40 : 0),
-                y: v.y + (e.key === "ArrowUp" ? 40 : e.key === "ArrowDown" ? -40 : 0),
-              }));
-          }}
-          onPointerDown={(e) => {
-            if (e.button !== 0) return;
-            const p = point(e);
-            drag.current = { x: p.x, y: p.y, origin: view, moved: false };
-            panMoved.current = false;
-          }}
-          onPointerMove={(e) => {
-            if (!drag.current) return;
-            const p = point(e);
-            const d = drag.current;
-            const dx = p.x - d.x;
-            const dy = p.y - d.y;
-            if (Math.hypot(dx, dy) > 6) {
-              d.moved = true;
-              panMoved.current = true;
-              svg.current?.setPointerCapture(e.pointerId);
-            }
-            if (d.moved) setView({ ...d.origin, x: d.origin.x + dx, y: d.origin.y + dy });
-          }}
-          onPointerUp={(e) => {
-            drag.current = null;
-            if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId);
-          }}
-          onPointerCancel={() => {
-            drag.current = null;
-          }}
-          onPointerLeave={() => setHoverId(null)}
-        >
-          <defs>
-            {(["renewable", "fossil", "nuclear"] as StationGroup[]).map((g) => (
-              // userSpaceOnUse inherits the zoom transform; scale it back so the screen stays a fixed pitch.
-              <pattern
-                key={g}
-                id={`${uid}-screen-${g}`}
-                width={SCREEN.pitch}
-                height={SCREEN.pitch}
-                patternUnits="userSpaceOnUse"
-                patternTransform={`scale(${unit}) rotate(45)`}
-              >
-                {g === "renewable" ? (
-                  <circle cx={SCREEN.pitch / 2} cy={SCREEN.pitch / 2} r={SCREEN.r} fill={FILLS[g]} />
-                ) : (
-                  <>
-                    <line x1={SCREEN.pitch / 2} y1={0} x2={SCREEN.pitch / 2} y2={SCREEN.pitch} stroke={FILLS[g]} strokeWidth={0.9} />
-                    {g === "nuclear" ? (
-                      <line x1={0} y1={SCREEN.pitch / 2} x2={SCREEN.pitch} y2={SCREEN.pitch / 2} stroke={FILLS[g]} strokeWidth={0.9} />
-                    ) : null}
-                  </>
-                )}
-              </pattern>
-            ))}
-          </defs>
-          <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
-            {outline ? <path d={outline} className={s.land} /> : null}
-            {drawn.map((p) => {
-              const [cx, cy] = stationPosition(p.lon, p.lat);
-              const id = stationKey(p);
-              const group = stationGroup(p);
-              const half = halfSide(p.mw);
-              // Hit target grows slightly when zoomed out so dense fields stay clickable.
-              const hit = Math.max(half + 2.5 / view.z, 3.5 / view.z);
-              return (
-                <g
-                  key={id}
-                  role="button"
-                  tabIndex={-1}
-                  aria-label={`${p.name}, ${p.mw.toLocaleString("en-GB")} MW`}
-                  aria-pressed={selectedId === id}
-                  className={s.station}
-                  onPointerEnter={() => setHoverId(id)}
-                  onClick={() => {
-                    if (!panMoved.current) onSelect?.(id);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      onSelect?.(id);
-                    }
-                  }}
-                >
-                  <rect className={s.hit} x={cx - hit} y={cy - hit} width={hit * 2} height={hit * 2} />
-                  {mark(group, cx, cy, half)}
-                </g>
-              );
-            })}
-
-            {/* Above every station: hover hairline, then the selection. */}
-            {hovered && hoverId !== selectedId
-              ? (() => {
-                  const [cx, cy] = stationPosition(hovered.lon, hovered.lat);
-                  const half = halfSide(hovered.mw) + 1.5 * unit;
-                  return <rect className={s.hover} x={cx - half} y={cy - half} width={half * 2} height={half * 2} />;
-                })()
-              : null}
-            {selected
-              ? (() => {
-                  const [cx, cy] = stationPosition(selected.lon, selected.lat);
-                  const group = stationGroup(selected);
-                  const half = halfSide(selected.mw);
-                  const f = half + 4 * unit; // frame half-side: 4px clear of the mark
-                  const tick = 9 * unit; // registration ticks run 9px past the frame
-                  const labelX = cx + f + tick + 4 * unit;
-                  const rightEdge = (MAP_WIDTH - view.x) / view.z; // visible right edge, map units
-                  const flip = labelX + 110 * unit > rightEdge; // label would run off: set it to the left
-                  return (
-                    <g
-                      className={s.selection}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`${selected.name}, ${selected.mw.toLocaleString("en-GB")} MW, selected`}
-                      aria-pressed
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") e.preventDefault();
-                      }}
-                    >
-                      <rect className={s.knock} x={cx - f} y={cy - f} width={f * 2} height={f * 2} />
-                      {mark(group, cx, cy, half, true)}
-                      <rect className={s.frame} x={cx - f} y={cy - f} width={f * 2} height={f * 2} />
-                      <path
-                        className={s.frame}
-                        d={`M${cx - f - tick},${cy}H${cx - f}M${cx + f},${cy}H${cx + f + tick}M${cx},${cy - f - tick}V${cy - f}M${cx},${cy + f}V${cy + f + tick}`}
-                      />
-                      <rect className={s.focus} x={cx - f - 3 * unit} y={cy - f - 3 * unit} width={(f + 3 * unit) * 2} height={(f + 3 * unit) * 2} />
-                      <text
-                        className={s.coord}
-                        x={flip ? cx - f - tick - 4 * unit : labelX}
-                        y={cy}
-                        textAnchor={flip ? "end" : "start"}
-                        dominantBaseline="middle"
-                        style={{ fontSize: 10 * unit, strokeWidth: 3 * unit }}
-                      >
-                        {coord(selected.lat, selected.lon)}
-                      </text>
-                    </g>
-                  );
-                })()
-              : null}
-          </g>
-        </svg>
+        <InkMap ref={handle} label={label} className={s.inkPlot} roads="hair" onLoad={onLoad}>
+          {focus && hover ? (
+            <ReadoutCard
+              head={focus.name}
+              style={cardAt(handle.current?.map()?.getContainer() ?? null, hover.x, hover.y)}
+              rows={[
+                {
+                  label: "Installed capacity",
+                  value: `${focus.mw.toLocaleString("en-GB")} MW`,
+                },
+                {
+                  label: "Technology group",
+                  value: FAMILY_LABEL[stationGroup(focus)],
+                },
+                ...(stationPlace(focus) ? [{ label: "Place", value: stationPlace(focus) }] : []),
+              ]}
+            />
+          ) : null}
+        </InkMap>
       </div>
 
       <ul className={s.key} aria-label="Station families and capacity scale">

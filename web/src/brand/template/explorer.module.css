@@ -709,26 +709,24 @@ p.stageTitle,
 }
 
 .record {
+  position: relative;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--bo-s2) var(--bo-s4);
-  align-items: start;
+  gap: 0;
   margin: 0;
   font: var(--bo-t-note)/1.5 var(--bo-f-body);
   color: var(--bo-text);
 }
-.record[data-notes="false"] {
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-.recordDetails { min-width: 0; grid-column: 1; grid-row: 1; }
+.recordDetails { min-width: 0; width: 100%; }
 .recordSummary {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 10px;
-  width: fit-content;
-  padding: 4px 0;
+  /* Room for the absolute View data link on the right. */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 9rem 4px 0;
   cursor: pointer;
   list-style: none;
   color: var(--bo-ink);
@@ -747,38 +745,86 @@ p.stageTitle,
   outline: 2px solid var(--bo-signal);
   outline-offset: 3px;
 }
+/* Full foot width — the old 68ch cap caused the “weird wrap” short lines. */
 .recordPanel {
-  display: grid;
-  gap: var(--bo-s4);
-  max-width: 68ch;
-  padding: var(--bo-s3) 0 var(--bo-s2) 20px;
+  width: 100%;
+  max-width: none;
+  padding: 0 0 var(--bo-s2) 20px;
 }
-.recordPanel p { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
-.recordPanel p + p { margin-top: var(--bo-s3); }
-.recordPanel :global(.bo-label) { display: block; margin-bottom: 4px; color: var(--bo-ink); }
-.recordTerms {
-  display: grid;
-  gap: var(--bo-s2);
-  margin: 0;
+.recordSection {
+  padding: var(--bo-s4) 0;
+  border-top: var(--bo-hair);
 }
-.recordTerms > div {
+.recordSection:first-child {
+  border-top: 0;
+  padding-top: var(--bo-s3);
+}
+.recordSection :global(.bo-label) {
+  display: block;
+  margin: 0 0 var(--bo-s3);
+  color: var(--bo-ink);
+}
+.recordProse {
   display: grid;
-  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
   gap: var(--bo-s3);
-  align-items: baseline;
 }
-.recordTerms dt {
+.recordProse p {
+  margin: 0;
+  max-width: none;
+  font-size: var(--bo-t-small);
+  line-height: 1.55;
+  color: var(--bo-text);
+}
+/* Glossary table — not the numeric observation `.table` (right-align / nowrap). */
+.recordTerms {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-top: var(--bo-rule);
+}
+.recordTerms th,
+.recordTerms td {
+  padding: 0.65rem var(--bo-s4) 0.65rem 0;
+  border-bottom: var(--bo-hair);
+  text-align: left;
+  vertical-align: top;
+}
+.recordTerms thead th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: var(--bo-rule);
   font-family: var(--bo-f-data);
   font-size: var(--bo-t-label);
+  font-weight: 500;
   letter-spacing: var(--bo-track-label);
   text-transform: uppercase;
   color: var(--bo-ink);
 }
-.recordTerms dt a { color: inherit; text-decoration: none; }
-.recordTerms dt a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.recordTerms dd { margin: 0; font-size: var(--bo-t-small); line-height: 1.5; }
-@media (max-width: 560px) {
-  .recordTerms > div { grid-template-columns: 1fr; gap: 2px; }
+.recordTerms th[scope="row"] {
+  width: 11rem;
+  padding-right: var(--bo-s5);
+  font-family: var(--bo-f-data);
+  font-size: var(--bo-t-label);
+  font-weight: 500;
+  letter-spacing: var(--bo-track-label);
+  text-transform: uppercase;
+  color: var(--bo-ink);
+  white-space: nowrap;
+}
+.recordTerms td {
+  width: auto;
+  font-size: var(--bo-t-small);
+  line-height: 1.5;
+  color: var(--bo-text);
+  overflow-wrap: break-word;
+}
+.recordTermLink {
+  color: inherit;
+  text-decoration: none;
+}
+.recordTermLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .recordSource {
   margin: 0;
@@ -788,18 +834,10 @@ p.stageTitle,
   text-align: left;
   overflow-wrap: break-word;
 }
-.record[data-notes="false"] .recordSource {
-  grid-column: 1;
-  grid-row: 1;
-}
-.record[data-notes="false"] .recordData {
-  grid-column: 2;
-  grid-row: 1;
-}
 .recordData {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: end;
+  position: absolute;
+  top: 4px;
+  right: 0;
   margin: 0;
   font-family: var(--bo-f-data);
   font-size: var(--bo-t-label);
@@ -849,12 +887,31 @@ p.stageTitle,
 .sourceAction { margin-top: 4px; }
 .sourceId:focus-visible, .sourceSummary:focus-visible { outline: 2px solid var(--bo-signal); outline-offset: 3px; }
 @media (max-width: 640px) {
-  .record { grid-template-columns: minmax(0, 1fr) auto; }
-  .recordDetails { grid-column: 1; grid-row: 1; }
-  .recordData { grid-column: 2; grid-row: 1; }
+  .recordSummary { padding-right: 0; }
   .recordSource { flex-basis: 100%; padding-left: 20px; }
-  .record[data-notes="false"] .recordSource { grid-column: 1; grid-row: 1; }
-  .record[data-notes="false"] .recordData { grid-column: 2; grid-row: 1; }
+  .recordData {
+    position: static;
+    display: inline-block;
+    margin-top: var(--bo-s2);
+  }
+  .recordTerms,
+  .recordTerms tbody,
+  .recordTerms tr,
+  .recordTerms th,
+  .recordTerms td {
+    display: block;
+    width: 100%;
+  }
+  .recordTerms thead { display: none; }
+  .recordTerms th[scope="row"] {
+    width: 100%;
+    padding-bottom: 0.15rem;
+    border-bottom: 0;
+    white-space: normal;
+  }
+  .recordTerms td {
+    padding-top: 0.15rem;
+  }
 }
 @media (max-width: 560px) {
   .sourceLine { gap: var(--bo-s2); }

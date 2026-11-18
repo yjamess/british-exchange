@@ -24,7 +24,7 @@ from contextlib import asynccontextmanager
 from dataclasses import asdict
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -42,6 +42,7 @@ from britain_exchange.chart_contract import (
 from britain_exchange.dimensions import merge_row_dimensions
 from britain_exchange.glossary import get_term, list_terms
 from britain_exchange.packs import PACK_REGISTRY, PackBlob, get_pack, get_pack_rel, list_packs
+from britain_exchange.tiles import TILESETS, get_tiles
 from britain_exchange.db import close_pool
 from britain_exchange.runtime import postgres_required_but_missing, require_postgres
 from britain_exchange.store import (
@@ -104,6 +105,8 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "https://british-exchange.vercel.app",
+        "https://british.exchange",
+        "https://www.british.exchange",
     ],
     # Local Next often hops ports when 3000 is busy (3001, 3002, …).
     # Preview deploys: https://british-exchange-….vercel.app
@@ -115,6 +118,8 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["*"],
+    # PMTiles reads byte ranges; the browser must see these on the cross-origin response.
+    expose_headers=["Content-Range", "Content-Length", "Accept-Ranges", "ETag"],
 )
 
 ENERGY_FUEL_SERIES = frozenset(
@@ -345,6 +350,36 @@ def pack_body(pack_id: str) -> Response:
             ),
         ) from None
     return _pack_response(blob)
+
+
+@app.get("/tiles/{name}.pmtiles")
+def tiles(name: str, request: Request) -> Response:
+    """Shared map tiles (boundaries, basemap) by byte range — see britain_exchange.tiles."""
+    try:
+        part = get_tiles(name, request.headers.get("range"))
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Unknown tileset: {name}. Known: {sorted(TILESETS)}") from None
+    except ValueError as exc:
+        raise HTTPException(status_code=416, detail=str(exc)) from exc
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"Tileset {name} is not on disk and not reachable in Supabase Storage. "
+                f"Push it with: uv run python -m britain_exchange.archive_data push data/{TILESETS[name]}"
+            ),
+        ) from None
+    return Response(
+        content=part.body,
+        status_code=part.status,
+        media_type="application/octet-stream",
+        headers={
+            **part.headers,
+            "Accept-Ranges": "bytes",
+            "X-BX-Tiles-Source": part.source,
+            "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+        },
+    )
 
 
 @app.get("/glossary")

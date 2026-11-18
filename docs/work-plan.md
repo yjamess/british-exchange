@@ -1,5 +1,12 @@
 # British Exchange — Work plan
 
+## GLOSS-03-ECONOMY — Glossary and instrument terms · 2026-11-17
+
+1. **Orchestrator — complete:** add 49 sourced economy definitions to the shared registry pin (129 terms overall); seed in `docs/glossary-seed-economy.md`.
+2. **Orchestrator — complete:** expose Terms through existing FigureRecord Notes panels across all ten economy domains, preserving household survey references.
+3. **Orchestrator — validation:** glossary validation and three focused tests pass; all 129 terms published to Supabase (52 economy entries). Frontend build unavailable because web dependencies are not installed.
+
+
 ## Economy & Public Finance · Dual orchestrators → sector Gate 4 · 2026-11-17
 
 **Owner decision:** Run **two Domain Orchestrators in parallel**, then one **sector-wide structural audit**.
@@ -50,7 +57,7 @@
 ### Review — Dual-orchestrator plan
 - **Shipped:** Orchestrator 09 and 10 exited; sector Gate 4 audit + Follow fixes
 - **Blocked:** none
-- **Next:** Notion Control → Economy sector Gate 4 closed; optional Domain 06 audit doc refresh + phone sweep
+- **Next:** Commit; Notion Control → Economy sector Gate 4 closed. Independent re-audit 2026-11-18 fixed Tax Follow (RA-01), Follow copy, workforce tiles, two stale tests; phone sweep and Domain 06 doc refresh done
 
 ---
 

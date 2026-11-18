@@ -1,0 +1,83 @@
+/* Design lab — MapLibre / deck.gl sketches inside the explorer stage. */
+
+.mapGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 24px;
+  align-items: start;
+}
+
+.mapWell {
+  position: relative;
+  min-width: 0;
+  height: min(72vh, 760px);
+  min-height: 420px;
+  border: var(--bo-hair);
+  background: var(--bo-paper);
+  overflow: hidden;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.mapWell > [data-placement="floating"] {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.side {
+  display: grid;
+  gap: 16px;
+}
+
+/* OpenStreetMap credit: a caption on a paper strip, bottom-right, no box chrome. */
+.credit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 3px 8px;
+  font-family: var(--bo-font-mono, ui-monospace, monospace);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--bo-ink);
+  background: var(--bo-paper);
+  text-decoration: none;
+}
+
+.credit:hover,
+.credit:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .mapGrid {
+    grid-template-columns: 1fr;
+  }
+  .mapWell {
+    height: 70vh;
+  }
+}
+
+.legend {
+  display: grid;
+  gap: 8px;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--bo-font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  color: var(--bo-ink);
+}
+
+.swatch {
+  width: 36px;
+  height: 14px;
+  flex: none;
+}
